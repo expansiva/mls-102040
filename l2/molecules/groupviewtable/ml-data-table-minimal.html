@@ -1,0 +1,531 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Data Table Minimal</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewTable</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":"","selectable":false,"is-editing":false,"page":1,"page-size":0,"total-items":0,"disabled":false,"loading":false},"selectable":{"value":"","selectable":true},"pagination":{"page":1,"page-size":2,"total-items":5},"loading":{"loading":true},"empty":{"value":""},"error":{"error":"Something went wrong"}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- Basic Table -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Table</h3>
+<demo id="demo-basic">
+<groupviewtable--ml-data-table-minimal
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  selectable="false"
+  is-editing="false"
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Users</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell><groupentertext--ml-floating-text-input
+value="Lucas">
+<Label>Name</Label>
+</groupentertext--ml-floating-text-input>
+    </TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>2</TableCell>
+      <TableCell>Bob</TableCell>
+      <TableCell>User</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.basic.is-editing}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-number-102020 label="page" value="{{playground.basic.page}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="page-size" value="{{playground.basic.page-size}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="total-items" value="{{playground.basic.total-items}}"></widget-playground-state-number-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupviewtable--ml-data-table-minimal
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  selectable="false"
+  is-editing="false"
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Users</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>2</TableCell>
+      <TableCell>Bob</TableCell>
+      <TableCell>User</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Selectable Rows -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable Rows</h3>
+<demo id="demo-selectable">
+<groupviewtable--ml-data-table-minimal
+  value="{{playground.selectable.value}}"
+  selectable="true"
+  is-editing="false"
+  error=""
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Selectable Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>2</TableCell>
+      <TableCell>Bob</TableCell>
+      <TableCell>User</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>3</TableCell>
+      <TableCell>Carol</TableCell>
+      <TableCell>Editor</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-selectable">
+<template>
+<groupviewtable--ml-data-table-minimal
+  value="{{playground.selectable.value}}"
+  selectable="true"
+  is-editing="false"
+  error=""
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Selectable Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>2</TableCell>
+      <TableCell>Bob</TableCell>
+      <TableCell>User</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>3</TableCell>
+      <TableCell>Carol</TableCell>
+      <TableCell>Editor</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With Pagination -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Pagination</h3>
+<demo id="demo-pagination">
+<groupviewtable--ml-data-table-minimal
+  page="{{playground.pagination.page}}"
+  page-size="{{playground.pagination.page-size}}"
+  total-items="{{playground.pagination.total-items}}"
+  value=""
+  selectable="false"
+  is-editing="false"
+  error=""
+  disabled="false"
+  loading="false"
+>
+  <Caption>Paginated Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>2</TableCell>
+      <TableCell>Bob</TableCell>
+      <TableCell>User</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>3</TableCell>
+      <TableCell>Carol</TableCell>
+      <TableCell>Editor</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>4</TableCell>
+      <TableCell>Dan</TableCell>
+      <TableCell>Viewer</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>5</TableCell>
+      <TableCell>Eve</TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="page" value="{{playground.pagination.page}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="page-size" value="{{playground.pagination.page-size}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="total-items" value="{{playground.pagination.total-items}}"></widget-playground-state-number-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-pagination">
+<template>
+<groupviewtable--ml-data-table-minimal
+  page="{{playground.pagination.page}}"
+  page-size="{{playground.pagination.page-size}}"
+  total-items="{{playground.pagination.total-items}}"
+  value=""
+  selectable="false"
+  is-editing="false"
+  error=""
+  disabled="false"
+  loading="false"
+>
+  <Caption>Paginated Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>2</TableCell>
+      <TableCell>Bob</TableCell>
+      <TableCell>User</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>3</TableCell>
+      <TableCell>Carol</TableCell>
+      <TableCell>Editor</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>4</TableCell>
+      <TableCell>Dan</TableCell>
+      <TableCell>Viewer</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>5</TableCell>
+      <TableCell>Eve</TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Loading State -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+<demo id="demo-loading">
+<groupviewtable--ml-data-table-minimal
+  loading="true"
+  value=""
+  selectable="false"
+  is-editing="false"
+  error=""
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+>
+  <Caption>Loading Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+</groupviewtable--ml-data-table-minimal>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupviewtable--ml-data-table-minimal
+  loading="true"
+  value=""
+  selectable="false"
+  is-editing="false"
+  error=""
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+>
+  <Caption>Loading Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+</groupviewtable--ml-data-table-minimal>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Custom Empty State -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Custom Empty State</h3>
+<demo id="demo-empty">
+<groupviewtable--ml-data-table-minimal
+  value="{{playground.empty.value}}"
+  selectable="false"
+  is-editing="false"
+  error=""
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Empty Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <Empty>
+    <div class="text-center py-4">No users found. <a href="#" class="text-sky-600 dark:text-sky-400 underline">Add a user</a></div>
+  </Empty>
+</groupviewtable--ml-data-table-minimal>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.empty.value}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-empty">
+<template>
+<groupviewtable--ml-data-table-minimal
+  value="{{playground.empty.value}}"
+  selectable="false"
+  is-editing="false"
+  error=""
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Empty Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <Empty>
+    <div class="text-center py-4">No users found. <a href="#" class="text-sky-600 dark:text-sky-400 underline">Add a user</a></div>
+  </Empty>
+</groupviewtable--ml-data-table-minimal>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With Error Message -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Error Message</h3>
+<demo id="demo-error">
+<groupviewtable--ml-data-table-minimal
+  error="{{playground.error.error}}"
+  value=""
+  selectable="false"
+  is-editing="false"
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Error Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-error">
+<template>
+<groupviewtable--ml-data-table-minimal
+  error="{{playground.error.error}}"
+  value=""
+  selectable="false"
+  is-editing="false"
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Error Table</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id">ID</TableHead>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>
