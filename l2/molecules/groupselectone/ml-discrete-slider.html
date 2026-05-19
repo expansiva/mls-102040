@@ -1,0 +1,314 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Discrete Slider</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupSelectOne</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":"","placeholder":"Select a plan","required":true},"helper":{"value":"m","error":"","placeholder":"Choose a size"},"grouped":{"value":"","placeholder":"Select a category"},"readonly":{"value":"standard","readonly":true,"disabled":false},"loading":{"value":"","loading":true,"placeholder":"Fetching regions"},"empty":{"name":"priority","error":""},"drag":{"value":""},"fillPrevious":{"value":""}}}'>
+    </widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Required</h3>
+        <demo id="demo-basic">
+          <groupselectone--ml-discrete-slider
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            placeholder="{{playground.basic.placeholder}}"
+            required="{{playground.basic.required}}"
+            name="plan">
+            <Label>Plan</Label>
+            <Trigger>Choose a plan</Trigger>
+            <Item value="basic">Basic</Item>
+            <Item value="pro">Pro</Item>
+            <Item value="enterprise">Enterprise</Item>
+          </groupselectone--ml-discrete-slider>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupselectone--ml-discrete-slider
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  placeholder="{{playground.basic.placeholder}}"
+                  required="{{playground.basic.required}}"
+                  name="plan">
+                  <Label>Plan</Label>
+                  <Trigger>Choose a plan</Trigger>
+                  <Item value="basic">Basic</Item>
+                  <Item value="pro">Pro</Item>
+                  <Item value="enterprise">Enterprise</Item>
+                </groupselectone--ml-discrete-slider>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Helper Text</h3>
+        <demo id="demo-helper">
+          <groupselectone--ml-discrete-slider
+            value="{{playground.helper.value}}"
+            error="{{playground.helper.error}}"
+            placeholder="{{playground.helper.placeholder}}"
+            name="size">
+            <Label>Size</Label>
+            <Helper>Measurements follow EU sizing.</Helper>
+            <Item value="s">Small</Item>
+            <Item value="m">Medium</Item>
+            <Item value="l">Large</Item>
+          </groupselectone--ml-discrete-slider>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.helper.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.helper.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.helper.placeholder}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-helper">
+              <template>
+                <groupselectone--ml-discrete-slider
+                  value="{{playground.helper.value}}"
+                  error="{{playground.helper.error}}"
+                  placeholder="{{playground.helper.placeholder}}"
+                  name="size">
+                  <Label>Size</Label>
+                  <Helper>Measurements follow EU sizing.</Helper>
+                  <Item value="s">Small</Item>
+                  <Item value="m">Medium</Item>
+                  <Item value="l">Large</Item>
+                </groupselectone--ml-discrete-slider>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Readonly With Disabled Item</h3>
+        <demo id="demo-readonly">
+          <groupselectone--ml-discrete-slider
+            value="{{playground.readonly.value}}"
+            readonly="{{playground.readonly.readonly}}"
+            disabled="{{playground.readonly.disabled}}"
+            name="delivery">
+            <Label>Delivery speed</Label>
+            <Item value="economy">Economy</Item>
+            <Item value="standard">Standard</Item>
+            <Item value="express" disabled>Express</Item>
+          </groupselectone--ml-discrete-slider>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.readonly.readonly}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.readonly.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-readonly">
+              <template>
+                <groupselectone--ml-discrete-slider
+                  value="{{playground.readonly.value}}"
+                  readonly="{{playground.readonly.readonly}}"
+                  disabled="{{playground.readonly.disabled}}"
+                  name="delivery">
+                  <Label>Delivery speed</Label>
+                  <Item value="economy">Economy</Item>
+                  <Item value="standard">Standard</Item>
+                  <Item value="express" disabled>Express</Item>
+                </groupselectone--ml-discrete-slider>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+        <demo id="demo-loading">
+          <groupselectone--ml-discrete-slider
+            value="{{playground.loading.value}}"
+            loading="{{playground.loading.loading}}"
+            placeholder="{{playground.loading.placeholder}}"
+            name="region">
+            <Label>Region</Label>
+            <Item value="na">North America</Item>
+            <Item value="eu">Europe</Item>
+            <Item value="apac">APAC</Item>
+          </groupselectone--ml-discrete-slider>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.loading.placeholder}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupselectone--ml-discrete-slider
+                  value="{{playground.loading.value}}"
+                  loading="{{playground.loading.loading}}"
+                  placeholder="{{playground.loading.placeholder}}"
+                  name="region">
+                  <Label>Region</Label>
+                  <Item value="na">North America</Item>
+                  <Item value="eu">Europe</Item>
+                  <Item value="apac">APAC</Item>
+                </groupselectone--ml-discrete-slider>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty State</h3>
+        <demo id="demo-empty">
+          <groupselectone--ml-discrete-slider
+            name="{{playground.empty.name}}"
+            error="{{playground.empty.error}}"
+            is-editing="true">
+            <Label>Priority</Label>
+            <Item value="low">Low</Item>
+            <Empty>No priorities available. Add at least two to enable the slider.</Empty>
+          </groupselectone--ml-discrete-slider>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="name" value="{{playground.empty.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+                <groupselectone--ml-discrete-slider
+                  name="{{playground.empty.name}}"
+                  error="{{playground.empty.error}}"
+                  is-editing="true">
+                  <Label>Priority</Label>
+                  <Item value="low">Low</Item>
+                  <Empty>No priorities available. Add at least two to enable the slider.</Empty>
+                </groupselectone--ml-discrete-slider>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Fill Previous</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Com <code class="text-sky-600 dark:text-sky-400">fill-previous</code>, todos os stops anteriores ao selecionado ficam preenchidos.</p>
+        <demo id="demo-fill-previous">
+          <groupselectone--ml-discrete-slider
+            value="{{playground.fillPrevious.value}}"
+            fill-previous
+            name="volume">
+            <Label>Volume</Label>
+            <Item value="0">0%</Item>
+            <Item value="25">25%</Item>
+            <Item value="50">50%</Item>
+            <Item value="75">75%</Item>
+            <Item value="100">100%</Item>
+          </groupselectone--ml-discrete-slider>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.fillPrevious.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-fill-previous">
+              <template>
+                <groupselectone--ml-discrete-slider
+                  value="{{playground.fillPrevious.value}}"
+                  fill-previous
+                  name="volume">
+                  <Label>Volume</Label>
+                  <Item value="0">0%</Item>
+                  <Item value="25">25%</Item>
+                  <Item value="50">50%</Item>
+                  <Item value="75">75%</Item>
+                  <Item value="100">100%</Item>
+                </groupselectone--ml-discrete-slider>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Drag Interaction</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Clique em qualquer stop ou arraste a bolinha ao longo da barra para selecionar.</p>
+        <demo id="demo-drag">
+          <groupselectone--ml-discrete-slider
+            value="{{playground.drag.value}}"
+            name="volume">
+            <Label>Volume</Label>
+            <Item value="0">0%</Item>
+            <Item value="25">25%</Item>
+            <Item value="50">50%</Item>
+            <Item value="75">75%</Item>
+            <Item value="100">100%</Item>
+          </groupselectone--ml-discrete-slider>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.drag.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-drag">
+              <template>
+                <groupselectone--ml-discrete-slider
+                  value="{{playground.drag.value}}"
+                  name="volume">
+                  <Label>Volume</Label>
+                  <Item value="0">0%</Item>
+                  <Item value="25">25%</Item>
+                  <Item value="50">50%</Item>
+                  <Item value="75">75%</Item>
+                  <Item value="100">100%</Item>
+                </groupselectone--ml-discrete-slider>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

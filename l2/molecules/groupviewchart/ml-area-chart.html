@@ -1,0 +1,320 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Area Chart</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">group view chart</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"showLegend":true,"showValues":false,"loading":false},"values":{"showLegend":true,"showValues":true,"loading":false},"noLegend":{"showLegend":false,"showValues":false,"loading":false},"single":{"showLegend":true,"showValues":true,"loading":false},"empty":{"showLegend":true,"showValues":false,"loading":false},"loading":{"showLegend":true,"showValues":false,"loading":true}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic multi-series</h3>
+        <demo id="demo-basic">
+          <groupviewchart--ml-area-chart
+            show-legend="{{playground.basic.showLegend}}"
+            show-values="{{playground.basic.showValues}}"
+            loading="{{playground.basic.loading}}">
+            <Label>Weekly Active Users</Label>
+            <Series name="iOS" color="#3b82f6">
+              <Point label="Mon" value="420" />
+              <Point label="Tue" value="560" />
+              <Point label="Wed" value="510" />
+              <Point label="Thu" value="640" />
+              <Point label="Fri" value="720" />
+            </Series>
+            <Series name="Android" color="#10b981">
+              <Point label="Mon" value="380" />
+              <Point label="Tue" value="490" />
+              <Point label="Wed" value="530" />
+              <Point label="Thu" value="610" />
+              <Point label="Fri" value="680" />
+            </Series>
+          </groupviewchart--ml-area-chart>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="show-legend" value="{{playground.basic.showLegend}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="show-values" value="{{playground.basic.showValues}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+<groupviewchart--ml-area-chart
+  show-legend="{{playground.basic.showLegend}}"
+  show-values="{{playground.basic.showValues}}"
+  loading="{{playground.basic.loading}}">
+  <Label>Weekly Active Users</Label>
+  <Series name="iOS" color="#3b82f6">
+    <Point label="Mon" value="420" />
+    <Point label="Tue" value="560" />
+    <Point label="Wed" value="510" />
+    <Point label="Thu" value="640" />
+    <Point label="Fri" value="720" />
+  </Series>
+  <Series name="Android" color="#10b981">
+    <Point label="Mon" value="380" />
+    <Point label="Tue" value="490" />
+    <Point label="Wed" value="530" />
+    <Point label="Thu" value="610" />
+    <Point label="Fri" value="680" />
+  </Series>
+</groupviewchart--ml-area-chart>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Show values</h3>
+        <demo id="demo-values">
+          <groupviewchart--ml-area-chart
+            show-legend="{{playground.values.showLegend}}"
+            show-values="{{playground.values.showValues}}"
+            loading="{{playground.values.loading}}">
+            <Label>Support Tickets Resolved</Label>
+            <Series name="Priority" color="#f59e0b">
+              <Point label="Week 1" value="48" />
+              <Point label="Week 2" value="62" />
+              <Point label="Week 3" value="55" />
+              <Point label="Week 4" value="71" />
+            </Series>
+            <Series name="Standard" color="#0ea5e9">
+              <Point label="Week 1" value="110" />
+              <Point label="Week 2" value="95" />
+              <Point label="Week 3" value="120" />
+              <Point label="Week 4" value="130" />
+            </Series>
+          </groupviewchart--ml-area-chart>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="show-legend" value="{{playground.values.showLegend}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="show-values" value="{{playground.values.showValues}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.values.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-values">
+              <template>
+<groupviewchart--ml-area-chart
+  show-legend="{{playground.values.showLegend}}"
+  show-values="{{playground.values.showValues}}"
+  loading="{{playground.values.loading}}">
+  <Label>Support Tickets Resolved</Label>
+  <Series name="Priority" color="#f59e0b">
+    <Point label="Week 1" value="48" />
+    <Point label="Week 2" value="62" />
+    <Point label="Week 3" value="55" />
+    <Point label="Week 4" value="71" />
+  </Series>
+  <Series name="Standard" color="#0ea5e9">
+    <Point label="Week 1" value="110" />
+    <Point label="Week 2" value="95" />
+    <Point label="Week 3" value="120" />
+    <Point label="Week 4" value="130" />
+  </Series>
+</groupviewchart--ml-area-chart>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Legend hidden</h3>
+        <demo id="demo-no-legend">
+          <groupviewchart--ml-area-chart
+            show-legend="{{playground.noLegend.showLegend}}"
+            show-values="{{playground.noLegend.showValues}}"
+            loading="{{playground.noLegend.loading}}">
+            <Label>Quarterly Pipeline Growth</Label>
+            <Series name="Inbound" color="#8b5cf6">
+              <Point label="Q1" value="320" />
+              <Point label="Q2" value="410" />
+              <Point label="Q3" value="470" />
+              <Point label="Q4" value="520" />
+            </Series>
+            <Series name="Outbound" color="#06b6d4">
+              <Point label="Q1" value="210" />
+              <Point label="Q2" value="260" />
+              <Point label="Q3" value="300" />
+              <Point label="Q4" value="350" />
+            </Series>
+            <Series name="Partners" color="#84cc16">
+              <Point label="Q1" value="120" />
+              <Point label="Q2" value="180" />
+              <Point label="Q3" value="220" />
+              <Point label="Q4" value="260" />
+            </Series>
+          </groupviewchart--ml-area-chart>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="show-legend" value="{{playground.noLegend.showLegend}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="show-values" value="{{playground.noLegend.showValues}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.noLegend.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-no-legend">
+              <template>
+<groupviewchart--ml-area-chart
+  show-legend="{{playground.noLegend.showLegend}}"
+  show-values="{{playground.noLegend.showValues}}"
+  loading="{{playground.noLegend.loading}}">
+  <Label>Quarterly Pipeline Growth</Label>
+  <Series name="Inbound" color="#8b5cf6">
+    <Point label="Q1" value="320" />
+    <Point label="Q2" value="410" />
+    <Point label="Q3" value="470" />
+    <Point label="Q4" value="520" />
+  </Series>
+  <Series name="Outbound" color="#06b6d4">
+    <Point label="Q1" value="210" />
+    <Point label="Q2" value="260" />
+    <Point label="Q3" value="300" />
+    <Point label="Q4" value="350" />
+  </Series>
+  <Series name="Partners" color="#84cc16">
+    <Point label="Q1" value="120" />
+    <Point label="Q2" value="180" />
+    <Point label="Q3" value="220" />
+    <Point label="Q4" value="260" />
+  </Series>
+</groupviewchart--ml-area-chart>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Single series points</h3>
+        <demo id="demo-single">
+          <groupviewchart--ml-area-chart
+            show-legend="{{playground.single.showLegend}}"
+            show-values="{{playground.single.showValues}}"
+            loading="{{playground.single.loading}}">
+            <Label>Energy Usage (kWh)</Label>
+            <Point label="00:00" value="120" />
+            <Point label="06:00" value="180" />
+            <Point label="12:00" value="260" />
+            <Point label="18:00" value="210" />
+            <Point label="24:00" value="150" />
+          </groupviewchart--ml-area-chart>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="show-legend" value="{{playground.single.showLegend}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="show-values" value="{{playground.single.showValues}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.single.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-single">
+              <template>
+<groupviewchart--ml-area-chart
+  show-legend="{{playground.single.showLegend}}"
+  show-values="{{playground.single.showValues}}"
+  loading="{{playground.single.loading}}">
+  <Label>Energy Usage (kWh)</Label>
+  <Point label="00:00" value="120" />
+  <Point label="06:00" value="180" />
+  <Point label="12:00" value="260" />
+  <Point label="18:00" value="210" />
+  <Point label="24:00" value="150" />
+</groupviewchart--ml-area-chart>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty state</h3>
+        <demo id="demo-empty">
+          <groupviewchart--ml-area-chart
+            show-legend="{{playground.empty.showLegend}}"
+            show-values="{{playground.empty.showValues}}"
+            loading="{{playground.empty.loading}}">
+            <Label>Marketing Spend</Label>
+            <Empty>No spend data available for the selected period.</Empty>
+          </groupviewchart--ml-area-chart>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="show-legend" value="{{playground.empty.showLegend}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="show-values" value="{{playground.empty.showValues}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+<groupviewchart--ml-area-chart
+  show-legend="{{playground.empty.showLegend}}"
+  show-values="{{playground.empty.showValues}}"
+  loading="{{playground.empty.loading}}">
+  <Label>Marketing Spend</Label>
+  <Empty>No spend data available for the selected period.</Empty>
+</groupviewchart--ml-area-chart>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading</h3>
+        <demo id="demo-loading">
+          <groupviewchart--ml-area-chart
+            show-legend="{{playground.loading.showLegend}}"
+            show-values="{{playground.loading.showValues}}"
+            loading="{{playground.loading.loading}}">
+          </groupviewchart--ml-area-chart>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="show-legend" value="{{playground.loading.showLegend}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="show-values" value="{{playground.loading.showValues}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+<groupviewchart--ml-area-chart
+  show-legend="{{playground.loading.showLegend}}"
+  show-values="{{playground.loading.showValues}}"
+  loading="{{playground.loading.loading}}">
+</groupviewchart--ml-area-chart>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,197 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Toggle Switch</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupSelectOne</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"on"},"helper":{"value":""},"required":{"error":"This field is required"},"disabled":{"value":"active"},"viewmode":{"value":"public"},"loading":{"value":"enabled"}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Toggle</h3>
+        <demo id="demo-basic">
+          <groupselectone--ml-toggle-switch value="{{playground.basic.value}}">
+            <Label>Notifications</Label>
+            <Item value="off">Off</Item>
+            <Item value="on">On</Item>
+          </groupselectone--ml-toggle-switch>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupselectone--ml-toggle-switch value="{{playground.basic.value}}">
+                  <Label>Notifications</Label>
+                  <Item value="off">Off</Item>
+                  <Item value="on">On</Item>
+                </groupselectone--ml-toggle-switch>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Helper</h3>
+        <demo id="demo-helper">
+          <groupselectone--ml-toggle-switch placeholder="Select mode" value="{{playground.helper.value}}">
+            <Label>Dark Mode</Label>
+            <Helper>Toggle between light and dark appearance</Helper>
+            <Item value="light">Light</Item>
+            <Item value="dark">Dark</Item>
+          </groupselectone--ml-toggle-switch>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.helper.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-helper">
+              <template>
+                <groupselectone--ml-toggle-switch placeholder="Select mode" value="{{playground.helper.value}}">
+                  <Label>Dark Mode</Label>
+                  <Helper>Toggle between light and dark appearance</Helper>
+                  <Item value="light">Light</Item>
+                  <Item value="dark">Dark</Item>
+                </groupselectone--ml-toggle-switch>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Required & Error</h3>
+        <demo id="demo-required">
+          <groupselectone--ml-toggle-switch required error="{{playground.required.error}}">
+            <Label>Terms Acceptance</Label>
+            <Helper>You must accept to proceed</Helper>
+            <Item value="no">Decline</Item>
+            <Item value="yes">Accept</Item>
+          </groupselectone--ml-toggle-switch>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="error" value="{{playground.required.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-required">
+              <template>
+                <groupselectone--ml-toggle-switch required error="{{playground.required.error}}">
+                  <Label>Terms Acceptance</Label>
+                  <Helper>You must accept to proceed</Helper>
+                  <Item value="no">Decline</Item>
+                  <Item value="yes">Accept</Item>
+                </groupselectone--ml-toggle-switch>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+        <demo id="demo-disabled">
+          <groupselectone--ml-toggle-switch disabled value="{{playground.disabled.value}}">
+            <Label>System Status</Label>
+            <Item value="inactive">Inactive</Item>
+            <Item value="active">Active</Item>
+          </groupselectone--ml-toggle-switch>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupselectone--ml-toggle-switch disabled value="{{playground.disabled.value}}">
+                  <Label>System Status</Label>
+                  <Item value="inactive">Inactive</Item>
+                  <Item value="active">Active</Item>
+                </groupselectone--ml-toggle-switch>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only View</h3>
+        <demo id="demo-viewmode">
+          <groupselectone--ml-toggle-switch is-editing="false" value="{{playground.viewmode.value}}">
+            <Label>Visibility</Label>
+            <Item value="private">Private</Item>
+            <Item value="public">Public</Item>
+          </groupselectone--ml-toggle-switch>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.viewmode.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-viewmode">
+              <template>
+                <groupselectone--ml-toggle-switch is-editing="false" value="{{playground.viewmode.value}}">
+                  <Label>Visibility</Label>
+                  <Item value="private">Private</Item>
+                  <Item value="public">Public</Item>
+                </groupselectone--ml-toggle-switch>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+        <demo id="demo-loading">
+          <groupselectone--ml-toggle-switch loading value="{{playground.loading.value}}">
+            <Label>Feature Flag</Label>
+            <Trigger>Select status...</Trigger>
+            <Item value="disabled">Disabled</Item>
+            <Item value="enabled">Enabled</Item>
+          </groupselectone--ml-toggle-switch>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupselectone--ml-toggle-switch loading value="{{playground.loading.value}}">
+                  <Label>Feature Flag</Label>
+                  <Trigger>Select status...</Trigger>
+                  <Item value="disabled">Disabled</Item>
+                  <Item value="enabled">Enabled</Item>
+                </groupselectone--ml-toggle-switch>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>
