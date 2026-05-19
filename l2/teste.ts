@@ -1,4 +1,4 @@
-/// <mls fileReference="_102040_/l2/teste.ts" enhancement="_102020_/l2/enhancementAura"/>
+/// <mls fileReference="_102040_/l2/testes/teste1.ts" enhancement="_102020_/l2/enhancementAura"/>
 
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -17,9 +17,17 @@ export class Teste102040 extends StateLitElement {
     
   }
 
+  private mock = {
+    users: [
+      { name: 'Wagner', age: 22, cod: 1, role: 'owner' },
+      { name: 'Lucas', age: 22, cod: 1, role: 'admin' },
+      { name: 'Gui Pereira', age: 22, cod: 1, role: 'dev' },
+      { name: 'Gui Santiago', age: 22, cod: 1, role: 'dev' }
+  ] };
+
   connectedCallback() {
     super.connectedCallback();
-    initState('test', { users: [{ name: 'Lucas', age: 22, cod: 1, role: 'admin' }] })
+    initState('test', this.mock)
     this.data = getState('test.users');
     console.log('dados 1', this.data);
     //this.requestUpdate();
@@ -37,8 +45,8 @@ export class Teste102040 extends StateLitElement {
   selectable="false"
   is-editing="false"
   page="1"
-  page-size="0"
-  total-items="0"
+  page-size="2"
+  total-items="4"
   disabled="false"
   loading="false"
 >
