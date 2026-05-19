@@ -507,7 +507,11 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
     }
 
     const sortedRows = this.getSortedRows(bodyRows, headerCells);
-    const visibleRows = this.pageSize > 0
+    // External pagination: totalItems > bodyRows.length means the parent already
+    // sliced the dataset — render all received rows as-is.
+    // Internal pagination: all rows are in the DOM — slice to the current page.
+    const isExternalPagination = this.totalItems > bodyRows.length;
+    const visibleRows = (this.pageSize > 0 && !isExternalPagination)
       ? sortedRows.slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
       : sortedRows;
     const selection = this.getSelectionSet();
