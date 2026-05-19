@@ -274,7 +274,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
   private handlePageChange(nextPage: number) {
     if (this.disabled) return;
     this.page = nextPage;
-    this.dispatchEvent(new CustomEvent('pageChange', {
+    this.dispatchEvent(new CustomEvent('page-change', {
       bubbles: true,
       composed: true,
       detail: { page: nextPage }
@@ -511,7 +511,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
       ? sortedRows.slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
       : sortedRows;
     const selection = this.getSelectionSet();
-    const totalPages = this.getTotalPages(bodyRows.length);
+    const totalPages = this.getTotalPages(this.totalItems > 0 ? this.totalItems : bodyRows.length);
     const containerClasses = [
       'w-full',
       this.disabled ? 'opacity-50 pointer-events-none' : '',

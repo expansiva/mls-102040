@@ -320,8 +320,8 @@ export class ViewTableMolecule extends MoleculeAuraElement {
     // PAGINATION
     // ===========================================================================
     private getTotalPages(): number {
-        if (this.pageSize <= 0 || this.totalItems <= 0) return 1;
-        return Math.ceil(this.totalItems / this.pageSize);
+        if (this.pageSize <= 0 || this.parsedRows.length === 0) return 1;
+        return Math.ceil(this.parsedRows.length / this.pageSize);
     }
 
     private handlePageChange(newPage: number) {
@@ -504,10 +504,14 @@ export class ViewTableMolecule extends MoleculeAuraElement {
         }
 
         const selected = this.getSelectedIndices();
+        const start = this.pageSize > 0 ? (this.page - 1) * this.pageSize : 0;
+        const visibleIndices = this.pageSize > 0
+            ? this.sortedRowIndices.slice(start, start + this.pageSize)
+            : this.sortedRowIndices;
 
         return html`
             <tbody role="rowgroup">
-                ${this.sortedRowIndices.map((originalIndex) => {
+                ${visibleIndices.map((originalIndex) => {
                     const row = this.parsedRows[originalIndex];
                     if (!row) return html``;
 
