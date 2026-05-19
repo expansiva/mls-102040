@@ -1,0 +1,553 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">View Table</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewTable</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"selectable":{"value":""},"pagination":{"page":1},"loading":{"loading":true},"advanced":{"isEditing":false,"disabled":false,"error":""}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Table</h3>
+        <demo id="demo-basic">
+          <groupviewtable--ml-view-table>
+            <Caption>Employee Directory</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="name">Name</TableHead>
+                <TableHead key="role">Role</TableHead>
+                <TableHead key="department">Department</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Alice Johnson</TableCell>
+                <TableCell>Engineer</TableCell>
+                <TableCell>Platform</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Bob Smith</TableCell>
+                <TableCell>Designer</TableCell>
+                <TableCell>Product</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Carol White</TableCell>
+                <TableCell>Manager</TableCell>
+                <TableCell>Operations</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>No employees found</Empty>
+          </groupviewtable--ml-view-table>
+        </demo>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewtable--ml-view-table>
+                  <Caption>Employee Directory</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="name">Name</TableHead>
+                      <TableHead key="role">Role</TableHead>
+                      <TableHead key="department">Department</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Alice Johnson</TableCell>
+                      <TableCell>Engineer</TableCell>
+                      <TableCell>Platform</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Bob Smith</TableCell>
+                      <TableCell>Designer</TableCell>
+                      <TableCell>Product</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Carol White</TableCell>
+                      <TableCell>Manager</TableCell>
+                      <TableCell>Operations</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>No employees found</Empty>
+                </groupviewtable--ml-view-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable Rows</h3>
+        <demo id="demo-selectable">
+          <groupviewtable--ml-view-table selectable="true" value="{{playground.selectable.value}}">
+            <Caption>Task List</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="task">Task</TableHead>
+                <TableHead key="assignee">Assignee</TableHead>
+                <TableHead key="priority">Priority</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Fix navigation bug</TableCell>
+                <TableCell>Alice</TableCell>
+                <TableCell>High</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Update documentation</TableCell>
+                <TableCell>Bob</TableCell>
+                <TableCell>Medium</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Refactor auth module</TableCell>
+                <TableCell>Carol</TableCell>
+                <TableCell>Low</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>No tasks available</Empty>
+          </groupviewtable--ml-view-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+                <groupviewtable--ml-view-table selectable="true" value="{{playground.selectable.value}}">
+                  <Caption>Task List</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="task">Task</TableHead>
+                      <TableHead key="assignee">Assignee</TableHead>
+                      <TableHead key="priority">Priority</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Fix navigation bug</TableCell>
+                      <TableCell>Alice</TableCell>
+                      <TableCell>High</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Update documentation</TableCell>
+                      <TableCell>Bob</TableCell>
+                      <TableCell>Medium</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Refactor auth module</TableCell>
+                      <TableCell>Carol</TableCell>
+                      <TableCell>Low</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>No tasks available</Empty>
+                </groupviewtable--ml-view-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Sortable Columns</h3>
+        <demo id="demo-sortable">
+          <groupviewtable--ml-view-table>
+            <Caption>Sales Orders</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="orderId" sortable>Order ID</TableHead>
+                <TableHead key="customer" sortable>Customer</TableHead>
+                <TableHead key="date" sortable>Date</TableHead>
+                <TableHead key="amount" sortable>Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>#1001</TableCell>
+                <TableCell>Acme Corp</TableCell>
+                <TableCell>2026-05-10</TableCell>
+                <TableCell>$1,200.00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1002</TableCell>
+                <TableCell>Globex</TableCell>
+                <TableCell>2026-05-12</TableCell>
+                <TableCell>$850.00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1003</TableCell>
+                <TableCell>Initech</TableCell>
+                <TableCell>2026-05-11</TableCell>
+                <TableCell>$2,400.00</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>No orders found</Empty>
+          </groupviewtable--ml-view-table>
+        </demo>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-sortable">
+              <template>
+                <groupviewtable--ml-view-table>
+                  <Caption>Sales Orders</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="orderId" sortable>Order ID</TableHead>
+                      <TableHead key="customer" sortable>Customer</TableHead>
+                      <TableHead key="date" sortable>Date</TableHead>
+                      <TableHead key="amount" sortable>Amount</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>#1001</TableCell>
+                      <TableCell>Acme Corp</TableCell>
+                      <TableCell>2026-05-10</TableCell>
+                      <TableCell>$1,200.00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1002</TableCell>
+                      <TableCell>Globex</TableCell>
+                      <TableCell>2026-05-12</TableCell>
+                      <TableCell>$850.00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1003</TableCell>
+                      <TableCell>Initech</TableCell>
+                      <TableCell>2026-05-11</TableCell>
+                      <TableCell>$2,400.00</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>No orders found</Empty>
+                </groupviewtable--ml-view-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Pagination</h3>
+        <demo id="demo-pagination">
+          <groupviewtable--ml-view-table page="{{playground.pagination.page}}" page-size="5" total-items="24">
+            <Caption>Product Inventory</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="sku">SKU</TableHead>
+                <TableHead key="product">Product</TableHead>
+                <TableHead key="stock">Stock</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>SKU-001</TableCell>
+                <TableCell>Wireless Mouse</TableCell>
+                <TableCell>45</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-002</TableCell>
+                <TableCell>Mechanical Keyboard</TableCell>
+                <TableCell>12</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-003</TableCell>
+                <TableCell>USB-C Hub</TableCell>
+                <TableCell>78</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-004</TableCell>
+                <TableCell>Webcam 4K</TableCell>
+                <TableCell>23</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-005</TableCell>
+                <TableCell>Monitor Stand</TableCell>
+                <TableCell>56</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>No products found</Empty>
+          </groupviewtable--ml-view-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="page" value="{{playground.pagination.page}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-pagination">
+              <template>
+                <groupviewtable--ml-view-table page="{{playground.pagination.page}}" page-size="5" total-items="24">
+                  <Caption>Product Inventory</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="sku">SKU</TableHead>
+                      <TableHead key="product">Product</TableHead>
+                      <TableHead key="stock">Stock</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>SKU-001</TableCell>
+                      <TableCell>Wireless Mouse</TableCell>
+                      <TableCell>45</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-002</TableCell>
+                      <TableCell>Mechanical Keyboard</TableCell>
+                      <TableCell>12</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-003</TableCell>
+                      <TableCell>USB-C Hub</TableCell>
+                      <TableCell>78</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-004</TableCell>
+                      <TableCell>Webcam 4K</TableCell>
+                      <TableCell>23</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-005</TableCell>
+                      <TableCell>Monitor Stand</TableCell>
+                      <TableCell>56</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>No products found</Empty>
+                </groupviewtable--ml-view-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty State</h3>
+        <demo id="demo-empty">
+          <groupviewtable--ml-view-table>
+            <Caption>Recent Transactions</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id">ID</TableHead>
+                <TableHead key="date">Date</TableHead>
+                <TableHead key="amount">Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+            </TableBody>
+            <Empty>
+              <span class="text-2xl">📭</span><br/>
+              <span class="text-slate-500 dark:text-slate-400">No transactions to display</span>
+            </Empty>
+          </groupviewtable--ml-view-table>
+        </demo>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+                <groupviewtable--ml-view-table>
+                  <Caption>Recent Transactions</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id">ID</TableHead>
+                      <TableHead key="date">Date</TableHead>
+                      <TableHead key="amount">Amount</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                  </TableBody>
+                  <Empty>
+                    <span class="text-2xl">📭</span><br/>
+                    <span class="text-slate-500 dark:text-slate-400">No transactions to display</span>
+                  </Empty>
+                </groupviewtable--ml-view-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+        <demo id="demo-loading">
+          <groupviewtable--ml-view-table loading="{{playground.loading.loading}}">
+            <Caption>Server Logs</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="timestamp">Timestamp</TableHead>
+                <TableHead key="level">Level</TableHead>
+                <TableHead key="message">Message</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>2026-05-18 10:00</TableCell>
+                <TableCell>INFO</TableCell>
+                <TableCell>Server started</TableCell>
+              </TableRow>
+            </TableBody>
+            <Loading>
+              <div class="flex items-center justify-center gap-3 p-8 text-slate-600 dark:text-slate-400">
+                <svg class="animate-spin h-5 w-5 text-sky-600 dark:text-sky-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span>Fetching logs from server...</span>
+              </div>
+            </Loading>
+            <Empty>No logs available</Empty>
+          </groupviewtable--ml-view-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewtable--ml-view-table loading="{{playground.loading.loading}}">
+                  <Caption>Server Logs</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="timestamp">Timestamp</TableHead>
+                      <TableHead key="level">Level</TableHead>
+                      <TableHead key="message">Message</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>2026-05-18 10:00</TableCell>
+                      <TableCell>INFO</TableCell>
+                      <TableCell>Server started</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Loading>
+                    <div class="flex items-center justify-center gap-3 p-8 text-slate-600 dark:text-slate-400">
+                      <svg class="animate-spin h-5 w-5 text-sky-600 dark:text-sky-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Fetching logs from server...</span>
+                    </div>
+                  </Loading>
+                  <Empty>No logs available</Empty>
+                </groupviewtable--ml-view-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Advanced Configuration</h3>
+        <demo id="demo-advanced">
+          <groupviewtable--ml-view-table is-editing="{{playground.advanced.isEditing}}" disabled="{{playground.advanced.disabled}}" error="{{playground.advanced.error}}">
+            <Caption>Budget Overview</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="category">Category</TableHead>
+                <TableHead key="budget">Budget</TableHead>
+                <TableHead key="spent">Spent</TableHead>
+                <TableHead key="remaining">Remaining</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Marketing</TableCell>
+                <TableCell>$10,000</TableCell>
+                <TableCell>$4,200</TableCell>
+                <TableCell>$5,800</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Engineering</TableCell>
+                <TableCell>$25,000</TableCell>
+                <TableCell>$12,500</TableCell>
+                <TableCell>$12,500</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Operations</TableCell>
+                <TableCell>$8,000</TableCell>
+                <TableCell>$7,950</TableCell>
+                <TableCell>$50</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell>$43,000</TableCell>
+                <TableCell>$24,650</TableCell>
+                <TableCell>$18,350</TableCell>
+              </TableRow>
+            </TableFooter>
+            <Empty>No budget data</Empty>
+          </groupviewtable--ml-view-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="is-editing" value="{{playground.advanced.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.advanced.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.advanced.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-advanced">
+              <template>
+                <groupviewtable--ml-view-table is-editing="{{playground.advanced.isEditing}}" disabled="{{playground.advanced.disabled}}" error="{{playground.advanced.error}}">
+                  <Caption>Budget Overview</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="category">Category</TableHead>
+                      <TableHead key="budget">Budget</TableHead>
+                      <TableHead key="spent">Spent</TableHead>
+                      <TableHead key="remaining">Remaining</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Marketing</TableCell>
+                      <TableCell>$10,000</TableCell>
+                      <TableCell>$4,200</TableCell>
+                      <TableCell>$5,800</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Engineering</TableCell>
+                      <TableCell>$25,000</TableCell>
+                      <TableCell>$12,500</TableCell>
+                      <TableCell>$12,500</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Operations</TableCell>
+                      <TableCell>$8,000</TableCell>
+                      <TableCell>$7,950</TableCell>
+                      <TableCell>$50</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell>$43,000</TableCell>
+                      <TableCell>$24,650</TableCell>
+                      <TableCell>$18,350</TableCell>
+                    </TableRow>
+                  </TableFooter>
+                  <Empty>No budget data</Empty>
+                </groupviewtable--ml-view-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

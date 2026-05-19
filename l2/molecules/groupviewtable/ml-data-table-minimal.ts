@@ -154,9 +154,9 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
     }));
   }
 
-  private getTotalPages(): number {
+  private getTotalPages(itemCount: number): number {
     if (this.pageSize <= 0) return 1;
-    const pages = Math.ceil(this.totalItems / this.pageSize);
+    const pages = Math.ceil(itemCount / this.pageSize);
     return pages > 0 ? pages : 1;
   }
 
@@ -482,7 +482,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
           <tbody></tbody>
         </table>
         <div class="py-4 text-sm text-slate-500 dark:text-slate-400">${unsafeHTML(content)}</div>
-        ${this.renderPagination(this.getTotalPages())}
+        ${this.renderPagination(this.getTotalPages(0))}
         ${this.renderError()}
       </div>
     `;
@@ -507,8 +507,11 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
     }
 
     const sortedRows = this.getSortedRows(bodyRows, headerCells);
+    const visibleRows = this.pageSize > 0
+      ? sortedRows.slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
+      : sortedRows;
     const selection = this.getSelectionSet();
-    const totalPages = this.getTotalPages();
+    const totalPages = this.getTotalPages(bodyRows.length);
     const containerClasses = [
       'w-full',
       this.disabled ? 'opacity-50 pointer-events-none' : '',
@@ -536,7 +539,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
             </tr>
           </thead>
           <tbody role="rowgroup">
-            ${sortedRows.map((row, index) => this.renderBodyRow(row, index, selection))}
+            ${visibleRows.map((row, index) => this.renderBodyRow(row, index, selection))}
           </tbody>
           ${this.renderFooter(headerCells.length)}
         </table>

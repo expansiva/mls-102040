@@ -1,3 +1,4 @@
+
 <div class="bg-white dark:bg-slate-900 min-h-screen">
 <div class="mx-auto p-8 font-sans">
 <header class="text-center mb-12">
@@ -96,6 +97,128 @@ value="Lucas">
       <TableCell>2</TableCell>
       <TableCell>Bob</TableCell>
       <TableCell>User</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Sortable Columns -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Sortable Columns</h3>
+<demo id="demo-sortable">
+<groupviewtable--ml-data-table-minimal
+  value=""
+  selectable="false"
+  is-editing="false"
+  error=""
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Users</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id" sortable>ID</TableHead>
+      <TableHead key="name" sortable>Name</TableHead>
+      <TableHead key="role" sortable>Role</TableHead>
+      <TableHead key="score" sortable>Score</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>3</TableCell>
+      <TableCell>Carol</TableCell>
+      <TableCell>Editor</TableCell>
+      <TableCell>88</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
+      <TableCell>95</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>5</TableCell>
+      <TableCell>Eve</TableCell>
+      <TableCell>Admin</TableCell>
+      <TableCell>72</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>2</TableCell>
+      <TableCell>Bob</TableCell>
+      <TableCell>User</TableCell>
+      <TableCell>61</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>4</TableCell>
+      <TableCell>Dan</TableCell>
+      <TableCell>Viewer</TableCell>
+      <TableCell>40</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table-minimal>
+</demo>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-sortable">
+<template>
+<groupviewtable--ml-data-table-minimal
+  value=""
+  selectable="false"
+  is-editing="false"
+  error=""
+  page="1"
+  page-size="0"
+  total-items="0"
+  disabled="false"
+  loading="false"
+>
+  <Caption>Users</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="id" sortable>ID</TableHead>
+      <TableHead key="name" sortable>Name</TableHead>
+      <TableHead key="role" sortable>Role</TableHead>
+      <TableHead key="score" sortable>Score</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>3</TableCell>
+      <TableCell>Carol</TableCell>
+      <TableCell>Editor</TableCell>
+      <TableCell>88</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>1</TableCell>
+      <TableCell>Alice</TableCell>
+      <TableCell>Admin</TableCell>
+      <TableCell>95</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>5</TableCell>
+      <TableCell>Eve</TableCell>
+      <TableCell>Admin</TableCell>
+      <TableCell>72</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>2</TableCell>
+      <TableCell>Bob</TableCell>
+      <TableCell>User</TableCell>
+      <TableCell>61</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>4</TableCell>
+      <TableCell>Dan</TableCell>
+      <TableCell>Viewer</TableCell>
+      <TableCell>40</TableCell>
     </TableRow>
   </TableBody>
 </groupviewtable--ml-data-table-minimal>
