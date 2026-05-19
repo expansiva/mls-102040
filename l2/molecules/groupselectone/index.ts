@@ -48,7 +48,12 @@ export class GroupSelectOneIndex extends StateLitElement {
   @state() segmentedBasic: Config = defaultConfig();
   @state() segmentedDisabled: Config = defaultConfig();
   @state() toggleBasic: Config = defaultConfig();
-  @state() toggleStates: Config = defaultConfig();
+  @state() toggleValues: Record<string, string> = {
+    notifications: 'enabled',
+    twoFactor:     'disabled',
+    publicProfile: 'visible',
+    darkMode:      'light',
+  };
   @state() sliderBasic: Config = defaultConfig();
   @state() sliderGrouped: Config = defaultConfig();
   @state() autocompleteBasic: Config = defaultConfig();
@@ -271,21 +276,66 @@ export class GroupSelectOneIndex extends StateLitElement {
     'groupselectone--ml-toggle-switch',
     'A binary selection control presented as a toggle switch that allows the user to choose between two mutually exclusive options. It provides clear semantics for yes/no, active/inactive, or enabled/disabled decisions.',
     (cardBg) => html`
-      ${this.renderExampleRow('Basic', this.toggleBasic, (n) => { this.toggleBasic = n; }, html`
-        <groupselectone--ml-toggle-switch
-          value="${this.toggleBasic.value || 'disabled'}" name="notifications" error="${this.toggleBasic.error}"
-          .isEditing=${this.toggleBasic.isEditing} .required=${this.toggleBasic.required}
-          .disabled=${this.toggleBasic.disabled} .readonly=${this.toggleBasic.readonly}
-          .loading=${this.toggleBasic.loading}
-          @change=${(e: CustomEvent) => { this.toggleBasic = { ...this.toggleBasic, value: e.detail.value }; }}
-        >
-          <Label>Email notifications</Label>
-          <Helper>Receive updates about your account activity.</Helper>          
-          <Item value="disabled">Disabled</Item>
-          <Item value="enabled">Enabled</Item>
-        </groupselectone--ml-toggle-switch>
-      `, cardBg)}      
-      
+      ${this.renderExampleRow('Notification & privacy settings', this.toggleBasic, (n) => { this.toggleBasic = n; }, html`
+        <div class="flex flex-col divide-y divide-slate-200 dark:divide-slate-700">
+          <div class="py-4 first:pt-0 last:pb-0">
+            <groupselectone--ml-toggle-switch
+              value="${this.toggleValues.notifications}" name="notifications" error="${this.toggleBasic.error}"
+              .isEditing=${this.toggleBasic.isEditing} .required=${this.toggleBasic.required}
+              .disabled=${this.toggleBasic.disabled} .readonly=${this.toggleBasic.readonly}
+              .loading=${this.toggleBasic.loading}
+              @change=${(e: CustomEvent) => { this.toggleValues = { ...this.toggleValues, notifications: e.detail.value }; }}
+            >
+              <Label>Email notifications</Label>
+              <Helper>Receive updates and alerts about your account activity.</Helper>
+              <Item value="disabled">Disabled</Item>
+              <Item value="enabled">Enabled</Item>
+            </groupselectone--ml-toggle-switch>
+          </div>
+          <div class="py-4 first:pt-0 last:pb-0">
+            <groupselectone--ml-toggle-switch
+              value="${this.toggleValues.twoFactor}" name="twoFactor" error="${this.toggleBasic.error}"
+              .isEditing=${this.toggleBasic.isEditing} .required=${this.toggleBasic.required}
+              .disabled=${this.toggleBasic.disabled} .readonly=${this.toggleBasic.readonly}
+              .loading=${this.toggleBasic.loading}
+              @change=${(e: CustomEvent) => { this.toggleValues = { ...this.toggleValues, twoFactor: e.detail.value }; }}
+            >
+              <Label>Two-factor authentication</Label>
+              <Helper>Require a verification code in addition to your password when signing in.</Helper>
+              <Item value="disabled">Disabled</Item>
+              <Item value="enabled">Enabled</Item>
+            </groupselectone--ml-toggle-switch>
+          </div>
+          <div class="py-4 first:pt-0 last:pb-0">
+            <groupselectone--ml-toggle-switch
+              value="${this.toggleValues.publicProfile}" name="publicProfile" error="${this.toggleBasic.error}"
+              .isEditing=${this.toggleBasic.isEditing} .required=${this.toggleBasic.required}
+              .disabled=${this.toggleBasic.disabled} .readonly=${this.toggleBasic.readonly}
+              .loading=${this.toggleBasic.loading}
+              @change=${(e: CustomEvent) => { this.toggleValues = { ...this.toggleValues, publicProfile: e.detail.value }; }}
+            >
+              <Label>Public profile</Label>
+              <Helper>Allow other users to view your profile and activity.</Helper>
+              <Item value="hidden">Hidden</Item>
+              <Item value="visible">Visible</Item>
+            </groupselectone--ml-toggle-switch>
+          </div>
+          <div class="py-4 first:pt-0 last:pb-0">
+            <groupselectone--ml-toggle-switch
+              value="${this.toggleValues.darkMode}" name="darkMode" error="${this.toggleBasic.error}"
+              .isEditing=${this.toggleBasic.isEditing} .required=${this.toggleBasic.required}
+              .disabled=${this.toggleBasic.disabled} .readonly=${this.toggleBasic.readonly}
+              .loading=${this.toggleBasic.loading}
+              @change=${(e: CustomEvent) => { this.toggleValues = { ...this.toggleValues, darkMode: e.detail.value }; }}
+            >
+              <Label>Dark mode</Label>
+              <Helper>Switch the interface to a dark color scheme.</Helper>
+              <Item value="light">Light</Item>
+              <Item value="dark">Dark</Item>
+            </groupselectone--ml-toggle-switch>
+          </div>
+        </div>
+      `, cardBg, true)}
   `)}
 
   ${this.renderSection(3,
