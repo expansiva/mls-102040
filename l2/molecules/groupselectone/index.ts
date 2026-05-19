@@ -40,7 +40,7 @@ const CARD_BG = [
   'bg-white dark:bg-slate-800',
 ];
 
-@customElement('groupselectone--index')
+@customElement('molecules--groupselectone--index-102040')
 export class GroupSelectOneIndex extends StateLitElement {
 
   @state() radioBasic: Config = defaultConfig();
@@ -273,32 +273,19 @@ export class GroupSelectOneIndex extends StateLitElement {
     (cardBg) => html`
       ${this.renderExampleRow('Basic', this.toggleBasic, (n) => { this.toggleBasic = n; }, html`
         <groupselectone--ml-toggle-switch
-          value="${this.toggleBasic.value}" name="notifications" error="${this.toggleBasic.error}"
+          value="${this.toggleBasic.value || 'disabled'}" name="notifications" error="${this.toggleBasic.error}"
           .isEditing=${this.toggleBasic.isEditing} .required=${this.toggleBasic.required}
           .disabled=${this.toggleBasic.disabled} .readonly=${this.toggleBasic.readonly}
           .loading=${this.toggleBasic.loading}
           @change=${(e: CustomEvent) => { this.toggleBasic = { ...this.toggleBasic, value: e.detail.value }; }}
         >
           <Label>Email notifications</Label>
-          <Helper>Receive updates about your account activity.</Helper>
-          <Item value="enabled">Enabled</Item>
+          <Helper>Receive updates about your account activity.</Helper>          
           <Item value="disabled">Disabled</Item>
+          <Item value="enabled">Enabled</Item>
         </groupselectone--ml-toggle-switch>
-      `, cardBg)}
-      ${this.renderExampleRow('Account status', this.toggleStates, (n) => { this.toggleStates = n; }, html`
-        <groupselectone--ml-toggle-switch
-          value="${this.toggleStates.value}" name="accountStatus" error="${this.toggleStates.error}"
-          .isEditing=${this.toggleStates.isEditing} .required=${this.toggleStates.required}
-          .disabled=${this.toggleStates.disabled} .readonly=${this.toggleStates.readonly}
-          .loading=${this.toggleStates.loading}
-          @change=${(e: CustomEvent) => { this.toggleStates = { ...this.toggleStates, value: e.detail.value }; }}
-        >
-          <Label>Account status</Label>
-          <Helper>Inactive accounts cannot log in or access the platform.</Helper>
-          <Item value="active">Active</Item>
-          <Item value="inactive">Inactive</Item>
-        </groupselectone--ml-toggle-switch>
-      `, cardBg, true)}
+      `, cardBg)}      
+      
   `)}
 
   ${this.renderSection(3,
