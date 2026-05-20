@@ -1,0 +1,285 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Select Dropdown Image</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupSelectOne</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":null,"error":""},"error":{"value":"","error":"This field is required"},"searchable":{"value":null},"grouped":{"value":null,"error":""},"disabled":{"value":"br"},"readonly":{"value":"de"},"view":{"value":"de"},"loading":{"value":null,"loading":true}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic with Images</h3>
+        <demo id="demo-basic">
+          <groupselectone--ml-select-dropdown-img value="{{playground.basic.value}}" error="{{playground.basic.error}}" placeholder="Select a country" required>
+            <Label>Country</Label>
+            <Trigger>Select a country...</Trigger>
+            <Item value="br"><img src="https://flagcdn.com/w20/br.png" alt="BR"> Brazil</Item>
+            <Item value="us"><img src="https://flagcdn.com/w20/us.png" alt="US"> United States</Item>
+            <Item value="de"><img src="https://flagcdn.com/w20/de.png" alt="DE"> Germany</Item>
+            <Helper>Choose your country of residence</Helper>
+          </groupselectone--ml-select-dropdown-img>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupselectone--ml-select-dropdown-img value="{{playground.basic.value}}" error="{{playground.basic.error}}" placeholder="Select a country" required>
+                  <Label>Country</Label>
+                  <Trigger>Select a country...</Trigger>
+                  <Item value="br"><img src="https://flagcdn.com/w20/br.png" alt="BR"> Brazil</Item>
+                  <Item value="us"><img src="https://flagcdn.com/w20/us.png" alt="US"> United States</Item>
+                  <Item value="de"><img src="https://flagcdn.com/w20/de.png" alt="DE"> Germany</Item>
+                  <Helper>Choose your country of residence</Helper>
+                </groupselectone--ml-select-dropdown-img>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Validation Error</h3>
+        <demo id="demo-error">
+          <groupselectone--ml-select-dropdown-img value="{{playground.error.value}}" error="{{playground.error.error}}" required>
+            <Label>Payment Method</Label>
+            <Item value="cc">Credit Card</Item>
+            <Item value="pix">Pix</Item>
+            <Item value="boleto">Boleto</Item>
+          </groupselectone--ml-select-dropdown-img>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+                <groupselectone--ml-select-dropdown-img value="{{playground.error.value}}" error="{{playground.error.error}}" required>
+                  <Label>Payment Method</Label>
+                  <Item value="cc">Credit Card</Item>
+                  <Item value="pix">Pix</Item>
+                  <Item value="boleto">Boleto</Item>
+                </groupselectone--ml-select-dropdown-img>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Searchable Dropdown</h3>
+        <demo id="demo-searchable">
+          <groupselectone--ml-select-dropdown-img value="{{playground.searchable.value}}" searchable="true" placeholder="Find a user...">
+            <Label>Assignee</Label>
+            <Item value="ana"><img src="https://i.pravatar.cc/150?u=ana" alt="Ana"> Ana Silva</Item>
+            <Item value="bruno"><img src="https://i.pravatar.cc/150?u=bruno" alt="Bruno"> Bruno Costa</Item>
+            <Item value="carla"><img src="https://i.pravatar.cc/150?u=carla" alt="Carla"> Carla Dias</Item>
+            <Item value="diego"><img src="https://i.pravatar.cc/150?u=diego" alt="Diego"> Diego Martins</Item>
+            <Item value="elisa"><img src="https://i.pravatar.cc/150?u=elisa" alt="Elisa"> Elisa Rocha</Item>
+          </groupselectone--ml-select-dropdown-img>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.searchable.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-searchable">
+              <template>
+                <groupselectone--ml-select-dropdown-img value="{{playground.searchable.value}}" searchable="true" placeholder="Find a user...">
+                  <Label>Assignee</Label>
+                  <Item value="ana"><img src="https://i.pravatar.cc/150?u=ana" alt="Ana"> Ana Silva</Item>
+                  <Item value="bruno"><img src="https://i.pravatar.cc/150?u=bruno" alt="Bruno"> Bruno Costa</Item>
+                  <Item value="carla"><img src="https://i.pravatar.cc/150?u=carla" alt="Carla"> Carla Dias</Item>
+                  <Item value="diego"><img src="https://i.pravatar.cc/150?u=diego" alt="Diego"> Diego Martins</Item>
+                  <Item value="elisa"><img src="https://i.pravatar.cc/150?u=elisa" alt="Elisa"> Elisa Rocha</Item>
+                </groupselectone--ml-select-dropdown-img>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Grouped Options</h3>
+        <demo id="demo-grouped">
+          <groupselectone--ml-select-dropdown-img value="{{playground.grouped.value}}" error="{{playground.grouped.error}}" placeholder="Select a product">
+            <Label>Product Category</Label>
+            <Group label="Hardware">
+              <Item value="cpu">Processors</Item>
+              <Item value="gpu">Graphics Cards</Item>
+            </Group>
+            <Group label="Software">
+              <Item value="os">Operating Systems</Item>
+              <Item value="ide">IDEs</Item>
+            </Group>
+            <Empty>No products found</Empty>
+          </groupselectone--ml-select-dropdown-img>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.grouped.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.grouped.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-grouped">
+              <template>
+                <groupselectone--ml-select-dropdown-img value="{{playground.grouped.value}}" error="{{playground.grouped.error}}" placeholder="Select a product">
+                  <Label>Product Category</Label>
+                  <Group label="Hardware">
+                    <Item value="cpu">Processors</Item>
+                    <Item value="gpu">Graphics Cards</Item>
+                  </Group>
+                  <Group label="Software">
+                    <Item value="os">Operating Systems</Item>
+                    <Item value="ide">IDEs</Item>
+                  </Group>
+                  <Empty>No products found</Empty>
+                </groupselectone--ml-select-dropdown-img>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled State</h3>
+        <demo id="demo-disabled">
+          <groupselectone--ml-select-dropdown-img value="{{playground.disabled.value}}" disabled="true">
+            <Label>Locked Country</Label>
+            <Item value="br"><img src="https://flagcdn.com/w20/br.png" alt="BR"> Brazil</Item>
+            <Item value="us"><img src="https://flagcdn.com/w20/us.png" alt="US"> United States</Item>
+          </groupselectone--ml-select-dropdown-img>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupselectone--ml-select-dropdown-img value="{{playground.disabled.value}}" disabled="true">
+                  <Label>Locked Country</Label>
+                  <Item value="br"><img src="https://flagcdn.com/w20/br.png" alt="BR"> Brazil</Item>
+                  <Item value="us"><img src="https://flagcdn.com/w20/us.png" alt="US"> United States</Item>
+                </groupselectone--ml-select-dropdown-img>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Readonly State</h3>
+        <demo id="demo-readonly">
+          <groupselectone--ml-select-dropdown-img value="{{playground.readonly.value}}" readonly="true">
+            <Label>Read-only Selection</Label>
+            <Item value="de"><img src="https://flagcdn.com/w20/de.png" alt="DE"> Germany</Item>
+            <Item value="fr"><img src="https://flagcdn.com/w20/fr.png" alt="FR"> France</Item>
+          </groupselectone--ml-select-dropdown-img>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-readonly">
+              <template>
+                <groupselectone--ml-select-dropdown-img value="{{playground.readonly.value}}" readonly="true">
+                  <Label>Read-only Selection</Label>
+                  <Item value="de"><img src="https://flagcdn.com/w20/de.png" alt="DE"> Germany</Item>
+                  <Item value="fr"><img src="https://flagcdn.com/w20/fr.png" alt="FR"> France</Item>
+                </groupselectone--ml-select-dropdown-img>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View Mode</h3>
+        <demo id="demo-view">
+          <groupselectone--ml-select-dropdown-img value="{{playground.view.value}}" is-editing="false">
+            <Label>View Mode</Label>
+            <Item value="de"><img src="https://flagcdn.com/w20/de.png" alt="DE"> Germany</Item>
+            <Item value="fr"><img src="https://flagcdn.com/w20/fr.png" alt="FR"> France</Item>
+          </groupselectone--ml-select-dropdown-img>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.view.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-view">
+              <template>
+                <groupselectone--ml-select-dropdown-img value="{{playground.view.value}}" is-editing="false">
+                  <Label>View Mode</Label>
+                  <Item value="de"><img src="https://flagcdn.com/w20/de.png" alt="DE"> Germany</Item>
+                  <Item value="fr"><img src="https://flagcdn.com/w20/fr.png" alt="FR"> France</Item>
+                </groupselectone--ml-select-dropdown-img>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+        <demo id="demo-loading">
+          <groupselectone--ml-select-dropdown-img value="{{playground.loading.value}}" loading="{{playground.loading.loading}}" placeholder="Select an option">
+            <Label>Loading Data</Label>
+            <Trigger>Fetching options...</Trigger>
+            <Item value="1">Option 1</Item>
+            <Item value="2">Option 2</Item>
+          </groupselectone--ml-select-dropdown-img>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupselectone--ml-select-dropdown-img value="{{playground.loading.value}}" loading="{{playground.loading.loading}}" placeholder="Select an option">
+                  <Label>Loading Data</Label>
+                  <Trigger>Fetching options...</Trigger>
+                  <Item value="1">Option 1</Item>
+                  <Item value="2">Option 2</Item>
+                </groupselectone--ml-select-dropdown-img>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

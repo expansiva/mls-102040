@@ -155,18 +155,16 @@ export class GroupSelectOneIndexE extends StateLitElement {
   private renderReferenceTable(): TemplateResult {
     const rows: Array<{
       scenario: string;
-      toggle: boolean; seg: boolean; radio: boolean; slider: boolean; auto: boolean;
+      seg: boolean; radio: boolean; slider: boolean; auto: boolean;
     }> = [
-      { scenario: 'Binary on/off, yes/no decision',                toggle: true,  seg: false, radio: false, slider: false, auto: false },
-      { scenario: '2–5 compact options, inline layout',             toggle: false, seg: true,  radio: true,  slider: false, auto: false },
-      { scenario: 'Options need visual side-by-side comparison',    toggle: false, seg: false, radio: true,  slider: false, auto: false },
-      { scenario: 'Options have a natural ordinal order/scale',     toggle: false, seg: false, radio: false, slider: true,  auto: false },
-      { scenario: 'Large list (10+ options)',                       toggle: false, seg: false, radio: false, slider: false, auto: true  },
-      { scenario: 'User benefits from typing to filter',            toggle: false, seg: false, radio: false, slider: false, auto: true  },
-      { scenario: 'All options visible simultaneously',             toggle: false, seg: true,  radio: true,  slider: true,  auto: false },
+      { scenario: '2–5 compact options, inline layout',             seg: true,  radio: true,  slider: false, auto: false },
+      { scenario: 'Options need visual side-by-side comparison',    seg: false, radio: true,  slider: false, auto: false },
+      { scenario: 'Options have a natural ordinal order/scale',     seg: false, radio: false, slider: true,  auto: false },
+      { scenario: 'Large list (10+ options)',                       seg: false, radio: false, slider: false, auto: true  },
+      { scenario: 'User benefits from typing to filter',            seg: false, radio: false, slider: false, auto: true  },
+      { scenario: 'All options visible simultaneously',             seg: true,  radio: true,  slider: true,  auto: false },
     ];
     const headers = [
-      { label: 'Toggle',       cls: 'text-sky-600 dark:text-sky-400'         },
       { label: 'Segmented',    cls: 'text-emerald-600 dark:text-emerald-400' },
       { label: 'Radio',        cls: 'text-violet-600 dark:text-violet-400'   },
       { label: 'Slider',       cls: 'text-amber-600 dark:text-amber-400'     },
@@ -193,7 +191,7 @@ export class GroupSelectOneIndexE extends StateLitElement {
           ${rows.map((row, i) => html`
             <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
               <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-              ${([row.toggle, row.seg, row.radio, row.slider, row.auto] as boolean[]).map(ok => html`
+              ${([row.seg, row.radio, row.slider, row.auto] as boolean[]).map(ok => html`
                 <td class="px-4 py-3.5 text-center">
                   ${ok
                     ? html`<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>`
