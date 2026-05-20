@@ -67,7 +67,9 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
   handleIcaStateChange(key: string, value: any) {
     const valueAttr = this.getAttribute('value');
     if (valueAttr === `{{${key}}}`) {
-      this.focusedIndex = Number(value) || 0;
+      const newValue = Number(value) || 0;
+      this.value = newValue;
+      this.focusedIndex = newValue;
     }
     this.requestUpdate();
   }
@@ -108,13 +110,7 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
     if (this.loading || this.disabled || step.disabled) return false;
     if (!this.linear) return true;
 
-    if (index <= this.value) return true;
-    if (index === this.value + 1) {
-      const currentStep = steps[this.value];
-      const currentCompleted = currentStep ? this.isStepCompleted(this.value, currentStep) : false;
-      return currentCompleted;
-    }
-    return false;
+    return index <= this.value + 1;
   }
 
   private getNextFocusableIndex(direction: 1 | -1, steps: ParsedStep[]): number {
@@ -135,6 +131,7 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
     if (!this.canNavigateTo(index, step, steps)) return;
     this.value = index;
     this.focusedIndex = index;
+    this.requestUpdate();
     this.dispatchEvent(
       new CustomEvent('change', {
         bubbles: true,
