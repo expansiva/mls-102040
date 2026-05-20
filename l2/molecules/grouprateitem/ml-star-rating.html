@@ -1,0 +1,210 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Star Rating</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupRateItem</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":3},"error":{"value":null,"error":"Please select a rating"},"custom":{"value":1},"readonly":{"value":4},"disabled":{"value":2},"advanced":{"value":6}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <grouprateitem--ml-star-rating
+            value="{{playground.basic.value}}"
+            min="1"
+            max="5">
+            <Label>Rate this product</Label>
+          </grouprateitem--ml-star-rating>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <grouprateitem--ml-star-rating
+                  value="{{playground.basic.value}}"
+                  min="1"
+                  max="5">
+                  <Label>Rate this product</Label>
+                </grouprateitem--ml-star-rating>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Error</h3>
+        <demo id="demo-error">
+          <grouprateitem--ml-star-rating
+            value="{{playground.error.value}}"
+            error="{{playground.error.error}}"
+            required="true">
+            <Label>Your Rating</Label>
+            <Helper>Select a star rating to continue</Helper>
+          </grouprateitem--ml-star-rating>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+                <grouprateitem--ml-star-rating
+                  value="{{playground.error.value}}"
+                  error="{{playground.error.error}}"
+                  required="true">
+                  <Label>Your Rating</Label>
+                  <Helper>Select a star rating to continue</Helper>
+                </grouprateitem--ml-star-rating>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Custom Items</h3>
+        <demo id="demo-custom">
+          <grouprateitem--ml-star-rating
+            value="{{playground.custom.value}}">
+            <Label>Would you recommend?</Label>
+            <Item value="0">👎 No</Item>
+            <Item value="1">👍 Yes</Item>
+          </grouprateitem--ml-star-rating>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.custom.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-custom">
+              <template>
+                <grouprateitem--ml-star-rating
+                  value="{{playground.custom.value}}">
+                  <Label>Would you recommend?</Label>
+                  <Item value="0">👎 No</Item>
+                  <Item value="1">👍 Yes</Item>
+                </grouprateitem--ml-star-rating>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Readonly</h3>
+        <demo id="demo-readonly">
+          <grouprateitem--ml-star-rating
+            value="{{playground.readonly.value}}"
+            is-editing="false">
+            <Label>Average Rating</Label>
+          </grouprateitem--ml-star-rating>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-readonly">
+              <template>
+                <grouprateitem--ml-star-rating
+                  value="{{playground.readonly.value}}"
+                  is-editing="false">
+                  <Label>Average Rating</Label>
+                </grouprateitem--ml-star-rating>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+        <demo id="demo-disabled">
+          <grouprateitem--ml-star-rating
+            value="{{playground.disabled.value}}"
+            disabled="true">
+            <Label>Rating (locked)</Label>
+          </grouprateitem--ml-star-rating>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <grouprateitem--ml-star-rating
+                  value="{{playground.disabled.value}}"
+                  disabled="true">
+                  <Label>Rating (locked)</Label>
+                </grouprateitem--ml-star-rating>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Advanced Stepped</h3>
+        <demo id="demo-advanced">
+          <grouprateitem--ml-star-rating
+            value="{{playground.advanced.value}}"
+            min="0"
+            max="10"
+            step="2"
+            name="product-rating"
+            required="true">
+            <Label>Detailed Score (0-10, step 2)</Label>
+            <Helper>Rate from 0 to 10 in increments of 2</Helper>
+          </grouprateitem--ml-star-rating>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.advanced.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-advanced">
+              <template>
+                <grouprateitem--ml-star-rating
+                  value="{{playground.advanced.value}}"
+                  min="0"
+                  max="10"
+                  step="2"
+                  name="product-rating"
+                  required="true">
+                  <Label>Detailed Score (0-10, step 2)</Label>
+                  <Helper>Rate from 0 to 10 in increments of 2</Helper>
+                </grouprateitem--ml-star-rating>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

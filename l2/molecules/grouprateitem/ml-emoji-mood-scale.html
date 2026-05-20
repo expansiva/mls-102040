@@ -1,0 +1,244 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Emoji Mood Scale</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupRateItem</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":3},"emoji":{"value":null},"thumbs":{"value":1},"readonly":{"value":4},"disabled":{"value":2},"validation":{"value":null,"error":"Please select a mood"}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Numeric Scale</h3>
+        <demo id="demo-basic">
+          <grouprateitem--ml-emoji-mood-scale
+            value="{{playground.basic.value}}"
+            min="1"
+            max="5"
+            step="1">
+            <Label>Rate your experience (1-5)</Label>
+          </grouprateitem--ml-emoji-mood-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <grouprateitem--ml-emoji-mood-scale
+                  value="{{playground.basic.value}}"
+                  min="1"
+                  max="5"
+                  step="1">
+                  <Label>Rate your experience (1-5)</Label>
+                </grouprateitem--ml-emoji-mood-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Emoji Mood Scale</h3>
+        <demo id="demo-emoji">
+          <grouprateitem--ml-emoji-mood-scale
+            value="{{playground.emoji.value}}"
+            name="mood">
+            <Label>How are you feeling today?</Label>
+            <Helper>Select the emoji that best represents your mood</Helper>
+            <Item value="1">😠</Item>
+            <Item value="2">😞</Item>
+            <Item value="3">😐</Item>
+            <Item value="4">🙂</Item>
+            <Item value="5">😄</Item>
+          </grouprateitem--ml-emoji-mood-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.emoji.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-emoji">
+              <template>
+                <grouprateitem--ml-emoji-mood-scale
+                  value="{{playground.emoji.value}}"
+                  name="mood">
+                  <Label>How are you feeling today?</Label>
+                  <Helper>Select the emoji that best represents your mood</Helper>
+                  <Item value="1">😠</Item>
+                  <Item value="2">😞</Item>
+                  <Item value="3">😐</Item>
+                  <Item value="4">🙂</Item>
+                  <Item value="5">😄</Item>
+                </grouprateitem--ml-emoji-mood-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Thumbs Up / Down</h3>
+        <demo id="demo-thumbs">
+          <grouprateitem--ml-emoji-mood-scale
+            value="{{playground.thumbs.value}}">
+            <Label>Was this helpful?</Label>
+            <Item value="0">👎</Item>
+            <Item value="1">👍</Item>
+          </grouprateitem--ml-emoji-mood-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.thumbs.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-thumbs">
+              <template>
+                <grouprateitem--ml-emoji-mood-scale
+                  value="{{playground.thumbs.value}}">
+                  <Label>Was this helpful?</Label>
+                  <Item value="0">👎</Item>
+                  <Item value="1">👍</Item>
+                </grouprateitem--ml-emoji-mood-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read Only View</h3>
+        <demo id="demo-readonly">
+          <grouprateitem--ml-emoji-mood-scale
+            value="{{playground.readonly.value}}"
+            is-editing="false">
+            <Label>Submitted mood</Label>
+            <Item value="1">😠</Item>
+            <Item value="2">😞</Item>
+            <Item value="3">😐</Item>
+            <Item value="4">🙂</Item>
+            <Item value="5">😄</Item>
+          </grouprateitem--ml-emoji-mood-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-readonly">
+              <template>
+                <grouprateitem--ml-emoji-mood-scale
+                  value="{{playground.readonly.value}}"
+                  is-editing="false">
+                  <Label>Submitted mood</Label>
+                  <Item value="1">😠</Item>
+                  <Item value="2">😞</Item>
+                  <Item value="3">😐</Item>
+                  <Item value="4">🙂</Item>
+                  <Item value="5">😄</Item>
+                </grouprateitem--ml-emoji-mood-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled State</h3>
+        <demo id="demo-disabled">
+          <grouprateitem--ml-emoji-mood-scale
+            value="{{playground.disabled.value}}"
+            disabled="true">
+            <Label>Your rating (locked)</Label>
+            <Item value="1">⭐</Item>
+            <Item value="2">⭐⭐</Item>
+            <Item value="3">⭐⭐⭐</Item>
+            <Item value="4">⭐⭐⭐⭐</Item>
+            <Item value="5">⭐⭐⭐⭐⭐</Item>
+          </grouprateitem--ml-emoji-mood-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <grouprateitem--ml-emoji-mood-scale
+                  value="{{playground.disabled.value}}"
+                  disabled="true">
+                  <Label>Your rating (locked)</Label>
+                  <Item value="1">⭐</Item>
+                  <Item value="2">⭐⭐</Item>
+                  <Item value="3">⭐⭐⭐</Item>
+                  <Item value="4">⭐⭐⭐⭐</Item>
+                  <Item value="5">⭐⭐⭐⭐⭐</Item>
+                </grouprateitem--ml-emoji-mood-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Required with Error</h3>
+        <demo id="demo-validation">
+          <grouprateitem--ml-emoji-mood-scale
+            value="{{playground.validation.value}}"
+            required="true"
+            error="{{playground.validation.error}}">
+            <Label>Mood rating *</Label>
+            <Helper>This field is required</Helper>
+            <Item value="1">😠</Item>
+            <Item value="2">😞</Item>
+            <Item value="3">😐</Item>
+            <Item value="4">🙂</Item>
+            <Item value="5">😄</Item>
+          </grouprateitem--ml-emoji-mood-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.validation.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.validation.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-validation">
+              <template>
+                <grouprateitem--ml-emoji-mood-scale
+                  value="{{playground.validation.value}}"
+                  required="true"
+                  error="{{playground.validation.error}}">
+                  <Label>Mood rating *</Label>
+                  <Helper>This field is required</Helper>
+                  <Item value="1">😠</Item>
+                  <Item value="2">😞</Item>
+                  <Item value="3">😐</Item>
+                  <Item value="4">🙂</Item>
+                  <Item value="5">😄</Item>
+                </grouprateitem--ml-emoji-mood-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

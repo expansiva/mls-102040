@@ -1,0 +1,219 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Qualitative Feedback Tags</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupRateItem</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":null,"min":1,"max":5},"emoji":{"value":null},"descriptive":{"value":null},"validation":{"value":null,"required":true,"error":"Please select a rating"},"disabled":{"value":3},"viewmode":{"value":4}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Numeric Rating</h3>
+        <demo id="demo-basic">
+          <grouprateitem--ml-qualitative-feedback-tags
+            value="{{playground.basic.value}}"
+            min="1"
+            max="5">
+            <Label>Rate your experience</Label>
+          </grouprateitem--ml-qualitative-feedback-tags>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="min" value="{{playground.basic.min}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="max" value="{{playground.basic.max}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <grouprateitem--ml-qualitative-feedback-tags
+                  value="{{playground.basic.value}}"
+                  min="1"
+                  max="5">
+                  <Label>Rate your experience</Label>
+                </grouprateitem--ml-qualitative-feedback-tags>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Emoji Feedback</h3>
+        <demo id="demo-emoji">
+          <grouprateitem--ml-qualitative-feedback-tags
+            value="{{playground.emoji.value}}">
+            <Label>How do you feel?</Label>
+            <Item value="1">😠</Item>
+            <Item value="2">😞</Item>
+            <Item value="3">😐</Item>
+            <Item value="4">🙂</Item>
+            <Item value="5">😄</Item>
+          </grouprateitem--ml-qualitative-feedback-tags>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.emoji.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-emoji">
+              <template>
+                <grouprateitem--ml-qualitative-feedback-tags
+                  value="{{playground.emoji.value}}">
+                  <Label>How do you feel?</Label>
+                  <Item value="1">😠</Item>
+                  <Item value="2">😞</Item>
+                  <Item value="3">😐</Item>
+                  <Item value="4">🙂</Item>
+                  <Item value="5">😄</Item>
+                </grouprateitem--ml-qualitative-feedback-tags>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Descriptive Scale</h3>
+        <demo id="demo-descriptive">
+          <grouprateitem--ml-qualitative-feedback-tags
+            value="{{playground.descriptive.value}}"
+            name="satisfaction">
+            <Label>Satisfaction level</Label>
+            <Helper>Select the option that best describes your experience</Helper>
+            <Item value="1">Poor</Item>
+            <Item value="2">Fair</Item>
+            <Item value="3">Good</Item>
+            <Item value="4">Excellent</Item>
+          </grouprateitem--ml-qualitative-feedback-tags>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.descriptive.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-descriptive">
+              <template>
+                <grouprateitem--ml-qualitative-feedback-tags
+                  value="{{playground.descriptive.value}}"
+                  name="satisfaction">
+                  <Label>Satisfaction level</Label>
+                  <Helper>Select the option that best describes your experience</Helper>
+                  <Item value="1">Poor</Item>
+                  <Item value="2">Fair</Item>
+                  <Item value="3">Good</Item>
+                  <Item value="4">Excellent</Item>
+                </grouprateitem--ml-qualitative-feedback-tags>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Required Validation</h3>
+        <demo id="demo-validation">
+          <grouprateitem--ml-qualitative-feedback-tags
+            value="{{playground.validation.value}}"
+            required="{{playground.validation.required}}"
+            error="{{playground.validation.error}}">
+            <Label>Quality rating</Label>
+            <Helper>This field is required</Helper>
+          </grouprateitem--ml-qualitative-feedback-tags>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.validation.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.validation.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.validation.required}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-validation">
+              <template>
+                <grouprateitem--ml-qualitative-feedback-tags
+                  value="{{playground.validation.value}}"
+                  required="{{playground.validation.required}}"
+                  error="{{playground.validation.error}}">
+                  <Label>Quality rating</Label>
+                  <Helper>This field is required</Helper>
+                </grouprateitem--ml-qualitative-feedback-tags>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled State</h3>
+        <demo id="demo-disabled">
+          <grouprateitem--ml-qualitative-feedback-tags
+            value="{{playground.disabled.value}}"
+            disabled>
+            <Label>Previous rating</Label>
+          </grouprateitem--ml-qualitative-feedback-tags>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <grouprateitem--ml-qualitative-feedback-tags
+                  value="{{playground.disabled.value}}"
+                  disabled>
+                  <Label>Previous rating</Label>
+                </grouprateitem--ml-qualitative-feedback-tags>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View Mode</h3>
+        <demo id="demo-viewmode">
+          <grouprateitem--ml-qualitative-feedback-tags
+            value="{{playground.viewmode.value}}"
+            is-editing="false">
+            <Label>Submitted score</Label>
+          </grouprateitem--ml-qualitative-feedback-tags>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.viewmode.value}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-viewmode">
+              <template>
+                <grouprateitem--ml-qualitative-feedback-tags
+                  value="{{playground.viewmode.value}}"
+                  is-editing="false">
+                  <Label>Submitted score</Label>
+                </grouprateitem--ml-qualitative-feedback-tags>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>
