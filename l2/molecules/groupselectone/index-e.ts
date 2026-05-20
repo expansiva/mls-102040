@@ -51,7 +51,7 @@ export class GroupSelectOneIndexE extends StateLitElement {
     groupSelectOne
   </span>
   <h1 class="text-5xl font-bold text-slate-900 dark:text-slate-50 mb-5 tracking-tight">
-    Select One.<br/>Five controls, one contract.
+    Select One
   </h1>
   <p class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
     Every component in this group solves the same problem — picking exactly one option from a set —
@@ -67,7 +67,7 @@ export class GroupSelectOneIndexE extends StateLitElement {
   private renderShowcaseCards(): TemplateResult {
     return html`
 <section class="bg-slate-50 dark:bg-slate-950 px-8 py-12 border-b border-slate-200 dark:border-slate-700">
-  <div class="max-w-6xl mx-auto flex flex-col gap-5">
+  <div class="max-w-2xl mx-auto flex flex-col gap-5">
 
     <!-- Toggle Switch -->
     <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
