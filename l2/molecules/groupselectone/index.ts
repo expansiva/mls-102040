@@ -55,8 +55,8 @@ export class GroupSelectOneIndex extends StateLitElement {
   <div class="max-w-2xl mx-auto flex flex-col gap-5">
 
     <!-- Radio Group -->
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-      <div class="h-1 bg-violet-500"></div>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+      <div class="h-1 bg-violet-500 rounded-t-2xl"></div>
       <div class="p-6">
         <div class="flex items-center justify-between mb-1">
           <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Radio Group</p>
@@ -75,8 +75,8 @@ export class GroupSelectOneIndex extends StateLitElement {
     </div>
 
     <!-- Segmented Control -->
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-      <div class="h-1 bg-emerald-500"></div>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+      <div class="h-1 rounded-t-2xl bg-emerald-500"></div>
       <div class="p-6">
         <div class="flex items-center justify-between mb-1">
           <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Segmented Control</p>
@@ -95,8 +95,8 @@ export class GroupSelectOneIndex extends StateLitElement {
     </div>
 
     <!-- Discrete Slider -->
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-      <div class="h-1 bg-amber-500"></div>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+      <div class="h-1 rounded-t-2xl bg-amber-500"></div>
       <div class="p-6">
         <div class="flex items-center justify-between mb-1">
           <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Discrete Slider</p>
@@ -115,8 +115,8 @@ export class GroupSelectOneIndex extends StateLitElement {
     </div>
 
     <!-- Autocomplete -->
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-      <div class="h-1 bg-rose-500"></div>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+      <div class="h-1 rounded-t-2xl bg-rose-500"></div>
       <div class="p-6">
         <div class="flex items-center justify-between mb-1">
           <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Autocomplete</p>
@@ -143,8 +143,8 @@ export class GroupSelectOneIndex extends StateLitElement {
     </div>
 
     <!-- Select Dropdown -->
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-      <div class="h-1 bg-sky-500"></div>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+      <div class="h-1 rounded-t-2xl bg-sky-500"></div>
       <div class="p-6">
         <div class="flex items-center justify-between mb-1">
           <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Select Dropdown</p>
@@ -164,8 +164,8 @@ export class GroupSelectOneIndex extends StateLitElement {
     </div>
 
     <!-- Select Dropdown Img -->
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-      <div class="h-1 bg-indigo-500"></div>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+      <div class="h-1 rounded-t-2xl bg-indigo-500"></div>
       <div class="p-6">
         <div class="flex items-center justify-between mb-1">
           <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Select Dropdown Img</p>
@@ -185,8 +185,8 @@ export class GroupSelectOneIndex extends StateLitElement {
     </div>
 
     <!-- Card Selector -->
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-      <div class="h-1 bg-purple-500"></div>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+      <div class="h-1 rounded-t-2xl bg-purple-500"></div>
       <div class="p-6">
         <div class="flex items-center justify-between mb-1">
           <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Card Selector</p>
@@ -214,8 +214,8 @@ export class GroupSelectOneIndex extends StateLitElement {
     </div>
 
     <!-- Listbox Sidebar -->
-    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-      <div class="h-1 bg-teal-500"></div>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+      <div class="h-1 rounded-t-2xl bg-teal-500"></div>
       <div class="p-6">
         <div class="flex items-center justify-between mb-1">
           <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Listbox Sidebar</p>
