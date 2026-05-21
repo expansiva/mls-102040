@@ -1,0 +1,227 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">CPF Input</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterText</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"","placeholder":"000.000.000-00"},"error":{"value":1234567890,"error":"CPF inválido. Verifique os dígitos informados."},"helper":{"value":""},"affix":{"value":52998224725},"disabled":{"value":"529.982.247-25"},"viewmode":{"value":52998224725}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupentertext--ml-cpf-input
+            value="{{playground.basic.value}}"
+            placeholder="{{playground.basic.placeholder}}"
+            name="cpf"
+            autocomplete="off"
+            required="true"
+            max-length="11">
+            <Label>CPF</Label>
+          </groupentertext--ml-cpf-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupentertext--ml-cpf-input
+                  value="{{playground.basic.value}}"
+                  placeholder="{{playground.basic.placeholder}}"
+                  name="cpf"
+                  autocomplete="off"
+                  required="true"
+                  max-length="11">
+                  <Label>CPF</Label>
+                </groupentertext--ml-cpf-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Error</h3>
+        <demo id="demo-error">
+          <groupentertext--ml-cpf-input
+            value="{{playground.error.value}}"
+            error="{{playground.error.error}}"
+            placeholder="000.000.000-00">
+            <Label>CPF</Label>
+          </groupentertext--ml-cpf-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+                <groupentertext--ml-cpf-input
+                  value="{{playground.error.value}}"
+                  error="{{playground.error.error}}"
+                  placeholder="000.000.000-00">
+                  <Label>CPF</Label>
+                </groupentertext--ml-cpf-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Helper</h3>
+        <demo id="demo-helper">
+          <groupentertext--ml-cpf-input
+            value="{{playground.helper.value}}"
+            placeholder="000.000.000-00"
+            required="true">
+            <Label>CPF</Label>
+            <Helper>Informe o CPF do titular da conta</Helper>
+          </groupentertext--ml-cpf-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.helper.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-helper">
+              <template>
+                <groupentertext--ml-cpf-input
+                  value="{{playground.helper.value}}"
+                  placeholder="000.000.000-00"
+                  required="true">
+                  <Label>CPF</Label>
+                  <Helper>Informe o CPF do titular da conta</Helper>
+                </groupentertext--ml-cpf-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Prefix and Suffix</h3>
+        <demo id="demo-affix">
+          <groupentertext--ml-cpf-input
+            value="{{playground.affix.value}}"
+            placeholder="000.000.000-00">
+            <Label>CPF</Label>
+            <Prefix>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+              </svg>
+            </Prefix>
+            <Suffix>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </svg>
+            </Suffix>
+          </groupentertext--ml-cpf-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.affix.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-affix">
+              <template>
+                <groupentertext--ml-cpf-input
+                  value="{{playground.affix.value}}"
+                  placeholder="000.000.000-00">
+                  <Label>CPF</Label>
+                  <Prefix>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                    </svg>
+                  </Prefix>
+                  <Suffix>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                  </Suffix>
+                </groupentertext--ml-cpf-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+        <demo id="demo-disabled">
+          <groupentertext--ml-cpf-input
+            value="{{playground.disabled.value}}"
+            disabled="true">
+            <Label>CPF</Label>
+          </groupentertext--ml-cpf-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupentertext--ml-cpf-input
+                  value="{{playground.disabled.value}}"
+                  disabled="true">
+                  <Label>CPF</Label>
+                </groupentertext--ml-cpf-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View Mode</h3>
+        <demo id="demo-viewmode">
+          <groupentertext--ml-cpf-input
+            value="{{playground.viewmode.value}}"
+            is-editing="false">
+            <Label>CPF</Label>
+          </groupentertext--ml-cpf-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.viewmode.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-viewmode">
+              <template>
+                <groupentertext--ml-cpf-input
+                  value="{{playground.viewmode.value}}"
+                  is-editing="false">
+                  <Label>CPF</Label>
+                </groupentertext--ml-cpf-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

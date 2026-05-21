@@ -1,0 +1,222 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Checkbox Preference</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterBoolean</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":false,"error":""},"helper":{"value":false},"error":{"value":false,"error":"You must accept the terms to proceed"},"disabled":{"value":true,"disabled":true},"view":{"value":true},"advanced":{"value":true,"error":"","name":"marketing-consent"}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupenterboolean--ml-checkbox-preference
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            name=""
+            is-editing="true"
+            disabled="false">
+            <Label>Enable notifications</Label>
+          </groupenterboolean--ml-checkbox-preference>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupenterboolean--ml-checkbox-preference
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  name=""
+                  is-editing="true"
+                  disabled="false">
+                  <Label>Enable notifications</Label>
+                </groupenterboolean--ml-checkbox-preference>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Helper Text</h3>
+        <demo id="demo-helper">
+          <groupenterboolean--ml-checkbox-preference
+            value="{{playground.helper.value}}"
+            is-editing="true"
+            disabled="false">
+            <Label>Subscribe to newsletter</Label>
+            <Helper>Receive weekly updates directly in your inbox</Helper>
+          </groupenterboolean--ml-checkbox-preference>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.helper.value}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-helper">
+              <template>
+                <groupenterboolean--ml-checkbox-preference
+                  value="{{playground.helper.value}}"
+                  is-editing="true"
+                  disabled="false">
+                  <Label>Subscribe to newsletter</Label>
+                  <Helper>Receive weekly updates directly in your inbox</Helper>
+                </groupenterboolean--ml-checkbox-preference>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error State</h3>
+        <demo id="demo-error">
+          <groupenterboolean--ml-checkbox-preference
+            value="{{playground.error.value}}"
+            error="{{playground.error.error}}"
+            is-editing="true"
+            disabled="false">
+            <Label>I accept the terms and conditions</Label>
+          </groupenterboolean--ml-checkbox-preference>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+                <groupenterboolean--ml-checkbox-preference
+                  value="{{playground.error.value}}"
+                  error="{{playground.error.error}}"
+                  is-editing="true"
+                  disabled="false">
+                  <Label>I accept the terms and conditions</Label>
+                </groupenterboolean--ml-checkbox-preference>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled State</h3>
+        <demo id="demo-disabled">
+          <groupenterboolean--ml-checkbox-preference
+            value="{{playground.disabled.value}}"
+            disabled="{{playground.disabled.disabled}}"
+            is-editing="true">
+            <Label>Auto-save changes</Label>
+            <Helper>This option is currently locked by your administrator</Helper>
+          </groupenterboolean--ml-checkbox-preference>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupenterboolean--ml-checkbox-preference
+                  value="{{playground.disabled.value}}"
+                  disabled="{{playground.disabled.disabled}}"
+                  is-editing="true">
+                  <Label>Auto-save changes</Label>
+                  <Helper>This option is currently locked by your administrator</Helper>
+                </groupenterboolean--ml-checkbox-preference>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only View</h3>
+        <demo id="demo-view">
+          <groupenterboolean--ml-checkbox-preference
+            value="{{playground.view.value}}"
+            is-editing="false">
+            <Label>Profile visibility</Label>
+          </groupenterboolean--ml-checkbox-preference>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.view.value}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-view">
+              <template>
+                <groupenterboolean--ml-checkbox-preference
+                  value="{{playground.view.value}}"
+                  is-editing="false">
+                  <Label>Profile visibility</Label>
+                </groupenterboolean--ml-checkbox-preference>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Advanced Configuration</h3>
+        <demo id="demo-advanced">
+          <groupenterboolean--ml-checkbox-preference
+            value="{{playground.advanced.value}}"
+            error="{{playground.advanced.error}}"
+            name="{{playground.advanced.name}}"
+            is-editing="true"
+            disabled="false">
+            <Label>Enable advanced analytics</Label>
+            <Helper>Allows us to collect usage data to improve your experience</Helper>
+          </groupenterboolean--ml-checkbox-preference>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.advanced.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.advanced.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.advanced.name}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-advanced">
+              <template>
+                <groupenterboolean--ml-checkbox-preference
+                  value="{{playground.advanced.value}}"
+                  error="{{playground.advanced.error}}"
+                  name="{{playground.advanced.name}}"
+                  is-editing="true"
+                  disabled="false">
+                  <Label>Enable advanced analytics</Label>
+                  <Helper>Allows us to collect usage data to improve your experience</Helper>
+                </groupenterboolean--ml-checkbox-preference>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>
