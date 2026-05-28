@@ -1,0 +1,441 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Card Grid</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewData</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"loading":{"loading":true},"selectable":{"selectable":true,"hoverable":true},"disabled":{"selectable":true,"hoverable":true}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Product Grid</h3>
+        <demo id="demo-basic">
+          <groupviewdata--ml-card-grid>
+            <Columns>
+              <Column field="name" header="Product" />
+              <Column field="category" header="Category" />
+              <Column field="price" header="Price" align="right" width="80px" />
+            </Columns>
+            <Rows>
+              <Row>
+                <Cell>Wireless Headphones</Cell>
+                <Cell>Electronics</Cell>
+                <Cell>$99.00</Cell>
+              </Row>
+              <Row>
+                <Cell>Running Shoes</Cell>
+                <Cell>Sports</Cell>
+                <Cell>$129.00</Cell>
+              </Row>
+              <Row>
+                <Cell>Coffee Maker</Cell>
+                <Cell>Home</Cell>
+                <Cell>$79.00</Cell>
+              </Row>
+            </Rows>
+          </groupviewdata--ml-card-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <p class="text-sm text-slate-500 dark:text-slate-400">No configurable properties for this example.</p>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewdata--ml-card-grid>
+                  <Columns>
+                    <Column field="name" header="Product" />
+                    <Column field="category" header="Category" />
+                    <Column field="price" header="Price" align="right" width="80px" />
+                  </Columns>
+                  <Rows>
+                    <Row>
+                      <Cell>Wireless Headphones</Cell>
+                      <Cell>Electronics</Cell>
+                      <Cell>$99.00</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>Running Shoes</Cell>
+                      <Cell>Sports</Cell>
+                      <Cell>$129.00</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>Coffee Maker</Cell>
+                      <Cell>Home</Cell>
+                      <Cell>$79.00</Cell>
+                    </Row>
+                  </Rows>
+                </groupviewdata--ml-card-grid>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+        <demo id="demo-loading">
+          <groupviewdata--ml-card-grid loading="{{playground.loading.loading}}">
+            <Columns>
+              <Column field="name" header="Name" />
+              <Column field="status" header="Status" />
+            </Columns>
+            <Rows></Rows>
+            <Loading>
+              <div class="flex items-center justify-center gap-3 py-8">
+                <div class="w-5 h-5 border-2 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+                <span class="text-slate-600 dark:text-slate-300">Fetching records...</span>
+              </div>
+            </Loading>
+          </groupviewdata--ml-card-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewdata--ml-card-grid loading="{{playground.loading.loading}}">
+                  <Columns>
+                    <Column field="name" header="Name" />
+                    <Column field="status" header="Status" />
+                  </Columns>
+                  <Rows></Rows>
+                  <Loading>
+                    <div class="flex items-center justify-center gap-3 py-8">
+                      <div class="w-5 h-5 border-2 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+                      <span class="text-slate-600 dark:text-slate-300">Fetching records...</span>
+                    </div>
+                  </Loading>
+                </groupviewdata--ml-card-grid>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty State</h3>
+        <demo id="demo-empty">
+          <groupviewdata--ml-card-grid>
+            <Columns>
+              <Column field="title" header="Title" />
+              <Column field="author" header="Author" />
+            </Columns>
+            <Rows></Rows>
+            <Empty>
+              <div class="text-center py-8">
+                <div class="text-4xl mb-2">📭</div>
+                <div class="text-slate-600 dark:text-slate-300 font-medium">No articles found</div>
+                <div class="text-sm text-slate-400 dark:text-slate-500 mt-1">Try adjusting your filters</div>
+              </div>
+            </Empty>
+          </groupviewdata--ml-card-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <p class="text-sm text-slate-500 dark:text-slate-400">No configurable properties for this example.</p>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+                <groupviewdata--ml-card-grid>
+                  <Columns>
+                    <Column field="title" header="Title" />
+                    <Column field="author" header="Author" />
+                  </Columns>
+                  <Rows></Rows>
+                  <Empty>
+                    <div class="text-center py-8">
+                      <div class="text-4xl mb-2">📭</div>
+                      <div class="text-slate-600 dark:text-slate-300 font-medium">No articles found</div>
+                      <div class="text-sm text-slate-400 dark:text-slate-500 mt-1">Try adjusting your filters</div>
+                    </div>
+                  </Empty>
+                </groupviewdata--ml-card-grid>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable Cards</h3>
+        <demo id="demo-selectable">
+          <groupviewdata--ml-card-grid selectable="{{playground.selectable.selectable}}" hoverable="{{playground.selectable.hoverable}}">
+            <Columns>
+              <Column field="id" header="ID" width="60px" />
+              <Column field="project" header="Project" />
+              <Column field="owner" header="Owner" />
+            </Columns>
+            <Rows>
+              <Row>
+                <Cell>#101</Cell>
+                <Cell>Website Redesign</Cell>
+                <Cell>Ana Costa</Cell>
+              </Row>
+              <Row selected>
+                <Cell>#102</Cell>
+                <Cell>Mobile App</Cell>
+                <Cell>Bruno Lima</Cell>
+              </Row>
+              <Row>
+                <Cell>#103</Cell>
+                <Cell>API Migration</Cell>
+                <Cell>Carla Dias</Cell>
+              </Row>
+            </Rows>
+          </groupviewdata--ml-card-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="hoverable" value="{{playground.selectable.hoverable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+                <groupviewdata--ml-card-grid selectable="{{playground.selectable.selectable}}" hoverable="{{playground.selectable.hoverable}}">
+                  <Columns>
+                    <Column field="id" header="ID" width="60px" />
+                    <Column field="project" header="Project" />
+                    <Column field="owner" header="Owner" />
+                  </Columns>
+                  <Rows>
+                    <Row>
+                      <Cell>#101</Cell>
+                      <Cell>Website Redesign</Cell>
+                      <Cell>Ana Costa</Cell>
+                    </Row>
+                    <Row selected>
+                      <Cell>#102</Cell>
+                      <Cell>Mobile App</Cell>
+                      <Cell>Bruno Lima</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>#103</Cell>
+                      <Cell>API Migration</Cell>
+                      <Cell>Carla Dias</Cell>
+                    </Row>
+                  </Rows>
+                </groupviewdata--ml-card-grid>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Rich Content Cards</h3>
+        <demo id="demo-rich">
+          <groupviewdata--ml-card-grid hoverable="true">
+            <Columns>
+              <Column field="user" header="User" />
+              <Column field="role" header="Role" align="center" />
+              <Column field="actions" header="" width="100px" align="right" />
+            </Columns>
+            <Rows>
+              <Row>
+                <Cell>
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 flex items-center justify-center font-bold">WL</div>
+                    <div>
+                      <div class="font-medium text-slate-900 dark:text-slate-100">William Little</div>
+                      <div class="text-xs text-slate-500 dark:text-slate-400">william@email.com</div>
+                    </div>
+                  </div>
+                </Cell>
+                <Cell>
+                  <span class="inline-block px-2 py-0.5 rounded-full text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">Admin</span>
+                </Cell>
+                <Cell>
+                  <div class="flex gap-2 justify-end">
+                    <button class="px-3 py-1 text-xs rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600">Edit</button>
+                    <button class="px-3 py-1 text-xs rounded bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/50">Delete</button>
+                  </div>
+                </Cell>
+              </Row>
+              <Row>
+                <Cell>
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 flex items-center justify-center font-bold">SJ</div>
+                    <div>
+                      <div class="font-medium text-slate-900 dark:text-slate-100">Sarah Johnson</div>
+                      <div class="text-xs text-slate-500 dark:text-slate-400">sarah@email.com</div>
+                    </div>
+                  </div>
+                </Cell>
+                <Cell>
+                  <span class="inline-block px-2 py-0.5 rounded-full text-xs bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300">Editor</span>
+                </Cell>
+                <Cell>
+                  <div class="flex gap-2 justify-end">
+                    <button class="px-3 py-1 text-xs rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600">Edit</button>
+                    <button class="px-3 py-1 text-xs rounded bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/50">Delete</button>
+                  </div>
+                </Cell>
+              </Row>
+            </Rows>
+          </groupviewdata--ml-card-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <p class="text-sm text-slate-500 dark:text-slate-400">Static configuration with hoverable enabled.</p>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-rich">
+              <template>
+                <groupviewdata--ml-card-grid hoverable="true">
+                  <Columns>
+                    <Column field="user" header="User" />
+                    <Column field="role" header="Role" align="center" />
+                    <Column field="actions" header="" width="100px" align="right" />
+                  </Columns>
+                  <Rows>
+                    <Row>
+                      <Cell>
+                        <div class="flex items-center gap-3">
+                          <div class="w-10 h-10 rounded-full bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 flex items-center justify-center font-bold">WL</div>
+                          <div>
+                            <div class="font-medium text-slate-900 dark:text-slate-100">William Little</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">william@email.com</div>
+                          </div>
+                        </div>
+                      </Cell>
+                      <Cell>
+                        <span class="inline-block px-2 py-0.5 rounded-full text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300">Admin</span>
+                      </Cell>
+                      <Cell>
+                        <div class="flex gap-2 justify-end">
+                          <button class="px-3 py-1 text-xs rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600">Edit</button>
+                          <button class="px-3 py-1 text-xs rounded bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/50">Delete</button>
+                        </div>
+                      </Cell>
+                    </Row>
+                    <Row>
+                      <Cell>
+                        <div class="flex items-center gap-3">
+                          <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 flex items-center justify-center font-bold">SJ</div>
+                          <div>
+                            <div class="font-medium text-slate-900 dark:text-slate-100">Sarah Johnson</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">sarah@email.com</div>
+                          </div>
+                        </div>
+                      </Cell>
+                      <Cell>
+                        <span class="inline-block px-2 py-0.5 rounded-full text-xs bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300">Editor</span>
+                      </Cell>
+                      <Cell>
+                        <div class="flex gap-2 justify-end">
+                          <button class="px-3 py-1 text-xs rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600">Edit</button>
+                          <button class="px-3 py-1 text-xs rounded bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/50">Delete</button>
+                        </div>
+                      </Cell>
+                    </Row>
+                  </Rows>
+                </groupviewdata--ml-card-grid>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled & Pre-selected</h3>
+        <demo id="demo-disabled">
+          <groupviewdata--ml-card-grid selectable="{{playground.disabled.selectable}}" hoverable="{{playground.disabled.hoverable}}">
+            <Columns>
+              <Column field="task" header="Task" />
+              <Column field="priority" header="Priority" align="center" width="100px" />
+              <Column field="due" header="Due Date" align="right" width="120px" />
+            </Columns>
+            <Rows>
+              <Row>
+                <Cell>Update documentation</Cell>
+                <Cell>
+                  <span class="px-2 py-0.5 rounded text-xs bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300">Medium</span>
+                </Cell>
+                <Cell>2025-06-01</Cell>
+              </Row>
+              <Row selected>
+                <Cell>Fix navigation bug</Cell>
+                <Cell>
+                  <span class="px-2 py-0.5 rounded text-xs bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300">High</span>
+                </Cell>
+                <Cell>2025-05-28</Cell>
+              </Row>
+              <Row disabled>
+                <Cell>Legacy module cleanup</Cell>
+                <Cell>
+                  <span class="px-2 py-0.5 rounded text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400">Low</span>
+                </Cell>
+                <Cell>2025-06-15</Cell>
+              </Row>
+            </Rows>
+          </groupviewdata--ml-card-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.disabled.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="hoverable" value="{{playground.disabled.hoverable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupviewdata--ml-card-grid selectable="{{playground.disabled.selectable}}" hoverable="{{playground.disabled.hoverable}}">
+                  <Columns>
+                    <Column field="task" header="Task" />
+                    <Column field="priority" header="Priority" align="center" width="100px" />
+                    <Column field="due" header="Due Date" align="right" width="120px" />
+                  </Columns>
+                  <Rows>
+                    <Row>
+                      <Cell>Update documentation</Cell>
+                      <Cell>
+                        <span class="px-2 py-0.5 rounded text-xs bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300">Medium</span>
+                      </Cell>
+                      <Cell>2025-06-01</Cell>
+                    </Row>
+                    <Row selected>
+                      <Cell>Fix navigation bug</Cell>
+                      <Cell>
+                        <span class="px-2 py-0.5 rounded text-xs bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300">High</span>
+                      </Cell>
+                      <Cell>2025-05-28</Cell>
+                    </Row>
+                    <Row disabled>
+                      <Cell>Legacy module cleanup</Cell>
+                      <Cell>
+                        <span class="px-2 py-0.5 rounded text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400">Low</span>
+                      </Cell>
+                      <Cell>2025-06-15</Cell>
+                    </Row>
+                  </Rows>
+                </groupviewdata--ml-card-grid>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

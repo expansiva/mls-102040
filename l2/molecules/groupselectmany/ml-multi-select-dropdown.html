@@ -1,0 +1,287 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Multi Select Dropdown</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupSelectMany</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"apple,banana","error":"","placeholder":"Select fruits"},"grouped":{"value":"react","searchable":true,"placeholder":"Search technologies..."},"validation":{"value":"read","error":"","required":true,"minSelection":2,"maxSelection":3},"viewmode":{"value":"gold,silver","isEditing":false},"disabled":{"value":"editor","disabled":true},"custom":{"value":"","placeholder":"Select technologies","searchable":true}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupselectmany--ml-multi-select-dropdown
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            placeholder="{{playground.basic.placeholder}}"
+            name="fruits">
+            <Label>Favorite Fruits</Label>
+            <Helper>Choose one or more fruits from the list.</Helper>
+            <Item value="apple">Apple</Item>
+            <Item value="banana">Banana</Item>
+            <Item value="orange">Orange</Item>
+            <Item value="grape">Grape</Item>
+          </groupselectmany--ml-multi-select-dropdown>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupselectmany--ml-multi-select-dropdown
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  placeholder="{{playground.basic.placeholder}}"
+                  name="fruits">
+                  <Label>Favorite Fruits</Label>
+                  <Helper>Choose one or more fruits from the list.</Helper>
+                  <Item value="apple">Apple</Item>
+                  <Item value="banana">Banana</Item>
+                  <Item value="orange">Orange</Item>
+                  <Item value="grape">Grape</Item>
+                </groupselectmany--ml-multi-select-dropdown>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Grouped & Searchable</h3>
+        <demo id="demo-grouped">
+          <groupselectmany--ml-multi-select-dropdown
+            value="{{playground.grouped.value}}"
+            searchable="{{playground.grouped.searchable}}"
+            placeholder="{{playground.grouped.placeholder}}">
+            <Label>Tech Stack</Label>
+            <Helper>Select frontend and backend technologies.</Helper>
+            <Group label="Frontend">
+              <Item value="react">React</Item>
+              <Item value="vue">Vue</Item>
+              <Item value="angular">Angular</Item>
+            </Group>
+            <Group label="Backend">
+              <Item value="node">Node.js</Item>
+              <Item value="python">Python</Item>
+              <Item value="go">Go</Item>
+            </Group>
+          </groupselectmany--ml-multi-select-dropdown>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.grouped.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="searchable" value="{{playground.grouped.searchable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.grouped.placeholder}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-grouped">
+              <template>
+                <groupselectmany--ml-multi-select-dropdown
+                  value="{{playground.grouped.value}}"
+                  searchable="{{playground.grouped.searchable}}"
+                  placeholder="{{playground.grouped.placeholder}}">
+                  <Label>Tech Stack</Label>
+                  <Helper>Select frontend and backend technologies.</Helper>
+                  <Group label="Frontend">
+                    <Item value="react">React</Item>
+                    <Item value="vue">Vue</Item>
+                    <Item value="angular">Angular</Item>
+                  </Group>
+                  <Group label="Backend">
+                    <Item value="node">Node.js</Item>
+                    <Item value="python">Python</Item>
+                    <Item value="go">Go</Item>
+                  </Group>
+                </groupselectmany--ml-multi-select-dropdown>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Validation</h3>
+        <demo id="demo-validation">
+          <groupselectmany--ml-multi-select-dropdown
+            value="{{playground.validation.value}}"
+            error="{{playground.validation.error}}"
+            required="{{playground.validation.required}}"
+            min-selection="{{playground.validation.minSelection}}"
+            max-selection="{{playground.validation.maxSelection}}">
+            <Label>Permissions</Label>
+            <Helper>Select between 2 and 3 permissions.</Helper>
+            <Item value="read">Read</Item>
+            <Item value="write">Write</Item>
+            <Item value="execute">Execute</Item>
+            <Item value="admin">Admin</Item>
+            <Item value="delete">Delete</Item>
+          </groupselectmany--ml-multi-select-dropdown>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.validation.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.validation.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.validation.required}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="min-selection" value="{{playground.validation.minSelection}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="max-selection" value="{{playground.validation.maxSelection}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-validation">
+              <template>
+                <groupselectmany--ml-multi-select-dropdown
+                  value="{{playground.validation.value}}"
+                  error="{{playground.validation.error}}"
+                  required="{{playground.validation.required}}"
+                  min-selection="{{playground.validation.minSelection}}"
+                  max-selection="{{playground.validation.maxSelection}}">
+                  <Label>Permissions</Label>
+                  <Helper>Select between 2 and 3 permissions.</Helper>
+                  <Item value="read">Read</Item>
+                  <Item value="write">Write</Item>
+                  <Item value="execute">Execute</Item>
+                  <Item value="admin">Admin</Item>
+                  <Item value="delete">Delete</Item>
+                </groupselectmany--ml-multi-select-dropdown>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View Mode</h3>
+        <demo id="demo-viewmode">
+          <groupselectmany--ml-multi-select-dropdown
+            value="{{playground.viewmode.value}}"
+            is-editing="{{playground.viewmode.isEditing}}">
+            <Label>Membership Tier</Label>
+            <Item value="gold">Gold</Item>
+            <Item value="silver">Silver</Item>
+            <Item value="bronze">Bronze</Item>
+          </groupselectmany--ml-multi-select-dropdown>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.viewmode.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="is-editing" value="{{playground.viewmode.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-viewmode">
+              <template>
+                <groupselectmany--ml-multi-select-dropdown
+                  value="{{playground.viewmode.value}}"
+                  is-editing="{{playground.viewmode.isEditing}}">
+                  <Label>Membership Tier</Label>
+                  <Item value="gold">Gold</Item>
+                  <Item value="silver">Silver</Item>
+                  <Item value="bronze">Bronze</Item>
+                </groupselectmany--ml-multi-select-dropdown>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+        <demo id="demo-disabled">
+          <groupselectmany--ml-multi-select-dropdown
+            value="{{playground.disabled.value}}"
+            disabled="{{playground.disabled.disabled}}">
+            <Label>Assigned Roles</Label>
+            <Item value="editor">Editor</Item>
+            <Item value="viewer">Viewer</Item>
+            <Item value="admin">Admin</Item>
+          </groupselectmany--ml-multi-select-dropdown>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupselectmany--ml-multi-select-dropdown
+                  value="{{playground.disabled.value}}"
+                  disabled="{{playground.disabled.disabled}}">
+                  <Label>Assigned Roles</Label>
+                  <Item value="editor">Editor</Item>
+                  <Item value="viewer">Viewer</Item>
+                  <Item value="admin">Admin</Item>
+                </groupselectmany--ml-multi-select-dropdown>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Custom Trigger & Empty</h3>
+        <demo id="demo-custom">
+          <groupselectmany--ml-multi-select-dropdown
+            value="{{playground.custom.value}}"
+            placeholder="{{playground.custom.placeholder}}"
+            searchable="{{playground.custom.searchable}}">
+            <Label>Skills</Label>
+            <Trigger>
+              <span class="text-sky-600 dark:text-sky-400 font-medium">Click to manage skills →</span>
+            </Trigger>
+            <Item value="js">JavaScript</Item>
+            <Item value="ts">TypeScript</Item>
+            <Item value="py">Python</Item>
+            <Empty>No skills found. Try a different search.</Empty>
+          </groupselectmany--ml-multi-select-dropdown>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.custom.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.custom.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="searchable" value="{{playground.custom.searchable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-custom">
+              <template>
+                <groupselectmany--ml-multi-select-dropdown
+                  value="{{playground.custom.value}}"
+                  placeholder="{{playground.custom.placeholder}}"
+                  searchable="{{playground.custom.searchable}}">
+                  <Label>Skills</Label>
+                  <Trigger>
+                    <span class="text-sky-600 dark:text-sky-400 font-medium">Click to manage skills →</span>
+                  </Trigger>
+                  <Item value="js">JavaScript</Item>
+                  <Item value="ts">TypeScript</Item>
+                  <Item value="py">Python</Item>
+                  <Empty>No skills found. Try a different search.</Empty>
+                </groupselectmany--ml-multi-select-dropdown>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>
