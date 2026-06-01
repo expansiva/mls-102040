@@ -17,12 +17,12 @@ export class MoleculesSummary extends CollabLitElement {
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium mb-6">mls-102040</span>
       <div class="flex justify-center gap-8 mt-4">
         <div class="text-center">
-          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">27</div>
+          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">28</div>
           <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">groups</div>
         </div>
         <div class="w-px bg-slate-200 dark:bg-slate-700"></div>
         <div class="text-center">
-          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">69</div>
+          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">71</div>
           <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">components</div>
         </div>
       </div>
@@ -62,12 +62,13 @@ export class MoleculesSummary extends CollabLitElement {
       { name: 'Navigate Steps', count: 2, color: 'amber', components: ['ml-horizontal-stepper', 'ml-vertical-stepper'] },
     ])}
 
-    ${this.renderSection('Other', '5 groups · 11 components', [
+    ${this.renderSection('Other', '6 groups · 13 components', [
       { name: 'Expand Content', count: 1, color: 'rose', components: ['ml-accordion'] },
       { name: 'Notify User', count: 2, color: 'rose', components: ['ml-notify-banner', 'ml-toast-notification'] },
       { name: 'Play Media', count: 1, color: 'rose', components: ['ml-video-player'] },
       { name: 'Rate Item', count: 6, color: 'rose', components: ['ml-emoji-mood-scale', 'ml-numeric-rating-nps', 'ml-qualitative-feedback-tags', 'ml-rating-slider', 'ml-star-rating', 'ml-thumbs-rating'] },
       { name: 'Scan Code', count: 1, color: 'rose', components: ['ml-scan-code'] },
+      { name: 'Search Content', count: 2, color: 'rose', components: ['ml-search-bar', 'ml-search-history'] },
     ])}
 
   </div>
