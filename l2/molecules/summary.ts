@@ -1,10 +1,10 @@
-/// <mls fileReference="_102040_/l2/molecules/summary.ts" enhancement="_blank" />
+/// <mls fileReference="_102040_/l2/molecules/summary-102040.ts" enhancement="_102020_/l2/enhancementAura" />
 
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { CollabLitElement } from '/_102027_/l2/collabLitElement.js';
 
-@customElement('molecules--summary')
+@customElement('molecules--summary-102040')
 export class MoleculesSummary extends CollabLitElement {
 
   render() {
