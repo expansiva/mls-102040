@@ -6,18 +6,16 @@ import '/_102040_/l2/molecules/groupselectmany/ml-multi-select-dropdown';
 import '/_102040_/l2/molecules/groupselectmany/ml-popover-multi-select';
 
 @customElement('molecules--groupselectmany--index-102040')
-export class GroupGroupSelectManyIndex extends StateLitElement {
+export class GroupSelectManyIndex extends StateLitElement {
   // ── Showcase card states ─────────────────────────────────────
-  @state() private card1 = 'growth,product';
-  @state() private card2 = 'research,qa';
+  @state() private cardOne = 'read,write';
+  @state() private cardTwo = 'design,qa';
 
   // ===========================================================================
   // HERO
   private renderHero(): TemplateResult {
     return html`
-      <header
-        class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-8 py-20 text-center"
-      >
+      <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-8 py-20 text-center">
         <span
           class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300 rounded-full text-xs font-semibold uppercase tracking-widest mb-6"
         >
@@ -29,8 +27,6 @@ export class GroupGroupSelectManyIndex extends StateLitElement {
         <p class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
           Allows the user to select one or more options from a list. Value is a comma-separated string of selected item
           values. Supports searchable filtering, min/max selection limits, grouped items, and disabled options.
-          Implementations include checkbox group, chips/tags, multi-select dropdown, dual list (transfer list), card grid
-          with selection, and toggle group.
         </p>
       </header>
     `;
@@ -44,86 +40,76 @@ export class GroupGroupSelectManyIndex extends StateLitElement {
         class="bg-slate-50 dark:bg-slate-950 px-8 py-12 border-b border-slate-200 dark:border-slate-700"
       >
         <div class="max-w-2xl mx-auto flex flex-col gap-5">
-          <div
-            class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm"
-          >
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-violet-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Multi-select dropdown</p>
-                <code
-                  class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded"
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded"
                   >groupselectmany--ml-multi-select-dropdown</code
                 >
               </div>
-              <p class="text-xs text-slate-400 mb-5">Searchable dropdown with grouped topics and selection limits.</p>
+              <p class="text-xs text-slate-400 mb-5">Compact dropdown with search and a custom trigger.</p>
               <groupselectmany--ml-multi-select-dropdown
                 name="card-1"
-                value="${this.card1}"
-                .isEditing=${true}
+                value="${this.cardOne}"
+                placeholder="Select permissions"
                 .searchable=${true}
-                .minSelection=${1}
-                .maxSelection=${3}
-                placeholder="Choose up to three topics"
+                .isEditing=${true}
                 @change=${(e: CustomEvent) => {
-                  this.card1 = e.detail.value;
+                  this.cardOne = e.detail.value;
                 }}
               >
-                <Label>Primary interests</Label>
-                <Trigger>Select topics (${this.card1.split(',').filter(Boolean).length})</Trigger>
-                <Group label="Growth">
-                  <Item value="growth">Growth strategy</Item>
-                  <Item value="retention">Retention programs</Item>
-                </Group>
-                <Group label="Product">
-                  <Item value="product">Product discovery</Item>
-                  <Item value="design">Design systems</Item>
-                </Group>
-                <Item value="analytics" disabled>Analytics (coming soon)</Item>
-                <Empty>No topics match the filter.</Empty>
-                <Helper>Pick at least one topic and no more than three.</Helper>
+                <Label>Permissions</Label>
+                <Helper>Select the actions the user can perform.</Helper>
+                <Trigger>
+                  <span class="inline-flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    Manage permissions
+                  </span>
+                </Trigger>
+                <Item value="read">Read</Item>
+                <Item value="write">Write</Item>
+                <Item value="execute">Execute</Item>
+                <Item value="admin" disabled>Admin (restricted)</Item>
+                <Empty>No permissions available</Empty>
               </groupselectmany--ml-multi-select-dropdown>
             </div>
           </div>
 
-          <div
-            class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm"
-          >
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-emerald-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Popover multi-select</p>
-                <code
-                  class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded"
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded"
                   >groupselectmany--ml-popover-multi-select</code
                 >
               </div>
-              <p class="text-xs text-slate-400 mb-5">Popover trigger for dense screens and quick selection.</p>
+              <p class="text-xs text-slate-400 mb-5">Grouped items with min/max selection limits.</p>
               <groupselectmany--ml-popover-multi-select
                 name="card-2"
-                value="${this.card2}"
+                value="${this.cardTwo}"
+                placeholder="Choose team roles"
+                .minSelection=${1}
+                .maxSelection=${3}
                 .isEditing=${true}
-                .searchable=${false}
-                .minSelection=${0}
-                .maxSelection=${0}
-                placeholder="Assign squads"
                 @change=${(e: CustomEvent) => {
-                  this.card2 = e.detail.value;
+                  this.cardTwo = e.detail.value;
                 }}
               >
-                <Label>Squad assignments</Label>
-                <Trigger>Assign squads</Trigger>
-                <Group label="Quality">
+                <Label>Team roles</Label>
+                <Helper>Pick up to three roles for this squad.</Helper>
+                <Group label="Product">
+                  <Item value="design">Design</Item>
+                  <Item value="product">Product</Item>
+                </Group>
+                <Group label="Engineering">
+                  <Item value="frontend">Frontend</Item>
+                  <Item value="backend">Backend</Item>
                   <Item value="qa">QA</Item>
-                  <Item value="security">Security</Item>
                 </Group>
-                <Group label="Discovery">
-                  <Item value="research">Research</Item>
-                  <Item value="ux">UX</Item>
-                </Group>
-                <Item value="support" disabled>Support (read-only)</Item>
-                <Empty>No squads available.</Empty>
-                <Helper>Select any squads that should be looped in.</Helper>
+                <Empty>No roles found</Empty>
               </groupselectmany--ml-popover-multi-select>
             </div>
           </div>
@@ -141,23 +127,18 @@ export class GroupGroupSelectManyIndex extends StateLitElement {
       popoverMultiSelect: boolean;
     }> = [
       {
-        scenario: 'Needs inline search with persistent list visibility for heavy filtering.',
+        scenario: 'Need a compact dropdown trigger that fits tight toolbar layouts.',
         multiSelectDropdown: true,
         popoverMultiSelect: false,
       },
       {
-        scenario: 'Compact trigger required to save horizontal space in dense layouts.',
+        scenario: 'Want grouped options with min/max limits surfaced in a popover.',
         multiSelectDropdown: false,
         popoverMultiSelect: true,
       },
       {
-        scenario: 'Guided selection with min/max limits and grouped headings.',
+        scenario: 'Searchable list where the trigger can be customized.',
         multiSelectDropdown: true,
-        popoverMultiSelect: true,
-      },
-      {
-        scenario: 'Prefer a simple click-to-open control for quick pick lists.',
-        multiSelectDropdown: false,
         popoverMultiSelect: true,
       },
     ];
@@ -171,11 +152,10 @@ export class GroupGroupSelectManyIndex extends StateLitElement {
         <div class="max-w-5xl mx-auto">
           <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
           <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Use this table to decide which multi-select pattern best matches your layout density and interaction needs.
+            Choose the implementation that best balances space, grouping needs, and how the trigger is presented while
+            still supporting multi-selection.
           </p>
-          <div
-            class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm"
-          >
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
             <table class="w-full text-sm">
               <thead>
                 <tr class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
@@ -186,9 +166,7 @@ export class GroupGroupSelectManyIndex extends StateLitElement {
                   </th>
                   ${headers.map(
                     (h) => html`
-                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">
-                        ${h.label}
-                      </th>
+                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">${h.label}</th>
                     `
                   )}
                 </tr>
@@ -197,9 +175,7 @@ export class GroupGroupSelectManyIndex extends StateLitElement {
                 ${rows.map(
                   (row, i) => html`
                     <tr
-                      class="${i % 2 !== 0
-                        ? 'bg-slate-50/60 dark:bg-slate-900/40'
-                        : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0"
+                      class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0"
                     >
                       <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
                       ${([row.multiSelectDropdown, row.popoverMultiSelect] as boolean[]).map(
@@ -227,7 +203,7 @@ export class GroupGroupSelectManyIndex extends StateLitElement {
 
   // ===========================================================================
   // RENDER
-  render(): TemplateResult {
+  protected render(): TemplateResult {
     return html`
       <div class="font-sans min-h-screen">
         ${this.renderHero()} ${this.renderShowcaseCards()} ${this.renderReferenceTable()}
