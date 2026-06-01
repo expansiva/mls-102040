@@ -1,0 +1,532 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Data Table</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewTable</span>
+</header>
+
+<widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"disabled":false,"loading":false},"selectable":{"selectable":true,"disabled":false,"loading":false},"richCells":{"selectable":false,"disabled":false,"loading":false},"withFooter":{"selectable":false,"disabled":false,"loading":false},"loading":{"selectable":false,"disabled":false,"loading":true},"empty":{"selectable":false,"disabled":false,"loading":false}}}'></widget-playground-state-102020>
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- Basic sortable table -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic sortable table</h3>
+<demo id="demo-basic">
+<groupviewtable--ml-data-table
+  selectable="{{playground.basic.selectable}}"
+  disabled="{{playground.basic.disabled}}"
+  loading="{{playground.basic.loading}}">
+  <Caption>Customer List</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="name" sortable>Name</TableHead>
+      <TableHead key="company" sortable>Company</TableHead>
+      <TableHead key="city">City</TableHead>
+      <TableHead key="since" sortable>Since</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Alice Ferreira</TableCell>
+      <TableCell>Acme Corp</TableCell>
+      <TableCell>São Paulo</TableCell>
+      <TableCell>2021</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Bruno Costa</TableCell>
+      <TableCell>Globex Inc</TableCell>
+      <TableCell>Rio de Janeiro</TableCell>
+      <TableCell>2019</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Carla Souza</TableCell>
+      <TableCell>Initech</TableCell>
+      <TableCell>Belo Horizonte</TableCell>
+      <TableCell>2023</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Diego Mendes</TableCell>
+      <TableCell>Umbrella Ltd</TableCell>
+      <TableCell>Curitiba</TableCell>
+      <TableCell>2020</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupviewtable--ml-data-table selectable="{{playground.basic.selectable}}" disabled="{{playground.basic.disabled}}" loading="{{playground.basic.loading}}">
+  <Caption>Customer List</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="name" sortable>Name</TableHead>
+      <TableHead key="company" sortable>Company</TableHead>
+      <TableHead key="city">City</TableHead>
+      <TableHead key="since" sortable>Since</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Alice Ferreira</TableCell>
+      <TableCell>Acme Corp</TableCell>
+      <TableCell>São Paulo</TableCell>
+      <TableCell>2021</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Bruno Costa</TableCell>
+      <TableCell>Globex Inc</TableCell>
+      <TableCell>Rio de Janeiro</TableCell>
+      <TableCell>2019</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Carla Souza</TableCell>
+      <TableCell>Initech</TableCell>
+      <TableCell>Belo Horizonte</TableCell>
+      <TableCell>2023</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Diego Mendes</TableCell>
+      <TableCell>Umbrella Ltd</TableCell>
+      <TableCell>Curitiba</TableCell>
+      <TableCell>2020</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With row selection -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With row selection</h3>
+<demo id="demo-selectable">
+<groupviewtable--ml-data-table
+  selectable="{{playground.selectable.selectable}}"
+  disabled="{{playground.selectable.disabled}}"
+  loading="{{playground.selectable.loading}}">
+  <Caption>Order Management</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="order" sortable>Order #</TableHead>
+      <TableHead key="customer" sortable>Customer</TableHead>
+      <TableHead key="total" sortable>Total</TableHead>
+      <TableHead key="date" sortable>Date</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>ORD-001</TableCell>
+      <TableCell>Alice Ferreira</TableCell>
+      <TableCell>R$ 1.250,00</TableCell>
+      <TableCell>2024-03-12</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>ORD-002</TableCell>
+      <TableCell>Bruno Costa</TableCell>
+      <TableCell>R$ 340,50</TableCell>
+      <TableCell>2024-03-14</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>ORD-003</TableCell>
+      <TableCell>Carla Souza</TableCell>
+      <TableCell>R$ 8.900,00</TableCell>
+      <TableCell>2024-03-15</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>ORD-004</TableCell>
+      <TableCell>Diego Mendes</TableCell>
+      <TableCell>R$ 620,75</TableCell>
+      <TableCell>2024-03-16</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>ORD-005</TableCell>
+      <TableCell>Elisa Ramos</TableCell>
+      <TableCell>R$ 2.100,00</TableCell>
+      <TableCell>2024-03-17</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.selectable.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-selectable">
+<template>
+<groupviewtable--ml-data-table selectable>
+  <Caption>Order Management</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="order" sortable>Order #</TableHead>
+      <TableHead key="customer" sortable>Customer</TableHead>
+      <TableHead key="total" sortable>Total</TableHead>
+      <TableHead key="date" sortable>Date</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>ORD-001</TableCell>
+      <TableCell>Alice Ferreira</TableCell>
+      <TableCell>R$ 1.250,00</TableCell>
+      <TableCell>2024-03-12</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>ORD-002</TableCell>
+      <TableCell>Bruno Costa</TableCell>
+      <TableCell>R$ 340,50</TableCell>
+      <TableCell>2024-03-14</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>ORD-003</TableCell>
+      <TableCell>Carla Souza</TableCell>
+      <TableCell>R$ 8.900,00</TableCell>
+      <TableCell>2024-03-15</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Rich HTML cell content -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Rich HTML cell content</h3>
+<demo id="demo-rich">
+<groupviewtable--ml-data-table
+  selectable="{{playground.richCells.selectable}}"
+  disabled="{{playground.richCells.disabled}}"
+  loading="{{playground.richCells.loading}}">
+  <Caption>Product Catalog</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="product">Product</TableHead>
+      <TableHead key="category">Category</TableHead>
+      <TableHead key="stock" sortable>Stock</TableHead>
+      <TableHead key="status">Status</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell><span class="font-medium">Premium Laptop Stand</span></TableCell>
+      <TableCell><span class="rounded-full bg-violet-100 dark:bg-violet-900/40 px-2 py-0.5 text-xs font-medium text-violet-700 dark:text-violet-300">Electronics</span></TableCell>
+      <TableCell>142</TableCell>
+      <TableCell><span class="rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300">In Stock</span></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><span class="font-medium">Ergonomic Mouse</span></TableCell>
+      <TableCell><span class="rounded-full bg-violet-100 dark:bg-violet-900/40 px-2 py-0.5 text-xs font-medium text-violet-700 dark:text-violet-300">Electronics</span></TableCell>
+      <TableCell>8</TableCell>
+      <TableCell><span class="rounded-full bg-yellow-100 dark:bg-yellow-900/40 px-2 py-0.5 text-xs font-semibold text-yellow-700 dark:text-yellow-300">Low Stock</span></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><span class="font-medium">Desk Organizer Set</span></TableCell>
+      <TableCell><span class="rounded-full bg-sky-100 dark:bg-sky-900/40 px-2 py-0.5 text-xs font-medium text-sky-700 dark:text-sky-300">Office</span></TableCell>
+      <TableCell>0</TableCell>
+      <TableCell><span class="rounded-full bg-red-100 dark:bg-red-900/40 px-2 py-0.5 text-xs font-semibold text-red-700 dark:text-red-300">Out of Stock</span></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><span class="font-medium">Wireless Headset Pro</span></TableCell>
+      <TableCell><span class="rounded-full bg-violet-100 dark:bg-violet-900/40 px-2 py-0.5 text-xs font-medium text-violet-700 dark:text-violet-300">Electronics</span></TableCell>
+      <TableCell>57</TableCell>
+      <TableCell><span class="rounded-full bg-emerald-100 dark:bg-emerald-900/40 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300">In Stock</span></TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.richCells.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.richCells.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.richCells.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-rich">
+<template>
+<groupviewtable--ml-data-table>
+  <Caption>Product Catalog</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="product">Product</TableHead>
+      <TableHead key="category">Category</TableHead>
+      <TableHead key="stock" sortable>Stock</TableHead>
+      <TableHead key="status">Status</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell><span class="font-medium">Premium Laptop Stand</span></TableCell>
+      <TableCell><span class="rounded-full bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-700">Electronics</span></TableCell>
+      <TableCell>142</TableCell>
+      <TableCell><span class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700">In Stock</span></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><span class="font-medium">Ergonomic Mouse</span></TableCell>
+      <TableCell><span class="rounded-full bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-700">Electronics</span></TableCell>
+      <TableCell>8</TableCell>
+      <TableCell><span class="rounded-full bg-yellow-100 px-2 py-0.5 text-xs font-semibold text-yellow-700">Low Stock</span></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><span class="font-medium">Desk Organizer Set</span></TableCell>
+      <TableCell><span class="rounded-full bg-sky-100 px-2 py-0.5 text-xs font-medium text-sky-700">Office</span></TableCell>
+      <TableCell>0</TableCell>
+      <TableCell><span class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700">Out of Stock</span></TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With footer row (totals) -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With footer (totals)</h3>
+<demo id="demo-footer">
+<groupviewtable--ml-data-table
+  selectable="{{playground.withFooter.selectable}}"
+  disabled="{{playground.withFooter.disabled}}"
+  loading="{{playground.withFooter.loading}}">
+  <Caption>Sales Report — Q1 2024</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="rep" sortable>Sales Rep</TableHead>
+      <TableHead key="region">Region</TableHead>
+      <TableHead key="revenue" sortable>Revenue</TableHead>
+      <TableHead key="target" sortable>Target %</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>João Alves</TableCell>
+      <TableCell>Sul</TableCell>
+      <TableCell>R$ 92.000</TableCell>
+      <TableCell>115%</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Mariana Torres</TableCell>
+      <TableCell>Sudeste</TableCell>
+      <TableCell>R$ 138.500</TableCell>
+      <TableCell>98%</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Rafael Pinto</TableCell>
+      <TableCell>Norte</TableCell>
+      <TableCell>R$ 74.200</TableCell>
+      <TableCell>87%</TableCell>
+    </TableRow>
+  </TableBody>
+  <TableFooter>
+    <TableRow>
+      <TableCell>Total</TableCell>
+      <TableCell></TableCell>
+      <TableCell>R$ 304.700</TableCell>
+      <TableCell>100%</TableCell>
+    </TableRow>
+  </TableFooter>
+</groupviewtable--ml-data-table>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.withFooter.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.withFooter.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.withFooter.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-footer">
+<template>
+<groupviewtable--ml-data-table>
+  <Caption>Sales Report — Q1 2024</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="rep" sortable>Sales Rep</TableHead>
+      <TableHead key="region">Region</TableHead>
+      <TableHead key="revenue" sortable>Revenue</TableHead>
+      <TableHead key="target" sortable>Target %</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>João Alves</TableCell>
+      <TableCell>Sul</TableCell>
+      <TableCell>R$ 92.000</TableCell>
+      <TableCell>115%</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Mariana Torres</TableCell>
+      <TableCell>Sudeste</TableCell>
+      <TableCell>R$ 138.500</TableCell>
+      <TableCell>98%</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Rafael Pinto</TableCell>
+      <TableCell>Norte</TableCell>
+      <TableCell>R$ 74.200</TableCell>
+      <TableCell>87%</TableCell>
+    </TableRow>
+  </TableBody>
+  <TableFooter>
+    <TableRow>
+      <TableCell>Total</TableCell>
+      <TableCell></TableCell>
+      <TableCell>R$ 304.700</TableCell>
+      <TableCell>100%</TableCell>
+    </TableRow>
+  </TableFooter>
+</groupviewtable--ml-data-table>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Loading skeleton -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading skeleton</h3>
+<demo id="demo-loading">
+<groupviewtable--ml-data-table
+  selectable="{{playground.loading.selectable}}"
+  disabled="{{playground.loading.disabled}}"
+  loading="{{playground.loading.loading}}">
+  <Caption>Sales Report</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="rep" sortable>Sales Rep</TableHead>
+      <TableHead key="region">Region</TableHead>
+      <TableHead key="revenue" sortable>Revenue</TableHead>
+      <TableHead key="target">Target %</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>João Alves</TableCell>
+      <TableCell>Sul</TableCell>
+      <TableCell>R$ 92.000</TableCell>
+      <TableCell>115%</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupviewtable--ml-data-table loading>
+  <Caption>Sales Report</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="rep" sortable>Sales Rep</TableHead>
+      <TableHead key="region">Region</TableHead>
+      <TableHead key="revenue" sortable>Revenue</TableHead>
+      <TableHead key="target">Target %</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>João Alves</TableCell>
+      <TableCell>Sul</TableCell>
+      <TableCell>R$ 92.000</TableCell>
+      <TableCell>115%</TableCell>
+    </TableRow>
+  </TableBody>
+</groupviewtable--ml-data-table>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Empty state -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty state</h3>
+<demo id="demo-empty">
+<groupviewtable--ml-data-table
+  selectable="{{playground.empty.selectable}}"
+  disabled="{{playground.empty.disabled}}"
+  loading="{{playground.empty.loading}}">
+  <Caption>Search Results</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="email">Email</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody></TableBody>
+  <Empty>No records match your search. Try adjusting the filters.</Empty>
+</groupviewtable--ml-data-table>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.empty.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-empty">
+<template>
+<groupviewtable--ml-data-table>
+  <Caption>Search Results</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="name">Name</TableHead>
+      <TableHead key="email">Email</TableHead>
+      <TableHead key="role">Role</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody></TableBody>
+  <Empty>No records match your search. Try adjusting the filters.</Empty>
+</groupviewtable--ml-data-table>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>

@@ -1,0 +1,299 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Select</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupSelectOne</span>
+</header>
+
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","disabled":false,"readonly":false,"loading":false,"required":false},"groups":{"value":"","disabled":false,"readonly":false,"loading":false,"required":false},"states":{"value":"br","disabled":false,"readonly":false,"loading":false,"required":true},"viewMode":{"value":"sp","disabled":false,"readonly":false,"loading":false,"required":false},"error":{"value":"","disabled":false,"readonly":false,"loading":false,"required":false},"loading":{"value":"","disabled":false,"readonly":false,"loading":true,"required":false}}}'></widget-playground-state-102020>
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- Basic select -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic select</h3>
+<demo id="demo-basic">
+<groupselectone--ml-select
+  value="{{playground.basic.value}}"
+  disabled="{{playground.basic.disabled}}"
+  readonly="{{playground.basic.readonly}}"
+  loading="{{playground.basic.loading}}"
+  required="{{playground.basic.required}}"
+  placeholder="Choose a country">
+  <Label>Country</Label>
+  <Item value="br">Brazil</Item>
+  <Item value="us">United States</Item>
+  <Item value="de">Germany</Item>
+  <Item value="jp">Japan</Item>
+  <Item value="fr">France</Item>
+  <Item value="gb">United Kingdom</Item>
+  <Helper>Select the country of registration</Helper>
+</groupselectone--ml-select>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="readonly" value="{{playground.basic.readonly}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupselectone--ml-select placeholder="Choose a country">
+  <Label>Country</Label>
+  <Item value="br">Brazil</Item>
+  <Item value="us">United States</Item>
+  <Item value="de">Germany</Item>
+  <Item value="jp">Japan</Item>
+  <Item value="fr">France</Item>
+  <Item value="gb">United Kingdom</Item>
+  <Helper>Select the country of registration</Helper>
+</groupselectone--ml-select>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With groups and disabled items -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With groups and disabled items</h3>
+<demo id="demo-groups">
+<groupselectone--ml-select
+  value="{{playground.groups.value}}"
+  disabled="{{playground.groups.disabled}}"
+  readonly="{{playground.groups.readonly}}"
+  loading="{{playground.groups.loading}}"
+  placeholder="Select a department">
+  <Label>Department</Label>
+  <Group label="Commercial">
+    <Item value="sales">Sales</Item>
+    <Item value="marketing">Marketing</Item>
+    <Item value="cs">Customer Success</Item>
+  </Group>
+  <Group label="Operations">
+    <Item value="hr">Human Resources</Item>
+    <Item value="finance">Finance</Item>
+    <Item value="legal" disabled>Legal (unavailable)</Item>
+  </Group>
+  <Group label="Technology">
+    <Item value="eng">Engineering</Item>
+    <Item value="data">Data &amp; Analytics</Item>
+    <Item value="infra">Infrastructure</Item>
+  </Group>
+</groupselectone--ml-select>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.groups.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.groups.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="readonly" value="{{playground.groups.readonly}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.groups.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-groups">
+<template>
+<groupselectone--ml-select placeholder="Select a department">
+  <Label>Department</Label>
+  <Group label="Commercial">
+    <Item value="sales">Sales</Item>
+    <Item value="marketing">Marketing</Item>
+    <Item value="cs">Customer Success</Item>
+  </Group>
+  <Group label="Operations">
+    <Item value="hr">Human Resources</Item>
+    <Item value="finance">Finance</Item>
+    <Item value="legal" disabled>Legal (unavailable)</Item>
+  </Group>
+  <Group label="Technology">
+    <Item value="eng">Engineering</Item>
+    <Item value="data">Data &amp; Analytics</Item>
+    <Item value="infra">Infrastructure</Item>
+  </Group>
+</groupselectone--ml-select>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Error and required -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error and required</h3>
+<demo id="demo-error">
+<groupselectone--ml-select
+  value="{{playground.states.value}}"
+  disabled="{{playground.states.disabled}}"
+  readonly="{{playground.states.readonly}}"
+  loading="{{playground.states.loading}}"
+  required="{{playground.states.required}}"
+  error="This field is required"
+  placeholder="Select a state">
+  <Label>State</Label>
+  <Item value="sp">São Paulo</Item>
+  <Item value="rj">Rio de Janeiro</Item>
+  <Item value="mg">Minas Gerais</Item>
+  <Item value="rs">Rio Grande do Sul</Item>
+  <Item value="pr">Paraná</Item>
+  <Item value="ba">Bahia</Item>
+</groupselectone--ml-select>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.states.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.states.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="readonly" value="{{playground.states.readonly}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.states.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="required" value="{{playground.states.required}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-error">
+<template>
+<groupselectone--ml-select required error="This field is required" placeholder="Select a state">
+  <Label>State</Label>
+  <Item value="sp">São Paulo</Item>
+  <Item value="rj">Rio de Janeiro</Item>
+  <Item value="mg">Minas Gerais</Item>
+  <Item value="rs">Rio Grande do Sul</Item>
+  <Item value="pr">Paraná</Item>
+  <Item value="ba">Bahia</Item>
+</groupselectone--ml-select>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- View mode (isEditing=false) -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View mode (is-editing=false)</h3>
+<demo id="demo-viewmode">
+<groupselectone--ml-select
+  value="{{playground.viewMode.value}}"
+  is-editing="false">
+  <Label>Region</Label>
+  <Item value="sp">São Paulo</Item>
+  <Item value="rj">Rio de Janeiro</Item>
+  <Item value="mg">Minas Gerais</Item>
+</groupselectone--ml-select>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.viewMode.value}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-viewmode">
+<template>
+<groupselectone--ml-select value="sp" is-editing="false">
+  <Label>Region</Label>
+  <Item value="sp">São Paulo</Item>
+  <Item value="rj">Rio de Janeiro</Item>
+  <Item value="mg">Minas Gerais</Item>
+</groupselectone--ml-select>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Loading state -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+<demo id="demo-loading">
+<groupselectone--ml-select
+  loading="{{playground.loading.loading}}"
+  placeholder="Select a category">
+  <Label>Category</Label>
+  <Item value="a">Option A</Item>
+  <Item value="b">Option B</Item>
+</groupselectone--ml-select>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupselectone--ml-select loading placeholder="Select a category">
+  <Label>Category</Label>
+  <Item value="a">Option A</Item>
+  <Item value="b">Option B</Item>
+</groupselectone--ml-select>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Mixed: groups + top-level items -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Groups + standalone items</h3>
+<demo id="demo-mixed">
+<groupselectone--ml-select placeholder="Select a role">
+  <Label>Role</Label>
+  <Group label="Leadership">
+    <Item value="ceo">CEO</Item>
+    <Item value="cto">CTO</Item>
+    <Item value="cfo">CFO</Item>
+  </Group>
+  <Group label="Management">
+    <Item value="mgr">Manager</Item>
+    <Item value="lead">Tech Lead</Item>
+  </Group>
+  <Item value="dev">Developer</Item>
+  <Item value="des">Designer</Item>
+  <Item value="qa">QA Analyst</Item>
+</groupselectone--ml-select>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-mixed">
+<template>
+<groupselectone--ml-select placeholder="Select a role">
+  <Label>Role</Label>
+  <Group label="Leadership">
+    <Item value="ceo">CEO</Item>
+    <Item value="cto">CTO</Item>
+    <Item value="cfo">CFO</Item>
+  </Group>
+  <Group label="Management">
+    <Item value="mgr">Manager</Item>
+    <Item value="lead">Tech Lead</Item>
+  </Group>
+  <Item value="dev">Developer</Item>
+  <Item value="des">Designer</Item>
+  <Item value="qa">QA Analyst</Item>
+</groupselectone--ml-select>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>
