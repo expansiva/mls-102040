@@ -1,0 +1,239 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Locate Map Picker</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupLocatePosition</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"map":{"value":""},"geo":{"value":""},"loading":{"value":"","error":"Failed to fetch suggestions"}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <!-- Basic usage -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic usage with label and suggestions</h3>
+        <demo id="demo-basic">
+          <grouplocateposition--ml-locate-map-picker
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            placeholder="Search for a place..."
+            is-editing="true">
+            <Label>Location</Label>
+            <Suggestions>
+              <Item value="-23.55,-46.63">São Paulo, SP</Item>
+              <Item value="-22.90,-43.17">Rio de Janeiro, RJ</Item>
+            </Suggestions>
+          </grouplocateposition--ml-locate-map-picker>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <grouplocateposition--ml-locate-map-picker
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  placeholder="Search for a place..."
+                  is-editing="true">
+                  <Label>Location</Label>
+                  <Suggestions>
+                    <Item value="-23.55,-46.63">São Paulo, SP</Item>
+                    <Item value="-22.90,-43.17">Rio de Janeiro, RJ</Item>
+                  </Suggestions>
+                </grouplocateposition--ml-locate-map-picker>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <!-- With map preview and required -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With map preview and required</h3>
+        <demo id="demo-map">
+          <grouplocateposition--ml-locate-map-picker
+            value="{{playground.map.value}}"
+            show-map="true"
+            required="true"
+            placeholder="Type coordinates or address"
+            is-editing="true">
+            <Label>Pick a location</Label>
+            <Helper>Click on the map to select a point.</Helper>
+          </grouplocateposition--ml-locate-map-picker>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.map.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-map">
+              <template>
+                <grouplocateposition--ml-locate-map-picker
+                  value="{{playground.map.value}}"
+                  show-map="true"
+                  required="true"
+                  placeholder="Type coordinates or address"
+                  is-editing="true">
+                  <Label>Pick a location</Label>
+                  <Helper>Click on the map to select a point.</Helper>
+                </grouplocateposition--ml-locate-map-picker>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <!-- With geolocation trigger and custom button label -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With geolocation trigger and custom button label</h3>
+        <demo id="demo-geo">
+          <grouplocateposition--ml-locate-map-picker
+            value="{{playground.geo.value}}"
+            allow-geolocation="true"
+            placeholder="Find your location..."
+            is-editing="true">
+            <Label>Current Position</Label>
+            <Trigger>📍 Detect</Trigger>
+          </grouplocateposition--ml-locate-map-picker>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.geo.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-geo">
+              <template>
+                <grouplocateposition--ml-locate-map-picker
+                  value="{{playground.geo.value}}"
+                  allow-geolocation="true"
+                  placeholder="Find your location..."
+                  is-editing="true">
+                  <Label>Current Position</Label>
+                  <Trigger>📍 Detect</Trigger>
+                </grouplocateposition--ml-locate-map-picker>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <!-- Read-only mode with selected value -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only mode with selected value</h3>
+        <demo id="demo-readonly">
+          <grouplocateposition--ml-locate-map-picker
+            value="-23.55,-46.63"
+            is-editing="false">
+            <Label>Selected Location</Label>
+            <Suggestions>
+              <Item value="-23.55,-46.63">São Paulo, SP</Item>
+            </Suggestions>
+          </grouplocateposition--ml-locate-map-picker>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-readonly">
+              <template>
+                <grouplocateposition--ml-locate-map-picker
+                  value="-23.55,-46.63"
+                  is-editing="false">
+                  <Label>Selected Location</Label>
+                  <Suggestions>
+                    <Item value="-23.55,-46.63">São Paulo, SP</Item>
+                  </Suggestions>
+                </grouplocateposition--ml-locate-map-picker>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <!-- Disabled with helper and empty slot -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled with helper and empty slot</h3>
+        <demo id="demo-disabled">
+          <grouplocateposition--ml-locate-map-picker
+            value=""
+            disabled="true"
+            placeholder="Disabled field"
+            is-editing="true">
+            <Label>Disabled Location</Label>
+            <Helper>This field is disabled.</Helper>
+            <Empty>No location available.</Empty>
+          </grouplocateposition--ml-locate-map-picker>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <grouplocateposition--ml-locate-map-picker
+                  value=""
+                  disabled="true"
+                  placeholder="Disabled field"
+                  is-editing="true">
+                  <Label>Disabled Location</Label>
+                  <Helper>This field is disabled.</Helper>
+                  <Empty>No location available.</Empty>
+                </grouplocateposition--ml-locate-map-picker>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <!-- Loading state with custom suggestions and error -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state with custom suggestions and error</h3>
+        <demo id="demo-loading">
+          <grouplocateposition--ml-locate-map-picker
+            value="{{playground.loading.value}}"
+            loading="true"
+            error="{{playground.loading.error}}"
+            is-editing="true">
+            <Label>Loading Example</Label>
+            <Suggestions>
+              <Item value="-30.03,-51.23">Porto Alegre, RS</Item>
+              <Item value="-19.92,-43.94">Belo Horizonte, MG</Item>
+            </Suggestions>
+          </grouplocateposition--ml-locate-map-picker>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <grouplocateposition--ml-locate-map-picker
+                  value="{{playground.loading.value}}"
+                  loading="true"
+                  error="{{playground.loading.error}}"
+                  is-editing="true">
+                  <Label>Loading Example</Label>
+                  <Suggestions>
+                    <Item value="-30.03,-51.23">Porto Alegre, RS</Item>
+                    <Item value="-19.92,-43.94">Belo Horizonte, MG</Item>
+                  </Suggestions>
+                </grouplocateposition--ml-locate-map-picker>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

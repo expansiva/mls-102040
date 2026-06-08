@@ -1,0 +1,326 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Split Button</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupTriggerAction</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"size":"md","type":"button","icon-position":"start","disabled":false,"loading":false},"iconStart":{"size":"md","type":"button","icon-position":"start","disabled":false,"loading":false},"iconEnd":{"size":"md","type":"button","icon-position":"end","disabled":false,"loading":false},"disabled":{"size":"md","type":"button","icon-position":"start","disabled":true,"loading":false},"loading":{"size":"md","type":"button","icon-position":"start","disabled":false,"loading":true},"options":{"size":"md","type":"button","icon-position":"start","disabled":false,"loading":false}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- Basic usage -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic usage</h3>
+<demo id="demo-basic">
+<grouptriggeraction--ml-split-button
+  size="{{playground.basic.size}}"
+  type="{{playground.basic.type}}"
+  icon-position="{{playground.basic['icon-position']}}"
+  disabled="{{playground.basic.disabled}}"
+  loading="{{playground.basic.loading}}">
+  <Label>Primary Action</Label>
+</grouptriggeraction--ml-split-button>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="size" value="{{playground.basic.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="type" value="{{playground.basic.type}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="icon-position" value="{{playground.basic['icon-position']}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<grouptriggeraction--ml-split-button
+  size="{{playground.basic.size}}"
+  type="{{playground.basic.type}}"
+  icon-position="{{playground.basic['icon-position']}}"
+  disabled="{{playground.basic.disabled}}"
+  loading="{{playground.basic.loading}}">
+  <Label>Primary Action</Label>
+</grouptriggeraction--ml-split-button>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With icon (start) -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With icon (start)</h3>
+<demo id="demo-icon-start">
+<grouptriggeraction--ml-split-button
+  size="{{playground.iconStart.size}}"
+  type="{{playground.iconStart.type}}"
+  icon-position="{{playground.iconStart['icon-position']}}"
+  disabled="{{playground.iconStart.disabled}}"
+  loading="{{playground.iconStart.loading}}">
+  <Icon><svg width="16" height="16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2"/></svg></Icon>
+  <Label>With Icon</Label>
+</grouptriggeraction--ml-split-button>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="size" value="{{playground.iconStart.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="type" value="{{playground.iconStart.type}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="icon-position" value="{{playground.iconStart['icon-position']}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.iconStart.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.iconStart.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-icon-start">
+<template>
+<grouptriggeraction--ml-split-button
+  size="{{playground.iconStart.size}}"
+  type="{{playground.iconStart.type}}"
+  icon-position="{{playground.iconStart['icon-position']}}"
+  disabled="{{playground.iconStart.disabled}}"
+  loading="{{playground.iconStart.loading}}">
+  <Icon><svg width="16" height="16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="2"/></svg></Icon>
+  <Label>With Icon</Label>
+</grouptriggeraction--ml-split-button>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With icon (end) -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With icon (end)</h3>
+<demo id="demo-icon-end">
+<grouptriggeraction--ml-split-button
+  size="{{playground.iconEnd.size}}"
+  type="{{playground.iconEnd.type}}"
+  icon-position="{{playground.iconEnd['icon-position']}}"
+  disabled="{{playground.iconEnd.disabled}}"
+  loading="{{playground.iconEnd.loading}}">
+  <Label>Icon End</Label>
+  <Icon><svg width="16" height="16" fill="none"><rect x="3" y="3" width="10" height="10" stroke="currentColor" stroke-width="2"/></svg></Icon>
+</grouptriggeraction--ml-split-button>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="size" value="{{playground.iconEnd.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="type" value="{{playground.iconEnd.type}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="icon-position" value="{{playground.iconEnd['icon-position']}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.iconEnd.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.iconEnd.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-icon-end">
+<template>
+<grouptriggeraction--ml-split-button
+  size="{{playground.iconEnd.size}}"
+  type="{{playground.iconEnd.type}}"
+  icon-position="{{playground.iconEnd['icon-position']}}"
+  disabled="{{playground.iconEnd.disabled}}"
+  loading="{{playground.iconEnd.loading}}">
+  <Label>Icon End</Label>
+  <Icon><svg width="16" height="16" fill="none"><rect x="3" y="3" width="10" height="10" stroke="currentColor" stroke-width="2"/></svg></Icon>
+</grouptriggeraction--ml-split-button>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Disabled state -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled state</h3>
+<demo id="demo-disabled">
+<grouptriggeraction--ml-split-button
+  size="{{playground.disabled.size}}"
+  type="{{playground.disabled.type}}"
+  icon-position="{{playground.disabled['icon-position']}}"
+  disabled="{{playground.disabled.disabled}}"
+  loading="{{playground.disabled.loading}}">
+  <Label>Disabled</Label>
+</grouptriggeraction--ml-split-button>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="size" value="{{playground.disabled.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="type" value="{{playground.disabled.type}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="icon-position" value="{{playground.disabled['icon-position']}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<grouptriggeraction--ml-split-button
+  size="{{playground.disabled.size}}"
+  type="{{playground.disabled.type}}"
+  icon-position="{{playground.disabled['icon-position']}}"
+  disabled="{{playground.disabled.disabled}}"
+  loading="{{playground.disabled.loading}}">
+  <Label>Disabled</Label>
+</grouptriggeraction--ml-split-button>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Loading state -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+<demo id="demo-loading">
+<grouptriggeraction--ml-split-button
+  size="{{playground.loading.size}}"
+  type="{{playground.loading.type}}"
+  icon-position="{{playground.loading['icon-position']}}"
+  disabled="{{playground.loading.disabled}}"
+  loading="{{playground.loading.loading}}">
+  <Label>Loading...</Label>
+  <Icon><svg width="16" height="16" fill="none"><path d="M8 2a6 6 0 1 1-6 6" stroke="currentColor" stroke-width="2"/></svg></Icon>
+</grouptriggeraction--ml-split-button>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="size" value="{{playground.loading.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="type" value="{{playground.loading.type}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="icon-position" value="{{playground.loading['icon-position']}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<grouptriggeraction--ml-split-button
+  size="{{playground.loading.size}}"
+  type="{{playground.loading.type}}"
+  icon-position="{{playground.loading['icon-position']}}"
+  disabled="{{playground.loading.disabled}}"
+  loading="{{playground.loading.loading}}">
+  <Label>Loading...</Label>
+  <Icon><svg width="16" height="16" fill="none"><path d="M8 2a6 6 0 1 1-6 6" stroke="currentColor" stroke-width="2"/></svg></Icon>
+</grouptriggeraction--ml-split-button>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With secondary options -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With secondary options</h3>
+<demo id="demo-options">
+<grouptriggeraction--ml-split-button
+  size="{{playground.options.size}}"
+  type="{{playground.options.type}}"
+  icon-position="{{playground.options['icon-position']}}"
+  disabled="{{playground.options.disabled}}"
+  loading="{{playground.options.loading}}">
+  <Label>Export</Label>
+  <Icon><svg width="16" height="16" fill="none"><path d="M8 2v8m0 0l-3-3m3 3l3-3" stroke="currentColor" stroke-width="2"/></svg></Icon>
+  <div value="pdf">Export as PDF</div>
+  <div value="csv">Export as CSV</div>
+  <div value="xlsx" disabled>Export as Excel (disabled)</div>
+</grouptriggeraction--ml-split-button>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="size" value="{{playground.options.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="type" value="{{playground.options.type}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="icon-position" value="{{playground.options['icon-position']}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.options.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.options.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-options">
+<template>
+<grouptriggeraction--ml-split-button
+  size="{{playground.options.size}}"
+  type="{{playground.options.type}}"
+  icon-position="{{playground.options['icon-position']}}"
+  disabled="{{playground.options.disabled}}"
+  loading="{{playground.options.loading}}">
+  <Label>Export</Label>
+  <Icon><svg width="16" height="16" fill="none"><path d="M8 2v8m0 0l-3-3m3 3l3-3" stroke="currentColor" stroke-width="2"/></svg></Icon>
+  <div value="pdf">Export as PDF</div>
+  <div value="csv">Export as CSV</div>
+  <div value="xlsx" disabled>Export as Excel (disabled)</div>
+</grouptriggeraction--ml-split-button>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Large size, submit type -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Large size, submit type</h3>
+<demo id="demo-large-submit">
+<grouptriggeraction--ml-split-button
+  size="lg"
+  type="submit"
+  icon-position="start"
+  disabled="false"
+  loading="false">
+  <Label>Submit Form</Label>
+  <Icon><svg width="18" height="18" fill="none"><path d="M3 9l6 6 6-6" stroke="currentColor" stroke-width="2"/></svg></Icon>
+  <div value="draft">Save as Draft</div>
+  <div value="archive">Archive</div>
+</grouptriggeraction--ml-split-button>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="size" value="lg"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="type" value="submit"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="icon-position" value="start"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="false"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="false"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-large-submit">
+<template>
+<grouptriggeraction--ml-split-button
+  size="lg"
+  type="submit"
+  icon-position="start"
+  disabled="false"
+  loading="false">
+  <Label>Submit Form</Label>
+  <Icon><svg width="18" height="18" fill="none"><path d="M3 9l6 6 6-6" stroke="currentColor" stroke-width="2"/></svg></Icon>
+  <div value="draft">Save as Draft</div>
+  <div value="archive">Archive</div>
+</grouptriggeraction--ml-split-button>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>

@@ -1,0 +1,316 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Navigate Pills Molecule</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupNavigateSection</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"label":{"value":"","error":""},"disabled":{"value":"","error":""},"loading":{"value":"","error":""},"icons":{"value":"","error":""},"error":{"value":"","error":"Section failed to load."}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- Basic Navigation -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Navigation</h3>
+<demo id="demo-basic">
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  disabled="false"
+  loading="false">
+  <Tab value="home" title="Home">
+    <p>Welcome to the home section.</p>
+  </Tab>
+  <Tab value="profile" title="Profile">
+    <p>User profile details go here.</p>
+  </Tab>
+  <Tab value="settings" title="Settings">
+    <p>Adjust your preferences.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  disabled="false"
+  loading="false">
+  <Tab value="home" title="Home">
+    <p>Welcome to the home section.</p>
+  </Tab>
+  <Tab value="profile" title="Profile">
+    <p>User profile details go here.</p>
+  </Tab>
+  <Tab value="settings" title="Settings">
+    <p>Adjust your preferences.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With Label Slot -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Label Slot</h3>
+<demo id="demo-label">
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.label.value}}"
+  error="{{playground.label.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Section Navigation</Label>
+  <Tab value="overview" title="Overview">
+    <p>Overview content goes here.</p>
+  </Tab>
+  <Tab value="details" title="Details">
+    <p>Details about the section.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.label.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.label.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-label">
+<template>
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.label.value}}"
+  error="{{playground.label.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Section Navigation</Label>
+  <Tab value="overview" title="Overview">
+    <p>Overview content goes here.</p>
+  </Tab>
+  <Tab value="details" title="Details">
+    <p>Details about the section.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Disabled Navigation -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled Navigation</h3>
+<demo id="demo-disabled">
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.disabled.value}}"
+  error="{{playground.disabled.error}}"
+  disabled="true"
+  loading="false">
+  <Label>Disabled Example</Label>
+  <Tab value="tab1" title="Tab 1">
+    <p>Tab 1 content.</p>
+  </Tab>
+  <Tab value="tab2" title="Tab 2">
+    <p>Tab 2 content.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.disabled.value}}"
+  error="{{playground.disabled.error}}"
+  disabled="true"
+  loading="false">
+  <Label>Disabled Example</Label>
+  <Tab value="tab1" title="Tab 1">
+    <p>Tab 1 content.</p>
+  </Tab>
+  <Tab value="tab2" title="Tab 2">
+    <p>Tab 2 content.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Loading State -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+<demo id="demo-loading">
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.loading.value}}"
+  error="{{playground.loading.error}}"
+  disabled="false"
+  loading="true">
+  <Label>Loading Example</Label>
+  <Tab value="tabA" title="Tab A">
+    <p>Tab A content.</p>
+  </Tab>
+  <Tab value="tabB" title="Tab B">
+    <p>Tab B content.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.loading.value}}"
+  error="{{playground.loading.error}}"
+  disabled="false"
+  loading="true">
+  <Label>Loading Example</Label>
+  <Tab value="tabA" title="Tab A">
+    <p>Tab A content.</p>
+  </Tab>
+  <Tab value="tabB" title="Tab B">
+    <p>Tab B content.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Tab with Icons -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Tab with Icons</h3>
+<demo id="demo-icons">
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.icons.value}}"
+  error="{{playground.icons.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Icon Tabs</Label>
+  <Tab value="dashboard" title="Dashboard" icon="<svg width='16' height='16' fill='none'><rect width='16' height='16' rx='4' fill='#38bdf8'/></svg>">
+    <p>Dashboard overview.</p>
+  </Tab>
+  <Tab value="reports" title="Reports" icon="<svg width='16' height='16' fill='none'><circle cx='8' cy='8' r='7' stroke='#f87171' stroke-width='2'/></svg>">
+    <p>Reports section.</p>
+  </Tab>
+  <Tab value="settings" title="Settings" icon="<svg width='16' height='16' fill='none'><path d='M8 2v12' stroke='#a3e635' stroke-width='2'/></svg>">
+    <p>Settings content.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.icons.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.icons.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-icons">
+<template>
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.icons.value}}"
+  error="{{playground.icons.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Icon Tabs</Label>
+  <Tab value="dashboard" title="Dashboard" icon="<svg width='16' height='16' fill='none'><rect width='16' height='16' rx='4' fill='#38bdf8'/></svg>">
+    <p>Dashboard overview.</p>
+  </Tab>
+  <Tab value="reports" title="Reports" icon="<svg width='16' height='16' fill='none'><circle cx='8' cy='8' r='7' stroke='#f87171' stroke-width='2'/></svg>">
+    <p>Reports section.</p>
+  </Tab>
+  <Tab value="settings" title="Settings" icon="<svg width='16' height='16' fill='none'><path d='M8 2v12' stroke='#a3e635' stroke-width='2'/></svg>">
+    <p>Settings content.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Error Message -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error Message</h3>
+<demo id="demo-error">
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.error.value}}"
+  error="{{playground.error.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Error Example</Label>
+  <Tab value="main" title="Main">
+    <p>Main content.</p>
+  </Tab>
+  <Tab value="secondary" title="Secondary">
+    <p>Secondary content.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-error">
+<template>
+<groupnavigatesection--ml-navigate-pills
+  value="{{playground.error.value}}"
+  error="{{playground.error.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Error Example</Label>
+  <Tab value="main" title="Main">
+    <p>Main content.</p>
+  </Tab>
+  <Tab value="secondary" title="Secondary">
+    <p>Secondary content.</p>
+  </Tab>
+</groupnavigatesection--ml-navigate-pills>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>
