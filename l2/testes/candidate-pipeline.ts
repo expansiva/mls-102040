@@ -3,7 +3,6 @@
 import { html, nothing, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { StateLitElement } from '/_102029_/l2/stateLitElement.js';
-import '/_102040_/l2/molecules/groupnavigatesection/ml-navigate-pills';
 import '/_102040_/l2/molecules/groupviewcard/ml-view-card-horizontal';
 import '/_102040_/l2/molecules/grouprateitem/ml-star-rating';
 import '/_102040_/l2/molecules/grouprateitem/ml-thumbs-rating';
@@ -47,7 +46,6 @@ interface Candidate {
 export class CandidatePipeline extends StateLitElement {
 
   // ── Estado ─────────────────────────────────────────────────────────────────
-  @state() activeStage: Stage = 'interview';
   @state() searchQuery = '';
   @state() selectedId = 1; // Fernanda Lima pré-selecionada
   @state() toastVisible = false;
@@ -181,48 +179,35 @@ export class CandidatePipeline extends StateLitElement {
 
   private get filteredCandidates(): Candidate[] {
     const q = this.searchQuery.trim().toLowerCase();
+    if (!q) return this.candidates;
     return this.candidates.filter(c =>
-      c.stage === this.activeStage &&
-      (!q || c.name.toLowerCase().includes(q) || c.role.toLowerCase().includes(q))
+      c.name.toLowerCase().includes(q) || c.role.toLowerCase().includes(q)
     );
   }
 
   // ── Helpers ────────────────────────────────────────────────────────────────
-  private countByStage(s: Stage): number {
-    return this.candidates.filter(c => c.stage === s).length;
-  }
-
   private initials(name: string): string {
     return name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase();
-  }
-
-  private selectFirstInStage(stage: Stage) {
-    const first = this.candidates.find(c => c.stage === stage);
-    this.selectedId = first?.id ?? -1;
-  }
-
-  private autoSelectAfterMutation(updatedList: Candidate[]) {
-    const remaining = updatedList.filter(c => c.stage === this.activeStage);
-    this.selectedId = remaining[0]?.id ?? -1;
   }
 
   private advanceCandidate(candidate: Candidate) {
     const idx = this.stageOrder.indexOf(candidate.stage);
     if (idx >= this.stageOrder.length - 1) return;
     const next = this.stageOrder[idx + 1];
-    const updated = this.candidates.map(c =>
+    this.candidates = this.candidates.map(c =>
       c.id === candidate.id ? { ...c, stage: next } : c
     );
-    this.candidates = updated;
     this.showToast(`${candidate.name} avançado para ${this.stageLabels[next]}`);
-    this.autoSelectAfterMutation(updated);
+    // selectedId permanece — candidato ainda aparece na lista com novo badge
   }
 
   private rejectCandidate(candidate: Candidate) {
     const updated = this.candidates.filter(c => c.id !== candidate.id);
     this.candidates = updated;
     this.showToast(`${candidate.name} reprovado`);
-    this.autoSelectAfterMutation(updated);
+    if (this.selectedId === candidate.id) {
+      this.selectedId = updated[0]?.id ?? -1;
+    }
   }
 
   private updateCandidate(id: number, patch: Partial<Candidate>) {
@@ -271,29 +256,13 @@ export class CandidatePipeline extends StateLitElement {
     <!-- Corpo: duas colunas sempre visíveis -->
     <div class="flex gap-6 items-start">
 
-      <!-- Coluna esquerda: filtros + lista -->
+      <!-- Coluna esquerda: busca + lista -->
       <div class="w-72 shrink-0 flex flex-col gap-4">
 
-        <!-- Pills de etapas -->
-        <groupnavigatesection--ml-navigate-pills
-          value="${this.activeStage}"
-          @change=${(e: CustomEvent) => {
-            this.activeStage = e.detail.value as Stage;
-            this.searchQuery = '';
-            this.selectFirstInStage(this.activeStage);
-          }}
-        >
-          <Section value="triagem">Triagem (${this.countByStage('triagem')})</Section>
-          <Section value="interview">Entrevista (${this.countByStage('interview')})</Section>
-          <Section value="technical">Técnico (${this.countByStage('technical')})</Section>
-          <Section value="proposal">Proposta (${this.countByStage('proposal')})</Section>
-          <Section value="hired">Contratado (${this.countByStage('hired')})</Section>
-        </groupnavigatesection--ml-navigate-pills>
-
-        <!-- Busca -->
+        <!-- Busca por nome ou cargo -->
         <groupsearchcontent--ml-search-bar
           value="${this.searchQuery}"
-          placeholder="Buscar candidato..."
+          placeholder="Buscar por nome ou cargo..."
           debounce="300"
           @search=${(e: CustomEvent) => { this.searchQuery = e.detail.value ?? ''; }}
           @clear=${() => { this.searchQuery = ''; }}
@@ -302,9 +271,7 @@ export class CandidatePipeline extends StateLitElement {
         <!-- Lista de candidatos -->
         <div class="flex flex-col gap-2">
           ${this.filteredCandidates.length === 0
-            ? html`<p class="text-sm text-slate-400 dark:text-slate-500 py-6 text-center">
-                ${this.searchQuery ? 'Nenhum candidato encontrado.' : 'Nenhum candidato nesta etapa.'}
-              </p>`
+            ? html`<p class="text-sm text-slate-400 dark:text-slate-500 py-6 text-center">Nenhum candidato encontrado.</p>`
             : this.filteredCandidates.map(c => this.renderCandidateCard(c))
           }
         </div>
@@ -360,11 +327,16 @@ export class CandidatePipeline extends StateLitElement {
     </div>
     ${isSelected ? html`<span class="w-2 h-2 rounded-full bg-violet-500 shrink-0"></span>` : nothing}
   </div>
-  ${c.rating > 0 ? html`
-    <div class="mt-2 flex gap-0.5">
-      ${[1,2,3,4,5].map(i => html`<span class="text-xs ${i <= c.rating ? 'text-amber-400' : 'text-slate-200 dark:text-slate-600'}">★</span>`)}
-    </div>
-  ` : nothing}
+  <div class="mt-2 flex items-center justify-between">
+    <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400">
+      ${this.stageLabels[c.stage]}
+    </span>
+    ${c.rating > 0 ? html`
+      <div class="flex gap-0.5">
+        ${[1,2,3,4,5].map(i => html`<span class="text-xs ${i <= c.rating ? 'text-amber-400' : 'text-slate-200 dark:text-slate-600'}">★</span>`)}
+      </div>
+    ` : nothing}
+  </div>
 </div>
     `;
   }
