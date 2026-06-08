@@ -17,18 +17,18 @@ export class MoleculesSummary extends CollabLitElement {
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium mb-6">mls-102040</span>
       <div class="flex justify-center gap-8 mt-4">
         <div class="text-center">
-          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">28</div>
+          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">31</div>
           <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">groups</div>
         </div>
         <div class="w-px bg-slate-200 dark:bg-slate-700"></div>
         <div class="text-center">
-          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">71</div>
+          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">91</div>
           <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">components</div>
         </div>
       </div>
     </header>
 
-    ${this.renderSection('Enter', '10 groups · 22 components', [
+    ${this.renderSection('Enter', '11 groups · 25 components', [
       { name: 'Enter Boolean', count: 2, color: 'sky', components: ['ml-checkbox-preference', 'ml-toggle-switch'] },
       { name: 'Enter Date', count: 2, color: 'sky', components: ['ml-compact-calendar', 'ml-date-picker'] },
       { name: 'Enter Date Interval', count: 2, color: 'sky', components: ['ml-date-interval-drag', 'ml-date-range-dual-calendar'] },
@@ -39,6 +39,7 @@ export class MoleculesSummary extends CollabLitElement {
       { name: 'Enter Text', count: 3, color: 'sky', components: ['ml-cpf-input', 'ml-floating-text-input', 'ml-multiline-text'] },
       { name: 'Enter Time', count: 2, color: 'sky', components: ['ml-clock-time-picker', 'ml-time-scroll-picker'] },
       { name: 'Enter Time Interval', count: 2, color: 'sky', components: ['ml-time-interval-selector', 'ml-time-interval-slider'] },
+      { name: 'Locate Position', count: 3, color: 'sky', components: ['ml-address-autocomplete', 'ml-geolocation-trigger', 'ml-locate-map-picker'] },
     ])}
 
     ${this.renderSection('Select', '3 groups · 18 components', [
@@ -47,28 +48,30 @@ export class MoleculesSummary extends CollabLitElement {
       { name: 'Select File For Upload', count: 3, color: 'violet', components: ['ml-file-upload-dropzone', 'ml-file-upload-preview', 'ml-user-photo-upload'] },
     ])}
 
-    ${this.renderSection('View', '6 groups · 14 components', [
-      { name: 'View Card', count: 1, color: 'emerald', components: ['ml-view-card-horizontal'] },
+    ${this.renderSection('View', '6 groups · 18 components', [
+      { name: 'View Card', count: 3, color: 'emerald', components: ['ml-vertical-card', 'ml-view-card-horizontal', 'ml-view-card-media'] },
       { name: 'View Chart', count: 4, color: 'emerald', components: ['ml-area-chart', 'ml-bar-chart', 'ml-line-chart', 'ml-pie-chart'] },
-      { name: 'View Data', count: 1, color: 'emerald', components: ['ml-card-grid'] },
+      { name: 'View Data', count: 3, color: 'emerald', components: ['ml-card-grid', 'ml-timeline-view', 'ml-vertical-record-list'] },
       { name: 'View Hierarchy', count: 3, color: 'emerald', components: ['ml-hierarchy-orgchart', 'ml-hierarchy-tree-diagram', 'ml-hierarchy-tree'] },
       { name: 'View Metric', count: 2, color: 'emerald', components: ['ml-metric-big-number', 'ml-metric-gauge'] },
       { name: 'View Table', count: 3, color: 'emerald', components: ['ml-data-table-minimal', 'ml-data-table', 'ml-view-table'] },
     ])}
 
-    ${this.renderSection('Navigate', '3 groups · 4 components', [
+    ${this.renderSection('Navigate', '3 groups · 6 components', [
       { name: 'Navigate Main', count: 1, color: 'amber', components: ['ml-sidebar-nav'] },
-      { name: 'Navigate Section', count: 1, color: 'amber', components: ['ml-tabs'] },
+      { name: 'Navigate Section', count: 3, color: 'amber', components: ['ml-breadcrumb-trail', 'ml-navigate-pills', 'ml-tabs'] },
       { name: 'Navigate Steps', count: 2, color: 'amber', components: ['ml-horizontal-stepper', 'ml-vertical-stepper'] },
     ])}
 
-    ${this.renderSection('Other', '6 groups · 13 components', [
-      { name: 'Expand Content', count: 1, color: 'rose', components: ['ml-accordion'] },
+    ${this.renderSection('Other', '8 groups · 24 components', [
+      { name: 'Expand Content', count: 3, color: 'rose', components: ['ml-accordion', 'ml-readmore-expand', 'ml-single-expand-content'] },
       { name: 'Notify User', count: 2, color: 'rose', components: ['ml-notify-banner', 'ml-toast-notification'] },
-      { name: 'Play Media', count: 1, color: 'rose', components: ['ml-video-player'] },
+      { name: 'Play Media', count: 2, color: 'rose', components: ['ml-audio-player', 'ml-video-player'] },
       { name: 'Rate Item', count: 6, color: 'rose', components: ['ml-emoji-mood-scale', 'ml-numeric-rating-nps', 'ml-qualitative-feedback-tags', 'ml-rating-slider', 'ml-star-rating', 'ml-thumbs-rating'] },
-      { name: 'Scan Code', count: 1, color: 'rose', components: ['ml-scan-code'] },
+      { name: 'Scan Code', count: 2, color: 'rose', components: ['ml-scan-code', 'ml-scan-code-1d'] },
       { name: 'Search Content', count: 2, color: 'rose', components: ['ml-search-bar', 'ml-search-history'] },
+      { name: 'Show Progress', count: 3, color: 'rose', components: ['ml-circular-progress', 'ml-indeterminate-spinner', 'ml-linear-progress'] },
+      { name: 'Trigger Action', count: 4, color: 'rose', components: ['ml-button-group', 'ml-button-standard', 'ml-icon-button', 'ml-split-button'] },
     ])}
 
   </div>
