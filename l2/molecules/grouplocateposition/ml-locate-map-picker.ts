@@ -452,8 +452,3 @@ ${this.renderHelperOrError()}
 }
 }
 
-declare global {
-interface HTMLElementTagNameMap {
-'grouplocateposition--ml-locate-map-picker': LocateMapPickerMolecule;
-}
-}

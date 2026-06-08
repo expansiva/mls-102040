@@ -1,0 +1,228 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Circular Progress Molecule</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupShowProgress</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":null,"size":"md","label":"","show-value":false},"determinate":{"value":50,"size":"md","label":"Uploading file","show-value":false},"percent":{"value":75,"size":"lg","label":"Processing data","show-value":true},"small":{"value":null,"size":"sm","label":"Loading dashboard","show-value":false},"complete":{"value":100,"size":"xs","label":"Sync complete","show-value":true},"large":{"value":null,"size":"lg","label":"Waiting for server","show-value":false}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Indeterminate Spinner (Default)</h3>
+<demo id="demo-basic">
+<groupshowprogress--ml-circular-progress
+  value="{{playground.basic.value}}"
+  size="{{playground.basic.size}}"
+  label="{{playground.basic.label}}"
+  show-value="{{playground.basic.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.basic.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.basic.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.basic.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupshowprogress--ml-circular-progress
+  value="{{playground.basic.value}}"
+  size="{{playground.basic.size}}"
+  label="{{playground.basic.label}}"
+  show-value="{{playground.basic.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Determinate Progress (50%)</h3>
+<demo id="demo-determinate">
+<groupshowprogress--ml-circular-progress
+  value="{{playground.determinate.value}}"
+  size="{{playground.determinate.size}}"
+  label="{{playground.determinate.label}}"
+  show-value="{{playground.determinate.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.determinate.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.determinate.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.determinate.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.determinate.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-determinate">
+<template>
+<groupshowprogress--ml-circular-progress
+  value="{{playground.determinate.value}}"
+  size="{{playground.determinate.size}}"
+  label="{{playground.determinate.label}}"
+  show-value="{{playground.determinate.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Determinate Progress with Percentage</h3>
+<demo id="demo-percent">
+<groupshowprogress--ml-circular-progress
+  value="{{playground.percent.value}}"
+  size="{{playground.percent.size}}"
+  label="{{playground.percent.label}}"
+  show-value="{{playground.percent.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.percent.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.percent.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.percent.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.percent.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-percent">
+<template>
+<groupshowprogress--ml-circular-progress
+  value="{{playground.percent.value}}"
+  size="{{playground.percent.size}}"
+  label="{{playground.percent.label}}"
+  show-value="{{playground.percent.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Small Indeterminate Spinner with Accessible Label</h3>
+<demo id="demo-small">
+<groupshowprogress--ml-circular-progress
+  value="{{playground.small.value}}"
+  size="{{playground.small.size}}"
+  label="{{playground.small.label}}"
+  show-value="{{playground.small.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.small.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.small.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.small.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.small.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-small">
+<template>
+<groupshowprogress--ml-circular-progress
+  value="{{playground.small.value}}"
+  size="{{playground.small.size}}"
+  label="{{playground.small.label}}"
+  show-value="{{playground.small.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Extra Small Determinate Progress (Complete)</h3>
+<demo id="demo-complete">
+<groupshowprogress--ml-circular-progress
+  value="{{playground.complete.value}}"
+  size="{{playground.complete.size}}"
+  label="{{playground.complete.label}}"
+  show-value="{{playground.complete.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.complete.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.complete.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.complete.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.complete.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-complete">
+<template>
+<groupshowprogress--ml-circular-progress
+  value="{{playground.complete.value}}"
+  size="{{playground.complete.size}}"
+  label="{{playground.complete.label}}"
+  show-value="{{playground.complete.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Large Indeterminate Spinner (Custom Label)</h3>
+<demo id="demo-large">
+<groupshowprogress--ml-circular-progress
+  value="{{playground.large.value}}"
+  size="{{playground.large.size}}"
+  label="{{playground.large.label}}"
+  show-value="{{playground.large.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.large.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.large.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.large.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.large.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-large">
+<template>
+<groupshowprogress--ml-circular-progress
+  value="{{playground.large.value}}"
+  size="{{playground.large.size}}"
+  label="{{playground.large.label}}"
+  show-value="{{playground.large.show-value}}">
+</groupshowprogress--ml-circular-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>
