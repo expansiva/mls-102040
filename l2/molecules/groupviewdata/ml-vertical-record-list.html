@@ -1,0 +1,434 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Vertical Record List</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewData</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"loading":false,"selectable":false,"hoverable":true},"selectable":{"loading":false,"selectable":true,"hoverable":true},"loading":{"loading":true,"selectable":false,"hoverable":true},"empty":{"loading":false,"selectable":false,"hoverable":true},"advanced":{"loading":false,"selectable":false,"hoverable":true},"disabled":{"loading":false,"selectable":true,"hoverable":true}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- 1. Basic vertical record list -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic vertical record list</h3>
+<demo id="demo-basic">
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.basic.loading}}"
+  selectable="{{playground.basic.selectable}}"
+  hoverable="{{playground.basic.hoverable}}"
+>
+  <Columns>
+    <Column field="name" header="Name" />
+    <Column field="email" header="Email" />
+    <Column field="status" header="Status" align="center" width="120px" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>Alice Souza</Cell>
+      <Cell>alice@example.com</Cell>
+      <Cell>Active</Cell>
+    </Row>
+    <Row>
+      <Cell>Bruno Lima</Cell>
+      <Cell>bruno@example.com</Cell>
+      <Cell>Inactive</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-vertical-record-list>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.basic.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.basic.loading}}"
+  selectable="{{playground.basic.selectable}}"
+  hoverable="{{playground.basic.hoverable}}"
+>
+  <Columns>
+    <Column field="name" header="Name" />
+    <Column field="email" header="Email" />
+    <Column field="status" header="Status" align="center" width="120px" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>Alice Souza</Cell>
+      <Cell>alice@example.com</Cell>
+      <Cell>Active</Cell>
+    </Row>
+    <Row>
+      <Cell>Bruno Lima</Cell>
+      <Cell>bruno@example.com</Cell>
+      <Cell>Inactive</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-vertical-record-list>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 2. Selectable rows -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable rows</h3>
+<demo id="demo-selectable">
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.selectable.loading}}"
+  selectable="{{playground.selectable.selectable}}"
+  hoverable="{{playground.selectable.hoverable}}"
+>
+  <Columns>
+    <Column field="id" header="ID" width="80px" />
+    <Column field="product" header="Product" />
+    <Column field="price" header="Price" align="right" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>001</Cell>
+      <Cell>Widget Pro</Cell>
+      <Cell>R$ 199,00</Cell>
+    </Row>
+    <Row selected>
+      <Cell>002</Cell>
+      <Cell>Gadget Plus</Cell>
+      <Cell>R$ 349,00</Cell>
+    </Row>
+    <Row disabled>
+      <Cell>003</Cell>
+      <Cell>Legacy Item</Cell>
+      <Cell>R$ 59,00</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-vertical-record-list>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.selectable.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-selectable">
+<template>
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.selectable.loading}}"
+  selectable="{{playground.selectable.selectable}}"
+  hoverable="{{playground.selectable.hoverable}}"
+>
+  <Columns>
+    <Column field="id" header="ID" width="80px" />
+    <Column field="product" header="Product" />
+    <Column field="price" header="Price" align="right" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>001</Cell>
+      <Cell>Widget Pro</Cell>
+      <Cell>R$ 199,00</Cell>
+    </Row>
+    <Row selected>
+      <Cell>002</Cell>
+      <Cell>Gadget Plus</Cell>
+      <Cell>R$ 349,00</Cell>
+    </Row>
+    <Row disabled>
+      <Cell>003</Cell>
+      <Cell>Legacy Item</Cell>
+      <Cell>R$ 59,00</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-vertical-record-list>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 3. Loading state with custom slot -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state with custom slot</h3>
+<demo id="demo-loading">
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.loading.loading}}"
+  selectable="{{playground.loading.selectable}}"
+  hoverable="{{playground.loading.hoverable}}"
+>
+  <Columns>
+    <Column field="name" header="Name" />
+    <Column field="status" header="Status" />
+  </Columns>
+  <Rows></Rows>
+  <Loading>
+    <div class="text-center py-10 text-sky-500 dark:text-sky-300">
+      <svg class="inline w-6 h-6 animate-spin mr-2" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+      Loading records...
+    </div>
+  </Loading>
+</groupviewdata--ml-vertical-record-list>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.loading.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.loading.loading}}"
+  selectable="{{playground.loading.selectable}}"
+  hoverable="{{playground.loading.hoverable}}"
+>
+  <Columns>
+    <Column field="name" header="Name" />
+    <Column field="status" header="Status" />
+  </Columns>
+  <Rows></Rows>
+  <Loading>
+    <div class="text-center py-10 text-sky-500 dark:text-sky-300">
+      <svg class="inline w-6 h-6 animate-spin mr-2" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+      Loading records...
+    </div>
+  </Loading>
+</groupviewdata--ml-vertical-record-list>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 4. Empty state with custom slot -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty state with custom slot</h3>
+<demo id="demo-empty">
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.empty.loading}}"
+  selectable="{{playground.empty.selectable}}"
+  hoverable="{{playground.empty.hoverable}}"
+>
+  <Columns>
+    <Column field="user" header="User" />
+    <Column field="role" header="Role" align="center" />
+    <Column field="actions" header="" width="100px" align="right" />
+  </Columns>
+  <Rows></Rows>
+  <Empty>
+    <div class="text-center py-8 text-slate-400 dark:text-slate-500">
+      <span>No users found in this group.</span>
+    </div>
+  </Empty>
+</groupviewdata--ml-vertical-record-list>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.empty.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.empty.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-empty">
+<template>
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.empty.loading}}"
+  selectable="{{playground.empty.selectable}}"
+  hoverable="{{playground.empty.hoverable}}"
+>
+  <Columns>
+    <Column field="user" header="User" />
+    <Column field="role" header="Role" align="center" />
+    <Column field="actions" header="" width="100px" align="right" />
+  </Columns>
+  <Rows></Rows>
+  <Empty>
+    <div class="text-center py-8 text-slate-400 dark:text-slate-500">
+      <span>No users found in this group.</span>
+    </div>
+  </Empty>
+</groupviewdata--ml-vertical-record-list>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 5. With hidden and aligned columns -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With hidden and aligned columns</h3>
+<demo id="demo-advanced">
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.advanced.loading}}"
+  selectable="{{playground.advanced.selectable}}"
+  hoverable="{{playground.advanced.hoverable}}"
+>
+  <Columns>
+    <Column field="id" header="ID" width="60px" align="center" />
+    <Column field="name" header="Name" />
+    <Column field="secret" header="Secret" hidden />
+    <Column field="score" header="Score" align="right" width="80px" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>1</Cell>
+      <Cell>Jane Doe</Cell>
+      <Cell>hidden</Cell>
+      <Cell>98</Cell>
+    </Row>
+    <Row>
+      <Cell>2</Cell>
+      <Cell>John Smith</Cell>
+      <Cell>hidden</Cell>
+      <Cell>87</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-vertical-record-list>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.advanced.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.advanced.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.advanced.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-advanced">
+<template>
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.advanced.loading}}"
+  selectable="{{playground.advanced.selectable}}"
+  hoverable="{{playground.advanced.hoverable}}"
+>
+  <Columns>
+    <Column field="id" header="ID" width="60px" align="center" />
+    <Column field="name" header="Name" />
+    <Column field="secret" header="Secret" hidden />
+    <Column field="score" header="Score" align="right" width="80px" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>1</Cell>
+      <Cell>Jane Doe</Cell>
+      <Cell>hidden</Cell>
+      <Cell>98</Cell>
+    </Row>
+    <Row>
+      <Cell>2</Cell>
+      <Cell>John Smith</Cell>
+      <Cell>hidden</Cell>
+      <Cell>87</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-vertical-record-list>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 6. Disabled and selected rows -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled and selected rows</h3>
+<demo id="demo-disabled">
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.disabled.loading}}"
+  selectable="{{playground.disabled.selectable}}"
+  hoverable="{{playground.disabled.hoverable}}"
+>
+  <Columns>
+    <Column field="task" header="Task" />
+    <Column field="owner" header="Owner" />
+    <Column field="status" header="Status" align="center" width="100px" />
+  </Columns>
+  <Rows>
+    <Row selected>
+      <Cell>Review PR</Cell>
+      <Cell>Lucas</Cell>
+      <Cell>Pending</Cell>
+    </Row>
+    <Row disabled>
+      <Cell>Deploy to prod</Cell>
+      <Cell>Maria</Cell>
+      <Cell>Done</Cell>
+    </Row>
+    <Row>
+      <Cell>Write docs</Cell>
+      <Cell>João</Cell>
+      <Cell>In Progress</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-vertical-record-list>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.disabled.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.disabled.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<groupviewdata--ml-vertical-record-list
+  loading="{{playground.disabled.loading}}"
+  selectable="{{playground.disabled.selectable}}"
+  hoverable="{{playground.disabled.hoverable}}"
+>
+  <Columns>
+    <Column field="task" header="Task" />
+    <Column field="owner" header="Owner" />
+    <Column field="status" header="Status" align="center" width="100px" />
+  </Columns>
+  <Rows>
+    <Row selected>
+      <Cell>Review PR</Cell>
+      <Cell>Lucas</Cell>
+      <Cell>Pending</Cell>
+    </Row>
+    <Row disabled>
+      <Cell>Deploy to prod</Cell>
+      <Cell>Maria</Cell>
+      <Cell>Done</Cell>
+    </Row>
+    <Row>
+      <Cell>Write docs</Cell>
+      <Cell>João</Cell>
+      <Cell>In Progress</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-vertical-record-list>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>

@@ -1,0 +1,246 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Scan Code 1D Molecule</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">scan + code</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"trigger":{"value":"","error":""},"auto":{"value":"","error":""},"disabled":{"value":"","error":""},"error":{"value":"","error":"Camera permission denied"},"result":{"value":"","error":""}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- Basic Example -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic 1D Barcode Scanner</h3>
+<demo id="demo-basic">
+<groupscancode--ml-scan-code-1d
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Scan a barcode</Label>
+</groupscancode--ml-scan-code-1d>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupscancode--ml-scan-code-1d
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Scan a barcode</Label>
+</groupscancode--ml-scan-code-1d>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Custom Trigger and Helper -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Scanner with Custom Trigger and Helper</h3>
+<demo id="demo-trigger">
+<groupscancode--ml-scan-code-1d
+  value="{{playground.trigger.value}}"
+  error="{{playground.trigger.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Product Barcode</Label>
+  <Trigger>🔍 Start Scan</Trigger>
+  <Helper>Place the barcode in front of your camera</Helper>
+</groupscancode--ml-scan-code-1d>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.trigger.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.trigger.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-trigger">
+<template>
+<groupscancode--ml-scan-code-1d
+  value="{{playground.trigger.value}}"
+  error="{{playground.trigger.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Product Barcode</Label>
+  <Trigger>🔍 Start Scan</Trigger>
+  <Helper>Place the barcode in front of your camera</Helper>
+</groupscancode--ml-scan-code-1d>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Auto Capture Example -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Auto Capture with Custom Interval</h3>
+<demo id="demo-auto">
+<groupscancode--ml-scan-code-1d
+  value="{{playground.auto.value}}"
+  error="{{playground.auto.error}}"
+  auto-capture="true"
+  capture-interval="300"
+  loading="false">
+  <Label>Scan barcode automatically</Label>
+  <Helper>Auto-capture enabled (every 300ms)</Helper>
+</groupscancode--ml-scan-code-1d>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.auto.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.auto.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-auto">
+<template>
+<groupscancode--ml-scan-code-1d
+  value="{{playground.auto.value}}"
+  error="{{playground.auto.error}}"
+  auto-capture="true"
+  capture-interval="300"
+  loading="false">
+  <Label>Scan barcode automatically</Label>
+  <Helper>Auto-capture enabled (every 300ms)</Helper>
+</groupscancode--ml-scan-code-1d>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Disabled Example -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled Scanner</h3>
+<demo id="demo-disabled">
+<groupscancode--ml-scan-code-1d
+  value="{{playground.disabled.value}}"
+  error="{{playground.disabled.error}}"
+  disabled="true"
+  loading="false">
+  <Label>Barcode Scanner (Disabled)</Label>
+</groupscancode--ml-scan-code-1d>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<groupscancode--ml-scan-code-1d
+  value="{{playground.disabled.value}}"
+  error="{{playground.disabled.error}}"
+  disabled="true"
+  loading="false">
+  <Label>Barcode Scanner (Disabled)</Label>
+</groupscancode--ml-scan-code-1d>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Error Example -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Scanner with Error Message</h3>
+<demo id="demo-error">
+<groupscancode--ml-scan-code-1d
+  value="{{playground.error.value}}"
+  error="{{playground.error.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Scan barcode</Label>
+</groupscancode--ml-scan-code-1d>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-error">
+<template>
+<groupscancode--ml-scan-code-1d
+  value="{{playground.error.value}}"
+  error="{{playground.error.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Scan barcode</Label>
+</groupscancode--ml-scan-code-1d>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Custom Result Slot and Form Name -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Scanner with Custom Result Slot and Form Name</h3>
+<demo id="demo-result">
+<groupscancode--ml-scan-code-1d
+  value="{{playground.result.value}}"
+  error="{{playground.result.error}}"
+  name="barcode"
+  disabled="false"
+  loading="false">
+  <Label>Scan barcode for form</Label>
+  <Result><span class="font-bold text-green-600 dark:text-green-400">Result:</span> {{playground.result.value}}</Result>
+</groupscancode--ml-scan-code-1d>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.result.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.result.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-result">
+<template>
+<groupscancode--ml-scan-code-1d
+  value="{{playground.result.value}}"
+  error="{{playground.result.error}}"
+  name="barcode"
+  disabled="false"
+  loading="false">
+  <Label>Scan barcode for form</Label>
+  <Result><span class="font-bold text-green-600 dark:text-green-400">Result:</span> {{playground.result.value}}</Result>
+</groupscancode--ml-scan-code-1d>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>

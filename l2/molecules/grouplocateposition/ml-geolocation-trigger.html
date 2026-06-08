@@ -1,0 +1,259 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Geolocation Trigger Molecule</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">locate + position</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"suggestions":{"value":"","placeholder":"Search for a place..."},"geo":{"value":""},"readonly":{"value":"-23.55,-46.63"},"disabled":{"value":""},"advanced":{"value":"","error":"Could not fetch suggestions"}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- 1. Basic usage -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic usage</h3>
+<demo id="demo-basic">
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  is-editing="true"
+>
+  <Label>Location</Label>
+</grouplocateposition--ml-geolocation-trigger>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  is-editing="true"
+>
+  <Label>Location</Label>
+</grouplocateposition--ml-geolocation-trigger>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 2. With suggestions and custom label -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With suggestions and custom label</h3>
+<demo id="demo-suggestions">
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.suggestions.value}}"
+  placeholder="{{playground.suggestions.placeholder}}"
+  is-editing="true"
+>
+  <Label>Destination</Label>
+  <Suggestions>
+    <Item value="-23.55,-46.63">São Paulo, SP</Item>
+    <Item value="-22.90,-43.17">Rio de Janeiro, RJ</Item>
+    <Item value="-19.92,-43.94">Belo Horizonte, MG</Item>
+  </Suggestions>
+</grouplocateposition--ml-geolocation-trigger>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.suggestions.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="placeholder" value="{{playground.suggestions.placeholder}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-suggestions">
+<template>
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.suggestions.value}}"
+  placeholder="{{playground.suggestions.placeholder}}"
+  is-editing="true"
+>
+  <Label>Destination</Label>
+  <Suggestions>
+    <Item value="-23.55,-46.63">São Paulo, SP</Item>
+    <Item value="-22.90,-43.17">Rio de Janeiro, RJ</Item>
+    <Item value="-19.92,-43.94">Belo Horizonte, MG</Item>
+  </Suggestions>
+</grouplocateposition--ml-geolocation-trigger>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 3. With geolocation trigger and custom button -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With geolocation trigger and custom button</h3>
+<demo id="demo-geo">
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.geo.value}}"
+  allow-geolocation="true"
+  is-editing="true"
+>
+  <Label>My Position</Label>
+  <Trigger>📍 Use my location</Trigger>
+</grouplocateposition--ml-geolocation-trigger>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.geo.value}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-geo">
+<template>
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.geo.value}}"
+  allow-geolocation="true"
+  is-editing="true"
+>
+  <Label>My Position</Label>
+  <Trigger>📍 Use my location</Trigger>
+</grouplocateposition--ml-geolocation-trigger>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 4. Read-only mode with map preview -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only mode with map preview</h3>
+<demo id="demo-readonly">
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.readonly.value}}"
+  show-map="true"
+  is-editing="false"
+>
+  <Label>Selected Location</Label>
+</grouplocateposition--ml-geolocation-trigger>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-readonly">
+<template>
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.readonly.value}}"
+  show-map="true"
+  is-editing="false"
+>
+  <Label>Selected Location</Label>
+</grouplocateposition--ml-geolocation-trigger>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 5. Disabled with helper and empty slot -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled with helper and empty slot</h3>
+<demo id="demo-disabled">
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.disabled.value}}"
+  disabled="true"
+  is-editing="true"
+>
+  <Label>Pickup Location</Label>
+  <Helper>Choose a pickup point or enter coordinates.</Helper>
+  <Empty>No pickup selected.</Empty>
+</grouplocateposition--ml-geolocation-trigger>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.disabled.value}}"
+  disabled="true"
+  is-editing="true"
+>
+  <Label>Pickup Location</Label>
+  <Helper>Choose a pickup point or enter coordinates.</Helper>
+  <Empty>No pickup selected.</Empty>
+</grouplocateposition--ml-geolocation-trigger>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 6. Required, loading, and error state -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Required, loading, and error state</h3>
+<demo id="demo-advanced">
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.advanced.value}}"
+  required="true"
+  loading="true"
+  error="{{playground.advanced.error}}"
+  is-editing="true"
+>
+  <Label>Drop-off Location</Label>
+  <Suggestions>
+    <Item value="-30.03,-51.23">Porto Alegre, RS</Item>
+    <Item value="-25.43,-49.27">Curitiba, PR</Item>
+  </Suggestions>
+</grouplocateposition--ml-geolocation-trigger>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.advanced.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.advanced.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-advanced">
+<template>
+<grouplocateposition--ml-geolocation-trigger
+  value="{{playground.advanced.value}}"
+  required="true"
+  loading="true"
+  error="{{playground.advanced.error}}"
+  is-editing="true"
+>
+  <Label>Drop-off Location</Label>
+  <Suggestions>
+    <Item value="-30.03,-51.23">Porto Alegre, RS</Item>
+    <Item value="-25.43,-49.27">Curitiba, PR</Item>
+  </Suggestions>
+</grouplocateposition--ml-geolocation-trigger>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>

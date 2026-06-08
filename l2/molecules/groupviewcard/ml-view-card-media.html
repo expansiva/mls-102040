@@ -1,0 +1,268 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML View Card Media</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewCard</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"clickable":false,"selected":false,"disabled":false,"loading":false,"is-editing":false},"clickable":{"clickable":true,"selected":false,"disabled":false,"loading":false,"is-editing":false},"selected":{"clickable":true,"selected":true,"disabled":false,"loading":false,"is-editing":false},"disabled":{"clickable":false,"selected":false,"disabled":true,"loading":false,"is-editing":false},"loading":{"clickable":false,"selected":false,"disabled":false,"loading":true,"is-editing":false},"editing":{"clickable":true,"selected":false,"disabled":false,"loading":false,"is-editing":true}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- 1. Basic Card with Image and Title -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Card with Image and Title</h3>
+<demo id="demo-basic">
+<groupviewcard--ml-view-card-media>
+  <CardHeader>
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Forest" />
+  </CardHeader>
+  <CardTitle>Forest Adventure</CardTitle>
+</groupviewcard--ml-view-card-media>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="clickable" value="{{playground.basic.clickable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selected" value="{{playground.basic.selected}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.basic.is-editing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupviewcard--ml-view-card-media>
+  <CardHeader>
+    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Forest" />
+  </CardHeader>
+  <CardTitle>Forest Adventure</CardTitle>
+</groupviewcard--ml-view-card-media>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 2. Clickable Card with Footer and Action -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Clickable Card with Footer and Action</h3>
+<demo id="demo-clickable">
+<groupviewcard--ml-view-card-media clickable="true">
+  <CardHeader>
+    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Mountains" />
+  </CardHeader>
+  <CardTitle>Mountain Escape</CardTitle>
+  <CardFooter>From $120/night</CardFooter>
+  <CardAction><button class="px-3 py-1 bg-sky-600 text-white rounded">Book Now</button></CardAction>
+</groupviewcard--ml-view-card-media>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="clickable" value="{{playground.clickable.clickable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selected" value="{{playground.clickable.selected}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.clickable.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.clickable.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.clickable.is-editing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-clickable">
+<template>
+<groupviewcard--ml-view-card-media clickable="true">
+  <CardHeader>
+    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Mountains" />
+  </CardHeader>
+  <CardTitle>Mountain Escape</CardTitle>
+  <CardFooter>From $120/night</CardFooter>
+  <CardAction><button class="px-3 py-1 bg-sky-600 text-white rounded">Book Now</button></CardAction>
+</groupviewcard--ml-view-card-media>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 3. Selected Card with Custom Ratio and Description -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selected Card with Custom Ratio and Description</h3>
+<demo id="demo-selected">
+<groupviewcard--ml-view-card-media clickable="true" selected="true">
+  <CardHeader ratio="4:3">
+    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Desert" />
+  </CardHeader>
+  <CardTitle>Desert Trek</CardTitle>
+  <CardDescription>Experience the vast dunes and starry nights.</CardDescription>
+</groupviewcard--ml-view-card-media>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="clickable" value="{{playground.selected.clickable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selected" value="{{playground.selected.selected}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.selected.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.selected.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.selected.is-editing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-selected">
+<template>
+<groupviewcard--ml-view-card-media clickable="true" selected="true">
+  <CardHeader ratio="4:3">
+    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Desert" />
+  </CardHeader>
+  <CardTitle>Desert Trek</CardTitle>
+  <CardDescription>Experience the vast dunes and starry nights.</CardDescription>
+</groupviewcard--ml-view-card-media>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 4. Disabled Card with Video Media -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled Card with Video Media</h3>
+<demo id="demo-disabled">
+<groupviewcard--ml-view-card-media disabled="true">
+  <CardHeader>
+    <video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted loop playsinline></video>
+  </CardHeader>
+  <CardTitle>City Timelapse</CardTitle>
+  <CardContent>Watch the city lights come alive at night.</CardContent>
+</groupviewcard--ml-view-card-media>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="clickable" value="{{playground.disabled.clickable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selected" value="{{playground.disabled.selected}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.disabled.is-editing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<groupviewcard--ml-view-card-media disabled="true">
+  <CardHeader>
+    <video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted loop playsinline></video>
+  </CardHeader>
+  <CardTitle>City Timelapse</CardTitle>
+  <CardContent>Watch the city lights come alive at night.</CardContent>
+</groupviewcard--ml-view-card-media>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 5. Loading Skeleton Card -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading Skeleton Card</h3>
+<demo id="demo-loading">
+<groupviewcard--ml-view-card-media loading="true">
+  <CardHeader>
+    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Desert" />
+  </CardHeader>
+  <CardTitle>Desert Trek</CardTitle>
+  <CardDescription>Experience the vast dunes and starry nights.</CardDescription>
+  <CardContent>Some content that will be hidden by skeleton.</CardContent>
+  <CardFooter>Footer info</CardFooter>
+  <CardAction><button>Action</button></CardAction>
+</groupviewcard--ml-view-card-media>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="clickable" value="{{playground.loading.clickable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selected" value="{{playground.loading.selected}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.loading.is-editing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupviewcard--ml-view-card-media loading="true">
+  <CardHeader>
+    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Desert" />
+  </CardHeader>
+  <CardTitle>Desert Trek</CardTitle>
+  <CardDescription>Experience the vast dunes and starry nights.</CardDescription>
+  <CardContent>Some content that will be hidden by skeleton.</CardContent>
+  <CardFooter>Footer info</CardFooter>
+  <CardAction><button>Action</button></CardAction>
+</groupviewcard--ml-view-card-media>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 6. Editing Mode Card with All Slots -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Editing Mode Card with All Slots</h3>
+<demo id="demo-editing">
+<groupviewcard--ml-view-card-media clickable="true" is-editing="true">
+  <CardHeader ratio="1:1">
+    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Mountains" />
+  </CardHeader>
+  <CardTitle>Editable Card</CardTitle>
+  <CardDescription>This card is in editing mode.</CardDescription>
+  <CardContent>
+    <p>All child web components receive <code>is-editing</code> attribute.</p>
+  </CardContent>
+  <CardFooter>Last updated: Today</CardFooter>
+  <CardAction><button class="px-3 py-1 bg-sky-600 text-white rounded">Save</button></CardAction>
+</groupviewcard--ml-view-card-media>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="clickable" value="{{playground.editing.clickable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selected" value="{{playground.editing.selected}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.editing.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.editing.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.editing.is-editing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-editing">
+<template>
+<groupviewcard--ml-view-card-media clickable="true" is-editing="true">
+  <CardHeader ratio="1:1">
+    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Mountains" />
+  </CardHeader>
+  <CardTitle>Editable Card</CardTitle>
+  <CardDescription>This card is in editing mode.</CardDescription>
+  <CardContent>
+    <p>All child web components receive <code>is-editing</code> attribute.</p>
+  </CardContent>
+  <CardFooter>Last updated: Today</CardFooter>
+  <CardAction><button class="px-3 py-1 bg-sky-600 text-white rounded">Save</button></CardAction>
+</groupviewcard--ml-view-card-media>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>

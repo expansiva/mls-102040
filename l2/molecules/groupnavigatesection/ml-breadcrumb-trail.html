@@ -1,0 +1,274 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Breadcrumb Trail</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupNavigateSection</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":"overview","error":""},"label":{"value":"details","error":""},"disabled":{"value":"profile","error":""},"loading":{"value":"step2","error":""},"error":{"value":"final","error":"You must complete all steps before proceeding."},"advanced":{"value":"settings","error":""}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- Basic usage -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic usage</h3>
+<demo id="demo-basic">
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  disabled="false"
+  loading="false">
+  <Tab value="overview" title="Overview">Overview content here.</Tab>
+  <Tab value="details" title="Details">Details content here.</Tab>
+  <Tab value="settings" title="Settings">Settings content here.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  disabled="false"
+  loading="false">
+  <Tab value="overview" title="Overview">Overview content here.</Tab>
+  <Tab value="details" title="Details">Details content here.</Tab>
+  <Tab value="settings" title="Settings">Settings content here.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With Label slot -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Label slot</h3>
+<demo id="demo-label">
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.label.value}}"
+  error="{{playground.label.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Navigation Path</Label>
+  <Tab value="home" title="Home">Welcome home.</Tab>
+  <Tab value="profile" title="Profile">User profile details.</Tab>
+  <Tab value="details" title="Details">More details here.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.label.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.label.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-label">
+<template>
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.label.value}}"
+  error="{{playground.label.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Navigation Path</Label>
+  <Tab value="home" title="Home">Welcome home.</Tab>
+  <Tab value="profile" title="Profile">User profile details.</Tab>
+  <Tab value="details" title="Details">More details here.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Disabled state -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled state</h3>
+<demo id="demo-disabled">
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.disabled.value}}"
+  error="{{playground.disabled.error}}"
+  disabled="true"
+  loading="false">
+  <Label>Account</Label>
+  <Tab value="dashboard" title="Dashboard">Dashboard content.</Tab>
+  <Tab value="profile" title="Profile">Profile content.</Tab>
+  <Tab value="settings" title="Settings">Settings content.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.disabled.value}}"
+  error="{{playground.disabled.error}}"
+  disabled="true"
+  loading="false">
+  <Label>Account</Label>
+  <Tab value="dashboard" title="Dashboard">Dashboard content.</Tab>
+  <Tab value="profile" title="Profile">Profile content.</Tab>
+  <Tab value="settings" title="Settings">Settings content.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Loading state -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+<demo id="demo-loading">
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.loading.value}}"
+  error="{{playground.loading.error}}"
+  disabled="false"
+  loading="true">
+  <Label>Wizard</Label>
+  <Tab value="step1" title="Step 1">Step 1 content.</Tab>
+  <Tab value="step2" title="Step 2">Step 2 content.</Tab>
+  <Tab value="step3" title="Step 3">Step 3 content.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.loading.value}}"
+  error="{{playground.loading.error}}"
+  disabled="false"
+  loading="true">
+  <Label>Wizard</Label>
+  <Tab value="step1" title="Step 1">Step 1 content.</Tab>
+  <Tab value="step2" title="Step 2">Step 2 content.</Tab>
+  <Tab value="step3" title="Step 3">Step 3 content.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- With error message -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With error message</h3>
+<demo id="demo-error">
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.error.value}}"
+  error="{{playground.error.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Checkout</Label>
+  <Tab value="cart" title="Cart">Cart details.</Tab>
+  <Tab value="shipping" title="Shipping">Shipping info.</Tab>
+  <Tab value="final" title="Finalize">Finalize your order.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-error">
+<template>
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.error.value}}"
+  error="{{playground.error.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Checkout</Label>
+  <Tab value="cart" title="Cart">Cart details.</Tab>
+  <Tab value="shipping" title="Shipping">Shipping info.</Tab>
+  <Tab value="final" title="Finalize">Finalize your order.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- Advanced: Icons, disabled tab, overflow -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Advanced: Icons, disabled tab, overflow</h3>
+<demo id="demo-advanced">
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.advanced.value}}"
+  error="{{playground.advanced.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Admin Path</Label>
+  <Tab value="dashboard" title="Dashboard" icon="🏠">Dashboard panel.</Tab>
+  <Tab value="users" title="Users" icon="👥">User management.</Tab>
+  <Tab value="reports" title="Reports" icon="📊">Reports section.</Tab>
+  <Tab value="settings" title="Settings" icon="⚙️">Settings area.</Tab>
+  <Tab value="logs" title="Logs" icon="📝" disabled>Logs are disabled.</Tab>
+  <Tab value="advanced" title="Advanced" icon="🔒">Advanced options.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.advanced.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.advanced.error}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-advanced">
+<template>
+<groupnavigatesection--ml-breadcrumb-trail
+  value="{{playground.advanced.value}}"
+  error="{{playground.advanced.error}}"
+  disabled="false"
+  loading="false">
+  <Label>Admin Path</Label>
+  <Tab value="dashboard" title="Dashboard" icon="🏠">Dashboard panel.</Tab>
+  <Tab value="users" title="Users" icon="👥">User management.</Tab>
+  <Tab value="reports" title="Reports" icon="📊">Reports section.</Tab>
+  <Tab value="settings" title="Settings" icon="⚙️">Settings area.</Tab>
+  <Tab value="logs" title="Logs" icon="📝" disabled>Logs are disabled.</Tab>
+  <Tab value="advanced" title="Advanced" icon="🔒">Advanced options.</Tab>
+</groupnavigatesection--ml-breadcrumb-trail>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>

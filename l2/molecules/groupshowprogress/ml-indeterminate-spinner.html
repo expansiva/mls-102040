@@ -1,0 +1,228 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Indeterminate Spinner Molecule</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupShowProgress</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"default":{"value":null,"size":"md","label":"","show-value":false},"smallLabel":{"value":null,"size":"sm","label":"Loading data...","show-value":false},"largeAria":{"value":null,"size":"lg","label":"Uploading files","show-value":false},"xs":{"value":null,"size":"xs","label":"","show-value":false},"determinate":{"value":45,"size":"md","label":"Processing","show-value":true},"allCustom":{"value":null,"size":"lg","label":"Please wait...","show-value":true}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Default Spinner</h3>
+<demo id="demo-default">
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.default.value}}"
+  size="{{playground.default.size}}"
+  label="{{playground.default.label}}"
+  show-value="{{playground.default.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.default.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.default.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.default.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.default.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-default">
+<template>
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.default.value}}"
+  size="{{playground.default.size}}"
+  label="{{playground.default.label}}"
+  show-value="{{playground.default.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Small Spinner with Label</h3>
+<demo id="demo-smallLabel">
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.smallLabel.value}}"
+  size="{{playground.smallLabel.size}}"
+  label="{{playground.smallLabel.label}}"
+  show-value="{{playground.smallLabel.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.smallLabel.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.smallLabel.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.smallLabel.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.smallLabel.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-smallLabel">
+<template>
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.smallLabel.value}}"
+  size="{{playground.smallLabel.size}}"
+  label="{{playground.smallLabel.label}}"
+  show-value="{{playground.smallLabel.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Large Spinner with Accessible Label</h3>
+<demo id="demo-largeAria">
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.largeAria.value}}"
+  size="{{playground.largeAria.size}}"
+  label="{{playground.largeAria.label}}"
+  show-value="{{playground.largeAria.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.largeAria.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.largeAria.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.largeAria.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.largeAria.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-largeAria">
+<template>
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.largeAria.value}}"
+  size="{{playground.largeAria.size}}"
+  label="{{playground.largeAria.label}}"
+  show-value="{{playground.largeAria.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Extra Small Spinner (No Label)</h3>
+<demo id="demo-xs">
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.xs.value}}"
+  size="{{playground.xs.size}}"
+  label="{{playground.xs.label}}"
+  show-value="{{playground.xs.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.xs.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.xs.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.xs.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.xs.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-xs">
+<template>
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.xs.value}}"
+  size="{{playground.xs.size}}"
+  label="{{playground.xs.label}}"
+  show-value="{{playground.xs.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Medium Spinner with Show Value (Determinate)</h3>
+<demo id="demo-determinate">
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.determinate.value}}"
+  size="{{playground.determinate.size}}"
+  label="{{playground.determinate.label}}"
+  show-value="{{playground.determinate.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.determinate.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.determinate.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.determinate.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.determinate.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-determinate">
+<template>
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.determinate.value}}"
+  size="{{playground.determinate.size}}"
+  label="{{playground.determinate.label}}"
+  show-value="{{playground.determinate.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Spinner with All Props Customized</h3>
+<demo id="demo-allCustom">
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.allCustom.value}}"
+  size="{{playground.allCustom.size}}"
+  label="{{playground.allCustom.label}}"
+  show-value="{{playground.allCustom.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.allCustom.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.allCustom.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.allCustom.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="show-value" value="{{playground.allCustom.show-value}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-allCustom">
+<template>
+<groupshowprogress--ml-indeterminate-spinner
+  value="{{playground.allCustom.value}}"
+  size="{{playground.allCustom.size}}"
+  label="{{playground.allCustom.label}}"
+  show-value="{{playground.allCustom.show-value}}">
+</groupshowprogress--ml-indeterminate-spinner>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>

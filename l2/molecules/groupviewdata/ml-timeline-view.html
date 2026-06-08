@@ -1,0 +1,386 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Timeline View Molecule</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewData</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"loading":false,"selectable":false,"hoverable":true},"selectable":{"loading":false,"selectable":true,"hoverable":true},"horizontal":{"loading":false,"selectable":false,"hoverable":true},"empty":{"loading":false,"selectable":false,"hoverable":true},"loading":{"loading":true,"selectable":false,"hoverable":true},"disabled":{"loading":false,"selectable":true,"hoverable":true}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<!-- 1. Basic vertical timeline -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic vertical timeline</h3>
+<demo id="demo-basic">
+<groupviewdata--ml-timeline-view loading="{{playground.basic.loading}}" selectable="{{playground.basic.selectable}}" hoverable="{{playground.basic.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>2026-06-01</Cell>
+      <Cell>Project kickoff</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-06-03</Cell>
+      <Cell>Design review</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-06-05</Cell>
+      <Cell>Development started</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-timeline-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.basic.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupviewdata--ml-timeline-view loading="{{playground.basic.loading}}" selectable="{{playground.basic.selectable}}" hoverable="{{playground.basic.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>2026-06-01</Cell>
+      <Cell>Project kickoff</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-06-03</Cell>
+      <Cell>Design review</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-06-05</Cell>
+      <Cell>Development started</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-timeline-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 2. Selectable timeline with group headers -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable timeline with group headers</h3>
+<demo id="demo-selectable">
+<groupviewdata--ml-timeline-view loading="{{playground.selectable.loading}}" selectable="{{playground.selectable.selectable}}" hoverable="{{playground.selectable.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows>
+    <Row group-header>
+      <Cell colspan="2">June 2026</Cell>
+    </Row>
+    <Row selected>
+      <Cell>2026-06-01</Cell>
+      <Cell>Kickoff</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-06-03</Cell>
+      <Cell>Design review</Cell>
+    </Row>
+    <Row group-header>
+      <Cell colspan="2">July 2026</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-07-02</Cell>
+      <Cell>Release candidate</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-timeline-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.selectable.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-selectable">
+<template>
+<groupviewdata--ml-timeline-view loading="{{playground.selectable.loading}}" selectable="{{playground.selectable.selectable}}" hoverable="{{playground.selectable.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows>
+    <Row group-header>
+      <Cell colspan="2">June 2026</Cell>
+    </Row>
+    <Row selected>
+      <Cell>2026-06-01</Cell>
+      <Cell>Kickoff</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-06-03</Cell>
+      <Cell>Design review</Cell>
+    </Row>
+    <Row group-header>
+      <Cell colspan="2">July 2026</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-07-02</Cell>
+      <Cell>Release candidate</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-timeline-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 3. Horizontal timeline (single column, multiple events) -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Horizontal timeline (single column, multiple events)</h3>
+<demo id="demo-horizontal">
+<groupviewdata--ml-timeline-view loading="{{playground.horizontal.loading}}" selectable="{{playground.horizontal.selectable}}" hoverable="{{playground.horizontal.hoverable}}">
+  <Columns>
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>Project kickoff</Cell>
+    </Row>
+    <Row>
+      <Cell>Design review</Cell>
+    </Row>
+    <Row>
+      <Cell>Development started</Cell>
+    </Row>
+    <Row>
+      <Cell>Testing phase</Cell>
+    </Row>
+    <Row>
+      <Cell>Release</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-timeline-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.horizontal.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.horizontal.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.horizontal.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-horizontal">
+<template>
+<groupviewdata--ml-timeline-view loading="{{playground.horizontal.loading}}" selectable="{{playground.horizontal.selectable}}" hoverable="{{playground.horizontal.hoverable}}">
+  <Columns>
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>Project kickoff</Cell>
+    </Row>
+    <Row>
+      <Cell>Design review</Cell>
+    </Row>
+    <Row>
+      <Cell>Development started</Cell>
+    </Row>
+    <Row>
+      <Cell>Testing phase</Cell>
+    </Row>
+    <Row>
+      <Cell>Release</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-timeline-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 4. Custom empty state -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Custom empty state</h3>
+<demo id="demo-empty">
+<groupviewdata--ml-timeline-view loading="{{playground.empty.loading}}" selectable="{{playground.empty.selectable}}" hoverable="{{playground.empty.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows></Rows>
+  <Empty>
+    <div class="text-center py-8 text-rose-500">No timeline events found for this period.</div>
+  </Empty>
+</groupviewdata--ml-timeline-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.empty.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.empty.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-empty">
+<template>
+<groupviewdata--ml-timeline-view loading="{{playground.empty.loading}}" selectable="{{playground.empty.selectable}}" hoverable="{{playground.empty.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows></Rows>
+  <Empty>
+    <div class="text-center py-8 text-rose-500">No timeline events found for this period.</div>
+  </Empty>
+</groupviewdata--ml-timeline-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 5. Loading state with custom slot -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state with custom slot</h3>
+<demo id="demo-loading">
+<groupviewdata--ml-timeline-view loading="{{playground.loading.loading}}" selectable="{{playground.loading.selectable}}" hoverable="{{playground.loading.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows></Rows>
+  <Loading>
+    <div class="flex flex-col items-center gap-2">
+      <span class="animate-bounce text-2xl">⏳</span>
+      <span class="text-sky-600 dark:text-sky-300">Fetching timeline events...</span>
+    </div>
+  </Loading>
+</groupviewdata--ml-timeline-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.loading.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupviewdata--ml-timeline-view loading="{{playground.loading.loading}}" selectable="{{playground.loading.selectable}}" hoverable="{{playground.loading.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows></Rows>
+  <Loading>
+    <div class="flex flex-col items-center gap-2">
+      <span class="animate-bounce text-2xl">⏳</span>
+      <span class="text-sky-600 dark:text-sky-300">Fetching timeline events...</span>
+    </div>
+  </Loading>
+</groupviewdata--ml-timeline-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<!-- 6. Timeline with disabled and selected rows -->
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Timeline with disabled and selected rows</h3>
+<demo id="demo-disabled">
+<groupviewdata--ml-timeline-view loading="{{playground.disabled.loading}}" selectable="{{playground.disabled.selectable}}" hoverable="{{playground.disabled.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>2026-06-01</Cell>
+      <Cell>Kickoff</Cell>
+    </Row>
+    <Row selected>
+      <Cell>2026-06-03</Cell>
+      <Cell>Design review</Cell>
+    </Row>
+    <Row disabled>
+      <Cell>2026-06-05</Cell>
+      <Cell>Development started</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-06-07</Cell>
+      <Cell>Testing phase</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-timeline-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.disabled.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.disabled.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<groupviewdata--ml-timeline-view loading="{{playground.disabled.loading}}" selectable="{{playground.disabled.selectable}}" hoverable="{{playground.disabled.hoverable}}">
+  <Columns>
+    <Column field="date" header="Date" width="120px" />
+    <Column field="event" header="Event" />
+  </Columns>
+  <Rows>
+    <Row>
+      <Cell>2026-06-01</Cell>
+      <Cell>Kickoff</Cell>
+    </Row>
+    <Row selected>
+      <Cell>2026-06-03</Cell>
+      <Cell>Design review</Cell>
+    </Row>
+    <Row disabled>
+      <Cell>2026-06-05</Cell>
+      <Cell>Development started</Cell>
+    </Row>
+    <Row>
+      <Cell>2026-06-07</Cell>
+      <Cell>Testing phase</Cell>
+    </Row>
+  </Rows>
+</groupviewdata--ml-timeline-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>
