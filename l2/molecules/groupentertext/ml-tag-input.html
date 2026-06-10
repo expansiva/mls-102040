@@ -1,0 +1,286 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Tag Input</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterText</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"design, qa","name":"tags","placeholder":"Add a tag","maxLength":20,"required":true,"isEditing":true},"prefixSuffix":{"value":"design, roadmap","name":"topics","placeholder":"Add topics","maxLength":24,"autocomplete":"off","inputType":"search","isEditing":true},"error":{"value":"ux","error":"Each tag must be at least 3 characters.","placeholder":"Add tag","minLength":3,"required":true,"isEditing":true},"multiline":{"value":"Daily notes:\\n- Sync with team\\n- Review backlog","name":"notes","placeholder":"Write notes","rows":4,"maxLength":120,"isEditing":true},"view":{"value":"frontend, api, mobile","name":"teamTags","isEditing":false,"readonly":true},"loading":{"value":"","placeholder":"Loading tags","loading":true,"disabled":false,"isEditing":true}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic tags</h3>
+        <demo id="demo-basic">
+          <groupentertext--ml-tag-input
+            value="{{playground.basic.value}}"
+            name="{{playground.basic.name}}"
+            placeholder="{{playground.basic.placeholder}}"
+            max-length="{{playground.basic.maxLength}}"
+            required="{{playground.basic.required}}"
+            is-editing="{{playground.basic.isEditing}}">
+            <Label>Tags</Label>
+            <Helper>Use Enter to add multiple tags.</Helper>
+          </groupentertext--ml-tag-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-number-102020 label="maxLength" value="{{playground.basic.maxLength}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.basic.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupentertext--ml-tag-input
+                  value="{{playground.basic.value}}"
+                  name="{{playground.basic.name}}"
+                  placeholder="{{playground.basic.placeholder}}"
+                  max-length="{{playground.basic.maxLength}}"
+                  required="{{playground.basic.required}}"
+                  is-editing="{{playground.basic.isEditing}}">
+                  <Label>Tags</Label>
+                  <Helper>Use Enter to add multiple tags.</Helper>
+                </groupentertext--ml-tag-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Prefix and suffix</h3>
+        <demo id="demo-prefix-suffix">
+          <groupentertext--ml-tag-input
+            value="{{playground.prefixSuffix.value}}"
+            name="{{playground.prefixSuffix.name}}"
+            placeholder="{{playground.prefixSuffix.placeholder}}"
+            max-length="{{playground.prefixSuffix.maxLength}}"
+            autocomplete="{{playground.prefixSuffix.autocomplete}}"
+            input-type="{{playground.prefixSuffix.inputType}}"
+            is-editing="{{playground.prefixSuffix.isEditing}}">
+            <Label>Topics</Label>
+            <Prefix>#</Prefix>
+            <Suffix><span class="text-xs">⌘K</span></Suffix>
+            <Helper>Search and tag key topics.</Helper>
+          </groupentertext--ml-tag-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.prefixSuffix.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.prefixSuffix.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.prefixSuffix.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-number-102020 label="maxLength" value="{{playground.prefixSuffix.maxLength}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="autocomplete" value="{{playground.prefixSuffix.autocomplete}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="inputType" value="{{playground.prefixSuffix.inputType}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.prefixSuffix.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-prefix-suffix">
+              <template>
+                <groupentertext--ml-tag-input
+                  value="{{playground.prefixSuffix.value}}"
+                  name="{{playground.prefixSuffix.name}}"
+                  placeholder="{{playground.prefixSuffix.placeholder}}"
+                  max-length="{{playground.prefixSuffix.maxLength}}"
+                  autocomplete="{{playground.prefixSuffix.autocomplete}}"
+                  input-type="{{playground.prefixSuffix.inputType}}"
+                  is-editing="{{playground.prefixSuffix.isEditing}}">
+                  <Label>Topics</Label>
+                  <Prefix>#</Prefix>
+                  <Suffix><span class="text-xs">⌘K</span></Suffix>
+                  <Helper>Search and tag key topics.</Helper>
+                </groupentertext--ml-tag-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error and validation</h3>
+        <demo id="demo-error">
+          <groupentertext--ml-tag-input
+            value="{{playground.error.value}}"
+            error="{{playground.error.error}}"
+            placeholder="{{playground.error.placeholder}}"
+            min-length="{{playground.error.minLength}}"
+            required="{{playground.error.required}}"
+            is-editing="{{playground.error.isEditing}}">
+            <Label>Skills</Label>
+          </groupentertext--ml-tag-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.error.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-number-102020 label="minLength" value="{{playground.error.minLength}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.error.required}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.error.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+                <groupentertext--ml-tag-input
+                  value="{{playground.error.value}}"
+                  error="{{playground.error.error}}"
+                  placeholder="{{playground.error.placeholder}}"
+                  min-length="{{playground.error.minLength}}"
+                  required="{{playground.error.required}}"
+                  is-editing="{{playground.error.isEditing}}">
+                  <Label>Skills</Label>
+                </groupentertext--ml-tag-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Multiline notes</h3>
+        <demo id="demo-multiline">
+          <groupentertext--ml-tag-input
+            value="{{playground.multiline.value}}"
+            name="{{playground.multiline.name}}"
+            placeholder="{{playground.multiline.placeholder}}"
+            rows="{{playground.multiline.rows}}"
+            max-length="{{playground.multiline.maxLength}}"
+            is-editing="{{playground.multiline.isEditing}}">
+            <Label>Notes</Label>
+            <Helper>Use this field for free-form notes.</Helper>
+          </groupentertext--ml-tag-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.multiline.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.multiline.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.multiline.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-number-102020 label="rows" value="{{playground.multiline.rows}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="maxLength" value="{{playground.multiline.maxLength}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.multiline.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-multiline">
+              <template>
+                <groupentertext--ml-tag-input
+                  value="{{playground.multiline.value}}"
+                  name="{{playground.multiline.name}}"
+                  placeholder="{{playground.multiline.placeholder}}"
+                  rows="{{playground.multiline.rows}}"
+                  max-length="{{playground.multiline.maxLength}}"
+                  is-editing="{{playground.multiline.isEditing}}">
+                  <Label>Notes</Label>
+                  <Helper>Use this field for free-form notes.</Helper>
+                </groupentertext--ml-tag-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only view</h3>
+        <demo id="demo-view">
+          <groupentertext--ml-tag-input
+            value="{{playground.view.value}}"
+            name="{{playground.view.name}}"
+            is-editing="{{playground.view.isEditing}}"
+            readonly="{{playground.view.readonly}}">
+            <Label>Team tags</Label>
+            <Prefix>Tags:</Prefix>
+            <Suffix><span class="text-xs">3</span></Suffix>
+          </groupentertext--ml-tag-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.view.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.view.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.view.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.view.readonly}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-view">
+              <template>
+                <groupentertext--ml-tag-input
+                  value="{{playground.view.value}}"
+                  name="{{playground.view.name}}"
+                  is-editing="{{playground.view.isEditing}}"
+                  readonly="{{playground.view.readonly}}">
+                  <Label>Team tags</Label>
+                  <Prefix>Tags:</Prefix>
+                  <Suffix><span class="text-xs">3</span></Suffix>
+                </groupentertext--ml-tag-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+        <demo id="demo-loading">
+          <groupentertext--ml-tag-input
+            value="{{playground.loading.value}}"
+            placeholder="{{playground.loading.placeholder}}"
+            loading="{{playground.loading.loading}}"
+            disabled="{{playground.loading.disabled}}"
+            is-editing="{{playground.loading.isEditing}}">
+            <Label>Project tags</Label>
+            <Helper>Fetching the latest tags.</Helper>
+          </groupentertext--ml-tag-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.loading.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.loading.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupentertext--ml-tag-input
+                  value="{{playground.loading.value}}"
+                  placeholder="{{playground.loading.placeholder}}"
+                  loading="{{playground.loading.loading}}"
+                  disabled="{{playground.loading.disabled}}"
+                  is-editing="{{playground.loading.isEditing}}">
+                  <Label>Project tags</Label>
+                  <Helper>Fetching the latest tags.</Helper>
+                </groupentertext--ml-tag-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

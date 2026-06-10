@@ -1,0 +1,249 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Inline Calendar</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterDate</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":"2026-06-15","locale":"en-US","name":"startDate","placeholder":"Select a date"},"range":{"value":"2026-08-20","minDate":"2026-08-01","maxDate":"2026-08-31","locale":"pt-BR","name":"deliveryDate"},"weekNumbers":{"value":"2026-09-05","locale":"en-GB","showWeekNumbers":true,"firstDayOfWeek":1},"viewMode":{"value":"2026-10-12","locale":"en-US","isEditing":false,"name":"approvedDate"},"errorState":{"value":"","error":"Please select a valid date.","placeholder":"YYYY-MM-DD","locale":"en-US"},"loadingState":{"value":"2026-07-04","locale":"en-US","disabled":true,"loading":true}}}'>
+</widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic selection</h3>
+<demo id="demo-basic">
+<groupenterdate--ml-inline-calendar
+value="{{playground.basic.value}}"
+locale="{{playground.basic.locale}}"
+name="{{playground.basic.name}}"
+placeholder="{{playground.basic.placeholder}}"
+is-editing="true">
+<Label>Start date</Label>
+<Helper>Select a date to begin the schedule</Helper>
+</groupenterdate--ml-inline-calendar>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="locale" value="{{playground.basic.locale}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupenterdate--ml-inline-calendar
+value="{{playground.basic.value}}"
+locale="{{playground.basic.locale}}"
+name="{{playground.basic.name}}"
+placeholder="{{playground.basic.placeholder}}"
+is-editing="true">
+<Label>Start date</Label>
+<Helper>Select a date to begin the schedule</Helper>
+</groupenterdate--ml-inline-calendar>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Min/Max range with helper</h3>
+<demo id="demo-range">
+<groupenterdate--ml-inline-calendar
+value="{{playground.range.value}}"
+min-date="{{playground.range.minDate}}"
+max-date="{{playground.range.maxDate}}"
+locale="{{playground.range.locale}}"
+name="{{playground.range.name}}"
+required="true">
+<Label>Delivery window</Label>
+<Helper>Choose any date in August 2026</Helper>
+</groupenterdate--ml-inline-calendar>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.range.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="minDate" value="{{playground.range.minDate}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="maxDate" value="{{playground.range.maxDate}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="locale" value="{{playground.range.locale}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.range.name}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-range">
+<template>
+<groupenterdate--ml-inline-calendar
+value="{{playground.range.value}}"
+min-date="{{playground.range.minDate}}"
+max-date="{{playground.range.maxDate}}"
+locale="{{playground.range.locale}}"
+name="{{playground.range.name}}"
+required="true">
+<Label>Delivery window</Label>
+<Helper>Choose any date in August 2026</Helper>
+</groupenterdate--ml-inline-calendar>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Week numbers and Monday start</h3>
+<demo id="demo-week-numbers">
+<groupenterdate--ml-inline-calendar
+value="{{playground.weekNumbers.value}}"
+locale="{{playground.weekNumbers.locale}}"
+show-week-numbers="{{playground.weekNumbers.showWeekNumbers}}"
+first-day-of-week="{{playground.weekNumbers.firstDayOfWeek}}">
+<Label>Sprint calendar</Label>
+</groupenterdate--ml-inline-calendar>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.weekNumbers.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="locale" value="{{playground.weekNumbers.locale}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="showWeekNumbers" value="{{playground.weekNumbers.showWeekNumbers}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-number-102020 label="firstDayOfWeek" value="{{playground.weekNumbers.firstDayOfWeek}}"></widget-playground-state-number-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-week-numbers">
+<template>
+<groupenterdate--ml-inline-calendar
+value="{{playground.weekNumbers.value}}"
+locale="{{playground.weekNumbers.locale}}"
+show-week-numbers="{{playground.weekNumbers.showWeekNumbers}}"
+first-day-of-week="{{playground.weekNumbers.firstDayOfWeek}}">
+<Label>Sprint calendar</Label>
+</groupenterdate--ml-inline-calendar>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View mode (read-only display)</h3>
+<demo id="demo-view-mode">
+<groupenterdate--ml-inline-calendar
+value="{{playground.viewMode.value}}"
+locale="{{playground.viewMode.locale}}"
+is-editing="{{playground.viewMode.isEditing}}"
+name="{{playground.viewMode.name}}">
+<Label>Approved date</Label>
+</groupenterdate--ml-inline-calendar>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.viewMode.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="locale" value="{{playground.viewMode.locale}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="isEditing" value="{{playground.viewMode.isEditing}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.viewMode.name}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-view-mode">
+<template>
+<groupenterdate--ml-inline-calendar
+value="{{playground.viewMode.value}}"
+locale="{{playground.viewMode.locale}}"
+is-editing="{{playground.viewMode.isEditing}}"
+name="{{playground.viewMode.name}}">
+<Label>Approved date</Label>
+</groupenterdate--ml-inline-calendar>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error and required state</h3>
+<demo id="demo-error">
+<groupenterdate--ml-inline-calendar
+value="{{playground.errorState.value}}"
+error="{{playground.errorState.error}}"
+placeholder="{{playground.errorState.placeholder}}"
+locale="{{playground.errorState.locale}}"
+required="true">
+<Label>Payment date</Label>
+<Helper>Use the format YYYY-MM-DD</Helper>
+</groupenterdate--ml-inline-calendar>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.errorState.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.errorState.error}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="placeholder" value="{{playground.errorState.placeholder}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="locale" value="{{playground.errorState.locale}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-error">
+<template>
+<groupenterdate--ml-inline-calendar
+value="{{playground.errorState.value}}"
+error="{{playground.errorState.error}}"
+placeholder="{{playground.errorState.placeholder}}"
+locale="{{playground.errorState.locale}}"
+required="true">
+<Label>Payment date</Label>
+<Helper>Use the format YYYY-MM-DD</Helper>
+</groupenterdate--ml-inline-calendar>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled with loading</h3>
+<demo id="demo-loading">
+<groupenterdate--ml-inline-calendar
+value="{{playground.loadingState.value}}"
+locale="{{playground.loadingState.locale}}"
+disabled="{{playground.loadingState.disabled}}"
+loading="{{playground.loadingState.loading}}">
+<Label>Service date</Label>
+</groupenterdate--ml-inline-calendar>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.loadingState.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="locale" value="{{playground.loadingState.locale}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.loadingState.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loadingState.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupenterdate--ml-inline-calendar
+value="{{playground.loadingState.value}}"
+locale="{{playground.loadingState.locale}}"
+disabled="{{playground.loadingState.disabled}}"
+loading="{{playground.loadingState.loading}}">
+<Label>Service date</Label>
+</groupenterdate--ml-inline-calendar>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+</section>
+</div>
+</div>

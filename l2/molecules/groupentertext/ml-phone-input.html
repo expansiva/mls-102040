@@ -1,0 +1,236 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Phone Input</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterText</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":11987654321,"placeholder":"(11) 98765-4321","name":"phone"},"constraints":{"value":21999998888,"placeholder":"(21) 99999-8888","minLength":10,"maxLength":11,"required":true},"prefixSuffix":{"value":11912345678,"placeholder":"(11) 91234-5678","autocomplete":"tel"},"errorState":{"value":123,"error":"Enter a valid phone number","required":true},"loading":{"value":11911112222,"placeholder":"Validating number...","loading":true},"view":{"value":11988887777,"isEditing":false}}}'>
+    </widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupentertext--ml-phone-input
+            value="{{playground.basic.value}}"
+            placeholder="{{playground.basic.placeholder}}"
+            name="{{playground.basic.name}}">
+            <Label>Phone</Label>
+          </groupentertext--ml-phone-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupentertext--ml-phone-input
+                  value="{{playground.basic.value}}"
+                  placeholder="{{playground.basic.placeholder}}"
+                  name="{{playground.basic.name}}">
+                  <Label>Phone</Label>
+                </groupentertext--ml-phone-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Constraints with Helper</h3>
+        <demo id="demo-constraints">
+          <groupentertext--ml-phone-input
+            value="{{playground.constraints.value}}"
+            placeholder="{{playground.constraints.placeholder}}"
+            min-length="{{playground.constraints.minLength}}"
+            max-length="{{playground.constraints.maxLength}}"
+            required="{{playground.constraints.required}}">
+            <Label>Mobile</Label>
+            <Helper>Include area code.</Helper>
+          </groupentertext--ml-phone-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.constraints.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.constraints.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-number-102020 label="minLength" value="{{playground.constraints.minLength}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="maxLength" value="{{playground.constraints.maxLength}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.constraints.required}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-constraints">
+              <template>
+                <groupentertext--ml-phone-input
+                  value="{{playground.constraints.value}}"
+                  placeholder="{{playground.constraints.placeholder}}"
+                  min-length="{{playground.constraints.minLength}}"
+                  max-length="{{playground.constraints.maxLength}}"
+                  required="{{playground.constraints.required}}">
+                  <Label>Mobile</Label>
+                  <Helper>Include area code.</Helper>
+                </groupentertext--ml-phone-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Prefix and Suffix</h3>
+        <demo id="demo-prefix-suffix">
+          <groupentertext--ml-phone-input
+            value="{{playground.prefixSuffix.value}}"
+            placeholder="{{playground.prefixSuffix.placeholder}}"
+            autocomplete="{{playground.prefixSuffix.autocomplete}}">
+            <Label>WhatsApp</Label>
+            <Prefix>+55</Prefix>
+            <Suffix>Personal</Suffix>
+          </groupentertext--ml-phone-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.prefixSuffix.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.prefixSuffix.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="autocomplete" value="{{playground.prefixSuffix.autocomplete}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-prefix-suffix">
+              <template>
+                <groupentertext--ml-phone-input
+                  value="{{playground.prefixSuffix.value}}"
+                  placeholder="{{playground.prefixSuffix.placeholder}}"
+                  autocomplete="{{playground.prefixSuffix.autocomplete}}">
+                  <Label>WhatsApp</Label>
+                  <Prefix>+55</Prefix>
+                  <Suffix>Personal</Suffix>
+                </groupentertext--ml-phone-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error State</h3>
+        <demo id="demo-error">
+          <groupentertext--ml-phone-input
+            value="{{playground.errorState.value}}"
+            error="{{playground.errorState.error}}"
+            required="{{playground.errorState.required}}">
+            <Label>Contact phone</Label>
+          </groupentertext--ml-phone-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.errorState.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.errorState.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.errorState.required}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+                <groupentertext--ml-phone-input
+                  value="{{playground.errorState.value}}"
+                  error="{{playground.errorState.error}}"
+                  required="{{playground.errorState.required}}">
+                  <Label>Contact phone</Label>
+                </groupentertext--ml-phone-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading</h3>
+        <demo id="demo-loading">
+          <groupentertext--ml-phone-input
+            value="{{playground.loading.value}}"
+            placeholder="{{playground.loading.placeholder}}"
+            loading="{{playground.loading.loading}}">
+            <Label>Verification</Label>
+            <Helper>We are validating your number.</Helper>
+          </groupentertext--ml-phone-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.loading.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupentertext--ml-phone-input
+                  value="{{playground.loading.value}}"
+                  placeholder="{{playground.loading.placeholder}}"
+                  loading="{{playground.loading.loading}}">
+                  <Label>Verification</Label>
+                  <Helper>We are validating your number.</Helper>
+                </groupentertext--ml-phone-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View Mode</h3>
+        <demo id="demo-view-mode">
+          <groupentertext--ml-phone-input
+            value="{{playground.view.value}}"
+            is-editing="{{playground.view.isEditing}}">
+            <Label>Saved number</Label>
+            <Prefix>📞</Prefix>
+            <Suffix>Edit</Suffix>
+          </groupentertext--ml-phone-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.view.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.view.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-view-mode">
+              <template>
+                <groupentertext--ml-phone-input
+                  value="{{playground.view.value}}"
+                  is-editing="{{playground.view.isEditing}}">
+                  <Label>Saved number</Label>
+                  <Prefix>📞</Prefix>
+                  <Suffix>Edit</Suffix>
+                </groupentertext--ml-phone-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

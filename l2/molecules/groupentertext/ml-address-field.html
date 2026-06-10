@@ -1,0 +1,393 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Address Field</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterText</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"postalCode":"","street":"","number":"","neighborhood":"","city":"","stateCode":""},"withValues":{"postalCode":"01310100","street":"Avenida Paulista","number":1578,"complement":"Apt 101","neighborhood":"Bela Vista","city":"São Paulo","stateCode":"SP"},"required":{"postalCode":"","street":"","number":"","neighborhood":"","city":"","stateCode":""},"errors":{"postalCode":123,"street":"","number":"","city":"","stateCode":"","postalCodeError":"Invalid postal code","streetError":"Street is required","numberError":"Number is required"},"view":{"postalCode":90210000,"street":"Rodeo Drive","number":456,"complement":"Suite 200","neighborhood":"Beverly Hills","city":"Los Angeles","stateCode":"CA"},"disabled":{"postalCode":12345678,"street":"Main Street","number":100,"city":"New York","stateCode":"NY"},"loading":{"postalCode":"01310100","street":"","number":"","city":"","stateCode":""},"maxLength":{"postalCode":"","street":"","number":"","complement":"","neighborhood":"","city":"","stateCode":""}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      
+      <!-- Basic -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupentertext--ml-address-field
+            postal-code="{{playground.basic.postalCode}}"
+            street="{{playground.basic.street}}"
+            number="{{playground.basic.number}}"
+            neighborhood="{{playground.basic.neighborhood}}"
+            city="{{playground.basic.city}}"
+            state-code="{{playground.basic.stateCode}}"
+            is-editing="true">
+          </groupentertext--ml-address-field>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="postalCode" value="{{playground.basic.postalCode}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="street" value="{{playground.basic.street}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="number" value="{{playground.basic.number}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="neighborhood" value="{{playground.basic.neighborhood}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="city" value="{{playground.basic.city}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="stateCode" value="{{playground.basic.stateCode}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+<groupentertext--ml-address-field
+  postal-code="{{playground.basic.postalCode}}"
+  street="{{playground.basic.street}}"
+  number="{{playground.basic.number}}"
+  neighborhood="{{playground.basic.neighborhood}}"
+  city="{{playground.basic.city}}"
+  state-code="{{playground.basic.stateCode}}"
+  is-editing="true">
+</groupentertext--ml-address-field>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Values -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Values</h3>
+        <demo id="demo-withvalues">
+          <groupentertext--ml-address-field
+            postal-code="{{playground.withValues.postalCode}}"
+            street="{{playground.withValues.street}}"
+            number="{{playground.withValues.number}}"
+            complement="{{playground.withValues.complement}}"
+            neighborhood="{{playground.withValues.neighborhood}}"
+            city="{{playground.withValues.city}}"
+            state-code="{{playground.withValues.stateCode}}"
+            is-editing="true">
+          </groupentertext--ml-address-field>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="postalCode" value="{{playground.withValues.postalCode}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="street" value="{{playground.withValues.street}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="number" value="{{playground.withValues.number}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="complement" value="{{playground.withValues.complement}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="neighborhood" value="{{playground.withValues.neighborhood}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="city" value="{{playground.withValues.city}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="stateCode" value="{{playground.withValues.stateCode}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-withvalues">
+              <template>
+<groupentertext--ml-address-field
+  postal-code="{{playground.withValues.postalCode}}"
+  street="{{playground.withValues.street}}"
+  number="{{playground.withValues.number}}"
+  complement="{{playground.withValues.complement}}"
+  neighborhood="{{playground.withValues.neighborhood}}"
+  city="{{playground.withValues.city}}"
+  state-code="{{playground.withValues.stateCode}}"
+  is-editing="true">
+</groupentertext--ml-address-field>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Required Fields -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Required Fields</h3>
+        <demo id="demo-required">
+          <groupentertext--ml-address-field
+            postal-code="{{playground.required.postalCode}}"
+            street="{{playground.required.street}}"
+            number="{{playground.required.number}}"
+            neighborhood="{{playground.required.neighborhood}}"
+            city="{{playground.required.city}}"
+            state-code="{{playground.required.stateCode}}"
+            postal-code-required="true"
+            street-required="true"
+            number-required="true"
+            city-required="true"
+            state-required="true"
+            is-editing="true">
+          </groupentertext--ml-address-field>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="postalCode" value="{{playground.required.postalCode}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="street" value="{{playground.required.street}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="number" value="{{playground.required.number}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="city" value="{{playground.required.city}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="stateCode" value="{{playground.required.stateCode}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-required">
+              <template>
+<groupentertext--ml-address-field
+  postal-code="{{playground.required.postalCode}}"
+  street="{{playground.required.street}}"
+  number="{{playground.required.number}}"
+  neighborhood="{{playground.required.neighborhood}}"
+  city="{{playground.required.city}}"
+  state-code="{{playground.required.stateCode}}"
+  postal-code-required="true"
+  street-required="true"
+  number-required="true"
+  city-required="true"
+  state-required="true"
+  is-editing="true">
+</groupentertext--ml-address-field>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Errors -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Errors</h3>
+        <demo id="demo-errors">
+          <groupentertext--ml-address-field
+            postal-code="{{playground.errors.postalCode}}"
+            street="{{playground.errors.street}}"
+            number="{{playground.errors.number}}"
+            city="{{playground.errors.city}}"
+            state-code="{{playground.errors.stateCode}}"
+            postal-code-error="{{playground.errors.postalCodeError}}"
+            street-error="{{playground.errors.streetError}}"
+            number-error="{{playground.errors.numberError}}"
+            is-editing="true">
+          </groupentertext--ml-address-field>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="postalCode" value="{{playground.errors.postalCode}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="postalCodeError" value="{{playground.errors.postalCodeError}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="streetError" value="{{playground.errors.streetError}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="numberError" value="{{playground.errors.numberError}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-errors">
+              <template>
+<groupentertext--ml-address-field
+  postal-code="{{playground.errors.postalCode}}"
+  street="{{playground.errors.street}}"
+  number="{{playground.errors.number}}"
+  city="{{playground.errors.city}}"
+  state-code="{{playground.errors.stateCode}}"
+  postal-code-error="{{playground.errors.postalCodeError}}"
+  street-error="{{playground.errors.streetError}}"
+  number-error="{{playground.errors.numberError}}"
+  is-editing="true">
+</groupentertext--ml-address-field>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- View Mode -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View Mode</h3>
+        <demo id="demo-view">
+          <groupentertext--ml-address-field
+            postal-code="{{playground.view.postalCode}}"
+            street="{{playground.view.street}}"
+            number="{{playground.view.number}}"
+            complement="{{playground.view.complement}}"
+            neighborhood="{{playground.view.neighborhood}}"
+            city="{{playground.view.city}}"
+            state-code="{{playground.view.stateCode}}"
+            is-editing="false">
+          </groupentertext--ml-address-field>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="postalCode" value="{{playground.view.postalCode}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="street" value="{{playground.view.street}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="number" value="{{playground.view.number}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="complement" value="{{playground.view.complement}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="neighborhood" value="{{playground.view.neighborhood}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="city" value="{{playground.view.city}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="stateCode" value="{{playground.view.stateCode}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-view">
+              <template>
+<groupentertext--ml-address-field
+  postal-code="{{playground.view.postalCode}}"
+  street="{{playground.view.street}}"
+  number="{{playground.view.number}}"
+  complement="{{playground.view.complement}}"
+  neighborhood="{{playground.view.neighborhood}}"
+  city="{{playground.view.city}}"
+  state-code="{{playground.view.stateCode}}"
+  is-editing="false">
+</groupentertext--ml-address-field>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Disabled -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+        <demo id="demo-disabled">
+          <groupentertext--ml-address-field
+            postal-code="{{playground.disabled.postalCode}}"
+            street="{{playground.disabled.street}}"
+            number="{{playground.disabled.number}}"
+            city="{{playground.disabled.city}}"
+            state-code="{{playground.disabled.stateCode}}"
+            disabled="true"
+            is-editing="true">
+          </groupentertext--ml-address-field>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="postalCode" value="{{playground.disabled.postalCode}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="street" value="{{playground.disabled.street}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="number" value="{{playground.disabled.number}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="city" value="{{playground.disabled.city}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="stateCode" value="{{playground.disabled.stateCode}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+<groupentertext--ml-address-field
+  postal-code="{{playground.disabled.postalCode}}"
+  street="{{playground.disabled.street}}"
+  number="{{playground.disabled.number}}"
+  city="{{playground.disabled.city}}"
+  state-code="{{playground.disabled.stateCode}}"
+  disabled="true"
+  is-editing="true">
+</groupentertext--ml-address-field>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading</h3>
+        <demo id="demo-loading">
+          <groupentertext--ml-address-field
+            postal-code="{{playground.loading.postalCode}}"
+            street="{{playground.loading.street}}"
+            number="{{playground.loading.number}}"
+            city="{{playground.loading.city}}"
+            state-code="{{playground.loading.stateCode}}"
+            loading="true"
+            is-editing="true">
+          </groupentertext--ml-address-field>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="postalCode" value="{{playground.loading.postalCode}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+<groupentertext--ml-address-field
+  postal-code="{{playground.loading.postalCode}}"
+  street="{{playground.loading.street}}"
+  number="{{playground.loading.number}}"
+  city="{{playground.loading.city}}"
+  state-code="{{playground.loading.stateCode}}"
+  loading="true"
+  is-editing="true">
+</groupentertext--ml-address-field>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Max Lengths -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Max Lengths</h3>
+        <demo id="demo-maxlength">
+          <groupentertext--ml-address-field
+            postal-code="{{playground.maxLength.postalCode}}"
+            street="{{playground.maxLength.street}}"
+            number="{{playground.maxLength.number}}"
+            complement="{{playground.maxLength.complement}}"
+            neighborhood="{{playground.maxLength.neighborhood}}"
+            city="{{playground.maxLength.city}}"
+            state-code="{{playground.maxLength.stateCode}}"
+            street-max-length="100"
+            number-max-length="10"
+            complement-max-length="50"
+            complement-rows="2"
+            is-editing="true">
+          </groupentertext--ml-address-field>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="postalCode" value="{{playground.maxLength.postalCode}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="street" value="{{playground.maxLength.street}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="number" value="{{playground.maxLength.number}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="complement" value="{{playground.maxLength.complement}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-maxlength">
+              <template>
+<groupentertext--ml-address-field
+  postal-code="{{playground.maxLength.postalCode}}"
+  street="{{playground.maxLength.street}}"
+  number="{{playground.maxLength.number}}"
+  complement="{{playground.maxLength.complement}}"
+  neighborhood="{{playground.maxLength.neighborhood}}"
+  city="{{playground.maxLength.city}}"
+  state-code="{{playground.maxLength.stateCode}}"
+  street-max-length="100"
+  number-max-length="10"
+  complement-max-length="50"
+  complement-rows="2"
+  is-editing="true">
+</groupentertext--ml-address-field>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>

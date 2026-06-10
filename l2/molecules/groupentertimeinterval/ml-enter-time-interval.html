@@ -1,0 +1,306 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Enter Time Interval</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterTimeInterval</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"startTime":"08:00","endTime":"17:00","error":"","minuteStep":30,"required":true,"name":"shift-hours"},"overnight":{"startTime":"22:00","endTime":"06:00","error":"","locale":"en-US","hour12":true,"minuteStep":15,"allowOvernight":true,"minDurationMinutes":60},"seconds":{"startTime":"09:30:15","endTime":"12:45:30","name":"meeting-window","showSeconds":true,"minuteStep":1,"minTime":"09:00","maxTime":"18:00"},"readonly":{"startTime":"22:30","endTime":"02:15","isEditing":false,"hour12":true,"locale":"pt-BR","allowOvernight":true},"error":{"startTime":"10:00","endTime":"10:00","error":"End time must be after start time.","required":true,"minuteStep":15,"minDurationMinutes":30},"loading":{"startTime":"13:00","endTime":"17:00","loading":true,"disabled":false,"readonly":true,"minuteStep":30,"name":"support-window"}}}'>
+</widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Shift</h3>
+<demo id="demo-basic">
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.basic.startTime}}"
+endTime="{{playground.basic.endTime}}"
+error="{{playground.basic.error}}"
+minute-step="{{playground.basic.minuteStep}}"
+required="{{playground.basic.required}}"
+name="{{playground.basic.name}}">
+<Label>Work shift</Label>
+<LabelStart>From</LabelStart>
+<LabelEnd>To</LabelEnd>
+</groupentertimeinterval--ml-enter-time-interval>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="startTime" value="{{playground.basic.startTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="endTime" value="{{playground.basic.endTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+<widget-playground-state-number-102020 label="minuteStep" value="{{playground.basic.minuteStep}}"></widget-playground-state-number-102020>
+<widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.basic.startTime}}"
+endTime="{{playground.basic.endTime}}"
+error="{{playground.basic.error}}"
+minute-step="{{playground.basic.minuteStep}}"
+required="{{playground.basic.required}}"
+name="{{playground.basic.name}}">
+<Label>Work shift</Label>
+<LabelStart>From</LabelStart>
+<LabelEnd>To</LabelEnd>
+</groupentertimeinterval--ml-enter-time-interval>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Overnight Hours</h3>
+<demo id="demo-overnight">
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.overnight.startTime}}"
+endTime="{{playground.overnight.endTime}}"
+error="{{playground.overnight.error}}"
+locale="{{playground.overnight.locale}}"
+hour12="{{playground.overnight.hour12}}"
+minute-step="{{playground.overnight.minuteStep}}"
+allow-overnight="{{playground.overnight.allowOvernight}}"
+min-duration-minutes="{{playground.overnight.minDurationMinutes}}">
+<Label>Business hours</Label>
+<LabelStart>Opens</LabelStart>
+<LabelEnd>Closes</LabelEnd>
+<Helper>Minimum 1 hour. Overnight hours allowed.</Helper>
+</groupentertimeinterval--ml-enter-time-interval>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="startTime" value="{{playground.overnight.startTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="endTime" value="{{playground.overnight.endTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.overnight.error}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="locale" value="{{playground.overnight.locale}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="hour12" value="{{playground.overnight.hour12}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-number-102020 label="minuteStep" value="{{playground.overnight.minuteStep}}"></widget-playground-state-number-102020>
+<widget-playground-state-boolean-102020 label="allowOvernight" value="{{playground.overnight.allowOvernight}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-number-102020 label="minDurationMinutes" value="{{playground.overnight.minDurationMinutes}}"></widget-playground-state-number-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-overnight">
+<template>
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.overnight.startTime}}"
+endTime="{{playground.overnight.endTime}}"
+error="{{playground.overnight.error}}"
+locale="{{playground.overnight.locale}}"
+hour12="{{playground.overnight.hour12}}"
+minute-step="{{playground.overnight.minuteStep}}"
+allow-overnight="{{playground.overnight.allowOvernight}}"
+min-duration-minutes="{{playground.overnight.minDurationMinutes}}">
+<Label>Business hours</Label>
+<LabelStart>Opens</LabelStart>
+<LabelEnd>Closes</LabelEnd>
+<Helper>Minimum 1 hour. Overnight hours allowed.</Helper>
+</groupentertimeinterval--ml-enter-time-interval>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Seconds and Bounds</h3>
+<demo id="demo-seconds">
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.seconds.startTime}}"
+endTime="{{playground.seconds.endTime}}"
+name="{{playground.seconds.name}}"
+show-seconds="{{playground.seconds.showSeconds}}"
+minute-step="{{playground.seconds.minuteStep}}"
+minTime="{{playground.seconds.minTime}}"
+maxTime="{{playground.seconds.maxTime}}">
+<Label>Live streaming window</Label>
+<LabelStart>Start</LabelStart>
+<LabelEnd>End</LabelEnd>
+<Helper>Times must be within business hours.</Helper>
+</groupentertimeinterval--ml-enter-time-interval>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="startTime" value="{{playground.seconds.startTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="endTime" value="{{playground.seconds.endTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.seconds.name}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="showSeconds" value="{{playground.seconds.showSeconds}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-number-102020 label="minuteStep" value="{{playground.seconds.minuteStep}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="minTime" value="{{playground.seconds.minTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="maxTime" value="{{playground.seconds.maxTime}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-seconds">
+<template>
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.seconds.startTime}}"
+endTime="{{playground.seconds.endTime}}"
+name="{{playground.seconds.name}}"
+show-seconds="{{playground.seconds.showSeconds}}"
+minute-step="{{playground.seconds.minuteStep}}"
+minTime="{{playground.seconds.minTime}}"
+maxTime="{{playground.seconds.maxTime}}">
+<Label>Live streaming window</Label>
+<LabelStart>Start</LabelStart>
+<LabelEnd>End</LabelEnd>
+<Helper>Times must be within business hours.</Helper>
+</groupentertimeinterval--ml-enter-time-interval>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only Summary</h3>
+<demo id="demo-readonly">
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.readonly.startTime}}"
+endTime="{{playground.readonly.endTime}}"
+is-editing="{{playground.readonly.isEditing}}"
+hour12="{{playground.readonly.hour12}}"
+locale="{{playground.readonly.locale}}"
+allow-overnight="{{playground.readonly.allowOvernight}}">
+</groupentertimeinterval--ml-enter-time-interval>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="startTime" value="{{playground.readonly.startTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="endTime" value="{{playground.readonly.endTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="isEditing" value="{{playground.readonly.isEditing}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hour12" value="{{playground.readonly.hour12}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-text-102020 label="locale" value="{{playground.readonly.locale}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="allowOvernight" value="{{playground.readonly.allowOvernight}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-readonly">
+<template>
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.readonly.startTime}}"
+endTime="{{playground.readonly.endTime}}"
+is-editing="{{playground.readonly.isEditing}}"
+hour12="{{playground.readonly.hour12}}"
+locale="{{playground.readonly.locale}}"
+allow-overnight="{{playground.readonly.allowOvernight}}">
+</groupentertimeinterval--ml-enter-time-interval>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Validation Error</h3>
+<demo id="demo-error">
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.error.startTime}}"
+endTime="{{playground.error.endTime}}"
+error="{{playground.error.error}}"
+required="{{playground.error.required}}"
+minute-step="{{playground.error.minuteStep}}"
+min-duration-minutes="{{playground.error.minDurationMinutes}}">
+<Label>On-call coverage</Label>
+<LabelStart>Start</LabelStart>
+<LabelEnd>End</LabelEnd>
+</groupentertimeinterval--ml-enter-time-interval>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="startTime" value="{{playground.error.startTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="endTime" value="{{playground.error.endTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="required" value="{{playground.error.required}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-number-102020 label="minuteStep" value="{{playground.error.minuteStep}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="minDurationMinutes" value="{{playground.error.minDurationMinutes}}"></widget-playground-state-number-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-error">
+<template>
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.error.startTime}}"
+endTime="{{playground.error.endTime}}"
+error="{{playground.error.error}}"
+required="{{playground.error.required}}"
+minute-step="{{playground.error.minuteStep}}"
+min-duration-minutes="{{playground.error.minDurationMinutes}}">
+<Label>On-call coverage</Label>
+<LabelStart>Start</LabelStart>
+<LabelEnd>End</LabelEnd>
+</groupentertimeinterval--ml-enter-time-interval>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading and Readonly</h3>
+<demo id="demo-loading">
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.loading.startTime}}"
+endTime="{{playground.loading.endTime}}"
+loading="{{playground.loading.loading}}"
+disabled="{{playground.loading.disabled}}"
+readonly="{{playground.loading.readonly}}"
+minute-step="{{playground.loading.minuteStep}}"
+name="{{playground.loading.name}}">
+<Label>Support window</Label>
+<LabelStart>Start</LabelStart>
+<LabelEnd>End</LabelEnd>
+<Helper>Times are fetched from scheduling service.</Helper>
+</groupentertimeinterval--ml-enter-time-interval>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="startTime" value="{{playground.loading.startTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="endTime" value="{{playground.loading.endTime}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="readonly" value="{{playground.loading.readonly}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-number-102020 label="minuteStep" value="{{playground.loading.minuteStep}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.loading.name}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupentertimeinterval--ml-enter-time-interval
+startTime="{{playground.loading.startTime}}"
+endTime="{{playground.loading.endTime}}"
+loading="{{playground.loading.loading}}"
+disabled="{{playground.loading.disabled}}"
+readonly="{{playground.loading.readonly}}"
+minute-step="{{playground.loading.minuteStep}}"
+name="{{playground.loading.name}}">
+<Label>Support window</Label>
+<LabelStart>Start</LabelStart>
+<LabelEnd>End</LabelEnd>
+<Helper>Times are fetched from scheduling service.</Helper>
+</groupentertimeinterval--ml-enter-time-interval>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+</section>
+</div>
+</div>
