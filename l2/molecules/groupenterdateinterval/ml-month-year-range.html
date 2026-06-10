@@ -1,0 +1,354 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Month Year Range</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterDateInterval</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"startDate":"2026-01-01","endDate":"2026-06-01","error":""},"labels":{"startDate":"2026-03-01","endDate":"2026-09-01","error":""},"constraints":{"startDate":"2026-02-01","endDate":"2026-08-01","error":""},"range":{"startDate":"2026-04-01","endDate":"2026-07-01","error":""},"error":{"startDate":"2026-05-01","endDate":"","error":"Please select an end date"},"view":{"startDate":"2026-01-01","endDate":"2026-12-01"},"disabled":{"startDate":"2026-02-01","endDate":"2026-05-01"}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      
+      <!-- Basic -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupenterdateinterval--ml-month-year-range
+            start-date="{{playground.basic.startDate}}"
+            end-date="{{playground.basic.endDate}}"
+            error="{{playground.basic.error}}"
+            is-editing="true">
+            <Label>Select Period</Label>
+            <LabelStart>Start Month</LabelStart>
+            <LabelEnd>End Month</LabelEnd>
+          </groupenterdateinterval--ml-month-year-range>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="startDate" value="{{playground.basic.startDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="endDate" value="{{playground.basic.endDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+<groupenterdateinterval--ml-month-year-range
+  start-date="{{playground.basic.startDate}}"
+  end-date="{{playground.basic.endDate}}"
+  error="{{playground.basic.error}}"
+  is-editing="true">
+  <Label>Select Period</Label>
+  <LabelStart>Start Month</LabelStart>
+  <LabelEnd>End Month</LabelEnd>
+</groupenterdateinterval--ml-month-year-range>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Labels and Helper -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Labels and Helper</h3>
+        <demo id="demo-labels">
+          <groupenterdateinterval--ml-month-year-range
+            start-date="{{playground.labels.startDate}}"
+            end-date="{{playground.labels.endDate}}"
+            error="{{playground.labels.error}}"
+            required="true"
+            is-editing="true">
+            <Label>Contract Period</Label>
+            <LabelStart>Contract Start</LabelStart>
+            <LabelEnd>Contract End</LabelEnd>
+            <Helper>Select the start and end months for the contract</Helper>
+          </groupenterdateinterval--ml-month-year-range>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="startDate" value="{{playground.labels.startDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="endDate" value="{{playground.labels.endDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.labels.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-labels">
+              <template>
+<groupenterdateinterval--ml-month-year-range
+  start-date="{{playground.labels.startDate}}"
+  end-date="{{playground.labels.endDate}}"
+  error="{{playground.labels.error}}"
+  required="true"
+  is-editing="true">
+  <Label>Contract Period</Label>
+  <LabelStart>Contract Start</LabelStart>
+  <LabelEnd>Contract End</LabelEnd>
+  <Helper>Select the start and end months for the contract</Helper>
+</groupenterdateinterval--ml-month-year-range>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Date Constraints -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Date Constraints</h3>
+        <demo id="demo-constraints">
+          <groupenterdateinterval--ml-month-year-range
+            start-date="{{playground.constraints.startDate}}"
+            end-date="{{playground.constraints.endDate}}"
+            error="{{playground.constraints.error}}"
+            min-date="2026-01-01"
+            max-date="2026-12-01"
+            is-editing="true">
+            <Label>Fiscal Year 2026</Label>
+            <LabelStart>From</LabelStart>
+            <LabelEnd>To</LabelEnd>
+            <Helper>Only months within 2026 are selectable</Helper>
+          </groupenterdateinterval--ml-month-year-range>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="startDate" value="{{playground.constraints.startDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="endDate" value="{{playground.constraints.endDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.constraints.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-constraints">
+              <template>
+<groupenterdateinterval--ml-month-year-range
+  start-date="{{playground.constraints.startDate}}"
+  end-date="{{playground.constraints.endDate}}"
+  error="{{playground.constraints.error}}"
+  min-date="2026-01-01"
+  max-date="2026-12-01"
+  is-editing="true">
+  <Label>Fiscal Year 2026</Label>
+  <LabelStart>From</LabelStart>
+  <LabelEnd>To</LabelEnd>
+  <Helper>Only months within 2026 are selectable</Helper>
+</groupenterdateinterval--ml-month-year-range>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Range Limits -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Range Limits</h3>
+        <demo id="demo-range">
+          <groupenterdateinterval--ml-month-year-range
+            start-date="{{playground.range.startDate}}"
+            end-date="{{playground.range.endDate}}"
+            error="{{playground.range.error}}"
+            max-range-days="180"
+            allow-same-day="false"
+            is-editing="true">
+            <Label>Report Period</Label>
+            <LabelStart>Start</LabelStart>
+            <LabelEnd>End</LabelEnd>
+            <Helper>Maximum range is 6 months, same month not allowed</Helper>
+          </groupenterdateinterval--ml-month-year-range>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="startDate" value="{{playground.range.startDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="endDate" value="{{playground.range.endDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.range.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-range">
+              <template>
+<groupenterdateinterval--ml-month-year-range
+  start-date="{{playground.range.startDate}}"
+  end-date="{{playground.range.endDate}}"
+  error="{{playground.range.error}}"
+  max-range-days="180"
+  allow-same-day="false"
+  is-editing="true">
+  <Label>Report Period</Label>
+  <LabelStart>Start</LabelStart>
+  <LabelEnd>End</LabelEnd>
+  <Helper>Maximum range is 6 months, same month not allowed</Helper>
+</groupenterdateinterval--ml-month-year-range>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Error State -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Error State</h3>
+        <demo id="demo-error">
+          <groupenterdateinterval--ml-month-year-range
+            start-date="{{playground.error.startDate}}"
+            end-date="{{playground.error.endDate}}"
+            error="{{playground.error.error}}"
+            is-editing="true">
+            <Label>Subscription Period</Label>
+            <LabelStart>Start Month</LabelStart>
+            <LabelEnd>End Month</LabelEnd>
+          </groupenterdateinterval--ml-month-year-range>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="startDate" value="{{playground.error.startDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="endDate" value="{{playground.error.endDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+<groupenterdateinterval--ml-month-year-range
+  start-date="{{playground.error.startDate}}"
+  end-date="{{playground.error.endDate}}"
+  error="{{playground.error.error}}"
+  is-editing="true">
+  <Label>Subscription Period</Label>
+  <LabelStart>Start Month</LabelStart>
+  <LabelEnd>End Month</LabelEnd>
+</groupenterdateinterval--ml-month-year-range>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- View Mode -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View Mode (Read Only Display)</h3>
+        <demo id="demo-view">
+          <groupenterdateinterval--ml-month-year-range
+            start-date="{{playground.view.startDate}}"
+            end-date="{{playground.view.endDate}}"
+            error=""
+            is-editing="false">
+            <Label>Annual Budget Period</Label>
+          </groupenterdateinterval--ml-month-year-range>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="startDate" value="{{playground.view.startDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="endDate" value="{{playground.view.endDate}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-view">
+              <template>
+<groupenterdateinterval--ml-month-year-range
+  start-date="{{playground.view.startDate}}"
+  end-date="{{playground.view.endDate}}"
+  error=""
+  is-editing="false">
+  <Label>Annual Budget Period</Label>
+</groupenterdateinterval--ml-month-year-range>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Disabled State -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled State</h3>
+        <demo id="demo-disabled">
+          <groupenterdateinterval--ml-month-year-range
+            start-date="{{playground.disabled.startDate}}"
+            end-date="{{playground.disabled.endDate}}"
+            error=""
+            disabled="true"
+            is-editing="true">
+            <Label>Locked Period</Label>
+            <LabelStart>From</LabelStart>
+            <LabelEnd>To</LabelEnd>
+            <Helper>This field is currently disabled</Helper>
+          </groupenterdateinterval--ml-month-year-range>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="startDate" value="{{playground.disabled.startDate}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="endDate" value="{{playground.disabled.endDate}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+<groupenterdateinterval--ml-month-year-range
+  start-date="{{playground.disabled.startDate}}"
+  end-date="{{playground.disabled.endDate}}"
+  error=""
+  disabled="true"
+  is-editing="true">
+  <Label>Locked Period</Label>
+  <LabelStart>From</LabelStart>
+  <LabelEnd>To</LabelEnd>
+  <Helper>This field is currently disabled</Helper>
+</groupenterdateinterval--ml-month-year-range>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading State -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+        <demo id="demo-loading">
+          <groupenterdateinterval--ml-month-year-range
+            start-date=""
+            end-date=""
+            error=""
+            loading="true"
+            is-editing="true">
+            <Label>Loading Period Data</Label>
+          </groupenterdateinterval--ml-month-year-range>
+        </demo>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+<groupenterdateinterval--ml-month-year-range
+  start-date=""
+  end-date=""
+  error=""
+  loading="true"
+  is-editing="true">
+  <Label>Loading Period Data</Label>
+</groupenterdateinterval--ml-month-year-range>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>

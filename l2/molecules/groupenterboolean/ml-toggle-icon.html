@@ -1,0 +1,270 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Toggle Icon</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">group enter boolean</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":false,"error":"","name":"notifications","isEditing":true,"disabled":false},"helper":{"value":true,"error":"","name":"emailUpdates","isEditing":true,"disabled":false},"error":{"value":false,"error":"You must enable this setting.","name":"twoFactor","isEditing":true,"disabled":false},"readonly":{"value":true,"error":"","name":"darkMode","isEditing":false,"disabled":false},"disabled":{"value":true,"error":"","name":"betaAccess","isEditing":true,"disabled":true},"icons":{"value":false,"error":"","name":"privacyShield","isEditing":true,"disabled":false}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic toggle</h3>
+        <demo id="demo-basic">
+          <groupenterboolean--ml-toggle-icon
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            name="{{playground.basic.name}}"
+            is-editing="{{playground.basic.isEditing}}"
+            disabled="{{playground.basic.disabled}}">
+            <Label>Enable notifications</Label>
+          </groupenterboolean--ml-toggle-icon>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.basic.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+<groupenterboolean--ml-toggle-icon
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  name="{{playground.basic.name}}"
+  is-editing="{{playground.basic.isEditing}}"
+  disabled="{{playground.basic.disabled}}">
+  <Label>Enable notifications</Label>
+</groupenterboolean--ml-toggle-icon>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With helper text</h3>
+        <demo id="demo-helper">
+          <groupenterboolean--ml-toggle-icon
+            value="{{playground.helper.value}}"
+            error="{{playground.helper.error}}"
+            name="{{playground.helper.name}}"
+            is-editing="{{playground.helper.isEditing}}"
+            disabled="{{playground.helper.disabled}}">
+            <Label>Email updates</Label>
+            <Helper>We will send updates about product releases.</Helper>
+          </groupenterboolean--ml-toggle-icon>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.helper.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.helper.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.helper.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.helper.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.helper.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-helper">
+              <template>
+<groupenterboolean--ml-toggle-icon
+  value="{{playground.helper.value}}"
+  error="{{playground.helper.error}}"
+  name="{{playground.helper.name}}"
+  is-editing="{{playground.helper.isEditing}}"
+  disabled="{{playground.helper.disabled}}">
+  <Label>Email updates</Label>
+  <Helper>We will send updates about product releases.</Helper>
+</groupenterboolean--ml-toggle-icon>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error state</h3>
+        <demo id="demo-error">
+          <groupenterboolean--ml-toggle-icon
+            value="{{playground.error.value}}"
+            error="{{playground.error.error}}"
+            name="{{playground.error.name}}"
+            is-editing="{{playground.error.isEditing}}"
+            disabled="{{playground.error.disabled}}">
+            <Label>Enable two-factor authentication</Label>
+            <Helper>Recommended for enhanced security.</Helper>
+          </groupenterboolean--ml-toggle-icon>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.error.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.error.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.error.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+<groupenterboolean--ml-toggle-icon
+  value="{{playground.error.value}}"
+  error="{{playground.error.error}}"
+  name="{{playground.error.name}}"
+  is-editing="{{playground.error.isEditing}}"
+  disabled="{{playground.error.disabled}}">
+  <Label>Enable two-factor authentication</Label>
+  <Helper>Recommended for enhanced security.</Helper>
+</groupenterboolean--ml-toggle-icon>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only view</h3>
+        <demo id="demo-readonly">
+          <groupenterboolean--ml-toggle-icon
+            value="{{playground.readonly.value}}"
+            error="{{playground.readonly.error}}"
+            name="{{playground.readonly.name}}"
+            is-editing="{{playground.readonly.isEditing}}"
+            disabled="{{playground.readonly.disabled}}">
+            <Label>Dark mode</Label>
+          </groupenterboolean--ml-toggle-icon>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.readonly.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.readonly.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.readonly.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.readonly.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-readonly">
+              <template>
+<groupenterboolean--ml-toggle-icon
+  value="{{playground.readonly.value}}"
+  error="{{playground.readonly.error}}"
+  name="{{playground.readonly.name}}"
+  is-editing="{{playground.readonly.isEditing}}"
+  disabled="{{playground.readonly.disabled}}">
+  <Label>Dark mode</Label>
+</groupenterboolean--ml-toggle-icon>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+        <demo id="demo-disabled">
+          <groupenterboolean--ml-toggle-icon
+            value="{{playground.disabled.value}}"
+            error="{{playground.disabled.error}}"
+            name="{{playground.disabled.name}}"
+            is-editing="{{playground.disabled.isEditing}}"
+            disabled="{{playground.disabled.disabled}}">
+            <Label>Beta access</Label>
+            <Helper>Contact support to unlock this option.</Helper>
+          </groupenterboolean--ml-toggle-icon>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.disabled.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.disabled.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+<groupenterboolean--ml-toggle-icon
+  value="{{playground.disabled.value}}"
+  error="{{playground.disabled.error}}"
+  name="{{playground.disabled.name}}"
+  is-editing="{{playground.disabled.isEditing}}"
+  disabled="{{playground.disabled.disabled}}">
+  <Label>Beta access</Label>
+  <Helper>Contact support to unlock this option.</Helper>
+</groupenterboolean--ml-toggle-icon>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Custom icons</h3>
+        <demo id="demo-icons">
+          <groupenterboolean--ml-toggle-icon
+            value="{{playground.icons.value}}"
+            error="{{playground.icons.error}}"
+            name="{{playground.icons.name}}"
+            is-editing="{{playground.icons.isEditing}}"
+            disabled="{{playground.icons.disabled}}"
+            icon-on="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm3.5 11.5-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 1 1 1.4-1.4l1.3 1.3 3.3-3.3a1 1 0 0 1 1.4 1.4Z"
+            icon-off="M4 12a8 8 0 1 0 8-8 8 8 0 0 0-8 8Zm9.4-2.6a1 1 0 0 1 0 1.4L12.4 12l1 1a1 1 0 0 1-1.4 1.4l-1-1-1 1a1 1 0 0 1-1.4-1.4l1-1-1-1a1 1 0 1 1 1.4-1.4l1 1 1-1a1 1 0 0 1 1.4 0Z">
+            <Label>Privacy shield</Label>
+            <Helper>Toggle to mask personal data in exports.</Helper>
+          </groupenterboolean--ml-toggle-icon>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="value" value="{{playground.icons.value}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.icons.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.icons.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.icons.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.icons.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-icons">
+              <template>
+<groupenterboolean--ml-toggle-icon
+  value="{{playground.icons.value}}"
+  error="{{playground.icons.error}}"
+  name="{{playground.icons.name}}"
+  is-editing="{{playground.icons.isEditing}}"
+  disabled="{{playground.icons.disabled}}"
+  icon-on="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm3.5 11.5-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 1 1 1.4-1.4l1.3 1.3 3.3-3.3a1 1 0 0 1 1.4 1.4Z"
+  icon-off="M4 12a8 8 0 1 0 8-8 8 8 0 0 0-8 8Zm9.4-2.6a1 1 0 0 1 0 1.4L12.4 12l1 1a1 1 0 0 1-1.4 1.4l-1-1-1 1a1 1 0 0 1-1.4-1.4l1-1-1-1a1 1 0 1 1 1.4-1.4l1 1 1-1a1 1 0 0 1 1.4 0Z">
+  <Label>Privacy shield</Label>
+  <Helper>Toggle to mask personal data in exports.</Helper>
+</groupenterboolean--ml-toggle-icon>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>
