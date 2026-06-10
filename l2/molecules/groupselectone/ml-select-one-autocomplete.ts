@@ -123,6 +123,17 @@ export class SelectOneAutocompleteMolecule extends MoleculeAuraElement {
         this.searchQuery = this.getLabelByValue(this.value) || '';
     }
 
+    updated(changedProps: Map<string, unknown>) {
+        if (changedProps.has('value')) {
+            if (!this.value) {
+                this.searchQuery = '';
+            } else {
+                const label = this.getLabelByValue(this.value);
+                if (label) this.searchQuery = label;
+            }
+        }
+    }
+
     // ===========================================================================
     // STATE CHANGE HANDLER
     // ===========================================================================

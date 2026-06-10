@@ -106,6 +106,19 @@ export class MlNumberInputMolecule extends MoleculeAuraElement {
         this.requestUpdate();
     }
 
+    updated(changedProps: Map<string, unknown>) {
+        if (changedProps.has('value')) {
+            if (this.value === null || this.value === undefined) {
+                this.rawValue = '';
+            } else {
+                const parsedRaw = this.parseRawValue(this.rawValue);
+                if (parsedRaw !== this.value) {
+                    this.rawValue = this.formatToDisplay(this.value);
+                }
+            }
+        }
+    }
+
     // ==========================================================================
     // EVENT HANDLERS
     // ==========================================================================
