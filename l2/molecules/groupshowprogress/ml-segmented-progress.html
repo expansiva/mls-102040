@@ -1,0 +1,222 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Segmented Progress</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupShowProgress</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":45,"size":"md","label":"Loading dashboard","showValue":false},"withValue":{"value":72,"size":"md","label":"Syncing records","showValue":true},"indeterminate":{"value":null,"size":"md","label":"Preparing export","showValue":false},"xs":{"value":30,"size":"xs","label":"Uploading thumbnail","showValue":true},"large":{"value":80,"size":"lg","label":"Uploading video","showValue":true},"complete":{"value":100,"size":"sm","label":"Finalizing report","showValue":true}}}'>
+</widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic determinate</h3>
+<demo id="demo-basic">
+<groupshowprogress--ml-segmented-progress
+value="{{playground.basic.value}}"
+size="{{playground.basic.size}}"
+label="{{playground.basic.label}}"
+show-value="{{playground.basic.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.basic.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.basic.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="showValue" value="{{playground.basic.showValue}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupshowprogress--ml-segmented-progress
+value="{{playground.basic.value}}"
+size="{{playground.basic.size}}"
+label="{{playground.basic.label}}"
+show-value="{{playground.basic.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With percentage</h3>
+<demo id="demo-with-value">
+<groupshowprogress--ml-segmented-progress
+value="{{playground.withValue.value}}"
+size="{{playground.withValue.size}}"
+label="{{playground.withValue.label}}"
+show-value="{{playground.withValue.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.withValue.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.withValue.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.withValue.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="showValue" value="{{playground.withValue.showValue}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-with-value">
+<template>
+<groupshowprogress--ml-segmented-progress
+value="{{playground.withValue.value}}"
+size="{{playground.withValue.size}}"
+label="{{playground.withValue.label}}"
+show-value="{{playground.withValue.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Indeterminate</h3>
+<demo id="demo-indeterminate">
+<groupshowprogress--ml-segmented-progress
+value="{{playground.indeterminate.value}}"
+size="{{playground.indeterminate.size}}"
+label="{{playground.indeterminate.label}}"
+show-value="{{playground.indeterminate.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.indeterminate.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.indeterminate.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.indeterminate.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="showValue" value="{{playground.indeterminate.showValue}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-indeterminate">
+<template>
+<groupshowprogress--ml-segmented-progress
+value="{{playground.indeterminate.value}}"
+size="{{playground.indeterminate.size}}"
+label="{{playground.indeterminate.label}}"
+show-value="{{playground.indeterminate.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Extra small with value</h3>
+<demo id="demo-xs">
+<groupshowprogress--ml-segmented-progress
+value="{{playground.xs.value}}"
+size="{{playground.xs.size}}"
+label="{{playground.xs.label}}"
+show-value="{{playground.xs.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.xs.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.xs.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.xs.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="showValue" value="{{playground.xs.showValue}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-xs">
+<template>
+<groupshowprogress--ml-segmented-progress
+value="{{playground.xs.value}}"
+size="{{playground.xs.size}}"
+label="{{playground.xs.label}}"
+show-value="{{playground.xs.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Large size</h3>
+<demo id="demo-lg">
+<groupshowprogress--ml-segmented-progress
+value="{{playground.large.value}}"
+size="{{playground.large.size}}"
+label="{{playground.large.label}}"
+show-value="{{playground.large.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.large.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.large.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.large.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="showValue" value="{{playground.large.showValue}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-lg">
+<template>
+<groupshowprogress--ml-segmented-progress
+value="{{playground.large.value}}"
+size="{{playground.large.size}}"
+label="{{playground.large.label}}"
+show-value="{{playground.large.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Complete state</h3>
+<demo id="demo-complete">
+<groupshowprogress--ml-segmented-progress
+value="{{playground.complete.value}}"
+size="{{playground.complete.size}}"
+label="{{playground.complete.label}}"
+show-value="{{playground.complete.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.complete.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="size" value="{{playground.complete.size}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="label" value="{{playground.complete.label}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="showValue" value="{{playground.complete.showValue}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-complete">
+<template>
+<groupshowprogress--ml-segmented-progress
+value="{{playground.complete.value}}"
+size="{{playground.complete.size}}"
+label="{{playground.complete.label}}"
+show-value="{{playground.complete.showValue}}">
+</groupshowprogress--ml-segmented-progress>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+</section>
+</div>
+</div>

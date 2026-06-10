@@ -1,0 +1,246 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">CES Scale</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">rate + item</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":4,"error":"","name":"effortScore","isEditing":true},"customItems":{"value":3,"name":"moodScore","isEditing":true},"readOnly":{"value":6,"isEditing":false,"name":"finalScore"},"disabled":{"value":2,"disabled":true,"isEditing":true},"required":{"value":1,"error":"Please select a score.","required":true},"compact":{"value":5,"readonly":true,"min":1,"max":7,"step":1}}}'>
+    </widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <grouprateitem--ml-ces-scale
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            name="{{playground.basic.name}}"
+            is-editing="{{playground.basic.isEditing}}">
+            <Label>How easy was it to complete the task?</Label>
+            <Helper>1 = very hard, 7 = very easy</Helper>
+          </grouprateitem--ml-ces-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.basic.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <grouprateitem--ml-ces-scale
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  name="{{playground.basic.name}}"
+                  is-editing="{{playground.basic.isEditing}}">
+                  <Label>How easy was it to complete the task?</Label>
+                  <Helper>1 = very hard, 7 = very easy</Helper>
+                </grouprateitem--ml-ces-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Custom items</h3>
+        <demo id="demo-custom-items">
+          <grouprateitem--ml-ces-scale
+            value="{{playground.customItems.value}}"
+            name="{{playground.customItems.name}}"
+            is-editing="{{playground.customItems.isEditing}}">
+            <Label>How do you feel about this release?</Label>
+            <Item value="1">😞</Item>
+            <Item value="2">😕</Item>
+            <Item value="3">😐</Item>
+            <Item value="4">🙂</Item>
+            <Item value="5">🤩</Item>
+          </grouprateitem--ml-ces-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.customItems.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.customItems.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.customItems.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-custom-items">
+              <template>
+                <grouprateitem--ml-ces-scale
+                  value="{{playground.customItems.value}}"
+                  name="{{playground.customItems.name}}"
+                  is-editing="{{playground.customItems.isEditing}}">
+                  <Label>How do you feel about this release?</Label>
+                  <Item value="1">😞</Item>
+                  <Item value="2">😕</Item>
+                  <Item value="3">😐</Item>
+                  <Item value="4">🙂</Item>
+                  <Item value="5">🤩</Item>
+                </grouprateitem--ml-ces-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only</h3>
+        <demo id="demo-read-only">
+          <grouprateitem--ml-ces-scale
+            value="{{playground.readOnly.value}}"
+            is-editing="{{playground.readOnly.isEditing}}"
+            name="{{playground.readOnly.name}}">
+            <Label>Final CES score</Label>
+          </grouprateitem--ml-ces-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.readOnly.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.readOnly.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.readOnly.name}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-read-only">
+              <template>
+                <grouprateitem--ml-ces-scale
+                  value="{{playground.readOnly.value}}"
+                  is-editing="{{playground.readOnly.isEditing}}"
+                  name="{{playground.readOnly.name}}">
+                  <Label>Final CES score</Label>
+                </grouprateitem--ml-ces-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+        <demo id="demo-disabled">
+          <grouprateitem--ml-ces-scale
+            value="{{playground.disabled.value}}"
+            disabled="{{playground.disabled.disabled}}"
+            is-editing="{{playground.disabled.isEditing}}">
+            <Label>Score (disabled)</Label>
+            <Helper>This field is currently locked.</Helper>
+          </grouprateitem--ml-ces-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.disabled.isEditing}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <grouprateitem--ml-ces-scale
+                  value="{{playground.disabled.value}}"
+                  disabled="{{playground.disabled.disabled}}"
+                  is-editing="{{playground.disabled.isEditing}}">
+                  <Label>Score (disabled)</Label>
+                  <Helper>This field is currently locked.</Helper>
+                </grouprateitem--ml-ces-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Required with error</h3>
+        <demo id="demo-required">
+          <grouprateitem--ml-ces-scale
+            value="{{playground.required.value}}"
+            error="{{playground.required.error}}"
+            required="{{playground.required.required}}">
+            <Label>CES score for onboarding</Label>
+            <Helper>Choose a score before submitting.</Helper>
+          </grouprateitem--ml-ces-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.required.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.required.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.required.required}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-required">
+              <template>
+                <grouprateitem--ml-ces-scale
+                  value="{{playground.required.value}}"
+                  error="{{playground.required.error}}"
+                  required="{{playground.required.required}}">
+                  <Label>CES score for onboarding</Label>
+                  <Helper>Choose a score before submitting.</Helper>
+                </grouprateitem--ml-ces-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Compact readonly</h3>
+        <demo id="demo-compact">
+          <grouprateitem--ml-ces-scale
+            value="{{playground.compact.value}}"
+            readonly="{{playground.compact.readonly}}"
+            min="{{playground.compact.min}}"
+            max="{{playground.compact.max}}"
+            step="{{playground.compact.step}}">
+          </grouprateitem--ml-ces-scale>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.compact.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.compact.readonly}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="min" value="{{playground.compact.min}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="max" value="{{playground.compact.max}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="step" value="{{playground.compact.step}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-compact">
+              <template>
+                <grouprateitem--ml-ces-scale
+                  value="{{playground.compact.value}}"
+                  readonly="{{playground.compact.readonly}}"
+                  min="{{playground.compact.min}}"
+                  max="{{playground.compact.max}}"
+                  step="{{playground.compact.step}}">
+                </grouprateitem--ml-ces-scale>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

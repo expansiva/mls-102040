@@ -1,0 +1,228 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Upload Progress Indicator</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupShowProgress</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"indeterminate":{"value":null,"size":"md","label":"Uploading files","showValue":false},"determinate":{"value":35,"size":"md","label":"Uploading assets","showValue":true},"compact":{"value":62,"size":"sm","label":"Syncing","showValue":false},"large":{"value":88,"size":"lg","label":"Processing video","showValue":true},"xs":{"value":100,"size":"xs","label":"Completed","showValue":true},"clamped":{"value":140,"size":"md","label":"Finalizing","showValue":true}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Indeterminate Default</h3>
+        <demo id="demo-indeterminate">
+          <groupshowprogress--ml-upload-progress-indicator
+            value="{{playground.indeterminate.value}}"
+            size="{{playground.indeterminate.size}}"
+            label="{{playground.indeterminate.label}}"
+            show-value="{{playground.indeterminate.showValue}}">
+          </groupshowprogress--ml-upload-progress-indicator>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.indeterminate.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="size" value="{{playground.indeterminate.size}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="label" value="{{playground.indeterminate.label}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showValue" value="{{playground.indeterminate.showValue}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-indeterminate">
+              <template>
+                <groupshowprogress--ml-upload-progress-indicator
+                  value="{{playground.indeterminate.value}}"
+                  size="{{playground.indeterminate.size}}"
+                  label="{{playground.indeterminate.label}}"
+                  show-value="{{playground.indeterminate.showValue}}">
+                </groupshowprogress--ml-upload-progress-indicator>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Determinate With Percent</h3>
+        <demo id="demo-determinate">
+          <groupshowprogress--ml-upload-progress-indicator
+            value="{{playground.determinate.value}}"
+            size="{{playground.determinate.size}}"
+            label="{{playground.determinate.label}}"
+            show-value="{{playground.determinate.showValue}}">
+          </groupshowprogress--ml-upload-progress-indicator>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.determinate.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="size" value="{{playground.determinate.size}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="label" value="{{playground.determinate.label}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showValue" value="{{playground.determinate.showValue}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-determinate">
+              <template>
+                <groupshowprogress--ml-upload-progress-indicator
+                  value="{{playground.determinate.value}}"
+                  size="{{playground.determinate.size}}"
+                  label="{{playground.determinate.label}}"
+                  show-value="{{playground.determinate.showValue}}">
+                </groupshowprogress--ml-upload-progress-indicator>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Compact Toolbar</h3>
+        <demo id="demo-compact">
+          <groupshowprogress--ml-upload-progress-indicator
+            value="{{playground.compact.value}}"
+            size="{{playground.compact.size}}"
+            label="{{playground.compact.label}}"
+            show-value="{{playground.compact.showValue}}">
+          </groupshowprogress--ml-upload-progress-indicator>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.compact.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="size" value="{{playground.compact.size}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="label" value="{{playground.compact.label}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showValue" value="{{playground.compact.showValue}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-compact">
+              <template>
+                <groupshowprogress--ml-upload-progress-indicator
+                  value="{{playground.compact.value}}"
+                  size="{{playground.compact.size}}"
+                  label="{{playground.compact.label}}"
+                  show-value="{{playground.compact.showValue}}">
+                </groupshowprogress--ml-upload-progress-indicator>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Large Emphasis</h3>
+        <demo id="demo-large">
+          <groupshowprogress--ml-upload-progress-indicator
+            value="{{playground.large.value}}"
+            size="{{playground.large.size}}"
+            label="{{playground.large.label}}"
+            show-value="{{playground.large.showValue}}">
+          </groupshowprogress--ml-upload-progress-indicator>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.large.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="size" value="{{playground.large.size}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="label" value="{{playground.large.label}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showValue" value="{{playground.large.showValue}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-large">
+              <template>
+                <groupshowprogress--ml-upload-progress-indicator
+                  value="{{playground.large.value}}"
+                  size="{{playground.large.size}}"
+                  label="{{playground.large.label}}"
+                  show-value="{{playground.large.showValue}}">
+                </groupshowprogress--ml-upload-progress-indicator>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Extra Small Complete</h3>
+        <demo id="demo-xs">
+          <groupshowprogress--ml-upload-progress-indicator
+            value="{{playground.xs.value}}"
+            size="{{playground.xs.size}}"
+            label="{{playground.xs.label}}"
+            show-value="{{playground.xs.showValue}}">
+          </groupshowprogress--ml-upload-progress-indicator>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.xs.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="size" value="{{playground.xs.size}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="label" value="{{playground.xs.label}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showValue" value="{{playground.xs.showValue}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-xs">
+              <template>
+                <groupshowprogress--ml-upload-progress-indicator
+                  value="{{playground.xs.value}}"
+                  size="{{playground.xs.size}}"
+                  label="{{playground.xs.label}}"
+                  show-value="{{playground.xs.showValue}}">
+                </groupshowprogress--ml-upload-progress-indicator>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Clamped Over-100</h3>
+        <demo id="demo-clamped">
+          <groupshowprogress--ml-upload-progress-indicator
+            value="{{playground.clamped.value}}"
+            size="{{playground.clamped.size}}"
+            label="{{playground.clamped.label}}"
+            show-value="{{playground.clamped.showValue}}">
+          </groupshowprogress--ml-upload-progress-indicator>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.clamped.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="size" value="{{playground.clamped.size}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="label" value="{{playground.clamped.label}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showValue" value="{{playground.clamped.showValue}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-clamped">
+              <template>
+                <groupshowprogress--ml-upload-progress-indicator
+                  value="{{playground.clamped.value}}"
+                  size="{{playground.clamped.size}}"
+                  label="{{playground.clamped.label}}"
+                  show-value="{{playground.clamped.showValue}}">
+                </groupshowprogress--ml-upload-progress-indicator>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

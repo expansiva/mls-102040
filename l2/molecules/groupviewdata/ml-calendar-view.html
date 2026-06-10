@@ -1,0 +1,369 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Calendar View</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewData</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"loading":false,"selectable":false,"hoverable":true},"selectable":{"loading":false,"selectable":true,"hoverable":true},"noHover":{"loading":false,"selectable":false,"hoverable":false},"loading":{"loading":true,"selectable":false,"hoverable":true},"empty":{"loading":false,"selectable":false,"hoverable":true},"week":{"loading":false,"selectable":true,"hoverable":true}}}'></widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic month view</h3>
+<demo id="demo-basic">
+<groupviewdata--ml-calendar-view
+loading="{{playground.basic.loading}}"
+selectable="{{playground.basic.selectable}}"
+hoverable="{{playground.basic.hoverable}}"
+name="Team calendar">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row>
+<Cell><div title="Sprint Planning">2026-06-10</div></Cell>
+</Row>
+<Row>
+<Cell><div title="Design Review">2026-06-10</div></Cell>
+</Row>
+<Row>
+<Cell><div title="Town Hall">2026-06-10</div></Cell>
+</Row>
+<Row>
+<Cell><div title="UX Sync">2026-06-10</div></Cell>
+</Row>
+</Rows>
+</groupviewdata--ml-calendar-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.basic.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupviewdata--ml-calendar-view
+loading="{{playground.basic.loading}}"
+selectable="{{playground.basic.selectable}}"
+hoverable="{{playground.basic.hoverable}}"
+name="Team calendar">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row>
+<Cell><div title="Sprint Planning">2026-06-10</div></Cell>
+</Row>
+<Row>
+<Cell><div title="Design Review">2026-06-10</div></Cell>
+</Row>
+<Row>
+<Cell><div title="Town Hall">2026-06-10</div></Cell>
+</Row>
+<Row>
+<Cell><div title="UX Sync">2026-06-10</div></Cell>
+</Row>
+</Rows>
+</groupviewdata--ml-calendar-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable events</h3>
+<demo id="demo-selectable">
+<groupviewdata--ml-calendar-view
+loading="{{playground.selectable.loading}}"
+selectable="{{playground.selectable.selectable}}"
+hoverable="{{playground.selectable.hoverable}}"
+name="Sales milestones">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row selected>
+<Cell><div title="Pipeline Review">2026-06-12</div></Cell>
+</Row>
+<Row>
+<Cell><div title="Partner Webinar">2026-06-15</div></Cell>
+</Row>
+<Row disabled>
+<Cell><div title="Closed Deal Celebration">2026-06-18</div></Cell>
+</Row>
+</Rows>
+</groupviewdata--ml-calendar-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.selectable.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-selectable">
+<template>
+<groupviewdata--ml-calendar-view
+loading="{{playground.selectable.loading}}"
+selectable="{{playground.selectable.selectable}}"
+hoverable="{{playground.selectable.hoverable}}"
+name="Sales milestones">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row selected>
+<Cell><div title="Pipeline Review">2026-06-12</div></Cell>
+</Row>
+<Row>
+<Cell><div title="Partner Webinar">2026-06-15</div></Cell>
+</Row>
+<Row disabled>
+<Cell><div title="Closed Deal Celebration">2026-06-18</div></Cell>
+</Row>
+</Rows>
+</groupviewdata--ml-calendar-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Hoverable off</h3>
+<demo id="demo-no-hover">
+<groupviewdata--ml-calendar-view
+loading="{{playground.noHover.loading}}"
+selectable="{{playground.noHover.selectable}}"
+hoverable="{{playground.noHover.hoverable}}"
+name="Quiet mode calendar">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row>
+<Cell><div title="Finance Sync">2026-06-08</div></Cell>
+</Row>
+<Row>
+<Cell><div title="Budget Review">2026-06-20</div></Cell>
+</Row>
+</Rows>
+</groupviewdata--ml-calendar-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.noHover.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.noHover.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.noHover.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-no-hover">
+<template>
+<groupviewdata--ml-calendar-view
+loading="{{playground.noHover.loading}}"
+selectable="{{playground.noHover.selectable}}"
+hoverable="{{playground.noHover.hoverable}}"
+name="Quiet mode calendar">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row>
+<Cell><div title="Finance Sync">2026-06-08</div></Cell>
+</Row>
+<Row>
+<Cell><div title="Budget Review">2026-06-20</div></Cell>
+</Row>
+</Rows>
+</groupviewdata--ml-calendar-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state with custom slot</h3>
+<demo id="demo-loading">
+<groupviewdata--ml-calendar-view
+loading="{{playground.loading.loading}}"
+selectable="{{playground.loading.selectable}}"
+hoverable="{{playground.loading.hoverable}}"
+name="Syncing agenda">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row>
+<Cell><div title="Data Refresh">2026-06-09</div></Cell>
+</Row>
+</Rows>
+<Loading>
+<div class="text-center text-slate-500 dark:text-slate-400">Syncing calendar entries...</div>
+</Loading>
+</groupviewdata--ml-calendar-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.loading.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupviewdata--ml-calendar-view
+loading="{{playground.loading.loading}}"
+selectable="{{playground.loading.selectable}}"
+hoverable="{{playground.loading.hoverable}}"
+name="Syncing agenda">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row>
+<Cell><div title="Data Refresh">2026-06-09</div></Cell>
+</Row>
+</Rows>
+<Loading>
+<div class="text-center text-slate-500 dark:text-slate-400">Syncing calendar entries...</div>
+</Loading>
+</groupviewdata--ml-calendar-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty state with custom slot</h3>
+<demo id="demo-empty">
+<groupviewdata--ml-calendar-view
+loading="{{playground.empty.loading}}"
+selectable="{{playground.empty.selectable}}"
+hoverable="{{playground.empty.hoverable}}"
+name="Company holidays">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows></Rows>
+<Empty>
+<div class="text-center text-slate-500 dark:text-slate-400">No holidays scheduled for this month.</div>
+</Empty>
+</groupviewdata--ml-calendar-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.empty.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.empty.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-empty">
+<template>
+<groupviewdata--ml-calendar-view
+loading="{{playground.empty.loading}}"
+selectable="{{playground.empty.selectable}}"
+hoverable="{{playground.empty.hoverable}}"
+name="Company holidays">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows></Rows>
+<Empty>
+<div class="text-center text-slate-500 dark:text-slate-400">No holidays scheduled for this month.</div>
+</Empty>
+</groupviewdata--ml-calendar-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Week view ready with hourly events</h3>
+<demo id="demo-week">
+<groupviewdata--ml-calendar-view
+loading="{{playground.week.loading}}"
+selectable="{{playground.week.selectable}}"
+hoverable="{{playground.week.hoverable}}"
+name="Operations schedule">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row>
+<Cell><span title="Daily Standup" hour="9">2026-06-09</span></Cell>
+</Row>
+<Row>
+<Cell><span title="Warehouse Audit" hour="14">2026-06-10</span></Cell>
+</Row>
+<Row>
+<Cell><span title="Supplier Call" hour="11">2026-06-11</span></Cell>
+</Row>
+<Row>
+<Cell><span title="Shift Handoff" hour="17">2026-06-12</span></Cell>
+</Row>
+</Rows>
+</groupviewdata--ml-calendar-view>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.week.loading}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="selectable" value="{{playground.week.selectable}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.week.hoverable}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-week">
+<template>
+<groupviewdata--ml-calendar-view
+loading="{{playground.week.loading}}"
+selectable="{{playground.week.selectable}}"
+hoverable="{{playground.week.hoverable}}"
+name="Operations schedule">
+<Columns>
+<Column field="event" header="Event"></Column>
+</Columns>
+<Rows>
+<Row>
+<Cell><span title="Daily Standup" hour="9">2026-06-09</span></Cell>
+</Row>
+<Row>
+<Cell><span title="Warehouse Audit" hour="14">2026-06-10</span></Cell>
+</Row>
+<Row>
+<Cell><span title="Supplier Call" hour="11">2026-06-11</span></Cell>
+</Row>
+<Row>
+<Cell><span title="Shift Handoff" hour="17">2026-06-12</span></Cell>
+</Row>
+</Rows>
+</groupviewdata--ml-calendar-view>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+</section>
+</div>
+</div>

@@ -1,0 +1,290 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">CSAT Rating</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupRateItem</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":4,"error":"","name":"csatScore","min":1,"max":5,"step":1,"isEditing":true,"required":true},"emoji":{"value":3,"name":"csatEmoji","isEditing":true},"readonly":{"value":5,"name":"csatReadonly","isEditing":false},"disabled":{"value":2,"error":"Please select a score to continue.","name":"csatDisabled","isEditing":true,"disabled":true,"required":true},"scale10":{"value":6,"min":0,"max":10,"step":2,"name":"csatScale10","isEditing":true},"empty":{"value":0,"min":1,"max":5,"name":"csatEmpty","isEditing":true}}}'>
+</widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic CSAT (auto-generated)</h3>
+<demo id="demo-basic">
+<grouprateitem--ml-csat-rating
+value="{{playground.basic.value}}"
+error="{{playground.basic.error}}"
+name="{{playground.basic.name}}"
+min="{{playground.basic.min}}"
+max="{{playground.basic.max}}"
+step="{{playground.basic.step}}"
+is-editing="{{playground.basic.isEditing}}"
+required="{{playground.basic.required}}">
+<Label>How satisfied are you?</Label>
+<Helper>1 is the lowest, 5 is the highest.</Helper>
+</grouprateitem--ml-csat-rating>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+<widget-playground-state-number-102020 label="min" value="{{playground.basic.min}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="max" value="{{playground.basic.max}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="step" value="{{playground.basic.step}}"></widget-playground-state-number-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.basic.isEditing}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<grouprateitem--ml-csat-rating
+value="{{playground.basic.value}}"
+error="{{playground.basic.error}}"
+name="{{playground.basic.name}}"
+min="{{playground.basic.min}}"
+max="{{playground.basic.max}}"
+step="{{playground.basic.step}}"
+is-editing="{{playground.basic.isEditing}}"
+required="{{playground.basic.required}}">
+<Label>How satisfied are you?</Label>
+<Helper>1 is the lowest, 5 is the highest.</Helper>
+</grouprateitem--ml-csat-rating>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Custom emoji items</h3>
+<demo id="demo-emoji">
+<grouprateitem--ml-csat-rating
+value="{{playground.emoji.value}}"
+name="{{playground.emoji.name}}"
+is-editing="{{playground.emoji.isEditing}}">
+<Label>How was your experience?</Label>
+<Helper>Tap an emoji to choose a score.</Helper>
+<Item value="1">😡</Item>
+<Item value="2">🙁</Item>
+<Item value="3">😐</Item>
+<Item value="4">🙂</Item>
+<Item value="5">😍</Item>
+</grouprateitem--ml-csat-rating>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.emoji.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.emoji.name}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.emoji.isEditing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-emoji">
+<template>
+<grouprateitem--ml-csat-rating
+value="{{playground.emoji.value}}"
+name="{{playground.emoji.name}}"
+is-editing="{{playground.emoji.isEditing}}">
+<Label>How was your experience?</Label>
+<Helper>Tap an emoji to choose a score.</Helper>
+<Item value="1">😡</Item>
+<Item value="2">🙁</Item>
+<Item value="3">😐</Item>
+<Item value="4">🙂</Item>
+<Item value="5">😍</Item>
+</grouprateitem--ml-csat-rating>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only view mode</h3>
+<demo id="demo-readonly">
+<grouprateitem--ml-csat-rating
+value="{{playground.readonly.value}}"
+name="{{playground.readonly.name}}"
+is-editing="{{playground.readonly.isEditing}}">
+<Label>Customer satisfaction</Label>
+<Item value="1">😡</Item>
+<Item value="2">🙁</Item>
+<Item value="3">😐</Item>
+<Item value="4">🙂</Item>
+<Item value="5">😍</Item>
+</grouprateitem--ml-csat-rating>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.readonly.name}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.readonly.isEditing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-readonly">
+<template>
+<grouprateitem--ml-csat-rating
+value="{{playground.readonly.value}}"
+name="{{playground.readonly.name}}"
+is-editing="{{playground.readonly.isEditing}}">
+<Label>Customer satisfaction</Label>
+<Item value="1">😡</Item>
+<Item value="2">🙁</Item>
+<Item value="3">😐</Item>
+<Item value="4">🙂</Item>
+<Item value="5">😍</Item>
+</grouprateitem--ml-csat-rating>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled with error</h3>
+<demo id="demo-disabled">
+<grouprateitem--ml-csat-rating
+value="{{playground.disabled.value}}"
+error="{{playground.disabled.error}}"
+name="{{playground.disabled.name}}"
+is-editing="{{playground.disabled.isEditing}}"
+disabled="{{playground.disabled.disabled}}"
+required="{{playground.disabled.required}}">
+<Label>Rate the support interaction</Label>
+<Helper>This field is required.</Helper>
+</grouprateitem--ml-csat-rating>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.disabled.name}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.disabled.isEditing}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="required" value="{{playground.disabled.required}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<grouprateitem--ml-csat-rating
+value="{{playground.disabled.value}}"
+error="{{playground.disabled.error}}"
+name="{{playground.disabled.name}}"
+is-editing="{{playground.disabled.isEditing}}"
+disabled="{{playground.disabled.disabled}}"
+required="{{playground.disabled.required}}">
+<Label>Rate the support interaction</Label>
+<Helper>This field is required.</Helper>
+</grouprateitem--ml-csat-rating>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Extended 0–10 scale</h3>
+<demo id="demo-scale10">
+<grouprateitem--ml-csat-rating
+value="{{playground.scale10.value}}"
+min="{{playground.scale10.min}}"
+max="{{playground.scale10.max}}"
+step="{{playground.scale10.step}}"
+name="{{playground.scale10.name}}"
+is-editing="{{playground.scale10.isEditing}}">
+<Label>Net promoter score</Label>
+<Helper>Choose an even number from 0 to 10.</Helper>
+</grouprateitem--ml-csat-rating>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.scale10.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="min" value="{{playground.scale10.min}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="max" value="{{playground.scale10.max}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="step" value="{{playground.scale10.step}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.scale10.name}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.scale10.isEditing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-scale10">
+<template>
+<grouprateitem--ml-csat-rating
+value="{{playground.scale10.value}}"
+min="{{playground.scale10.min}}"
+max="{{playground.scale10.max}}"
+step="{{playground.scale10.step}}"
+name="{{playground.scale10.name}}"
+is-editing="{{playground.scale10.isEditing}}">
+<Label>Net promoter score</Label>
+<Helper>Choose an even number from 0 to 10.</Helper>
+</grouprateitem--ml-csat-rating>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">No selection (helper only)</h3>
+<demo id="demo-empty">
+<grouprateitem--ml-csat-rating
+value="{{playground.empty.value}}"
+min="{{playground.empty.min}}"
+max="{{playground.empty.max}}"
+name="{{playground.empty.name}}"
+is-editing="{{playground.empty.isEditing}}">
+<Label>How likely are you to return?</Label>
+<Helper>Select a rating to continue.</Helper>
+</grouprateitem--ml-csat-rating>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-number-102020 label="value" value="{{playground.empty.value}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="min" value="{{playground.empty.min}}"></widget-playground-state-number-102020>
+<widget-playground-state-number-102020 label="max" value="{{playground.empty.max}}"></widget-playground-state-number-102020>
+<widget-playground-state-text-102020 label="name" value="{{playground.empty.name}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.empty.isEditing}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-empty">
+<template>
+<grouprateitem--ml-csat-rating
+value="{{playground.empty.value}}"
+min="{{playground.empty.min}}"
+max="{{playground.empty.max}}"
+name="{{playground.empty.name}}"
+is-editing="{{playground.empty.isEditing}}">
+<Label>How likely are you to return?</Label>
+<Helper>Select a rating to continue.</Helper>
+</grouprateitem--ml-csat-rating>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+</section>
+</div>
+</div>
