@@ -1,0 +1,254 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Compact Metric Sparkline</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewMetric</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"loading":false},"iconTrendUp":{"loading":false},"negativeSparkline":{"loading":false},"neutralHelper":{"loading":false},"loadingState":{"loading":true},"minimal":{"loading":false}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic metric</h3>
+        <demo id="demo-basic">
+          <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.basic.loading}}">
+            <Label>Active Users</Label>
+            <Value>24,580</Value>
+            <Helper>Last 24 hours</Helper>
+          </groupviewmetric--ml-compact-metric-sparkline>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.basic.loading}}">
+                  <Label>Active Users</Label>
+                  <Value>24,580</Value>
+                  <Helper>Last 24 hours</Helper>
+                </groupviewmetric--ml-compact-metric-sparkline>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With icon and positive trend</h3>
+        <demo id="demo-icon-trend-up">
+          <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.iconTrendUp.loading}}">
+            <Icon>
+              <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                <path d="M3 13h2v8H3v-8zm6-6h2v14H9V7zm6 4h2v10h-2V11zm6-8h2v18h-2V3z" />
+              </svg>
+            </Icon>
+            <Label>Sessions</Label>
+            <Value>1.24M</Value>
+            <Trend direction="up">↑ 8.2%</Trend>
+            <Helper>vs last week</Helper>
+          </groupviewmetric--ml-compact-metric-sparkline>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.iconTrendUp.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-icon-trend-up">
+              <template>
+                <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.iconTrendUp.loading}}">
+                  <Icon>
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                      <path d="M3 13h2v8H3v-8zm6-6h2v14H9V7zm6 4h2v10h-2V11zm6-8h2v18h-2V3z" />
+                    </svg>
+                  </Icon>
+                  <Label>Sessions</Label>
+                  <Value>1.24M</Value>
+                  <Trend direction="up">↑ 8.2%</Trend>
+                  <Helper>vs last week</Helper>
+                </groupviewmetric--ml-compact-metric-sparkline>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Negative trend with sparkline</h3>
+        <demo id="demo-negative-sparkline">
+          <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.negativeSparkline.loading}}">
+            <Icon>
+              <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                <path d="M4 19h16v2H4v-2zm2-8 4 4 4-6 6 7-2 2-4-5-4 6-6-6 2-2z" />
+              </svg>
+            </Icon>
+            <Label>Checkout Conversions</Label>
+            <Value>
+              3.8%
+              <svg viewBox="0 0 100 24" class="ml-2 inline-block h-4 w-20 text-slate-400" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="0,4 20,8 40,6 60,12 80,10 100,18" />
+              </svg>
+            </Value>
+            <Trend direction="down">↓ 1.4%</Trend>
+            <Helper>vs previous 7 days</Helper>
+          </groupviewmetric--ml-compact-metric-sparkline>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.negativeSparkline.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-negative-sparkline">
+              <template>
+                <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.negativeSparkline.loading}}">
+                  <Icon>
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                      <path d="M4 19h16v2H4v-2zm2-8 4 4 4-6 6 7-2 2-4-5-4 6-6-6 2-2z" />
+                    </svg>
+                  </Icon>
+                  <Label>Checkout Conversions</Label>
+                  <Value>
+                    3.8%
+                    <svg viewBox="0 0 100 24" class="ml-2 inline-block h-4 w-20 text-slate-400" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="0,4 20,8 40,6 60,12 80,10 100,18" />
+                    </svg>
+                  </Value>
+                  <Trend direction="down">↓ 1.4%</Trend>
+                  <Helper>vs previous 7 days</Helper>
+                </groupviewmetric--ml-compact-metric-sparkline>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Neutral trend with helper</h3>
+        <demo id="demo-neutral-helper">
+          <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.neutralHelper.loading}}">
+            <Icon>
+              <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                <path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4z" />
+              </svg>
+            </Icon>
+            <Label>Incident Tickets</Label>
+            <Value>142</Value>
+            <Trend direction="neutral">→ steady</Trend>
+            <Helper>Last 30 days</Helper>
+          </groupviewmetric--ml-compact-metric-sparkline>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.neutralHelper.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-neutral-helper">
+              <template>
+                <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.neutralHelper.loading}}">
+                  <Icon>
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                      <path d="M12 2 3 6v6c0 5 4 9 9 10 5-1 9-5 9-10V6l-9-4z" />
+                    </svg>
+                  </Icon>
+                  <Label>Incident Tickets</Label>
+                  <Value>142</Value>
+                  <Trend direction="neutral">→ steady</Trend>
+                  <Helper>Last 30 days</Helper>
+                </groupviewmetric--ml-compact-metric-sparkline>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading skeleton</h3>
+        <demo id="demo-loading">
+          <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.loadingState.loading}}">
+            <Icon>
+              <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                <path d="M5 3h14a2 2 0 0 1 2 2v14H3V5a2 2 0 0 1 2-2z" />
+              </svg>
+            </Icon>
+            <Label>Pipeline Value</Label>
+            <Value>$842,000</Value>
+            <Trend direction="up">↑ 4.5%</Trend>
+            <Helper>Updated just now</Helper>
+          </groupviewmetric--ml-compact-metric-sparkline>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loadingState.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.loadingState.loading}}">
+                  <Icon>
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+                      <path d="M5 3h14a2 2 0 0 1 2 2v14H3V5a2 2 0 0 1 2-2z" />
+                    </svg>
+                  </Icon>
+                  <Label>Pipeline Value</Label>
+                  <Value>$842,000</Value>
+                  <Trend direction="up">↑ 4.5%</Trend>
+                  <Helper>Updated just now</Helper>
+                </groupviewmetric--ml-compact-metric-sparkline>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Minimal label and value</h3>
+        <demo id="demo-minimal">
+          <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.minimal.loading}}">
+            <Label>Open Requests</Label>
+            <Value>18</Value>
+          </groupviewmetric--ml-compact-metric-sparkline>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.minimal.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-minimal">
+              <template>
+                <groupviewmetric--ml-compact-metric-sparkline loading="{{playground.minimal.loading}}">
+                  <Label>Open Requests</Label>
+                  <Value>18</Value>
+                </groupviewmetric--ml-compact-metric-sparkline>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

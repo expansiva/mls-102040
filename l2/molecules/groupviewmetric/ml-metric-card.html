@@ -1,0 +1,255 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Metric Card</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewMetric</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"loading":false},"churn":{"loading":false},"active":{"loading":false},"noIcon":{"loading":false},"minimal":{"loading":false},"loading":{"loading":true}}}'>
+    </widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Revenue Metric</h3>
+        <demo id="demo-basic">
+          <groupviewmetric--ml-metric-card loading="{{playground.basic.loading}}">
+            <Icon>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M3 9.5l9 4.5 9-4.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M3 14.5l9 4.5 9-4.5" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </Icon>
+            <Label>Monthly Revenue</Label>
+            <Value>$127,450</Value>
+            <Trend direction="up">↑ 12.5%</Trend>
+            <Helper>vs last month</Helper>
+          </groupviewmetric--ml-metric-card>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewmetric--ml-metric-card loading="{{playground.basic.loading}}">
+                  <Icon>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M3 9.5l9 4.5 9-4.5" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M3 14.5l9 4.5 9-4.5" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                  </Icon>
+                  <Label>Monthly Revenue</Label>
+                  <Value>$127,450</Value>
+                  <Trend direction="up">↑ 12.5%</Trend>
+                  <Helper>vs last month</Helper>
+                </groupviewmetric--ml-metric-card>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Churn Down Trend</h3>
+        <demo id="demo-churn">
+          <groupviewmetric--ml-metric-card loading="{{playground.churn.loading}}">
+            <Icon>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 6h16M4 12h10M4 18h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </Icon>
+            <Label>Churn Rate</Label>
+            <Value><span class="text-slate-900 dark:text-slate-100">2.4%</span></Value>
+            <Trend direction="down">↓ 0.6%</Trend>
+            <Helper>last 30 days</Helper>
+          </groupviewmetric--ml-metric-card>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.churn.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-churn">
+              <template>
+                <groupviewmetric--ml-metric-card loading="{{playground.churn.loading}}">
+                  <Icon>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M4 6h16M4 12h10M4 18h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </Icon>
+                  <Label>Churn Rate</Label>
+                  <Value><span class="text-slate-900 dark:text-slate-100">2.4%</span></Value>
+                  <Trend direction="down">↓ 0.6%</Trend>
+                  <Helper>last 30 days</Helper>
+                </groupviewmetric--ml-metric-card>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Active Users Neutral</h3>
+        <demo id="demo-active">
+          <groupviewmetric--ml-metric-card loading="{{playground.active.loading}}">
+            <Icon>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M7 7a3 3 0 116 0 3 3 0 01-6 0z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M4 19a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M16 9a2 2 0 114 0 2 2 0 01-4 0z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M14.5 19a3.5 3.5 0 017 0" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </Icon>
+            <Label>Active Users</Label>
+            <Value>48.2k</Value>
+            <Trend direction="neutral">— stable</Trend>
+            <Helper>past 7 days</Helper>
+          </groupviewmetric--ml-metric-card>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.active.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-active">
+              <template>
+                <groupviewmetric--ml-metric-card loading="{{playground.active.loading}}">
+                  <Icon>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M7 7a3 3 0 116 0 3 3 0 01-6 0z" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M4 19a5 5 0 0110 0" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M16 9a2 2 0 114 0 2 2 0 01-4 0z" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M14.5 19a3.5 3.5 0 017 0" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                  </Icon>
+                  <Label>Active Users</Label>
+                  <Value>48.2k</Value>
+                  <Trend direction="neutral">— stable</Trend>
+                  <Helper>past 7 days</Helper>
+                </groupviewmetric--ml-metric-card>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">No Icon</h3>
+        <demo id="demo-no-icon">
+          <groupviewmetric--ml-metric-card loading="{{playground.noIcon.loading}}">
+            <Label>NPS Score</Label>
+            <Value>41</Value>
+            <Trend direction="up">↑ 3 pts</Trend>
+            <Helper>quarterly survey</Helper>
+          </groupviewmetric--ml-metric-card>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.noIcon.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-no-icon">
+              <template>
+                <groupviewmetric--ml-metric-card loading="{{playground.noIcon.loading}}">
+                  <Label>NPS Score</Label>
+                  <Value>41</Value>
+                  <Trend direction="up">↑ 3 pts</Trend>
+                  <Helper>quarterly survey</Helper>
+                </groupviewmetric--ml-metric-card>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">No Trend or Helper</h3>
+        <demo id="demo-minimal">
+          <groupviewmetric--ml-metric-card loading="{{playground.minimal.loading}}">
+            <Icon>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 7h12v10H6z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M9 11h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </Icon>
+            <Label>Open Tickets</Label>
+            <Value>128</Value>
+          </groupviewmetric--ml-metric-card>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.minimal.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-minimal">
+              <template>
+                <groupviewmetric--ml-metric-card loading="{{playground.minimal.loading}}">
+                  <Icon>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M6 7h12v10H6z" stroke="currentColor" stroke-width="1.5"/>
+                      <path d="M9 11h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </Icon>
+                  <Label>Open Tickets</Label>
+                  <Value>128</Value>
+                </groupviewmetric--ml-metric-card>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading Skeleton</h3>
+        <demo id="demo-loading">
+          <groupviewmetric--ml-metric-card loading="{{playground.loading.loading}}">
+            <Label>Storage Usage</Label>
+            <Value>—</Value>
+            <Helper>Fetching latest data</Helper>
+          </groupviewmetric--ml-metric-card>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewmetric--ml-metric-card loading="{{playground.loading.loading}}">
+                  <Label>Storage Usage</Label>
+                  <Value>—</Value>
+                  <Helper>Fetching latest data</Helper>
+                </groupviewmetric--ml-metric-card>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,450 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Kanban Board</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewData</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"loading":false,"selectable":false,"hoverable":true},"selectable":{"loading":false,"selectable":true,"hoverable":true},"nohover":{"loading":false,"selectable":false,"hoverable":false},"loading":{"loading":true,"selectable":false,"hoverable":true},"empty":{"loading":false,"selectable":false,"hoverable":true},"actions":{"loading":false,"selectable":true,"hoverable":true}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic workflow</h3>
+        <demo id="demo-basic">
+          <groupviewdata--ml-kanban-board
+            loading="{{playground.basic.loading}}"
+            selectable="{{playground.basic.selectable}}"
+            hoverable="{{playground.basic.hoverable}}">
+            <Columns>
+              <Column field="backlog" header="Backlog" width="18rem"></Column>
+              <Column field="progress" header="In Progress" width="18rem"><span class="text-xs">2</span></Column>
+              <Column field="done" header="Done" width="18rem"></Column>
+            </Columns>
+            <Rows>
+              <Row>
+                <Cell>
+                  <div class="font-medium">Design landing page</div>
+                  <div class="text-xs text-slate-500">Due Fri</div>
+                </Cell>
+                <Cell>Update pricing table</Cell>
+                <Cell add-action>Add card</Cell>
+              </Row>
+              <Row>
+                <Cell>Implement auth flow</Cell>
+                <Cell>
+                  <div class="font-medium">QA checklist</div>
+                  <div class="text-xs text-slate-500">Owner: Joana</div>
+                </Cell>
+              </Row>
+              <Row>
+                <Cell>Publish release notes</Cell>
+                <Cell>Customer onboarding guide</Cell>
+              </Row>
+            </Rows>
+            <Empty>
+              <div class="text-center text-slate-500">No cards yet</div>
+            </Empty>
+          </groupviewdata--ml-kanban-board>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="hoverable" value="{{playground.basic.hoverable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewdata--ml-kanban-board
+                  loading="{{playground.basic.loading}}"
+                  selectable="{{playground.basic.selectable}}"
+                  hoverable="{{playground.basic.hoverable}}">
+                  <Columns>
+                    <Column field="backlog" header="Backlog" width="18rem"></Column>
+                    <Column field="progress" header="In Progress" width="18rem"><span class="text-xs">2</span></Column>
+                    <Column field="done" header="Done" width="18rem"></Column>
+                  </Columns>
+                  <Rows>
+                    <Row>
+                      <Cell>
+                        <div class="font-medium">Design landing page</div>
+                        <div class="text-xs text-slate-500">Due Fri</div>
+                      </Cell>
+                      <Cell>Update pricing table</Cell>
+                      <Cell add-action>Add card</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>Implement auth flow</Cell>
+                      <Cell>
+                        <div class="font-medium">QA checklist</div>
+                        <div class="text-xs text-slate-500">Owner: Joana</div>
+                      </Cell>
+                    </Row>
+                    <Row>
+                      <Cell>Publish release notes</Cell>
+                      <Cell>Customer onboarding guide</Cell>
+                    </Row>
+                  </Rows>
+                  <Empty>
+                    <div class="text-center text-slate-500">No cards yet</div>
+                  </Empty>
+                </groupviewdata--ml-kanban-board>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable columns</h3>
+        <demo id="demo-selectable">
+          <groupviewdata--ml-kanban-board
+            loading="{{playground.selectable.loading}}"
+            selectable="{{playground.selectable.selectable}}"
+            hoverable="{{playground.selectable.hoverable}}">
+            <Columns>
+              <Column field="todo" header="To do" width="17rem"></Column>
+              <Column field="doing" header="Doing" width="17rem"></Column>
+              <Column field="blocked" header="Blocked" width="17rem"></Column>
+            </Columns>
+            <Rows>
+              <Row>
+                <Cell>Sync legal review</Cell>
+                <Cell>Update onboarding script</Cell>
+              </Row>
+              <Row selected>
+                <Cell>
+                  <div class="font-medium">Refactor checkout</div>
+                  <div class="text-xs text-slate-500">Sprint 18</div>
+                </Cell>
+              </Row>
+              <Row disabled>
+                <Cell>Awaiting vendor feedback</Cell>
+                <Cell add-action>Request update</Cell>
+              </Row>
+            </Rows>
+          </groupviewdata--ml-kanban-board>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="hoverable" value="{{playground.selectable.hoverable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+                <groupviewdata--ml-kanban-board
+                  loading="{{playground.selectable.loading}}"
+                  selectable="{{playground.selectable.selectable}}"
+                  hoverable="{{playground.selectable.hoverable}}">
+                  <Columns>
+                    <Column field="todo" header="To do" width="17rem"></Column>
+                    <Column field="doing" header="Doing" width="17rem"></Column>
+                    <Column field="blocked" header="Blocked" width="17rem"></Column>
+                  </Columns>
+                  <Rows>
+                    <Row>
+                      <Cell>Sync legal review</Cell>
+                      <Cell>Update onboarding script</Cell>
+                    </Row>
+                    <Row selected>
+                      <Cell>
+                        <div class="font-medium">Refactor checkout</div>
+                        <div class="text-xs text-slate-500">Sprint 18</div>
+                      </Cell>
+                    </Row>
+                    <Row disabled>
+                      <Cell>Awaiting vendor feedback</Cell>
+                      <Cell add-action>Request update</Cell>
+                    </Row>
+                  </Rows>
+                </groupviewdata--ml-kanban-board>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">No hover styling</h3>
+        <demo id="demo-nohover">
+          <groupviewdata--ml-kanban-board
+            loading="{{playground.nohover.loading}}"
+            selectable="{{playground.nohover.selectable}}"
+            hoverable="{{playground.nohover.hoverable}}">
+            <Columns>
+              <Column field="ideas" header="Ideas" width="20rem"><span class="text-xs">Q3</span></Column>
+              <Column field="research" header="Research" width="20rem"></Column>
+            </Columns>
+            <Rows>
+              <Row>
+                <Cell>Explore AI summaries</Cell>
+                <Cell>New user interviews</Cell>
+                <Cell add-action>Suggest idea</Cell>
+              </Row>
+              <Row>
+                <Cell>
+                  <div class="font-medium">Market analysis</div>
+                  <div class="text-xs text-slate-500">Owner: Pedro</div>
+                </Cell>
+              </Row>
+            </Rows>
+          </groupviewdata--ml-kanban-board>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.nohover.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.nohover.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="hoverable" value="{{playground.nohover.hoverable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-nohover">
+              <template>
+                <groupviewdata--ml-kanban-board
+                  loading="{{playground.nohover.loading}}"
+                  selectable="{{playground.nohover.selectable}}"
+                  hoverable="{{playground.nohover.hoverable}}">
+                  <Columns>
+                    <Column field="ideas" header="Ideas" width="20rem"><span class="text-xs">Q3</span></Column>
+                    <Column field="research" header="Research" width="20rem"></Column>
+                  </Columns>
+                  <Rows>
+                    <Row>
+                      <Cell>Explore AI summaries</Cell>
+                      <Cell>New user interviews</Cell>
+                      <Cell add-action>Suggest idea</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>
+                        <div class="font-medium">Market analysis</div>
+                        <div class="text-xs text-slate-500">Owner: Pedro</div>
+                      </Cell>
+                    </Row>
+                  </Rows>
+                </groupviewdata--ml-kanban-board>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+        <demo id="demo-loading">
+          <groupviewdata--ml-kanban-board
+            loading="{{playground.loading.loading}}"
+            selectable="{{playground.loading.selectable}}"
+            hoverable="{{playground.loading.hoverable}}">
+            <Columns>
+              <Column field="queue" header="Queue" width="18rem"></Column>
+              <Column field="work" header="Work" width="18rem"></Column>
+              <Column field="review" header="Review" width="18rem"></Column>
+            </Columns>
+            <Rows>
+              <Row>
+                <Cell>Prepare weekly report</Cell>
+              </Row>
+              <Row>
+                <Cell>Run accessibility audit</Cell>
+              </Row>
+              <Row>
+                <Cell>Stakeholder review</Cell>
+              </Row>
+            </Rows>
+            <Loading>
+              <div class="text-center text-slate-500">Fetching cards…</div>
+            </Loading>
+          </groupviewdata--ml-kanban-board>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="hoverable" value="{{playground.loading.hoverable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewdata--ml-kanban-board
+                  loading="{{playground.loading.loading}}"
+                  selectable="{{playground.loading.selectable}}"
+                  hoverable="{{playground.loading.hoverable}}">
+                  <Columns>
+                    <Column field="queue" header="Queue" width="18rem"></Column>
+                    <Column field="work" header="Work" width="18rem"></Column>
+                    <Column field="review" header="Review" width="18rem"></Column>
+                  </Columns>
+                  <Rows>
+                    <Row>
+                      <Cell>Prepare weekly report</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>Run accessibility audit</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>Stakeholder review</Cell>
+                    </Row>
+                  </Rows>
+                  <Loading>
+                    <div class="text-center text-slate-500">Fetching cards…</div>
+                  </Loading>
+                </groupviewdata--ml-kanban-board>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty board</h3>
+        <demo id="demo-empty">
+          <groupviewdata--ml-kanban-board
+            loading="{{playground.empty.loading}}"
+            selectable="{{playground.empty.selectable}}"
+            hoverable="{{playground.empty.hoverable}}">
+            <Columns>
+              <Column field="ideas" header="Ideas" width="18rem"></Column>
+              <Column field="approved" header="Approved" width="18rem"></Column>
+            </Columns>
+            <Rows></Rows>
+            <Empty>
+              <div class="text-center text-slate-500">No initiatives planned for this quarter.</div>
+            </Empty>
+          </groupviewdata--ml-kanban-board>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.empty.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="hoverable" value="{{playground.empty.hoverable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+                <groupviewdata--ml-kanban-board
+                  loading="{{playground.empty.loading}}"
+                  selectable="{{playground.empty.selectable}}"
+                  hoverable="{{playground.empty.hoverable}}">
+                  <Columns>
+                    <Column field="ideas" header="Ideas" width="18rem"></Column>
+                    <Column field="approved" header="Approved" width="18rem"></Column>
+                  </Columns>
+                  <Rows></Rows>
+                  <Empty>
+                    <div class="text-center text-slate-500">No initiatives planned for this quarter.</div>
+                  </Empty>
+                </groupviewdata--ml-kanban-board>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Actionable add cards</h3>
+        <demo id="demo-actions">
+          <groupviewdata--ml-kanban-board
+            loading="{{playground.actions.loading}}"
+            selectable="{{playground.actions.selectable}}"
+            hoverable="{{playground.actions.hoverable}}">
+            <Columns>
+              <Column field="planning" header="Planning" width="19rem"><span class="text-xs">FY26</span></Column>
+              <Column field="active" header="Active" width="19rem"></Column>
+              <Column field="qa" header="QA" width="19rem"></Column>
+            </Columns>
+            <Rows>
+              <Row selected>
+                <Cell>
+                  <div class="font-medium">Define OKRs</div>
+                  <div class="text-xs text-slate-500">Owner: Lucas</div>
+                </Cell>
+                <Cell>Budget alignment</Cell>
+                <Cell add-action>New initiative</Cell>
+              </Row>
+              <Row>
+                <Cell>Mobile app sprint</Cell>
+                <Cell>
+                  <div class="font-medium">Analytics rollout</div>
+                  <div class="text-xs text-slate-500">ETA: 2 weeks</div>
+                </Cell>
+                <Cell add-action>Assign squad</Cell>
+              </Row>
+              <Row>
+                <Cell>Regression tests</Cell>
+                <Cell add-action>Queue QA task</Cell>
+              </Row>
+            </Rows>
+          </groupviewdata--ml-kanban-board>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.actions.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.actions.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="hoverable" value="{{playground.actions.hoverable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-actions">
+              <template>
+                <groupviewdata--ml-kanban-board
+                  loading="{{playground.actions.loading}}"
+                  selectable="{{playground.actions.selectable}}"
+                  hoverable="{{playground.actions.hoverable}}">
+                  <Columns>
+                    <Column field="planning" header="Planning" width="19rem"><span class="text-xs">FY26</span></Column>
+                    <Column field="active" header="Active" width="19rem"></Column>
+                    <Column field="qa" header="QA" width="19rem"></Column>
+                  </Columns>
+                  <Rows>
+                    <Row selected>
+                      <Cell>
+                        <div class="font-medium">Define OKRs</div>
+                        <div class="text-xs text-slate-500">Owner: Lucas</div>
+                      </Cell>
+                      <Cell>Budget alignment</Cell>
+                      <Cell add-action>New initiative</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>Mobile app sprint</Cell>
+                      <Cell>
+                        <div class="font-medium">Analytics rollout</div>
+                        <div class="text-xs text-slate-500">ETA: 2 weeks</div>
+                      </Cell>
+                      <Cell add-action>Assign squad</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>Regression tests</Cell>
+                      <Cell add-action>Queue QA task</Cell>
+                    </Row>
+                  </Rows>
+                </groupviewdata--ml-kanban-board>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>
