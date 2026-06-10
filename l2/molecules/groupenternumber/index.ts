@@ -4,12 +4,14 @@ import { customElement, state } from 'lit/decorators.js';
 import { StateLitElement } from '/_102029_/l2/stateLitElement.js';
 import '/_102040_/l2/molecules/groupenternumber/ml-number-input';
 import '/_102040_/l2/molecules/groupenternumber/ml-number-stepper';
+import '/_102040_/l2/molecules/groupenternumber/ml-range-slider';
 
 @customElement('molecules--groupenternumber--index-102040')
 export class GroupEnterNumberIndex extends StateLitElement {
   // ── Showcase card states ─────────────────────────────────────
-  @state() private cardInput = 42;
-  @state() private cardStepper = 3;
+  @state() private cardInputValue = 249.99;
+  @state() private cardStepperValue = 3;
+  @state() private cardSliderValue = 65;
 
   // ===========================================================================
   // HERO
@@ -23,7 +25,7 @@ export class GroupEnterNumberIndex extends StateLitElement {
           Enter Number
         </h1>
         <p class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Allows the user to input numeric values. Ideal for quantities, measurements, percentages, ages, weights, and numeric configurations with input and stepper implementations.
+          Allows the user to input numeric values. Ideal for quantities, measurements, percentages, ages, weights, and numeric configurations. Implementations include number input, stepper, slider, percentage input, and quantity selector.
         </p>
       </header>
     `;
@@ -39,26 +41,27 @@ export class GroupEnterNumberIndex extends StateLitElement {
             <div class="h-1 bg-violet-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
-                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Number Input</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-number-input</code>
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Price input</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupenternumber--ml-number-input</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Free-form numeric entry with formatting, prefix, and suffix support.</p>
+              <p class="text-xs text-slate-400 mb-5">Use a direct numeric field when precision matters.</p>
               <groupenternumber--ml-number-input
                 name="card-input"
-                .value=${this.cardInput}
-                .isEditing=${true}
+                placeholder="0.00"
+                .value=${this.cardInputValue}
                 .min=${0}
-                .max=${250}
-                .decimals=${0}
-                placeholder="0"
+                .max=${9999}
+                .step=${0.01}
+                .decimals=${2}
+                .isEditing=${true}
                 @change=${(e: CustomEvent) => {
-                  this.cardInput = e.detail.value;
+                  this.cardInputValue = e.detail.value;
                 }}
               >
-                <Label>Target weight</Label>
-                <Helper>Enter the weight in kilograms.</Helper>
-                <Prefix>≈</Prefix>
-                <Suffix>kg</Suffix>
+                <Label>Unit price</Label>
+                <Helper>Enter the unit cost before tax.</Helper>
+                <Prefix>$</Prefix>
+                <Suffix>USD</Suffix>
               </groupenternumber--ml-number-input>
             </div>
           </div>
@@ -67,27 +70,55 @@ export class GroupEnterNumberIndex extends StateLitElement {
             <div class="h-1 bg-emerald-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
-                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Number Stepper</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-number-stepper</code>
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Quantity stepper</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupenternumber--ml-number-stepper</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Controlled quantity selection with step increments.</p>
+              <p class="text-xs text-slate-400 mb-5">Great for small ranges and step-by-step adjustments.</p>
               <groupenternumber--ml-number-stepper
                 name="card-stepper"
-                .value=${this.cardStepper}
-                .isEditing=${true}
+                placeholder="0"
+                .value=${this.cardStepperValue}
                 .min=${1}
                 .max=${12}
                 .step=${1}
-                placeholder="1"
+                .isEditing=${true}
                 @change=${(e: CustomEvent) => {
-                  this.cardStepper = e.detail.value;
+                  this.cardStepperValue = e.detail.value;
                 }}
               >
                 <Label>Team seats</Label>
-                <Helper>Pick the number of seats for this plan.</Helper>
-                <Prefix>Qty</Prefix>
+                <Helper>Choose how many licenses to provision.</Helper>
+                <Prefix>×</Prefix>
                 <Suffix>seats</Suffix>
               </groupenternumber--ml-number-stepper>
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="h-1 bg-amber-500 rounded-t-2xl"></div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Range slider</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupenternumber--ml-range-slider</code>
+              </div>
+              <p class="text-xs text-slate-400 mb-5">Use sliders for expressive ranges like percentages.</p>
+              <groupenternumber--ml-range-slider
+                name="card-slider"
+                placeholder="0"
+                .value=${this.cardSliderValue}
+                .min=${0}
+                .max=${100}
+                .step=${5}
+                .isEditing=${true}
+                @change=${(e: CustomEvent) => {
+                  this.cardSliderValue = e.detail.value;
+                }}
+              >
+                <Label>Confidence level</Label>
+                <Helper>Drag to set the desired target.</Helper>
+                <Prefix>≈</Prefix>
+                <Suffix>%</Suffix>
+              </groupenternumber--ml-range-slider>
             </div>
           </div>
         </div>
@@ -98,14 +129,16 @@ export class GroupEnterNumberIndex extends StateLitElement {
   // ===========================================================================
   // REFERENCE TABLE
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{ scenario: string; input: boolean; stepper: boolean }> = [
-      { scenario: 'User can type any numeric value, including large ranges.', input: true, stepper: false },
-      { scenario: 'Quantity should be adjusted in fixed increments.', input: false, stepper: true },
-      { scenario: 'Need to show unit prefix or suffix with formatting.', input: true, stepper: true },
+    const rows: Array<{ scenario: string; numberInput: boolean; numberStepper: boolean; rangeSlider: boolean }> = [
+      { scenario: 'Precise, typed entry with decimals or currency', numberInput: true, numberStepper: false, rangeSlider: false },
+      { scenario: 'Small integer range where users tap up/down quickly', numberInput: false, numberStepper: true, rangeSlider: false },
+      { scenario: 'Expressive ranges like percentages or confidence levels', numberInput: false, numberStepper: false, rangeSlider: true },
+      { scenario: 'Works well when values must stay within hard min/max', numberInput: true, numberStepper: true, rangeSlider: true },
     ];
     const headers = [
-      { label: 'Number Input', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'Number Stepper', cls: 'text-emerald-600 dark:text-emerald-400' },
+      { label: 'Number input', cls: 'text-violet-600 dark:text-violet-400' },
+      { label: 'Number stepper', cls: 'text-emerald-600 dark:text-emerald-400' },
+      { label: 'Range slider', cls: 'text-amber-600 dark:text-amber-400' },
     ];
 
     return html`
@@ -113,7 +146,7 @@ export class GroupEnterNumberIndex extends StateLitElement {
         <div class="max-w-5xl mx-auto">
           <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
           <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Choose the numeric control that best matches how tightly you want to constrain input for quantities and measurements.
+            Use this guide to pick the right numeric input pattern for quantities, measurements, and range-based settings.
           </p>
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
             <table class="w-full text-sm">
@@ -132,7 +165,7 @@ export class GroupEnterNumberIndex extends StateLitElement {
                   (row, i) => html`
                     <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
                       <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-                      ${([row.input, row.stepper] as boolean[]).map(
+                      ${([row.numberInput, row.numberStepper, row.rangeSlider] as boolean[]).map(
                         (ok) => html`
                           <td class="px-4 py-3.5 text-center">
                             ${ok
@@ -152,9 +185,7 @@ export class GroupEnterNumberIndex extends StateLitElement {
     `;
   }
 
-  // ===========================================================================
-  // RENDER
-  protected render(): TemplateResult {
+  render(): TemplateResult {
     return html`
       <div class="font-sans min-h-screen">
         ${this.renderHero()}
