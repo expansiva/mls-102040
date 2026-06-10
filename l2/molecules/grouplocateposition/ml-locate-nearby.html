@@ -1,0 +1,404 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Locate Nearby</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupLocatePosition</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":"","name":"nearbyLocation","placeholder":"Search nearby...","showMap":false,"allowGeolocation":false,"isEditing":true,"disabled":false,"readonly":false,"required":false,"loading":false},"geo":{"value":"","error":"","name":"pickupLocation","placeholder":"Search near you","showMap":false,"allowGeolocation":true,"isEditing":true,"disabled":false,"readonly":false,"required":false,"loading":false},"readonlyMap":{"value":"-23.55052,-46.63331","error":"","name":"savedLocation","placeholder":"","showMap":true,"allowGeolocation":false,"isEditing":false,"disabled":false,"readonly":false,"required":false,"loading":false},"disabled":{"value":"","error":"","name":"deliveryNearby","placeholder":"Search delivery area","showMap":false,"allowGeolocation":false,"isEditing":true,"disabled":true,"readonly":false,"required":false,"loading":false},"loading":{"value":"","error":"","name":"storeSearch","placeholder":"Searching...","showMap":false,"allowGeolocation":false,"isEditing":true,"disabled":false,"readonly":false,"required":false,"loading":true},"requiredError":{"value":"","error":"Select a location to continue.","name":"eventLocation","placeholder":"Type an address","showMap":false,"allowGeolocation":true,"isEditing":true,"disabled":false,"readonly":false,"required":true,"loading":false}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic autocomplete</h3>
+        <demo id="demo-basic">
+          <grouplocateposition--ml-locate-nearby
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            name="{{playground.basic.name}}"
+            placeholder="{{playground.basic.placeholder}}"
+            show-map="{{playground.basic.showMap}}"
+            allow-geolocation="{{playground.basic.allowGeolocation}}"
+            is-editing="{{playground.basic.isEditing}}"
+            disabled="{{playground.basic.disabled}}"
+            readonly="{{playground.basic.readonly}}"
+            required="{{playground.basic.required}}"
+            loading="{{playground.basic.loading}}">
+            <Label>Nearby place</Label>
+            <Helper>Start typing to see suggestions.</Helper>
+            <Suggestions>
+              <Item value="-23.55052,-46.63331">São Paulo, SP</Item>
+              <Item value="-22.90685,-43.17290">Rio de Janeiro, RJ</Item>
+              <Item value="-19.91668,-43.93449">Belo Horizonte, MG</Item>
+            </Suggestions>
+          </grouplocateposition--ml-locate-nearby>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showMap" value="{{playground.basic.showMap}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="allowGeolocation" value="{{playground.basic.allowGeolocation}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.basic.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.basic.readonly}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <grouplocateposition--ml-locate-nearby
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  name="{{playground.basic.name}}"
+                  placeholder="{{playground.basic.placeholder}}"
+                  show-map="{{playground.basic.showMap}}"
+                  allow-geolocation="{{playground.basic.allowGeolocation}}"
+                  is-editing="{{playground.basic.isEditing}}"
+                  disabled="{{playground.basic.disabled}}"
+                  readonly="{{playground.basic.readonly}}"
+                  required="{{playground.basic.required}}"
+                  loading="{{playground.basic.loading}}">
+                  <Label>Nearby place</Label>
+                  <Helper>Start typing to see suggestions.</Helper>
+                  <Suggestions>
+                    <Item value="-23.55052,-46.63331">São Paulo, SP</Item>
+                    <Item value="-22.90685,-43.17290">Rio de Janeiro, RJ</Item>
+                    <Item value="-19.91668,-43.93449">Belo Horizonte, MG</Item>
+                  </Suggestions>
+                </grouplocateposition--ml-locate-nearby>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Geolocation trigger</h3>
+        <demo id="demo-geo">
+          <grouplocateposition--ml-locate-nearby
+            value="{{playground.geo.value}}"
+            error="{{playground.geo.error}}"
+            name="{{playground.geo.name}}"
+            placeholder="{{playground.geo.placeholder}}"
+            show-map="{{playground.geo.showMap}}"
+            allow-geolocation="{{playground.geo.allowGeolocation}}"
+            is-editing="{{playground.geo.isEditing}}"
+            disabled="{{playground.geo.disabled}}"
+            readonly="{{playground.geo.readonly}}"
+            required="{{playground.geo.required}}"
+            loading="{{playground.geo.loading}}">
+            <Label>Pickup point</Label>
+            <Helper>Use GPS or search for a nearby location.</Helper>
+            <Trigger>Use GPS</Trigger>
+            <Suggestions>
+              <Item value="-22.90993,-47.06263">Campinas, SP</Item>
+              <Item value="-23.42099,-51.93306">Maringá, PR</Item>
+            </Suggestions>
+          </grouplocateposition--ml-locate-nearby>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.geo.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.geo.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.geo.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.geo.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showMap" value="{{playground.geo.showMap}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="allowGeolocation" value="{{playground.geo.allowGeolocation}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.geo.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.geo.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.geo.readonly}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.geo.required}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.geo.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-geo">
+              <template>
+                <grouplocateposition--ml-locate-nearby
+                  value="{{playground.geo.value}}"
+                  error="{{playground.geo.error}}"
+                  name="{{playground.geo.name}}"
+                  placeholder="{{playground.geo.placeholder}}"
+                  show-map="{{playground.geo.showMap}}"
+                  allow-geolocation="{{playground.geo.allowGeolocation}}"
+                  is-editing="{{playground.geo.isEditing}}"
+                  disabled="{{playground.geo.disabled}}"
+                  readonly="{{playground.geo.readonly}}"
+                  required="{{playground.geo.required}}"
+                  loading="{{playground.geo.loading}}">
+                  <Label>Pickup point</Label>
+                  <Helper>Use GPS or search for a nearby location.</Helper>
+                  <Trigger>Use GPS</Trigger>
+                  <Suggestions>
+                    <Item value="-22.90993,-47.06263">Campinas, SP</Item>
+                    <Item value="-23.42099,-51.93306">Maringá, PR</Item>
+                  </Suggestions>
+                </grouplocateposition--ml-locate-nearby>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only with map preview</h3>
+        <demo id="demo-readonly-map">
+          <grouplocateposition--ml-locate-nearby
+            value="{{playground.readonlyMap.value}}"
+            error="{{playground.readonlyMap.error}}"
+            name="{{playground.readonlyMap.name}}"
+            placeholder="{{playground.readonlyMap.placeholder}}"
+            show-map="{{playground.readonlyMap.showMap}}"
+            allow-geolocation="{{playground.readonlyMap.allowGeolocation}}"
+            is-editing="{{playground.readonlyMap.isEditing}}"
+            disabled="{{playground.readonlyMap.disabled}}"
+            readonly="{{playground.readonlyMap.readonly}}"
+            required="{{playground.readonlyMap.required}}"
+            loading="{{playground.readonlyMap.loading}}">
+            <Label>Saved location</Label>
+          </grouplocateposition--ml-locate-nearby>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.readonlyMap.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.readonlyMap.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.readonlyMap.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.readonlyMap.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showMap" value="{{playground.readonlyMap.showMap}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="allowGeolocation" value="{{playground.readonlyMap.allowGeolocation}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.readonlyMap.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.readonlyMap.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.readonlyMap.readonly}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.readonlyMap.required}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.readonlyMap.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-readonly-map">
+              <template>
+                <grouplocateposition--ml-locate-nearby
+                  value="{{playground.readonlyMap.value}}"
+                  error="{{playground.readonlyMap.error}}"
+                  name="{{playground.readonlyMap.name}}"
+                  placeholder="{{playground.readonlyMap.placeholder}}"
+                  show-map="{{playground.readonlyMap.showMap}}"
+                  allow-geolocation="{{playground.readonlyMap.allowGeolocation}}"
+                  is-editing="{{playground.readonlyMap.isEditing}}"
+                  disabled="{{playground.readonlyMap.disabled}}"
+                  readonly="{{playground.readonlyMap.readonly}}"
+                  required="{{playground.readonlyMap.required}}"
+                  loading="{{playground.readonlyMap.loading}}">
+                  <Label>Saved location</Label>
+                </grouplocateposition--ml-locate-nearby>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled input</h3>
+        <demo id="demo-disabled">
+          <grouplocateposition--ml-locate-nearby
+            value="{{playground.disabled.value}}"
+            error="{{playground.disabled.error}}"
+            name="{{playground.disabled.name}}"
+            placeholder="{{playground.disabled.placeholder}}"
+            show-map="{{playground.disabled.showMap}}"
+            allow-geolocation="{{playground.disabled.allowGeolocation}}"
+            is-editing="{{playground.disabled.isEditing}}"
+            disabled="{{playground.disabled.disabled}}"
+            readonly="{{playground.disabled.readonly}}"
+            required="{{playground.disabled.required}}"
+            loading="{{playground.disabled.loading}}">
+            <Label>Delivery area</Label>
+            <Helper>This field is disabled while the order is locked.</Helper>
+          </grouplocateposition--ml-locate-nearby>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.disabled.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.disabled.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showMap" value="{{playground.disabled.showMap}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="allowGeolocation" value="{{playground.disabled.allowGeolocation}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.disabled.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.disabled.readonly}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.disabled.required}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <grouplocateposition--ml-locate-nearby
+                  value="{{playground.disabled.value}}"
+                  error="{{playground.disabled.error}}"
+                  name="{{playground.disabled.name}}"
+                  placeholder="{{playground.disabled.placeholder}}"
+                  show-map="{{playground.disabled.showMap}}"
+                  allow-geolocation="{{playground.disabled.allowGeolocation}}"
+                  is-editing="{{playground.disabled.isEditing}}"
+                  disabled="{{playground.disabled.disabled}}"
+                  readonly="{{playground.disabled.readonly}}"
+                  required="{{playground.disabled.required}}"
+                  loading="{{playground.disabled.loading}}">
+                  <Label>Delivery area</Label>
+                  <Helper>This field is disabled while the order is locked.</Helper>
+                </grouplocateposition--ml-locate-nearby>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading suggestions</h3>
+        <demo id="demo-loading">
+          <grouplocateposition--ml-locate-nearby
+            value="{{playground.loading.value}}"
+            error="{{playground.loading.error}}"
+            name="{{playground.loading.name}}"
+            placeholder="{{playground.loading.placeholder}}"
+            show-map="{{playground.loading.showMap}}"
+            allow-geolocation="{{playground.loading.allowGeolocation}}"
+            is-editing="{{playground.loading.isEditing}}"
+            disabled="{{playground.loading.disabled}}"
+            readonly="{{playground.loading.readonly}}"
+            required="{{playground.loading.required}}"
+            loading="{{playground.loading.loading}}">
+            <Label>Store location</Label>
+            <Helper>Fetching nearby stores...</Helper>
+            <Empty>No stores found yet.</Empty>
+          </grouplocateposition--ml-locate-nearby>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.loading.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.loading.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showMap" value="{{playground.loading.showMap}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="allowGeolocation" value="{{playground.loading.allowGeolocation}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.loading.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.loading.readonly}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.loading.required}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <grouplocateposition--ml-locate-nearby
+                  value="{{playground.loading.value}}"
+                  error="{{playground.loading.error}}"
+                  name="{{playground.loading.name}}"
+                  placeholder="{{playground.loading.placeholder}}"
+                  show-map="{{playground.loading.showMap}}"
+                  allow-geolocation="{{playground.loading.allowGeolocation}}"
+                  is-editing="{{playground.loading.isEditing}}"
+                  disabled="{{playground.loading.disabled}}"
+                  readonly="{{playground.loading.readonly}}"
+                  required="{{playground.loading.required}}"
+                  loading="{{playground.loading.loading}}">
+                  <Label>Store location</Label>
+                  <Helper>Fetching nearby stores...</Helper>
+                  <Empty>No stores found yet.</Empty>
+                </grouplocateposition--ml-locate-nearby>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Required with error</h3>
+        <demo id="demo-required-error">
+          <grouplocateposition--ml-locate-nearby
+            value="{{playground.requiredError.value}}"
+            error="{{playground.requiredError.error}}"
+            name="{{playground.requiredError.name}}"
+            placeholder="{{playground.requiredError.placeholder}}"
+            show-map="{{playground.requiredError.showMap}}"
+            allow-geolocation="{{playground.requiredError.allowGeolocation}}"
+            is-editing="{{playground.requiredError.isEditing}}"
+            disabled="{{playground.requiredError.disabled}}"
+            readonly="{{playground.requiredError.readonly}}"
+            required="{{playground.requiredError.required}}"
+            loading="{{playground.requiredError.loading}}">
+            <Label>Event location</Label>
+            <Suggestions>
+              <Item value="-15.79389,-47.88278">Brasília, DF</Item>
+              <Item value="-3.73186,-38.52667">Fortaleza, CE</Item>
+            </Suggestions>
+          </grouplocateposition--ml-locate-nearby>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.requiredError.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.requiredError.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.requiredError.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.requiredError.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="showMap" value="{{playground.requiredError.showMap}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="allowGeolocation" value="{{playground.requiredError.allowGeolocation}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.requiredError.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.requiredError.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.requiredError.readonly}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.requiredError.required}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.requiredError.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-required-error">
+              <template>
+                <grouplocateposition--ml-locate-nearby
+                  value="{{playground.requiredError.value}}"
+                  error="{{playground.requiredError.error}}"
+                  name="{{playground.requiredError.name}}"
+                  placeholder="{{playground.requiredError.placeholder}}"
+                  show-map="{{playground.requiredError.showMap}}"
+                  allow-geolocation="{{playground.requiredError.allowGeolocation}}"
+                  is-editing="{{playground.requiredError.isEditing}}"
+                  disabled="{{playground.requiredError.disabled}}"
+                  readonly="{{playground.requiredError.readonly}}"
+                  required="{{playground.requiredError.required}}"
+                  loading="{{playground.requiredError.loading}}">
+                  <Label>Event location</Label>
+                  <Suggestions>
+                    <Item value="-15.79389,-47.88278">Brasília, DF</Item>
+                    <Item value="-3.73186,-38.52667">Fortaleza, CE</Item>
+                  </Suggestions>
+                </grouplocateposition--ml-locate-nearby>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

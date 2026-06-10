@@ -1,0 +1,253 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Upload File List</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupSelectFileForUpload</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":[],"error":""},"acceptHelper":{"value":[],"error":"","accept":".pdf,.docx"},"multipleLimits":{"value":[],"error":"","multiple":true,"accept":"image/*","maxSizeKb":2048,"maxFiles":5},"customTrigger":{"value":[],"error":"","multiple":true,"accept":".zip,.psd,.ai"},"disabled":{"value":[],"error":"","accept":".pdf","disabled":true},"loadingError":{"value":[],"error":"Upload failed. Try again.","multiple":true,"loading":true}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupselectfileforupload--ml-upload-file-list
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}">
+            <Label>Attachments</Label>
+          </groupselectfileforupload--ml-upload-file-list>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupselectfileforupload--ml-upload-file-list
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}">
+                  <Label>Attachments</Label>
+                </groupselectfileforupload--ml-upload-file-list>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Helper and Accept</h3>
+        <demo id="demo-accept-helper">
+          <groupselectfileforupload--ml-upload-file-list
+            value="{{playground.acceptHelper.value}}"
+            error="{{playground.acceptHelper.error}}"
+            accept="{{playground.acceptHelper.accept}}">
+            <Label>Legal documents</Label>
+            <Helper>PDF or Word, up to 5MB</Helper>
+          </groupselectfileforupload--ml-upload-file-list>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="error" value="{{playground.acceptHelper.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="accept" value="{{playground.acceptHelper.accept}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-accept-helper">
+              <template>
+                <groupselectfileforupload--ml-upload-file-list
+                  value="{{playground.acceptHelper.value}}"
+                  error="{{playground.acceptHelper.error}}"
+                  accept="{{playground.acceptHelper.accept}}">
+                  <Label>Legal documents</Label>
+                  <Helper>PDF or Word, up to 5MB</Helper>
+                </groupselectfileforupload--ml-upload-file-list>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Multiple Files with Limits</h3>
+        <demo id="demo-multiple-limits">
+          <groupselectfileforupload--ml-upload-file-list
+            value="{{playground.multipleLimits.value}}"
+            error="{{playground.multipleLimits.error}}"
+            multiple="{{playground.multipleLimits.multiple}}"
+            accept="{{playground.multipleLimits.accept}}"
+            max-size-kb="{{playground.multipleLimits.maxSizeKb}}"
+            max-files="{{playground.multipleLimits.maxFiles}}">
+            <Label>Product images</Label>
+            <Helper>Up to 5 images, max 2MB each</Helper>
+          </groupselectfileforupload--ml-upload-file-list>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="error" value="{{playground.multipleLimits.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.multipleLimits.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="accept" value="{{playground.multipleLimits.accept}}"></widget-playground-state-text-102020>
+            <widget-playground-state-number-102020 label="maxSizeKb" value="{{playground.multipleLimits.maxSizeKb}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="maxFiles" value="{{playground.multipleLimits.maxFiles}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-multiple-limits">
+              <template>
+                <groupselectfileforupload--ml-upload-file-list
+                  value="{{playground.multipleLimits.value}}"
+                  error="{{playground.multipleLimits.error}}"
+                  multiple="{{playground.multipleLimits.multiple}}"
+                  accept="{{playground.multipleLimits.accept}}"
+                  max-size-kb="{{playground.multipleLimits.maxSizeKb}}"
+                  max-files="{{playground.multipleLimits.maxFiles}}">
+                  <Label>Product images</Label>
+                  <Helper>Up to 5 images, max 2MB each</Helper>
+                </groupselectfileforupload--ml-upload-file-list>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Custom Trigger</h3>
+        <demo id="demo-custom-trigger">
+          <groupselectfileforupload--ml-upload-file-list
+            value="{{playground.customTrigger.value}}"
+            error="{{playground.customTrigger.error}}"
+            multiple="{{playground.customTrigger.multiple}}"
+            accept="{{playground.customTrigger.accept}}">
+            <Label>Design assets</Label>
+            <Trigger>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Browse design files</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400">PSD, AI, or ZIP</div>
+            </Trigger>
+          </groupselectfileforupload--ml-upload-file-list>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="error" value="{{playground.customTrigger.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.customTrigger.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="accept" value="{{playground.customTrigger.accept}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-custom-trigger">
+              <template>
+                <groupselectfileforupload--ml-upload-file-list
+                  value="{{playground.customTrigger.value}}"
+                  error="{{playground.customTrigger.error}}"
+                  multiple="{{playground.customTrigger.multiple}}"
+                  accept="{{playground.customTrigger.accept}}">
+                  <Label>Design assets</Label>
+                  <Trigger>
+                    <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Browse design files</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">PSD, AI, or ZIP</div>
+                  </Trigger>
+                </groupselectfileforupload--ml-upload-file-list>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+        <demo id="demo-disabled">
+          <groupselectfileforupload--ml-upload-file-list
+            value="{{playground.disabled.value}}"
+            error="{{playground.disabled.error}}"
+            accept="{{playground.disabled.accept}}"
+            disabled="{{playground.disabled.disabled}}">
+            <Label>Signed contract</Label>
+            <Helper>Upload is disabled until approval.</Helper>
+          </groupselectfileforupload--ml-upload-file-list>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="accept" value="{{playground.disabled.accept}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupselectfileforupload--ml-upload-file-list
+                  value="{{playground.disabled.value}}"
+                  error="{{playground.disabled.error}}"
+                  accept="{{playground.disabled.accept}}"
+                  disabled="{{playground.disabled.disabled}}">
+                  <Label>Signed contract</Label>
+                  <Helper>Upload is disabled until approval.</Helper>
+                </groupselectfileforupload--ml-upload-file-list>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading with Error</h3>
+        <demo id="demo-loading-error">
+          <groupselectfileforupload--ml-upload-file-list
+            value="{{playground.loadingError.value}}"
+            error="{{playground.loadingError.error}}"
+            multiple="{{playground.loadingError.multiple}}"
+            loading="{{playground.loadingError.loading}}">
+            <Label>Upload evidence</Label>
+            <Trigger>
+              <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Upload in progress</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400">Please wait for completion</div>
+            </Trigger>
+          </groupselectfileforupload--ml-upload-file-list>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="error" value="{{playground.loadingError.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.loadingError.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loadingError.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading-error">
+              <template>
+                <groupselectfileforupload--ml-upload-file-list
+                  value="{{playground.loadingError.value}}"
+                  error="{{playground.loadingError.error}}"
+                  multiple="{{playground.loadingError.multiple}}"
+                  loading="{{playground.loadingError.loading}}">
+                  <Label>Upload evidence</Label>
+                  <Trigger>
+                    <div class="text-sm font-semibold text-slate-700 dark:text-slate-200">Upload in progress</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">Please wait for completion</div>
+                  </Trigger>
+                </groupselectfileforupload--ml-upload-file-list>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,355 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Side Nav Scrollspy</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupNavigateSection</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"overview"},"withlabel":{"value":"settings"},"disabledtab":{"value":"general"},"disabled":{"value":"profile"},"loading":{"value":""},"witherror":{"value":"billing","error":"Unable to load billing information"}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 gap-6 mb-12">
+      
+      <!-- Basic -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupnavigatesection--ml-side-nav-scrollspy
+            value="{{playground.basic.value}}">
+            <Tab value="overview" title="Overview">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Overview</h2>
+                <p class="text-slate-600 dark:text-slate-400">This is the overview section with general information about the product.</p>
+              </div>
+            </Tab>
+            <Tab value="features" title="Features">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Features</h2>
+                <p class="text-slate-600 dark:text-slate-400">Detailed list of all product features and capabilities.</p>
+              </div>
+            </Tab>
+            <Tab value="pricing" title="Pricing">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Pricing</h2>
+                <p class="text-slate-600 dark:text-slate-400">Pricing plans and subscription options.</p>
+              </div>
+            </Tab>
+          </groupnavigatesection--ml-side-nav-scrollspy>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+<groupnavigatesection--ml-side-nav-scrollspy
+  value="{{playground.basic.value}}">
+  <Tab value="overview" title="Overview">
+    <div class="space-y-4">
+      <h2 class="text-xl font-semibold">Overview</h2>
+      <p>This is the overview section.</p>
+    </div>
+  </Tab>
+  <Tab value="features" title="Features">
+    <div class="space-y-4">
+      <h2 class="text-xl font-semibold">Features</h2>
+      <p>Detailed list of features.</p>
+    </div>
+  </Tab>
+  <Tab value="pricing" title="Pricing">
+    <div class="space-y-4">
+      <h2 class="text-xl font-semibold">Pricing</h2>
+      <p>Pricing plans and options.</p>
+    </div>
+  </Tab>
+</groupnavigatesection--ml-side-nav-scrollspy>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Label -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Label</h3>
+        <demo id="demo-withlabel">
+          <groupnavigatesection--ml-side-nav-scrollspy
+            value="{{playground.withlabel.value}}">
+            <Label>Account Settings</Label>
+            <Tab value="settings" title="General Settings">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">General Settings</h2>
+                <p class="text-slate-600 dark:text-slate-400">Configure your general account preferences.</p>
+              </div>
+            </Tab>
+            <Tab value="notifications" title="Notifications">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Notifications</h2>
+                <p class="text-slate-600 dark:text-slate-400">Manage your notification preferences.</p>
+              </div>
+            </Tab>
+            <Tab value="security" title="Security">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Security</h2>
+                <p class="text-slate-600 dark:text-slate-400">Security settings and two-factor authentication.</p>
+              </div>
+            </Tab>
+          </groupnavigatesection--ml-side-nav-scrollspy>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.withlabel.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-withlabel">
+              <template>
+<groupnavigatesection--ml-side-nav-scrollspy
+  value="{{playground.withlabel.value}}">
+  <Label>Account Settings</Label>
+  <Tab value="settings" title="General Settings">
+    <h2>General Settings</h2>
+    <p>Configure your preferences.</p>
+  </Tab>
+  <Tab value="notifications" title="Notifications">
+    <h2>Notifications</h2>
+    <p>Manage notifications.</p>
+  </Tab>
+  <Tab value="security" title="Security">
+    <h2>Security</h2>
+    <p>Security settings.</p>
+  </Tab>
+</groupnavigatesection--ml-side-nav-scrollspy>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Disabled Tab -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Disabled Tab</h3>
+        <demo id="demo-disabledtab">
+          <groupnavigatesection--ml-side-nav-scrollspy
+            value="{{playground.disabledtab.value}}">
+            <Label>Documentation</Label>
+            <Tab value="general" title="General">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">General Documentation</h2>
+                <p class="text-slate-600 dark:text-slate-400">Introduction and getting started guide.</p>
+              </div>
+            </Tab>
+            <Tab value="api" title="API Reference">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">API Reference</h2>
+                <p class="text-slate-600 dark:text-slate-400">Complete API documentation.</p>
+              </div>
+            </Tab>
+            <Tab value="advanced" title="Advanced" disabled>
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Advanced Topics</h2>
+                <p class="text-slate-600 dark:text-slate-400">Coming soon...</p>
+              </div>
+            </Tab>
+          </groupnavigatesection--ml-side-nav-scrollspy>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.disabledtab.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabledtab">
+              <template>
+<groupnavigatesection--ml-side-nav-scrollspy
+  value="{{playground.disabledtab.value}}">
+  <Label>Documentation</Label>
+  <Tab value="general" title="General">
+    <h2>General Documentation</h2>
+    <p>Getting started guide.</p>
+  </Tab>
+  <Tab value="api" title="API Reference">
+    <h2>API Reference</h2>
+    <p>Complete API docs.</p>
+  </Tab>
+  <Tab value="advanced" title="Advanced" disabled>
+    <h2>Advanced Topics</h2>
+    <p>Coming soon...</p>
+  </Tab>
+</groupnavigatesection--ml-side-nav-scrollspy>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Disabled State -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled State</h3>
+        <demo id="demo-disabled">
+          <groupnavigatesection--ml-side-nav-scrollspy
+            value="{{playground.disabled.value}}"
+            disabled="true">
+            <Label>User Profile</Label>
+            <Tab value="profile" title="Profile">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Profile Information</h2>
+                <p class="text-slate-600 dark:text-slate-400">Your personal profile details.</p>
+              </div>
+            </Tab>
+            <Tab value="preferences" title="Preferences">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Preferences</h2>
+                <p class="text-slate-600 dark:text-slate-400">Customize your experience.</p>
+              </div>
+            </Tab>
+          </groupnavigatesection--ml-side-nav-scrollspy>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+<groupnavigatesection--ml-side-nav-scrollspy
+  value="{{playground.disabled.value}}"
+  disabled="true">
+  <Label>User Profile</Label>
+  <Tab value="profile" title="Profile">
+    <h2>Profile Information</h2>
+    <p>Your personal details.</p>
+  </Tab>
+  <Tab value="preferences" title="Preferences">
+    <h2>Preferences</h2>
+    <p>Customize your experience.</p>
+  </Tab>
+</groupnavigatesection--ml-side-nav-scrollspy>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading State -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+        <demo id="demo-loading">
+          <groupnavigatesection--ml-side-nav-scrollspy
+            value="{{playground.loading.value}}"
+            loading="true">
+            <Tab value="tab1" title="Tab 1">
+              <p>Content 1</p>
+            </Tab>
+            <Tab value="tab2" title="Tab 2">
+              <p>Content 2</p>
+            </Tab>
+          </groupnavigatesection--ml-side-nav-scrollspy>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+<groupnavigatesection--ml-side-nav-scrollspy
+  value="{{playground.loading.value}}"
+  loading="true">
+  <Tab value="tab1" title="Tab 1">
+    <p>Content 1</p>
+  </Tab>
+  <Tab value="tab2" title="Tab 2">
+    <p>Content 2</p>
+  </Tab>
+</groupnavigatesection--ml-side-nav-scrollspy>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Error -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Error</h3>
+        <demo id="demo-witherror">
+          <groupnavigatesection--ml-side-nav-scrollspy
+            value="{{playground.witherror.value}}"
+            error="{{playground.witherror.error}}">
+            <Label>Billing</Label>
+            <Tab value="billing" title="Billing Info">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Billing Information</h2>
+                <p class="text-slate-600 dark:text-slate-400">Manage your billing details and payment methods.</p>
+              </div>
+            </Tab>
+            <Tab value="invoices" title="Invoices">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Invoices</h2>
+                <p class="text-slate-600 dark:text-slate-400">View and download your invoices.</p>
+              </div>
+            </Tab>
+            <Tab value="history" title="Payment History">
+              <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-slate-800 dark:text-slate-100">Payment History</h2>
+                <p class="text-slate-600 dark:text-slate-400">Review your past transactions.</p>
+              </div>
+            </Tab>
+          </groupnavigatesection--ml-side-nav-scrollspy>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.witherror.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.witherror.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-witherror">
+              <template>
+<groupnavigatesection--ml-side-nav-scrollspy
+  value="{{playground.witherror.value}}"
+  error="{{playground.witherror.error}}">
+  <Label>Billing</Label>
+  <Tab value="billing" title="Billing Info">
+    <h2>Billing Information</h2>
+    <p>Manage your billing details.</p>
+  </Tab>
+  <Tab value="invoices" title="Invoices">
+    <h2>Invoices</h2>
+    <p>View your invoices.</p>
+  </Tab>
+  <Tab value="history" title="Payment History">
+    <h2>Payment History</h2>
+    <p>Review past transactions.</p>
+  </Tab>
+</groupnavigatesection--ml-side-nav-scrollspy>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>

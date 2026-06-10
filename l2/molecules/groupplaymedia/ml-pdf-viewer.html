@@ -1,0 +1,241 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">PDF Viewer</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupPlayMedia</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"preload":"metadata","poster":"","disabled":false,"loading":false},"autoplay":{"autoplay":true,"loop":true,"muted":true,"preload":"auto"},"loading":{"loading":true,"poster":"https://images.example.com/previews/report-thumb.jpg","preload":"metadata"},"disabled":{"disabled":true,"preload":"metadata"},"minimal":{"preload":"none"},"rich":{"poster":"https://images.example.com/previews/brochure-thumb.jpg","preload":"auto"}}}'>
+    </widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic document viewer</h3>
+        <demo id="demo-basic">
+          <groupplaymedia--ml-pdf-viewer
+            preload="{{playground.basic.preload}}"
+            poster="{{playground.basic.poster}}"
+            disabled="{{playground.basic.disabled}}"
+            loading="{{playground.basic.loading}}">
+            <Label>Quarterly Report</Label>
+            <Source src="https://cdn.example.com/docs/quarterly-report.pdf" type="application/pdf" />
+          </groupplaymedia--ml-pdf-viewer>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="preload" value="{{playground.basic.preload}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="poster" value="{{playground.basic.poster}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupplaymedia--ml-pdf-viewer
+                  preload="{{playground.basic.preload}}"
+                  poster="{{playground.basic.poster}}"
+                  disabled="{{playground.basic.disabled}}"
+                  loading="{{playground.basic.loading}}">
+                  <Label>Quarterly Report</Label>
+                  <Source src="https://cdn.example.com/docs/quarterly-report.pdf" type="application/pdf" />
+                </groupplaymedia--ml-pdf-viewer>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Autoplay + loop + muted</h3>
+        <demo id="demo-autoplay">
+          <groupplaymedia--ml-pdf-viewer
+            autoplay="{{playground.autoplay.autoplay}}"
+            loop="{{playground.autoplay.loop}}"
+            muted="{{playground.autoplay.muted}}"
+            preload="{{playground.autoplay.preload}}">
+            <Label>Sales Playbook</Label>
+            <Source src="https://cdn.example.com/docs/sales-playbook.pdf" type="application/pdf" />
+          </groupplaymedia--ml-pdf-viewer>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="autoplay" value="{{playground.autoplay.autoplay}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loop" value="{{playground.autoplay.loop}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="muted" value="{{playground.autoplay.muted}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="preload" value="{{playground.autoplay.preload}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-autoplay">
+              <template>
+                <groupplaymedia--ml-pdf-viewer
+                  autoplay="{{playground.autoplay.autoplay}}"
+                  loop="{{playground.autoplay.loop}}"
+                  muted="{{playground.autoplay.muted}}"
+                  preload="{{playground.autoplay.preload}}">
+                  <Label>Sales Playbook</Label>
+                  <Source src="https://cdn.example.com/docs/sales-playbook.pdf" type="application/pdf" />
+                </groupplaymedia--ml-pdf-viewer>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading overlay</h3>
+        <demo id="demo-loading">
+          <groupplaymedia--ml-pdf-viewer
+            loading="{{playground.loading.loading}}"
+            poster="{{playground.loading.poster}}"
+            preload="{{playground.loading.preload}}">
+            <Label>Annual Summary</Label>
+            <Source src="https://cdn.example.com/docs/annual-summary.pdf" type="application/pdf" />
+          </groupplaymedia--ml-pdf-viewer>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="poster" value="{{playground.loading.poster}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="preload" value="{{playground.loading.preload}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupplaymedia--ml-pdf-viewer
+                  loading="{{playground.loading.loading}}"
+                  poster="{{playground.loading.poster}}"
+                  preload="{{playground.loading.preload}}">
+                  <Label>Annual Summary</Label>
+                  <Source src="https://cdn.example.com/docs/annual-summary.pdf" type="application/pdf" />
+                </groupplaymedia--ml-pdf-viewer>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled with multiple sources</h3>
+        <demo id="demo-disabled">
+          <groupplaymedia--ml-pdf-viewer
+            disabled="{{playground.disabled.disabled}}"
+            preload="{{playground.disabled.preload}}">
+            <Label>Policy Handbook</Label>
+            <Source src="https://cdn.example.com/docs/policy-handbook.pdf" type="application/pdf" />
+            <Source src="https://backup.example.com/docs/policy-handbook.pdf" type="application/pdf" />
+            <Track src="https://cdn.example.com/tracks/policy-captions-en.vtt" kind="captions" lang="en" label="English" />
+          </groupplaymedia--ml-pdf-viewer>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="preload" value="{{playground.disabled.preload}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupplaymedia--ml-pdf-viewer
+                  disabled="{{playground.disabled.disabled}}"
+                  preload="{{playground.disabled.preload}}">
+                  <Label>Policy Handbook</Label>
+                  <Source src="https://cdn.example.com/docs/policy-handbook.pdf" type="application/pdf" />
+                  <Source src="https://backup.example.com/docs/policy-handbook.pdf" type="application/pdf" />
+                  <Track src="https://cdn.example.com/tracks/policy-captions-en.vtt" kind="captions" lang="en" label="English" />
+                </groupplaymedia--ml-pdf-viewer>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Minimal source only</h3>
+        <demo id="demo-minimal">
+          <groupplaymedia--ml-pdf-viewer preload="{{playground.minimal.preload}}">
+            <Source src="https://cdn.example.com/docs/quickstart.pdf" type="application/pdf" />
+          </groupplaymedia--ml-pdf-viewer>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="preload" value="{{playground.minimal.preload}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-minimal">
+              <template>
+                <groupplaymedia--ml-pdf-viewer preload="{{playground.minimal.preload}}">
+                  <Source src="https://cdn.example.com/docs/quickstart.pdf" type="application/pdf" />
+                </groupplaymedia--ml-pdf-viewer>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Rich label + captions</h3>
+        <demo id="demo-rich">
+          <groupplaymedia--ml-pdf-viewer
+            poster="{{playground.rich.poster}}"
+            preload="{{playground.rich.preload}}">
+            <Label>
+              <div class="flex items-center gap-2">
+                <span class="font-semibold">Product Brochure</span>
+                <span class="text-xs text-slate-500">Updated Jun 2026</span>
+              </div>
+            </Label>
+            <Source src="https://cdn.example.com/docs/product-brochure.pdf" type="application/pdf" />
+            <Track src="https://cdn.example.com/tracks/brochure-notes-en.vtt" kind="subtitles" lang="en" label="Notes (EN)" />
+          </groupplaymedia--ml-pdf-viewer>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="poster" value="{{playground.rich.poster}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="preload" value="{{playground.rich.preload}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-rich">
+              <template>
+                <groupplaymedia--ml-pdf-viewer
+                  poster="{{playground.rich.poster}}"
+                  preload="{{playground.rich.preload}}">
+                  <Label>
+                    <div class="flex items-center gap-2">
+                      <span class="font-semibold">Product Brochure</span>
+                      <span class="text-xs text-slate-500">Updated Jun 2026</span>
+                    </div>
+                  </Label>
+                  <Source src="https://cdn.example.com/docs/product-brochure.pdf" type="application/pdf" />
+                  <Track src="https://cdn.example.com/tracks/brochure-notes-en.vtt" kind="subtitles" lang="en" label="Notes (EN)" />
+                </groupplaymedia--ml-pdf-viewer>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

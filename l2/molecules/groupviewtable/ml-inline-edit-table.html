@@ -1,0 +1,460 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Inline Edit Table</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">group view table</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"value":""},"selectable":{"selectable":true,"value":"0,2"},"inline":{"isEditing":true,"selectable":true,"value":1},"paginated":{"page":2,"pageSize":3,"totalItems":9},"loading":{"loading":true,"selectable":true},"empty":{"disabled":true,"error":"You don't have permission to view this table."}}}'>
+    </widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupviewtable--ml-inline-edit-table
+            selectable="{{playground.basic.selectable}}"
+            value="{{playground.basic.value}}">
+            <Caption>Team Members</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="name">Name</TableHead>
+                <TableHead key="role">Role</TableHead>
+                <TableHead key="location">Location</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Ana Ruiz</TableCell>
+                <TableCell>Product Designer</TableCell>
+                <TableCell>Lisbon</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Marcos Lima</TableCell>
+                <TableCell>Frontend Engineer</TableCell>
+                <TableCell>Recife</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Julia Costa</TableCell>
+                <TableCell>QA Analyst</TableCell>
+                <TableCell>Porto Alegre</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewtable--ml-inline-edit-table
+                  selectable="{{playground.basic.selectable}}"
+                  value="{{playground.basic.value}}">
+                  <Caption>Team Members</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="name">Name</TableHead>
+                      <TableHead key="role">Role</TableHead>
+                      <TableHead key="location">Location</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Ana Ruiz</TableCell>
+                      <TableCell>Product Designer</TableCell>
+                      <TableCell>Lisbon</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Marcos Lima</TableCell>
+                      <TableCell>Frontend Engineer</TableCell>
+                      <TableCell>Recife</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Julia Costa</TableCell>
+                      <TableCell>QA Analyst</TableCell>
+                      <TableCell>Porto Alegre</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable sorting</h3>
+        <demo id="demo-selectable">
+          <groupviewtable--ml-inline-edit-table
+            selectable="{{playground.selectable.selectable}}"
+            value="{{playground.selectable.value}}">
+            <Caption>Orders</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="customer" sortable>Customer</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+                <TableHead key="status">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>#1021</TableCell>
+                <TableCell>Joana Silva</TableCell>
+                <TableCell>$210.00</TableCell>
+                <TableCell>Paid</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1022</TableCell>
+                <TableCell>Bruno Alves</TableCell>
+                <TableCell>$89.90</TableCell>
+                <TableCell>Pending</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1023</TableCell>
+                <TableCell>Carla Dias</TableCell>
+                <TableCell>$149.50</TableCell>
+                <TableCell>Refunded</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+                <groupviewtable--ml-inline-edit-table
+                  selectable="{{playground.selectable.selectable}}"
+                  value="{{playground.selectable.value}}">
+                  <Caption>Orders</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="customer" sortable>Customer</TableHead>
+                      <TableHead key="total" sortable>Total</TableHead>
+                      <TableHead key="status">Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>#1021</TableCell>
+                      <TableCell>Joana Silva</TableCell>
+                      <TableCell>$210.00</TableCell>
+                      <TableCell>Paid</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1022</TableCell>
+                      <TableCell>Bruno Alves</TableCell>
+                      <TableCell>$89.90</TableCell>
+                      <TableCell>Pending</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1023</TableCell>
+                      <TableCell>Carla Dias</TableCell>
+                      <TableCell>$149.50</TableCell>
+                      <TableCell>Refunded</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Inline editing</h3>
+        <demo id="demo-inline">
+          <groupviewtable--ml-inline-edit-table
+            is-editing="{{playground.inline.isEditing}}"
+            selectable="{{playground.inline.selectable}}"
+            value="{{playground.inline.value}}">
+            <Caption>Content Plan</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="title">Title</TableHead>
+                <TableHead key="owner">Owner</TableHead>
+                <TableHead key="due">Due Date</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell><input type="text" value="Design system update" /></TableCell>
+                <TableCell><input type="text" value="Lucas" /></TableCell>
+                <TableCell><input type="date" value="2026-07-12" /></TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell><input type="text" value="Release notes" /></TableCell>
+                <TableCell><input type="text" value="Marina" /></TableCell>
+                <TableCell><input type="date" value="2026-07-19" /></TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell><input type="text" value="Customer webinar" /></TableCell>
+                <TableCell><input type="text" value="Rafael" /></TableCell>
+                <TableCell><input type="date" value="2026-07-30" /></TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="is-editing" value="{{playground.inline.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.inline.selectable}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="value" value="{{playground.inline.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-inline">
+              <template>
+                <groupviewtable--ml-inline-edit-table
+                  is-editing="{{playground.inline.isEditing}}"
+                  selectable="{{playground.inline.selectable}}"
+                  value="{{playground.inline.value}}">
+                  <Caption>Content Plan</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="title">Title</TableHead>
+                      <TableHead key="owner">Owner</TableHead>
+                      <TableHead key="due">Due Date</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell><input type="text" value="Design system update" /></TableCell>
+                      <TableCell><input type="text" value="Lucas" /></TableCell>
+                      <TableCell><input type="date" value="2026-07-12" /></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell><input type="text" value="Release notes" /></TableCell>
+                      <TableCell><input type="text" value="Marina" /></TableCell>
+                      <TableCell><input type="date" value="2026-07-19" /></TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell><input type="text" value="Customer webinar" /></TableCell>
+                      <TableCell><input type="text" value="Rafael" /></TableCell>
+                      <TableCell><input type="date" value="2026-07-30" /></TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Paginated with footer</h3>
+        <demo id="demo-paginated">
+          <groupviewtable--ml-inline-edit-table
+            page="{{playground.paginated.page}}"
+            page-size="{{playground.paginated.pageSize}}"
+            total-items="{{playground.paginated.totalItems}}">
+            <Caption>Monthly Expenses</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="category">Category</TableHead>
+                <TableHead key="amount" sortable>Amount</TableHead>
+                <TableHead key="owner">Owner</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Infrastructure</TableCell>
+                <TableCell>$1,200</TableCell>
+                <TableCell>Ops</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Marketing</TableCell>
+                <TableCell>$950</TableCell>
+                <TableCell>Growth</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Design Tools</TableCell>
+                <TableCell>$340</TableCell>
+                <TableCell>Design</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell colspan="2">Total</TableCell>
+                <TableCell>$2,490</TableCell>
+              </TableRow>
+            </TableFooter>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="page" value="{{playground.paginated.page}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="page-size" value="{{playground.paginated.pageSize}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="total-items" value="{{playground.paginated.totalItems}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-paginated">
+              <template>
+                <groupviewtable--ml-inline-edit-table
+                  page="{{playground.paginated.page}}"
+                  page-size="{{playground.paginated.pageSize}}"
+                  total-items="{{playground.paginated.totalItems}}">
+                  <Caption>Monthly Expenses</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="category">Category</TableHead>
+                      <TableHead key="amount" sortable>Amount</TableHead>
+                      <TableHead key="owner">Owner</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Infrastructure</TableCell>
+                      <TableCell>$1,200</TableCell>
+                      <TableCell>Ops</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Marketing</TableCell>
+                      <TableCell>$950</TableCell>
+                      <TableCell>Growth</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Design Tools</TableCell>
+                      <TableCell>$340</TableCell>
+                      <TableCell>Design</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
+                      <TableCell colspan="2">Total</TableCell>
+                      <TableCell>$2,490</TableCell>
+                    </TableRow>
+                  </TableFooter>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+        <demo id="demo-loading">
+          <groupviewtable--ml-inline-edit-table
+            loading="{{playground.loading.loading}}"
+            selectable="{{playground.loading.selectable}}">
+            <Caption>Activity Log</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="event">Event</TableHead>
+                <TableHead key="owner">Owner</TableHead>
+                <TableHead key="time">Time</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody></TableBody>
+            <Loading>
+              <div class="text-slate-600 dark:text-slate-300">Syncing events from the server...</div>
+            </Loading>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewtable--ml-inline-edit-table
+                  loading="{{playground.loading.loading}}"
+                  selectable="{{playground.loading.selectable}}">
+                  <Caption>Activity Log</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="event">Event</TableHead>
+                      <TableHead key="owner">Owner</TableHead>
+                      <TableHead key="time">Time</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody></TableBody>
+                  <Loading>
+                    <div class="text-slate-600 dark:text-slate-300">Syncing events from the server...</div>
+                  </Loading>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty with error</h3>
+        <demo id="demo-empty">
+          <groupviewtable--ml-inline-edit-table
+            disabled="{{playground.empty.disabled}}"
+            error="{{playground.empty.error}}">
+            <Caption>Compliance Tasks</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="task">Task</TableHead>
+                <TableHead key="owner">Owner</TableHead>
+                <TableHead key="status">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody></TableBody>
+            <Empty>
+              <div class="text-slate-500 dark:text-slate-400">No tasks assigned yet.</div>
+            </Empty>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+                <groupviewtable--ml-inline-edit-table
+                  disabled="{{playground.empty.disabled}}"
+                  error="{{playground.empty.error}}">
+                  <Caption>Compliance Tasks</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="task">Task</TableHead>
+                      <TableHead key="owner">Owner</TableHead>
+                      <TableHead key="status">Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody></TableBody>
+                  <Empty>
+                    <div class="text-slate-500 dark:text-slate-400">No tasks assigned yet.</div>
+                  </Empty>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

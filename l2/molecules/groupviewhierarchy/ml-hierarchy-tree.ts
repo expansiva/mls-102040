@@ -1,347 +1,466 @@
-/// <mls fileReference="_102040_/l2/molecules/groupviewhierarchy/ml-hierarchy-tree.ts" enhancement="_102020_/l2/enhancementAura" />
+/// <mls fileReference="_102040_/l2/molecules/groupviewhierarchy/ml-hierarchy-tree.ts" enhancement="_102020_/l2/enhancementAura"/>
 // =============================================================================
 // HIERARCHY TREE MOLECULE
 // =============================================================================
-// Skill Group: view + hierarchy
+// Skill Group: groupViewHierarchy
 // This molecule does NOT contain business logic.
-import { html, svg, TemplateResult } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { customElement } from 'lit/decorators.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators';
+
+import { html, TemplateResult } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
+import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+
 /// **collab_i18n_start**
 const message_en = {
-    empty: 'No items to display',
-    loading: 'Loading hierarchy...',
+  loading: 'Loading...',
+  empty: 'No items to display',
 };
+
 type MessageType = typeof message_en;
+
 const messages: Record<string, MessageType> = {
-    en: message_en,
-    pt: {
-        empty: 'Nenhum item para exibir',
-        loading: 'Carregando hierarquia...',
-    },
+  en: message_en,
+  pt: {
+    loading: 'Carregando...',
+    empty: 'Nenhum item para exibir',
+  },
 };
 /// **collab_i18n_end**
+
+interface ParsedNode {
+  value: string | null;
+  expanded: boolean;
+  disabled: boolean;
+  content: string;
+  children: ParsedNode[];
+  id: string;
+}
+
 @customElement('groupviewhierarchy--ml-hierarchy-tree')
 export class HierarchyTreeMolecule extends MoleculeAuraElement {
-    private msg: MessageType = messages.en;
-    // =========================================================================
-    // SLOT TAGS
-    // =========================================================================
-    slotTags = ['Label', 'Node', 'Empty'];
-    // =========================================================================
-    // PROPERTIES — From Contract
-    // =========================================================================
-    @propertyDataSource({ type: Boolean })
-    multiple = true;
-    @propertyDataSource({ type: Boolean, attribute: 'expand-all' })
-    expandAll = false;
-    @propertyDataSource({ type: Boolean })
-    disabled = false;
-    @propertyDataSource({ type: Boolean })
-    loading = false;
-    // =========================================================================
-    // INTERNAL STATE
-    // =========================================================================
-    private expandedState = new WeakMap<Element, boolean>();
-    // =========================================================================
-    // LIFECYCLE
-    // =========================================================================
-    updated(changedProps: Map<string, unknown>) {
-        if (changedProps.has('expandAll') && this.expandAll) {
-            this.expandAllNodes();
+  private msg: MessageType = messages.en;
+
+  // ===========================================================================
+  // SLOT TAGS
+  // ===========================================================================
+  slotTags = ['Label', 'Node', 'Empty'];
+
+  // ===========================================================================
+  // PROPERTIES — From Contract
+  // ===========================================================================
+  @propertyDataSource({ type: Boolean })
+  multiple: boolean = true;
+
+  @propertyDataSource({ type: Boolean, attribute: 'expand-all' })
+  expandAll: boolean = false;
+
+  @propertyDataSource({ type: Boolean })
+  disabled: boolean = false;
+
+  @propertyDataSource({ type: Boolean })
+  loading: boolean = false;
+
+  // ===========================================================================
+  // INTERNAL STATE
+  // ===========================================================================
+  @state()
+  private expandedNodes: Set<string> = new Set();
+
+  @state()
+  private parsedNodes: ParsedNode[] = [];
+
+  @state()
+  private focusedNodeId: string | null = null;
+
+  private nodeIdCounter: number = 0;
+
+  // ===========================================================================
+  // LIFECYCLE
+  // ===========================================================================
+  firstUpdated() {
+    this.parseNodes();
+    this.initializeExpandedState();
+  }
+
+  updated(changedProperties: Map<string, unknown>) {
+    if (changedProperties.has('expandAll')) {
+      this.initializeExpandedState();
+    }
+  }
+
+  // ===========================================================================
+  // PARSING
+  // ===========================================================================
+  private parseNodes() {
+    this.nodeIdCounter = 0;
+    const nodeElements = this.getSlots('Node');
+    this.parsedNodes = nodeElements.map(el => this.parseNodeElement(el));
+  }
+
+  private parseNodeElement(element: Element): ParsedNode {
+    const id = `node-${this.nodeIdCounter++}`;
+    const value = element.getAttribute('value');
+    const expanded = element.hasAttribute('expanded');
+    const disabled = element.hasAttribute('disabled');
+
+    const childNodes = Array.from(element.children).filter(
+      child => child.tagName.toUpperCase() === 'NODE'
+    );
+
+    const contentNodes = Array.from(element.childNodes).filter(node => {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        return (node as Element).tagName.toUpperCase() !== 'NODE';
+      }
+      return node.nodeType === Node.TEXT_NODE && node.textContent?.trim();
+    });
+
+    const content = contentNodes
+      .map(node => {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          return (node as Element).outerHTML;
         }
+        return node.textContent || '';
+      })
+      .join('')
+      .trim();
+
+    const children = childNodes.map(child => this.parseNodeElement(child));
+
+    return {
+      value,
+      expanded,
+      disabled,
+      content,
+      children,
+      id,
+    };
+  }
+
+  private initializeExpandedState() {
+    this.expandedNodes = new Set();
+    if (this.expandAll) {
+      this.expandAllNodes(this.parsedNodes);
+    } else {
+      this.initializeFromAttributes(this.parsedNodes);
     }
-    // =========================================================================
-    // HELPERS — NODE PARSING
-    // =========================================================================
-    private isNodeElement(el: Element): boolean {
-        return el.tagName.toLowerCase() === 'node';
+  }
+
+  private expandAllNodes(nodes: ParsedNode[]) {
+    for (const node of nodes) {
+      if (node.children.length > 0) {
+        this.expandedNodes.add(node.id);
+        this.expandAllNodes(node.children);
+      }
     }
-    private getRootNodes(): Element[] {
-        const fragment = (this as unknown as { getTemplateDoc?: () => DocumentFragment }).getTemplateDoc?.();
-        if (!fragment) return [];
-        const elements = Array.from(fragment.childNodes)
-            .filter((n): n is Element => n.nodeType === Node.ELEMENT_NODE);
-        return elements.filter((el) => this.isNodeElement(el));
+  }
+
+  private initializeFromAttributes(nodes: ParsedNode[]) {
+    for (const node of nodes) {
+      if (node.expanded && node.children.length > 0) {
+        this.expandedNodes.add(node.id);
+      }
+      this.initializeFromAttributes(node.children);
     }
-    private getChildNodes(node: Element): Element[] {
-        return Array.from(node.children).filter((el) => this.isNodeElement(el));
-    }
-    private getNodeLabelHtml(node: Element): string {
-        const clone = node.cloneNode(true) as Element;
-        Array.from(clone.querySelectorAll('Node')).forEach((child) => child.remove());
-        return clone.innerHTML.trim();
-    }
-    private getNodeValue(node: Element): string | null {
-        return node.getAttribute('value');
-    }
-    private isNodeDisabled(node: Element): boolean {
-        return this.disabled || node.hasAttribute('disabled');
-    }
-    private getNodeExpanded(node: Element): boolean {
-        if (!this.expandedState.has(node)) {
-            const initial = this.expandAll ? true : node.hasAttribute('expanded');
-            this.expandedState.set(node, initial);
+  }
+
+  // ===========================================================================
+  // EVENT HANDLERS
+  // ===========================================================================
+  private handleToggle(node: ParsedNode, siblings: ParsedNode[]) {
+    if (this.disabled || node.disabled || node.children.length === 0) return;
+
+    const isExpanded = this.expandedNodes.has(node.id);
+    const newExpandedNodes = new Set(this.expandedNodes);
+
+    if (isExpanded) {
+      newExpandedNodes.delete(node.id);
+    } else {
+      if (!this.multiple) {
+        for (const sibling of siblings) {
+          if (sibling.id !== node.id) {
+            newExpandedNodes.delete(sibling.id);
+          }
         }
-        return this.expandedState.get(node) ?? false;
+      }
+      newExpandedNodes.add(node.id);
     }
-    private setNodeExpanded(node: Element, expanded: boolean) {
-        this.expandedState.set(node, expanded);
-    }
-    private expandAllNodes() {
-        const walk = (nodes: Element[]) => {
-            nodes.forEach((node) => {
-                this.setNodeExpanded(node, true);
-                const children = this.getChildNodes(node);
-                if (children.length) walk(children);
-            });
-        };
-        walk(this.getRootNodes());
-        this.requestUpdate();
-    }
-    private collapseSiblings(target: Element) {
-        const parent = target.parentElement;
-        let siblings: Element[] = [];
-        if (parent && this.isNodeElement(parent)) {
-            siblings = this.getChildNodes(parent);
+
+    this.expandedNodes = newExpandedNodes;
+
+    this.dispatchEvent(
+      new CustomEvent('toggle', {
+        bubbles: true,
+        composed: true,
+        detail: { value: node.value, expanded: !isExpanded },
+      })
+    );
+  }
+
+  private handleNodeClick(node: ParsedNode) {
+    if (this.disabled || node.disabled) return;
+
+    this.dispatchEvent(
+      new CustomEvent('nodeClick', {
+        bubbles: true,
+        composed: true,
+        detail: { value: node.value },
+      })
+    );
+  }
+
+  private handleKeyDown(e: KeyboardEvent, node: ParsedNode, siblings: ParsedNode[], flatNodes: ParsedNode[]) {
+    if (this.disabled || node.disabled) return;
+
+    const currentIndex = flatNodes.findIndex(n => n.id === node.id);
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        if (currentIndex < flatNodes.length - 1) {
+          this.focusedNodeId = flatNodes[currentIndex + 1].id;
+          this.focusNode(flatNodes[currentIndex + 1].id);
+        }
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if (currentIndex > 0) {
+          this.focusedNodeId = flatNodes[currentIndex - 1].id;
+          this.focusNode(flatNodes[currentIndex - 1].id);
+        }
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        if (node.children.length > 0 && !this.expandedNodes.has(node.id)) {
+          this.handleToggle(node, siblings);
+        }
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        if (node.children.length > 0 && this.expandedNodes.has(node.id)) {
+          this.handleToggle(node, siblings);
+        }
+        break;
+      case 'Enter':
+      case ' ':
+        e.preventDefault();
+        if (node.children.length > 0) {
+          this.handleToggle(node, siblings);
         } else {
-            siblings = this.getRootNodes();
+          this.handleNodeClick(node);
         }
-        siblings.forEach((node) => {
-            if (node !== target) this.setNodeExpanded(node, false);
-        });
+        break;
     }
-    // =========================================================================
-    // EVENT HANDLERS
-    // =========================================================================
-    private handleToggle(node: Element) {
-        const children = this.getChildNodes(node);
-        if (!children.length) return;
-        if (this.isNodeDisabled(node)) return;
-        const expanded = this.getNodeExpanded(node);
-        const nextExpanded = !expanded;
-        if (nextExpanded && !this.multiple) {
-            this.collapseSiblings(node);
-        }
-        this.setNodeExpanded(node, nextExpanded);
-        this.dispatchEvent(
-            new CustomEvent('toggle', {
-                bubbles: true,
-                composed: true,
-                detail: { value: this.getNodeValue(node), expanded: nextExpanded },
-            })
-        );
-        this.requestUpdate();
+  }
+
+  private focusNode(nodeId: string) {
+    requestAnimationFrame(() => {
+      const element = this.querySelector(`[data-node-id="${nodeId}"]`) as HTMLElement;
+      if (element) {
+        element.focus();
+      }
+    });
+  }
+
+  private getFlatNodes(nodes: ParsedNode[]): ParsedNode[] {
+    const result: ParsedNode[] = [];
+    for (const node of nodes) {
+      result.push(node);
+      if (this.expandedNodes.has(node.id) && node.children.length > 0) {
+        result.push(...this.getFlatNodes(node.children));
+      }
     }
-    private handleNodeClick(node: Element) {
-        if (this.isNodeDisabled(node)) return;
-        this.dispatchEvent(
-            new CustomEvent('nodeClick', {
-                bubbles: true,
-                composed: true,
-                detail: { value: this.getNodeValue(node) },
-            })
-        );
+    return result;
+  }
+
+  // ===========================================================================
+  // RENDER HELPERS
+  // ===========================================================================
+  private getContainerClasses(): string {
+    return [
+      'w-full',
+      'bg-white dark:bg-slate-800',
+      'text-slate-900 dark:text-slate-100',
+    ].join(' ');
+  }
+
+  private getLabelClasses(): string {
+    return [
+      'text-sm font-medium mb-2 block',
+      'text-slate-700 dark:text-slate-300',
+    ].join(' ');
+  }
+
+  private getNodeClasses(node: ParsedNode, level: number): string {
+    const isDisabled = this.disabled || node.disabled;
+    const hasChildren = node.children.length > 0;
+
+    return [
+      'flex items-center gap-2 py-1.5 px-2 rounded-md transition-colors',
+      'text-sm',
+      level > 0 ? `ml-${Math.min(level * 4, 16)}` : '',
+      isDisabled
+        ? 'opacity-50 cursor-not-allowed text-slate-400 dark:text-slate-600'
+        : 'text-slate-900 dark:text-slate-100',
+      !isDisabled && hasChildren
+        ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700'
+        : '',
+      !isDisabled && !hasChildren
+        ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700'
+        : '',
+      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400 focus:ring-offset-1',
+    ].filter(Boolean).join(' ');
+  }
+
+  private getToggleClasses(node: ParsedNode): string {
+    const isExpanded = this.expandedNodes.has(node.id);
+    const isDisabled = this.disabled || node.disabled;
+
+    return [
+      'w-5 h-5 flex items-center justify-center flex-shrink-0 transition-transform',
+      isExpanded ? 'rotate-90' : '',
+      isDisabled
+        ? 'text-slate-300 dark:text-slate-600'
+        : 'text-slate-500 dark:text-slate-400',
+    ].join(' ');
+  }
+
+  private getEmptyClasses(): string {
+    return [
+      'text-sm py-4 text-center',
+      'text-slate-500 dark:text-slate-400',
+    ].join(' ');
+  }
+
+  private getLoadingClasses(): string {
+    return [
+      'text-sm py-4 text-center',
+      'text-slate-500 dark:text-slate-400',
+    ].join(' ');
+  }
+
+  private getChildrenContainerClasses(): string {
+    return [
+      'border-l border-slate-200 dark:border-slate-700 ml-2.5',
+    ].join(' ');
+  }
+
+  // ===========================================================================
+  // RENDER
+  // ===========================================================================
+  render() {
+    const lang = this.getMessageKey(messages);
+    this.msg = messages[lang];
+
+    if (this.loading) {
+      return this.renderLoading();
     }
-    private handleNodeKeyDown(
-        event: KeyboardEvent,
-        node: Element,
-        hasChildren: boolean,
-        expanded: boolean
-    ) {
-        const key = event.key;
-        if (key === 'Enter' || key === ' ') {
-            event.preventDefault();
-            if (hasChildren) {
-                this.handleToggle(node);
-            } else {
-                this.handleNodeClick(node);
-            }
-            return;
-        }
-        if (key === 'ArrowRight' && hasChildren && !expanded) {
-            event.preventDefault();
-            this.handleToggle(node);
-            return;
-        }
-        if (key === 'ArrowLeft' && hasChildren && expanded) {
-            event.preventDefault();
-            this.handleToggle(node);
-            return;
-        }
-        if (key === 'ArrowDown') {
-            event.preventDefault();
-            this.focusAdjacentNode(event.currentTarget as HTMLElement, 1);
-            return;
-        }
-        if (key === 'ArrowUp') {
-            event.preventDefault();
-            this.focusAdjacentNode(event.currentTarget as HTMLElement, -1);
-        }
+
+    this.parseNodes();
+    this.initializeExpandedState();
+
+    if (this.parsedNodes.length === 0) {
+      return this.renderEmpty();
     }
-    private focusAdjacentNode(current: HTMLElement, direction: 1 | -1) {
-        const nodes = Array.from(
-            this.querySelectorAll('[data-node-content="true"]')
-        ) as HTMLElement[];
-        const index = nodes.indexOf(current);
-        if (index === -1) return;
-        const nextIndex = index + direction;
-        const next = nodes[nextIndex];
-        if (next) next.focus();
+
+    const flatNodes = this.getFlatNodes(this.parsedNodes);
+
+    return html`
+      <div class=${this.getContainerClasses()}>
+        ${this.renderLabel()}
+        <div role="tree" aria-label="Hierarchy tree">
+          ${this.parsedNodes.map(node =>
+            this.renderNode(node, 0, this.parsedNodes, flatNodes)
+          )}
+        </div>
+      </div>
+    `;
+  }
+
+  private renderLoading(): TemplateResult {
+    return html`
+      <div class=${this.getLoadingClasses()}>
+        ${this.msg.loading}
+      </div>
+    `;
+  }
+
+  private renderEmpty(): TemplateResult {
+    const emptyContent = this.getSlotContent('Empty') || this.msg.empty;
+    return html`
+      <div class=${this.getEmptyClasses()}>
+        ${unsafeHTML(emptyContent)}
+      </div>
+    `;
+  }
+
+  private renderLabel(): TemplateResult {
+    if (!this.hasSlot('Label')) {
+      return html``;
     }
-    // =========================================================================
-    // RENDER HELPERS
-    // =========================================================================
-    private renderLabel(): TemplateResult {
-        if (!this.hasSlot('Label')) return html``;
-        return html`
-<div class="mb-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
-${unsafeHTML(this.getSlotContent('Label'))}
-</div>
-`;
-    }
-    private renderLoading(): TemplateResult {
-        return html`
-<div
-class="rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3 py-2 text-sm text-slate-500 dark:text-slate-400"
->
-${this.msg.loading}
-</div>
-`;
-    }
-    private renderEmpty(): TemplateResult {
-        const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
-        return html`
-<div
-class="rounded-md border border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3 py-2 text-sm text-slate-500 dark:text-slate-400"
->
-${unsafeHTML(content)}
-</div>
-`;
-    }
-    private getToggleButtonClasses(disabled: boolean): string {
-        return [
-            'flex h-5 w-5 items-center justify-center rounded border transition',
-            'border-slate-200 dark:border-slate-700',
-            'bg-white dark:bg-slate-800',
-            'text-slate-600 dark:text-slate-400',
-            !disabled ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : 'cursor-not-allowed',
-            disabled ? 'opacity-50' : '',
-            'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-        ]
-            .filter(Boolean)
-            .join(' ');
-    }
-    private getContentButtonClasses(disabled: boolean): string {
-        return [
-            'flex-1 text-left rounded-md px-2 py-1 text-sm transition',
-            'text-slate-900 dark:text-slate-100',
-            !disabled ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : 'cursor-not-allowed',
-            disabled ? 'opacity-50' : '',
-            'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-        ]
-            .filter(Boolean)
-            .join(' ');
-    }
-    private renderChevron(expanded: boolean): TemplateResult {
-        const rotation = expanded ? 'rotate-90' : '';
-        return html`
-<svg viewBox="0 0 20 20" class="h-3 w-3 ${rotation}">
-${svg`<path d="M7 5l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>`}
-</svg>
-`;
-    }
-    private renderNode(node: Element, depth: number, path: string): TemplateResult {
-        const children = this.getChildNodes(node);
-        const hasChildren = children.length > 0;
-        const expanded = hasChildren ? this.getNodeExpanded(node) : false;
-        const disabled = this.isNodeDisabled(node);
-        const labelHtml = this.getNodeLabelHtml(node);
-        const indentStyle = `padding-left: ${depth * 1.25}rem;`;
-        return html`
-<div class="w-full">
-<div
-class="flex items-center gap-2"
-style=${indentStyle}
-role="treeitem"
-aria-level=${String(depth + 1)}
-aria-expanded=${ifDefined(hasChildren ? String(expanded) : undefined)}
-aria-disabled=${disabled ? 'true' : 'false'}
->
-${hasChildren
-                ? html`
-<button
-type="button"
-class="${this.getToggleButtonClasses(disabled)}"
-@click=${(e: Event) => {
-                        e.stopPropagation();
-                        this.handleToggle(node);
-                    }}
-aria-label="Toggle"
->
-${this.renderChevron(expanded)}
-</button>
-`
-                : html`<span class="inline-flex h-5 w-5"></span>`}
-<button
-type="button"
-class="${this.getContentButtonClasses(disabled)}"
-data-node-content="true"
-data-node-path=${path}
-@click=${() => this.handleNodeClick(node)}
-@keydown=${(e: KeyboardEvent) => this.handleNodeKeyDown(e, node, hasChildren, expanded)}
->
-${unsafeHTML(labelHtml)}
-</button>
-</div>
-${hasChildren && expanded
-                ? html`
-<div role="group" class="mt-1 space-y-1">
-${children.map((child, index) =>
-                    this.renderNode(child, depth + 1, `${path}.${index}`)
-                )}
-</div>
-`
-                : html``}
-</div>
-`;
-    }
-    private renderNodeList(nodes: Element[]): TemplateResult {
-        return html`${nodes.map((node, index) => this.renderNode(node, 0, `${index}`))}`;
-    }
-    // =========================================================================
-    // RENDER
-    // =========================================================================
-    render() {
-        const lang = this.getMessageKey(messages);
-        this.msg = messages[lang];
-        if (this.loading) {
-            return html`
-<div class="w-full">
-${this.renderLabel()}
-${this.renderLoading()}
-</div>
-`;
-        }
-        const rootNodes = this.getRootNodes();
-        if (!rootNodes.length) {
-            return html`
-<div class="w-full">
-${this.renderLabel()}
-${this.renderEmpty()}
-</div>
-`;
-        }
-        return html`
-<div class="w-full">
-${this.renderLabel()}
-<div role="tree" class="space-y-1">
-${this.renderNodeList(rootNodes)}
-</div>
-</div>
-`;
-    }
+    const labelContent = this.getSlotContent('Label');
+    return html`
+      <div class=${this.getLabelClasses()}>
+        ${unsafeHTML(labelContent)}
+      </div>
+    `;
+  }
+
+  private renderNode(
+    node: ParsedNode,
+    level: number,
+    siblings: ParsedNode[],
+    flatNodes: ParsedNode[]
+  ): TemplateResult {
+    const hasChildren = node.children.length > 0;
+    const isExpanded = this.expandedNodes.has(node.id);
+    const isDisabled = this.disabled || node.disabled;
+    const paddingLeft = level * 16;
+
+    return html`
+      <div role="treeitem"
+           aria-expanded=${hasChildren ? String(isExpanded) : 'undefined'}
+           aria-disabled=${isDisabled ? 'true' : 'false'}
+           data-node-id=${node.id}
+           tabindex=${isDisabled ? -1 : 0}
+           class=${this.getNodeClasses(node, 0)}
+           style="padding-left: ${paddingLeft}px"
+           @click=${() => hasChildren ? this.handleToggle(node, siblings) : this.handleNodeClick(node)}
+           @keydown=${(e: KeyboardEvent) => this.handleKeyDown(e, node, siblings, flatNodes)}>
+        ${hasChildren ? this.renderToggleIcon(node) : this.renderLeafSpacer()}
+        <span class="flex-1 min-w-0" @click=${(e: Event) => {
+          e.stopPropagation();
+          this.handleNodeClick(node);
+        }}>
+          ${unsafeHTML(node.content)}
+        </span>
+      </div>
+      ${hasChildren && isExpanded ? this.renderChildren(node, level, flatNodes) : html``}
+    `;
+  }
+
+  private renderToggleIcon(node: ParsedNode): TemplateResult {
+    return html`
+      <span class=${this.getToggleClasses(node)}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+          <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+        </svg>
+      </span>
+    `;
+  }
+
+  private renderLeafSpacer(): TemplateResult {
+    return html`<span class="w-5 h-5 flex-shrink-0"></span>`;
+  }
+
+  private renderChildren(node: ParsedNode, level: number, flatNodes: ParsedNode[]): TemplateResult {
+    const paddingLeft = level * 16;
+    return html`
+      <div role="group" class=${this.getChildrenContainerClasses()} style="margin-left: ${paddingLeft + 10}px">
+        ${node.children.map(child =>
+          this.renderNode(child, level + 1, node.children, flatNodes)
+        )}
+      </div>
+    `;
+  }
 }

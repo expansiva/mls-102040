@@ -1,0 +1,337 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Radar Chart</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewChart</span>
+</header>
+<widget-playground-state-102020 state='{"playground":{"basic":{"showLegend":true,"showValues":false,"loading":false},"values":{"showLegend":true,"showValues":true,"loading":false},"single":{"showLegend":false,"showValues":true,"loading":false},"loading":{"showLegend":false,"showValues":false,"loading":true},"empty":{"showLegend":false,"showValues":false,"loading":false},"advanced":{"showLegend":true,"showValues":false,"loading":false}}}'>
+</widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic comparison</h3>
+<demo id="demo-basic">
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.basic.showLegend}}"
+show-values="{{playground.basic.showValues}}"
+loading="{{playground.basic.loading}}">
+<Label>Team skills overview</Label>
+<Series name="Frontend" color="#38bdf8">
+<Point label="JavaScript" value="82" />
+<Point label="TypeScript" value="76" />
+<Point label="CSS" value="88" />
+<Point label="Accessibility" value="64" />
+</Series>
+<Series name="Backend" color="#22c55e">
+<Point label="JavaScript" value="70" />
+<Point label="TypeScript" value="58" />
+<Point label="CSS" value="40" />
+<Point label="Accessibility" value="72" />
+</Series>
+</groupviewchart--ml-radar-chart>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="showLegend" value="{{playground.basic.showLegend}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="showValues" value="{{playground.basic.showValues}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.basic.showLegend}}"
+show-values="{{playground.basic.showValues}}"
+loading="{{playground.basic.loading}}">
+<Label>Team skills overview</Label>
+<Series name="Frontend" color="#38bdf8">
+<Point label="JavaScript" value="82" />
+<Point label="TypeScript" value="76" />
+<Point label="CSS" value="88" />
+<Point label="Accessibility" value="64" />
+</Series>
+<Series name="Backend" color="#22c55e">
+<Point label="JavaScript" value="70" />
+<Point label="TypeScript" value="58" />
+<Point label="CSS" value="40" />
+<Point label="Accessibility" value="72" />
+</Series>
+</groupviewchart--ml-radar-chart>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Show values</h3>
+<demo id="demo-values">
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.values.showLegend}}"
+show-values="{{playground.values.showValues}}"
+loading="{{playground.values.loading}}">
+<Label>Quarterly delivery health</Label>
+<Series name="Q1" color="#6366f1">
+<Point label="Quality" value="68" />
+<Point label="Velocity" value="74" />
+<Point label="Predictability" value="61" />
+<Point label="Collaboration" value="82" />
+</Series>
+<Series name="Q2" color="#f97316">
+<Point label="Quality" value="75" />
+<Point label="Velocity" value="81" />
+<Point label="Predictability" value="70" />
+<Point label="Collaboration" value="88" />
+</Series>
+</groupviewchart--ml-radar-chart>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="showLegend" value="{{playground.values.showLegend}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="showValues" value="{{playground.values.showValues}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.values.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-values">
+<template>
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.values.showLegend}}"
+show-values="{{playground.values.showValues}}"
+loading="{{playground.values.loading}}">
+<Label>Quarterly delivery health</Label>
+<Series name="Q1" color="#6366f1">
+<Point label="Quality" value="68" />
+<Point label="Velocity" value="74" />
+<Point label="Predictability" value="61" />
+<Point label="Collaboration" value="82" />
+</Series>
+<Series name="Q2" color="#f97316">
+<Point label="Quality" value="75" />
+<Point label="Velocity" value="81" />
+<Point label="Predictability" value="70" />
+<Point label="Collaboration" value="88" />
+</Series>
+</groupviewchart--ml-radar-chart>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Single series without legend</h3>
+<demo id="demo-single">
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.single.showLegend}}"
+show-values="{{playground.single.showValues}}"
+loading="{{playground.single.loading}}">
+<Label>Candidate profile</Label>
+<Point label="Communication" value="78" color="#14b8a6" />
+<Point label="Leadership" value="72" color="#0ea5e9" />
+<Point label="Problem solving" value="85" color="#f59e0b" />
+<Point label="Adaptability" value="67" color="#8b5cf6" />
+</groupviewchart--ml-radar-chart>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="showLegend" value="{{playground.single.showLegend}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="showValues" value="{{playground.single.showValues}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.single.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-single">
+<template>
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.single.showLegend}}"
+show-values="{{playground.single.showValues}}"
+loading="{{playground.single.loading}}">
+<Label>Candidate profile</Label>
+<Point label="Communication" value="78" color="#14b8a6" />
+<Point label="Leadership" value="72" color="#0ea5e9" />
+<Point label="Problem solving" value="85" color="#f59e0b" />
+<Point label="Adaptability" value="67" color="#8b5cf6" />
+</groupviewchart--ml-radar-chart>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+<demo id="demo-loading">
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.loading.showLegend}}"
+show-values="{{playground.loading.showValues}}"
+loading="{{playground.loading.loading}}">
+<Label>Pipeline readiness</Label>
+<Series name="Today" color="#38bdf8">
+<Point label="Data" value="40" />
+<Point label="Model" value="55" />
+<Point label="Infrastructure" value="35" />
+<Point label="Compliance" value="45" />
+</Series>
+</groupviewchart--ml-radar-chart>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="showLegend" value="{{playground.loading.showLegend}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="showValues" value="{{playground.loading.showValues}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.loading.showLegend}}"
+show-values="{{playground.loading.showValues}}"
+loading="{{playground.loading.loading}}">
+<Label>Pipeline readiness</Label>
+<Series name="Today" color="#38bdf8">
+<Point label="Data" value="40" />
+<Point label="Model" value="55" />
+<Point label="Infrastructure" value="35" />
+<Point label="Compliance" value="45" />
+</Series>
+</groupviewchart--ml-radar-chart>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty state slot</h3>
+<demo id="demo-empty">
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.empty.showLegend}}"
+show-values="{{playground.empty.showValues}}"
+loading="{{playground.empty.loading}}">
+<Label>Risk factors</Label>
+<Empty>
+<p class="text-center">Add data to compare risk dimensions.</p>
+</Empty>
+</groupviewchart--ml-radar-chart>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="showLegend" value="{{playground.empty.showLegend}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="showValues" value="{{playground.empty.showValues}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-empty">
+<template>
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.empty.showLegend}}"
+show-values="{{playground.empty.showValues}}"
+loading="{{playground.empty.loading}}">
+<Label>Risk factors</Label>
+<Empty>
+<p class="text-center">Add data to compare risk dimensions.</p>
+</Empty>
+</groupviewchart--ml-radar-chart>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Multi-series with custom colors</h3>
+<demo id="demo-advanced">
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.advanced.showLegend}}"
+show-values="{{playground.advanced.showValues}}"
+loading="{{playground.advanced.loading}}">
+<Label>Store performance mix</Label>
+<Series name="North" color="#0ea5e9">
+<Point label="Sales" value="84" />
+<Point label="Service" value="76" />
+<Point label="Inventory" value="69" />
+<Point label="Footfall" value="73" />
+<Point label="Returns" value="32" color="#ef4444" />
+</Series>
+<Series name="South" color="#10b981">
+<Point label="Sales" value="78" />
+<Point label="Service" value="80" />
+<Point label="Inventory" value="74" />
+<Point label="Footfall" value="69" />
+<Point label="Returns" value="38" color="#f97316" />
+</Series>
+<Series name="West" color="#8b5cf6">
+<Point label="Sales" value="90" />
+<Point label="Service" value="71" />
+<Point label="Inventory" value="62" />
+<Point label="Footfall" value="81" />
+<Point label="Returns" value="28" color="#eab308" />
+</Series>
+</groupviewchart--ml-radar-chart>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-boolean-102020 label="showLegend" value="{{playground.advanced.showLegend}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="showValues" value="{{playground.advanced.showValues}}"></widget-playground-state-boolean-102020>
+<widget-playground-state-boolean-102020 label="loading" value="{{playground.advanced.loading}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-advanced">
+<template>
+<groupviewchart--ml-radar-chart
+show-legend="{{playground.advanced.showLegend}}"
+show-values="{{playground.advanced.showValues}}"
+loading="{{playground.advanced.loading}}">
+<Label>Store performance mix</Label>
+<Series name="North" color="#0ea5e9">
+<Point label="Sales" value="84" />
+<Point label="Service" value="76" />
+<Point label="Inventory" value="69" />
+<Point label="Footfall" value="73" />
+<Point label="Returns" value="32" color="#ef4444" />
+</Series>
+<Series name="South" color="#10b981">
+<Point label="Sales" value="78" />
+<Point label="Service" value="80" />
+<Point label="Inventory" value="74" />
+<Point label="Footfall" value="69" />
+<Point label="Returns" value="38" color="#f97316" />
+</Series>
+<Series name="West" color="#8b5cf6">
+<Point label="Sales" value="90" />
+<Point label="Service" value="71" />
+<Point label="Inventory" value="62" />
+<Point label="Footfall" value="81" />
+<Point label="Returns" value="28" color="#eab308" />
+</Series>
+</groupviewchart--ml-radar-chart>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+</section>
+</div>
+</div>

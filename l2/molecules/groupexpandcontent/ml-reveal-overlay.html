@@ -1,0 +1,296 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Reveal Overlay</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupExpandContent</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"multiple":true,"disabled":false,"loading":false},"accordion":{"multiple":false,"disabled":false,"loading":false},"advisory":{"multiple":true,"disabled":false,"loading":false},"disabled":{"multiple":true,"disabled":true,"loading":false},"loading":{"multiple":true,"disabled":false,"loading":true},"mixed":{"multiple":false,"disabled":false,"loading":false}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic multi-section reveal</h3>
+        <demo id="demo-basic">
+          <groupexpandcontent--ml-reveal-overlay
+            multiple="{{playground.basic.multiple}}"
+            disabled="{{playground.basic.disabled}}"
+            loading="{{playground.basic.loading}}">
+            <Label>These answers are visible once revealed.</Label>
+            <Section title="Shipping policy" expanded>
+              Orders ship within 2 business days. Tracking is shared via email.
+            </Section>
+            <Section title="Returns">
+              You can return items within 30 days of delivery.
+            </Section>
+          </groupexpandcontent--ml-reveal-overlay>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.basic.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+<groupexpandcontent--ml-reveal-overlay
+  multiple="{{playground.basic.multiple}}"
+  disabled="{{playground.basic.disabled}}"
+  loading="{{playground.basic.loading}}">
+  <Label>These answers are visible once revealed.</Label>
+  <Section title="Shipping policy" expanded>
+    Orders ship within 2 business days. Tracking is shared via email.
+  </Section>
+  <Section title="Returns">
+    You can return items within 30 days of delivery.
+  </Section>
+</groupexpandcontent--ml-reveal-overlay>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Accordion (single open)</h3>
+        <demo id="demo-accordion">
+          <groupexpandcontent--ml-reveal-overlay
+            multiple="{{playground.accordion.multiple}}"
+            disabled="{{playground.accordion.disabled}}"
+            loading="{{playground.accordion.loading}}">
+            <Section title="Plan details" expanded>
+              Your current plan renews on the 1st of each month.
+            </Section>
+            <Section title="Billing history">
+              Download receipts from the billing settings screen.
+            </Section>
+            <Section title="Cancel subscription">
+              Cancellation takes effect at the end of the billing cycle.
+            </Section>
+          </groupexpandcontent--ml-reveal-overlay>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.accordion.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.accordion.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.accordion.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-accordion">
+              <template>
+<groupexpandcontent--ml-reveal-overlay
+  multiple="{{playground.accordion.multiple}}"
+  disabled="{{playground.accordion.disabled}}"
+  loading="{{playground.accordion.loading}}">
+  <Section title="Plan details" expanded>
+    Your current plan renews on the 1st of each month.
+  </Section>
+  <Section title="Billing history">
+    Download receipts from the billing settings screen.
+  </Section>
+  <Section title="Cancel subscription">
+    Cancellation takes effect at the end of the billing cycle.
+  </Section>
+</groupexpandcontent--ml-reveal-overlay>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With advisory label</h3>
+        <demo id="demo-advisory">
+          <groupexpandcontent--ml-reveal-overlay
+            multiple="{{playground.advisory.multiple}}"
+            disabled="{{playground.advisory.disabled}}"
+            loading="{{playground.advisory.loading}}">
+            <Label>Please confirm each item before revealing sensitive details.</Label>
+            <Section title="API keys">
+              API keys are hidden for your security. Rotate them periodically.
+            </Section>
+            <Section title="Webhook secrets">
+              Use a vault service to store and rotate secrets securely.
+            </Section>
+          </groupexpandcontent--ml-reveal-overlay>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.advisory.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.advisory.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.advisory.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-advisory">
+              <template>
+<groupexpandcontent--ml-reveal-overlay
+  multiple="{{playground.advisory.multiple}}"
+  disabled="{{playground.advisory.disabled}}"
+  loading="{{playground.advisory.loading}}">
+  <Label>Please confirm each item before revealing sensitive details.</Label>
+  <Section title="API keys">
+    API keys are hidden for your security. Rotate them periodically.
+  </Section>
+  <Section title="Webhook secrets">
+    Use a vault service to store and rotate secrets securely.
+  </Section>
+</groupexpandcontent--ml-reveal-overlay>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled experience</h3>
+        <demo id="demo-disabled">
+          <groupexpandcontent--ml-reveal-overlay
+            multiple="{{playground.disabled.multiple}}"
+            disabled="{{playground.disabled.disabled}}"
+            loading="{{playground.disabled.loading}}">
+            <Label>Admin-only actions are disabled in view mode.</Label>
+            <Section title="Delete workspace" expanded>
+              This action permanently removes the workspace and all data.
+            </Section>
+            <Section title="Transfer ownership">
+              Ownership transfer requires confirmation from both parties.
+            </Section>
+          </groupexpandcontent--ml-reveal-overlay>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.disabled.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+<groupexpandcontent--ml-reveal-overlay
+  multiple="{{playground.disabled.multiple}}"
+  disabled="{{playground.disabled.disabled}}"
+  loading="{{playground.disabled.loading}}">
+  <Label>Admin-only actions are disabled in view mode.</Label>
+  <Section title="Delete workspace" expanded>
+    This action permanently removes the workspace and all data.
+  </Section>
+  <Section title="Transfer ownership">
+    Ownership transfer requires confirmation from both parties.
+  </Section>
+</groupexpandcontent--ml-reveal-overlay>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading placeholder</h3>
+        <demo id="demo-loading">
+          <groupexpandcontent--ml-reveal-overlay
+            multiple="{{playground.loading.multiple}}"
+            disabled="{{playground.loading.disabled}}"
+            loading="{{playground.loading.loading}}">
+            <Section title="Security checks">
+              This content will render once the audit finishes.
+            </Section>
+          </groupexpandcontent--ml-reveal-overlay>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.loading.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+<groupexpandcontent--ml-reveal-overlay
+  multiple="{{playground.loading.multiple}}"
+  disabled="{{playground.loading.disabled}}"
+  loading="{{playground.loading.loading}}">
+  <Section title="Security checks">
+    This content will render once the audit finishes.
+  </Section>
+</groupexpandcontent--ml-reveal-overlay>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Mixed states and disabled sections</h3>
+        <demo id="demo-mixed">
+          <groupexpandcontent--ml-reveal-overlay
+            multiple="{{playground.mixed.multiple}}"
+            disabled="{{playground.mixed.disabled}}"
+            loading="{{playground.mixed.loading}}">
+            <Label>Only one section can be open at a time.</Label>
+            <Section title="Profile summary" expanded>
+              Your profile is 80% complete. Add a profile photo to reach 100%.
+            </Section>
+            <Section title="Identity verification" disabled>
+              This verification step is unavailable for your account.
+            </Section>
+            <Section title="Connected apps">
+              You have 3 apps connected. Review permissions regularly.
+            </Section>
+          </groupexpandcontent--ml-reveal-overlay>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.mixed.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.mixed.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.mixed.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-mixed">
+              <template>
+<groupexpandcontent--ml-reveal-overlay
+  multiple="{{playground.mixed.multiple}}"
+  disabled="{{playground.mixed.disabled}}"
+  loading="{{playground.mixed.loading}}">
+  <Label>Only one section can be open at a time.</Label>
+  <Section title="Profile summary" expanded>
+    Your profile is 80% complete. Add a profile photo to reach 100%.
+  </Section>
+  <Section title="Identity verification" disabled>
+    This verification step is unavailable for your account.
+  </Section>
+  <Section title="Connected apps">
+    You have 3 apps connected. Review permissions regularly.
+  </Section>
+</groupexpandcontent--ml-reveal-overlay>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

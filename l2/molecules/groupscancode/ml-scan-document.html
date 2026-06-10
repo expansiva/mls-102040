@@ -1,0 +1,261 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Scan Document</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupScanCode</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":"","name":""},"auto":{"autoCapture":true,"captureInterval":300,"loading":false},"front":{"facing":"user","value":"","name":"selfieDoc"},"result":{"value":"AB123456789","error":""},"loading":{"loading":true,"name":"invoiceScan"},"disabled":{"disabled":true,"error":"Camera permission denied"}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic scan</h3>
+        <demo id="demo-basic">
+          <groupscancode--ml-scan-document
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            name="{{playground.basic.name}}"
+            facing="environment"
+            auto-capture="false"
+            capture-interval="500"
+            disabled="false"
+            loading="false">
+            <Label>Scan your document</Label>
+            <Helper>Position the document inside the frame and tap capture.</Helper>
+          </groupscancode--ml-scan-document>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupscancode--ml-scan-document
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  name="{{playground.basic.name}}"
+                  facing="environment"
+                  auto-capture="false"
+                  capture-interval="500"
+                  disabled="false"
+                  loading="false">
+                  <Label>Scan your document</Label>
+                  <Helper>Position the document inside the frame and tap capture.</Helper>
+                </groupscancode--ml-scan-document>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Auto capture mode</h3>
+        <demo id="demo-auto">
+          <groupscancode--ml-scan-document
+            auto-capture="{{playground.auto.autoCapture}}"
+            capture-interval="{{playground.auto.captureInterval}}"
+            loading="{{playground.auto.loading}}"
+            disabled="false">
+            <Label>Automatic capture</Label>
+            <Trigger>Start auto scan</Trigger>
+            <Helper>The camera will capture every few milliseconds.</Helper>
+          </groupscancode--ml-scan-document>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="autoCapture" value="{{playground.auto.autoCapture}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="captureInterval" value="{{playground.auto.captureInterval}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.auto.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-auto">
+              <template>
+                <groupscancode--ml-scan-document
+                  auto-capture="{{playground.auto.autoCapture}}"
+                  capture-interval="{{playground.auto.captureInterval}}"
+                  loading="{{playground.auto.loading}}"
+                  disabled="false">
+                  <Label>Automatic capture</Label>
+                  <Trigger>Start auto scan</Trigger>
+                  <Helper>The camera will capture every few milliseconds.</Helper>
+                </groupscancode--ml-scan-document>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Front camera</h3>
+        <demo id="demo-front">
+          <groupscancode--ml-scan-document
+            value="{{playground.front.value}}"
+            name="{{playground.front.name}}"
+            facing="{{playground.front.facing}}"
+            disabled="false">
+            <Label>Scan with front camera</Label>
+            <Trigger>Use selfie camera</Trigger>
+            <Helper>Useful when scanning documents held by the user.</Helper>
+          </groupscancode--ml-scan-document>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.front.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.front.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="facing" value="{{playground.front.facing}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-front">
+              <template>
+                <groupscancode--ml-scan-document
+                  value="{{playground.front.value}}"
+                  name="{{playground.front.name}}"
+                  facing="{{playground.front.facing}}"
+                  disabled="false">
+                  <Label>Scan with front camera</Label>
+                  <Trigger>Use selfie camera</Trigger>
+                  <Helper>Useful when scanning documents held by the user.</Helper>
+                </groupscancode--ml-scan-document>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Custom result slot</h3>
+        <demo id="demo-result">
+          <groupscancode--ml-scan-document
+            value="{{playground.result.value}}"
+            error="{{playground.result.error}}"
+            loading="false">
+            <Label>Document number</Label>
+            <Result>
+              <div class="flex flex-col gap-1">
+                <span class="text-xs text-slate-500">Decoded ID</span>
+                <strong class="text-base">{{playground.result.value}}</strong>
+              </div>
+            </Result>
+            <Helper>Result is formatted with custom markup.</Helper>
+          </groupscancode--ml-scan-document>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.result.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.result.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-result">
+              <template>
+                <groupscancode--ml-scan-document
+                  value="{{playground.result.value}}"
+                  error="{{playground.result.error}}"
+                  loading="false">
+                  <Label>Document number</Label>
+                  <Result>
+                    <div class="flex flex-col gap-1">
+                      <span class="text-xs text-slate-500">Decoded ID</span>
+                      <strong class="text-base">{{playground.result.value}}</strong>
+                    </div>
+                  </Result>
+                  <Helper>Result is formatted with custom markup.</Helper>
+                </groupscancode--ml-scan-document>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+        <demo id="demo-loading">
+          <groupscancode--ml-scan-document
+            loading="{{playground.loading.loading}}"
+            name="{{playground.loading.name}}"
+            disabled="false">
+            <Label>Processing capture</Label>
+            <Helper>Show a loader while the server decodes the image.</Helper>
+          </groupscancode--ml-scan-document>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.loading.name}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupscancode--ml-scan-document
+                  loading="{{playground.loading.loading}}"
+                  name="{{playground.loading.name}}"
+                  disabled="false">
+                  <Label>Processing capture</Label>
+                  <Helper>Show a loader while the server decodes the image.</Helper>
+                </groupscancode--ml-scan-document>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled with error</h3>
+        <demo id="demo-disabled">
+          <groupscancode--ml-scan-document
+            disabled="{{playground.disabled.disabled}}"
+            error="{{playground.disabled.error}}"
+            name="blockedScan">
+            <Label>Camera unavailable</Label>
+            <Helper>Inform the user when the camera is blocked.</Helper>
+          </groupscancode--ml-scan-document>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupscancode--ml-scan-document
+                  disabled="{{playground.disabled.disabled}}"
+                  error="{{playground.disabled.error}}"
+                  name="blockedScan">
+                  <Label>Camera unavailable</Label>
+                  <Helper>Inform the user when the camera is blocked.</Helper>
+                </groupscancode--ml-scan-document>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

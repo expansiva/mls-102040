@@ -1,0 +1,652 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Pivot Table</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">view + table</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"selectable":{"value":""},"pagination":{"page":1},"error":{"error":"Data validation failed. Please check your input."}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      
+      <!-- Basic -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupviewtable--ml-pivot-table
+            selectable="false"
+            is-editing="false"
+            disabled="false"
+            loading="false">
+            <Caption>Sales by Region</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="region" sortable>Region</TableHead>
+                <TableHead key="q1" sortable>Q1</TableHead>
+                <TableHead key="q2" sortable>Q2</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>North</TableCell>
+                <TableCell>$12,500</TableCell>
+                <TableCell>$14,200</TableCell>
+                <TableCell>$26,700</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>South</TableCell>
+                <TableCell>$9,800</TableCell>
+                <TableCell>$11,300</TableCell>
+                <TableCell>$21,100</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>East</TableCell>
+                <TableCell>$15,600</TableCell>
+                <TableCell>$16,900</TableCell>
+                <TableCell>$32,500</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell>Grand Total</TableCell>
+                <TableCell>$37,900</TableCell>
+                <TableCell>$42,400</TableCell>
+                <TableCell>$80,300</TableCell>
+              </TableRow>
+            </TableFooter>
+            <Empty>No sales data available</Empty>
+          </groupviewtable--ml-pivot-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <p class="text-sm text-slate-600 dark:text-slate-400">No dynamic properties</p>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+<groupviewtable--ml-pivot-table
+  selectable="false"
+  is-editing="false"
+  disabled="false"
+  loading="false">
+  <Caption>Sales by Region</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="region" sortable>Region</TableHead>
+      <TableHead key="q1" sortable>Q1</TableHead>
+      <TableHead key="q2" sortable>Q2</TableHead>
+      <TableHead key="total" sortable>Total</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>North</TableCell>
+      <TableCell>$12,500</TableCell>
+      <TableCell>$14,200</TableCell>
+      <TableCell>$26,700</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>South</TableCell>
+      <TableCell>$9,800</TableCell>
+      <TableCell>$11,300</TableCell>
+      <TableCell>$21,100</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>East</TableCell>
+      <TableCell>$15,600</TableCell>
+      <TableCell>$16,900</TableCell>
+      <TableCell>$32,500</TableCell>
+    </TableRow>
+  </TableBody>
+  <TableFooter>
+    <TableRow>
+      <TableCell>Grand Total</TableCell>
+      <TableCell>$37,900</TableCell>
+      <TableCell>$42,400</TableCell>
+      <TableCell>$80,300</TableCell>
+    </TableRow>
+  </TableFooter>
+  <Empty>No sales data available</Empty>
+</groupviewtable--ml-pivot-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Selectable -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable</h3>
+        <demo id="demo-selectable">
+          <groupviewtable--ml-pivot-table
+            selectable="true"
+            is-editing="false"
+            disabled="false"
+            loading="false"
+            value="{{playground.selectable.value}}">
+            <Caption>Product Performance</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="product" sortable>Product</TableHead>
+                <TableHead key="units" sortable>Units Sold</TableHead>
+                <TableHead key="revenue" sortable>Revenue</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Widget A</TableCell>
+                <TableCell>1,250</TableCell>
+                <TableCell>$31,250</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Widget B</TableCell>
+                <TableCell>890</TableCell>
+                <TableCell>$26,700</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Widget C</TableCell>
+                <TableCell>2,100</TableCell>
+                <TableCell>$42,000</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>No products found</Empty>
+          </groupviewtable--ml-pivot-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+<groupviewtable--ml-pivot-table
+  selectable="true"
+  is-editing="false"
+  disabled="false"
+  loading="false"
+  value="{{playground.selectable.value}}">
+  <Caption>Product Performance</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="product" sortable>Product</TableHead>
+      <TableHead key="units" sortable>Units Sold</TableHead>
+      <TableHead key="revenue" sortable>Revenue</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Widget A</TableCell>
+      <TableCell>1,250</TableCell>
+      <TableCell>$31,250</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Widget B</TableCell>
+      <TableCell>890</TableCell>
+      <TableCell>$26,700</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Widget C</TableCell>
+      <TableCell>2,100</TableCell>
+      <TableCell>$42,000</TableCell>
+    </TableRow>
+  </TableBody>
+  <Empty>No products found</Empty>
+</groupviewtable--ml-pivot-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Pagination -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Pagination</h3>
+        <demo id="demo-pagination">
+          <groupviewtable--ml-pivot-table
+            selectable="false"
+            is-editing="false"
+            disabled="false"
+            loading="false"
+            page="{{playground.pagination.page}}"
+            page-size="5"
+            total-items="25">
+            <Caption>Monthly Expenses</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="category" sortable>Category</TableHead>
+                <TableHead key="jan" sortable>January</TableHead>
+                <TableHead key="feb" sortable>February</TableHead>
+                <TableHead key="mar" sortable>March</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Marketing</TableCell>
+                <TableCell>$5,200</TableCell>
+                <TableCell>$4,800</TableCell>
+                <TableCell>$6,100</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Operations</TableCell>
+                <TableCell>$12,400</TableCell>
+                <TableCell>$11,900</TableCell>
+                <TableCell>$13,200</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>R&D</TableCell>
+                <TableCell>$8,700</TableCell>
+                <TableCell>$9,100</TableCell>
+                <TableCell>$8,500</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>HR</TableCell>
+                <TableCell>$3,200</TableCell>
+                <TableCell>$3,400</TableCell>
+                <TableCell>$3,100</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>IT</TableCell>
+                <TableCell>$7,800</TableCell>
+                <TableCell>$8,200</TableCell>
+                <TableCell>$7,600</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>No expense data</Empty>
+          </groupviewtable--ml-pivot-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="page" value="{{playground.pagination.page}}"></widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-pagination">
+              <template>
+<groupviewtable--ml-pivot-table
+  selectable="false"
+  is-editing="false"
+  disabled="false"
+  loading="false"
+  page="{{playground.pagination.page}}"
+  page-size="5"
+  total-items="25">
+  <Caption>Monthly Expenses</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="category" sortable>Category</TableHead>
+      <TableHead key="jan" sortable>January</TableHead>
+      <TableHead key="feb" sortable>February</TableHead>
+      <TableHead key="mar" sortable>March</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Marketing</TableCell>
+      <TableCell>$5,200</TableCell>
+      <TableCell>$4,800</TableCell>
+      <TableCell>$6,100</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Operations</TableCell>
+      <TableCell>$12,400</TableCell>
+      <TableCell>$11,900</TableCell>
+      <TableCell>$13,200</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>R&D</TableCell>
+      <TableCell>$8,700</TableCell>
+      <TableCell>$9,100</TableCell>
+      <TableCell>$8,500</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>HR</TableCell>
+      <TableCell>$3,200</TableCell>
+      <TableCell>$3,400</TableCell>
+      <TableCell>$3,100</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>IT</TableCell>
+      <TableCell>$7,800</TableCell>
+      <TableCell>$8,200</TableCell>
+      <TableCell>$7,600</TableCell>
+    </TableRow>
+  </TableBody>
+  <Empty>No expense data</Empty>
+</groupviewtable--ml-pivot-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Subtotals -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Subtotals</h3>
+        <demo id="demo-subtotals">
+          <groupviewtable--ml-pivot-table
+            selectable="false"
+            is-editing="false"
+            disabled="false"
+            loading="false">
+            <Caption>Sales by Department</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="dept" sortable>Department</TableHead>
+                <TableHead key="employee">Employee</TableHead>
+                <TableHead key="sales" sortable>Sales</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Electronics</TableCell>
+                <TableCell>John Smith</TableCell>
+                <TableCell>$45,200</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Electronics</TableCell>
+                <TableCell>Jane Doe</TableCell>
+                <TableCell>$38,900</TableCell>
+              </TableRow>
+              <TableRow subtotal>
+                <TableCell>Electronics Subtotal</TableCell>
+                <TableCell></TableCell>
+                <TableCell>$84,100</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Furniture</TableCell>
+                <TableCell>Bob Wilson</TableCell>
+                <TableCell>$29,500</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Furniture</TableCell>
+                <TableCell>Alice Brown</TableCell>
+                <TableCell>$31,200</TableCell>
+              </TableRow>
+              <TableRow subtotal>
+                <TableCell>Furniture Subtotal</TableCell>
+                <TableCell></TableCell>
+                <TableCell>$60,700</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell>Grand Total</TableCell>
+                <TableCell></TableCell>
+                <TableCell>$144,800</TableCell>
+              </TableRow>
+            </TableFooter>
+            <Empty>No sales data</Empty>
+          </groupviewtable--ml-pivot-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <p class="text-sm text-slate-600 dark:text-slate-400">No dynamic properties</p>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-subtotals">
+              <template>
+<groupviewtable--ml-pivot-table
+  selectable="false"
+  is-editing="false"
+  disabled="false"
+  loading="false">
+  <Caption>Sales by Department</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="dept" sortable>Department</TableHead>
+      <TableHead key="employee">Employee</TableHead>
+      <TableHead key="sales" sortable>Sales</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Electronics</TableCell>
+      <TableCell>John Smith</TableCell>
+      <TableCell>$45,200</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Electronics</TableCell>
+      <TableCell>Jane Doe</TableCell>
+      <TableCell>$38,900</TableCell>
+    </TableRow>
+    <TableRow subtotal>
+      <TableCell>Electronics Subtotal</TableCell>
+      <TableCell></TableCell>
+      <TableCell>$84,100</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Furniture</TableCell>
+      <TableCell>Bob Wilson</TableCell>
+      <TableCell>$29,500</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Furniture</TableCell>
+      <TableCell>Alice Brown</TableCell>
+      <TableCell>$31,200</TableCell>
+    </TableRow>
+    <TableRow subtotal>
+      <TableCell>Furniture Subtotal</TableCell>
+      <TableCell></TableCell>
+      <TableCell>$60,700</TableCell>
+    </TableRow>
+  </TableBody>
+  <TableFooter>
+    <TableRow>
+      <TableCell>Grand Total</TableCell>
+      <TableCell></TableCell>
+      <TableCell>$144,800</TableCell>
+    </TableRow>
+  </TableFooter>
+  <Empty>No sales data</Empty>
+</groupviewtable--ml-pivot-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading State -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
+        <demo id="demo-loading">
+          <groupviewtable--ml-pivot-table
+            selectable="false"
+            is-editing="false"
+            disabled="false"
+            loading="true">
+            <Caption>Loading Data</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="col1">Column 1</TableHead>
+                <TableHead key="col2">Column 2</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+            </TableBody>
+            <Loading>
+              <div class="p-8 text-center">
+                <div class="inline-block w-8 h-8 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+                <p class="mt-2 text-slate-600 dark:text-slate-400">Loading pivot data...</p>
+              </div>
+            </Loading>
+          </groupviewtable--ml-pivot-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <p class="text-sm text-slate-600 dark:text-slate-400">loading="true"</p>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+<groupviewtable--ml-pivot-table
+  selectable="false"
+  is-editing="false"
+  disabled="false"
+  loading="true">
+  <Caption>Loading Data</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="col1">Column 1</TableHead>
+      <TableHead key="col2">Column 2</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+  </TableBody>
+  <Loading>
+    <div class="p-8 text-center">
+      <div class="inline-block w-8 h-8 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+      <p class="mt-2 text-slate-600 dark:text-slate-400">Loading pivot data...</p>
+    </div>
+  </Loading>
+</groupviewtable--ml-pivot-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With Error -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With Error</h3>
+        <demo id="demo-error">
+          <groupviewtable--ml-pivot-table
+            selectable="false"
+            is-editing="false"
+            disabled="false"
+            loading="false"
+            error="{{playground.error.error}}">
+            <Caption>Quarterly Report</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="metric" sortable>Metric</TableHead>
+                <TableHead key="q1" sortable>Q1</TableHead>
+                <TableHead key="q2" sortable>Q2</TableHead>
+                <TableHead key="q3" sortable>Q3</TableHead>
+                <TableHead key="q4" sortable>Q4</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Revenue</TableCell>
+                <TableCell>$125,000</TableCell>
+                <TableCell>$142,000</TableCell>
+                <TableCell>$138,500</TableCell>
+                <TableCell>$156,200</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Expenses</TableCell>
+                <TableCell>$89,000</TableCell>
+                <TableCell>$95,200</TableCell>
+                <TableCell>$91,800</TableCell>
+                <TableCell>$102,400</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Profit</TableCell>
+                <TableCell>$36,000</TableCell>
+                <TableCell>$46,800</TableCell>
+                <TableCell>$46,700</TableCell>
+                <TableCell>$53,800</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell>Annual Total</TableCell>
+                <TableCell colspan="4">$561,700</TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableFooter>
+            <Empty>No report data</Empty>
+          </groupviewtable--ml-pivot-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+<groupviewtable--ml-pivot-table
+  selectable="false"
+  is-editing="false"
+  disabled="false"
+  loading="false"
+  error="{{playground.error.error}}">
+  <Caption>Quarterly Report</Caption>
+  <TableHeader>
+    <TableRow>
+      <TableHead key="metric" sortable>Metric</TableHead>
+      <TableHead key="q1" sortable>Q1</TableHead>
+      <TableHead key="q2" sortable>Q2</TableHead>
+      <TableHead key="q3" sortable>Q3</TableHead>
+      <TableHead key="q4" sortable>Q4</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Revenue</TableCell>
+      <TableCell>$125,000</TableCell>
+      <TableCell>$142,000</TableCell>
+      <TableCell>$138,500</TableCell>
+      <TableCell>$156,200</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Expenses</TableCell>
+      <TableCell>$89,000</TableCell>
+      <TableCell>$95,200</TableCell>
+      <TableCell>$91,800</TableCell>
+      <TableCell>$102,400</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Profit</TableCell>
+      <TableCell>$36,000</TableCell>
+      <TableCell>$46,800</TableCell>
+      <TableCell>$46,700</TableCell>
+      <TableCell>$53,800</TableCell>
+    </TableRow>
+  </TableBody>
+  <TableFooter>
+    <TableRow>
+      <TableCell>Annual Total</TableCell>
+      <TableCell colspan="4">$561,700</TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+      <TableCell></TableCell>
+    </TableRow>
+  </TableFooter>
+  <Empty>No report data</Empty>
+</groupviewtable--ml-pivot-table>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>

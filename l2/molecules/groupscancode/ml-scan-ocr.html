@@ -1,0 +1,348 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Scan OCR</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupScanCode</span>
+    </header>
+
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":"","name":"documentOcr","facing":"environment","autoCapture":false,"captureInterval":500,"disabled":false,"loading":false},"auto":{"value":"","error":"","name":"receiptOcr","facing":"environment","autoCapture":true,"captureInterval":300,"disabled":false,"loading":true},"result":{"value":"INV-2026-0042","error":"","name":"invoiceNumber","facing":"environment","autoCapture":false,"captureInterval":500,"disabled":false,"loading":false},"disabled":{"value":"","error":"","name":"passportOcr","facing":"environment","autoCapture":false,"captureInterval":500,"disabled":true,"loading":false},"front":{"value":"","error":"","name":"selfieOcr","facing":"user","autoCapture":false,"captureInterval":500,"disabled":false,"loading":false},"error":{"value":"","error":"Unable to read text. Move closer and try again.","name":"idCardOcr","facing":"environment","autoCapture":false,"captureInterval":500,"disabled":false,"loading":false}}}'></widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupscancode--ml-scan-ocr
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            name="{{playground.basic.name}}"
+            facing="{{playground.basic.facing}}"
+            auto-capture="{{playground.basic.autoCapture}}"
+            capture-interval="{{playground.basic.captureInterval}}"
+            disabled="{{playground.basic.disabled}}"
+            loading="{{playground.basic.loading}}"
+          >
+            <Label>Scan document</Label>
+            <Helper>Use the rear camera to capture the text.</Helper>
+          </groupscancode--ml-scan-ocr>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="facing" value="{{playground.basic.facing}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="autoCapture" value="{{playground.basic.autoCapture}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="captureInterval" value="{{playground.basic.captureInterval}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+<groupscancode--ml-scan-ocr
+  value="{{playground.basic.value}}"
+  error="{{playground.basic.error}}"
+  name="{{playground.basic.name}}"
+  facing="{{playground.basic.facing}}"
+  auto-capture="{{playground.basic.autoCapture}}"
+  capture-interval="{{playground.basic.captureInterval}}"
+  disabled="{{playground.basic.disabled}}"
+  loading="{{playground.basic.loading}}"
+>
+  <Label>Scan document</Label>
+  <Helper>Use the rear camera to capture the text.</Helper>
+</groupscancode--ml-scan-ocr>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Auto capture (loading)</h3>
+        <demo id="demo-auto">
+          <groupscancode--ml-scan-ocr
+            value="{{playground.auto.value}}"
+            error="{{playground.auto.error}}"
+            name="{{playground.auto.name}}"
+            facing="{{playground.auto.facing}}"
+            auto-capture="{{playground.auto.autoCapture}}"
+            capture-interval="{{playground.auto.captureInterval}}"
+            disabled="{{playground.auto.disabled}}"
+            loading="{{playground.auto.loading}}"
+          >
+            <Label>Scan receipt</Label>
+            <Trigger>Start auto scan</Trigger>
+            <Helper>Auto capture runs every 300ms while decoding.</Helper>
+          </groupscancode--ml-scan-ocr>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.auto.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.auto.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.auto.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="facing" value="{{playground.auto.facing}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="autoCapture" value="{{playground.auto.autoCapture}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="captureInterval" value="{{playground.auto.captureInterval}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.auto.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.auto.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-auto">
+              <template>
+<groupscancode--ml-scan-ocr
+  value="{{playground.auto.value}}"
+  error="{{playground.auto.error}}"
+  name="{{playground.auto.name}}"
+  facing="{{playground.auto.facing}}"
+  auto-capture="{{playground.auto.autoCapture}}"
+  capture-interval="{{playground.auto.captureInterval}}"
+  disabled="{{playground.auto.disabled}}"
+  loading="{{playground.auto.loading}}"
+>
+  <Label>Scan receipt</Label>
+  <Trigger>Start auto scan</Trigger>
+  <Helper>Auto capture runs every 300ms while decoding.</Helper>
+</groupscancode--ml-scan-ocr>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">With result slot</h3>
+        <demo id="demo-result">
+          <groupscancode--ml-scan-ocr
+            value="{{playground.result.value}}"
+            error="{{playground.result.error}}"
+            name="{{playground.result.name}}"
+            facing="{{playground.result.facing}}"
+            auto-capture="{{playground.result.autoCapture}}"
+            capture-interval="{{playground.result.captureInterval}}"
+            disabled="{{playground.result.disabled}}"
+            loading="{{playground.result.loading}}"
+          >
+            <Label>Invoice OCR</Label>
+            <Result>
+              <div class="text-sm text-slate-900 dark:text-slate-100">Invoice ID:</div>
+              <div class="text-base font-semibold text-slate-900 dark:text-slate-100">INV-2026-0042</div>
+            </Result>
+            <Helper>Review the extracted ID before submitting.</Helper>
+          </groupscancode--ml-scan-ocr>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.result.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.result.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.result.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="facing" value="{{playground.result.facing}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="autoCapture" value="{{playground.result.autoCapture}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="captureInterval" value="{{playground.result.captureInterval}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.result.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.result.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-result">
+              <template>
+<groupscancode--ml-scan-ocr
+  value="{{playground.result.value}}"
+  error="{{playground.result.error}}"
+  name="{{playground.result.name}}"
+  facing="{{playground.result.facing}}"
+  auto-capture="{{playground.result.autoCapture}}"
+  capture-interval="{{playground.result.captureInterval}}"
+  disabled="{{playground.result.disabled}}"
+  loading="{{playground.result.loading}}"
+>
+  <Label>Invoice OCR</Label>
+  <Result>
+    <div class="text-sm text-slate-900 dark:text-slate-100">Invoice ID:</div>
+    <div class="text-base font-semibold text-slate-900 dark:text-slate-100">INV-2026-0042</div>
+  </Result>
+  <Helper>Review the extracted ID before submitting.</Helper>
+</groupscancode--ml-scan-ocr>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+        <demo id="demo-disabled">
+          <groupscancode--ml-scan-ocr
+            value="{{playground.disabled.value}}"
+            error="{{playground.disabled.error}}"
+            name="{{playground.disabled.name}}"
+            facing="{{playground.disabled.facing}}"
+            auto-capture="{{playground.disabled.autoCapture}}"
+            capture-interval="{{playground.disabled.captureInterval}}"
+            disabled="{{playground.disabled.disabled}}"
+            loading="{{playground.disabled.loading}}"
+          >
+            <Label>Passport OCR</Label>
+            <Helper>Scanner is unavailable in read-only mode.</Helper>
+          </groupscancode--ml-scan-ocr>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.disabled.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="facing" value="{{playground.disabled.facing}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="autoCapture" value="{{playground.disabled.autoCapture}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="captureInterval" value="{{playground.disabled.captureInterval}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+<groupscancode--ml-scan-ocr
+  value="{{playground.disabled.value}}"
+  error="{{playground.disabled.error}}"
+  name="{{playground.disabled.name}}"
+  facing="{{playground.disabled.facing}}"
+  auto-capture="{{playground.disabled.autoCapture}}"
+  capture-interval="{{playground.disabled.captureInterval}}"
+  disabled="{{playground.disabled.disabled}}"
+  loading="{{playground.disabled.loading}}"
+>
+  <Label>Passport OCR</Label>
+  <Helper>Scanner is unavailable in read-only mode.</Helper>
+</groupscancode--ml-scan-ocr>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Front camera</h3>
+        <demo id="demo-front">
+          <groupscancode--ml-scan-ocr
+            value="{{playground.front.value}}"
+            error="{{playground.front.error}}"
+            name="{{playground.front.name}}"
+            facing="{{playground.front.facing}}"
+            auto-capture="{{playground.front.autoCapture}}"
+            capture-interval="{{playground.front.captureInterval}}"
+            disabled="{{playground.front.disabled}}"
+            loading="{{playground.front.loading}}"
+          >
+            <Label>Selfie OCR</Label>
+            <Trigger>Use front camera</Trigger>
+            <Helper>Switch to the user-facing camera for selfies.</Helper>
+          </groupscancode--ml-scan-ocr>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.front.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.front.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.front.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="facing" value="{{playground.front.facing}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="autoCapture" value="{{playground.front.autoCapture}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="captureInterval" value="{{playground.front.captureInterval}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.front.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.front.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-front">
+              <template>
+<groupscancode--ml-scan-ocr
+  value="{{playground.front.value}}"
+  error="{{playground.front.error}}"
+  name="{{playground.front.name}}"
+  facing="{{playground.front.facing}}"
+  auto-capture="{{playground.front.autoCapture}}"
+  capture-interval="{{playground.front.captureInterval}}"
+  disabled="{{playground.front.disabled}}"
+  loading="{{playground.front.loading}}"
+>
+  <Label>Selfie OCR</Label>
+  <Trigger>Use front camera</Trigger>
+  <Helper>Switch to the user-facing camera for selfies.</Helper>
+</groupscancode--ml-scan-ocr>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error state</h3>
+        <demo id="demo-error">
+          <groupscancode--ml-scan-ocr
+            value="{{playground.error.value}}"
+            error="{{playground.error.error}}"
+            name="{{playground.error.name}}"
+            facing="{{playground.error.facing}}"
+            auto-capture="{{playground.error.autoCapture}}"
+            capture-interval="{{playground.error.captureInterval}}"
+            disabled="{{playground.error.disabled}}"
+            loading="{{playground.error.loading}}"
+          >
+            <Label>ID card OCR</Label>
+            <Helper>Ensure the document is well lit.</Helper>
+          </groupscancode--ml-scan-ocr>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.error.name}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="facing" value="{{playground.error.facing}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="autoCapture" value="{{playground.error.autoCapture}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="captureInterval" value="{{playground.error.captureInterval}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.error.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.error.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+<groupscancode--ml-scan-ocr
+  value="{{playground.error.value}}"
+  error="{{playground.error.error}}"
+  name="{{playground.error.name}}"
+  facing="{{playground.error.facing}}"
+  auto-capture="{{playground.error.autoCapture}}"
+  capture-interval="{{playground.error.captureInterval}}"
+  disabled="{{playground.error.disabled}}"
+  loading="{{playground.error.loading}}"
+>
+  <Label>ID card OCR</Label>
+  <Helper>Ensure the document is well lit.</Helper>
+</groupscancode--ml-scan-ocr>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

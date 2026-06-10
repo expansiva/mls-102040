@@ -3,20 +3,24 @@ import { html, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { StateLitElement } from '/_102029_/l2/stateLitElement.js';
 import '/_102040_/l2/molecules/grouplocateposition/ml-address-autocomplete';
-import '/_102040_/l2/molecules/grouplocateposition/ml-locate-map-picker';
 import '/_102040_/l2/molecules/grouplocateposition/ml-geolocation-trigger';
+import '/_102040_/l2/molecules/grouplocateposition/ml-locate-map-picker';
+import '/_102040_/l2/molecules/grouplocateposition/ml-locate-nearby';
 
 @customElement('molecules--grouplocateposition--index-102040')
 export class GroupLocatePositionIndex extends StateLitElement {
   // ── Showcase card states ─────────────────────────────────────
   @state()
-  private cardAddress = '-23.55,-46.63';
+  private cardAddressAutocomplete = '-23.55,-46.63';
 
   @state()
-  private cardMapPicker = '-22.90,-43.17';
+  private cardGeolocationTrigger = '';
 
   @state()
-  private cardGeolocation = '';
+  private cardLocateMapPicker = '-19.92,-43.94';
+
+  @state()
+  private cardLocateNearby = '-22.90,-43.17';
 
   // ===========================================================================
   // HERO
@@ -27,10 +31,10 @@ export class GroupLocatePositionIndex extends StateLitElement {
           groupLocatePosition
         </span>
         <h1 class="text-5xl font-bold text-slate-900 dark:text-slate-50 mb-5 tracking-tight">
-          Locate &amp; Position
+          Locate Position
         </h1>
         <p class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Allows the user to inform or visualize a geographic location with address search, geolocation capture, and map previews. Values are stored as a lat/lng JSON string while the page supplies autocomplete suggestions.
+          Allows the user to inform or visualize a geographic location. Supports address search with autocomplete, geolocation capture, and map preview through multiple implementations.
         </p>
       </header>
     `;
@@ -47,28 +51,29 @@ export class GroupLocatePositionIndex extends StateLitElement {
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Address autocomplete</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-address-autocomplete</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">grouplocateposition--ml-address-autocomplete</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Search for an address and select a suggestion provided by the page.</p>
+              <p class="text-xs text-slate-400 mb-5">Best for typing an address with suggestions provided by your BFF.</p>
               <grouplocateposition--ml-address-autocomplete
-                name="card-address"
-                value="${this.cardAddress}"
-                placeholder="Search for a pickup address"
+                name="card-address-autocomplete"
+                value="${this.cardAddressAutocomplete}"
+                placeholder="Search delivery address..."
+                .required=${true}
                 .showMap=${true}
                 .allowGeolocation=${true}
-                .required=${true}
                 .isEditing=${true}
                 @change=${(e: CustomEvent) => {
-                  this.cardAddress = e.detail.value;
+                  this.cardAddressAutocomplete = e.detail.value;
                 }}
               >
-                <Label>Pickup address</Label>
-                <Helper>Type at least 3 characters to fetch suggestions.</Helper>
+                <Label>Delivery address</Label>
+                <Helper>Start typing to see nearby matches.</Helper>
+                <Trigger>Use my current location</Trigger>
                 <Suggestions>
                   <Item value="-23.55,-46.63">São Paulo, SP</Item>
-                  <Item value="-22.90,-43.17">Rio de Janeiro, RJ</Item>
+                  <Item value="-23.57,-46.65">Av. Paulista, SP</Item>
                 </Suggestions>
-                <Empty>No suggestions yet — start typing.</Empty>
+                <Empty>No suggestions yet</Empty>
               </grouplocateposition--ml-address-autocomplete>
             </div>
           </div>
@@ -77,25 +82,29 @@ export class GroupLocatePositionIndex extends StateLitElement {
             <div class="h-1 bg-emerald-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
-                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Map picker</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-locate-map-picker</code>
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Geolocation trigger</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">grouplocateposition--ml-geolocation-trigger</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Let users pin a location on a map with a preview.</p>
-              <grouplocateposition--ml-locate-map-picker
-                name="card-map-picker"
-                value="${this.cardMapPicker}"
-                placeholder="Search or drop a pin"
-                .showMap=${true}
+              <p class="text-xs text-slate-400 mb-5">Use when you only need a quick "use my location" action.</p>
+              <grouplocateposition--ml-geolocation-trigger
+                name="card-geolocation-trigger"
+                value="${this.cardGeolocationTrigger}"
+                placeholder="No location selected"
                 .allowGeolocation=${true}
                 .isEditing=${true}
                 @change=${(e: CustomEvent) => {
-                  this.cardMapPicker = e.detail.value;
+                  this.cardGeolocationTrigger = e.detail.value;
                 }}
               >
-                <Label>Delivery pin</Label>
-                <Helper>Drag the pin or search to set the exact spot.</Helper>
-                <Empty>Select a point to preview it on the map.</Empty>
-              </grouplocateposition--ml-locate-map-picker>
+                <Label>Pickup location</Label>
+                <Helper>Tap the button to capture your current position.</Helper>
+                <Trigger>Detect my position</Trigger>
+                <Suggestions>
+                  <Item value="-22.90,-43.17">Rio de Janeiro, RJ</Item>
+                  <Item value="-22.91,-43.20">Copacabana, RJ</Item>
+                </Suggestions>
+                <Empty>No location captured yet</Empty>
+              </grouplocateposition--ml-geolocation-trigger>
             </div>
           </div>
 
@@ -103,24 +112,61 @@ export class GroupLocatePositionIndex extends StateLitElement {
             <div class="h-1 bg-amber-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
-                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Geolocation trigger</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-geolocation-trigger</code>
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Map picker</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">grouplocateposition--ml-locate-map-picker</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Capture the user’s current position with a dedicated button.</p>
-              <grouplocateposition--ml-geolocation-trigger
-                name="card-geolocation"
-                value="${this.cardGeolocation}"
+              <p class="text-xs text-slate-400 mb-5">Ideal for selecting a precise point with a map preview.</p>
+              <grouplocateposition--ml-locate-map-picker
+                name="card-locate-map-picker"
+                value="${this.cardLocateMapPicker}"
+                placeholder="Search or drop a pin"
+                .showMap=${true}
                 .allowGeolocation=${true}
                 .isEditing=${true}
                 @change=${(e: CustomEvent) => {
-                  this.cardGeolocation = e.detail.value;
+                  this.cardLocateMapPicker = e.detail.value;
                 }}
               >
-                <Label>Use my location</Label>
-                <Helper>We’ll request permission to read your location.</Helper>
-                <Trigger>Use current location</Trigger>
-                <Empty>No location captured yet.</Empty>
-              </grouplocateposition--ml-geolocation-trigger>
+                <Label>Store pin</Label>
+                <Helper>Move the pin or search for an address.</Helper>
+                <Trigger>Use my location</Trigger>
+                <Suggestions>
+                  <Item value="-19.92,-43.94">Belo Horizonte, MG</Item>
+                  <Item value="-19.90,-43.95">Savassi, MG</Item>
+                </Suggestions>
+                <Empty>Drop a pin to set the location</Empty>
+              </grouplocateposition--ml-locate-map-picker>
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="h-1 bg-rose-500 rounded-t-2xl"></div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Nearby area selector</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">grouplocateposition--ml-locate-nearby</code>
+              </div>
+              <p class="text-xs text-slate-400 mb-5">Great for picking a nearby area around a known coordinate.</p>
+              <grouplocateposition--ml-locate-nearby
+                name="card-locate-nearby"
+                value="${this.cardLocateNearby}"
+                placeholder="Select a nearby area"
+                .showMap=${true}
+                .allowGeolocation=${true}
+                .isEditing=${true}
+                @change=${(e: CustomEvent) => {
+                  this.cardLocateNearby = e.detail.value;
+                }}
+              >
+                <Label>Service area</Label>
+                <Helper>Choose a nearby neighborhood for delivery.</Helper>
+                <Trigger>Use my location</Trigger>
+                <Suggestions>
+                  <Item value="-22.90,-43.17">Centro, RJ</Item>
+                  <Item value="-22.92,-43.18">Lapa, RJ</Item>
+                </Suggestions>
+                <Empty>No nearby options available</Empty>
+              </grouplocateposition--ml-locate-nearby>
             </div>
           </div>
         </div>
@@ -134,44 +180,44 @@ export class GroupLocatePositionIndex extends StateLitElement {
     const rows: Array<{
       scenario: string;
       addressAutocomplete: boolean;
-      locateMapPicker: boolean;
       geolocationTrigger: boolean;
+      locateMapPicker: boolean;
+      locateNearby: boolean;
     }> = [
       {
-        scenario: 'Users know the address and need fast search with suggestions.',
+        scenario: 'User types an address and expects search suggestions from your backend.',
         addressAutocomplete: true,
-        locateMapPicker: false,
         geolocationTrigger: false,
+        locateMapPicker: false,
+        locateNearby: false,
       },
       {
-        scenario: 'Users need to place a pin or visually verify the location.',
+        scenario: 'Only need a single action to capture the current coordinates.',
         addressAutocomplete: false,
-        locateMapPicker: true,
-        geolocationTrigger: false,
+        geolocationTrigger: true,
+        locateMapPicker: false,
+        locateNearby: false,
       },
       {
-        scenario: 'Users should share their current position with one action.',
+        scenario: 'User should select a precise pin with an embedded map preview.',
         addressAutocomplete: false,
-        locateMapPicker: false,
-        geolocationTrigger: true,
-      },
-      {
-        scenario: 'Offer both search and pin drop for maximum accuracy.',
-        addressAutocomplete: true,
-        locateMapPicker: true,
         geolocationTrigger: false,
+        locateMapPicker: true,
+        locateNearby: false,
       },
       {
-        scenario: 'Combine search with a quick “use my location” option.',
-        addressAutocomplete: true,
+        scenario: 'Choose a nearby area once a base location is known.',
+        addressAutocomplete: false,
+        geolocationTrigger: false,
         locateMapPicker: false,
-        geolocationTrigger: true,
+        locateNearby: true,
       },
     ];
     const headers = [
-      { label: 'Address Autocomplete', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'Map Picker', cls: 'text-emerald-600 dark:text-emerald-400' },
-      { label: 'Geolocation Trigger', cls: 'text-amber-600 dark:text-amber-400' },
+      { label: 'Address autocomplete', cls: 'text-sky-600 dark:text-sky-400' },
+      { label: 'Geolocation trigger', cls: 'text-emerald-600 dark:text-emerald-400' },
+      { label: 'Map picker', cls: 'text-amber-600 dark:text-amber-400' },
+      { label: 'Nearby area', cls: 'text-rose-600 dark:text-rose-400' },
     ];
 
     return html`
@@ -179,7 +225,7 @@ export class GroupLocatePositionIndex extends StateLitElement {
         <div class="max-w-5xl mx-auto">
           <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
           <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Use this table to decide how to collect or visualize coordinates when you need address search, map selection, or a one-tap geolocation action.
+            Use this matrix to decide which locate + position implementation best matches the way users need to inform or visualize a geographic location.
           </p>
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
             <table class="w-full text-sm">
@@ -189,21 +235,20 @@ export class GroupLocatePositionIndex extends StateLitElement {
                   ${headers.map(
                     (h) => html`
                       <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">${h.label}</th>
-                    `,
+                    `
                   )}
                 </tr>
               </thead>
               <tbody>
                 ${rows.map(
                   (row, i) => html`
-                    <tr
-                      class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0"
-                    >
+                    <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
                       <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
                       ${([
                         row.addressAutocomplete,
-                        row.locateMapPicker,
                         row.geolocationTrigger,
+                        row.locateMapPicker,
+                        row.locateNearby,
                       ] as boolean[]).map(
                         (ok) => html`
                           <td class="px-4 py-3.5 text-center">
@@ -211,10 +256,10 @@ export class GroupLocatePositionIndex extends StateLitElement {
                               ? html`<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>`
                               : html`<span class="text-slate-200 dark:text-slate-700 text-sm">—</span>`}
                           </td>
-                        `,
+                        `
                       )}
                     </tr>
-                  `,
+                  `
                 )}
               </tbody>
             </table>
@@ -226,7 +271,7 @@ export class GroupLocatePositionIndex extends StateLitElement {
 
   // ===========================================================================
   // RENDER
-  protected render(): TemplateResult {
+  render(): TemplateResult {
     return html`
       <div class="font-sans min-h-screen">
         ${this.renderHero()}
