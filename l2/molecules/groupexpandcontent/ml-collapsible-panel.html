@@ -1,0 +1,316 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Collapsible Panel</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupExpandContent</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"multiple":true,"disabled":false,"loading":false},"accordion":{"multiple":false,"disabled":false,"loading":false},"rich":{"multiple":true,"disabled":false,"loading":false},"disabled":{"multiple":true,"disabled":true,"loading":false},"mixed":{"multiple":true,"disabled":false,"loading":false},"loading":{"multiple":true,"disabled":false,"loading":true}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
+        <demo id="demo-basic">
+          <groupexpandcontent--ml-collapsible-panel
+            multiple="{{playground.basic.multiple}}"
+            disabled="{{playground.basic.disabled}}"
+            loading="{{playground.basic.loading}}">
+            <Label>Team updates</Label>
+            <Section title="Sprint goals" expanded>
+              Review the sprint objectives and confirm alignment with stakeholders.
+            </Section>
+            <Section title="Risks">
+              Current risks include API rate limits and pending design approvals.
+            </Section>
+          </groupexpandcontent--ml-collapsible-panel>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.basic.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupexpandcontent--ml-collapsible-panel
+                  multiple="{{playground.basic.multiple}}"
+                  disabled="{{playground.basic.disabled}}"
+                  loading="{{playground.basic.loading}}">
+                  <Label>Team updates</Label>
+                  <Section title="Sprint goals" expanded>
+                    Review the sprint objectives and confirm alignment with stakeholders.
+                  </Section>
+                  <Section title="Risks">
+                    Current risks include API rate limits and pending design approvals.
+                  </Section>
+                </groupexpandcontent--ml-collapsible-panel>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Accordion</h3>
+        <demo id="demo-accordion">
+          <groupexpandcontent--ml-collapsible-panel
+            multiple="{{playground.accordion.multiple}}"
+            disabled="{{playground.accordion.disabled}}"
+            loading="{{playground.accordion.loading}}">
+            <Label>Frequently asked questions</Label>
+            <Section title="How do I reset my password?">
+              Go to Settings &gt; Security and follow the reset instructions.
+            </Section>
+            <Section title="Can I change my plan?">
+              Yes, you can upgrade or downgrade at any time from Billing.
+            </Section>
+            <Section title="Where can I find invoices?">
+              Invoices are available under Billing &gt; Invoices.
+            </Section>
+          </groupexpandcontent--ml-collapsible-panel>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.accordion.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.accordion.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.accordion.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-accordion">
+              <template>
+                <groupexpandcontent--ml-collapsible-panel
+                  multiple="{{playground.accordion.multiple}}"
+                  disabled="{{playground.accordion.disabled}}"
+                  loading="{{playground.accordion.loading}}">
+                  <Label>Frequently asked questions</Label>
+                  <Section title="How do I reset my password?">
+                    Go to Settings &gt; Security and follow the reset instructions.
+                  </Section>
+                  <Section title="Can I change my plan?">
+                    Yes, you can upgrade or downgrade at any time from Billing.
+                  </Section>
+                  <Section title="Where can I find invoices?">
+                    Invoices are available under Billing &gt; Invoices.
+                  </Section>
+                </groupexpandcontent--ml-collapsible-panel>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Rich content with icons</h3>
+        <demo id="demo-rich">
+          <groupexpandcontent--ml-collapsible-panel
+            multiple="{{playground.rich.multiple}}"
+            disabled="{{playground.rich.disabled}}"
+            loading="{{playground.rich.loading}}">
+            <Label>Onboarding checklist</Label>
+            <Section
+              title="Account setup"
+              subtitle="Complete in 3 minutes"
+              expanded
+              icon="<svg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M4 10l4 4 8-8' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+              Add your profile details and verify your email address.
+            </Section>
+            <Section
+              title="Invite teammates"
+              subtitle="Send a welcome message"
+              icon="<svg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10 4a3 3 0 110 6 3 3 0 010-6zm-6 12a6 6 0 0112 0H4z' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+              Share the project link and assign initial roles.
+            </Section>
+          </groupexpandcontent--ml-collapsible-panel>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.rich.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.rich.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.rich.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-rich">
+              <template>
+                <groupexpandcontent--ml-collapsible-panel
+                  multiple="{{playground.rich.multiple}}"
+                  disabled="{{playground.rich.disabled}}"
+                  loading="{{playground.rich.loading}}">
+                  <Label>Onboarding checklist</Label>
+                  <Section
+                    title="Account setup"
+                    subtitle="Complete in 3 minutes"
+                    expanded
+                    icon="<svg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M4 10l4 4 8-8' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+                    Add your profile details and verify your email address.
+                  </Section>
+                  <Section
+                    title="Invite teammates"
+                    subtitle="Send a welcome message"
+                    icon="<svg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M10 4a3 3 0 110 6 3 3 0 010-6zm-6 12a6 6 0 0112 0H4z' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+                    Share the project link and assign initial roles.
+                  </Section>
+                </groupexpandcontent--ml-collapsible-panel>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled panel</h3>
+        <demo id="demo-disabled">
+          <groupexpandcontent--ml-collapsible-panel
+            multiple="{{playground.disabled.multiple}}"
+            disabled="{{playground.disabled.disabled}}"
+            loading="{{playground.disabled.loading}}">
+            <Label>Billing settings</Label>
+            <Section title="Payment method" expanded>
+              Update your credit card details after verifying ownership.
+            </Section>
+            <Section title="Billing address">
+              Address changes are locked while a refund is processing.
+            </Section>
+          </groupexpandcontent--ml-collapsible-panel>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.disabled.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupexpandcontent--ml-collapsible-panel
+                  multiple="{{playground.disabled.multiple}}"
+                  disabled="{{playground.disabled.disabled}}"
+                  loading="{{playground.disabled.loading}}">
+                  <Label>Billing settings</Label>
+                  <Section title="Payment method" expanded>
+                    Update your credit card details after verifying ownership.
+                  </Section>
+                  <Section title="Billing address">
+                    Address changes are locked while a refund is processing.
+                  </Section>
+                </groupexpandcontent--ml-collapsible-panel>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Mixed section states</h3>
+        <demo id="demo-mixed">
+          <groupexpandcontent--ml-collapsible-panel
+            multiple="{{playground.mixed.multiple}}"
+            disabled="{{playground.mixed.disabled}}"
+            loading="{{playground.mixed.loading}}">
+            <Section title="Active integrations" expanded>
+              Slack and Jira are connected. Webhook sync is enabled.
+            </Section>
+            <Section title="Pending approvals" disabled>
+              Awaiting security review for GitHub Enterprise.
+            </Section>
+            <Section title="Audit history">
+              Last audit run on Jun 1, 2026 with 0 critical issues.
+            </Section>
+          </groupexpandcontent--ml-collapsible-panel>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.mixed.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.mixed.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.mixed.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-mixed">
+              <template>
+                <groupexpandcontent--ml-collapsible-panel
+                  multiple="{{playground.mixed.multiple}}"
+                  disabled="{{playground.mixed.disabled}}"
+                  loading="{{playground.mixed.loading}}">
+                  <Section title="Active integrations" expanded>
+                    Slack and Jira are connected. Webhook sync is enabled.
+                  </Section>
+                  <Section title="Pending approvals" disabled>
+                    Awaiting security review for GitHub Enterprise.
+                  </Section>
+                  <Section title="Audit history">
+                    Last audit run on Jun 1, 2026 with 0 critical issues.
+                  </Section>
+                </groupexpandcontent--ml-collapsible-panel>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+        <demo id="demo-loading">
+          <groupexpandcontent--ml-collapsible-panel
+            multiple="{{playground.loading.multiple}}"
+            disabled="{{playground.loading.disabled}}"
+            loading="{{playground.loading.loading}}">
+            <Label>Fetching analytics</Label>
+            <Section title="Traffic overview">
+              Placeholder content while analytics data is fetched.
+            </Section>
+            <Section title="Conversion details">
+              Placeholder content while analytics data is fetched.
+            </Section>
+          </groupexpandcontent--ml-collapsible-panel>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="multiple" value="{{playground.loading.multiple}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupexpandcontent--ml-collapsible-panel
+                  multiple="{{playground.loading.multiple}}"
+                  disabled="{{playground.loading.disabled}}"
+                  loading="{{playground.loading.loading}}">
+                  <Label>Fetching analytics</Label>
+                  <Section title="Traffic overview">
+                    Placeholder content while analytics data is fetched.
+                  </Section>
+                  <Section title="Conversion details">
+                    Placeholder content while analytics data is fetched.
+                  </Section>
+                </groupexpandcontent--ml-collapsible-panel>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>

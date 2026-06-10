@@ -1,32 +1,44 @@
 /// <mls fileReference="_102040_/l2/molecules/groupviewhierarchy/ml-hierarchy-tree.defs.ts" enhancement="_blank" />
 
-// Do not change – automatically generated code.
+// Do not change – automatically generated code. 
 
 export const group = 'groupViewHierarchy';
 export const skill = `# Metadata
 - TagName: groupviewhierarchy--ml-hierarchy-tree
 
 # Objective
-Render a standard expandable/collapsible tree view where each node is displayed as an indented row with a chevron toggle and a clickable label. The component reads its structure from nested Node slot elements and supports keyboard navigation, multi-expand control, and disabled states.
+Display a hierarchical tree structure that allows users to navigate nested levels by expanding and collapsing nodes, while emitting events for interactions. The tree renders user-provided nested content, supports disabled states, and adapts to single or multiple selection patterns without maintaining selection state internally.
 
 # Responsibilities
-- Parse nested Node slot elements recursively from the component's template document fragment to build the tree structure.
-- Render each node as an indented row, using left padding scaled to the node's depth to communicate hierarchy level.
-- Show a chevron toggle button for nodes that have children; show a blank spacer of equal size for leaf nodes to maintain alignment.
-- Track each node's expanded state using a WeakMap keyed on the source Element, initializing from the node's expanded attribute or expandAll.
-- Expand all nodes when expandAll becomes true by walking the full tree and setting every node to expanded.
-- When multiple is false, collapse all siblings of the toggled node before expanding it.
-- Dispatch a toggle CustomEvent (bubbles, composed) with the node's value and new expanded state when a node is toggled.
-- Dispatch a nodeClick CustomEvent (bubbles, composed) with the node's value when a leaf node label is clicked or activated.
-- Support keyboard interaction: Enter and Space toggle a parent node or fire nodeClick on a leaf; ArrowRight expands a collapsed parent; ArrowLeft collapses an expanded parent; ArrowDown/ArrowUp move focus to the adjacent visible label button.
-- Show an optional title when a Label slot is provided.
-- Render a loading state message when loading is true.
-- Render an empty state when no root nodes exist; use the Empty slot content when provided, otherwise use the localized default.
-- Support English and Portuguese UI strings via the i18n message system.
+- Render the hierarchy based on nested Node items provided by the user, where nesting establishes parent-child relationships.
+- Display the Empty content as a placeholder when no Node items are provided.
+- Display the Label content as a title above the tree when provided.
+- Allow nodes with children to expand and reveal their children or collapse and hide them.
+- Treat nodes without children as leaves and do not present expansion controls for them.
+- Emit a toggle event containing the node's value and its expanded state when the expansion control is activated.
+- Emit a nodeClick event containing the node's value when a node's content is activated.
+- Respect the initial expanded state indicated on each Node, unless expandAll is active, in which case all nodes must start expanded.
+- Collapse sibling nodes at the same level when a node is expanded and multiple selection is disabled.
+- Block all expansion, collapse, and click interactions when the component is disabled.
+- Block interactions only on specific nodes marked as disabled.
+- Preserve and display the full user-provided content of each Node as its visual label, including any checkboxes, icons, or other elements.
+- Emit nodeClick events for selection purposes without maintaining internal selection state.
+- Render exactly the nodes provided by the user without applying internal filtering, searching, or term highlighting.
+- Display an expansion indicator exclusively on nodes that contain children.
+- Visually indent child nodes relative to their parent to indicate hierarchy.
+- Show only the node label when collapsed; show the label and its children when expanded.
+- Present disabled nodes with a visually dimmed appearance.
+- Present all nodes as visually dimmed when the entire component is disabled.
+- Adapt visual presentation for dark mode with appropriate treatment for surfaces, text, borders, and hover states according to the group's semantic contract.
 
 # Constraints
-- The component must not contain business logic; node meaning and actions are the consumer's responsibility.
-- Nodes with the disabled attribute or when the component-level disabled property is true must not respond to click, toggle, or keyboard activation and must be rendered with reduced opacity and a not-allowed cursor.
-- When multiple is false, toggling a node open must collapse all its siblings at the same level before expanding the target.
-- Chevron toggle and label click are distinct interactions: clicking the chevron only toggles expansion; clicking the label fires nodeClick without toggling.
-- Focus navigation with ArrowDown/ArrowUp must operate only on elements with data-node-content="true" that are currently rendered in the DOM.`;
+- Must not maintain internal selection state; selection must be handled entirely by the consuming system through emitted events.
+- Must not perform internal search, filtering, or text highlighting; the provided Node content must be rendered exactly as received.
+- Leaf nodes must never display expansion controls or empty child areas.
+- Sibling collapse behavior applies only when multiple selection is disabled.
+- Disabled states on individual nodes and on the component must prevent associated interaction events from emitting.
+
+# Notes
+- The user is responsible for providing pre-filtered and pre-highlighted content within Node items when search or highlight behavior is desired.
+- Selection indicators such as checkboxes must be included by the user inside the Node content; the component provides only the structural behavior and events.`;
+

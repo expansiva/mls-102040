@@ -2,22 +2,26 @@
 import { html, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { StateLitElement } from '/_102029_/l2/stateLitElement.js';
-import '/_102040_/l2/molecules/groupviewcard/ml-view-card-horizontal';
 import '/_102040_/l2/molecules/groupviewcard/ml-vertical-card';
+import '/_102040_/l2/molecules/groupviewcard/ml-view-card-horizontal';
 import '/_102040_/l2/molecules/groupviewcard/ml-view-card-media';
+import '/_102040_/l2/molecules/groupviewcard/ml-profile-card';
 
 @customElement('molecules--groupviewcard--index-102040')
 export class GroupViewCardIndex extends StateLitElement {
   // ── Showcase card states ─────────────────────────────────────
-  @state() private cardOne = false;
-  @state() private cardTwo = true;
-  @state() private cardThree = false;
+  @state() private cardVertical = 'default';
+  @state() private cardHorizontal = 'default';
+  @state() private cardMedia = 'default';
+  @state() private cardProfile = 'default';
 
   // ===========================================================================
   // HERO
   private renderHero(): TemplateResult {
     return html`
-      <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-8 py-20 text-center">
+      <header
+        class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 px-8 py-20 text-center"
+      >
         <span
           class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-600 dark:text-sky-300 rounded-full text-xs font-semibold uppercase tracking-widest mb-6"
         >
@@ -26,9 +30,11 @@ export class GroupViewCardIndex extends StateLitElement {
         <h1 class="text-5xl font-bold text-slate-900 dark:text-slate-50 mb-5 tracking-tight">
           View Cards
         </h1>
-        <p class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Displays an item as an independent visual unit with flexible header, content, footer, and action slots. Choose from
-          horizontal, vertical, or media-first implementations to match the content emphasis.
+        <p
+          class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
+        >
+          Displays an item as an independent visual unit. Choose from standard, media, horizontal,
+          or profile-focused layouts with optional interactive, selectable, and loading states.
         </p>
       </header>
     `;
@@ -38,54 +44,44 @@ export class GroupViewCardIndex extends StateLitElement {
   // SHOWCASE CARDS
   private renderShowcaseCards(): TemplateResult {
     return html`
-      <section class="bg-slate-50 dark:bg-slate-950 px-8 py-12 border-b border-slate-200 dark:border-slate-700">
+      <section
+        class="bg-slate-50 dark:bg-slate-950 px-8 py-12 border-b border-slate-200 dark:border-slate-700"
+      >
         <div class="max-w-2xl mx-auto flex flex-col gap-5">
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-violet-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
-                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Horizontal product card</p>
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Vertical card</p>
                 <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded"
-                  >groupviewcard--ml-view-card-horizontal</code
+                  >groupviewcard--ml-vertical-card</code
                 >
               </div>
-              <p class="text-xs text-slate-400 mb-5">
-                Use when you need a landscape layout with quick scan details and a primary action.
-              </p>
-              <groupviewcard--ml-view-card-horizontal
+              <p class="text-xs text-slate-400 mb-5">Classic stacked layout for product or content tiles.</p>
+              <groupviewcard--ml-vertical-card
                 name="card-1"
-                .value=${this.cardOne}
-                .isEditing=${true}
+                value="${this.cardVertical}"
                 .clickable=${true}
+                .selected=${true}
+                .isEditing=${true}
                 @change=${(e: CustomEvent) => {
-                  this.cardOne = e.detail.value;
+                  this.cardVertical = e.detail.value;
                 }}
               >
                 <CardHeader>
-                  <CardTitle>Acoustic Studio Bundle</CardTitle>
-                  <CardDescription>Starter kit with interface + monitors</CardDescription>
+                  <CardTitle>Studio Headphones</CardTitle>
+                  <CardDescription>Noise cancelling · 30h battery</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div class="flex items-center gap-4">
-                    <div class="h-16 w-24 rounded-lg bg-slate-100 dark:bg-slate-700"></div>
-                    <div>
-                      <p class="text-sm text-slate-600 dark:text-slate-300">Ships in 2 days · 4.8 ★ rating</p>
-                      <p class="text-xs text-slate-400">Includes cables and quickstart guide</p>
-                    </div>
+                  <div class="h-32 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-xs text-slate-400">
+                    Product image
                   </div>
                 </CardContent>
-                <CardFooter>
-                  <div class="flex items-center justify-between">
-                    <span class="text-sm font-semibold text-slate-900 dark:text-slate-50">$749</span>
-                    <span class="text-xs text-slate-400">Limited stock</span>
-                  </div>
-                </CardFooter>
+                <CardFooter>$299 · Ships tomorrow</CardFooter>
                 <CardAction>
-                  <button class="px-3 py-1.5 text-xs font-semibold rounded-full bg-slate-900 text-white dark:bg-slate-50 dark:text-slate-900">
-                    View details
-                  </button>
+                  <button class="text-xs font-semibold text-sky-600 dark:text-sky-300">View details</button>
                 </CardAction>
-              </groupviewcard--ml-view-card-horizontal>
+              </groupviewcard--ml-vertical-card>
             </div>
           </div>
 
@@ -93,40 +89,35 @@ export class GroupViewCardIndex extends StateLitElement {
             <div class="h-1 bg-emerald-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
-                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Vertical feature card</p>
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Horizontal card</p>
                 <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded"
-                  >groupviewcard--ml-vertical-card</code
+                  >groupviewcard--ml-view-card-horizontal</code
                 >
               </div>
-              <p class="text-xs text-slate-400 mb-5">Great for stacked lists where imagery and content flow top to bottom.</p>
-              <groupviewcard--ml-vertical-card
+              <p class="text-xs text-slate-400 mb-5">Wide layout for list views with quick actions.</p>
+              <groupviewcard--ml-view-card-horizontal
                 name="card-2"
-                .value=${this.cardTwo}
+                value="${this.cardHorizontal}"
+                .clickable=${true}
                 .isEditing=${true}
-                .selected=${true}
                 @change=${(e: CustomEvent) => {
-                  this.cardTwo = e.detail.value;
+                  this.cardHorizontal = e.detail.value;
                 }}
               >
                 <CardHeader>
-                  <CardTitle>Weekly Digest</CardTitle>
-                  <CardDescription>5 key metrics ready for review</CardDescription>
+                  <CardTitle>Design review</CardTitle>
+                  <CardDescription>Scheduled · Tue, 2:00 PM</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div class="rounded-xl bg-slate-100 dark:bg-slate-700 p-4">
-                    <p class="text-xs uppercase text-slate-400">Highlights</p>
-                    <p class="text-sm text-slate-700 dark:text-slate-200">+12% revenue, 8 new accounts, 2 renewals due</p>
+                  <div class="text-sm text-slate-600 dark:text-slate-300">
+                    Agenda: landing page updates, new icon set, and spacing tokens.
                   </div>
                 </CardContent>
-                <CardFooter>
-                  <p class="text-xs text-slate-400">Updated 2 hours ago</p>
-                </CardFooter>
+                <CardFooter>3 attendees · Room 4B</CardFooter>
                 <CardAction>
-                  <button class="px-3 py-1.5 text-xs font-semibold rounded-full border border-slate-200 dark:border-slate-600">
-                    Open report
-                  </button>
+                  <button class="text-xs font-semibold text-emerald-600 dark:text-emerald-300">Join call</button>
                 </CardAction>
-              </groupviewcard--ml-vertical-card>
+              </groupviewcard--ml-view-card-horizontal>
             </div>
           </div>
 
@@ -134,42 +125,71 @@ export class GroupViewCardIndex extends StateLitElement {
             <div class="h-1 bg-amber-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
-                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Media spotlight card</p>
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Media card</p>
                 <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded"
                   >groupviewcard--ml-view-card-media</code
                 >
               </div>
-              <p class="text-xs text-slate-400 mb-5">Use when a hero image or video needs to lead the story.</p>
+              <p class="text-xs text-slate-400 mb-5">Image-forward card for galleries and promos.</p>
               <groupviewcard--ml-view-card-media
                 name="card-3"
-                .value=${this.cardThree}
-                .isEditing=${true}
-                .clickable=${true}
+                value="${this.cardMedia}"
                 .loading=${false}
+                .isEditing=${true}
                 @change=${(e: CustomEvent) => {
-                  this.cardThree = e.detail.value;
+                  this.cardMedia = e.detail.value;
                 }}
               >
                 <CardHeader>
-                  <CardTitle>Autumn trail guide</CardTitle>
-                  <CardDescription>Explore 12 curated hikes with map previews</CardDescription>
+                  <CardTitle>Alpine escape</CardTitle>
+                  <CardDescription>Travel story · 6 min read</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div class="h-32 rounded-xl bg-gradient-to-r from-amber-100 via-orange-100 to-rose-100 dark:from-amber-900/40 dark:via-orange-900/40 dark:to-rose-900/40"></div>
-                  <p class="text-sm text-slate-600 dark:text-slate-300 mt-3">Downloadable GPX files and weather tips included.</p>
-                </CardContent>
-                <CardFooter>
-                  <div class="flex items-center justify-between">
-                    <span class="text-xs text-slate-400">Updated yesterday</span>
-                    <span class="text-xs font-semibold text-amber-600 dark:text-amber-400">Premium</span>
+                  <div class="h-36 rounded-xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-xs text-slate-400">
+                    Cover image
                   </div>
-                </CardFooter>
+                </CardContent>
+                <CardFooter>Updated 2 hours ago</CardFooter>
                 <CardAction>
-                  <button class="px-3 py-1.5 text-xs font-semibold rounded-full bg-amber-500 text-white">
-                    Start planning
-                  </button>
+                  <button class="text-xs font-semibold text-amber-600 dark:text-amber-300">Read now</button>
                 </CardAction>
               </groupviewcard--ml-view-card-media>
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="h-1 bg-rose-500 rounded-t-2xl"></div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Profile card</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded"
+                  >groupviewcard--ml-profile-card</code
+                >
+              </div>
+              <p class="text-xs text-slate-400 mb-5">People-focused layout with status and actions.</p>
+              <groupviewcard--ml-profile-card
+                name="card-4"
+                value="${this.cardProfile}"
+                .disabled=${false}
+                .isEditing=${true}
+                @change=${(e: CustomEvent) => {
+                  this.cardProfile = e.detail.value;
+                }}
+              >
+                <CardHeader>
+                  <CardTitle>Maya Lopez</CardTitle>
+                  <CardDescription>Customer success · Online</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div class="text-sm text-slate-600 dark:text-slate-300">
+                    Handling 12 active accounts and onboarding 3 new teams.
+                  </div>
+                </CardContent>
+                <CardFooter>Last active 5 min ago</CardFooter>
+                <CardAction>
+                  <button class="text-xs font-semibold text-rose-600 dark:text-rose-300">Message</button>
+                </CardAction>
+              </groupviewcard--ml-profile-card>
             </div>
           </div>
         </div>
@@ -180,56 +200,73 @@ export class GroupViewCardIndex extends StateLitElement {
   // ===========================================================================
   // REFERENCE TABLE
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{ scenario: string; viewCardHorizontal: boolean; verticalCard: boolean; viewCardMedia: boolean }> = [
+    const rows: Array<{
+      scenario: string;
+      mlVerticalCard: boolean;
+      mlViewCardHorizontal: boolean;
+      mlViewCardMedia: boolean;
+      mlProfileCard: boolean;
+    }> = [
       {
-        scenario: 'Need a landscape layout that keeps details and metadata aligned in one row.',
-        viewCardHorizontal: true,
-        verticalCard: false,
-        viewCardMedia: false,
+        scenario: 'Grid-based product or content tiles with prominent imagery.',
+        mlVerticalCard: true,
+        mlViewCardHorizontal: false,
+        mlViewCardMedia: true,
+        mlProfileCard: false,
       },
       {
-        scenario: 'Stacked layout for lists or dashboards where content flows top to bottom.',
-        viewCardHorizontal: false,
-        verticalCard: true,
-        viewCardMedia: false,
+        scenario: 'Dense list views that need metadata plus a primary action.',
+        mlVerticalCard: false,
+        mlViewCardHorizontal: true,
+        mlViewCardMedia: false,
+        mlProfileCard: false,
       },
       {
-        scenario: 'Media-first presentation where the image or preview is the main emphasis.',
-        viewCardHorizontal: false,
-        verticalCard: false,
-        viewCardMedia: true,
+        scenario: 'Profile or people cards with status, role, and quick actions.',
+        mlVerticalCard: false,
+        mlViewCardHorizontal: false,
+        mlViewCardMedia: false,
+        mlProfileCard: true,
       },
       {
-        scenario: 'Clickable overview card with balanced content and a secondary action area.',
-        viewCardHorizontal: true,
-        verticalCard: true,
-        viewCardMedia: false,
+        scenario: 'Editorial or marketing highlights anchored by a hero visual.',
+        mlVerticalCard: false,
+        mlViewCardHorizontal: false,
+        mlViewCardMedia: true,
+        mlProfileCard: false,
       },
     ];
     const headers = [
-      { label: 'Horizontal card', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'Vertical card', cls: 'text-emerald-600 dark:text-emerald-400' },
+      { label: 'Vertical card', cls: 'text-violet-600 dark:text-violet-400' },
+      { label: 'Horizontal card', cls: 'text-emerald-600 dark:text-emerald-400' },
       { label: 'Media card', cls: 'text-amber-600 dark:text-amber-400' },
+      { label: 'Profile card', cls: 'text-rose-600 dark:text-rose-400' },
     ];
 
     return html`
-      <section class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700">
+      <section
+        class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700"
+      >
         <div class="max-w-5xl mx-auto">
           <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
           <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Displays an item as an independent visual unit — use this table to match card orientation and media emphasis to
-            the content you are presenting.
+            Use the comparison below to map the right card layout to your content, imagery, and
+            interaction needs.
           </p>
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
             <table class="w-full text-sm">
               <thead>
                 <tr class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
-                  <th class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4">
+                  <th
+                    class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4"
+                  >
                     Scenario
                   </th>
                   ${headers.map(
                     (h) => html`
-                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">${h.label}</th>
+                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">
+                        ${h.label}
+                      </th>
                     `
                   )}
                 </tr>
@@ -238,12 +275,15 @@ export class GroupViewCardIndex extends StateLitElement {
                 ${rows.map(
                   (row, i) => html`
                     <tr
-                      class="${
-                        i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''
-                      } border-b border-slate-100 dark:border-slate-700/60 last:border-0"
+                      class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0"
                     >
                       <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-                      ${([row.viewCardHorizontal, row.verticalCard, row.viewCardMedia] as boolean[]).map(
+                      ${([
+                        row.mlVerticalCard,
+                        row.mlViewCardHorizontal,
+                        row.mlViewCardMedia,
+                        row.mlProfileCard,
+                      ] as boolean[]).map(
                         (ok) => html`
                           <td class="px-4 py-3.5 text-center">
                             ${ok

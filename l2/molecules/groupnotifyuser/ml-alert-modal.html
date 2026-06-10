@@ -1,0 +1,282 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Alert Modal</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">group notify user</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"type":"info","visible":true,"dismissible":true,"duration":0,"position":""},"successAction":{"type":"success","visible":true,"dismissible":true,"duration":5000,"position":"top-right"},"warningTop":{"type":"warning","visible":true,"dismissible":true,"duration":0,"position":"top"},"errorLocked":{"type":"error","visible":true,"dismissible":true,"duration":0,"position":""},"bottomLeft":{"type":"success","visible":true,"dismissible":true,"duration":8000,"position":"bottom-left"},"inlineMinimal":{"type":"warning","visible":true,"dismissible":true,"duration":0,"position":""}}}'></widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic info</h3>
+        <demo id="demo-basic">
+          <groupnotifyuser--ml-alert-modal
+            type="{{playground.basic.type}}"
+            visible="{{playground.basic.visible}}"
+            dismissible="{{playground.basic.dismissible}}"
+            duration="{{playground.basic.duration}}"
+            position="{{playground.basic.position}}">
+            <Title>Welcome back</Title>
+            <Message>Your session is active and ready.</Message>
+          </groupnotifyuser--ml-alert-modal>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="type" value="{{playground.basic.type}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="visible" value="{{playground.basic.visible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="dismissible" value="{{playground.basic.dismissible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="duration" value="{{playground.basic.duration}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="position" value="{{playground.basic.position}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+<groupnotifyuser--ml-alert-modal
+  type="{{playground.basic.type}}"
+  visible="{{playground.basic.visible}}"
+  dismissible="{{playground.basic.dismissible}}"
+  duration="{{playground.basic.duration}}"
+  position="{{playground.basic.position}}">
+  <Title>Welcome back</Title>
+  <Message>Your session is active and ready.</Message>
+</groupnotifyuser--ml-alert-modal>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Success with action</h3>
+        <demo id="demo-success-action">
+          <groupnotifyuser--ml-alert-modal
+            type="{{playground.successAction.type}}"
+            visible="{{playground.successAction.visible}}"
+            dismissible="{{playground.successAction.dismissible}}"
+            duration="{{playground.successAction.duration}}"
+            position="{{playground.successAction.position}}">
+            <Title>Backup completed</Title>
+            <Message>Your files were saved successfully.</Message>
+            <Action>
+              <button class="px-3 py-2 rounded-md bg-emerald-600 text-white text-sm">View report</button>
+            </Action>
+          </groupnotifyuser--ml-alert-modal>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="type" value="{{playground.successAction.type}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="visible" value="{{playground.successAction.visible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="dismissible" value="{{playground.successAction.dismissible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="duration" value="{{playground.successAction.duration}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="position" value="{{playground.successAction.position}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-success-action">
+              <template>
+<groupnotifyuser--ml-alert-modal
+  type="{{playground.successAction.type}}"
+  visible="{{playground.successAction.visible}}"
+  dismissible="{{playground.successAction.dismissible}}"
+  duration="{{playground.successAction.duration}}"
+  position="{{playground.successAction.position}}">
+  <Title>Backup completed</Title>
+  <Message>Your files were saved successfully.</Message>
+  <Action>
+    <button class="px-3 py-2 rounded-md bg-emerald-600 text-white text-sm">View report</button>
+  </Action>
+</groupnotifyuser--ml-alert-modal>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Warning top banner</h3>
+        <demo id="demo-warning-top">
+          <groupnotifyuser--ml-alert-modal
+            type="{{playground.warningTop.type}}"
+            visible="{{playground.warningTop.visible}}"
+            dismissible="{{playground.warningTop.dismissible}}"
+            duration="{{playground.warningTop.duration}}"
+            position="{{playground.warningTop.position}}">
+            <Icon>⚠️</Icon>
+            <Title>Maintenance window</Title>
+            <Message>Services will be read-only from 2–3 AM.</Message>
+          </groupnotifyuser--ml-alert-modal>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="type" value="{{playground.warningTop.type}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="visible" value="{{playground.warningTop.visible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="dismissible" value="{{playground.warningTop.dismissible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="duration" value="{{playground.warningTop.duration}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="position" value="{{playground.warningTop.position}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-warning-top">
+              <template>
+<groupnotifyuser--ml-alert-modal
+  type="{{playground.warningTop.type}}"
+  visible="{{playground.warningTop.visible}}"
+  dismissible="{{playground.warningTop.dismissible}}"
+  duration="{{playground.warningTop.duration}}"
+  position="{{playground.warningTop.position}}">
+  <Icon>⚠️</Icon>
+  <Title>Maintenance window</Title>
+  <Message>Services will be read-only from 2–3 AM.</Message>
+</groupnotifyuser--ml-alert-modal>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error locked</h3>
+        <demo id="demo-error-locked">
+          <groupnotifyuser--ml-alert-modal
+            type="{{playground.errorLocked.type}}"
+            visible="{{playground.errorLocked.visible}}"
+            dismissible="{{playground.errorLocked.dismissible}}"
+            duration="{{playground.errorLocked.duration}}"
+            position="{{playground.errorLocked.position}}">
+            <Title>Payment failed</Title>
+            <Message>Please update your billing details to continue.</Message>
+          </groupnotifyuser--ml-alert-modal>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="type" value="{{playground.errorLocked.type}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="visible" value="{{playground.errorLocked.visible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="dismissible" value="{{playground.errorLocked.dismissible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="duration" value="{{playground.errorLocked.duration}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="position" value="{{playground.errorLocked.position}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error-locked">
+              <template>
+<groupnotifyuser--ml-alert-modal
+  type="{{playground.errorLocked.type}}"
+  visible="{{playground.errorLocked.visible}}"
+  dismissible="{{playground.errorLocked.dismissible}}"
+  duration="{{playground.errorLocked.duration}}"
+  position="{{playground.errorLocked.position}}">
+  <Title>Payment failed</Title>
+  <Message>Please update your billing details to continue.</Message>
+</groupnotifyuser--ml-alert-modal>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Bottom-left with custom icon</h3>
+        <demo id="demo-bottom-left">
+          <groupnotifyuser--ml-alert-modal
+            type="{{playground.bottomLeft.type}}"
+            visible="{{playground.bottomLeft.visible}}"
+            dismissible="{{playground.bottomLeft.dismissible}}"
+            duration="{{playground.bottomLeft.duration}}"
+            position="{{playground.bottomLeft.position}}">
+            <Icon>✅</Icon>
+            <Title>Invite accepted</Title>
+            <Message>Alex joined the workspace.</Message>
+            <Action>
+              <button class="px-3 py-2 rounded-md bg-slate-800 text-white text-sm">View member</button>
+            </Action>
+          </groupnotifyuser--ml-alert-modal>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="type" value="{{playground.bottomLeft.type}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="visible" value="{{playground.bottomLeft.visible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="dismissible" value="{{playground.bottomLeft.dismissible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="duration" value="{{playground.bottomLeft.duration}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="position" value="{{playground.bottomLeft.position}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-bottom-left">
+              <template>
+<groupnotifyuser--ml-alert-modal
+  type="{{playground.bottomLeft.type}}"
+  visible="{{playground.bottomLeft.visible}}"
+  dismissible="{{playground.bottomLeft.dismissible}}"
+  duration="{{playground.bottomLeft.duration}}"
+  position="{{playground.bottomLeft.position}}">
+  <Icon>✅</Icon>
+  <Title>Invite accepted</Title>
+  <Message>Alex joined the workspace.</Message>
+  <Action>
+    <button class="px-3 py-2 rounded-md bg-slate-800 text-white text-sm">View member</button>
+  </Action>
+</groupnotifyuser--ml-alert-modal>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Inline minimal</h3>
+        <demo id="demo-inline-minimal">
+          <groupnotifyuser--ml-alert-modal
+            type="{{playground.inlineMinimal.type}}"
+            visible="{{playground.inlineMinimal.visible}}"
+            dismissible="{{playground.inlineMinimal.dismissible}}"
+            duration="{{playground.inlineMinimal.duration}}"
+            position="{{playground.inlineMinimal.position}}">
+            <Message>We are saving your changes.</Message>
+          </groupnotifyuser--ml-alert-modal>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-text-102020 label="type" value="{{playground.inlineMinimal.type}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="visible" value="{{playground.inlineMinimal.visible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="dismissible" value="{{playground.inlineMinimal.dismissible}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-number-102020 label="duration" value="{{playground.inlineMinimal.duration}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="position" value="{{playground.inlineMinimal.position}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-inline-minimal">
+              <template>
+<groupnotifyuser--ml-alert-modal
+  type="{{playground.inlineMinimal.type}}"
+  visible="{{playground.inlineMinimal.visible}}"
+  dismissible="{{playground.inlineMinimal.dismissible}}"
+  duration="{{playground.inlineMinimal.duration}}"
+  position="{{playground.inlineMinimal.position}}">
+  <Message>We are saving your changes.</Message>
+</groupnotifyuser--ml-alert-modal>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>
