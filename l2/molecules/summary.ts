@@ -22,56 +22,56 @@ export class MoleculesSummary extends CollabLitElement {
         </div>
         <div class="w-px bg-slate-200 dark:bg-slate-700"></div>
         <div class="text-center">
-          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">91</div>
+          <div class="text-3xl font-bold text-slate-800 dark:text-slate-100">141</div>
           <div class="text-sm text-slate-500 dark:text-slate-400 mt-1">components</div>
         </div>
       </div>
     </header>
 
-    ${this.renderSection('Enter', '11 groups · 25 components', [
-      { name: 'Enter Boolean', count: 2, color: 'sky', components: ['ml-checkbox-preference', 'ml-toggle-switch'] },
-      { name: 'Enter Date', count: 2, color: 'sky', components: ['ml-compact-calendar', 'ml-date-picker'] },
-      { name: 'Enter Date Interval', count: 2, color: 'sky', components: ['ml-date-interval-drag', 'ml-date-range-dual-calendar'] },
+    ${this.renderSection('Enter', '11 groups · 42 components', [
+      { name: 'Enter Boolean', count: 4, color: 'sky', components: ['ml-boolean-segmented', 'ml-checkbox-preference', 'ml-toggle-icon', 'ml-toggle-switch'] },
+      { name: 'Enter Date', count: 4, color: 'sky', components: ['ml-compact-calendar', 'ml-date-picker', 'ml-date-shortcut-picker', 'ml-inline-calendar'] },
+      { name: 'Enter Date Interval', count: 4, color: 'sky', components: ['ml-date-interval-drag', 'ml-date-interval-presets', 'ml-date-range-dual-calendar', 'ml-month-year-range'] },
       { name: 'Enter Date Time', count: 2, color: 'sky', components: ['ml-datetime-picker', 'ml-enter-datetime-masked-input'] },
-      { name: 'Enter Date Time Interval', count: 2, color: 'sky', components: ['ml-datetime-interval-timeline', 'ml-enter-datetime-interval'] },
-      { name: 'Enter Money', count: 3, color: 'sky', components: ['ml-enter-money-br', 'ml-enter-money-display', 'ml-enter-money-minimal'] },
-      { name: 'Enter Number', count: 2, color: 'sky', components: ['ml-number-input', 'ml-number-stepper'] },
-      { name: 'Enter Text', count: 3, color: 'sky', components: ['ml-cpf-input', 'ml-floating-text-input', 'ml-multiline-text'] },
-      { name: 'Enter Time', count: 2, color: 'sky', components: ['ml-clock-time-picker', 'ml-time-scroll-picker'] },
-      { name: 'Enter Time Interval', count: 2, color: 'sky', components: ['ml-time-interval-selector', 'ml-time-interval-slider'] },
-      { name: 'Locate Position', count: 3, color: 'sky', components: ['ml-address-autocomplete', 'ml-geolocation-trigger', 'ml-locate-map-picker'] },
+      { name: 'Enter Date Time Interval', count: 3, color: 'sky', components: ['ml-datetime-interval-timeline', 'ml-enter-datetime-interval', 'ml-event-duration-interval'] },
+      { name: 'Enter Money', count: 2, color: 'sky', components: ['ml-currency-input', 'ml-enter-money-br'] },
+      { name: 'Enter Number', count: 3, color: 'sky', components: ['ml-number-input', 'ml-number-stepper', 'ml-range-slider'] },
+      { name: 'Enter Text', count: 7, color: 'sky', components: ['ml-address-field', 'ml-cpf-input', 'ml-floating-text-input', 'ml-multiline-text', 'ml-password-strength-input', 'ml-phone-input', 'ml-tag-input'] },
+      { name: 'Enter Time', count: 3, color: 'sky', components: ['ml-clock-time-picker', 'ml-enter-time-duration', 'ml-time-scroll-picker'] },
+      { name: 'Enter Time Interval', count: 6, color: 'sky', components: ['ml-enter-time-interval', 'ml-time-interval', 'ml-time-interval-range', 'ml-time-interval-selector', 'ml-time-interval-slider', 'ml-work-shift-interval'] },
+      { name: 'Locate Position', count: 4, color: 'sky', components: ['ml-address-autocomplete', 'ml-geolocation-trigger', 'ml-locate-map-picker', 'ml-locate-nearby'] },
     ])}
 
-    ${this.renderSection('Select', '3 groups · 18 components', [
+    ${this.renderSection('Select', '3 groups · 21 components', [
       { name: 'Select One', count: 11, color: 'violet', components: ['ml-card-selector', 'ml-combobox', 'ml-dial-select', 'ml-discrete-slider', 'ml-listbox-sidebar-select', 'ml-radio-group', 'ml-segmented-control', 'ml-select-dropdown-img', 'ml-select-dropdown', 'ml-select-one-autocomplete', 'ml-select'] },
-      { name: 'Select Many', count: 4, color: 'violet', components: ['ml-dual-list-select', 'ml-multi-checkbox-list', 'ml-multi-select-dropdown', 'ml-popover-multi-select'] },
-      { name: 'Select File For Upload', count: 3, color: 'violet', components: ['ml-file-upload-dropzone', 'ml-file-upload-preview', 'ml-user-photo-upload'] },
+      { name: 'Select Many', count: 5, color: 'violet', components: ['ml-dual-list-select', 'ml-multi-checkbox-list', 'ml-multi-select-dropdown', 'ml-popover-multi-select', 'ml-tree-multi-select'] },
+      { name: 'Select File For Upload', count: 5, color: 'violet', components: ['ml-file-metadata-uploader', 'ml-file-upload-dropzone', 'ml-file-upload-preview', 'ml-upload-file-list', 'ml-user-photo-upload'] },
     ])}
 
-    ${this.renderSection('View', '6 groups · 18 components', [
-      { name: 'View Card', count: 3, color: 'emerald', components: ['ml-vertical-card', 'ml-view-card-horizontal', 'ml-view-card-media'] },
-      { name: 'View Chart', count: 4, color: 'emerald', components: ['ml-area-chart', 'ml-bar-chart', 'ml-line-chart', 'ml-pie-chart'] },
-      { name: 'View Data', count: 3, color: 'emerald', components: ['ml-card-grid', 'ml-timeline-view', 'ml-vertical-record-list'] },
-      { name: 'View Hierarchy', count: 3, color: 'emerald', components: ['ml-hierarchy-orgchart', 'ml-hierarchy-tree-diagram', 'ml-hierarchy-tree'] },
-      { name: 'View Metric', count: 2, color: 'emerald', components: ['ml-metric-big-number', 'ml-metric-gauge'] },
-      { name: 'View Table', count: 3, color: 'emerald', components: ['ml-data-table-minimal', 'ml-data-table', 'ml-view-table'] },
+    ${this.renderSection('View', '6 groups · 29 components', [
+      { name: 'View Card', count: 4, color: 'emerald', components: ['ml-profile-card', 'ml-vertical-card', 'ml-view-card-horizontal', 'ml-view-card-media'] },
+      { name: 'View Chart', count: 6, color: 'emerald', components: ['ml-area-chart', 'ml-bar-chart', 'ml-line-chart', 'ml-pie-chart', 'ml-radar-chart', 'ml-scatter-plot'] },
+      { name: 'View Data', count: 5, color: 'emerald', components: ['ml-calendar-view', 'ml-card-grid', 'ml-kanban-board', 'ml-timeline-view', 'ml-vertical-record-list'] },
+      { name: 'View Hierarchy', count: 4, color: 'emerald', components: ['ml-hierarchy-orgchart', 'ml-hierarchy-tree-diagram', 'ml-hierarchy-tree', 'ml-view-hierarchy-mindmap'] },
+      { name: 'View Metric', count: 5, color: 'emerald', components: ['ml-compact-metric-sparkline', 'ml-metric-big-number', 'ml-metric-card', 'ml-metric-gauge', 'ml-metric-trend-compare'] },
+      { name: 'View Table', count: 5, color: 'emerald', components: ['ml-data-table-minimal', 'ml-data-table', 'ml-inline-edit-table', 'ml-pivot-table', 'ml-view-table'] },
     ])}
 
-    ${this.renderSection('Navigate', '3 groups · 6 components', [
+    ${this.renderSection('Navigate', '3 groups · 10 components', [
       { name: 'Navigate Main', count: 1, color: 'amber', components: ['ml-sidebar-nav'] },
-      { name: 'Navigate Section', count: 3, color: 'amber', components: ['ml-breadcrumb-trail', 'ml-navigate-pills', 'ml-tabs'] },
-      { name: 'Navigate Steps', count: 2, color: 'amber', components: ['ml-horizontal-stepper', 'ml-vertical-stepper'] },
+      { name: 'Navigate Section', count: 5, color: 'amber', components: ['ml-breadcrumb-trail', 'ml-navigate-pills', 'ml-navigate-tabs', 'ml-side-nav-scrollspy', 'ml-tabs'] },
+      { name: 'Navigate Steps', count: 4, color: 'amber', components: ['ml-compact-step-indicator', 'ml-horizontal-stepper', 'ml-vertical-stepper', 'ml-wizard-steps'] },
     ])}
 
-    ${this.renderSection('Other', '8 groups · 24 components', [
-      { name: 'Expand Content', count: 3, color: 'rose', components: ['ml-accordion', 'ml-readmore-expand', 'ml-single-expand-content'] },
-      { name: 'Notify User', count: 2, color: 'rose', components: ['ml-notify-banner', 'ml-toast-notification'] },
-      { name: 'Play Media', count: 2, color: 'rose', components: ['ml-audio-player', 'ml-video-player'] },
-      { name: 'Rate Item', count: 6, color: 'rose', components: ['ml-emoji-mood-scale', 'ml-numeric-rating-nps', 'ml-qualitative-feedback-tags', 'ml-rating-slider', 'ml-star-rating', 'ml-thumbs-rating'] },
-      { name: 'Scan Code', count: 2, color: 'rose', components: ['ml-scan-code', 'ml-scan-code-1d'] },
-      { name: 'Search Content', count: 2, color: 'rose', components: ['ml-search-bar', 'ml-search-history'] },
-      { name: 'Show Progress', count: 3, color: 'rose', components: ['ml-circular-progress', 'ml-indeterminate-spinner', 'ml-linear-progress'] },
-      { name: 'Trigger Action', count: 4, color: 'rose', components: ['ml-button-group', 'ml-button-standard', 'ml-icon-button', 'ml-split-button'] },
+    ${this.renderSection('Other', '8 groups · 39 components', [
+      { name: 'Expand Content', count: 5, color: 'rose', components: ['ml-accordion', 'ml-collapsible-panel', 'ml-readmore-expand', 'ml-reveal-overlay', 'ml-single-expand-content'] },
+      { name: 'Notify User', count: 4, color: 'rose', components: ['ml-alert-modal', 'ml-contextual-feedback', 'ml-notify-banner', 'ml-toast-notification'] },
+      { name: 'Play Media', count: 4, color: 'rose', components: ['ml-audio-player', 'ml-image-gallery', 'ml-pdf-viewer', 'ml-video-player'] },
+      { name: 'Rate Item', count: 8, color: 'rose', components: ['ml-ces-scale', 'ml-csat-rating', 'ml-emoji-mood-scale', 'ml-numeric-rating-nps', 'ml-qualitative-feedback-tags', 'ml-rating-slider', 'ml-star-rating', 'ml-thumbs-rating'] },
+      { name: 'Scan Code', count: 4, color: 'rose', components: ['ml-scan-code', 'ml-scan-code-1d', 'ml-scan-document', 'ml-scan-ocr'] },
+      { name: 'Search Content', count: 4, color: 'rose', components: ['ml-faceted-search', 'ml-search-bar', 'ml-search-filters', 'ml-search-history'] },
+      { name: 'Show Progress', count: 5, color: 'rose', components: ['ml-circular-progress', 'ml-indeterminate-spinner', 'ml-linear-progress', 'ml-segmented-progress', 'ml-upload-progress-indicator'] },
+      { name: 'Trigger Action', count: 5, color: 'rose', components: ['ml-button-group', 'ml-button-standard', 'ml-icon-button', 'ml-kebab-action-trigger', 'ml-split-button'] },
     ])}
 
   </div>
