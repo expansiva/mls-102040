@@ -210,7 +210,7 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
   // ===========================================================================
   private getContainerClasses(): string {
     return [
-      'inline-flex rounded-lg p-1 gap-1',
+      'flex w-full rounded-lg p-1 gap-1',
       'bg-slate-100 dark:bg-slate-800',
       this.error ? 'ring-2 ring-red-500 dark:ring-red-400' : '',
       this.disabled ? 'opacity-50 cursor-not-allowed' : '',
@@ -241,7 +241,7 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
   }
 
   private getLabelClasses(): string {
-    return 'block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5';
+    return 'block text-xs text-slate-600 dark:text-slate-400';
   }
 
   private getHelperClasses(): string {
@@ -291,8 +291,10 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
     const hasError = !!this.error;
 
     return html`
-      <div class="inline-flex flex-col">
-        ${this.renderLabel(labelId)}
+      <div class="flex flex-col w-full">
+        <div class="min-h-[1rem]">
+          ${this.renderLabel(labelId)}
+        </div>
         ${this.loading ? this.renderLoading() : this.renderSegments(labelId, errorId, hasError)}
         ${this.renderFeedback(errorId, hasError)}
       </div>
