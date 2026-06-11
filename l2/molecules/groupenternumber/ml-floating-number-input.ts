@@ -2,31 +2,33 @@
 // =============================================================================
 // GROUP ENTER NUMBER – FLOATING NUMBER INPUT MOLECULE
 // =============================================================================
-// Skill Group: groupEnterNumber (data entry)
+// Skill Group: groupEnterNumber
 // This molecule does NOT contain business logic.
 
-import { html, nothing, TemplateResult } from 'lit';
+import { html, TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { customElement, property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 
 /// **collab_i18n_start**
 const message_en = {
-  placeholder: 'Enter a number',
   loading: 'Loading...',
-  noResults: 'No results',
+  empty: '—',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
   en: message_en,
-  // additional locales can be added here
 };
 /// **collab_i18n_end**
+
+let idCounter = 0;
 
 @customElement('groupenternumber--ml-floating-number-input')
 export class MlFloatingNumberInputMolecule extends MoleculeAuraElement {
   private msg: MessageType = messages.en;
+  private uid = `ml-fni-${++idCounter}`;
 
   // ===========================================================================
   // SLOT TAGS
@@ -88,284 +90,275 @@ export class MlFloatingNumberInputMolecule extends MoleculeAuraElement {
   private isFocused = false;
 
   // ===========================================================================
-  // LIFECYCLE & STATE CHANGE HANDLER
+  // LIFECYCLE
   // ===========================================================================
-  firstUpdated() {
-    this.updateRawFromValue();
+  updated(changedProps: Map<string, unknown>) {
+    if (changedProps.has('value')) {
+      if (this.value === null || this.value === undefined) {
+        this.rawValue = '';
+      } else {
+        const parsedRaw = this.parseRawValue(this.rawValue);
+        if (parsedRaw !== this.value) {
+          this.rawValue = this.formatToDisplay(this.value);
+        }
+      }
+    }
   }
 
-  /**
-   * Called when a bound ICA state changes. Re‑calculate derived values.
-   */
-  handleIcaStateChange(key: string, value: any) {
+  // ===========================================================================
+  // STATE CHANGE HANDLER
+  // ===========================================================================
+  handleIcaStateChange(key: string, _value: any) {
     const valueAttr = this.getAttribute('value');
+    const localeAttr = this.getAttribute('locale');
+    const decimalsAttr = this.getAttribute('decimals');
+
     if (valueAttr === `{{${key}}}`) {
-      this.value = value as number | null;
-      this.updateRawFromValue();
+      this.rawValue = this.value === null || this.value === undefined
+        ? ''
+        : this.formatToDisplay(this.value);
     }
-    // other bound properties (min, max, etc.) are automatically reflected by Lit
+    if (localeAttr === `{{${key}}}` || decimalsAttr === `{{${key}}}`) {
+      this.rawValue = this.value === null || this.value === undefined
+        ? ''
+        : this.formatToDisplay(this.value);
+    }
     this.requestUpdate();
-  }
-
-  // ===========================================================================
-  // HELPERS – Formatting & Parsing
-  // ===========================================================================
-  private formatToDisplay(num: number | null): string {
-    if (num === null || num === undefined) return '';
-    const opts: Intl.NumberFormatOptions = {
-      minimumFractionDigits: this.decimals,
-      maximumFractionDigits: this.decimals,
-    };
-    try {
-      return new Intl.NumberFormat(this.locale || undefined, opts).format(num);
-    } catch {
-      // Fallback to default formatting if locale is invalid
-      return num.toFixed(this.decimals);
-    }
-  }
-
-  private parseRaw(raw: string): number | null {
-    if (!raw) return null;
-    // Remove grouping separators based on locale (fallback to generic replace)
-    const normalized = raw
-      .replace(/\s/g, '')
-      .replace(/[^0-9\-.,]/g, '')
-      .replace(/\./g, '')
-      .replace(/,/, '.');
-    const num = Number(normalized);
-    return isNaN(num) ? null : num;
-  }
-
-  private roundToDecimals(num: number): number {
-    const factor = Math.pow(10, this.decimals);
-    return Math.round(num * factor) / factor;
-  }
-
-  private clampValue(num: number | null): number | null {
-    if (num === null) return null;
-    let clamped = num;
-    if (this.min !== null && clamped < this.min) clamped = this.min;
-    if (this.max !== null && clamped > this.max) clamped = this.max;
-    return this.roundToDecimals(clamped);
-  }
-
-  private updateRawFromValue() {
-    this.rawValue = this.value !== null ? this.formatToDisplay(this.value) : '';
   }
 
   // ===========================================================================
   // EVENT HANDLERS
   // ===========================================================================
   private handleInput(e: Event) {
+    if (this.disabled || this.readonly || this.loading) return;
     const input = e.target as HTMLInputElement;
     this.rawValue = input.value;
-    const parsed = this.parseRaw(input.value);
+    const parsed = this.parseRawValue(this.rawValue);
     this.value = parsed;
-    this.dispatchEvent(
-      new CustomEvent('input', {
-        bubbles: true,
-        composed: true,
-        detail: { value: this.value },
-      })
-    );
+    this.dispatchEvent(new CustomEvent('input', {
+      bubbles: true,
+      composed: true,
+      detail: { value: this.value },
+    }));
   }
 
   private handleBlur() {
-    // Apply clamping / rounding on blur
-    const clamped = this.clampValue(this.value);
-    if (clamped !== this.value) {
-      this.value = clamped;
-    }
-    this.updateRawFromValue();
     this.isFocused = false;
-    this.dispatchEvent(
-      new CustomEvent('blur', { bubbles: true, composed: true })
-    );
-    this.dispatchEvent(
-      new CustomEvent('change', {
+    this.dispatchEvent(new CustomEvent('blur', { bubbles: true, composed: true }));
+    if (this.disabled || this.readonly || this.loading) return;
+
+    const parsed = this.parseRawValue(this.rawValue);
+    if (parsed === null) {
+      this.value = null;
+      this.rawValue = '';
+      this.dispatchEvent(new CustomEvent('change', {
         bubbles: true,
         composed: true,
-        detail: { value: this.value },
-      })
-    );
+        detail: { value: null },
+      }));
+      return;
+    }
+
+    let next = this.roundToDecimals(parsed);
+    if (this.min !== null && next < this.min) next = this.min;
+    if (this.max !== null && next > this.max) next = this.max;
+
+    this.value = next;
+    this.rawValue = this.formatToDisplay(next);
+    this.dispatchEvent(new CustomEvent('change', {
+      bubbles: true,
+      composed: true,
+      detail: { value: this.value },
+    }));
   }
 
   private handleFocus() {
     this.isFocused = true;
-    this.dispatchEvent(
-      new CustomEvent('focus', { bubbles: true, composed: true })
-    );
-  }
-
-  private increment() {
-    if (this.disabled || this.readonly) return;
-    const current = this.value ?? 0;
-    const next = current + this.step;
-    if (this.max !== null && next > this.max) return;
-    this.value = this.roundToDecimals(next);
-    this.updateRawFromValue();
-    this.emitChange();
-  }
-
-  private decrement() {
-    if (this.disabled || this.readonly) return;
-    const current = this.value ?? 0;
-    const next = current - this.step;
-    if (this.min !== null && next < this.min) return;
-    this.value = this.roundToDecimals(next);
-    this.updateRawFromValue();
-    this.emitChange();
-  }
-
-  private emitChange() {
-    this.dispatchEvent(
-      new CustomEvent('change', {
-        bubbles: true,
-        composed: true,
-        detail: { value: this.value },
-      })
-    );
+    this.dispatchEvent(new CustomEvent('focus', { bubbles: true, composed: true }));
   }
 
   // ===========================================================================
-  // CSS CLASS BUILDERS (dark‑mode aware)
+  // HELPERS — Formatting & Parsing (same as ml-number-input)
   // ===========================================================================
-  private getInputClasses(): string {
-    const base = [
-      'w-full rounded-md px-3 py-2 text-sm border transition',
+  private getSeparators(): { group: string; decimal: string } {
+    try {
+      const parts = new Intl.NumberFormat(this.locale || undefined).formatToParts(1000.1);
+      const group = parts.find(p => p.type === 'group')?.value || ',';
+      const decimal = parts.find(p => p.type === 'decimal')?.value || '.';
+      return { group, decimal };
+    } catch {
+      return { group: ',', decimal: '.' };
+    }
+  }
+
+  private parseRawValue(raw: string): number | null {
+    const trimmed = raw.trim();
+    if (!trimmed) return null;
+    const { group, decimal } = this.getSeparators();
+    let normalized = trimmed.split(group).join('');
+    if (decimal !== '.') normalized = normalized.split(decimal).join('.');
+    let cleaned = normalized.replace(/[^0-9.-]/g, '');
+    if (!cleaned) return null;
+    if (cleaned.includes('-')) {
+      cleaned = cleaned.replace(/-/g, '');
+      cleaned = `-${cleaned}`;
+      if (cleaned === '-') return null;
+    }
+    const parts = cleaned.split('.');
+    if (parts.length > 2) cleaned = `${parts[0]}.${parts.slice(1).join('')}`;
+    const num = parseFloat(cleaned);
+    return isNaN(num) ? null : num;
+  }
+
+  private roundToDecimals(num: number): number {
+    const factor = Math.pow(10, Math.max(0, this.decimals));
+    return Math.round(num * factor) / factor;
+  }
+
+  private formatToDisplay(num: number): string {
+    try {
+      return num.toLocaleString(this.locale || undefined, {
+        minimumFractionDigits: Math.max(0, this.decimals),
+        maximumFractionDigits: Math.max(0, this.decimals),
+      });
+    } catch {
+      return num.toFixed(Math.max(0, this.decimals));
+    }
+  }
+
+  // ===========================================================================
+  // CSS CLASS BUILDERS
+  // ===========================================================================
+  private getContainerClasses(hasInlineLabel: boolean): string {
+    return [
+      'relative flex w-full items-center gap-2 rounded-md border transition',
       'bg-white dark:bg-slate-900',
+      hasInlineLabel ? 'pt-4 pb-1 px-3' : 'py-2 px-3',
+      this.error ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
+      !this.error ? 'focus-within:border-sky-500 dark:focus-within:border-sky-400 focus-within:ring-2 focus-within:ring-sky-500 dark:focus-within:ring-sky-400' : '',
+      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-text',
+    ].filter(Boolean).join(' ');
+  }
+
+  private getInputClasses(): string {
+    return [
+      'flex-1 bg-transparent outline-none text-sm',
       'text-slate-900 dark:text-slate-100',
       'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      this.error ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-      this.readonly ? 'bg-slate-50 dark:bg-slate-900' : '',
-    ].filter(Boolean);
-    return base.join(' ');
-  }
-
-  private getContainerClasses(): string {
-    const base = [
-      'relative',
-      this.isFocused ? 'ring-2 ring-sky-500 dark:ring-sky-400' : '',
-    ].filter(Boolean);
-    return base.join(' ');
-  }
-
-  private getLabelClasses(): string {
-    const floating = this.isFocused || (this.value !== null && this.value !== undefined && this.value !== 0) || this.rawValue !== '';
-    const base = [
-      'absolute left-3 transition-all text-sm',
-      floating ? 'top-0 text-xs text-slate-600 dark:text-slate-400' : 'top-2.5 text-slate-500 dark:text-slate-400',
-    ].filter(Boolean);
-    return base.join(' ');
+      this.disabled || this.loading ? 'cursor-not-allowed' : '',
+      this.readonly ? 'cursor-default' : '',
+    ].filter(Boolean).join(' ');
   }
 
   // ===========================================================================
   // RENDER HELPERS
   // ===========================================================================
-  private renderLabel(): TemplateResult | typeof nothing {
-    if (!this.hasSlot('Label')) return nothing;
-    const content = this.getSlotContent('Label');
-    return html`<label class="${this.getLabelClasses()}">${unsafeHTML(content)}</label>`;
+  private renderFloatingLabel(labelText: string, labelId: string): TemplateResult {
+    if (!labelText) return html``;
+    return html`<label id="${labelId}" class="mb-1 block text-xs text-slate-600 dark:text-slate-400">${unsafeHTML(labelText)}</label>`;
   }
 
-  private renderHelper(): TemplateResult | typeof nothing {
-    if (this.error) return nothing;
-    if (!this.hasSlot('Helper')) return nothing;
-    const content = this.getSlotContent('Helper');
-    return html`<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(content)}</p>`;
+  private renderInlineLabel(labelText: string, labelId: string): TemplateResult {
+    if (!labelText) return html``;
+    const labelClasses = [
+      this.hasSlot('Prefix') ? 'left-10' : 'left-3',
+      'absolute transition-all pointer-events-none top-1/2 -translate-y-1/2 text-sm text-slate-400 dark:text-slate-500',
+      this.disabled || this.loading ? 'opacity-50' : '',
+    ].filter(Boolean).join(' ');
+    return html`<label id="${labelId}" class="${labelClasses}">${unsafeHTML(labelText)}</label>`;
   }
 
-  private renderError(): TemplateResult | typeof nothing {
-    if (!this.error) return nothing;
-    return html`<p class="mt-1 text-xs text-red-600 dark:text-red-400" role="alert">${unsafeHTML(this.error)}</p>`;
+  private renderPrefix(): TemplateResult {
+    if (!this.hasSlot('Prefix')) return html``;
+    return html`<div class="text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Prefix'))}</div>`;
   }
 
-  private renderPrefix(): TemplateResult | typeof nothing {
-    if (!this.hasSlot('Prefix')) return nothing;
-    const content = this.getSlotContent('Prefix');
-    return html`<span class="mr-2 text-slate-600 dark:text-slate-400">${unsafeHTML(content)}</span>`;
-  }
-
-  private renderSuffix(): TemplateResult | typeof nothing {
-    if (!this.hasSlot('Suffix')) return nothing;
-    const content = this.getSlotContent('Suffix');
-    return html`<span class="ml-2 text-slate-600 dark:text-slate-400">${unsafeHTML(content)}</span>`;
-  }
-
-  private renderInput(): TemplateResult {
-    const ph = this.placeholder || this.getSlotAttr('Label', 'placeholder') || this.msg.placeholder;
+  private renderSuffix(): TemplateResult {
+    if (!this.hasSlot('Suffix') && !this.loading) return html``;
     return html`
-      <div class="flex items-center" @click="${(e: Event) => e.stopPropagation()}">
-        ${this.renderPrefix()}
-        <input
-          type="text"
-          .value="${this.rawValue}"
-          ?disabled="${this.disabled || this.loading}"
-          ?readonly="${this.readonly}"
-          placeholder="${ph}"
-          class="${this.getInputClasses()}"
-          @input="${this.handleInput}"
-          @blur="${this.handleBlur}"
-          @focus="${this.handleFocus}"
-          aria-invalid="${this.error ? 'true' : 'false'}"
-          aria-required="${this.required ? 'true' : 'false'}"
-          name="${this.name}"
-        />
-        ${this.renderSuffix()}
-        <!-- Stepper buttons -->
-        <button
-          type="button"
-          class="ml-2 p-1 text-sm bg-slate-200 dark:bg-slate-700 rounded disabled:opacity-50"
-          ?disabled="${this.disabled || this.readonly || this.loading}"
-          @click="${this.decrement}"
-          aria-label="Decrement"
-        >−</button>
-        <button
-          type="button"
-          class="ml-1 p-1 text-sm bg-slate-200 dark:bg-slate-700 rounded disabled:opacity-50"
-          ?disabled="${this.disabled || this.readonly || this.loading}"
-          @click="${this.increment}"
-          aria-label="Increment"
-        >+</button>
-      </div>
-    `;
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+${this.hasSlot('Suffix') ? unsafeHTML(this.getSlotContent('Suffix')) : html``}
+${this.loading ? html`<span class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600 dark:border-slate-600 dark:border-t-slate-200"></span>` : html``}
+</div>`;
   }
 
-  private renderViewMode(): TemplateResult {
-    const display = this.value !== null ? this.formatToDisplay(this.value) : '—';
-    return html`
-      <div class="flex items-center">
-        ${this.renderPrefix()}
-        <span class="${this.getInputClasses()} bg-transparent border-0 p-0 focus:outline-none">
-          ${unsafeHTML(display)}
-        </span>
-        ${this.renderSuffix()}
-      </div>
-    `;
+  private renderFeedback(labelId: string): TemplateResult {
+    if (!this.isEditing) return html``;
+    if (this.error) {
+      return html`<p id="${labelId}-error" class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>`;
+    }
+    if (this.hasSlot('Helper')) {
+      return html`<p id="${labelId}-helper" class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+    }
+    return html``;
   }
 
   // ===========================================================================
-  // MAIN RENDER
+  // RENDER
   // ===========================================================================
   render() {
     const lang = this.getMessageKey(messages);
     this.msg = messages[lang];
 
-    if (this.loading) {
-      return html`<div class="flex items-center text-slate-500 dark:text-slate-400">
-        <svg class="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"/></svg>
-        ${this.msg.loading}
-      </div>`;
+    const labelText = this.hasSlot('Label') ? this.getSlotContent('Label') : '';
+    const labelId = `${this.uid}-label`;
+
+    // Sync rawValue on first render when value is already set
+    if (!this.rawValue && this.value !== null && this.value !== undefined) {
+      this.rawValue = this.formatToDisplay(this.value);
     }
 
+    if (!this.isEditing) {
+      const displayValue = this.value === null || this.value === undefined
+        ? this.msg.empty
+        : this.formatToDisplay(this.value);
+      return html`
+<div class="w-full">
+${labelText ? html`<div class="mb-1 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(labelText)}</div>` : html``}
+<div class="flex items-center gap-2 text-sm text-slate-900 dark:text-slate-100">
+${this.renderPrefix()}
+<span>${displayValue}</span>
+${this.renderSuffix()}
+</div>
+</div>`;
+    }
+
+    const floating = this.isFocused || this.value !== null;
+    const showFloatingLabel = Boolean(labelText) && floating;
+    const showInlineLabel = Boolean(labelText) && !floating;
+    const describedBy = this.error
+      ? `${labelId}-error`
+      : this.hasSlot('Helper') ? `${labelId}-helper` : undefined;
+
     return html`
-      <div class="${this.getContainerClasses()}">
-        ${this.renderLabel()}
-        ${this.isEditing ? this.renderInput() : this.renderViewMode()}
-        ${this.error ? this.renderError() : this.renderHelper()}
-      </div>
-    `;
+<div class="w-full">
+<div class="min-h-[1rem]">
+${showFloatingLabel ? this.renderFloatingLabel(labelText, labelId) : html``}
+</div>
+<div class="${this.getContainerClasses(showInlineLabel)}">
+${showInlineLabel ? this.renderInlineLabel(labelText, labelId) : html``}
+${this.renderPrefix()}
+<input
+class="${this.getInputClasses()}"
+type="text"
+inputmode="decimal"
+.value="${this.rawValue}"
+placeholder="${showInlineLabel ? '' : (this.placeholder || '')}"
+name="${this.name}"
+?disabled=${this.disabled || this.loading}
+?readonly=${this.readonly}
+?required=${this.required}
+aria-labelledby=${ifDefined(labelText ? labelId : undefined)}
+aria-describedby=${ifDefined(describedBy)}
+aria-invalid=${this.error ? 'true' : 'false'}
+aria-required=${this.required ? 'true' : 'false'}
+@input=${this.handleInput}
+@blur=${this.handleBlur}
+@focus=${this.handleFocus}
+/>
+${this.renderSuffix()}
+</div>
+${this.renderFeedback(labelId)}
+</div>`;
   }
 }
