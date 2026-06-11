@@ -1,0 +1,288 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Floating Number Input</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterNumber</span>
+    </header>
+    <widget-playground-state-102020 state='{"playground":{"basic":{"value":5,"error":"","min":1,"max":99,"step":1,"required":false},"currency":{"value":1999.99,"min":0,"step":0.25,"decimals":2,"locale":"en-US","placeholder":0},"error":{"value":105,"error":"Value must be between 0 and 100","min":0,"max":100,"step":0.5,"decimals":1,"required":true},"readonly":{"value":1234.56,"decimals":2,"locale":"pt-BR","isEditing":false,"name":"invoiceTotal"},"loading":{"loading":true,"disabled":true},"placeholder":{"value":null,"step":0.1,"decimals":2,"locale":"en-GB","placeholder":"e.g. 2.5","readonly":true,"name":"distance"}}}'>
+    </widget-playground-state-102020>
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic quantity</h3>
+        <demo id="demo-basic">
+          <groupenternumber--ml-floating-number-input
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            min="{{playground.basic.min}}"
+            max="{{playground.basic.max}}"
+            step="{{playground.basic.step}}"
+            required="{{playground.basic.required}}"
+            name="quantity">
+            <Label>Quantity</Label>
+            <Helper>Choose a number between 1 and 99.</Helper>
+          </groupenternumber--ml-floating-number-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-number-102020 label="min" value="{{playground.basic.min}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="max" value="{{playground.basic.max}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="step" value="{{playground.basic.step}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupenternumber--ml-floating-number-input
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  min="{{playground.basic.min}}"
+                  max="{{playground.basic.max}}"
+                  step="{{playground.basic.step}}"
+                  required="{{playground.basic.required}}"
+                  name="quantity">
+                  <Label>Quantity</Label>
+                  <Helper>Choose a number between 1 and 99.</Helper>
+                </groupenternumber--ml-floating-number-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Currency with prefix/suffix</h3>
+        <demo id="demo-currency">
+          <groupenternumber--ml-floating-number-input
+            value="{{playground.currency.value}}"
+            min="{{playground.currency.min}}"
+            step="{{playground.currency.step}}"
+            decimals="{{playground.currency.decimals}}"
+            locale="{{playground.currency.locale}}"
+            placeholder="{{playground.currency.placeholder}}">
+            <Label>Unit price</Label>
+            <Helper>Supports cents and localized formatting.</Helper>
+            <Prefix>$</Prefix>
+            <Suffix>USD</Suffix>
+          </groupenternumber--ml-floating-number-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.currency.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="min" value="{{playground.currency.min}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="step" value="{{playground.currency.step}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="decimals" value="{{playground.currency.decimals}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="locale" value="{{playground.currency.locale}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.currency.placeholder}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-currency">
+              <template>
+                <groupenternumber--ml-floating-number-input
+                  value="{{playground.currency.value}}"
+                  min="{{playground.currency.min}}"
+                  step="{{playground.currency.step}}"
+                  decimals="{{playground.currency.decimals}}"
+                  locale="{{playground.currency.locale}}"
+                  placeholder="{{playground.currency.placeholder}}">
+                  <Label>Unit price</Label>
+                  <Helper>Supports cents and localized formatting.</Helper>
+                  <Prefix>$</Prefix>
+                  <Suffix>USD</Suffix>
+                </groupenternumber--ml-floating-number-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error + required</h3>
+        <demo id="demo-error">
+          <groupenternumber--ml-floating-number-input
+            value="{{playground.error.value}}"
+            error="{{playground.error.error}}"
+            min="{{playground.error.min}}"
+            max="{{playground.error.max}}"
+            step="{{playground.error.step}}"
+            decimals="{{playground.error.decimals}}"
+            required="{{playground.error.required}}">
+            <Label>Completion</Label>
+            <Suffix>%</Suffix>
+          </groupenternumber--ml-floating-number-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+            <widget-playground-state-number-102020 label="min" value="{{playground.error.min}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="max" value="{{playground.error.max}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="step" value="{{playground.error.step}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="decimals" value="{{playground.error.decimals}}"></widget-playground-state-number-102020>
+            <widget-playground-state-boolean-102020 label="required" value="{{playground.error.required}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+                <groupenternumber--ml-floating-number-input
+                  value="{{playground.error.value}}"
+                  error="{{playground.error.error}}"
+                  min="{{playground.error.min}}"
+                  max="{{playground.error.max}}"
+                  step="{{playground.error.step}}"
+                  decimals="{{playground.error.decimals}}"
+                  required="{{playground.error.required}}">
+                  <Label>Completion</Label>
+                  <Suffix>%</Suffix>
+                </groupenternumber--ml-floating-number-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Read-only view mode</h3>
+        <demo id="demo-readonly">
+          <groupenternumber--ml-floating-number-input
+            value="{{playground.readonly.value}}"
+            decimals="{{playground.readonly.decimals}}"
+            locale="{{playground.readonly.locale}}"
+            is-editing="{{playground.readonly.isEditing}}"
+            name="{{playground.readonly.name}}">
+            <Label>Invoice total</Label>
+            <Prefix>R$</Prefix>
+            <Suffix>BRL</Suffix>
+          </groupenternumber--ml-floating-number-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="decimals" value="{{playground.readonly.decimals}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="locale" value="{{playground.readonly.locale}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="is-editing" value="{{playground.readonly.isEditing}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.readonly.name}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-readonly">
+              <template>
+                <groupenternumber--ml-floating-number-input
+                  value="{{playground.readonly.value}}"
+                  decimals="{{playground.readonly.decimals}}"
+                  locale="{{playground.readonly.locale}}"
+                  is-editing="{{playground.readonly.isEditing}}"
+                  name="{{playground.readonly.name}}">
+                  <Label>Invoice total</Label>
+                  <Prefix>R$</Prefix>
+                  <Suffix>BRL</Suffix>
+                </groupenternumber--ml-floating-number-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading and disabled</h3>
+        <demo id="demo-loading">
+          <groupenternumber--ml-floating-number-input
+            loading="{{playground.loading.loading}}"
+            disabled="{{playground.loading.disabled}}">
+            <Label>Fetching rate</Label>
+          </groupenternumber--ml-floating-number-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupenternumber--ml-floating-number-input
+                  loading="{{playground.loading.loading}}"
+                  disabled="{{playground.loading.disabled}}">
+                  <Label>Fetching rate</Label>
+                </groupenternumber--ml-floating-number-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Readonly with placeholder</h3>
+        <demo id="demo-placeholder">
+          <groupenternumber--ml-floating-number-input
+            value="{{playground.placeholder.value}}"
+            step="{{playground.placeholder.step}}"
+            decimals="{{playground.placeholder.decimals}}"
+            locale="{{playground.placeholder.locale}}"
+            placeholder="{{playground.placeholder.placeholder}}"
+            readonly="{{playground.placeholder.readonly}}"
+            name="{{playground.placeholder.name}}">
+            <Label>Distance</Label>
+            <Helper>Type a value when available.</Helper>
+            <Prefix>≈</Prefix>
+            <Suffix>km</Suffix>
+          </groupenternumber--ml-floating-number-input>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <widget-playground-state-number-102020 label="value" value="{{playground.placeholder.value}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="step" value="{{playground.placeholder.step}}"></widget-playground-state-number-102020>
+            <widget-playground-state-number-102020 label="decimals" value="{{playground.placeholder.decimals}}"></widget-playground-state-number-102020>
+            <widget-playground-state-text-102020 label="locale" value="{{playground.placeholder.locale}}"></widget-playground-state-text-102020>
+            <widget-playground-state-text-102020 label="placeholder" value="{{playground.placeholder.placeholder}}"></widget-playground-state-text-102020>
+            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.placeholder.readonly}}"></widget-playground-state-boolean-102020>
+            <widget-playground-state-text-102020 label="name" value="{{playground.placeholder.name}}"></widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <widget-playground-state-preview-code-102020 target="demo-placeholder">
+              <template>
+                <groupenternumber--ml-floating-number-input
+                  value="{{playground.placeholder.value}}"
+                  step="{{playground.placeholder.step}}"
+                  decimals="{{playground.placeholder.decimals}}"
+                  locale="{{playground.placeholder.locale}}"
+                  placeholder="{{playground.placeholder.placeholder}}"
+                  readonly="{{playground.placeholder.readonly}}"
+                  name="{{playground.placeholder.name}}">
+                  <Label>Distance</Label>
+                  <Helper>Type a value when available.</Helper>
+                  <Prefix>≈</Prefix>
+                  <Suffix>km</Suffix>
+                </groupenternumber--ml-floating-number-input>
+              </template>
+            </widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+    </section>
+  </div>
+</div>
