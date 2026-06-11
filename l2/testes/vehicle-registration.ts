@@ -240,7 +240,7 @@ export class VehicleRegistration extends StateLitElement {
       name="placa"
       placeholder="AAA-0000"
       error="${this.err('placa')}"
-      @change=${(e: CustomEvent) => { this.placa = (e.detail.value as string).toUpperCase(); }}
+      @change=${(e: CustomEvent) => { this.placa = (e.detail.value as string).toUpperCase(); this.errors = {}; }}
     >
       <Label>Placa *</Label>
       <Helper>Formato antigo (ABC-1234) ou Mercosul (ABC1D23)</Helper>
@@ -250,7 +250,7 @@ export class VehicleRegistration extends StateLitElement {
       value="${this.situacao}"
       name="situacao"
       error="${this.err('situacao')}"
-      @change=${(e: CustomEvent) => { this.situacao = e.detail.value; }}
+      @change=${(e: CustomEvent) => { this.situacao = e.detail.value; this.errors = {}; }}
     >
       <Label>Situação *</Label>
       <Item value="disponivel">Disponível</Item>
@@ -277,6 +277,7 @@ export class VehicleRegistration extends StateLitElement {
       @change=${(e: CustomEvent) => {
         this.marca = e.detail.value;
         if (!this.getModelos().includes(this.modelo)) this.modelo = '';
+        this.errors = {};
       }}
     >
       <Label>Marca *</Label>
@@ -288,7 +289,7 @@ export class VehicleRegistration extends StateLitElement {
       name="modelo"
       locale="pt"
       error="${this.err('modelo')}"
-      @change=${(e: CustomEvent) => { this.modelo = e.detail.value; }}
+      @change=${(e: CustomEvent) => { this.modelo = e.detail.value; this.errors = {}; }}
     >
       <Label>Modelo *</Label>
       ${this.getModelos().map(m => html`<Item value="${m}">${m}</Item>`)}
@@ -302,7 +303,7 @@ export class VehicleRegistration extends StateLitElement {
       .step=${1}
       error="${this.err('anoFabricacao')}"
       locale="pt-BR"
-      @change=${(e: CustomEvent) => { this.anoFabricacao = e.detail.value; }}
+      @change=${(e: CustomEvent) => { this.anoFabricacao = e.detail.value; this.errors = {}; }}
     >
       <Label>Ano de Fabricação *</Label>
     </groupenternumber--ml-number-input>
@@ -315,7 +316,7 @@ export class VehicleRegistration extends StateLitElement {
       .step=${1}
       error="${this.err('anoModelo')}"
       locale="pt-BR"
-      @change=${(e: CustomEvent) => { this.anoModelo = e.detail.value; }}
+      @change=${(e: CustomEvent) => { this.anoModelo = e.detail.value; this.errors = {}; }}
     >
       <Label>Ano do Modelo *</Label>
     </groupenternumber--ml-number-input>
@@ -339,7 +340,7 @@ export class VehicleRegistration extends StateLitElement {
       .step=${1000}
       error="${this.err('quilometragem')}"
       locale="pt-BR"
-      @change=${(e: CustomEvent) => { this.quilometragem = e.detail.value; }}
+      @change=${(e: CustomEvent) => { this.quilometragem = e.detail.value; this.errors = {}; }}
     >
       <Label>Quilometragem Atual (km) *</Label>
       <Helper>Hodômetro registrado na última vistoria</Helper>
