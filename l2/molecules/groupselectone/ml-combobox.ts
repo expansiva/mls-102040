@@ -134,8 +134,8 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     this.lastValueSynced = this.value;
   }
 
-  updated() {
-    if (this.value !== this.lastValueSynced && !this.isOpen) {
+  updated(changedProps: Map<string, unknown>) {
+    if (changedProps.has('value')) {
       this.syncInputFromValue();
       this.lastValueSynced = this.value;
     }
