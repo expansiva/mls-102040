@@ -6,7 +6,6 @@ import { StateLitElement } from '/_102029_/l2/stateLitElement.js';
 import '/_102040_/l2/molecules/groupnavigatesteps/ml-wizard-steps';
 import '/_102040_/l2/molecules/groupviewtable/ml-data-table-select';
 import '/_102040_/l2/molecules/groupviewmetric/ml-metric-card';
-import '/_102040_/l2/molecules/groupselectmany/ml-multi-checkbox-list';
 import '/_102040_/l2/molecules/groupenterboolean/ml-toggle-switch';
 import '/_102040_/l2/molecules/groupentertext/ml-multiline-text';
 import '/_102040_/l2/molecules/groupnotifyuser/ml-notify-banner';
@@ -103,7 +102,6 @@ export class EscolhaOrcamentoPage extends StateLitElement {
 
   // ── Step 2 — tarefas ───────────────────────────────────────────────────────
   @state() private tarefas = 'equipamentos,checkin,manutencao,checkout';
-  @state() private tarefasError = '';
 
   // ── Step 3 — gerar OS ──────────────────────────────────────────────────────
   @state() private bloquearVeiculo = false;
@@ -173,10 +171,6 @@ export class EscolhaOrcamentoPage extends StateLitElement {
   }
 
   private handleNext() {
-    if (this.step === 2 && !this.tarefas.trim()) {
-      this.tarefasError = 'Selecione ao menos uma tarefa.';
-      return;
-    }
     this.completeStep(this.step);
     this.step++;
   }
@@ -186,8 +180,8 @@ export class EscolhaOrcamentoPage extends StateLitElement {
   }
 
   private handleGerarOS() {
-    if (this.bloquearVeiculo && !this.justificativa.trim()) {
-      this.justificativaError = 'Justificativa é obrigatória ao bloquear o veículo.';
+    if (!this.justificativa.trim()) {
+      this.justificativaError = 'Justificativa é obrigatória.';
       return;
     }
     this.justificativaError = '';
@@ -205,7 +199,7 @@ export class EscolhaOrcamentoPage extends StateLitElement {
   render() {
     return html`
 <div class="bg-slate-50 dark:bg-slate-900 min-h-screen font-sans">
-  <div class="max-w-4xl mx-auto px-6 py-10">
+  <div class="max-w-6xl mx-auto px-6 py-10">
 
     <div class="mb-8">
       <h1 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Escolha de Orçamento</h1>
@@ -246,10 +240,7 @@ export class EscolhaOrcamentoPage extends StateLitElement {
   }
 
   private renderNav() {
-    const canNext =
-      this.step === 0 ? this.orcamentoSelecionado !== null :
-      this.step === 2 ? this.tarefas.trim() !== '' :
-      true;
+    const canNext = this.step === 0 ? this.orcamentoSelecionado !== null : true;
 
     return html`
 <div class="flex items-center justify-between">
@@ -338,67 +329,66 @@ export class EscolhaOrcamentoPage extends StateLitElement {
     const total = o.valorPecas + o.valorMaoDeObra;
     const totalMenor = menorValor.valorPecas + menorValor.valorMaoDeObra;
 
+    const field = (label: string, value: string, bg: string, text: string) => html`
+<div class="rounded-lg px-4 py-3 ${bg}">
+  <p class="text-xs font-semibold uppercase tracking-wide mb-1 ${text} opacity-70">${label}</p>
+  <p class="text-sm font-semibold ${text}">${value}</p>
+</div>`;
+
     return html`
 <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">Confirmar Escolha</h2>
 <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Revise o orçamento selecionado antes de continuar.</p>
 
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-  <groupviewmetric--ml-metric-card>
-    <Label>Total do Orçamento</Label>
-    <Value>${this.brl(total)}</Value>
-    <Helper>${o.codigo}</Helper>
-  </groupviewmetric--ml-metric-card>
-  <groupviewmetric--ml-metric-card>
-    <Label>Valor Peças</Label>
-    <Value>${this.brl(o.valorPecas)}</Value>
-  </groupviewmetric--ml-metric-card>
-  <groupviewmetric--ml-metric-card>
-    <Label>Mão de Obra</Label>
-    <Value>${this.brl(o.valorMaoDeObra)}</Value>
-  </groupviewmetric--ml-metric-card>
-  <groupviewmetric--ml-metric-card>
-    <Label>Prazo Estimado</Label>
-    <Value>${o.estimativaEntregaDias} dias</Value>
-    <Helper>${o.fornecedor}</Helper>
-  </groupviewmetric--ml-metric-card>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+  ${field('Código do Orçamento', o.codigo,
+    'bg-slate-100 dark:bg-slate-700/50', 'text-slate-700 dark:text-slate-200')}
+  ${field('Fornecedor', o.fornecedor,
+    'bg-slate-100 dark:bg-slate-700/50', 'text-slate-700 dark:text-slate-200')}
+  ${field('Valor Peças', this.brl(o.valorPecas),
+    'bg-sky-50 dark:bg-sky-900/30', 'text-sky-800 dark:text-sky-200')}
+  ${field('Mão de Obra', this.brl(o.valorMaoDeObra),
+    'bg-sky-50 dark:bg-sky-900/30', 'text-sky-800 dark:text-sky-200')}
+  ${field('Estimativa de Entrega', `${o.estimativaEntregaDias} dias`,
+    'bg-violet-50 dark:bg-violet-900/30', 'text-violet-800 dark:text-violet-200')}
+  ${field('Total do Orçamento', this.brl(total),
+    'bg-emerald-50 dark:bg-emerald-900/30', 'text-emerald-800 dark:text-emerald-200')}
 </div>
 
-<groupnotifyuser--ml-notify-banner
-  type="${isMaisBarato ? 'success' : 'warning'}"
-  dismissible="false"
->
-  <Title>${isMaisBarato ? 'Melhor preço' : 'Atenção: não é o menor valor'}</Title>
-  <Message>
-    ${isMaisBarato
-      ? `Este orçamento possui o menor valor total entre os recebidos (${this.brl(total)}).`
-      : `O orçamento ${menorValor.codigo} (${menorValor.fornecedor}) possui o menor valor total: ${this.brl(totalMenor)}.`
-    }
-  </Message>
+${isMaisBarato ? html`
+<groupnotifyuser--ml-notify-banner type="success" dismissible="false">
+  <Title>Melhor preço</Title>
+  <Message>Este orçamento possui o menor valor total entre os recebidos (${this.brl(total)}).</Message>
 </groupnotifyuser--ml-notify-banner>
-
-${!isMaisBarato ? html`
-  <div class="mt-6 overflow-x-auto">
-    <p class="text-sm font-semibold text-slate-600 dark:text-slate-300 mb-3">Comparativo com o menor valor</p>
-    <table class="w-full text-sm border-collapse">
-      <thead>
-        <tr class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
-          <th class="pb-2 pr-6 text-left">Campo</th>
-          <th class="pb-2 pr-6 text-left text-slate-700 dark:text-slate-200">Selecionado</th>
-          <th class="pb-2 text-left text-emerald-600 dark:text-emerald-400">Menor Valor</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
-        ${this.compRow('Código', o.codigo, menorValor.codigo)}
-        ${this.compRow('Fornecedor', o.fornecedor, menorValor.fornecedor)}
-        ${this.compRow('Valor Peças', this.brl(o.valorPecas), this.brl(menorValor.valorPecas))}
-        ${this.compRow('Mão de Obra', this.brl(o.valorMaoDeObra), this.brl(menorValor.valorMaoDeObra))}
-        ${this.compRow('Total', this.brl(total), this.brl(totalMenor))}
-        ${this.compRow('Prazo (dias)', String(o.estimativaEntregaDias), String(menorValor.estimativaEntregaDias))}
-        ${this.compRow('Avaliação', this.stars(o.avaliacaoFornecedor), this.stars(menorValor.avaliacaoFornecedor))}
-      </tbody>
-    </table>
-  </div>
-` : nothing}`;
+` : html`
+<div class="rounded-lg border-l-4 border-amber-400 bg-amber-50 dark:bg-amber-900/20 px-5 py-4 mb-5">
+  <p class="text-sm font-bold text-amber-800 dark:text-amber-300">
+    O orçamento escolhido não tem o menor valor. Segue comparativo:
+  </p>
+  <p class="text-xs text-amber-700 dark:text-amber-400 mt-1">
+    O orçamento ${menorValor.codigo} (${menorValor.fornecedor}) tem o menor total: ${this.brl(totalMenor)}.
+  </p>
+</div>
+<div class="overflow-x-auto">
+  <table class="w-full text-sm border-collapse">
+    <thead>
+      <tr class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+        <th class="pb-2 pr-6 text-left">Campo</th>
+        <th class="pb-2 pr-6 text-left text-slate-700 dark:text-slate-200">Selecionado</th>
+        <th class="pb-2 text-left text-emerald-600 dark:text-emerald-400">Menor Valor</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+      ${this.compRow('Código', o.codigo, menorValor.codigo)}
+      ${this.compRow('Fornecedor', o.fornecedor, menorValor.fornecedor)}
+      ${this.compRow('Valor Peças', this.brl(o.valorPecas), this.brl(menorValor.valorPecas))}
+      ${this.compRow('Mão de Obra', this.brl(o.valorMaoDeObra), this.brl(menorValor.valorMaoDeObra))}
+      ${this.compRow('Total', this.brl(total), this.brl(totalMenor))}
+      ${this.compRow('Prazo (dias)', String(o.estimativaEntregaDias), String(menorValor.estimativaEntregaDias))}
+      ${this.compRow('Avaliação', this.stars(o.avaliacaoFornecedor), this.stars(menorValor.avaliacaoFornecedor))}
+    </tbody>
+  </table>
+</div>
+`}`;
   }
 
   private compRow(label: string, selected: string, best: string) {
@@ -412,29 +402,60 @@ ${!isMaisBarato ? html`
 
   // ── Step 2: Tarefas ────────────────────────────────────────────────────────
 
+  private handleVistoriaChange(e: Event) {
+    const checked = (e.target as HTMLInputElement).checked;
+    const tasks = this.tarefas.split(',').filter(Boolean);
+    if (checked) {
+      const coIdx = tasks.indexOf('checkout');
+      if (coIdx >= 0) tasks.splice(coIdx, 0, 'vistoria');
+      else tasks.push('vistoria');
+    } else {
+      const idx = tasks.indexOf('vistoria');
+      if (idx >= 0) tasks.splice(idx, 1);
+    }
+    this.tarefas = tasks.join(',');
+  }
+
   private renderStep2() {
+    const mandatoryTasks = [
+      { value: 'equipamentos', label: 'Relacionar Equipamentos no Veículo' },
+      { value: 'checkin',      label: 'Check-in' },
+      { value: 'manutencao',   label: 'Manutenção Conforme Orçamento' },
+      { value: 'checkout',     label: 'Check-out' },
+    ];
+    const vistoriaSelecionada = this.tarefas.split(',').includes('vistoria');
+
     return html`
 <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">Tarefas da OS</h2>
 <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">
-  Defina as tarefas que serão incluídas na Ordem de Serviço. Vistoria é opcional.
+  As tarefas obrigatórias já estão configuradas. Adicione <strong>Vistoria</strong> se necessário.
 </p>
-<groupselectmany--ml-multi-checkbox-list
-  value="${this.tarefas}"
-  name="tarefas"
-  error="${this.tarefasError}"
-  is-editing="true"
-  @change=${(e: CustomEvent) => {
-    this.tarefas = e.detail.value;
-    this.tarefasError = '';
-  }}
->
-  <Label>Tarefas</Label>
-  <Item value="equipamentos">Relacionar Equipamentos no Veículo</Item>
-  <Item value="checkin">Check-in</Item>
-  <Item value="manutencao">Manutenção Conforme Orçamento</Item>
-  <Item value="vistoria">Vistoria</Item>
-  <Item value="checkout">Check-out</Item>
-</groupselectmany--ml-multi-checkbox-list>`;
+
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
+  Tarefas obrigatórias
+</p>
+<div class="space-y-2 mb-5">
+  ${mandatoryTasks.map(t => html`
+    <label class="flex items-center gap-3 px-4 py-3 rounded-lg
+                  bg-slate-100 dark:bg-slate-700/50
+                  opacity-60 cursor-not-allowed select-none">
+      <input type="checkbox" checked disabled class="w-4 h-4 accent-sky-600 cursor-not-allowed">
+      <span class="text-sm text-slate-700 dark:text-slate-200">${t.label}</span>
+    </label>
+  `)}
+</div>
+
+<p class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide mb-2">
+  Tarefas opcionais
+</p>
+<label class="flex items-center gap-3 px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-600
+              cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+  <input type="checkbox"
+         .checked=${vistoriaSelecionada}
+         @change=${this.handleVistoriaChange}
+         class="w-4 h-4 accent-sky-600 cursor-pointer">
+  <span class="text-sm text-slate-700 dark:text-slate-200">Vistoria</span>
+</label>`;
   }
 
   // ── Step 3: Gerar OS ───────────────────────────────────────────────────────
@@ -449,10 +470,7 @@ ${!isMaisBarato ? html`
   <groupenterboolean--ml-toggle-switch
     .value=${this.bloquearVeiculo}
     name="bloquearVeiculo"
-    @change=${(e: CustomEvent) => {
-      this.bloquearVeiculo = e.detail.value;
-      if (!this.bloquearVeiculo) this.justificativaError = '';
-    }}
+    @change=${(e: CustomEvent) => { this.bloquearVeiculo = e.detail.value; }}
   >
     <Label>Bloquear Veículo</Label>
     <Helper>O veículo ficará indisponível até a conclusão da manutenção</Helper>
@@ -469,7 +487,7 @@ ${!isMaisBarato ? html`
       this.justificativaError = '';
     }}
   >
-    <Label>Justificativa${this.bloquearVeiculo ? ' *' : ''}</Label>
+    <Label>Justificativa *</Label>
     <Helper>Descreva o motivo da abertura da OS de manutenção</Helper>
   </groupentertext--ml-multiline-text>
 </div>`;
