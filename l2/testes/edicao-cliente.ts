@@ -78,6 +78,7 @@ export class EdicaoClientePage extends StateLitElement {
   @state() private situacao = '';
 
   // ── Controle de UI
+  @state() private pesquisa: string | null = null;
   @state() private clienteAtual: Cliente | null = null;
   @state() private errors: Record<string, string> = {};
   @state() private saved = false;
@@ -119,6 +120,7 @@ export class EdicaoClientePage extends StateLitElement {
       this.clearForm();
       return;
     }
+    this.pesquisa = codigo;
     const cliente = this.getClientes().find(c => c.codigo === codigo) ?? null;
     if (!cliente) return;
 
@@ -171,6 +173,7 @@ export class EdicaoClientePage extends StateLitElement {
     setState('edicao.codigo', '');
     setState('edicao.dataInclusao', '');
     setState('edicao.dataModificacao', '');
+    this.pesquisa = null;
   }
 
   // ==========================================================================
@@ -209,6 +212,7 @@ export class EdicaoClientePage extends StateLitElement {
       <groupselectone--ml-combobox
         name="pesquisa"
         clearable="true"
+        .value=${this.pesquisa}
         @change=${(e: CustomEvent) => this.handleSelect(e)}
       >
         <Label>Cliente (código ou nome)</Label>
