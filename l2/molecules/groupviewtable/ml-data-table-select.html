@@ -1,3 +1,652 @@
 <div class="bg-white dark:bg-slate-900 min-h-screen">
-
+    <div class="mx-auto p-8 font-sans">
+        <header class="text-center mb-12">
+            <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Data Table Select</h1>
+            <span
+                class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupviewtable</span>
+        </header>
+        <widget-playground-state-102020
+            state='{"playground":{"basic":{"value":"","error":""},"selectable":{"selectable":true,"value":"0,2","disabled":false},"singleSelect":{"value":"","disabled":false},"footer":{"value":""},"pagination":{"page":1,"pageSize":5,"totalItems":12},"editing":{"isEditing":true},"loading":{"loading":true},"empty":{"disabled":true,"error":"Unable to load data. Please try again later."}}}'>
+        </widget-playground-state-102020>
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+            <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic sortable table</h3>
+                <demo id="demo-basic">
+                    <groupviewtable--ml-data-table-select value="{{playground.basic.value}}"
+                        error="{{playground.basic.error}}">
+                        <Caption>Team Members</Caption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead key="name" sortable>Name</TableHead>
+                                <TableHead key="role" sortable>Role</TableHead>
+                                <TableHead key="location">Location</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>Ana Costa</TableCell>
+                                <TableCell>Product Manager</TableCell>
+                                <TableCell>Lisbon</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Lucas Lima</TableCell>
+                                <TableCell>Front-end Engineer</TableCell>
+                                <TableCell>São Paulo</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Maria Souza</TableCell>
+                                <TableCell>UX Designer</TableCell>
+                                <TableCell>Recife</TableCell>
+                            </TableRow>
+                        </TableBody>
+                        <Empty>No members found</Empty>
+                    </groupviewtable--ml-data-table-select>
+                </demo>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties
+                    </summary>
+                    <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+                        <widget-playground-state-text-102020 label="value"
+                            value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+                        <widget-playground-state-text-102020 label="error"
+                            value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+                    </div>
+                </details>
+                <details class="mt-2">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML
+                    </summary>
+                    <div class="mt-2">
+                        <widget-playground-state-preview-code-102020 target="demo-basic">
+                            <template>
+                                <groupviewtable--ml-data-table-select value="{{playground.basic.value}}"
+                                    error="{{playground.basic.error}}">
+                                    <Caption>Team Members</Caption>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead key="name" sortable>Name</TableHead>
+                                            <TableHead key="role" sortable>Role</TableHead>
+                                            <TableHead key="location">Location</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell>Ana Costa</TableCell>
+                                            <TableCell>Product Manager</TableCell>
+                                            <TableCell>Lisbon</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Lucas Lima</TableCell>
+                                            <TableCell>Front-end Engineer</TableCell>
+                                            <TableCell>São Paulo</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Maria Souza</TableCell>
+                                            <TableCell>UX Designer</TableCell>
+                                            <TableCell>Recife</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                    <Empty>No members found</Empty>
+                                </groupviewtable--ml-data-table-select>
+                            </template>
+                        </widget-playground-state-preview-code-102020>
+                    </div>
+                </details>
+            </article>
+            <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable rows</h3>
+                <demo id="demo-selectable">
+                    <groupviewtable--ml-data-table-select selectable="{{playground.selectable.selectable}}"
+                        value="{{playground.selectable.value}}" disabled="{{playground.selectable.disabled}}">
+                        <Caption>Invoices</Caption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead key="id" sortable>Invoice</TableHead>
+                                <TableHead key="client">Client</TableHead>
+                                <TableHead key="total" sortable>Total</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>#INV-1001</TableCell>
+                                <TableCell>Acme Corp</TableCell>
+                                <TableCell>$1,240.00</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>#INV-1002</TableCell>
+                                <TableCell>Globex</TableCell>
+                                <TableCell>$980.00</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>#INV-1003</TableCell>
+                                <TableCell>Umbrella</TableCell>
+                                <TableCell>$2,450.00</TableCell>
+                            </TableRow>
+                        </TableBody>
+                        <Empty>No invoices found</Empty>
+                    </groupviewtable--ml-data-table-select>
+                </demo>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties
+                    </summary>
+                    <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+                        <widget-playground-state-boolean-102020 label="selectable"
+                            value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
+                        <widget-playground-state-text-102020 label="value"
+                            value="{{playground.selectable.value}}"></widget-playground-state-text-102020>
+                        <widget-playground-state-boolean-102020 label="disabled"
+                            value="{{playground.selectable.disabled}}"></widget-playground-state-boolean-102020>
+                    </div>
+                </details>
+                <details class="mt-2">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML
+                    </summary>
+                    <div class="mt-2">
+                        <widget-playground-state-preview-code-102020 target="demo-selectable">
+                            <template>
+                                <groupviewtable--ml-data-table-select selectable="{{playground.selectable.selectable}}"
+                                    value="{{playground.selectable.value}}"
+                                    disabled="{{playground.selectable.disabled}}">
+                                    <Caption>Invoices</Caption>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead key="id" sortable>Invoice</TableHead>
+                                            <TableHead key="client">Client</TableHead>
+                                            <TableHead key="total" sortable>Total</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell>#INV-1001</TableCell>
+                                            <TableCell>Acme Corp</TableCell>
+                                            <TableCell>$1,240.00</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>#INV-1002</TableCell>
+                                            <TableCell>Globex</TableCell>
+                                            <TableCell>$980.00</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>#INV-1003</TableCell>
+                                            <TableCell>Umbrella</TableCell>
+                                            <TableCell>$2,450.00</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                    <Empty>No invoices found</Empty>
+                                </groupviewtable--ml-data-table-select>
+                            </template>
+                        </widget-playground-state-preview-code-102020>
+                    </div>
+                </details>
+            </article>
+            <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Single-select row</h3>
+                <demo id="demo-single-select">
+                    <groupviewtable--ml-data-table-select selectable="true" select-mode="single"
+                        value="{{playground.singleSelect.value}}" disabled="{{playground.singleSelect.disabled}}">
+                        <Caption>Budget Options</Caption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead key="code" sortable>Code</TableHead>
+                                <TableHead key="supplier">Supplier</TableHead>
+                                <TableHead key="total" sortable>Total</TableHead>
+                                <TableHead key="days" sortable>Days</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>ORC-001</TableCell>
+                                <TableCell>TechParts Ltda</TableCell>
+                                <TableCell>R$ 2.400,00</TableCell>
+                                <TableCell>7</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>ORC-002</TableCell>
+                                <TableCell>Rapid Service</TableCell>
+                                <TableCell>R$ 1.680,00</TableCell>
+                                <TableCell>5</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>ORC-003</TableCell>
+                                <TableCell>Prime Auto</TableCell>
+                                <TableCell>R$ 3.150,00</TableCell>
+                                <TableCell>3</TableCell>
+                            </TableRow>
+                        </TableBody>
+                        <Empty>No budgets available</Empty>
+                    </groupviewtable--ml-data-table-select>
+                </demo>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties
+                    </summary>
+                    <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+                        <widget-playground-state-text-102020 label="value"
+                            value="{{playground.singleSelect.value}}"></widget-playground-state-text-102020>
+                        <widget-playground-state-boolean-102020 label="disabled"
+                            value="{{playground.singleSelect.disabled}}"></widget-playground-state-boolean-102020>
+                    </div>
+                </details>
+                <details class="mt-2">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML
+                    </summary>
+                    <div class="mt-2">
+                        <widget-playground-state-preview-code-102020 target="demo-single-select">
+                            <template>
+                                <groupviewtable--ml-data-table-select selectable="true" select-mode="single"
+                                    value="{{playground.singleSelect.value}}"
+                                    disabled="{{playground.singleSelect.disabled}}">
+                                    <Caption>Budget Options</Caption>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead key="code" sortable>Code</TableHead>
+                                            <TableHead key="supplier">Supplier</TableHead>
+                                            <TableHead key="total" sortable>Total</TableHead>
+                                            <TableHead key="days" sortable>Days</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell>ORC-001</TableCell>
+                                            <TableCell>TechParts Ltda</TableCell>
+                                            <TableCell>R$ 2.400,00</TableCell>
+                                            <TableCell>7</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>ORC-002</TableCell>
+                                            <TableCell>Rapid Service</TableCell>
+                                            <TableCell>R$ 1.680,00</TableCell>
+                                            <TableCell>5</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>ORC-003</TableCell>
+                                            <TableCell>Prime Auto</TableCell>
+                                            <TableCell>R$ 3.150,00</TableCell>
+                                            <TableCell>3</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                    <Empty>No budgets available</Empty>
+                                </groupviewtable--ml-data-table-select>
+                            </template>
+                        </widget-playground-state-preview-code-102020>
+                    </div>
+                </details>
+            </article>
+            <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Footer totals</h3>
+                <demo id="demo-footer">
+                    <groupviewtable--ml-data-table-select selectable="true" select-mode="single"
+                        value="{{playground.footer.value}}">
+                        <Caption>Expense Report</Caption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead key="description">Description</TableHead>
+                                <TableHead key="category" sortable>Category</TableHead>
+                                <TableHead key="amount" sortable>Amount</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>Cloud hosting — June</TableCell>
+                                <TableCell>Infrastructure</TableCell>
+                                <TableCell>R$ 1.200,00</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Design tooling licenses</TableCell>
+                                <TableCell>Software</TableCell>
+                                <TableCell>R$ 480,00</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>Team offsite</TableCell>
+                                <TableCell>Travel</TableCell>
+                                <TableCell>R$ 3.750,00</TableCell>
+                            </TableRow>
+                        </TableBody>
+                        <TableFooter>
+                            <TableRow>
+                                <TableCell>Total</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell>R$ 5.430,00</TableCell>
+                            </TableRow>
+                        </TableFooter>
+                        <Empty>No expenses found</Empty>
+                    </groupviewtable--ml-data-table-select>
+                </demo>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties
+                    </summary>
+                    <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+                        <widget-playground-state-text-102020 label="value"
+                            value="{{playground.footer.value}}"></widget-playground-state-text-102020>
+                    </div>
+                </details>
+                <details class="mt-2">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML
+                    </summary>
+                    <div class="mt-2">
+                        <widget-playground-state-preview-code-102020 target="demo-footer">
+                            <template>
+                                <groupviewtable--ml-data-table-select selectable="true" select-mode="single"
+                                    value="{{playground.footer.value}}">
+                                    <Caption>Expense Report</Caption>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead key="description">Description</TableHead>
+                                            <TableHead key="category" sortable>Category</TableHead>
+                                            <TableHead key="amount" sortable>Amount</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell>Cloud hosting — June</TableCell>
+                                            <TableCell>Infrastructure</TableCell>
+                                            <TableCell>R$ 1.200,00</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Design tooling licenses</TableCell>
+                                            <TableCell>Software</TableCell>
+                                            <TableCell>R$ 480,00</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Team offsite</TableCell>
+                                            <TableCell>Travel</TableCell>
+                                            <TableCell>R$ 3.750,00</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                    <TableFooter>
+                                        <TableRow>
+                                            <TableCell>Total</TableCell>
+                                            <TableCell></TableCell>
+                                            <TableCell>R$ 5.430,00</TableCell>
+                                        </TableRow>
+                                    </TableFooter>
+                                    <Empty>No expenses found</Empty>
+                                </groupviewtable--ml-data-table-select>
+                            </template>
+                        </widget-playground-state-preview-code-102020>
+                    </div>
+                </details>
+            </article>
+            <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Pagination</h3>
+                <demo id="demo-pagination">
+                    <groupviewtable--ml-data-table-select page="{{playground.pagination.page}}"
+                        page-size="{{playground.pagination.pageSize}}"
+                        total-items="{{playground.pagination.totalItems}}">
+                        <Caption>Support Tickets</Caption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead key="code" sortable>Ticket</TableHead>
+                                <TableHead key="priority">Priority</TableHead>
+                                <TableHead key="status" sortable>Status</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>#TK-5401</TableCell>
+                                <TableCell>High</TableCell>
+                                <TableCell>Open</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>#TK-5402</TableCell>
+                                <TableCell>Low</TableCell>
+                                <TableCell>Resolved</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>#TK-5403</TableCell>
+                                <TableCell>Medium</TableCell>
+                                <TableCell>In progress</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>#TK-5404</TableCell>
+                                <TableCell>High</TableCell>
+                                <TableCell>Open</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>#TK-5405</TableCell>
+                                <TableCell>Low</TableCell>
+                                <TableCell>Waiting</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>#TK-5406</TableCell>
+                                <TableCell>Medium</TableCell>
+                                <TableCell>Resolved</TableCell>
+                            </TableRow>
+                        </TableBody>
+                        <Empty>No tickets found</Empty>
+                    </groupviewtable--ml-data-table-select>
+                </demo>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties
+                    </summary>
+                    <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+                        <widget-playground-state-number-102020 label="page"
+                            value="{{playground.pagination.page}}"></widget-playground-state-number-102020>
+                        <widget-playground-state-number-102020 label="pageSize"
+                            value="{{playground.pagination.pageSize}}"></widget-playground-state-number-102020>
+                        <widget-playground-state-number-102020 label="totalItems"
+                            value="{{playground.pagination.totalItems}}"></widget-playground-state-number-102020>
+                    </div>
+                </details>
+                <details class="mt-2">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML
+                    </summary>
+                    <div class="mt-2">
+                        <widget-playground-state-preview-code-102020 target="demo-pagination">
+                            <template>
+                                <groupviewtable--ml-data-table-select page="{{playground.pagination.page}}"
+                                    page-size="{{playground.pagination.pageSize}}"
+                                    total-items="{{playground.pagination.totalItems}}">
+                                    <Caption>Support Tickets</Caption>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead key="code" sortable>Ticket</TableHead>
+                                            <TableHead key="priority">Priority</TableHead>
+                                            <TableHead key="status" sortable>Status</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell>#TK-5401</TableCell>
+                                            <TableCell>High</TableCell>
+                                            <TableCell>Open</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>#TK-5402</TableCell>
+                                            <TableCell>Low</TableCell>
+                                            <TableCell>Resolved</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>#TK-5403</TableCell>
+                                            <TableCell>Medium</TableCell>
+                                            <TableCell>In progress</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>#TK-5404</TableCell>
+                                            <TableCell>High</TableCell>
+                                            <TableCell>Open</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>#TK-5405</TableCell>
+                                            <TableCell>Low</TableCell>
+                                            <TableCell>Waiting</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>#TK-5406</TableCell>
+                                            <TableCell>Medium</TableCell>
+                                            <TableCell>Resolved</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                    <Empty>No tickets found</Empty>
+                                </groupviewtable--ml-data-table-select>
+                            </template>
+                        </widget-playground-state-preview-code-102020>
+                    </div>
+                </details>
+            </article>
+            <!--**********************-->
+            <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Editing propagation</h3>
+                <demo id="demo-editing">
+                    <groupviewtable--ml-data-table-select is-editing="{{playground.editing.isEditing}}">
+                        <Caption>Inline Review</Caption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead key="task">Task</TableHead>
+                                <TableHead key="owner">Owner</TableHead>
+                                <TableHead key="estimate">Estimate</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell><ml-inline-input value="Create onboarding"></ml-inline-input></TableCell>
+                                <TableCell><ml-inline-input value="Ana"></ml-inline-input></TableCell>
+                                <TableCell>3h</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell><ml-inline-input value="Review copy"></ml-inline-input></TableCell>
+                                <TableCell><ml-inline-input value="Lucas"></ml-inline-input></TableCell>
+                                <TableCell>2h</TableCell>
+                            </TableRow>
+                        </TableBody>
+                        <Empty>No tasks found</Empty>
+                    </groupviewtable--ml-data-table-select>
+                </demo>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties
+                    </summary>
+                    <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+                        <widget-playground-state-boolean-102020 label="is-editing"
+                            value="{{playground.editing.isEditing}}"></widget-playground-state-boolean-102020>
+                    </div>
+                </details>
+                <details class="mt-2">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML
+                    </summary>
+                    <div class="mt-2">
+                        <widget-playground-state-preview-code-102020 target="demo-editing">
+                            <template>
+                                <groupviewtable--ml-data-table-select is-editing="{{playground.editing.isEditing}}">
+                                    <Caption>Inline Review</Caption>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead key="task">Task</TableHead>
+                                            <TableHead key="owner">Owner</TableHead>
+                                            <TableHead key="estimate">Estimate</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell><ml-inline-input value="Create onboarding"></ml-inline-input>
+                                            </TableCell>
+                                            <TableCell><ml-inline-input value="Ana"></ml-inline-input></TableCell>
+                                            <TableCell>3h</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell><ml-inline-input value="Review copy"></ml-inline-input>
+                                            </TableCell>
+                                            <TableCell><ml-inline-input value="Lucas"></ml-inline-input></TableCell>
+                                            <TableCell>2h</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                    <Empty>No tasks found</Empty>
+                                </groupviewtable--ml-data-table-select>
+                            </template>
+                        </widget-playground-state-preview-code-102020>
+                    </div>
+                </details>
+            </article>
+            <!--**********************-->
+            <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading state</h3>
+                <demo id="demo-loading">
+                    <groupviewtable--ml-data-table-select loading="{{playground.loading.loading}}">
+                        <Loading>
+                            <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                                <span class="animate-spin">⏳</span>
+                                <span>Loading records...</span>
+                            </div>
+                        </Loading>
+                    </groupviewtable--ml-data-table-select>
+                </demo>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties
+                    </summary>
+                    <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+                        <widget-playground-state-boolean-102020 label="loading"
+                            value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+                    </div>
+                </details>
+                <details class="mt-2">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML
+                    </summary>
+                    <div class="mt-2">
+                        <widget-playground-state-preview-code-102020 target="demo-loading">
+                            <template>
+                                <groupviewtable--ml-data-table-select loading="{{playground.loading.loading}}">
+                                    <Loading>
+                                        <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                                            <span class="animate-spin">⏳</span>
+                                            <span>Loading records...</span>
+                                        </div>
+                                    </Loading>
+                                </groupviewtable--ml-data-table-select>
+                            </template>
+                        </widget-playground-state-preview-code-102020>
+                    </div>
+                </details>
+            </article>
+            <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty + error + disabled</h3>
+                <demo id="demo-empty">
+                    <groupviewtable--ml-data-table-select disabled="{{playground.empty.disabled}}"
+                        error="{{playground.empty.error}}">
+                        <Caption>Archived Orders</Caption>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead key="order">Order</TableHead>
+                                <TableHead key="customer">Customer</TableHead>
+                                <TableHead key="status">Status</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                        </TableBody>
+                        <Empty>No archived orders available.</Empty>
+                    </groupviewtable--ml-data-table-select>
+                </demo>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties
+                    </summary>
+                    <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+                        <widget-playground-state-boolean-102020 label="disabled"
+                            value="{{playground.empty.disabled}}"></widget-playground-state-boolean-102020>
+                        <widget-playground-state-text-102020 label="error"
+                            value="{{playground.empty.error}}"></widget-playground-state-text-102020>
+                    </div>
+                </details>
+                <details class="mt-2">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML
+                    </summary>
+                    <div class="mt-2">
+                        <widget-playground-state-preview-code-102020 target="demo-empty">
+                            <template>
+                                <groupviewtable--ml-data-table-select disabled="{{playground.empty.disabled}}"
+                                    error="{{playground.empty.error}}">
+                                    <Caption>Archived Orders</Caption>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead key="order">Order</TableHead>
+                                            <TableHead key="customer">Customer</TableHead>
+                                            <TableHead key="status">Status</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                    </TableBody>
+                                    <Empty>No archived orders available.</Empty>
+                                </groupviewtable--ml-data-table-select>
+                            </template>
+                        </widget-playground-state-preview-code-102020>
+                    </div>
+                </details>
+            </article>
+        </section>
+    </div>
 </div>
