@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Data Table Select</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupviewtable</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"selectable":{"selectable":true,"value":"0,2","disabled":false},"pagination":{"page":1,"pageSize":5,"totalItems":12},"editing":{"isEditing":true},"loading":{"loading":true},"empty":{"disabled":true,"error":"Unable to load data. Please try again later."}}}'>
+<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"selectable":{"selectable":true,"value":"0,2","disabled":false},"singleSelect":{"value":"","disabled":false},"footer":{"value":""},"pagination":{"page":1,"pageSize":5,"totalItems":12},"editing":{"isEditing":true},"loading":{"loading":true},"empty":{"disabled":true,"error":"Unable to load data. Please try again later."}}}'>
 </widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
@@ -166,6 +166,195 @@ disabled="{{playground.selectable.disabled}}">
 </TableRow>
 </TableBody>
 <Empty>No invoices found</Empty>
+</groupviewtable--ml-data-table-select>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Single-select row</h3>
+<demo id="demo-single-select">
+<groupviewtable--ml-data-table-select
+selectable="true"
+select-mode="single"
+value="{{playground.singleSelect.value}}"
+disabled="{{playground.singleSelect.disabled}}">
+<Caption>Budget Options</Caption>
+<TableHeader>
+<TableRow>
+<TableHead key="code" sortable>Code</TableHead>
+<TableHead key="supplier">Supplier</TableHead>
+<TableHead key="total" sortable>Total</TableHead>
+<TableHead key="days" sortable>Days</TableHead>
+</TableRow>
+</TableHeader>
+<TableBody>
+<TableRow>
+<TableCell>ORC-001</TableCell>
+<TableCell>TechParts Ltda</TableCell>
+<TableCell>R$ 2.400,00</TableCell>
+<TableCell>7</TableCell>
+</TableRow>
+<TableRow>
+<TableCell>ORC-002</TableCell>
+<TableCell>Rapid Service</TableCell>
+<TableCell>R$ 1.680,00</TableCell>
+<TableCell>5</TableCell>
+</TableRow>
+<TableRow>
+<TableCell>ORC-003</TableCell>
+<TableCell>Prime Auto</TableCell>
+<TableCell>R$ 3.150,00</TableCell>
+<TableCell>3</TableCell>
+</TableRow>
+</TableBody>
+<Empty>No budgets available</Empty>
+</groupviewtable--ml-data-table-select>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.singleSelect.value}}"></widget-playground-state-text-102020>
+<widget-playground-state-boolean-102020 label="disabled" value="{{playground.singleSelect.disabled}}"></widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-single-select">
+<template>
+<groupviewtable--ml-data-table-select
+selectable="true"
+select-mode="single"
+value="{{playground.singleSelect.value}}"
+disabled="{{playground.singleSelect.disabled}}">
+<Caption>Budget Options</Caption>
+<TableHeader>
+<TableRow>
+<TableHead key="code" sortable>Code</TableHead>
+<TableHead key="supplier">Supplier</TableHead>
+<TableHead key="total" sortable>Total</TableHead>
+<TableHead key="days" sortable>Days</TableHead>
+</TableRow>
+</TableHeader>
+<TableBody>
+<TableRow>
+<TableCell>ORC-001</TableCell>
+<TableCell>TechParts Ltda</TableCell>
+<TableCell>R$ 2.400,00</TableCell>
+<TableCell>7</TableCell>
+</TableRow>
+<TableRow>
+<TableCell>ORC-002</TableCell>
+<TableCell>Rapid Service</TableCell>
+<TableCell>R$ 1.680,00</TableCell>
+<TableCell>5</TableCell>
+</TableRow>
+<TableRow>
+<TableCell>ORC-003</TableCell>
+<TableCell>Prime Auto</TableCell>
+<TableCell>R$ 3.150,00</TableCell>
+<TableCell>3</TableCell>
+</TableRow>
+</TableBody>
+<Empty>No budgets available</Empty>
+</groupviewtable--ml-data-table-select>
+</template>
+</widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Footer totals</h3>
+<demo id="demo-footer">
+<groupviewtable--ml-data-table-select
+selectable="true"
+select-mode="single"
+value="{{playground.footer.value}}">
+<Caption>Expense Report</Caption>
+<TableHeader>
+<TableRow>
+<TableHead key="description">Description</TableHead>
+<TableHead key="category" sortable>Category</TableHead>
+<TableHead key="amount" sortable>Amount</TableHead>
+</TableRow>
+</TableHeader>
+<TableBody>
+<TableRow>
+<TableCell>Cloud hosting — June</TableCell>
+<TableCell>Infrastructure</TableCell>
+<TableCell>R$ 1.200,00</TableCell>
+</TableRow>
+<TableRow>
+<TableCell>Design tooling licenses</TableCell>
+<TableCell>Software</TableCell>
+<TableCell>R$ 480,00</TableCell>
+</TableRow>
+<TableRow>
+<TableCell>Team offsite</TableCell>
+<TableCell>Travel</TableCell>
+<TableCell>R$ 3.750,00</TableCell>
+</TableRow>
+</TableBody>
+<TableFooter>
+<TableRow>
+<TableCell>Total</TableCell>
+<TableCell></TableCell>
+<TableCell>R$ 5.430,00</TableCell>
+</TableRow>
+</TableFooter>
+<Empty>No expenses found</Empty>
+</groupviewtable--ml-data-table-select>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<widget-playground-state-text-102020 label="value" value="{{playground.footer.value}}"></widget-playground-state-text-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<widget-playground-state-preview-code-102020 target="demo-footer">
+<template>
+<groupviewtable--ml-data-table-select
+selectable="true"
+select-mode="single"
+value="{{playground.footer.value}}">
+<Caption>Expense Report</Caption>
+<TableHeader>
+<TableRow>
+<TableHead key="description">Description</TableHead>
+<TableHead key="category" sortable>Category</TableHead>
+<TableHead key="amount" sortable>Amount</TableHead>
+</TableRow>
+</TableHeader>
+<TableBody>
+<TableRow>
+<TableCell>Cloud hosting — June</TableCell>
+<TableCell>Infrastructure</TableCell>
+<TableCell>R$ 1.200,00</TableCell>
+</TableRow>
+<TableRow>
+<TableCell>Design tooling licenses</TableCell>
+<TableCell>Software</TableCell>
+<TableCell>R$ 480,00</TableCell>
+</TableRow>
+<TableRow>
+<TableCell>Team offsite</TableCell>
+<TableCell>Travel</TableCell>
+<TableCell>R$ 3.750,00</TableCell>
+</TableRow>
+</TableBody>
+<TableFooter>
+<TableRow>
+<TableCell>Total</TableCell>
+<TableCell></TableCell>
+<TableCell>R$ 5.430,00</TableCell>
+</TableRow>
+</TableFooter>
+<Empty>No expenses found</Empty>
 </groupviewtable--ml-data-table-select>
 </template>
 </widget-playground-state-preview-code-102020>

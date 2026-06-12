@@ -4,7 +4,7 @@ import { html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { StateLitElement } from '/_102029_/l2/stateLitElement.js';
 import '/_102040_/l2/molecules/groupnavigatesteps/ml-wizard-steps';
-import '/_102040_/l2/molecules/groupviewtable/ml-view-table';
+import '/_102040_/l2/molecules/groupviewtable/ml-data-table-select';
 import '/_102040_/l2/molecules/groupviewmetric/ml-metric-card';
 import '/_102040_/l2/molecules/groupselectmany/ml-multi-checkbox-list';
 import '/_102040_/l2/molecules/groupenterboolean/ml-toggle-switch';
@@ -293,21 +293,22 @@ export class EscolhaOrcamentoPage extends StateLitElement {
     return html`
 <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-1">Orçamentos Disponíveis</h2>
 <p class="text-sm text-slate-500 dark:text-slate-400 mb-5">Selecione um orçamento para prosseguir.</p>
-<groupviewtable--ml-view-table
+<groupviewtable--ml-data-table-select
   selectable="true"
+  select-mode="single"
   .value=${this.orcamentoIdx}
   @change=${this.handleTableChange}
 >
   <TableHeader>
     <TableRow>
-      <TableHead key="codigo">Código</TableHead>
+      <TableHead key="codigo" sortable>Código</TableHead>
       <TableHead key="fornecedor">Fornecedor</TableHead>
       <TableHead key="dataInclusao">Data Inclusão</TableHead>
       <TableHead key="valorPecas">Valor Peças</TableHead>
       <TableHead key="maoDeObra">Mão de Obra</TableHead>
       <TableHead key="total">Total</TableHead>
-      <TableHead key="prazo">Prazo (dias)</TableHead>
-      <TableHead key="avaliacao">Avaliação</TableHead>
+      <TableHead key="prazo" sortable>Prazo (dias)</TableHead>
+      <TableHead key="avaliacao" sortable>Avaliação</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>
@@ -325,7 +326,7 @@ export class EscolhaOrcamentoPage extends StateLitElement {
     `)}
   </TableBody>
   <Empty>Nenhum orçamento disponível.</Empty>
-</groupviewtable--ml-view-table>`;
+</groupviewtable--ml-data-table-select>`;
   }
 
   // ── Step 1: Confirmação ────────────────────────────────────────────────────

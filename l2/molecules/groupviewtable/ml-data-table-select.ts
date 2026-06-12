@@ -33,6 +33,7 @@ const messages: Record<string, MessageType> = {
 @customElement('groupviewtable--ml-data-table-select')
 export class MlDataTableSelectMolecule extends MoleculeAuraElement {
   private msg: MessageType = messages.en;
+  private readonly uid = `dts-${Math.random().toString(36).slice(2)}`;
 
   // ===========================================================================
   // SLOT TAGS
@@ -54,6 +55,10 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
   // ===========================================================================
   @propertyDataSource({ type: Boolean, attribute: 'selectable' })
   selectable = false;
+
+  /** 'single' — radio buttons, max 1 row. 'multi' (default) — checkboxes, N rows. */
+  @propertyDataSource({ type: String, attribute: 'select-mode' })
+  selectMode: string = 'multi';
 
   @propertyDataSource({ type: Boolean, attribute: 'is-editing' })
   isEditing = false;
@@ -195,7 +200,8 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
   // ===========================================================================
   private getTotalPages(): number {
     if (this.pageSize <= 0) return 1;
-    return Math.max(1, Math.ceil(this.totalItems / this.pageSize));
+    const total = this.totalItems > 0 ? this.totalItems : this.getAllRows().length;
+    return Math.max(1, Math.ceil(total / this.pageSize));
   }
 
   private handlePageClick(newPage: number) {
@@ -245,6 +251,10 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
     this.updateValueFromSet(selected);
   }
 
+  private handleRowRadioChange(index: number) {
+    this.updateValueFromSet(new Set([index]));
+  }
+
   // ===========================================================================
   // HELPERS – Row collection (raw order before pagination/sort)
   // ===========================================================================
@@ -284,8 +294,8 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
     return base.filter(Boolean).join(' ');
   }
 
-  private renderSortIndicator(): TemplateResult {
-    if (!this.sortKey) return html``;
+  private renderSortIndicator(key: string): TemplateResult {
+    if (this.sortKey !== key) return html``;
     const arrow = this.sortDirection === 'asc' ? '▲' : '▼';
     return html`<span class="ml-1 text-xs">${arrow}</span>`;
   }
@@ -293,38 +303,39 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
   private renderHeader(): TemplateResult {
     const heads = this.getHeaderCells();
     const selectable = this.selectable;
+    const isSingle = this.selectMode === 'single';
     return html`
       <thead class="${this.getHeaderClasses()}">
         <tr>
           ${selectable
-            ? html`<th class="${this.getCellClasses(true)}">
-                <input
-                  type="checkbox"
-                  ?disabled="${this.disabled}"
-                  aria-label="${this.msg.selectAll}"
-                  @change="${(e: Event) => this.handleSelectAllChange(e)}"
-                />
-              </th>`
+            ? isSingle
+              ? html`<th class="${this.getCellClasses(true)}"></th>`
+              : html`<th class="${this.getCellClasses(true)}">
+                  <input
+                    type="checkbox"
+                    ?disabled="${this.disabled}"
+                    aria-label="${this.msg.selectAll}"
+                    @change="${(e: Event) => this.handleSelectAllChange(e)}"
+                  />
+                </th>`
             : nothing}
           ${heads.map(head => {
             const key = head.getAttribute('key') ?? '';
             const sortable = head.hasAttribute('sortable');
             const ariaSort = sortable
               ? this.sortKey === key
-                ? this.sortDirection === 'asc'
-                  ? 'ascending'
-                  : 'descending'
+                ? this.sortDirection === 'asc' ? 'ascending' : 'descending'
                 : 'none'
               : undefined;
             return html`<th
-              class="${this.getCellClasses(true)} cursor-pointer"
+              class="${this.getCellClasses(true)} ${sortable ? 'cursor-pointer' : ''}"
               data-key="${key}"
               ?disabled="${this.disabled}"
               aria-sort="${ariaSort ?? nothing}"
               @click="${sortable ? (e: Event) => this.handleHeaderClick(e) : nothing}"
             >
               ${unsafeHTML(head.innerHTML)}
-              ${sortable ? this.renderSortIndicator() : nothing}
+              ${sortable ? this.renderSortIndicator(key) : nothing}
             </th>`;
           })}
         </tr>
@@ -335,7 +346,6 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
   private renderBody(): TemplateResult {
     const rawRows = this.getAllRows();
     const sortedRows = this.getSortedRows(rawRows);
-    const totalPages = this.getTotalPages();
     const startIdx = this.pageSize > 0 ? (this.page - 1) * this.pageSize : 0;
     const endIdx = this.pageSize > 0 ? startIdx + this.pageSize : sortedRows.length;
     const pagedRows = sortedRows.slice(startIdx, endIdx);
@@ -354,8 +364,9 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
       `;
     }
 
+    const isSingle = this.selectMode === 'single';
     return html`
-      ${pagedRows.map((rowEl, rowIdx) => {
+      ${pagedRows.map((rowEl) => {
         const globalIdx = rawRows.indexOf(rowEl); // original index before pagination/sort
         const cells = Array.from(rowEl.querySelectorAll('TableCell')) as HTMLElement[];
         const isSelected = selectedSet.has(globalIdx);
@@ -369,22 +380,34 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
         return html`
           <tr
             class="${rowClasses}"
-            @click="${(e: Event) => {
+            @click="${() => {
               if (this.disabled) return;
               if (!this.selectable) this.handleRowClick(globalIdx);
             }}"
           >
             ${selectable
-              ? html`<td class="${this.getCellClasses()}">
-                  <input
-                    type="checkbox"
-                    ?disabled="${this.disabled}"
-                    .checked="${isSelected}"
-                    aria-label="${this.msg.selectRow(globalIdx)}"
-                    @click="${(e: Event) => e.stopPropagation()}"
-                    @change="${(e: Event) => this.handleRowCheckboxChange(e, globalIdx)}"
-                  />
-                </td>`
+              ? isSingle
+                ? html`<td class="${this.getCellClasses()}">
+                    <input
+                      type="radio"
+                      name="${this.uid}"
+                      ?disabled="${this.disabled}"
+                      .checked="${isSelected}"
+                      aria-label="${this.msg.selectRow(globalIdx)}"
+                      @click="${(e: Event) => e.stopPropagation()}"
+                      @change="${() => this.handleRowRadioChange(globalIdx)}"
+                    />
+                  </td>`
+                : html`<td class="${this.getCellClasses()}">
+                    <input
+                      type="checkbox"
+                      ?disabled="${this.disabled}"
+                      .checked="${isSelected}"
+                      aria-label="${this.msg.selectRow(globalIdx)}"
+                      @click="${(e: Event) => e.stopPropagation()}"
+                      @change="${(e: Event) => this.handleRowCheckboxChange(e, globalIdx)}"
+                    />
+                  </td>`
               : nothing}
             ${cells.map(cell => html`
               <td class="${this.getCellClasses()}">
@@ -418,6 +441,28 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
           @click="${() => this.handlePageClick(this.page + 1)}"
         >${this.msg.pageNext}</button>
       </nav>
+    `;
+  }
+
+  private renderFooter(): TemplateResult {
+    const footer = this.getSlot('TableFooter');
+    if (!footer) return html``;
+    const rows = Array.from(footer.querySelectorAll('TableRow')) as HTMLElement[];
+    if (rows.length === 0) return html``;
+    return html`
+      <tfoot class="border-t-2 border-slate-300 dark:border-slate-600">
+        ${rows.map(rowEl => {
+          const cells = Array.from(rowEl.querySelectorAll('TableCell')) as HTMLElement[];
+          return html`
+            <tr class="bg-slate-50 dark:bg-slate-800/60">
+              ${this.selectable ? html`<td class="${this.getCellClasses()}"></td>` : nothing}
+              ${cells.map(cell => html`
+                <td class="${this.getCellClasses()} font-semibold">
+                  ${unsafeHTML(cell.innerHTML)}
+                </td>`)}
+            </tr>`;
+        })}
+      </tfoot>
     `;
   }
 
@@ -461,6 +506,7 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
           <tbody role="rowgroup">
             ${this.renderBody()}
           </tbody>
+          ${this.renderFooter()}
         </table>
         ${this.pageSize > 0 ? this.renderPagination() : nothing}
         ${this.renderError()}
