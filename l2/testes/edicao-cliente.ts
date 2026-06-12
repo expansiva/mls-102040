@@ -230,10 +230,10 @@ export class EdicaoClientePage extends StateLitElement {
 
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-    <!-- Código — ICA (value="{{edicao.codigo}}"), somente leitura -->
+    <!-- Código — ICA (value="\${getState('edicao.codigo')}"), somente leitura -->
     <div class="opacity-60 pointer-events-none">
       <groupentertext--ml-floating-text-input
-        value="{{edicao.codigo}}"
+        value="${getState('edicao.codigo')}"
         name="codigo"
         readonly="true"
       >
@@ -241,7 +241,7 @@ export class EdicaoClientePage extends StateLitElement {
       </groupentertext--ml-floating-text-input>
     </div>
 
-    <!-- Situação — property binding (.value=${...}), editável -->
+    <!-- Situação — property binding (.value=\${this.situacao}), editável -->
     <groupselectone--ml-segmented-control
       .value=${this.situacao}
       name="situacao"
@@ -254,7 +254,7 @@ export class EdicaoClientePage extends StateLitElement {
       <Item value="bloqueado">Bloqueado</Item>
     </groupselectone--ml-segmented-control>
 
-    <!-- Nome — property binding (.value=${...}), editável -->
+    <!-- Nome — property binding (.value=\${this.nome}), editável -->
     <groupentertext--ml-floating-text-input
       .value=${this.nome}
       name="nome"
@@ -264,7 +264,7 @@ export class EdicaoClientePage extends StateLitElement {
       <Label>Nome *</Label>
     </groupentertext--ml-floating-text-input>
 
-    <!-- Endereço — property binding (.value=${...}), editável -->
+    <!-- Endereço — property binding (.value=\${this.endereco}), editável -->
     <groupentertext--ml-floating-text-input
       .value=${this.endereco}
       name="endereco"
@@ -274,10 +274,10 @@ export class EdicaoClientePage extends StateLitElement {
       <Label>Endereço *</Label>
     </groupentertext--ml-floating-text-input>
 
-    <!-- Data de Inclusão — ICA (value="{{edicao.dataInclusao}}"), somente leitura -->
+    <!-- Data de Inclusão — ICA (value="\${getState('edicao.dataInclusao')}"), somente leitura -->
     <div class="opacity-60 pointer-events-none">
       <groupentertext--ml-floating-text-input
-        value="{{edicao.dataInclusao}}"
+        value="${getState('edicao.dataInclusao')}"
         name="dataInclusao"
         readonly="true"
       >
@@ -285,10 +285,10 @@ export class EdicaoClientePage extends StateLitElement {
       </groupentertext--ml-floating-text-input>
     </div>
 
-    <!-- Última Modificação — ICA (value="{{edicao.dataModificacao}}"), somente leitura -->
+    <!-- Última Modificação — ICA (value="\${getState('edicao.dataModificacao')}"), somente leitura -->
     <div class="opacity-60 pointer-events-none">
       <groupentertext--ml-floating-text-input
-        value="{{edicao.dataModificacao}}"
+        value="${getState('edicao.dataModificacao')}"
         name="dataModificacao"
         readonly="true"
       >
