@@ -342,14 +342,16 @@ export class EscolhaOrcamentoPage extends StateLitElement {
 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
   ${field('Código do Orçamento', o.codigo,
     'bg-slate-100 dark:bg-slate-700/50', 'text-slate-700 dark:text-slate-200')}
-  ${field('Fornecedor', o.fornecedor,
-    'bg-slate-100 dark:bg-slate-700/50', 'text-slate-700 dark:text-slate-200')}
   ${field('Valor Peças', this.brl(o.valorPecas),
-    'bg-sky-50 dark:bg-sky-900/30', 'text-sky-800 dark:text-sky-200')}
-  ${field('Mão de Obra', this.brl(o.valorMaoDeObra),
     'bg-sky-50 dark:bg-sky-900/30', 'text-sky-800 dark:text-sky-200')}
   ${field('Estimativa de Entrega', `${o.estimativaEntregaDias} dias`,
     'bg-violet-50 dark:bg-violet-900/30', 'text-violet-800 dark:text-violet-200')}
+
+  ${field('Fornecedor', o.fornecedor,
+    'bg-slate-100 dark:bg-slate-700/50', 'text-slate-700 dark:text-slate-200')}
+  ${field('Mão de Obra', this.brl(o.valorMaoDeObra),
+    'bg-sky-50 dark:bg-sky-900/30', 'text-sky-800 dark:text-sky-200')}
+
   ${field('Total do Orçamento', this.brl(total),
     'bg-emerald-50 dark:bg-emerald-900/30', 'text-emerald-800 dark:text-emerald-200')}
 </div>
