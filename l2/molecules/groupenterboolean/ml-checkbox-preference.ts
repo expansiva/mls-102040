@@ -74,6 +74,7 @@ private static nextId = 0;
 // ===========================================================================
 private handleToggle(e: Event) {
 if (!this.isEditing || this.disabled) return;
+e.stopPropagation();
 const input = e.target as HTMLInputElement;
 this.value = input.checked;
 this.dispatchEvent(new CustomEvent('change', {
