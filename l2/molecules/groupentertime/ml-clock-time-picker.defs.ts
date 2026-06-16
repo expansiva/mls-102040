@@ -3,6 +3,12 @@
 // Do not change – automatically generated code.
 
 export const group = 'groupEnterTime';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  timeInput: "clock"
+};
+
 export const skill = `# Metadata
 - TagName: groupentertime--ml-clock-time-picker
 

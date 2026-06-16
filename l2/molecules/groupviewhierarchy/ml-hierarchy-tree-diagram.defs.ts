@@ -3,6 +3,11 @@
 // Do not change – automatically generated code.
 
 export const group = 'groupViewHierarchy';
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  hierarchy: "tree"
+};
+
 export const skill = `# Metadata
 - TagName: groupviewhierarchy--ml-hierarchy-tree-diagram
 

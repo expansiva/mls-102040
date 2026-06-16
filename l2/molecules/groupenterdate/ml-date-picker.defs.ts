@@ -3,6 +3,13 @@
 // Do not change – automatically generated code.
 
 export const group = 'groupEnterDate';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  dateInput: "calendar-popover",
+  labelPlacement: "top"
+};
+
 export const skill = `# Metadata
 - TagName: groupenterdate--ml-date-picker
 

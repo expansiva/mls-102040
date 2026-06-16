@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupEnterNumber';
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  numberInput: "input",
+  labelPlacement: "floating"
+};
+
 export const skill = `# Metadata
 - TagName: groupenternumber--ml-floating-number-input
 

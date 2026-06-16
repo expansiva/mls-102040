@@ -3,6 +3,12 @@
 // Do not change – automatically generated code.
 
 export const group = 'groupExpandContent';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  expand: "accordion"
+};
+
 export const skill = `# Metadata
 - TagName: groupexpandcontent--ml-accordion
 

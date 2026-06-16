@@ -3,6 +3,11 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupViewData';
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  recordsView: "kanban"
+};
+
 export const skill = `# Metadata
 - TagName: groupviewdata--ml-kanban-board
 

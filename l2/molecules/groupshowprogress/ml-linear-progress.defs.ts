@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupShowProgress';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  progress: "linear"
+};
+
 export const skill = `# Metadata
 - TagName: groupshowprogress--ml-linear-progress
 

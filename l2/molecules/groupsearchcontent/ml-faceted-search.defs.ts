@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupSearchContent';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  search: "bar"
+};
+
 export const skill = `# Metadata
 - TagName: groupsearchcontent--ml-faceted-search
 

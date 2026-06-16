@@ -3,6 +3,11 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupViewCard';
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  cardLayout: "vertical"
+};
+
 export const skill = `# Metadata
 - TagName: groupviewcard--ml-vertical-card
 

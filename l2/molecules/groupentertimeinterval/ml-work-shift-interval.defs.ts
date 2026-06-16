@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupEnterTimeInterval';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  intervalInput: "fields"
+};
+
 export const skill = `# Metadata
 - TagName: groupentertimeinterval--ml-work-shift-interval
 

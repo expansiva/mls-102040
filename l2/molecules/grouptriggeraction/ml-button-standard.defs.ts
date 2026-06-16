@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupTriggerAction';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  actionStyle: "standard"
+};
+
 export const skill = `# Metadata
 - TagName: grouptriggeraction--ml-button-standard
 

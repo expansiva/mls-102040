@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupNavigateSection';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  sectionNav: "pills"
+};
+
 export const skill = `# Metadata
 - TagName: groupnavigatesection--ml-navigate-pills
 

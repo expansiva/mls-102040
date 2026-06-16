@@ -3,6 +3,11 @@
 // Do not change – automatically generated code.
 
 export const group = 'groupSelectFileForUpload';
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  upload: "dropzone"
+};
+
 export const skill = `# Metadata
 - TagName: groupselectfileforupload--ml-file-upload-preview
 

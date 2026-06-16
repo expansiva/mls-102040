@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupEnterText';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  labelPlacement: "top"
+};
+
 export const skill = `# Metadata
 - TagName: groupentertext--ml-tag-input
 

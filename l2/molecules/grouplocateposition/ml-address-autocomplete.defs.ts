@@ -3,6 +3,9 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupLocatePosition';
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {};
+
 export const skill = `# Metadata
 - TagName: grouplocateposition--ml-address-autocomplete
 

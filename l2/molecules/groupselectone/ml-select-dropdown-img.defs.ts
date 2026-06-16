@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupSelectOne';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  selectOne: "dropdown"
+};
+
 export const skill = `# Metadata
 - TagName: groupselectone--ml-select-dropdown-img
 

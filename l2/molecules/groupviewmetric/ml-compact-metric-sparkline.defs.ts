@@ -3,6 +3,11 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupViewMetric';
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  metric: "sparkline"
+};
+
 export const skill = `# Metadata
 - TagName: groupviewmetric--ml-compact-metric-sparkline
 

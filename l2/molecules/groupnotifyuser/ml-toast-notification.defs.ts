@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupNotifyUser';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  feedback: "toast"
+};
+
 export const skill = `# Metadata
 - TagName: groupnotifyuser--ml-toast-notification
 

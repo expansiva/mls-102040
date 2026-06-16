@@ -3,6 +3,12 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupEnterDateInterval';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  intervalInput: "presets"
+};
+
 export const skill = `# Metadata
 - TagName: groupenterdateinterval--ml-date-interval-presets
 

@@ -3,6 +3,11 @@
 // Do not change – automatically generated code. 
 
 export const group = 'groupViewTable';
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  recordsView: "table"
+};
+
 export const skill = `# Metadata
 - TagName: groupviewtable--ml-inline-edit-table
 

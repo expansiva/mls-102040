@@ -3,6 +3,12 @@
 // Do not change – automatically generated code.
 
 export const group = 'groupNavigateMain';
+
+// Design-system axes this molecule candidates for (matched by the DS agent).
+export const layoutConfig = {
+  navMain: "sidebar"
+};
+
 export const skill = `# Metadata
 - TagName: groupnavigatemain--ml-sidebar-nav
 
