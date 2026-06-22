@@ -7,6 +7,7 @@ import '/_102040_/l2/molecules/groupselectmany/ml-multi-checkbox-list';
 import '/_102040_/l2/molecules/groupselectmany/ml-multi-select-dropdown';
 import '/_102040_/l2/molecules/groupselectmany/ml-popover-multi-select';
 import '/_102040_/l2/molecules/groupselectmany/ml-tree-multi-select';
+import '/_102040_/l2/molecules/groupselectmany/ml-table-multi-select';
 
 @customElement('molecules--groupselectmany--index-102040')
 export class GroupSelectManyIndex extends StateLitElement {
@@ -16,6 +17,7 @@ export class GroupSelectManyIndex extends StateLitElement {
   @state() private cardDropdown = 'tokyo,singapore';
   @state() private cardPopover = 'basic,pro';
   @state() private cardTree = 'north-america,eu-west';
+  @state() private cardTable = 'basic,pro';
 
   // ===========================================================================
   // HERO
@@ -212,6 +214,54 @@ export class GroupSelectManyIndex extends StateLitElement {
               </groupselectmany--ml-tree-multi-select>
             </div>
           </div>
+
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="h-1 bg-indigo-500 rounded-t-2xl"></div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Table multi select</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-table-multi-select</code>
+              </div>
+              <p class="text-xs text-slate-400 mb-5">Compare attributes across columns and pick multiple rows.</p>
+              <groupselectmany--ml-table-multi-select
+                name="card-6"
+                value="${this.cardTable}"
+                .searchable=${true}
+                .maxSelection=${3}
+                .isEditing=${true}
+                @change=${(e: CustomEvent) => {
+                  this.cardTable = e.detail.value;
+                }}
+              >
+                <Label>Select plans</Label>
+                <Helper>Choose up to 3 plans to compare.</Helper>
+                <Column>Plan</Column>
+                <Column>Price</Column>
+                <Column>Seats</Column>
+                <Item value="basic">
+                  <Cell>Basic</Cell>
+                  <Cell>$10/mo</Cell>
+                  <Cell>3</Cell>
+                </Item>
+                <Item value="pro">
+                  <Cell>Pro</Cell>
+                  <Cell>$25/mo</Cell>
+                  <Cell>10</Cell>
+                </Item>
+                <Item value="business">
+                  <Cell>Business</Cell>
+                  <Cell>$50/mo</Cell>
+                  <Cell>25</Cell>
+                </Item>
+                <Item value="enterprise" disabled>
+                  <Cell>Enterprise</Cell>
+                  <Cell>Contact us</Cell>
+                  <Cell>Unlimited</Cell>
+                </Item>
+                <Empty>No plans available</Empty>
+              </groupselectmany--ml-table-multi-select>
+            </div>
+          </div>
         </div>
       </section>
     `;
@@ -227,6 +277,7 @@ export class GroupSelectManyIndex extends StateLitElement {
       multiSelectDropdown: boolean;
       popoverMultiSelect: boolean;
       treeMultiSelect: boolean;
+      tableMultiSelect: boolean;
     }> = [
       {
         scenario: 'Users need to move items between two distinct lists with clear selection counts.',
@@ -235,6 +286,7 @@ export class GroupSelectManyIndex extends StateLitElement {
         multiSelectDropdown: false,
         popoverMultiSelect: false,
         treeMultiSelect: false,
+        tableMultiSelect: false,
       },
       {
         scenario: 'All options should stay visible without opening a panel.',
@@ -243,6 +295,7 @@ export class GroupSelectManyIndex extends StateLitElement {
         multiSelectDropdown: false,
         popoverMultiSelect: false,
         treeMultiSelect: false,
+        tableMultiSelect: true,
       },
       {
         scenario: 'Screen space is limited and the list can be searched or filtered.',
@@ -251,6 +304,7 @@ export class GroupSelectManyIndex extends StateLitElement {
         multiSelectDropdown: true,
         popoverMultiSelect: true,
         treeMultiSelect: false,
+        tableMultiSelect: false,
       },
       {
         scenario: 'Selections come from nested categories or organizational hierarchies.',
@@ -259,6 +313,7 @@ export class GroupSelectManyIndex extends StateLitElement {
         multiSelectDropdown: false,
         popoverMultiSelect: false,
         treeMultiSelect: true,
+        tableMultiSelect: false,
       },
       {
         scenario: 'You need a compact, chip-based picker with a customizable trigger.',
@@ -267,6 +322,16 @@ export class GroupSelectManyIndex extends StateLitElement {
         multiSelectDropdown: false,
         popoverMultiSelect: true,
         treeMultiSelect: false,
+        tableMultiSelect: false,
+      },
+      {
+        scenario: 'Each option has multiple comparable attributes and the user picks several rows.',
+        dualListSelect: false,
+        multiCheckboxList: false,
+        multiSelectDropdown: false,
+        popoverMultiSelect: false,
+        treeMultiSelect: false,
+        tableMultiSelect: true,
       },
     ];
     const headers = [
@@ -275,6 +340,7 @@ export class GroupSelectManyIndex extends StateLitElement {
       { label: 'Dropdown', cls: 'text-amber-600 dark:text-amber-400' },
       { label: 'Popover', cls: 'text-rose-600 dark:text-rose-400' },
       { label: 'Tree', cls: 'text-sky-600 dark:text-sky-400' },
+      { label: 'Table', cls: 'text-indigo-600 dark:text-indigo-400' },
     ];
 
     return html`
@@ -307,6 +373,7 @@ export class GroupSelectManyIndex extends StateLitElement {
                         row.multiSelectDropdown,
                         row.popoverMultiSelect,
                         row.treeMultiSelect,
+                        row.tableMultiSelect,
                       ] as boolean[]).map(
                         (ok) => html`
                           <td class="px-4 py-3.5 text-center">

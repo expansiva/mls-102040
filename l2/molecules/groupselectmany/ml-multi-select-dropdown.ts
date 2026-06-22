@@ -4,7 +4,7 @@
 // =============================================================================
 // Skill Group: groupSelectMany
 // This molecule does NOT contain business logic.
-import { html, TemplateResult } from 'lit';
+import { html, render as litRender, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
@@ -91,6 +91,9 @@ private helperId = `${this.uid}-helper`;
 private errorId = `${this.uid}-error`;
 private panelId = `${this.uid}-panel`;
 private hasFocus = false;
+protected portalContainer: HTMLDivElement | null = null;
+protected portalClassName = '';
+private boundUpdatePosition = () => this.updatePanelPosition();
 // ===========================================================================
 // LIFECYCLE
 // ==========================================================================
@@ -100,6 +103,14 @@ super.connectedCallback();
 disconnectedCallback() {
 super.disconnectedCallback();
 this.unregisterOutsideClick();
+this.destroyPortal();
+}
+updated(_changedProperties: Map<string, unknown>) {
+super.updated(_changedProperties);
+if (this.isOpen && this.portalContainer) {
+this.renderPortalContent();
+this.updatePanelPosition();
+}
 }
 // ===========================================================================
 // EVENT HANDLERS
@@ -154,7 +165,7 @@ this.dispatchEvent(new CustomEvent('focus', { bubbles: true, composed: true }));
 private handleFocusOut(e: FocusEvent) {
 if (!this.isEditing) return;
 const related = e.relatedTarget as Node | null;
-if (this.hasFocus && (!related || !this.contains(related))) {
+if (this.hasFocus && (!related || (!this.contains(related) && !this.portalContainer?.contains(related)))) {
 this.hasFocus = false;
 this.dispatchEvent(new CustomEvent('blur', { bubbles: true, composed: true }));
 this.closePanel();
@@ -162,7 +173,7 @@ this.closePanel();
 }
 private handleDocumentClick = (e: Event) => {
 const target = e.target as Node | null;
-if (!target || !this.contains(target)) {
+if (!target || (!this.contains(target) && !this.portalContainer?.contains(target))) {
 this.closePanel();
 }
 };
@@ -192,6 +203,7 @@ private toggleOpen() {
 this.isOpen = !this.isOpen;
 if (this.isOpen) {
 this.registerOutsideClick();
+this.createPortal();
 if (this.searchable) {
 setTimeout(() => this.focusSearchInput(), 0);
 }
@@ -204,6 +216,7 @@ if (!this.isOpen) return;
 this.isOpen = false;
 this.searchQuery = '';
 this.unregisterOutsideClick();
+this.destroyPortal();
 }
 private registerOutsideClick() {
 document.addEventListener('pointerdown', this.handleDocumentClick);
@@ -212,7 +225,8 @@ private unregisterOutsideClick() {
 document.removeEventListener('pointerdown', this.handleDocumentClick);
 }
 private focusSearchInput() {
-const input = this.querySelector('input[data-search]') as HTMLInputElement | null;
+const container = this.portalContainer || this;
+const input = container.querySelector('input[data-search]') as HTMLInputElement | null;
 input?.focus();
 }
 private focusTrigger() {
@@ -220,13 +234,75 @@ const trigger = this.querySelector('[data-trigger]') as HTMLElement | null;
 trigger?.focus();
 }
 private moveOptionFocus(direction: number) {
-const options = Array.from(this.querySelectorAll('[data-option]')) as HTMLElement[];
+const container = this.portalContainer || this;
+const options = Array.from(container.querySelectorAll('[data-option]')) as HTMLElement[];
 if (!options.length) return;
 const activeIndex = options.findIndex(el => el === document.activeElement);
 const nextIndex = activeIndex === -1
 ? 0
 : (activeIndex + direction + options.length) % options.length;
 options[nextIndex]?.focus();
+}
+// ===========================================================================
+// PORTAL
+// ==========================================================================
+private createPortal() {
+if (this.portalContainer) return;
+this.portalContainer = document.createElement('div');
+if (this.portalClassName) {
+this.portalContainer.classList.add(this.portalClassName);
+}
+document.body.appendChild(this.portalContainer);
+this.updatePanelPosition();
+this.renderPortalContent();
+window.addEventListener('scroll', this.boundUpdatePosition, true);
+window.addEventListener('resize', this.boundUpdatePosition);
+}
+private destroyPortal() {
+if (!this.portalContainer) return;
+window.removeEventListener('scroll', this.boundUpdatePosition, true);
+window.removeEventListener('resize', this.boundUpdatePosition);
+this.portalContainer.remove();
+this.portalContainer = null;
+}
+private updatePanelPosition() {
+if (!this.portalContainer) return;
+const trigger = this.querySelector('button[role="combobox"]') as HTMLElement;
+if (!trigger) return;
+const rect = trigger.getBoundingClientRect();
+Object.assign(this.portalContainer.style, {
+position: 'fixed',
+top: `${rect.bottom + 8}px`,
+left: `${rect.left}px`,
+width: `${rect.width}px`,
+zIndex: '9999',
+});
+}
+private renderPortalContent() {
+if (!this.portalContainer) return;
+litRender(this.getPortalTemplate(), this.portalContainer);
+}
+protected getPortalTemplate(): TemplateResult {
+const groups = this.getGroupedItems();
+const items = this.getUngroupedItems();
+const selectedValues = this.getSelectedValues();
+return html`
+<div class="${this.getPanelClasses()}" @keydown=${(e: KeyboardEvent) => this.handlePanelKeydown(e)}>
+${this.searchable ? html`
+<div class="p-2">
+<input
+class="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
+type="text"
+placeholder="${this.msg.searchPlaceholder}"
+.value=${this.searchQuery}
+@input=${(e: Event) => this.handleSearchInput(e)}
+data-search
+/>
+</div>
+` : html``}
+${this.renderOptionList(groups, items, selectedValues)}
+</div>
+`;
 }
 // ===========================================================================
 // PARSING
@@ -332,7 +408,7 @@ hasError
 }
 private getPanelClasses(): string {
 return [
-'absolute z-20 mt-2 w-full rounded-lg border shadow-lg',
+'w-full rounded-lg border shadow-lg',
 'bg-white dark:bg-slate-800',
 'border-slate-200 dark:border-slate-700',
 ].join(' ');
@@ -491,23 +567,6 @@ ${describedBy ? html`aria-describedby="${describedBy}"` : html``}
 >
 ${this.loading ? html`<span class="text-slate-500 dark:text-slate-400">${this.msg.loading}</span>` : this.renderTriggerContent(allItems, selectedValues)}
 </button>
-${isPanelOpen ? html`
-<div class="${this.getPanelClasses()}">
-${this.searchable ? html`
-<div class="p-2">
-<input
-class="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
-type="text"
-placeholder="${this.msg.searchPlaceholder}"
-.value=${this.searchQuery}
-@input=${this.handleSearchInput}
-data-search
-/>
-</div>
-` : html``}
-${this.renderOptionList(groups, items, selectedValues)}
-</div>
-` : html``}
 </div>
 ${this.renderHelperOrError(errorMessage)}
 ${this.name ? html`<input type="hidden" name="${this.name}" value="${this.value}" />` : html``}

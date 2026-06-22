@@ -4,7 +4,7 @@
 // =============================================================================
 // Skill Group: groupSelectMany
 // This molecule does NOT contain business logic.
-import { html, svg, TemplateResult, nothing } from 'lit';
+import { html, render as litRender, svg, TemplateResult, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
@@ -87,9 +87,16 @@ private labelId = `ml-popover-multi-select-label-${Math.random().toString(36).sl
 private errorId = `ml-popover-multi-select-error-${Math.random().toString(36).slice(2)}`;
 private panelId = `ml-popover-multi-select-panel-${Math.random().toString(36).slice(2)}`;
 private hasFocus = false;
+protected portalContainer: HTMLDivElement | null = null;
+protected portalClassName = '';
+private boundUpdatePosition = () => this.updatePanelPosition();
 // ===========================================================================
 // LIFECYCLE
 // ==========================================================================='
+disconnectedCallback() {
+super.disconnectedCallback();
+this.destroyPortal();
+}
 updated(changed: Map<string, unknown>) {
 if (changed.has('isOpen')) {
 if (this.isOpen) {
@@ -108,6 +115,10 @@ this.closePanel();
 }
 if (changed.has('isEditing') && !this.isEditing && this.isOpen) {
 this.closePanel();
+}
+if (this.isOpen && this.portalContainer) {
+this.renderPortalContent();
+this.updatePanelPosition();
 }
 }
 // ===========================================================================
@@ -168,7 +179,7 @@ this.toggleActiveItem();
 private handleDocumentClick = (e: MouseEvent) => {
 if (!this.isOpen) return;
 const target = e.target as Node;
-if (!this.contains(target)) {
+if (!this.contains(target) && !this.portalContainer?.contains(target)) {
 this.closePanel();
 }
 };
@@ -184,15 +195,18 @@ this.closePanel();
 private openPanel() {
 if (this.isOpen) return;
 this.isOpen = true;
+this.createPortal();
 }
 private closePanel() {
 if (!this.isOpen) return;
 this.isOpen = false;
+this.destroyPortal();
 this.dispatchBlurIfNeeded();
 }
 private focusAfterOpen() {
 requestAnimationFrame(() => {
-const searchInput = this.querySelector('[data-ml-search]') as HTMLInputElement | null;
+const container = this.portalContainer || this;
+const searchInput = container.querySelector('[data-ml-search]') as HTMLInputElement | null;
 if (this.searchable && searchInput) {
 searchInput.focus();
 return;
@@ -342,10 +356,81 @@ if (!activeEntry) return;
 this.handleItemClick(activeEntry.item, activeEntry.disabled);
 }
 private focusActiveItem() {
-const activeButton = this.querySelector(`[data-ml-item][data-index="${this.activeIndex}"]`) as HTMLButtonElement | null;
+const container = this.portalContainer || this;
+const activeButton = container.querySelector(`[data-ml-item][data-index="${this.activeIndex}"]`) as HTMLButtonElement | null;
 if (activeButton) {
 activeButton.focus();
 }
+}
+// ===========================================================================
+// PORTAL
+// ===========================================================================
+private createPortal() {
+if (this.portalContainer) return;
+this.portalContainer = document.createElement('div');
+if (this.portalClassName) {
+this.portalContainer.classList.add(this.portalClassName);
+}
+document.body.appendChild(this.portalContainer);
+this.updatePanelPosition();
+this.renderPortalContent();
+window.addEventListener('scroll', this.boundUpdatePosition, true);
+window.addEventListener('resize', this.boundUpdatePosition);
+}
+private destroyPortal() {
+if (!this.portalContainer) return;
+window.removeEventListener('scroll', this.boundUpdatePosition, true);
+window.removeEventListener('resize', this.boundUpdatePosition);
+this.portalContainer.remove();
+this.portalContainer = null;
+}
+private updatePanelPosition() {
+if (!this.portalContainer) return;
+const trigger = this.querySelector('button[role="combobox"]') as HTMLElement;
+if (!trigger) return;
+const rect = trigger.getBoundingClientRect();
+Object.assign(this.portalContainer.style, {
+position: 'fixed',
+top: `${rect.bottom + 8}px`,
+left: `${rect.left}px`,
+width: `${rect.width}px`,
+zIndex: '9999',
+});
+}
+private renderPortalContent() {
+if (!this.portalContainer) return;
+litRender(this.getPortalTemplate(), this.portalContainer);
+}
+protected getPortalTemplate(): TemplateResult {
+const slotData = this.collectSlotData();
+const filtered = this.filterData(slotData, this.searchQuery);
+const { selectedSet, selectionFull } = this.getSelectionState();
+const showEmpty = filtered.groups.length === 0 && filtered.items.length === 0;
+return html`
+<div
+id="${this.panelId}"
+class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-lg"
+role="listbox"
+aria-multiselectable="true"
+@keydown=${(e: KeyboardEvent) => this.handlePanelKeyDown(e)}
+>
+${this.searchable
+? html`
+<div class="p-2 border-b border-slate-200 dark:border-slate-700">
+<input
+class="w-full rounded-md px-3 py-2 text-sm border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
+.placeholder=${this.msg.search}
+value=${this.searchQuery}
+@input=${(e: Event) => this.handleSearchInput(e)}
+data-ml-search
+/>
+</div>`
+: nothing}
+<div class="max-h-64 overflow-auto p-2">
+${showEmpty ? this.renderEmpty() : this.renderItems(filtered.groups, filtered.items, selectedSet, selectionFull)}
+</div>
+</div>
+`;
 }
 // ===========================================================================
 // RENDER HELPERS
@@ -534,7 +619,6 @@ if (!this.isEditing) {
 return this.renderViewMode(selectedLabels);
 }
 const triggerClasses = this.getTriggerClasses(hasError);
-const showEmpty = filtered.groups.length === 0 && filtered.items.length === 0;
 return html`
 <div class="w-full" role="group">
 <div class="flex items-start gap-3">
@@ -571,33 +655,6 @@ ${svg`<path d="M5 7l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5
 </svg>
 </span>
 </button>
-${this.isOpen && !this.loading
-? html`
-<div
-id="${this.panelId}"
-class="absolute z-20 mt-2 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-lg"
-role="listbox"
-aria-multiselectable="true"
-@keydown=${this.handlePanelKeyDown}
->
-${this.searchable
-? html`
-<div class="p-2 border-b border-slate-200 dark:border-slate-700">
-<input
-class="w-full rounded-md px-3 py-2 text-sm border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
-.placeholder=${this.msg.search}
-value=${this.searchQuery}
-@input=${this.handleSearchInput}
-data-ml-search
-/>
-</div>`
-: nothing}
-<div class="max-h-64 overflow-auto p-2">
-${showEmpty ? this.renderEmpty() : this.renderItems(filtered.groups, filtered.items, selectedSet, selectionFull)}
-</div>
-</div>
-`
-: nothing}
 </div>
 </div>
 ${this.renderError(hasError)}

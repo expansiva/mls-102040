@@ -1,8 +1,8 @@
-/// <mls fileReference="_102040_/l2/molecules/groupselectone/ml-table-single-select.ts" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupselectmany/ml-table-multi-select.ts" enhancement="_blank"/>
 // =============================================================================
-// GROUPSELECTONE – ML TABLE SINGLE SELECT MOLECULE
+// GROUPSELECTMANY – ML TABLE MULTI SELECT MOLECULE
 // =============================================================================
-// Skill Group: groupSelectOne (single‑select table variant)
+// Skill Group: groupSelectMany (multi‑select table variant)
 // This molecule does NOT contain business logic – it only renders UI.
 import { html, nothing, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
@@ -11,18 +11,28 @@ import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 /// **collab_i18n_start**
 const message_en = {
-placeholder: 'Select an option',
+placeholder: 'No items selected',
 noResults: 'No results found',
 loading: 'Loading...',
+selectedCount: 'selected',
+requiredError: 'Select at least one option',
+minSelectionError: 'Select at least {min} options',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
 en: message_en,
-// add other locales here if needed
+pt: {
+placeholder: 'Nenhum item selecionado',
+noResults: 'Nenhum resultado encontrado',
+loading: 'Carregando...',
+selectedCount: 'selecionado(s)',
+requiredError: 'Selecione pelo menos uma opção',
+minSelectionError: 'Selecione pelo menos {min} opções',
+},
 };
 /// **collab_i18n_end**
-@customElement('groupselectone--ml-table-single-select')
-export class MlTableSingleSelectMolecule extends MoleculeAuraElement {
+@customElement('groupselectmany--ml-table-multi-select')
+export class MlTableMultiSelectMolecule extends MoleculeAuraElement {
 // ---------------------------------------------------------------------------
 // i18n
 // ---------------------------------------------------------------------------
@@ -41,10 +51,10 @@ slotTags = [
 'Empty',
 ];
 // ---------------------------------------------------------------------------
-// PROPERTIES – data contract (bound to global state)
+// PROPERTIES – data contract
 // ---------------------------------------------------------------------------
 @propertyDataSource({ type: String })
-value: string | null = null;
+value: string = '';
 @propertyDataSource({ type: String })
 error: string = '';
 @propertyDataSource({ type: String })
@@ -57,30 +67,38 @@ readonly: boolean = false;
 loading: boolean = false;
 @propertyDataSource({ type: Boolean })
 isEditing: boolean = true;
+@propertyDataSource({ type: Boolean })
+required: boolean = false;
+@propertyDataSource({ type: Number, attribute: 'min-selection' })
+minSelection: number = 0;
+@propertyDataSource({ type: Number, attribute: 'max-selection' })
+maxSelection: number = 0;
 // ---------------------------------------------------------------------------
 // CONFIGURATION PROPERTIES
 // ---------------------------------------------------------------------------
-@propertyDataSource({ type: String, attribute: 'variant' })
-variant: string = 'table'; // forced to table – kept for contract compatibility
 @propertyDataSource({ type: String })
 placeholder: string = '';
 @propertyDataSource({ type: Boolean, attribute: 'searchable' })
 searchable: boolean = false;
 // ---------------------------------------------------------------------------
-// STATE PROPERTIES – internal UI state
+// STATE PROPERTIES
 // ---------------------------------------------------------------------------
-@state()
-private isOpen: boolean = false; // not used for table, kept for contract
 @state()
 private searchQuery: string = '';
 // ---------------------------------------------------------------------------
-// INTERNAL – unique radio group name per instance
+// HELPERS – selection
 // ---------------------------------------------------------------------------
-private static _uidCounter = 0;
-private _uid: string;
-constructor() {
-super();
-this._uid = `groupselectone-${MlTableSingleSelectMolecule._uidCounter++}`;
+private getSelectedSet(): Set<string> {
+if (!this.value) return new Set();
+return new Set(this.value.split(',').map(v => v.trim()).filter(Boolean));
+}
+private updateValueFromSet(set: Set<string>) {
+this.value = Array.from(set).join(',');
+this.dispatchEvent(new CustomEvent('change', {
+bubbles: true,
+composed: true,
+detail: { value: this.value },
+}));
 }
 // ---------------------------------------------------------------------------
 // HELPERS – parsing slot content
@@ -108,37 +126,62 @@ return this.getItems().filter((item) =>
 item.cells.some((cell) => cell.toLowerCase().includes(q))
 );
 }
-private findItem(value: string | null): { value: string; disabled: boolean; cells: string[] } | null {
-if (value === null) return null;
-return this.getItems().find((i) => i.value === value) ?? null;
+// ---------------------------------------------------------------------------
+// VALIDATION
+// ---------------------------------------------------------------------------
+private getComputedError(): string {
+if (this.error) return this.error;
+const count = this.getSelectedSet().size;
+if (this.required && count === 0) return this.msg.requiredError;
+if (this.minSelection > 0 && count < this.minSelection) {
+return this.msg.minSelectionError.replace('{min}', String(this.minSelection));
+}
+return '';
 }
 // ---------------------------------------------------------------------------
 // EVENT HANDLERS
 // ---------------------------------------------------------------------------
-private handleRowSelect(item: { value: string; disabled: boolean }) {
+private handleRowToggle(item: { value: string; disabled: boolean }) {
 if (this.disabled || this.readonly || item.disabled) return;
-this.value = item.value;
-this.dispatchEvent(
-new CustomEvent('change', {
-bubbles: true,
-composed: true,
-detail: { value: this.value },
-})
-);
+const selected = this.getSelectedSet();
+const isSelected = selected.has(item.value);
+const maxReached = this.maxSelection > 0 && selected.size >= this.maxSelection;
+if (!isSelected && maxReached) return;
+if (isSelected) {
+selected.delete(item.value);
+} else {
+selected.add(item.value);
+}
+this.updateValueFromSet(selected);
+}
+private handleSelectAll(e: Event) {
+if (this.disabled || this.readonly) return;
+const checked = (e.target as HTMLInputElement).checked;
+const items = this.getFilteredItems();
+const selected = this.getSelectedSet();
+if (checked) {
+for (const item of items) {
+if (!item.disabled) {
+if (this.maxSelection > 0 && selected.size >= this.maxSelection) break;
+selected.add(item.value);
+}
+}
+} else {
+for (const item of items) {
+selected.delete(item.value);
+}
+}
+this.updateValueFromSet(selected);
 }
 private handleSearchInput(e: Event) {
 const input = e.target as HTMLInputElement;
 this.searchQuery = input.value;
 }
 private handleBlur() {
-this.dispatchEvent(
-new CustomEvent('blur', { bubbles: true, composed: true })
-);
+this.dispatchEvent(new CustomEvent('blur', { bubbles: true, composed: true }));
 }
 private handleFocus() {
-this.dispatchEvent(
-new CustomEvent('focus', { bubbles: true, composed: true })
-);
+this.dispatchEvent(new CustomEvent('focus', { bubbles: true, composed: true }));
 }
 // ---------------------------------------------------------------------------
 // RENDER HELPERS – CSS class builders
@@ -157,16 +200,14 @@ return [
 'border-b border-slate-200 dark:border-slate-700',
 ].join(' ');
 }
-private getRowClasses(item: { value: string; disabled: boolean }, isSelected: boolean): string {
+private getRowClasses(item: { disabled: boolean }, isSelected: boolean): string {
 return [
 'cursor-pointer',
 isSelected
 ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400'
 : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100',
 item.disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50 dark:hover:bg-slate-700',
-]
-.filter(Boolean)
-.join(' ');
+].filter(Boolean).join(' ');
 }
 private getCellClasses(): string {
 return [
@@ -187,14 +228,15 @@ this.disabled
 ].join(' ');
 }
 // ---------------------------------------------------------------------------
-// RENDER – loading, view mode, editing mode
+// RENDER
 // ---------------------------------------------------------------------------
 private renderLoading(): TemplateResult {
 return html`<div class="text-sm text-slate-600 dark:text-slate-400">${this.msg.loading}</div>`;
 }
 private renderHelperOrError(): TemplateResult {
-if (this.error) {
-return html`<p class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>`;
+const errorMessage = this.getComputedError();
+if (errorMessage) {
+return html`<p class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(errorMessage)}</p>`;
 }
 if (this.hasSlot('Helper')) {
 return html`<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
@@ -206,15 +248,19 @@ const content = this.getSlotContent('Empty') || this.msg.noResults;
 return html`<div class="p-4 text-center text-slate-500 dark:text-slate-400">${unsafeHTML(content)}</div>`;
 }
 private renderViewMode(): TemplateResult {
-const selected = this.findItem(this.value);
-if (!selected) {
-const placeholder = this.placeholder || '—';
+const selectedSet = this.getSelectedSet();
+if (selectedSet.size === 0) {
+const placeholder = this.placeholder || this.msg.placeholder;
 return html`<div class="text-slate-600 dark:text-slate-400">${placeholder}</div>`;
 }
-// Render cells as a simple vertical list
+const items = this.getItems().filter(i => selectedSet.has(i.value));
 return html`
 <div class="space-y-1">
-${selected.cells.map((c) => html`<div class="text-slate-900 dark:text-slate-100">${unsafeHTML(c)}</div>`)}
+${items.map((item) => html`
+<div class="text-slate-900 dark:text-slate-100">
+${item.cells.map((c, i) => html`${i > 0 ? html` — ` : nothing}${unsafeHTML(c)}`)}
+</div>
+`)}
 </div>
 `;
 }
@@ -222,7 +268,11 @@ private renderTable(): TemplateResult {
 const items = this.getFilteredItems();
 const headers = this.getHeaders();
 const hasHeaders = headers.length > 0;
-const selectedValue = this.value;
+const selectedSet = this.getSelectedSet();
+const enabledItems = items.filter(i => !i.disabled);
+const allSelected = enabledItems.length > 0 && enabledItems.every(i => selectedSet.has(i.value));
+const someSelected = enabledItems.some(i => selectedSet.has(i.value));
+const maxReached = this.maxSelection > 0 && selectedSet.size >= this.maxSelection;
 return html`
 ${this.searchable
 ? html`
@@ -242,7 +292,15 @@ ${hasHeaders
 ? html`
 <thead>
 <tr>
-<th class="${this.getHeaderCellClasses()}"></th>
+<th class="${this.getHeaderCellClasses()}">
+<input
+type="checkbox"
+.checked=${allSelected}
+.indeterminate=${someSelected && !allSelected}
+?disabled=${this.disabled || this.readonly}
+@change=${this.handleSelectAll}
+/>
+</th>
 ${headers.map(
 (h) => html`<th class="${this.getHeaderCellClasses()}">${unsafeHTML(h)}</th>`
 )}
@@ -253,19 +311,20 @@ ${headers.map(
 <tbody>
 ${items.length
 ? items.map((item) => {
-const isSelected = item.value === selectedValue;
+const isSelected = selectedSet.has(item.value);
+const isDisabled = item.disabled || (!isSelected && maxReached);
 return html`
 <tr
-class="${this.getRowClasses(item, isSelected)}"
-@click=${() => this.handleRowSelect(item)}
+class="${this.getRowClasses({ disabled: isDisabled }, isSelected)}"
+@click=${() => !isDisabled && this.handleRowToggle(item)}
 >
 <td class="${this.getCellClasses()}">
 <input
-type="radio"
-name="${this._uid}"
+type="checkbox"
 .checked=${isSelected}
-?disabled=${item.disabled || this.disabled || this.readonly}
+?disabled=${isDisabled || this.disabled || this.readonly}
 @click=${(e: Event) => e.stopPropagation()}
+@change=${() => this.handleRowToggle(item)}
 />
 </td>
 ${item.cells.map(
@@ -281,24 +340,20 @@ ${this.renderHelperOrError()}
 `;
 }
 render(): TemplateResult {
-// i18n handling – pick language based on host attribute or fallback to 'en'
 const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
-// Loading state takes precedence
 if (this.loading) {
 return html`<div class="p-2">${this.renderLoading()}</div>`;
 }
-// View mode – static representation
 if (!this.isEditing) {
 return html`
-<div class="groupselectone--ml-table-single-select-view">
+<div class="groupselectmany--ml-table-multi-select-view">
 ${this.renderViewMode()}
 </div>
 `;
 }
-// Editing mode – render label, table (or empty), helper/error
 return html`
-<div class="groupselectone--ml-table-single-select">
+<div class="groupselectmany--ml-table-multi-select">
 ${this.hasSlot('Label')
 ? html`<label class="block mb-1 text-sm font-medium text-slate-700 dark:text-slate-200">
 ${unsafeHTML(this.getSlotContent('Label'))}
