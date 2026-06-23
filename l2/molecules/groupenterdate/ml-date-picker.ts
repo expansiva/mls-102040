@@ -4,7 +4,7 @@
 // =============================================================================
 // Skill Group: enter + date
 // This molecule does NOT contain business logic.
-import { html, svg, TemplateResult, nothing } from 'lit';
+import { html, svg, render as litRender, TemplateResult, nothing } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
@@ -98,6 +98,10 @@ private viewYear: number = new Date().getUTCFullYear();
 @state()
 private fieldId: string = `date-${Math.random().toString(36).slice(2)}`;
 
+protected portalContainer: HTMLDivElement | null = null;
+protected portalClassName = '';
+private boundUpdatePosition: () => void = this.updatePanelPosition.bind(this);
+
 // ===========================================================================
 // LIFECYCLE
 // ===========================================================================
@@ -110,7 +114,16 @@ document.addEventListener('mousedown', this.handleOutsideClick);
 
 disconnectedCallback() {
 document.removeEventListener('mousedown', this.handleOutsideClick);
+this.destroyPortal();
 super.disconnectedCallback();
+}
+
+updated(_changedProperties: Map<string, unknown>) {
+super.updated(_changedProperties);
+if (this.isOpen && this.portalContainer) {
+this.renderPortalContent();
+this.updatePanelPosition();
+}
 }
 
 // ===========================================================================
@@ -129,6 +142,7 @@ this.ensureViewWithinRange();
 }
 if (editingAttr === `{{${key}}}` && value === false) {
 this.isOpen = false;
+this.destroyPortal();
 }
 this.requestUpdate();
 }
@@ -141,6 +155,9 @@ if (!this.isEditing || this.disabled || this.readonly || this.loading) return;
 this.isOpen = !this.isOpen;
 if (this.isOpen) {
 this.syncViewToValue(this.value);
+this.createPortal();
+} else {
+this.destroyPortal();
 }
 }
 
@@ -157,8 +174,9 @@ this.dispatchEvent(new CustomEvent('blur', { bubbles: true, composed: true }));
 private handleOutsideClick(e: MouseEvent) {
 if (!this.isOpen) return;
 const path = e.composedPath();
-if (!path.includes(this)) {
+if (!path.includes(this) && (!this.portalContainer || !path.includes(this.portalContainer))) {
 this.isOpen = false;
+this.destroyPortal();
 }
 }
 
@@ -192,6 +210,7 @@ const iso = this.toIsoDate(this.viewYear, this.viewMonth, day);
 if (this.isDateDisabled(iso)) return;
 this.value = iso;
 this.isOpen = false;
+this.destroyPortal();
 this.dispatchEvent(new CustomEvent('change', {
 bubbles: true,
 composed: true,
@@ -208,6 +227,7 @@ composed: true,
 detail: { value: this.value },
 }));
 this.isOpen = false;
+this.destroyPortal();
 }
 
 // ===========================================================================
@@ -409,8 +429,47 @@ return html`<p id=${`${this.fieldId}-helper`} class="mt-1 text-xs text-slate-500
 return html``;
 }
 
-private renderCalendar(): TemplateResult {
-if (!this.isOpen || this.loading || !this.isEditing) return html``;
+// ===========================================================================
+// PORTAL
+// ===========================================================================
+private createPortal() {
+if (this.portalContainer) return;
+this.portalContainer = document.createElement('div');
+if (this.portalClassName) this.portalContainer.classList.add(this.portalClassName);
+document.body.appendChild(this.portalContainer);
+this.updatePanelPosition();
+this.renderPortalContent();
+window.addEventListener('scroll', this.boundUpdatePosition, true);
+window.addEventListener('resize', this.boundUpdatePosition);
+}
+
+private destroyPortal() {
+if (!this.portalContainer) return;
+window.removeEventListener('scroll', this.boundUpdatePosition, true);
+window.removeEventListener('resize', this.boundUpdatePosition);
+this.portalContainer.remove();
+this.portalContainer = null;
+}
+
+private updatePanelPosition() {
+if (!this.portalContainer) return;
+const trigger = this.querySelector('button[aria-haspopup="dialog"]') as HTMLElement;
+if (!trigger) return;
+const rect = trigger.getBoundingClientRect();
+Object.assign(this.portalContainer.style, {
+position: 'fixed',
+top: `${rect.bottom + 4}px`,
+left: `${rect.left}px`,
+zIndex: '9999',
+});
+}
+
+private renderPortalContent() {
+if (!this.portalContainer) return;
+litRender(this.getPortalTemplate(), this.portalContainer);
+}
+
+protected getPortalTemplate(): TemplateResult {
 const daysInMonth = this.getDaysInMonth(this.viewYear, this.viewMonth);
 const firstDay = new Date(Date.UTC(this.viewYear, this.viewMonth, 1)).getUTCDay();
 const offset = (firstDay - (this.firstDayOfWeek % 7) + 7) % 7;
@@ -435,12 +494,12 @@ currentDay++;
 }
 
 return html`
-<div class="absolute z-20 mt-2 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 shadow-lg">
+<div class="mt-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 shadow-lg">
 <div class="flex items-center justify-between mb-2">
 <button
 class="p-2 rounded-md border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 ${this.canNavigatePrev() ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : 'opacity-50 cursor-not-allowed'}"
 ?disabled=${!this.canNavigatePrev()}
-@оқlick=${this.handlePrevMonth}
+@click=${this.handlePrevMonth}
 aria-label="Previous month"
 >
 ${svg`<svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M12.7 15.3a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 0-1.4l5-5a1 1 0 0 1 1.4 1.4L8.4 9l4.3 4.3a1 1 0 0 1 0 1.4z"></path></svg>`}
@@ -552,7 +611,6 @@ ${svg`<svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M6 2
 </span>
 </button>
 ${this.loading ? html`<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>` : html``}
-${this.renderCalendar()}
 ${this.renderHelperOrError()}
 </div>
 `;

@@ -6,7 +6,7 @@
 // Skill Group: groupSelectOne
 // This molecule does NOT contain business logic.
 
-import { html, nothing, TemplateResult } from 'lit';
+import { html, render as litRender, nothing, TemplateResult } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
@@ -106,9 +106,18 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
   private uid = `combo-${Math.random().toString(36).slice(2)}`;
   private lastValueSynced: string | null = undefined as any;
 
+  protected portalContainer: HTMLDivElement | null = null;
+  protected portalClassName = '';
+  private boundUpdatePosition: () => void;
+
   // ===========================================================================
   // LIFECYCLE
   // ===========================================================================
+  constructor() {
+    super();
+    this.boundUpdatePosition = this.updatePanelPosition.bind(this);
+  }
+
   createRenderRoot() {
     return this;
   }
@@ -121,12 +130,14 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
 
   disconnectedCallback() {
     document.removeEventListener('click', this._boundDocClick);
+    this.destroyPortal();
     super.disconnectedCallback();
   }
 
   private _boundDocClick(event: MouseEvent) {
     if (!this.isOpen) return;
-    if (!this.contains(event.target as Node)) this.closeAndResolve();
+    const path = (event as any).composedPath?.() || [];
+    if (!this.contains(event.target as Node) && (!this.portalContainer || !path.includes(this.portalContainer))) this.closeAndResolve();
   }
 
   firstUpdated() {
@@ -138,6 +149,10 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     if (changedProps.has('value')) {
       this.syncInputFromValue();
       this.lastValueSynced = this.value;
+    }
+    if (this.isOpen && this.portalContainer) {
+      this.renderPortalContent();
+      this.updatePanelPosition();
     }
   }
 
@@ -215,6 +230,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     if (!this.isEditing || this.disabled || this.readonly || this.loading) return;
     this.isOpen = true;
     this.activeIndex = -1;
+    this.createPortal();
     this.dispatchEvent(new CustomEvent('focus', { bubbles: true, composed: true }));
   }
 
@@ -223,6 +239,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     this.inputText = (event.target as HTMLInputElement).value;
     this.isOpen = true;
     this.activeIndex = -1;
+    this.createPortal();
     this.dispatchEvent(new CustomEvent('input', {
       bubbles: true, composed: true, detail: { value: this.inputText },
     }));
@@ -251,6 +268,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     switch (event.key) {
       case 'Escape':
         this.closeAndResolve();
+        this.destroyPortal();
         event.preventDefault();
         break;
       case 'ArrowDown':
@@ -285,6 +303,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     this.lastValueSynced = this.value;
     this.isOpen = false;
     this.activeIndex = -1;
+    this.destroyPortal();
     this.dispatchEvent(new CustomEvent('change', {
       bubbles: true, composed: true, detail: { value: this.value },
     }));
@@ -292,10 +311,11 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
 
   private commitFreeText() {
     const next = this.inputText.trim() || null;
-    if (next === this.value) { this.isOpen = false; return; }
+    if (next === this.value) { this.isOpen = false; this.destroyPortal(); return; }
     this.value = next;
     this.lastValueSynced = this.value;
     this.isOpen = false;
+    this.destroyPortal();
     this.dispatchEvent(new CustomEvent('change', {
       bubbles: true, composed: true, detail: { value: this.value },
     }));
@@ -309,6 +329,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     }
     this.isOpen = false;
     this.activeIndex = -1;
+    this.destroyPortal();
     this.dispatchEvent(new CustomEvent('blur', { bubbles: true, composed: true }));
   }
 
@@ -318,6 +339,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     this.inputText = '';
     this.lastValueSynced = null;
     this.isOpen = false;
+    this.destroyPortal();
     this.dispatchEvent(new CustomEvent('change', {
       bubbles: true, composed: true, detail: { value: null },
     }));
@@ -394,7 +416,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
       <ul
         id=${listId}
         role="listbox"
-        class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 focus:outline-none"
+        class="mt-1 max-h-60 w-full overflow-auto rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 focus:outline-none"
       >
         ${this.loading ? html`
           <li class="px-3 py-2 text-sm text-slate-400 dark:text-slate-500">${this.msg.loading}</li>
@@ -436,6 +458,60 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
   }
 
   // ===========================================================================
+  // PORTAL
+  // ===========================================================================
+  private createPortal() {
+    if (this.portalContainer) return;
+    this.portalContainer = document.createElement('div');
+    if (this.portalClassName) this.portalContainer.classList.add(this.portalClassName);
+    document.body.appendChild(this.portalContainer);
+    this.updatePanelPosition();
+    this.renderPortalContent();
+    window.addEventListener('scroll', this.boundUpdatePosition, true);
+    window.addEventListener('resize', this.boundUpdatePosition);
+  }
+
+  private destroyPortal() {
+    if (!this.portalContainer) return;
+    window.removeEventListener('scroll', this.boundUpdatePosition, true);
+    window.removeEventListener('resize', this.boundUpdatePosition);
+    this.portalContainer.remove();
+    this.portalContainer = null;
+  }
+
+  private updatePanelPosition() {
+    if (!this.portalContainer) return;
+    const trigger = this.querySelector('[role="combobox"]') as HTMLElement;
+    if (!trigger) return;
+    const rect = trigger.getBoundingClientRect();
+    Object.assign(this.portalContainer.style, {
+      position: 'fixed',
+      top: `${rect.bottom + 4}px`,
+      left: `${rect.left}px`,
+      width: `${rect.width}px`,
+      zIndex: '9999',
+    });
+  }
+
+  private renderPortalContent() {
+    if (!this.portalContainer) return;
+    litRender(this.getPortalTemplate(), this.portalContainer);
+  }
+
+  protected getPortalTemplate(): TemplateResult {
+    const { standalone, groups } = this.parseItems();
+    const q = this.inputText;
+    const filteredStandalone = this.filterItems(standalone, q);
+    const filteredGroups = groups
+      .map(g => ({ ...g, items: this.filterItems(g.items, q) }))
+      .filter(g => g.items.length > 0);
+    const flatItems = this.getFlatVisible(filteredStandalone, filteredGroups);
+    const listId = `${this.uid}-list`;
+
+    return this.renderDropdown(filteredStandalone, filteredGroups, flatItems, listId);
+  }
+
+  // ===========================================================================
   // RENDER
   // ===========================================================================
   render() {
@@ -468,14 +544,6 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
         </div>
       `;
     }
-
-    const { standalone, groups } = this.parseItems();
-    const q = this.inputText;
-    const filteredStandalone = this.filterItems(standalone, q);
-    const filteredGroups = groups
-      .map(g => ({ ...g, items: this.filterItems(g.items, q) }))
-      .filter(g => g.items.length > 0);
-    const flatItems = this.getFlatVisible(filteredStandalone, filteredGroups);
 
     // Trailing icon sizes: chevron always at right; clear button to its left
     const inputPaddingRight = showClear ? '4rem' : '2.5rem';
@@ -541,9 +609,6 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
                 </svg>
               </span>
             </div>
-
-            <!-- Dropdown -->
-            ${this.isOpen ? this.renderDropdown(filteredStandalone, filteredGroups, flatItems, listId) : nothing}
           `}
         </div>
 

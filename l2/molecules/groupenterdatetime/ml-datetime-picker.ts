@@ -4,7 +4,7 @@
 // =============================================================================
 // Skill Group: enter + datetime
 // This molecule does NOT contain business logic.
-import { html, svg, TemplateResult, nothing } from 'lit';
+import { html, svg, render as litRender, TemplateResult, nothing } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -97,6 +97,9 @@ export class MlDatetimePickerMolecule extends MoleculeAuraElement {
     private helperId = `ml-dt-helper-${Math.random().toString(36).slice(2)}`;
     private errorId = `ml-dt-error-${Math.random().toString(36).slice(2)}`;
     private documentClickBound = false;
+    protected portalContainer: HTMLDivElement | null = null;
+    protected portalClassName = '';
+    private boundUpdatePosition: () => void = this.updatePanelPosition.bind(this);
 
     createRenderRoot() {
         return this;
@@ -122,7 +125,15 @@ export class MlDatetimePickerMolecule extends MoleculeAuraElement {
     // ==========================================================================='
     disconnectedCallback() {
         this.removeDocumentListener();
+        this.destroyPortal();
         super.disconnectedCallback();
+    }
+    updated(_changedProperties: Map<string, unknown>) {
+        super.updated(_changedProperties);
+        if (this.isOpen && this.portalContainer) {
+            this.renderPortalContent();
+            this.updatePanelPosition();
+        }
     }
     // ===========================================================================
     // EVENT HANDLERS
@@ -209,10 +220,12 @@ export class MlDatetimePickerMolecule extends MoleculeAuraElement {
     private openPicker() {
         this.isOpen = true;
         this.prepareOpenState();
+        this.createPortal();
         this.addDocumentListener();
     }
     private closePicker() {
         this.isOpen = false;
+        this.destroyPortal();
         this.removeDocumentListener();
     }
     private addDocumentListener() {
@@ -227,7 +240,7 @@ export class MlDatetimePickerMolecule extends MoleculeAuraElement {
     }
     private handleDocumentClick = (event: MouseEvent) => {
         const target = event.target as Node;
-        if (!this.contains(target)) {
+        if (!this.contains(target) && (!this.portalContainer || !this.portalContainer.contains(target))) {
             this.closePicker();
         }
     };
@@ -374,7 +387,7 @@ export class MlDatetimePickerMolecule extends MoleculeAuraElement {
     }
     private getPanelClasses(): string {
         return [
-            'absolute z-20 mt-2 w-full rounded-lg border p-4 shadow-lg',
+            'mt-2 rounded-lg border p-4 shadow-lg',
             'bg-white dark:bg-slate-800',
             'border-slate-200 dark:border-slate-700',
         ].filter(Boolean).join(' ');
@@ -554,8 +567,43 @@ ${this.pad(minute)}
 </div>
 `;
     }
-    private renderPanel(): TemplateResult {
-        if (!this.isOpen) return html``;
+    // ===========================================================================
+    // PORTAL
+    // ===========================================================================
+    private createPortal() {
+        if (this.portalContainer) return;
+        this.portalContainer = document.createElement('div');
+        if (this.portalClassName) this.portalContainer.classList.add(this.portalClassName);
+        document.body.appendChild(this.portalContainer);
+        this.updatePanelPosition();
+        this.renderPortalContent();
+        window.addEventListener('scroll', this.boundUpdatePosition, true);
+        window.addEventListener('resize', this.boundUpdatePosition);
+    }
+    private destroyPortal() {
+        if (!this.portalContainer) return;
+        window.removeEventListener('scroll', this.boundUpdatePosition, true);
+        window.removeEventListener('resize', this.boundUpdatePosition);
+        this.portalContainer.remove();
+        this.portalContainer = null;
+    }
+    private updatePanelPosition() {
+        if (!this.portalContainer) return;
+        const trigger = this.querySelector('button[type="button"]') as HTMLElement;
+        if (!trigger) return;
+        const rect = trigger.getBoundingClientRect();
+        Object.assign(this.portalContainer.style, {
+            position: 'fixed',
+            top: `${rect.bottom + 4}px`,
+            left: `${rect.left}px`,
+            zIndex: '9999',
+        });
+    }
+    private renderPortalContent() {
+        if (!this.portalContainer) return;
+        litRender(this.getPortalTemplate(), this.portalContainer);
+    }
+    protected getPortalTemplate(): TemplateResult {
         return html`
 <div class=${this.getPanelClasses()} role="dialog" aria-modal="true">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -598,7 +646,6 @@ ${this.renderLabel()}
 ${this.renderHiddenInput()}
 ${this.renderLabel()}
 ${this.renderTrigger()}
-${this.renderPanel()}
 ${this.renderHelperOrError()}
 </div>
 `;

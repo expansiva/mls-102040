@@ -5,7 +5,7 @@
 // Skill Group: groupSelectOne
 // This molecule does NOT contain business logic.
 
-import { html, TemplateResult } from 'lit';
+import { html, render as litRender, TemplateResult } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
@@ -108,6 +108,9 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
 
   private boundHandleOutsideClick: (e: MouseEvent) => void;
   private boundHandleKeydown: (e: KeyboardEvent) => void;
+  protected portalContainer: HTMLDivElement | null = null;
+  protected portalClassName = '';
+  private boundUpdatePosition: () => void;
 
   // ===========================================================================
   // CONSTRUCTOR
@@ -116,6 +119,7 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
     super();
     this.boundHandleOutsideClick = this.handleOutsideClick.bind(this);
     this.boundHandleKeydown = this.handleKeydown.bind(this);
+    this.boundUpdatePosition = this.updatePanelPosition.bind(this);
   }
 
   // ===========================================================================
@@ -131,6 +135,15 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
     super.disconnectedCallback();
     document.removeEventListener('click', this.boundHandleOutsideClick);
     document.removeEventListener('keydown', this.boundHandleKeydown);
+    this.destroyPortal();
+  }
+
+  updated(_changedProperties: Map<string, unknown>) {
+    super.updated(_changedProperties);
+    if (this.isOpen && this.portalContainer) {
+      this.renderPortalContent();
+      this.updatePanelPosition();
+    }
   }
 
   // ===========================================================================
@@ -219,25 +232,29 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
   private handleTriggerClick(e: Event) {
     e.stopPropagation();
     if (this.disabled || this.readonly || this.loading) return;
-    
+
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
       this.searchQuery = '';
       this.focusedIndex = -1;
+      this.createPortal();
       this.dispatchEvent(new CustomEvent('focus', {
         bubbles: true,
         composed: true,
       }));
+    } else {
+      this.destroyPortal();
     }
   }
 
   private handleSelect(item: ParsedItem) {
     if (this.disabled || this.readonly || item.disabled) return;
-    
+
     this.value = item.value;
     this.isOpen = false;
     this.searchQuery = '';
     this.focusedIndex = -1;
+    this.destroyPortal();
     
     this.dispatchEvent(new CustomEvent('change', {
       bubbles: true,
@@ -250,10 +267,11 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
     if (!this.isOpen) return;
     
     const path = e.composedPath();
-    if (!path.includes(this)) {
+    if (!path.includes(this) && (!this.portalContainer || !path.includes(this.portalContainer))) {
       this.isOpen = false;
       this.searchQuery = '';
       this.focusedIndex = -1;
+      this.destroyPortal();
       this.dispatchEvent(new CustomEvent('blur', {
         bubbles: true,
         composed: true,
@@ -272,6 +290,7 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
         this.isOpen = false;
         this.searchQuery = '';
         this.focusedIndex = -1;
+        this.destroyPortal();
         break;
       case 'ArrowDown':
         e.preventDefault();
@@ -328,7 +347,7 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
 
   private getDropdownClasses(): string {
     return [
-      'absolute z-50 w-full mt-1',
+      'w-full',
       'bg-white dark:bg-slate-800',
       'border border-slate-200 dark:border-slate-700',
       'rounded-lg shadow-lg',
@@ -563,9 +582,48 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
     `;
   }
 
-  private renderDropdown(): TemplateResult {
-    if (!this.isOpen || this.loading) return html``;
-    
+  // ===========================================================================
+  // PORTAL
+  // ===========================================================================
+  private createPortal() {
+    if (this.portalContainer) return;
+    this.portalContainer = document.createElement('div');
+    if (this.portalClassName) this.portalContainer.classList.add(this.portalClassName);
+    document.body.appendChild(this.portalContainer);
+    this.updatePanelPosition();
+    this.renderPortalContent();
+    window.addEventListener('scroll', this.boundUpdatePosition, true);
+    window.addEventListener('resize', this.boundUpdatePosition);
+  }
+
+  private destroyPortal() {
+    if (!this.portalContainer) return;
+    window.removeEventListener('scroll', this.boundUpdatePosition, true);
+    window.removeEventListener('resize', this.boundUpdatePosition);
+    this.portalContainer.remove();
+    this.portalContainer = null;
+  }
+
+  private updatePanelPosition() {
+    if (!this.portalContainer) return;
+    const trigger = this.querySelector('button[role="combobox"]') as HTMLElement;
+    if (!trigger) return;
+    const rect = trigger.getBoundingClientRect();
+    Object.assign(this.portalContainer.style, {
+      position: 'fixed',
+      top: `${rect.bottom + 4}px`,
+      left: `${rect.left}px`,
+      width: `${rect.width}px`,
+      zIndex: '9999',
+    });
+  }
+
+  private renderPortalContent() {
+    if (!this.portalContainer) return;
+    litRender(this.getPortalTemplate(), this.portalContainer);
+  }
+
+  protected getPortalTemplate(): TemplateResult {
     return html`
       <div class="${this.getDropdownClasses()}">
         ${this.renderSearchInput()}
@@ -638,7 +696,6 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
       <div class="relative w-full">
         ${this.renderLabel()}
         ${this.renderTrigger()}
-        ${this.renderDropdown()}
         ${this.renderFeedback()}
       </div>
     `;
