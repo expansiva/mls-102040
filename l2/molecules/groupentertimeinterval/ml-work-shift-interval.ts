@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -292,12 +293,9 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
     const hasError = Boolean(this.error);
     const isBlocked = this.disabled || this.loading;
     return [
-      'w-full rounded-lg border p-4 transition',
-      'bg-white dark:bg-slate-800',
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      isBlocked ? 'opacity-50 pointer-events-none' : '',
+      'w-full rounded-lg border p-4 transition ml-shift-container',
+      hasError ? 'ml-input-container-error' : '',
+      isBlocked ? 'ml-disabled' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -305,34 +303,26 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
 
   private getInputClasses(isActive: boolean): string {
     const hasError = Boolean(this.error);
-    const base = [
-      'w-full rounded-md border px-3 py-2 text-sm transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-    ];
-    const border = hasError
-      ? 'border-red-500 dark:border-red-400'
-      : isActive
-      ? 'border-sky-500 dark:border-sky-400'
-      : 'border-slate-200 dark:border-slate-700';
-    const focus = 'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400';
-    return [...base, border, focus].join(' ');
+    return [
+      'w-full rounded-md border px-3 py-2 text-sm transition ml-input',
+      hasError
+        ? 'ml-input-container-error'
+        : isActive
+        ? 'ml-shift-input-active'
+        : '',
+    ].filter(Boolean).join(' ');
   }
 
   private getIndicatorClasses(): string {
-    return [
-      'ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-xs',
-      'bg-sky-50 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300',
-    ].join(' ');
+    return 'ml-2 inline-flex items-center rounded-full px-2 py-0.5 text-xs ml-shift-overnight';
   }
 
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <div class="mb-3 text-sm font-medium text-slate-900 dark:text-slate-100">
+      <div class="${cn('mb-3 text-sm font-medium ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
-        ${this.required ? html`<span class="text-red-600 dark:text-red-400"> *</span>` : html``}
+        ${this.required ? html`<span class="ml-error-text"> *</span>` : html``}
       </div>
     `;
   }
@@ -340,10 +330,10 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
   private renderHelperOrError(): TemplateResult {
     if (!this.isEditing) return html``;
     if (this.error) {
-      return html`<p id="${this.uid}-error" class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+      return html`<p id="${this.uid}-error" class="mt-2 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<p id="${this.uid}-helper" class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+      return html`<p id="${this.uid}-helper" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
     }
     return html``;
   }
@@ -355,9 +345,9 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
     const range = `${startText} ${this.msg.rangeSeparator} ${endText}`;
 
     return html`
-      <div class="${this.getWrapperClasses()}">
+      <div class="${cn(this.getWrapperClasses(), this.cssClass)}">
         ${this.renderLabel()}
-        <div class="text-sm text-slate-900 dark:text-slate-100">
+        <div class="text-sm ml-text">
           <span>${range}</span>
           ${overnight ? html`<span class="${this.getIndicatorClasses()}" aria-label="${this.msg.nextDay}">${this.msg.nextDay}</span>` : html``}
         </div>
@@ -373,12 +363,12 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
     const overnight = this.isOvernightInterval();
 
     return html`
-      <div class="${this.getWrapperClasses()}">
+      <div class="${cn(this.getWrapperClasses(), this.cssClass)}">
         ${this.renderLabel()}
         <div class="grid gap-4 md:grid-cols-2">
           <div>
             ${this.hasSlot('LabelStart')
-              ? html`<label id="${startLabelId}" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400">
+              ? html`<label id="${startLabelId}" class="${cn('mb-1 block text-xs font-medium ml-text-muted', this.getSlotClass('LabelStart'))}">
                   ${unsafeHTML(this.getSlotContent('LabelStart'))}
                 </label>`
               : html``}
@@ -404,7 +394,7 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
           </div>
           <div>
             ${this.hasSlot('LabelEnd')
-              ? html`<label id="${endLabelId}" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400">
+              ? html`<label id="${endLabelId}" class="${cn('mb-1 block text-xs font-medium ml-text-muted', this.getSlotClass('LabelEnd'))}">
                   ${unsafeHTML(this.getSlotContent('LabelEnd'))}
                 </label>`
               : html``}
@@ -432,7 +422,7 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
             </div>
           </div>
         </div>
-        ${this.loading ? html`<div class="mt-3 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>` : html``}
+        ${this.loading ? html`<div class="mt-3 text-xs ml-text-muted">${this.msg.loading}</div>` : html``}
         ${this.renderHelperOrError()}
       </div>
     `;

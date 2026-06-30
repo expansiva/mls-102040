@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -119,7 +120,7 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
 
   private formatPhoneNumber(digits: string): string {
     const cleaned = this.extractDigits(digits);
-    
+
     if (cleaned.length === 0) return '';
     if (cleaned.length <= 2) return `(${cleaned}`;
     if (cleaned.length <= 7) return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2)}`;
@@ -138,9 +139,9 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
     const input = e.target as HTMLInputElement;
     const cursorPosition = input.selectionStart || 0;
     const previousLength = this.rawDisplay.length;
-    
+
     let digits = this.extractDigits(input.value);
-    
+
     // Apply maxLength constraint on digits
     const effectiveMaxLength = this.maxLength ?? 11;
     if (digits.length > effectiveMaxLength) {
@@ -155,7 +156,7 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
       const newLength = this.rawDisplay.length;
       const diff = newLength - previousLength;
       let newPosition = cursorPosition + diff;
-      
+
       // Ensure cursor doesn't go beyond input length
       newPosition = Math.max(0, Math.min(newPosition, newLength));
       input.setSelectionRange(newPosition, newPosition);
@@ -204,76 +205,20 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
 
   private getInputWrapperClasses(): string {
     const hasError = this.error && this.error.length > 0;
-    
+
     return [
-      'flex items-center gap-2 w-full rounded-lg border transition-all duration-200',
-      'px-3 py-2',
-      // Background
-      this.disabled || this.loading
-        ? 'bg-slate-100 dark:bg-slate-800'
-        : 'bg-white dark:bg-slate-900',
-      // Border
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : this.isFocused && !this.disabled && !this.readonly
-          ? 'border-sky-500 dark:border-sky-400'
-          : 'border-slate-200 dark:border-slate-700',
-      // Focus ring
-      this.isFocused && !this.disabled && !this.readonly && !hasError
-        ? 'ring-2 ring-sky-500/20 dark:ring-sky-400/20'
-        : '',
-      this.isFocused && !this.disabled && !this.readonly && hasError
-        ? 'ring-2 ring-red-500/20 dark:ring-red-400/20'
-        : '',
-      // Cursor
-      this.disabled ? 'cursor-not-allowed' : '',
-      this.loading ? 'cursor-wait' : '',
+      'flex items-center gap-2 w-full px-3 py-2 ml-input-container',
+      hasError ? 'ml-input-container-error' : '',
+      this.disabled || this.loading ? 'ml-disabled' : '',
     ].filter(Boolean).join(' ');
   }
 
   private getInputClasses(): string {
     return [
-      'flex-1 bg-transparent border-none outline-none text-sm',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      this.disabled || this.loading ? 'cursor-not-allowed opacity-50' : '',
+      'flex-1 bg-transparent border-none outline-none text-sm ml-input',
+      this.disabled || this.loading ? 'cursor-not-allowed' : '',
       this.readonly ? 'cursor-default' : '',
     ].filter(Boolean).join(' ');
-  }
-
-  private getLabelClasses(): string {
-    return [
-      'text-sm font-medium',
-      'text-slate-700 dark:text-slate-300',
-    ].join(' ');
-  }
-
-  private getHelperClasses(): string {
-    return [
-      'text-xs',
-      'text-slate-500 dark:text-slate-400',
-    ].join(' ');
-  }
-
-  private getErrorClasses(): string {
-    return [
-      'text-xs',
-      'text-red-600 dark:text-red-400',
-    ].join(' ');
-  }
-
-  private getViewModeClasses(): string {
-    return [
-      'text-sm',
-      'text-slate-900 dark:text-slate-100',
-    ].join(' ');
-  }
-
-  private getPrefixSuffixClasses(): string {
-    return [
-      'flex items-center',
-      'text-slate-500 dark:text-slate-400',
-    ].join(' ');
   }
 
   // ===========================================================================
@@ -281,20 +226,20 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
   // ===========================================================================
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
-    
+
     return html`
-      <label id="${this.labelId}" class="${this.getLabelClasses()}">
+      <label id="${this.labelId}" class="${cn('text-sm ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
-        ${this.required ? html`<span class="text-red-500 dark:text-red-400 ml-0.5">*</span>` : html``}
+        ${this.required ? html`<span class="ml-error-text ml-0.5">*</span>` : html``}
       </label>
     `;
   }
 
   private renderPrefix(): TemplateResult {
     if (!this.hasSlot('Prefix')) return html``;
-    
+
     return html`
-      <span class="${this.getPrefixSuffixClasses()}">
+      <span class="${cn('flex items-center ml-text-muted', this.getSlotClass('Prefix'))}">
         ${unsafeHTML(this.getSlotContent('Prefix'))}
       </span>
     `;
@@ -302,9 +247,9 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
 
   private renderSuffix(): TemplateResult {
     if (!this.hasSlot('Suffix')) return html``;
-    
+
     return html`
-      <span class="${this.getPrefixSuffixClasses()}">
+      <span class="${cn('flex items-center ml-text-muted', this.getSlotClass('Suffix'))}">
         ${unsafeHTML(this.getSlotContent('Suffix'))}
       </span>
     `;
@@ -312,34 +257,31 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
 
   private renderLoadingIndicator(): TemplateResult {
     return html`
-      <svg class="animate-spin h-4 w-4 text-slate-400 dark:text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
+      <span class="h-4 w-4 animate-spin rounded-full ml-spinner"></span>
     `;
   }
 
   private renderFeedback(): TemplateResult {
     if (!this.isEditing) return html``;
-    
+
     const hasError = this.error && this.error.length > 0;
-    
+
     if (hasError) {
       return html`
-        <p id="${this.errorId}" class="${this.getErrorClasses()}" role="alert">
+        <p id="${this.errorId}" class="text-xs ml-error-text" role="alert">
           ${unsafeHTML(this.error)}
         </p>
       `;
     }
-    
+
     if (this.hasSlot('Helper')) {
       return html`
-        <p class="${this.getHelperClasses()}">
+        <p class="${cn('text-xs ml-helper', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
     }
-    
+
     return html``;
   }
 
@@ -347,13 +289,13 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
     const displayValue = this.value
       ? this.formatPhoneNumber(this.value)
       : this.msg.emptyValue;
-    
+
     return html`
-      <div class="${this.getContainerClasses()}">
+      <div class="${cn(this.getContainerClasses(), this.cssClass)}">
         ${this.renderLabel()}
         <div class="flex items-center gap-2">
           ${this.renderPrefix()}
-          <span class="${this.getViewModeClasses()}">${displayValue}</span>
+          <span class="text-sm ml-text">${displayValue}</span>
           ${this.renderSuffix()}
         </div>
       </div>
@@ -363,9 +305,9 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
   private renderEditMode(): TemplateResult {
     const hasError = this.error && this.error.length > 0;
     const placeholderText = this.placeholder || this.msg.placeholder;
-    
+
     return html`
-      <div class="${this.getContainerClasses()}">
+      <div class="${cn(this.getContainerClasses(), this.cssClass)}">
         ${this.renderLabel()}
         <div class="${this.getInputWrapperClasses()}">
           ${this.renderPrefix()}

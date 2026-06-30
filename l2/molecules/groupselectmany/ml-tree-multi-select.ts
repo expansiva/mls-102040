@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -372,12 +373,9 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
   // ===========================================================================
   private getContainerClasses(): string {
     return [
-      'w-full rounded-lg border transition',
-      'bg-white dark:bg-slate-800',
-      this.error
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+      'w-full rounded-lg border transition ml-tree-node',
+      this.error ? 'ml-tree-node-error' : '',
+      this.disabled ? 'ml-disabled' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -389,14 +387,10 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
 
     return [
       'flex items-center gap-2 px-2 py-1.5 rounded-md transition cursor-pointer',
-      'text-sm',
-      isSelected
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
-        : 'text-slate-900 dark:text-slate-100',
-      !isDisabled && !isMaxReached && !isSelected
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700'
-        : '',
-      isDisabled || isMaxReached ? 'opacity-50 cursor-not-allowed' : '',
+      'text-sm ml-text',
+      isSelected ? 'ml-tree-node-selected' : '',
+      !isDisabled && !isMaxReached && !isSelected ? 'ml-tree-node-hover' : '',
+      isDisabled || isMaxReached ? 'ml-disabled' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -404,17 +398,14 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
 
   private getCheckboxClasses(isSelected: boolean, isIndeterminate: boolean): string {
     return [
-      'w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition',
-      isSelected || isIndeterminate
-        ? 'bg-sky-500 dark:bg-sky-400 border-sky-500 dark:border-sky-400'
-        : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600',
-    ].join(' ');
+      'w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition ml-tree-checkbox',
+      isSelected || isIndeterminate ? 'ml-tree-checkbox-checked' : '',
+    ].filter(Boolean).join(' ');
   }
 
   private getExpandIconClasses(isExpanded: boolean): string {
     return [
-      'w-4 h-4 flex-shrink-0 transition-transform duration-200',
-      'text-slate-400 dark:text-slate-500',
+      'w-4 h-4 flex-shrink-0 transition-transform duration-200 ml-tree-expand',
       isExpanded ? 'rotate-90' : '',
     ].join(' ');
   }
@@ -426,9 +417,9 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('Label')) return html``;
 
     return html`
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+      <label class="${cn('block text-sm font-medium mb-1 ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
-        ${this.required ? html`<span class="text-red-500 dark:text-red-400">*</span>` : html``}
+        ${this.required ? html`<span class="ml-error-text">*</span>` : html``}
       </label>
     `;
   }
@@ -437,14 +428,10 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
     if (!this.searchable || !this.isEditing) return html``;
 
     const inputClasses = [
-      'w-full px-3 py-2 text-sm rounded-t-lg border-b',
-      'bg-slate-50 dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+      'w-full px-3 py-2 text-sm rounded-t-lg border-b ml-tree-search',
+      'focus:outline-none',
       this.disabled ? 'cursor-not-allowed' : '',
-    ].join(' ');
+    ].filter(Boolean).join(' ');
 
     return html`
       <div class="sticky top-0 z-10">
@@ -561,7 +548,7 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
     const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.noResults;
 
     return html`
-      <div class="p-4 text-center text-sm text-slate-500 dark:text-slate-400">
+      <div class="p-4 text-center text-sm ml-text-muted">
         ${unsafeHTML(content)}
       </div>
     `;
@@ -570,13 +557,13 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
   private renderHelper(): TemplateResult {
     if (this.error) {
       return html`
-        <p class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>
+        <p class="mt-1 text-xs ml-error-text">${unsafeHTML(this.error)}</p>
       `;
     }
 
     if (this.hasSlot('Helper')) {
       return html`
-        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+        <p class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
@@ -587,10 +574,10 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
 
   private renderLoading(): TemplateResult {
     return html`
-      <div class="p-4 text-center text-sm text-slate-500 dark:text-slate-400">
+      <div class="p-4 text-center text-sm ml-text-muted">
         <div class="inline-flex items-center gap-2">
           <svg
-            class="animate-spin h-4 w-4 text-sky-500"
+            class="animate-spin h-4 w-4 ml-tree-spinner"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -621,7 +608,7 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
     if (selectedValues.size === 0) {
       const placeholderText = this.placeholder || this.msg.placeholder;
       return html`
-        <div class="text-sm text-slate-400 dark:text-slate-500">${placeholderText}</div>
+        <div class="text-sm ml-text-muted">${placeholderText}</div>
       `;
     }
 
@@ -632,7 +619,7 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
         ${selectedLabels.map(
           (label) => html`
             <span
-              class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300"
+              class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ml-tree-node-selected"
             >
               ${unsafeHTML(label)}
             </span>
@@ -681,7 +668,7 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
 
     return html`
       <div
-        class="w-full"
+        class="${cn('w-full', this.cssClass)}"
         aria-invalid=${this.error ? 'true' : 'false'}
         aria-required=${this.required ? 'true' : 'false'}
       >

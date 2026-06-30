@@ -9,6 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -202,11 +203,11 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
   private getContainerClasses(hasError: boolean): string {
     return [
       'w-full rounded-lg border p-3 space-y-3 transition',
-      'bg-white dark:bg-slate-800',
+      'ml-checkbox-container',
       hasError
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      this.disabled || this.readonly || this.loading ? 'opacity-50 cursor-not-allowed' : '',
+        ? 'ml-checkbox-container-error'
+        : '',
+      this.disabled || this.readonly || this.loading ? 'ml-disabled' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -215,15 +216,14 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
   private getItemClasses(item: ParsedItem, isSelected: boolean, isBlocked: boolean): string {
     return [
       'w-full flex items-center gap-3 rounded-md px-3 py-2 text-sm transition border',
-      'bg-white dark:bg-slate-800',
       isSelected
-        ? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
-        : 'border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100',
+        ? 'ml-checkbox-item-checked'
+        : 'ml-checkbox-item',
       !isSelected && !isBlocked
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700'
+        ? 'ml-checkbox-item-hover'
         : '',
-      isBlocked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+      isBlocked ? 'ml-disabled' : 'cursor-pointer',
+      'focus:outline-none focus:ring-2 ml-checkbox-focus',
     ]
       .filter(Boolean)
       .join(' ');
@@ -231,7 +231,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
 
   private renderLabel(labelId: string): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
-    return html`<div id=${labelId} class="text-sm font-medium text-slate-700 dark:text-slate-300">
+    return html`<div id=${labelId} class=${cn('text-sm font-medium ml-label', this.getSlotClass('Label'))}>
       ${unsafeHTML(this.getSlotContent('Label'))}
     </div>`;
   }
@@ -239,12 +239,12 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
   private renderFeedback(hasError: boolean, errorId: string): TemplateResult {
     if (!this.isEditing) return html``;
     if (this.error) {
-      return html`<p id=${errorId} class="text-xs text-red-600 dark:text-red-400">
+      return html`<p id=${errorId} class="text-xs ml-error-text">
         ${unsafeHTML(String(this.error))}
       </p>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<p class="text-xs text-slate-500 dark:text-slate-400">
+      return html`<p class=${cn('text-xs ml-helper', this.getSlotClass('Helper'))}>
         ${unsafeHTML(this.getSlotContent('Helper'))}
       </p>`;
     }
@@ -280,7 +280,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
 
     if (!hasAnyItems) {
       const emptyContent = this.getSlotContent('Empty') || this.msg.empty;
-      return html`<div class="text-sm text-slate-500 dark:text-slate-400">
+      return html`<div class=${cn('text-sm ml-text-muted', this.getSlotClass('Empty'))}>
         ${unsafeHTML(emptyContent)}
       </div>`;
     }
@@ -290,7 +290,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
         (group) => html`
           <div class="space-y-2">
             ${group.label
-              ? html`<div class="text-xs font-semibold text-slate-600 dark:text-slate-400">
+              ? html`<div class="text-xs font-semibold ml-text-muted">
                   ${group.label}
                 </div>`
               : html``}
@@ -316,9 +316,9 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
                       class=${[
                         'flex h-4 w-4 items-center justify-center rounded border',
                         isSelected
-                          ? 'border-sky-500 dark:border-sky-400 text-sky-700 dark:text-sky-300'
-                          : 'border-slate-300 dark:border-slate-600 text-transparent',
-                        isBlocked ? 'opacity-50' : '',
+                          ? 'ml-checkbox-indicator-checked'
+                          : 'ml-checkbox-indicator',
+                        isBlocked ? 'ml-checkbox-indicator-blocked' : '',
                       ]
                         .filter(Boolean)
                         .join(' ')}
@@ -358,9 +358,9 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
                       class=${[
                         'flex h-4 w-4 items-center justify-center rounded border',
                         isSelected
-                          ? 'border-sky-500 dark:border-sky-400 text-sky-700 dark:text-sky-300'
-                          : 'border-slate-300 dark:border-slate-600 text-transparent',
-                        isBlocked ? 'opacity-50' : '',
+                          ? 'ml-checkbox-indicator-checked'
+                          : 'ml-checkbox-indicator',
+                        isBlocked ? 'ml-checkbox-indicator-blocked' : '',
                       ]
                         .filter(Boolean)
                         .join(' ')}
@@ -385,11 +385,11 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
     const placeholder = this.placeholder || this.msg.viewEmpty;
 
     return html`
-      <div class="w-full space-y-2">
+      <div class=${cn('w-full space-y-2', this.cssClass)}>
         ${this.renderLabel(labelId)}
-        <div class="text-sm text-slate-700 dark:text-slate-300" aria-labelledby=${labelId}>
+        <div class="text-sm ml-text" aria-labelledby=${labelId}>
           ${selectedItems.length === 0
-            ? html`<span class="text-slate-400 dark:text-slate-500">${placeholder}</span>`
+            ? html`<span class="ml-text-muted">${placeholder}</span>`
             : html`${selectedItems.map(
                 (item) => html`<span class="mr-2 inline-flex">${unsafeHTML(item.label)}</span>`
               )}`}
@@ -420,7 +420,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
 
     return html`
       <div
-        class="w-full space-y-2"
+        class=${cn('w-full space-y-2', this.cssClass)}
         @focusin=${this.handleFocusIn}
         @focusout=${this.handleFocusOut}
       >
@@ -440,12 +440,12 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
           aria-describedby=${hasError && this.error ? errorId : nothing}
         >
           ${this.loading
-            ? html`<div class="text-sm text-slate-500 dark:text-slate-400">
+            ? html`<div class="text-sm ml-text-muted">
                 ${this.msg.loading}
               </div>`
             : html`
                 ${selectedCount === 0
-                  ? html`<div class="text-xs text-slate-400 dark:text-slate-500">
+                  ? html`<div class="text-xs ml-text-muted">
                       ${placeholder}
                     </div>`
                   : html``}
@@ -456,7 +456,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
                         type="text"
                         .value=${this.searchQuery}
                         placeholder=${this.msg.search}
-                        class="w-full rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
+                        class="w-full rounded-md border ml-checkbox-search px-3 py-2 text-sm focus:outline-none focus:ring-2"
                         ?disabled=${this.disabled || this.readonly || this.loading}
                         @input=${this.handleSearchInput}
                       />

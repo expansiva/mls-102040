@@ -4,20 +4,21 @@
 // =============================================================================
 // Skill Group: groupLocatePosition
 // This molecule does NOT contain business logic.
-import { html, TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html, TemplateResult } from'lit';
+import { customElement, state } from'lit/decorators.js';
+import { unsafeHTML } from'lit/directives/unsafe-html.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
-placeholder: 'Search location',
-noResults: 'No results found',
-loading: 'Loading...',
-emptyValue: '—',
-useLocation: 'Use current location',
-requiredError: 'Location is required',
+placeholder:'Search location',
+noResults:'No results found',
+loading:'Loading...',
+emptyValue:'—',
+useLocation:'Use current location',
+requiredError:'Location is required',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
@@ -33,7 +34,7 @@ private uid = `locate-${Math.random().toString(36).slice(2)}`;
 // ===========================================================================
 // SLOT TAGS
 // ===========================================================================
-slotTags = ['Label', 'Helper', 'Trigger', 'Suggestions', 'Item', 'Empty'];
+slotTags = ['Label','Helper','Trigger','Suggestions','Item','Empty'];
 
 // ===========================================================================
 // PROPERTIES — From Contract
@@ -42,21 +43,21 @@ slotTags = ['Label', 'Helper', 'Trigger', 'Suggestions', 'Item', 'Empty'];
 value: string | null = null;
 
 @propertyDataSource({ type: String })
-error: string = '';
+error: string ='';
 
 @propertyDataSource({ type: String })
-name: string = '';
+name: string ='';
 
 @propertyDataSource({ type: String })
-placeholder: string = '';
+placeholder: string ='';
 
-@propertyDataSource({ type: Boolean, attribute: 'show-map' })
+@propertyDataSource({ type: Boolean, attribute:'show-map' })
 showMap = false;
 
-@propertyDataSource({ type: Boolean, attribute: 'allow-geolocation' })
+@propertyDataSource({ type: Boolean, attribute:'allow-geolocation' })
 allowGeolocation = false;
 
-@propertyDataSource({ type: Boolean, attribute: 'is-editing' })
+@propertyDataSource({ type: Boolean, attribute:'is-editing' })
 isEditing = true;
 
 @propertyDataSource({ type: Boolean })
@@ -75,7 +76,7 @@ loading = false;
 // INTERNAL STATE
 // ===========================================================================
 @state()
-private searchQuery = '';
+private searchQuery ='';
 
 @state()
 private isOpen = false;
@@ -110,7 +111,7 @@ private getSuggestions(): Array<{ value: string; label: string }> {
 const suggestionsContainer = this.getSlot('Suggestions');
 if (!suggestionsContainer) return [];
 return Array.from(suggestionsContainer.querySelectorAll('Item')).map(el => ({
-value: el.getAttribute('value') || '',
+value: el.getAttribute('value') ||'',
 label: el.innerHTML,
 }));
 }
@@ -124,7 +125,7 @@ return match ? match.label : null;
 
 private updateSearchQueryFromValue() {
 if (!this.value) {
-this.searchQuery = '';
+this.searchQuery ='';
 return;
 }
 const label = this.getLabelForValue(this.value);
@@ -132,7 +133,7 @@ this.searchQuery = label || this.value;
 }
 
 private getEffectiveQuery(): string {
-return this.searchQuery || this.getLabelForValue(this.value) || this.value || '';
+return this.searchQuery || this.getLabelForValue(this.value) || this.value ||'';
 }
 
 private isInteractionBlocked(): boolean {
@@ -142,25 +143,25 @@ return this.disabled || this.readonly || this.loading || !this.isEditing;
 private getInputClasses(hasError: boolean): string {
 return [
 'w-full rounded-lg px-3 py-2 text-sm border transition',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+'ml-surface-bg',
+'ml-text',
+'placeholder:ml-text-faint',
 hasError
-? 'border-red-500 dark:border-red-400'
+?'ml-border-error'
 : this.isFocused
-? 'border-sky-500 dark:border-sky-400'
-: 'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : '',
-this.readonly ? 'cursor-default' : '',
+?'ml-border-focus'
+:'ml-border',
+'',
+this.disabled || this.loading ?'ml-disabled' :'',
+this.readonly ?'cursor-default' :'',
 ].filter(Boolean).join(' ');
 }
 
 private getPanelClasses(): string {
 return [
 'absolute z-10 mt-2 w-full rounded-lg border p-2',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
+'ml-surface-bg',
+'ml-border',
 'shadow-lg',
 ].join(' ');
 }
@@ -169,35 +170,35 @@ private getItemClasses(isSelected: boolean, isDisabled: boolean): string {
 return [
 'w-full rounded-md px-3 py-2 text-sm transition text-left',
 isSelected
-? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400'
-: 'text-slate-900 dark:text-slate-100 border border-transparent',
-!isDisabled && !isSelected ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+?'ml-primary-dim-bg ml-primary-text border ml-border-focus'
+:'ml-text border border-transparent',
+!isDisabled && !isSelected ?'hover:ml-surface-dim-bg' :'',
+isDisabled ?'ml-disabled' :'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 
 private getMapContainerClasses(): string {
 return [
 'relative w-full h-48 rounded-lg border overflow-hidden',
-'bg-slate-50 dark:bg-slate-900',
-'border-slate-200 dark:border-slate-700',
-this.isInteractionBlocked() ? 'opacity-50' : '',
+'ml-surface-dim-bg',
+'ml-border',
+this.isInteractionBlocked() ?'opacity-50' :'',
 ].filter(Boolean).join(' ');
 }
 
 private getMapMarkerStyle(): string {
 const coords = this.parseValue();
-if (!coords) return 'display:none;';
+if (!coords) return'display:none;';
 const x = Math.min(100, Math.max(0, ((coords.lng + 180) / 360) * 100));
 const y = Math.min(100, Math.max(0, ((90 - coords.lat) / 180) * 100));
 return `left:${x}%; top:${y}%;`;
 }
 
 private getErrorMessage(): string {
-if (!this.isEditing) return '';
+if (!this.isEditing) return'';
 if (this.error) return this.error;
 if (this.required && !this.value) return this.msg.requiredError;
-return '';
+return'';
 }
 
 // ===========================================================================
@@ -315,17 +316,17 @@ detail: { query: value }
 // ===========================================================================
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
-return html`<label id="${this.uid}-label" class="block mb-2 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Label'))}</label>`;
+return html`<label id="${this.uid}-label" class="${cn('block mb-2 text-sm ml-text-muted', this.getSlotClass('Label'))}">${unsafeHTML(this.getSlotContent('Label'))}</label>`;
 }
 
 private renderHelperOrError(): TemplateResult {
 const errorMessage = this.getErrorMessage();
 if (!this.isEditing) return html``;
 if (errorMessage) {
-return html`<p id="${this.uid}-error" class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(errorMessage))}</p>`;
+return html`<p id="${this.uid}-error" class="mt-1 text-xs ml-error-text">${unsafeHTML(String(errorMessage))}</p>`;
 }
 if (this.hasSlot('Helper')) {
-return html`<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p class="${cn('mt-1 text-xs ml-text-muted', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }
@@ -338,7 +339,7 @@ return html`<div class="${this.getPanelClasses()}" role="listbox">${this.msg.loa
 }
 if (!items.length) {
 const emptyContent = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.noResults;
-return html`<div class="${this.getPanelClasses()}" role="listbox"><div class="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">${unsafeHTML(emptyContent)}</div></div>`;
+return html`<div class="${this.getPanelClasses()}" role="listbox"><div class="px-3 py-2 text-sm ml-text-muted">${unsafeHTML(emptyContent)}</div></div>`;
 }
 return html`
 <div class="${this.getPanelClasses()}" role="listbox">
@@ -372,11 +373,11 @@ class="${this.getMapContainerClasses()}"
 @pointerup=${this.handleMapPointerUp}
 @pointerleave=${this.handleMapPointerUp}
 >
-<div class="absolute inset-0 pointer-events-none flex items-center justify-center text-xs text-slate-400 dark:text-slate-500">
-${coords ? '' : this.msg.emptyValue}
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center text-xs ml-text-faint">
+${coords ?'' : this.msg.emptyValue}
 </div>
 <div
-class="absolute w-4 h-4 rounded-full border border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40 -translate-x-1/2 -translate-y-1/2"
+class="absolute w-4 h-4 rounded-full border ml-border-focus ml-primary-dim-bg -translate-x-1/2 -translate-y-1/2"
 style="${this.getMapMarkerStyle()}"
 ></div>
 </div>
@@ -388,7 +389,7 @@ const label = this.getLabelForValue(this.value) || this.value;
 const display = label || (this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.emptyValue);
 return html`
 ${this.renderLabel()}
-<div class="text-sm text-slate-900 dark:text-slate-100">${unsafeHTML(String(display))}</div>
+<div class="text-sm ml-text">${unsafeHTML(String(display))}</div>
 ${this.renderMap()}
 `;
 }
@@ -401,7 +402,7 @@ const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
 
 if (!this.isEditing) {
-return html`<div class="w-full">${this.renderViewMode()}</div>`;
+return html`<div class="${cn('w-full', this.cssClass)}">${this.renderViewMode()}</div>`;
 }
 
 const errorMessage = this.getErrorMessage();
@@ -410,7 +411,7 @@ const effectivePlaceholder = this.placeholder || this.msg.placeholder;
 const query = this.getEffectiveQuery();
 
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 <div class="relative">
 <input
@@ -428,14 +429,14 @@ aria-autocomplete="list"
 aria-labelledby="${this.uid}-label"
 aria-invalid="${hasError}"
 aria-required="${this.required}"
-aria-describedby="${hasError ? `${this.uid}-error` : ''}"
+aria-describedby="${hasError ? `${this.uid}-error` :''}"
 @input=${this.handleInput}
 @focus=${this.handleFocus}
 @blur=${this.handleBlur}
 />
 ${this.allowGeolocation ? html`
 <button
-class="absolute right-2 top-1/2 -translate-y-1/2 text-xs px-2 py-1 rounded-md border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700"
+class="absolute right-2 top-1/2 -translate-y-1/2 text-xs px-2 py-1 rounded-md border ml-border ml-text-muted ml-surface-bg hover:ml-surface-dim-bg"
 ?disabled=${this.isInteractionBlocked()}
 aria-label="${this.msg.useLocation}"
 @click=${this.handleGeolocation}

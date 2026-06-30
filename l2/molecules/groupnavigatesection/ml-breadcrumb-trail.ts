@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -89,48 +90,45 @@ return firstActive ? firstActive.value : (tabs[0]?.value || null);
 private getTabClasses(isActive: boolean, disabled: boolean, interactive: boolean): string {
 return [
 'inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-sm transition whitespace-nowrap',
-'text-slate-600 dark:text-slate-400',
-interactive ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700' : 'cursor-default',
-isActive ? 'text-slate-900 dark:text-slate-100 font-medium' : '',
-disabled ? 'opacity-50 cursor-not-allowed' : '',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+'ml-breadcrumb',
+interactive ? 'cursor-pointer' : 'cursor-default',
+isActive ? 'ml-breadcrumb-current font-medium' : '',
+disabled ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 
 private getDelimiterClasses(): string {
 return [
-'mx-1 text-slate-400 dark:text-slate-500 select-none',
+'mx-1 ml-breadcrumb-separator select-none',
 ].join(' ');
 }
 
 private getOverflowButtonClasses(): string {
 return [
 'inline-flex items-center rounded-md px-1.5 py-0.5 text-sm transition whitespace-nowrap',
-'text-slate-600 dark:text-slate-400',
-'hover:bg-slate-50 dark:hover:bg-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+'ml-breadcrumb',
+this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 
 private getPanelClasses(): string {
 return [
 'pt-2 text-sm',
-'text-slate-900 dark:text-slate-100',
+'ml-text',
 ].join(' ');
 }
 
 private getLabelClasses(): string {
 return [
 'block text-xs font-medium mb-1',
-'text-slate-600 dark:text-slate-400',
+'ml-label',
 ].join(' ');
 }
 
 private getErrorClasses(): string {
 return [
 'pt-1 text-xs',
-'text-red-600 dark:text-red-400',
+'ml-error-text',
 ].join(' ');
 }
 
@@ -174,7 +172,7 @@ aria-label="${this.msg.overflow}"
 ...
 </button>
 ${this.isOverflowOpen ? html`
-<div class="absolute left-0 top-full mt-1 w-48 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-md z-10">
+<div class="absolute left-0 top-full mt-1 w-48 rounded-md border ml-breadcrumb-dropdown shadow-md z-10">
 <div class="p-1">
 ${hiddenTabs.map(tab => html`
 <button
@@ -276,11 +274,11 @@ const activeTab = tabs.find(tab => tab.value === activeValue) || tabs[0];
 const labelContent = this.hasSlot('Label') ? this.getSlotContent('Label') : '';
 const activeContent = activeTab ? activeTab.content : '';
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${labelContent ? html`<span class="${this.getLabelClasses()}">${unsafeHTML(labelContent)}</span>` : ''}
 <div class="relative">
 ${this.loading
-? html`<div class="text-sm text-slate-500 dark:text-slate-400">${this.msg.loading}</div>`
+? html`<div class="text-sm ml-text-muted">${this.msg.loading}</div>`
 : this.renderTrail(tabs, activeValue)}
 </div>
 <div class="${this.getPanelClasses()}" role="tabpanel">

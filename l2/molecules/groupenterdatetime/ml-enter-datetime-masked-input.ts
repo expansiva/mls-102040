@@ -11,6 +11,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -178,7 +179,7 @@ export class EnterDatetimeMaskedInputMolecule extends MoleculeAuraElement {
         : undefined;
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
         <div class="relative">
           <input
@@ -210,9 +211,9 @@ export class EnterDatetimeMaskedInputMolecule extends MoleculeAuraElement {
   private renderViewMode(): TemplateResult {
     const displayValue = this.formatValueForDisplay(this.value);
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
-        <div class="text-sm text-slate-900 dark:text-slate-100">
+        <div class="ml-text text-sm">
           ${displayValue || '—'}
         </div>
       </div>
@@ -222,9 +223,9 @@ export class EnterDatetimeMaskedInputMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <label id=${this.labelId} for=${this.inputId} class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
+      <label id=${this.labelId} for=${this.inputId} class="${cn('ml-label mb-1 block text-sm', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
-        ${this.required ? html`<span class="ml-1 text-red-600 dark:text-red-400">*</span>` : nothing}
+        ${this.required ? html`<span class="ml-error-text ml-1">*</span>` : nothing}
       </label>
     `;
   }
@@ -232,23 +233,23 @@ export class EnterDatetimeMaskedInputMolecule extends MoleculeAuraElement {
   private renderFeedback(): TemplateResult {
     if (!this.isEditing) return html``;
     if (this.error) {
-      return html`<p id=${this.errorId} class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>`;
+      return html`<p id=${this.errorId} class="ml-error-text mt-1 text-xs">${unsafeHTML(this.error)}</p>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<p id=${this.helperId} class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+      return html`<p id=${this.helperId} class="${cn('ml-helper mt-1 text-xs', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
     }
     return html``;
   }
 
   private renderLoading(): TemplateResult {
     return html`
-      <div class="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600 dark:border-slate-600 dark:border-t-slate-200"></div>
+      <div class="ml-spinner h-4 w-4 animate-spin rounded-full border-2"></div>
     `;
   }
 
   private renderIcon(): TemplateResult {
     return html`
-      <svg viewBox="0 0 20 20" class="h-4 w-4 text-slate-400 dark:text-slate-500" aria-hidden="true">
+      <svg viewBox="0 0 20 20" class="h-4 w-4 ml-text-muted" aria-hidden="true">
         ${svg`<path fill="currentColor" d="M6 2a1 1 0 0 1 1 1v1h6V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1Zm10 8H4v6h12v-6Zm0-4H4v2h12V6Z"/>`}
       </svg>
     `;
@@ -448,15 +449,12 @@ export class EnterDatetimeMaskedInputMolecule extends MoleculeAuraElement {
   }
 
   private getInputClasses(hasError: boolean): string {
-    return [
-      'w-full rounded-lg px-3 py-2 pr-10 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      hasError ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-      this.isFocused ? 'ring-2 ring-sky-500 dark:ring-sky-400' : '',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'focus:outline-none',
+    return cn(
+      'ml-input w-full rounded-lg px-3 py-2 pr-10 text-sm border transition',
+      hasError ? 'ml-input-container-error' : 'ml-input-container',
+      this.isFocused ? 'ml-input-container-focused' : '',
+      this.disabled || this.loading ? 'ml-disabled' : 'focus:outline-none',
       this.readonly ? 'cursor-default' : 'cursor-text',
-    ].filter(Boolean).join(' ');
+    );
   }
 }

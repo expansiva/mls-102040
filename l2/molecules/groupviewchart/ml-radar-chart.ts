@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -168,7 +169,7 @@ if (!this.showLegend || series.length <= 1) return nothing;
 return html`
 <div class="mt-4 flex flex-wrap gap-3">
 ${series.map((s) => html`
-<div class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+<div class="flex items-center gap-2 text-xs ml-chart-legend">
 <span class="inline-block h-2.5 w-2.5 rounded-full" style="background:${s.color}"></span>
 <span>${s.name}</span>
 </div>
@@ -181,11 +182,11 @@ private renderTooltip() {
 if (!this.hoveredPoint) return nothing;
 return html`
 <div
-class="pointer-events-none absolute z-10 rounded-md border border-slate-200 bg-white px-2 py-1 text-xs text-slate-900 shadow-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+class="pointer-events-none absolute z-10 rounded-md border ml-chart-tooltip px-2 py-1 text-xs shadow-sm"
 style="left:${this.hoveredPoint.leftPercent}%; top:${this.hoveredPoint.topPercent}%; transform: translate(-50%, -120%);"
 >
 <div class="font-medium">${this.hoveredPoint.label}</div>
-<div class="text-slate-600 dark:text-slate-400">${this.hoveredPoint.value}${this.hoveredPoint.series ? ` · ${this.hoveredPoint.series}` : ''}</div>
+<div class="ml-text-muted">${this.hoveredPoint.value}${this.hoveredPoint.series ? ` · ${this.hoveredPoint.series}` : ''}</div>
 </div>
 `;
 }
@@ -194,7 +195,7 @@ private renderEmptyState() {
 const emptyContent = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
 return html`
 <div class="absolute inset-0 flex items-center justify-center">
-<div class="text-sm text-slate-500 dark:text-slate-400">${unsafeHTML(emptyContent)}</div>
+<div class="text-sm ml-text-muted">${unsafeHTML(emptyContent)}</div>
 </div>
 `;
 }
@@ -202,7 +203,7 @@ return html`
 private renderLoadingState() {
 return html`
 <div class="absolute inset-0 flex items-center justify-center">
-<div class="text-sm text-slate-500 dark:text-slate-400">${this.msg.loading}</div>
+<div class="text-sm ml-text-muted">${this.msg.loading}</div>
 </div>
 `;
 }
@@ -265,8 +266,8 @@ return { label, x, y, lx, ly, textAnchor, dy };
 });
 
 return html`
-<div class="w-full">
-${labelContent ? html`<div class="mb-3 text-sm font-semibold text-slate-900 dark:text-slate-100">${unsafeHTML(labelContent)}</div>` : nothing}
+<div class="${cn('w-full', this.cssClass)}">
+${labelContent ? html`<div class="${cn('mb-3 text-sm font-semibold ml-label', this.getSlotClass('Label'))}">${unsafeHTML(labelContent)}</div>` : nothing}
 <div class="relative">
 <div class="aspect-square w-full">
 <svg
@@ -276,14 +277,14 @@ aria-label="${ariaLabel}"
 class="h-full w-full"
 >
 ${axisPoints.map((axis) => svg`
-<line x1="${center}" y1="${center}" x2="${axis.x}" y2="${axis.y}" class="stroke-slate-200 dark:stroke-slate-700" />
+<line x1="${center}" y1="${center}" x2="${axis.x}" y2="${axis.y}" class="ml-chart-axis" />
 `)}
 ${Array.from({ length: rings }).map((_, i) => {
 const r = (radius / rings) * (i + 1);
-return svg`<circle cx="${center}" cy="${center}" r="${r}" class="fill-none stroke-slate-200 dark:stroke-slate-700" />`;
+return svg`<circle cx="${center}" cy="${center}" r="${r}" class="fill-none ml-chart-axis" />`;
 })}
 ${axisPoints.map((axis) => svg`
-<text x="${axis.lx}" y="${axis.ly}" text-anchor="${axis.textAnchor}" dy="${axis.dy}" class="text-xs fill-slate-600 dark:fill-slate-400">${axis.label}</text>
+<text x="${axis.lx}" y="${axis.ly}" text-anchor="${axis.textAnchor}" dy="${axis.dy}" class="text-xs ml-chart-axis">${axis.label}</text>
 `)}
 ${hasData ? series.map((s, seriesIndex) => {
 const points = axisPoints.map((axis, axisIndex) => {
@@ -329,7 +330,7 @@ color: p.color,
 })}
 ></circle>
 ${this.showValues ? svg`
-<text x="${p.x}" y="${p.y}" dy="-0.6em" text-anchor="middle" class="text-[10px] fill-slate-600 dark:fill-slate-400">${p.value}</text>
+<text x="${p.x}" y="${p.y}" dy="-0.6em" text-anchor="middle" class="text-[10px] ml-chart-axis">${p.value}</text>
 ` : svg``}
 </g>
 `)}

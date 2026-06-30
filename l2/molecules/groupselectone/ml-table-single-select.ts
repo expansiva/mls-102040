@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 placeholder: 'Select an option',
@@ -146,24 +147,23 @@ new CustomEvent('focus', { bubbles: true, composed: true })
 private getTableClasses(): string {
 return [
 'w-full border-collapse',
-'border border-slate-200 dark:border-slate-700',
+'border ml-table-border',
 ].join(' ');
 }
 private getHeaderCellClasses(): string {
 return [
 'px-3 py-2 text-left text-sm font-medium',
-'bg-slate-50 dark:bg-slate-900',
-'text-slate-600 dark:text-slate-400',
-'border-b border-slate-200 dark:border-slate-700',
+'ml-table-header',
+'border-b',
 ].join(' ');
 }
 private getRowClasses(item: { value: string; disabled: boolean }, isSelected: boolean): string {
 return [
 'cursor-pointer',
 isSelected
-? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400'
-: 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100',
-item.disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50 dark:hover:bg-slate-700',
+? 'ml-table-row-selected'
+: 'ml-table-row',
+item.disabled ? 'ml-disabled' : 'ml-table-row-hover',
 ]
 .filter(Boolean)
 .join(' ');
@@ -171,50 +171,48 @@ item.disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50 dark:hover:
 private getCellClasses(): string {
 return [
 'px-3 py-2 text-sm',
-'border-b border-slate-200 dark:border-slate-700',
+'border-b ml-table-cell',
 ].join(' ');
 }
 private getInputClasses(): string {
 return [
 'w-full rounded-md px-3 py-2 text-sm border transition',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+'ml-table-search',
 this.disabled
-? 'border-slate-200 dark:border-slate-700 opacity-50 cursor-not-allowed'
-: 'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-].join(' ');
+? 'ml-disabled'
+: '',
+'focus:outline-none focus:ring-2',
+].filter(Boolean).join(' ');
 }
 // ---------------------------------------------------------------------------
 // RENDER – loading, view mode, editing mode
 // ---------------------------------------------------------------------------
 private renderLoading(): TemplateResult {
-return html`<div class="text-sm text-slate-600 dark:text-slate-400">${this.msg.loading}</div>`;
+return html`<div class="text-sm ml-text-muted">${this.msg.loading}</div>`;
 }
 private renderHelperOrError(): TemplateResult {
 if (this.error) {
-return html`<p class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>`;
+return html`<p class="mt-1 text-xs ml-error-text">${unsafeHTML(this.error)}</p>`;
 }
 if (this.hasSlot('Helper')) {
-return html`<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p class=${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}>${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }
 private renderEmpty(): TemplateResult {
 const content = this.getSlotContent('Empty') || this.msg.noResults;
-return html`<div class="p-4 text-center text-slate-500 dark:text-slate-400">${unsafeHTML(content)}</div>`;
+return html`<div class=${cn('p-4 text-center ml-text-muted', this.getSlotClass('Empty'))}>${unsafeHTML(content)}</div>`;
 }
 private renderViewMode(): TemplateResult {
 const selected = this.findItem(this.value);
 if (!selected) {
 const placeholder = this.placeholder || '—';
-return html`<div class="text-slate-600 dark:text-slate-400">${placeholder}</div>`;
+return html`<div class="ml-text-muted">${placeholder}</div>`;
 }
 // Render cells as a simple vertical list
 return html`
 <div class="space-y-1">
-${selected.cells.map((c) => html`<div class="text-slate-900 dark:text-slate-100">${unsafeHTML(c)}</div>`)}
+${selected.cells.map((c) => html`<div class="ml-text">${unsafeHTML(c)}</div>`)}
 </div>
 `;
 }
@@ -286,21 +284,21 @@ const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
 // Loading state takes precedence
 if (this.loading) {
-return html`<div class="p-2">${this.renderLoading()}</div>`;
+return html`<div class=${cn('p-2', this.cssClass)}>${this.renderLoading()}</div>`;
 }
 // View mode – static representation
 if (!this.isEditing) {
 return html`
-<div class="groupselectone--ml-table-single-select-view">
+<div class=${cn('groupselectone--ml-table-single-select-view', this.cssClass)}>
 ${this.renderViewMode()}
 </div>
 `;
 }
 // Editing mode – render label, table (or empty), helper/error
 return html`
-<div class="groupselectone--ml-table-single-select">
+<div class=${cn('groupselectone--ml-table-single-select', this.cssClass)}>
 ${this.hasSlot('Label')
-? html`<label class="block mb-1 text-sm font-medium text-slate-700 dark:text-slate-200">
+? html`<label class=${cn('block mb-1 text-sm font-medium ml-label', this.getSlotClass('Label'))}>
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>`
 : nothing}

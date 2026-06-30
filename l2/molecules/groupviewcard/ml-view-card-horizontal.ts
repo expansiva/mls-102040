@@ -9,6 +9,7 @@ import { customElement } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 @customElement('groupviewcard--ml-view-card-horizontal')
 export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
@@ -78,18 +79,16 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
   }
 
   private getContainerClasses(): string {
-    return [
+    return cn(
       'w-full rounded-lg border p-4 flex gap-4 items-start transition',
-      'bg-white dark:bg-slate-800',
-      'text-slate-900 dark:text-slate-100',
-      this.selected
-        ? 'border-sky-500 dark:border-sky-400'
-        : 'border-slate-200 dark:border-slate-700',
+      'ml-card',
+      this.selected ? 'ml-card-header' : '',
       this.clickable && !this.disabled
-        ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400'
+        ? 'cursor-pointer focus:outline-none focus:ring-2'
         : '',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-    ].filter(Boolean).join(' ');
+      this.disabled ? 'ml-disabled' : '',
+      this.cssClass,
+    );
   }
 
   private renderHeader(): TemplateResult {
@@ -105,13 +104,13 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
     return html`
       <div class="mb-2">
         ${hasTitle
-          ? html`<div class="text-sm font-semibold text-slate-900 dark:text-slate-100">${unsafeHTML(this.getSlotContent('CardTitle'))}</div>`
+          ? html`<div class="${cn('text-sm font-semibold ml-label', this.getSlotClass('CardTitle'))}">${unsafeHTML(this.getSlotContent('CardTitle'))}</div>`
           : ''}
         ${hasDescription
-          ? html`<div class="mt-1 text-xs text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('CardDescription'))}</div>`
+          ? html`<div class="${cn('mt-1 text-xs ml-text-muted', this.getSlotClass('CardDescription'))}">${unsafeHTML(this.getSlotContent('CardDescription'))}</div>`
           : ''}
         ${!hasTitle && !hasDescription && hasHeader
-          ? html`<div class="text-sm text-slate-900 dark:text-slate-100">${unsafeHTML(headerContent)}</div>`
+          ? html`<div class="${cn('text-sm ml-text', this.getSlotClass('CardHeader'))}">${unsafeHTML(headerContent)}</div>`
           : ''}
       </div>
     `;
@@ -120,7 +119,7 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
   private renderContentLeft(): TemplateResult {
     if (!this.hasSlot('CardContent')) return html``;
     return html`
-      <div class="w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-slate-50 dark:bg-slate-900">
+      <div class="${cn('w-20 h-20 flex-shrink-0 rounded-md overflow-hidden ml-card-media', this.getSlotClass('CardContent'))}">
         ${unsafeHTML(this.getSlotContent('CardContent'))}
       </div>
     `;
@@ -129,7 +128,7 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
   private renderFooter(): TemplateResult {
     if (!this.hasSlot('CardFooter')) return html``;
     return html`
-      <div class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+      <div class="${cn('mt-2 text-xs ml-text-muted', this.getSlotClass('CardFooter'))}">
         ${unsafeHTML(this.getSlotContent('CardFooter'))}
       </div>
     `;
@@ -146,12 +145,12 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
 
   private renderSkeleton(): TemplateResult {
     return html`
-      <div class="w-full rounded-lg border border-slate-200 dark:border-slate-700 p-4 flex gap-4 items-start bg-white dark:bg-slate-800 animate-pulse">
-        <div class="w-20 h-20 bg-slate-200 dark:bg-slate-700 rounded-md"></div>
+      <div class="w-full rounded-lg border ml-card p-4 flex gap-4 items-start animate-pulse">
+        <div class="w-20 h-20 ml-skeleton rounded-md"></div>
         <div class="flex-1 min-w-0">
-          <div class="h-4 w-2/3 bg-slate-200 dark:bg-slate-700 rounded"></div>
-          <div class="mt-2 h-3 w-4/5 bg-slate-200 dark:bg-slate-700 rounded"></div>
-          <div class="mt-3 h-3 w-1/3 bg-slate-200 dark:bg-slate-700 rounded"></div>
+          <div class="h-4 w-2/3 ml-skeleton rounded"></div>
+          <div class="mt-2 h-3 w-4/5 ml-skeleton rounded"></div>
+          <div class="mt-3 h-3 w-1/3 ml-skeleton rounded"></div>
         </div>
       </div>
     `;

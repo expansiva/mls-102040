@@ -10,6 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -129,28 +130,24 @@ export class MlAccordionMolecule extends MoleculeAuraElement {
 
     private getHeaderClasses(isOpen: boolean, isDisabled: boolean): string {
         return [
-            'w-full flex items-center justify-between gap-3 rounded-md border px-4 py-3 text-sm font-medium transition',
-            'bg-white dark:bg-slate-800',
-            'isOpen' in { isOpen } && isOpen
-                ? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
-                : 'border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100',
-            !this.disabled && !isDisabled && !isOpen ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-            (this.disabled || isDisabled) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-            'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+            'w-full flex items-center justify-between gap-3 px-4 py-3 text-sm',
+            'ml-accordion-header',
+            isOpen ? 'ml-accordion-header-open' : '',
+            (this.disabled || isDisabled) ? 'ml-disabled' : 'cursor-pointer',
         ].filter(Boolean).join(' ');
     }
 
     private getContentClasses(isOpen: boolean): string {
         return [
-            'overflow-hidden transition-all duration-200',
+            'overflow-hidden transition-all duration-200 ml-accordion-content',
             isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0',
         ].filter(Boolean).join(' ');
     }
 
     private getChevronClasses(isOpen: boolean): string {
         return [
-            'flex items-center justify-center transition-transform duration-200',
-            isOpen ? 'rotate-180 text-sky-600 dark:text-sky-300' : 'rotate-0 text-slate-500 dark:text-slate-400',
+            'flex items-center justify-center transition-transform duration-200 ml-accordion-chevron',
+            isOpen ? 'rotate-180 ml-accordion-chevron-open' : 'rotate-0',
         ].filter(Boolean).join(' ');
     }
     // ===========================================================================
@@ -160,7 +157,7 @@ export class MlAccordionMolecule extends MoleculeAuraElement {
         const lang = this.getMessageKey(messages);
         this.msg = messages[lang];
         return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 ${this.loading ? this.renderLoading() : this.renderSections()}
 </div>
@@ -170,7 +167,7 @@ ${this.loading ? this.renderLoading() : this.renderSections()}
     private renderLabel(): TemplateResult {
         if (!this.hasSlot('Label')) return html``;
         return html`
-<div class="mb-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
+<div class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </div>
 `;
@@ -179,9 +176,9 @@ ${unsafeHTML(this.getSlotContent('Label'))}
     private renderLoading(): TemplateResult {
         return html`
 <div class="space-y-2">
-<div class="h-10 w-full rounded-md bg-slate-100 dark:bg-slate-700 animate-pulse"></div>
-<div class="h-10 w-full rounded-md bg-slate-100 dark:bg-slate-700 animate-pulse"></div>
-<div class="text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>
+<div class="h-10 w-full ml-skeleton animate-pulse"></div>
+<div class="h-10 w-full ml-skeleton animate-pulse"></div>
+<div class="text-xs ml-text-muted">${this.msg.loading}</div>
 </div>
 `;
     }
@@ -190,7 +187,7 @@ ${unsafeHTML(this.getSlotContent('Label'))}
         const sectionElements = this.getSlots('Section');
         if (sectionElements.length === 0) {
             return html`
-<div class="text-sm text-slate-500 dark:text-slate-400">${this.msg.empty}</div>
+<div class="text-sm ml-text-muted">${this.msg.empty}</div>
 `;
         }
 
@@ -209,7 +206,7 @@ ${sectionElements.map((el, index) => this.renderSection(el, index))}
         const contentId = `accordion-content-${index}`;
         const content = this.getSectionContent(el);
         return html`
-<div class="rounded-md">
+<div>
 <div
 id=${headerId}
 data-accordion-header="true"
@@ -235,7 +232,7 @@ role="region"
 aria-labelledby=${headerId}
 class=${this.getContentClasses(isOpen)}
 >
-<div class="px-4 pb-4 pt-2 text-sm text-slate-700 dark:text-slate-200">
+<div class="px-4 pb-4 pt-2 text-sm ml-accordion-content">
 ${unsafeHTML(content)}
 </div>
 </div>

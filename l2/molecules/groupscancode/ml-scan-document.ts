@@ -4,32 +4,33 @@
 // =============================================================================
 // Skill Group: groupScanCode
 // This molecule does NOT contain business logic.
-import { html, svg, TemplateResult } from 'lit';
-import { customElement, query, state } from 'lit/decorators.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { html, svg, TemplateResult } from'lit';
+import { customElement, query, state } from'lit/decorators.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
+import { unsafeHTML } from'lit/directives/unsafe-html.js';
 /// **collab_i18n_start**
 const message_en = {
-openCamera: 'Open camera scanner',
-capture: 'Capture',
-loading: 'Processing...',
-result: 'Scan result',
-permissionDenied: 'Camera permission denied',
-cameraUnavailable: 'Camera unavailable',
-noResult: 'No result yet',
+openCamera:'Open camera scanner',
+capture:'Capture',
+loading:'Processing...',
+result:'Scan result',
+permissionDenied:'Camera permission denied',
+cameraUnavailable:'Camera unavailable',
+noResult:'No result yet',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
 en: message_en,
 pt: {
-openCamera: 'Abrir câmera',
-capture: 'Capturar',
-loading: 'Processando...',
-result: 'Resultado da leitura',
-permissionDenied: 'Permissão de câmera negada',
-cameraUnavailable: 'Câmera indisponível',
-noResult: 'Nenhum resultado',
+openCamera:'Abrir câmera',
+capture:'Capturar',
+loading:'Processando...',
+result:'Resultado da leitura',
+permissionDenied:'Permissão de câmera negada',
+cameraUnavailable:'Câmera indisponível',
+noResult:'Nenhum resultado',
 },
 };
 /// **collab_i18n_end**
@@ -42,21 +43,21 @@ private msg: MessageType = messages.en;
 // ===========================================================================
 // SLOT TAGS
 // ===========================================================================
-slotTags = ['Label', 'Helper', 'Trigger', 'Result'];
+slotTags = ['Label','Helper','Trigger','Result'];
 // ===========================================================================
 // PROPERTIES — From Contract
 // ===========================================================================
 @propertyDataSource({ type: String })
 value: string | null = null;
 @propertyDataSource({ type: String })
-error: string = '';
+error: string ='';
 @propertyDataSource({ type: String })
-name: string = '';
+name: string ='';
 @propertyDataSource({ type: String })
-facing: string = 'environment';
-@propertyDataSource({ type: Boolean, attribute: 'auto-capture' })
+facing: string ='environment';
+@propertyDataSource({ type: Boolean, attribute:'auto-capture' })
 autoCapture: boolean = false;
-@propertyDataSource({ type: Number, attribute: 'capture-interval' })
+@propertyDataSource({ type: Number, attribute:'capture-interval' })
 captureInterval: number = 500;
 @propertyDataSource({ type: Boolean })
 disabled: boolean = false;
@@ -132,7 +133,7 @@ this.setupAutoCapture();
 // ===========================================================================
 private async openCamera() {
 if (this.disabled || this.loading || this.isOpen) return;
-this.error = '';
+this.error ='';
 try {
 this.stream = await navigator.mediaDevices.getUserMedia({
 video: { facingMode: this.facing },
@@ -156,8 +157,8 @@ new CustomEvent('open', { bubbles: true, composed: true, detail: {} }),
 );
 this.bindEscapeListener();
 } catch (err: any) {
-const name = String(err?.name || '');
-this.error = name === 'NotAllowedError' ? this.msg.permissionDenied : this.msg.cameraUnavailable;
+const name = String(err?.name ||'');
+this.error = name ==='NotAllowedError' ? this.msg.permissionDenied : this.msg.cameraUnavailable;
 }
 }
 
@@ -179,7 +180,7 @@ new CustomEvent('close', { bubbles: true, composed: true, detail: {} }),
 }
 
 private handleEscapeKey(event: KeyboardEvent) {
-if (event.key === 'Escape' && this.isOpen) {
+if (event.key ==='Escape' && this.isOpen) {
 this.closeCamera();
 }
 }
@@ -316,57 +317,57 @@ window.removeEventListener('pointerup', this.boundPointerUp);
 private getWrapperClasses(): string {
 return [
 'group relative w-full rounded-xl border p-4 transition',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-this.disabled ? 'opacity-50 cursor-not-allowed' : 'opacity-100',
+'ml-surface-bg',
+'ml-border',
+this.disabled ?'ml-disabled' :'opacity-100',
 ].filter(Boolean).join(' ');
 }
 
 private getViewfinderClasses(): string {
 return [
 'relative w-full overflow-hidden rounded-lg border',
-'bg-slate-50 dark:bg-slate-900',
-'border-slate-200 dark:border-slate-700',
+'ml-surface-dim-bg',
+'ml-border',
 ].join(' ');
 }
 
 private getTriggerClasses(): string {
 return [
 'inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition',
-'bg-sky-600 text-white dark:bg-sky-500 dark:text-slate-950',
-'hover:bg-sky-700 dark:hover:bg-sky-400',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+'ml-primary-bg',
+'hover:opacity-90',
+'',
+this.disabled ?'ml-disabled' :'',
 ].filter(Boolean).join(' ');
 }
 
 private getCaptureClasses(): string {
 return [
 'inline-flex items-center justify-center rounded-md px-3 py-2 text-xs font-semibold transition',
-'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900',
-'hover:bg-slate-700 dark:hover:bg-slate-200',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-(this.disabled || this.loading) ? 'opacity-50 cursor-not-allowed' : '',
+'ml-surface-bg ml-text',
+'hover:ml-surface-dim-bg',
+'',
+(this.disabled || this.loading) ?'ml-disabled' :'',
 ].filter(Boolean).join(' ');
 }
 
 private getCornerHandleClasses(): string {
 return [
 'absolute h-4 w-4 rounded-full border-2 shadow',
-'border-sky-500 dark:border-sky-400',
-'bg-white dark:bg-slate-800',
+'ml-border-focus',
+'ml-surface-bg',
 'cursor-grab',
 ].join(' ');
 }
 
 private hasResult(): boolean {
-return this.value !== null && this.value !== '';
+return this.value !== null && this.value !=='';
 }
 
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<div class="mb-3 text-sm text-slate-600 dark:text-slate-400">
+<div class="${cn('mb-3 text-sm ml-text-muted', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </div>
 `;
@@ -375,7 +376,7 @@ ${unsafeHTML(this.getSlotContent('Label'))}
 private renderHelper(): TemplateResult {
 if (!this.hasSlot('Helper')) return html``;
 return html`
-<div class="mt-3 text-xs text-slate-500 dark:text-slate-400">
+<div class="${cn('mt-3 text-xs ml-text-muted', this.getSlotClass('Helper'))}">
 ${unsafeHTML(this.getSlotContent('Helper'))}
 </div>
 `;
@@ -384,7 +385,7 @@ ${unsafeHTML(this.getSlotContent('Helper'))}
 private renderError(): TemplateResult {
 if (!this.error) return html``;
 return html`
-<p id="${this.errorId}" class="mt-2 text-xs text-red-600 dark:text-red-400">
+<p id="${this.errorId}" class="mt-2 text-xs ml-error-text">
 ${unsafeHTML(String(this.error))}
 </p>
 `;
@@ -411,9 +412,9 @@ const content = this.hasSlot('Result')
 ? unsafeHTML(this.getSlotContent('Result'))
 : unsafeHTML(this.value || this.msg.noResult);
 return html`
-<div class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4">
-<div class="text-xs text-slate-500 dark:text-slate-400 mb-2">${this.msg.result}</div>
-<div class="text-sm text-slate-900 dark:text-slate-100" aria-live="polite">${content}</div>
+<div class="w-full rounded-lg border ml-border ml-surface-bg p-4">
+<div class="text-xs ml-text-muted mb-2">${this.msg.result}</div>
+<div class="text-sm ml-text" aria-live="polite">${content}</div>
 </div>
 `;
 }
@@ -421,7 +422,7 @@ return html`
 private renderViewfinder(): TemplateResult {
 const points = this.corners.map((c) => `${c.x * 100},${c.y * 100}`).join(' ');
 return html`
-<div class="${this.getViewfinderClasses()}" aria-describedby=${this.error ? this.errorId : ''}>
+<div class="${this.getViewfinderClasses()}" aria-describedby=${this.error ? this.errorId :''}>
 <div class="relative aspect-[4/3] w-full">
 <video
 class="h-full w-full object-cover"
@@ -448,10 +449,10 @@ style="left: calc(${corner.x * 100}% - 8px); top: calc(${corner.y * 100}% - 8px)
 ></div>
 `)}
 </div>
-${this.isCapturing ? html`<div class="absolute inset-0 bg-white/40 dark:bg-slate-950/40"></div>` : html``}
+${this.isCapturing ? html`<div class="absolute inset-0 ml-surface-bg/40"></div>` : html``}
 ${this.loading ? html`
-<div class="absolute inset-0 flex items-center justify-center bg-white/70 dark:bg-slate-900/70">
-<div class="text-sm text-slate-600 dark:text-slate-300">${this.msg.loading}</div>
+<div class="absolute inset-0 flex items-center justify-center ml-surface-bg/70">
+<div class="text-sm ml-text-muted">${this.msg.loading}</div>
 </div>
 ` : html``}
 </div>
@@ -465,7 +466,7 @@ aria-label="${this.msg.capture}"
 ${this.msg.capture}
 </button>
 <button
-class="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+class="text-xs ml-text-muted hover:ml-text"
 @click=${this.handleCloseClick}
 >
 Close
@@ -483,7 +484,7 @@ this.openCamera();
 }
 
 private handleTriggerKeydown(event: KeyboardEvent) {
-if (event.key === 'Enter' || event.key === ' ') {
+if (event.key ==='Enter' || event.key ==='') {
 event.preventDefault();
 this.openCamera();
 }
@@ -504,7 +505,7 @@ render() {
 const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
 return html`
-<div class="${this.getWrapperClasses()}">
+<div class="${cn(this.getWrapperClasses(), this.cssClass)}">
 ${this.renderLabel()}
 ${this.hasResult() ? this.renderResult() : (this.isOpen ? this.renderViewfinder() : this.renderTrigger())}
 ${this.renderError()}

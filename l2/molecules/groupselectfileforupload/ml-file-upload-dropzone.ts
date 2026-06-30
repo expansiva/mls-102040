@@ -10,6 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 
 /// **collab_i18n_start**
@@ -264,23 +265,17 @@ export class MlFileUploadDropzoneMolecule extends MoleculeAuraElement {
     ].join(' ');
 
     const dropzoneClasses = [
-      'w-full rounded-lg border border-dashed p-6 transition',
-      'bg-slate-50 dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      this.isDragging
-        ? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40'
-        : '',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+      'w-full rounded-lg border border-dashed p-6 transition ml-dropzone',
+      hasError ? 'ml-dropzone-error' : '',
+      this.isDragging ? 'ml-dropzone-active' : '',
+      this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
+      'focus:outline-none',
     ].filter(Boolean).join(' ');
 
     return html`
-      <div class=${containerClasses}>
+      <div class="${cn(containerClasses, this.cssClass)}">
         ${hasLabel
-          ? html`<label id=${this.labelId} class="text-sm font-medium text-slate-700 dark:text-slate-300">
+          ? html`<label id=${this.labelId} class="${cn('text-sm font-medium ml-label', this.getSlotClass('Label'))}">
               ${unsafeHTML(this.getSlotContent('Label'))}
             </label>`
           : html``}
@@ -313,15 +308,15 @@ export class MlFileUploadDropzoneMolecule extends MoleculeAuraElement {
         ${this.renderFileList()}
 
         ${this.loading
-          ? html`<div class="text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>`
+          ? html`<div class="text-xs ml-text-muted">${this.msg.loading}</div>`
           : html``}
 
         ${hasError
-          ? html`<p id=${this.errorId} class="text-xs text-red-600 dark:text-red-400">
+          ? html`<p id=${this.errorId} class="text-xs ml-error-text">
               ${unsafeHTML(String(this.error))}
             </p>`
           : hasHelper
-          ? html`<p class="text-xs text-slate-500 dark:text-slate-400">
+          ? html`<p class="${cn('text-xs ml-helper', this.getSlotClass('Helper'))}">
               ${unsafeHTML(this.getSlotContent('Helper'))}
             </p>`
           : html``}
@@ -331,18 +326,18 @@ export class MlFileUploadDropzoneMolecule extends MoleculeAuraElement {
 
   private renderTriggerContent(): TemplateResult {
     if (this.hasSlot('Trigger')) {
-      return html`<div class="text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Trigger'))}</div>`;
+      return html`<div class="${cn('text-sm ml-text-muted', this.getSlotClass('Trigger'))}">${unsafeHTML(this.getSlotContent('Trigger'))}</div>`;
     }
 
     return html`
       <div class="flex flex-col items-center gap-2 text-center">
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-          <svg viewBox="0 0 24 24" class="h-6 w-6 text-slate-600 dark:text-slate-300" aria-hidden="true">
+        <div class="flex h-12 w-12 items-center justify-center rounded-full ml-dropzone-icon">
+          <svg viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
             ${svg`<path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v8.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42L11 12.59V4a1 1 0 0 1 1-1Zm-7 14a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-1a1 1 0 0 1 1-1Z"/>`}
           </svg>
         </div>
-        <div class="text-sm font-medium text-slate-700 dark:text-slate-200">${this.msg.defaultTriggerTitle}</div>
-        <div class="text-xs text-slate-500 dark:text-slate-400">${this.msg.defaultTriggerSubtitle}</div>
+        <div class="text-sm font-medium ml-label">${this.msg.defaultTriggerTitle}</div>
+        <div class="text-xs ml-text-muted">${this.msg.defaultTriggerSubtitle}</div>
       </div>
     `;
   }
@@ -356,14 +351,14 @@ export class MlFileUploadDropzoneMolecule extends MoleculeAuraElement {
       <ul class="space-y-2">
         ${this.value.map(
           (file, index) => html`
-            <li class="flex items-center justify-between rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2">
+            <li class="flex items-center justify-between rounded-md border px-3 py-2 ml-dropzone-file-item">
               <div class="min-w-0">
-                <div class="truncate text-sm text-slate-900 dark:text-slate-100">${file.name}</div>
-                <div class="text-xs text-slate-500 dark:text-slate-400">${this.formatFileSize(file.size)}</div>
+                <div class="truncate text-sm ml-text">${file.name}</div>
+                <div class="text-xs ml-text-muted">${this.formatFileSize(file.size)}</div>
               </div>
               <button
                 type="button"
-                class="text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100"
+                class="text-xs ml-text-muted ml-dropzone-file-remove"
                 @click=${() => this.handleRemoveFile(index)}
                 ?disabled=${this.disabled || this.loading}
               >

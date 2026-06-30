@@ -1,1 +1,61 @@
-/// <mls fileReference="_102040_/l2/molecules/groupnavigatemain/ml-sidebar-nav.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupnavigatemain/ml-sidebar-nav.less" enhancement="_102020_/l2/enhancementStyleAura"/>
+
+groupnavigatemain--ml-sidebar-nav {
+
+  .ml-text {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
+
+  .ml-text-muted {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
+
+  .ml-text-faint {
+    color: var(--ml-on-surface-faint, #79747e);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
+
+  .ml-primary-text {
+    color: var(--ml-primary, #3b82f6);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
+
+  .ml-surface-bg {
+    background: var(--ml-surface, #ffffff);
+  }
+
+  .ml-surface-dim-bg {
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  .ml-primary-dim-bg {
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  .ml-error-dim-bg {
+    background: var(--ml-error-dim, #fef2f2);
+  }
+
+  .ml-border {
+    border-color: var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .hover\:ml-surface-dim-bg:hover {
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  .hover\:ml-text:hover {
+    color: var(--ml-on-surface, #1c1b1f);
+  }
+
+  .hover\:ml-text-muted:hover {
+    color: var(--ml-on-surface-muted, #49454f);
+  }
+
+  .group:hover .group-hover\:ml-text-muted {
+    color: var(--ml-on-surface-muted, #49454f);
+  }
+
+}

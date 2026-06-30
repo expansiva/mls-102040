@@ -11,6 +11,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 loading: 'Loading...',
@@ -357,20 +358,16 @@ isEnd: boolean;
 isHover: boolean;
 isHoverInvalid: boolean;
 }): string {
-const classes = [
-'flex h-9 w-9 items-center justify-center rounded-md text-sm transition',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-options.isOutside ? 'text-slate-400 dark:text-slate-600' : 'text-slate-900 dark:text-slate-100',
-!options.isDisabled ? 'hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer' : 'cursor-not-allowed opacity-50',
-options.isInRange
-? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
-: 'bg-transparent',
-options.isStart || options.isEnd
-? 'bg-sky-500 dark:bg-sky-400 text-white dark:text-slate-900'
-: '',
-options.isHover && options.isHoverInvalid ? 'bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400' : '',
-].filter(Boolean);
-return classes.join(' ');
+return cn(
+'ml-calendar-day flex h-9 w-9 items-center justify-center rounded-md text-sm transition',
+'focus:outline-none focus:ring-2',
+options.isOutside ? 'ml-calendar-day-outside' : '',
+!options.isDisabled ? 'ml-calendar-day--hoverable cursor-pointer' : 'ml-calendar-day-disabled',
+options.isInRange ? 'ml-interval-range' : '',
+options.isStart ? 'ml-interval-start' : '',
+options.isEnd ? 'ml-interval-end' : '',
+options.isHover && options.isHoverInvalid ? 'ml-interval-hover-invalid' : '',
+);
 }
 // ===========================================================================
 // RENDER
@@ -381,16 +378,14 @@ this.msg = messages[lang];
 const hasError = Boolean(this.error);
 const hasHelper = !hasError && this.hasSlot('Helper');
 const describedBy = hasError ? this.errorId : hasHelper ? this.helperId : undefined;
-const wrapperClasses = [
-'relative rounded-lg border p-3',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-hasError ? 'border-red-500 dark:border-red-400' : '',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-this.readonly ? 'bg-slate-50 dark:bg-slate-900' : '',
-].filter(Boolean).join(' ');
+const wrapperClasses = cn(
+'ml-calendar-container relative rounded-lg border p-3',
+hasError ? 'ml-calendar-container--error' : '',
+this.disabled ? 'ml-disabled' : '',
+this.readonly ? 'ml-calendar-container--readonly' : '',
+);
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderOverallLabel()}
 <div
 class="${wrapperClasses}"
@@ -415,7 +410,7 @@ ${this.renderFeedback()}
 private renderOverallLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<div id="${this.labelId}" class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+<div id="${this.labelId}" class="${cn('ml-label mb-2 text-sm', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </div>
 `;
@@ -429,37 +424,32 @@ const labelEnd = this.hasSlot('LabelEnd')
 : this.msg.endLabel;
 const prevDisabled = !this.canNavigatePrev();
 const nextDisabled = !this.canNavigateNext();
-const navBtnBase = [
-'rounded-md p-1 text-slate-600 dark:text-slate-300',
-'hover:bg-slate-50 dark:hover:bg-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-].join(' ');
-const navBtnDisabled = 'opacity-50 cursor-not-allowed';
+const navBtnBase = 'ml-calendar-nav rounded-md p-1 focus:outline-none focus:ring-2';
 return html`
 <div class="mb-2 flex items-center justify-between">
-<div class="text-sm text-slate-600 dark:text-slate-400">
-<span class="font-medium text-slate-700 dark:text-slate-200">${labelStart}</span>
+<div class="ml-text-muted text-sm">
+<span class="ml-text font-medium">${labelStart}</span>
 <span class="ml-1 mr-2">${this.getRangeSummary().split(this.msg.rangeSeparator)[0].trim()}</span>
-<span class="mx-1 text-slate-400 dark:text-slate-500">${this.msg.rangeSeparator}</span>
-<span class="font-medium text-slate-700 dark:text-slate-200">${labelEnd}</span>
+<span class="mx-1 ml-text-muted">${this.msg.rangeSeparator}</span>
+<span class="ml-text font-medium">${labelEnd}</span>
 <span class="ml-1">${this.getRangeSummary().split(this.msg.rangeSeparator)[1]?.trim() || this.msg.empty}</span>
 </div>
 <div class="flex items-center gap-2">
 <button
 type="button"
-class="${prevDisabled ? `${navBtnBase} ${navBtnDisabled}` : navBtnBase}"
+class="${cn(navBtnBase, prevDisabled ? 'ml-disabled' : '')}"
 ?disabled=${prevDisabled}
 aria-label="${this.msg.prevMonth}"
 @click=${this.handlePrevMonth}
 >
 ‹
 </button>
-<div class="text-sm font-medium text-slate-700 dark:text-slate-200">
+<div class="ml-text text-sm font-medium">
 ${this.getMonthLabel()}
 </div>
 <button
 type="button"
-class="${nextDisabled ? `${navBtnBase} ${navBtnDisabled}` : navBtnBase}"
+class="${cn(navBtnBase, nextDisabled ? 'ml-disabled' : '')}"
 ?disabled=${nextDisabled}
 aria-label="${this.msg.nextMonth}"
 @click=${this.handleNextMonth}
@@ -477,7 +467,7 @@ const range = this.getActiveRange();
 const todayIso = this.formatIsoDate(new Date());
 return html`
 <div class="w-full">
-<div class="grid grid-cols-7 gap-1 text-center text-xs text-slate-500 dark:text-slate-400">
+<div class="grid grid-cols-7 gap-1 text-center text-xs ml-text-muted">
 ${weekdays.map((label) => html`<div class="py-1">${label}</div>`)}
 </div>
 <div role="grid" class="mt-1 grid grid-cols-7 gap-1">
@@ -523,14 +513,14 @@ ${day.date.getDate()}
 private renderFeedback(): TemplateResult {
 if (this.error) {
 return html`
-<p id="${this.errorId}" class="mt-2 text-xs text-red-600 dark:text-red-400">
+<p id="${this.errorId}" class="ml-error-text mt-2 text-xs">
 ${unsafeHTML(String(this.error))}
 </p>
 `;
 }
 if (this.hasSlot('Helper')) {
 return html`
-<p id="${this.helperId}" class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+<p id="${this.helperId}" class="${cn('ml-helper mt-2 text-xs', this.getSlotClass('Helper'))}">
 ${unsafeHTML(this.getSlotContent('Helper'))}
 </p>
 `;
@@ -539,8 +529,8 @@ return html``;
 }
 private renderLoading(): TemplateResult {
 return html`
-<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-white/70 dark:bg-slate-800/70">
-<span class="text-sm text-slate-600 dark:text-slate-300">${this.msg.loading}</span>
+<div class="ml-loading-overlay absolute inset-0 flex items-center justify-center rounded-lg">
+<span class="ml-text-muted text-sm">${this.msg.loading}</span>
 </div>
 `;
 }

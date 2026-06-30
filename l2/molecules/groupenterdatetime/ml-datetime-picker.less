@@ -1,9 +1,92 @@
-/// <mls fileReference="_102040_/l2/molecules/groupenterdatetime/ml-datetime-picker.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupenterdatetime/ml-datetime-picker.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupenterdatetime--ml-datetime-picker-102033 {
+groupenterdatetime--ml-datetime-picker,
+.groupenterdatetime--ml-datetime-picker {
 
-// Here your less
+  .ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
+  .ml-helper { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
 
- }
+  .ml-input-container {
+    background-color: var(--ml-surface, #ffffff);
+    border-color: var(--ml-outline-variant, #e2e8f0);
 
+    &-focused {
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+    }
 
+    &-error {
+      border-color: var(--ml-error, #ef4444);
+    }
+  }
+
+  .ml-calendar-container {
+    background-color: var(--ml-surface, #ffffff);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+    box-shadow: var(--ml-shadow-2, 0 4px 6px rgba(0,0,0,0.1));
+  }
+
+  .ml-calendar-day {
+    background-color: var(--ml-surface, #ffffff);
+    color: var(--ml-on-surface, #1c1b1f);
+
+    &--hoverable:hover {
+      background-color: var(--ml-surface-dim, #f5f5f5);
+    }
+  }
+
+  .ml-calendar-day-selected {
+    background-color: var(--ml-primary, #3b82f6);
+    color: var(--ml-on-primary, #ffffff);
+    border-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-calendar-day-today {
+    border-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-calendar-day-disabled {
+    opacity: var(--ml-disabled-opacity, 0.5);
+    cursor: not-allowed;
+  }
+
+  .ml-calendar-nav {
+    color: var(--ml-on-surface-muted, #49454f);
+
+    &:hover {
+      color: var(--ml-on-surface, #1c1b1f);
+    }
+  }
+
+  .ml-calendar-time-btn {
+    color: var(--ml-on-surface, #1c1b1f);
+
+    &-selected {
+      background-color: var(--ml-primary, #3b82f6);
+      color: var(--ml-on-primary, #ffffff);
+      border-color: var(--ml-primary, #3b82f6);
+    }
+
+    &--hoverable:hover {
+      background-color: var(--ml-surface-dim, #f5f5f5);
+    }
+  }
+
+  .ml-calendar-confirm {
+    background-color: var(--ml-primary, #3b82f6);
+    color: var(--ml-on-primary, #ffffff);
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
+  .ml-spinner {
+    border-color: var(--ml-outline-variant, #e2e8f0);
+    border-top-color: var(--ml-on-surface, #1c1b1f);
+  }
+
+}

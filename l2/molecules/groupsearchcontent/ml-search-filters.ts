@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -302,8 +303,7 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
 
   private getLabelClasses(): string {
     return [
-      'text-sm font-medium',
-      'text-slate-700 dark:text-slate-300',
+      'text-sm ml-label',
     ].join(' ');
   }
 
@@ -322,17 +322,12 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
   private getInputClasses(): string {
     return [
       'w-full rounded-lg px-3 py-2 pr-10 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+      'ml-search-input',
       this.error
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2',
-      this.error
-        ? 'focus:ring-red-500 dark:focus:ring-red-400'
-        : 'focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed bg-slate-100 dark:bg-slate-800' : '',
+        ? 'ml-error-border'
+        : 'ml-search-border',
+      'ml-search-focus',
+      this.disabled ? 'ml-disabled' : '',
     ].filter(Boolean).join(' ');
   }
 
@@ -340,11 +335,9 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
     return [
       'absolute right-2 top-1/2 -translate-y-1/2',
       'p-1 rounded-full transition',
-      'text-slate-400 dark:text-slate-500',
-      'hover:text-slate-600 dark:hover:text-slate-300',
-      'hover:bg-slate-100 dark:hover:bg-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : 'cursor-pointer',
+      'ml-search-clear',
+      'ml-search-focus',
+      this.disabled ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
@@ -353,18 +346,18 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
       'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition',
       'border',
       this.isOpen
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-        : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700',
-      !this.disabled && !this.isOpen ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+        ? 'ml-filter-chip-active'
+        : 'ml-filter-chip',
+      !this.disabled && !this.isOpen ? 'ml-filter-chip-hover' : '',
+      'ml-search-focus',
+      this.disabled ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getBadgeClasses(): string {
     return [
       'inline-flex items-center justify-center min-w-5 h-5 px-1.5 rounded-full text-xs font-medium',
-      'bg-sky-500 dark:bg-sky-400 text-white dark:text-slate-900',
+      'ml-filter-badge',
     ].join(' ');
   }
 
@@ -377,28 +370,23 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
   private getChipClasses(): string {
     return [
       'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm',
-      'bg-sky-50 dark:bg-sky-900/40',
-      'text-sky-700 dark:text-sky-300',
-      'border border-sky-200 dark:border-sky-700',
+      'ml-filter-chip-active',
     ].join(' ');
   }
 
   private getChipRemoveClasses(): string {
     return [
       'p-0.5 rounded-full transition',
-      'text-sky-500 dark:text-sky-400',
-      'hover:text-sky-700 dark:hover:text-sky-200',
-      'hover:bg-sky-100 dark:hover:bg-sky-800',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : 'cursor-pointer',
+      'ml-search-clear',
+      'ml-search-focus',
+      this.disabled ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getPanelClasses(): string {
     return [
       'mt-2 rounded-lg border shadow-lg overflow-hidden',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
+      'ml-search-container',
     ].join(' ');
   }
 
@@ -411,45 +399,45 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
   private getSuggestionClasses(index: number, isSelected: boolean): string {
     return [
       'w-full px-3 py-2 rounded-md text-sm text-left transition cursor-pointer',
-      'text-slate-900 dark:text-slate-100',
+      'ml-text',
       isSelected
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
+        ? 'ml-filter-chip-active'
         : '',
       this.highlightedIndex === index && !isSelected
-        ? 'bg-slate-100 dark:bg-slate-700'
+        ? 'ml-facet-option-selected'
         : '',
       !isSelected && this.highlightedIndex !== index
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700'
+        ? 'ml-facet-option'
         : '',
-      'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500 dark:focus:ring-sky-400',
+      'ml-search-focus',
     ].filter(Boolean).join(' ');
   }
 
   private getEmptyClasses(): string {
     return [
       'px-3 py-4 text-sm text-center',
-      'text-slate-500 dark:text-slate-400',
+      'ml-text-muted',
     ].join(' ');
   }
 
   private getLoadingClasses(): string {
     return [
       'flex items-center justify-center gap-2 px-3 py-4 text-sm',
-      'text-slate-500 dark:text-slate-400',
+      'ml-text-muted',
     ].join(' ');
   }
 
   private getHelperClasses(): string {
     return [
       'text-xs',
-      'text-slate-500 dark:text-slate-400',
+      'ml-text-muted',
     ].join(' ');
   }
 
   private getErrorClasses(): string {
     return [
       'text-xs',
-      'text-red-600 dark:text-red-400',
+      'ml-error-text',
     ].join(' ');
   }
 
@@ -464,7 +452,7 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
     return html`
       <label
         id=${this.labelId}
-        class=${this.getLabelClasses()}
+        class=${cn(this.getLabelClasses(), this.getSlotClass('Label'))}
       >
         ${unsafeHTML(this.getSlotContent('Label'))}
       </label>
@@ -635,7 +623,7 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
     const placeholderText = this.placeholder || this.msg.placeholder;
 
     return html`
-      <div class=${this.getContainerClasses()}>
+      <div class=${cn(this.getContainerClasses(), this.cssClass)}>
         ${this.renderLabel()}
 
         <div class=${this.getInputRowClasses()}>

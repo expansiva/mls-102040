@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 defaultLabel: 'Action',
@@ -120,29 +121,18 @@ return label || this.msg.defaultLabel;
 private getPrimaryClasses(): string {
 const sizeClasses = this.getSizeClasses('primary');
 return [
-'inline-flex items-center justify-center gap-2 rounded-l-lg border transition',
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
-'border-slate-200 dark:border-slate-700',
-'hover:bg-slate-50 dark:hover:bg-slate-700',
-'active:bg-slate-100 dark:active:bg-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-'disabled:opacity-50 disabled:cursor-not-allowed',
+'inline-flex items-center justify-center gap-2',
+'ml-split-trigger',
+this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
 sizeClasses,
 ].filter(Boolean).join(' ');
 }
 private getChevronClasses(): string {
 const sizeClasses = this.getSizeClasses('chevron');
 return [
-'inline-flex items-center justify-center rounded-r-lg border transition',
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
-'border-slate-200 dark:border-slate-700',
-'border-l border-slate-200 dark:border-slate-700',
-'hover:bg-slate-50 dark:hover:bg-slate-700',
-'active:bg-slate-100 dark:active:bg-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-'disabled:opacity-50 disabled:cursor-not-allowed',
+'inline-flex items-center justify-center',
+'ml-split-dropdown',
+this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
 sizeClasses,
 ].filter(Boolean).join(' ');
 }
@@ -158,13 +148,9 @@ return region === 'primary' ? map.primary : map.chevron;
 }
 private getOptionClasses(item: SecondaryItem): string {
 return [
-'w-full text-left rounded-md px-3 py-2 text-sm transition border',
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
-'border-transparent',
-!item.disabled ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-item.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+'w-full text-left px-3 py-2 text-sm',
+'ml-split-item',
+item.disabled ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 // ==========================================================================
@@ -175,11 +161,11 @@ if (this.loading) {
 return this.renderSpinner();
 }
 if (!this.hasSlot('Icon')) return html``;
-return html`<span class="inline-flex items-center">${unsafeHTML(this.getSlotContent('Icon'))}</span>`;
+return html`<span class="${cn('inline-flex items-center', this.getSlotClass('Icon'))}">${unsafeHTML(this.getSlotContent('Icon'))}</span>`;
 }
 private renderLabel(): TemplateResult {
 const label = this.getSlotContent('Label') || this.msg.defaultLabel;
-return html`<span class="inline-flex items-center">${unsafeHTML(label)}</span>`;
+return html`<span class="${cn('inline-flex items-center', this.getSlotClass('Label'))}">${unsafeHTML(label)}</span>`;
 }
 private renderSpinner(): TemplateResult {
 const sizeMap: Record<string, string> = {
@@ -191,7 +177,7 @@ lg: 'h-5 w-5',
 const sizeClass = sizeMap[this.size] || sizeMap.md;
 return html`
 <span class="inline-flex items-center" aria-hidden="true">
-<svg class="${sizeClass} animate-spin text-slate-600 dark:text-slate-300" viewBox="0 0 24 24" fill="none">
+<svg class="${sizeClass} animate-spin ml-text-muted" viewBox="0 0 24 24" fill="none">
 ${svg`<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.25"></circle>`}
 ${svg`<path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>`}
 </svg>
@@ -208,7 +194,7 @@ ${svg`<path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linec
 private renderMenuOptions(items: SecondaryItem[]): TemplateResult {
 if (!this.isOpen || items.length === 0) return html``;
 return html`
-<div class="absolute right-0 top-full z-10 mt-1 min-w-full rounded-lg border border-slate-200 bg-white p-2 shadow-lg dark:border-slate-700 dark:bg-slate-800">
+<div class="absolute right-0 top-full z-10 mt-1 min-w-full p-2 ml-split-menu">
 <div class="flex flex-col gap-1">
 ${items.map((item) => html`
 <button
@@ -236,7 +222,7 @@ const hasLabel = this.hasSlot('Label') || !!this.getPrimaryLabelText();
 const hasIcon = this.hasSlot('Icon') || this.loading;
 const ariaLabel = !hasLabel && hasIcon ? this.getAriaLabel() : undefined;
 return html`
-<div class="relative inline-flex items-stretch" role="group">
+<div class="${cn('relative inline-flex items-stretch', this.cssClass)}" role="group">
 <button
 type=${this.type}
 class="${this.getPrimaryClasses()}"

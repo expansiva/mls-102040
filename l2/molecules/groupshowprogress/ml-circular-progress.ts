@@ -4,10 +4,11 @@
 // =============================================================================
 // Skill Group: groupShowProgress
 // This molecule does NOT contain business logic.
-import { html, svg, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html, svg, TemplateResult } from'lit';
+import { customElement } from'lit/decorators.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 @customElement('groupshowprogress--ml-circular-progress')
 export class CircularProgressMolecule extends MoleculeAuraElement {
 // ==========================================================================
@@ -20,10 +21,10 @@ slotTags = [];
 @propertyDataSource({ type: Number })
 value: number | null = null;
 @propertyDataSource({ type: String })
-size: string = 'md';
+size: string ='md';
 @propertyDataSource({ type: String })
-label: string = '';
-@propertyDataSource({ type: Boolean, attribute: 'show-value' })
+label: string ='';
+@propertyDataSource({ type: Boolean, attribute:'show-value' })
 showValue: boolean = false;
 // ==========================================================================
 // RENDER
@@ -35,9 +36,9 @@ const showText = determinate && this.showValue;
 const ariaAttrs = this.getAriaAttributes(clampedValue);
 return html`
 <div
-class="${this.getWrapperClasses()}"
+class="${cn(this.getWrapperClasses(), this.cssClass)}"
 role="progressbar"
-aria-label="${this.label || 'Progress'}"
+aria-label="${this.label ||'Progress'}"
 ${ariaAttrs}
 >
 ${this.renderSvg(clampedValue, determinate)}
@@ -57,8 +58,8 @@ const dashOffset = determinate && value !== null
 ? circumference * (1 - value / 100)
 : circumference * 0.25;
 const progressClasses = [
-'stroke-sky-500 dark:stroke-sky-400',
-value === 100 ? '' : '',
+'ml-stroke-primary',
+value === 100 ?'' :'',
 ].filter(Boolean).join(' ');
 return html`
 <svg
@@ -73,7 +74,7 @@ cy="50"
 r="45"
 fill="none"
 stroke-width="10"
-class="stroke-slate-200 dark:stroke-slate-700"
+class="ml-stroke-track"
 ></circle>
 <circle
 cx="50"
@@ -85,7 +86,7 @@ stroke-linecap="round"
 stroke-dasharray="${circumference}"
 stroke-dashoffset="${dashOffset}"
 class="${progressClasses}"
-transform="${determinate ? 'rotate(-90 50 50)' : ''}"
+transform="${determinate ?'rotate(-90 50 50)' :''}"
 >
 ${!determinate
 ? svg`<!-- Use SVG animation to avoid lateral movement in indeterminate mode -->
@@ -134,22 +135,22 @@ return [
 private getValueTextClasses(): string {
 return [
 'absolute text-xs font-medium',
-'text-slate-700 dark:text-slate-300',
+'ml-text',
 'pointer-events-none',
 ].join(' ');
 }
 private getSizeClasses(): string {
 const size = this.getResolvedSize();
 const map: Record<string, string> = {
-xs: 'w-4 h-4',
-sm: 'w-6 h-6',
-md: 'w-10 h-10',
-lg: 'w-16 h-16',
+xs:'w-4 h-4',
+sm:'w-6 h-6',
+md:'w-10 h-10',
+lg:'w-16 h-16',
 };
 return map[size] || map.md;
 }
 private getResolvedSize(): string {
-const sizes = ['xs', 'sm', 'md', 'lg'];
-return sizes.includes(this.size) ? this.size : 'md';
+const sizes = ['xs','sm','md','lg'];
+return sizes.includes(this.size) ? this.size :'md';
 }
 }

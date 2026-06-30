@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -200,7 +201,7 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
   // ==========================================================================
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
-    return html`<div id="${this.uid}-label" class="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+    return html`<div id="${this.uid}-label" class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}"
       ${unsafeHTML(this.getSlotContent('Label'))}
     </div>`;
   }
@@ -208,12 +209,12 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
   private renderHelperOrError(): TemplateResult {
     const errorMessage = this.getErrorMessage();
     if (errorMessage) {
-      return html`<div id="${this.uid}-error" class="mt-2 text-xs text-red-600 dark:text-red-400">
+      return html`<div id="${this.uid}-error" class="mt-2 text-xs ml-error-text"
         ${unsafeHTML(errorMessage)}
       </div>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<div id="${this.uid}-helper" class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+      return html`<div id="${this.uid}-helper" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}"
         ${unsafeHTML(this.getSlotContent('Helper'))}
       </div>`;
     }
@@ -223,10 +224,10 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
   private getContainerClasses(): string {
     return [
       'w-full rounded-lg border p-3 transition',
-      'bg-white dark:bg-slate-800',
-      this.getHasError() ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-      !this.disabled && !this.readonly ? 'focus-within:ring-2 focus-within:ring-sky-500 dark:focus-within:ring-sky-400' : '',
+      'ml-surface',
+      this.getHasError() ? 'ml-border-error' : 'ml-border',
+      this.disabled ? 'ml-disabled' : '',
+      !this.disabled && !this.readonly ? 'ml-focus-within' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -235,13 +236,12 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
   private getOptionClasses(isActive: boolean, isSelected: boolean): string {
     return [
       'flex items-center justify-center rounded-md border px-3 py-2 text-xl transition',
-      'bg-slate-50 dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
+      'ml-surface-dim ml-text',
       isActive || isSelected
-        ? 'bg-sky-50 dark:bg-sky-900/40 border-sky-500 dark:border-sky-400'
-        : 'border-slate-200 dark:border-slate-700',
-      !this.disabled && !this.readonly ? 'hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer' : 'cursor-default',
-      !this.disabled && !this.readonly ? 'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400' : '',
+        ? 'ml-mood-option-selected'
+        : 'ml-border',
+      !this.disabled && !this.readonly ? 'ml-mood-option cursor-pointer' : 'cursor-default',
+      !this.disabled && !this.readonly ? 'ml-focus-ring' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -278,10 +278,10 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
     return html`
       <div class="flex items-center gap-3">
         ${selected
-          ? html`<div class="rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3 py-2 text-xl">
+          ? html`<div class="rounded-md border ml-border ml-surface-dim px-3 py-2 text-xl">
               ${unsafeHTML(selected.label)}
             </div>`
-          : html`<div class="text-slate-500 dark:text-slate-400">${this.msg.empty}</div>`}
+          : html`<div class="ml-text-muted">${this.msg.empty}</div>`}
       </div>
     `;
   }
@@ -297,7 +297,7 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
 
     if (!this.isEditing) {
       return html`
-        <div class="w-full">
+        <div class="${cn('w-full', this.cssClass)}">
           ${this.renderLabel()}
           ${this.renderViewMode(items)}
         </div>
@@ -310,7 +310,7 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
 
     return html`
       <div
-        class="${this.getContainerClasses()}"
+        class="${cn(this.getContainerClasses(), this.cssClass)}"
         role="radiogroup"
         aria-labelledby="${this.hasSlot('Label') ? `${this.uid}-label` : ''}"
         aria-describedby="${describedBy}"

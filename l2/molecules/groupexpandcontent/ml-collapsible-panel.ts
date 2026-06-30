@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -117,6 +118,36 @@ export class MlCollapsiblePanelMolecule extends MoleculeAuraElement {
   }
 
   // ===========================================================================
+  // RENDER HELPERS
+  // ===========================================================================
+  private getSectionContent(el: Element): string {
+    return el.innerHTML || '';
+  }
+
+  private getHeaderClasses(isOpen: boolean, isDisabled: boolean): string {
+    return [
+      'flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition',
+      'ml-panel-header',
+      isOpen ? 'ml-panel-header-open' : '',
+      isDisabled ? 'ml-disabled' : 'cursor-pointer',
+    ].filter(Boolean).join(' ');
+  }
+
+  private getChevronClasses(isOpen: boolean): string {
+    return [
+      'ml-panel-chevron transition-transform',
+      isOpen ? 'rotate-180 ml-panel-chevron-open' : 'rotate-0',
+    ].join(' ');
+  }
+
+  private getContentClasses(isOpen: boolean): string {
+    return [
+      'overflow-hidden transition-all duration-300 ease-in-out ml-panel-content',
+      isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0',
+    ].join(' ');
+  }
+
+  // ===========================================================================
   // RENDER
   // ===========================================================================
   render() {
@@ -124,7 +155,7 @@ export class MlCollapsiblePanelMolecule extends MoleculeAuraElement {
     this.msg = messages[lang];
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
         ${this.loading ? this.renderLoading() : this.renderSections()}
       </div>
@@ -134,7 +165,7 @@ export class MlCollapsiblePanelMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <div class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+      <div class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </div>
     `;
@@ -147,7 +178,7 @@ export class MlCollapsiblePanelMolecule extends MoleculeAuraElement {
         ${items.map(
           () => html`
             <div
-              class="h-12 w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 animate-pulse"
+              class="h-12 w-full ml-skeleton animate-pulse"
             ></div>
           `
         )}
@@ -170,9 +201,7 @@ export class MlCollapsiblePanelMolecule extends MoleculeAuraElement {
           const contentId = `${this.localName}-content-${index}`;
 
           return html`
-            <div
-              class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
-            >
+            <div class="w-full ml-panel-header" style="border-radius: var(--ml-radius-sm, 6px);">
               <div
                 id=${headerId}
                 role="button"
@@ -186,12 +215,12 @@ export class MlCollapsiblePanelMolecule extends MoleculeAuraElement {
               >
                 <div class="flex items-center gap-3">
                   ${icon
-                    ? html`<span class="text-slate-500 dark:text-slate-400">${unsafeHTML(icon)}</span>`
+                    ? html`<span class="ml-text-muted">${unsafeHTML(icon)}</span>`
                     : html``}
                   <div class="flex flex-col">
-                    <span class="text-sm font-medium text-slate-900 dark:text-slate-100">${title}</span>
+                    <span class="text-sm ml-label">${title}</span>
                     ${subtitle
-                      ? html`<span class="text-xs text-slate-500 dark:text-slate-400">${subtitle}</span>`
+                      ? html`<span class="text-xs ml-text-muted">${subtitle}</span>`
                       : html``}
                   </div>
                 </div>
@@ -207,7 +236,7 @@ export class MlCollapsiblePanelMolecule extends MoleculeAuraElement {
                 aria-labelledby=${headerId}
                 class=${this.getContentClasses(isOpen)}
               >
-                <div class="px-4 pb-4 pt-0 text-sm text-slate-700 dark:text-slate-300">
+                <div class="px-4 pb-4 pt-0 text-sm ml-panel-content">
                   ${unsafeHTML(this.getSectionContent(el))}
                 </div>
               </div>
@@ -216,38 +245,5 @@ export class MlCollapsiblePanelMolecule extends MoleculeAuraElement {
         })}
       </div>
     `;
-  }
-
-  private getSectionContent(el: Element): string {
-    return el.innerHTML || '';
-  }
-
-  private getHeaderClasses(isOpen: boolean, isDisabled: boolean): string {
-    return [
-      'flex w-full items-center justify-between gap-3 rounded-lg px-4 py-3 text-left transition',
-      'bg-white dark:bg-slate-800',
-      'border border-transparent',
-      isOpen
-        ? 'bg-sky-50 dark:bg-sky-900/40 border-sky-500 dark:border-sky-400'
-        : 'hover:bg-slate-50 dark:hover:bg-slate-700',
-      isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-      !isDisabled ? 'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400' : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
-  }
-
-  private getChevronClasses(isOpen: boolean): string {
-    return [
-      'text-slate-500 dark:text-slate-400 transition-transform',
-      isOpen ? 'rotate-180' : 'rotate-0',
-    ].join(' ');
-  }
-
-  private getContentClasses(isOpen: boolean): string {
-    return [
-      'overflow-hidden transition-all duration-300 ease-in-out',
-      isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0',
-    ].join(' ');
   }
 }

@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 labelFallback: 'Steps',
@@ -147,20 +148,12 @@ return start;
 
 private getStepClasses(step: ParsedStep, isActive: boolean): string {
 const isClickable = this.canNavigateTo(step.index);
-const isCompleted = step.completed;
 return [
 'flex-1 min-w-0',
 'rounded-lg border px-3 py-3 text-left transition',
-'bg-white dark:bg-slate-800',
-'is-active',
-isActive
-? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40'
-: 'border-slate-200 dark:border-slate-700',
-!isActive ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-step.disabled || !isClickable ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-isCompleted && !isActive
-? 'text-slate-900 dark:text-slate-100'
-: 'text-slate-900 dark:text-slate-100',
+'ml-step',
+isActive ? 'ml-step-active' : '',
+step.disabled || !isClickable ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 
@@ -172,7 +165,7 @@ return raw.replace(/<[^>]*>/g, '').trim() || this.msg.labelFallback;
 
 private renderLoading() {
 return html`
-<div class="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
+<div class="${cn('flex items-center gap-2 rounded-lg border px-4 py-3 text-sm ml-step-container', this.cssClass)}">
 <span class="inline-flex h-4 w-4 items-center justify-center">
 <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
 ${svg`<circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3" opacity="0.3"></circle>`}
@@ -187,7 +180,7 @@ ${svg`<path d="M22 12a10 10 0 0 1-10 10" fill="none" stroke="currentColor" strok
 private renderLabel() {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<div class="mb-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+<div class="${cn('mb-3 text-sm font-medium ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </div>
 `;
@@ -209,18 +202,18 @@ tabindex="${tabIndex}"
 >
 <div class="flex items-center gap-2">
 <span class="flex h-6 w-6 items-center justify-center rounded-full border text-xs font-semibold ${isActive
-? 'border-sky-500 text-sky-700 dark:border-sky-400 dark:text-sky-300'
+? 'ml-step-badge-active'
 : step.completed
-? 'border-emerald-500 text-emerald-600 dark:border-emerald-400 dark:text-emerald-300'
-: 'border-slate-300 text-slate-500 dark:border-slate-600 dark:text-slate-400'}">
+? 'ml-step-badge-done'
+: 'ml-step-badge'}">
 ${step.completed
 ? html`<span aria-hidden="true">✓</span>`
 : html`${step.index + 1}`}
 </span>
 <div class="min-w-0">
-<div class="truncate text-sm font-semibold text-slate-900 dark:text-slate-100">${step.title}</div>
+<div class="truncate text-sm font-semibold ml-text">${step.title}</div>
 ${step.description
-? html`<div class="truncate text-xs text-slate-500 dark:text-slate-400">${step.description}</div>`
+? html`<div class="truncate text-xs ml-text-muted">${step.description}</div>`
 : html``}
 </div>
 </div>
@@ -240,7 +233,7 @@ const steps = this.parseSteps();
 const focusIndex = this.getInitialFocusIndex(steps);
 const ariaLabel = this.getLabelText();
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 <div
 class="flex items-start gap-2"

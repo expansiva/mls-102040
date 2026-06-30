@@ -9,6 +9,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
   placeholder: 'Search...',
@@ -238,14 +239,12 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
   private getInputClasses(): string {
     return [
       'w-full rounded-lg px-3 py-2 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+      'ml-search-input',
       this.error
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+        ? 'ml-error-border'
+        : 'ml-search-border',
+      'ml-search-focus',
+      this.disabled ? 'ml-disabled' : '',
     ].filter(Boolean).join(' ');
   }
 
@@ -253,32 +252,32 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
     return [
       'mlsh-suggestion w-full px-3 py-2 text-sm rounded cursor-pointer flex items-center',
       selected
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400'
-        : 'text-slate-900 dark:text-slate-100 border border-transparent',
+        ? 'ml-filter-chip-active'
+        : 'ml-text border border-transparent',
       focused
-        ? 'bg-slate-100 dark:bg-slate-700'
+        ? 'ml-history-item'
         : '',
-      'hover:bg-slate-50 dark:hover:bg-slate-700',
+      'ml-history-item-hover',
     ].filter(Boolean).join(' ');
   }
 
   private renderLabel(): TemplateResult {
     if (this.hasSlot('Label')) {
-      return html`<label id="${this.labelId}" for="${this.inputId}" class="block mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">${unsafeHTML(this.getSlotContent('Label'))}</label>`;
+      return html`<label id="${this.labelId}" for="${this.inputId}" class=${cn('block mb-1 text-sm ml-label', this.getSlotClass('Label'))}>${unsafeHTML(this.getSlotContent('Label'))}</label>`;
     }
     return html``;
   }
 
   private renderHelper(): TemplateResult {
     if (this.hasSlot('Helper')) {
-      return html`<div class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</div>`;
+      return html`<div class=${cn('mt-1 text-xs ml-text-muted', this.getSlotClass('Helper'))}>${unsafeHTML(this.getSlotContent('Helper'))}</div>`;
     }
     return html``;
   }
 
   private renderError(): TemplateResult {
     if (this.error) {
-      return html`<div id="${this.errorId}" class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</div>`;
+      return html`<div id="${this.errorId}" class="mt-1 text-xs ml-error-text">${unsafeHTML(this.error)}</div>`;
     }
     return html``;
   }
@@ -288,7 +287,7 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
     return html`
       <button
         type="button"
-        class="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none"
+        class="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded ml-history-remove focus:outline-none"
         aria-label="${this.msg.clear}"
         @click=${this.handleClear}
         tabindex="-1"
@@ -305,8 +304,8 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
     const suggestions = this.getSlots('Suggestion');
     if (this.loading) {
       return html`
-        <div class="mlsh-suggestions absolute z-10 mt-1 w-full rounded-lg bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 max-h-60 overflow-auto">
-          <div class="flex items-center justify-center py-4 text-slate-500 dark:text-slate-400">
+        <div class="mlsh-suggestions absolute z-10 mt-1 w-full rounded-lg ml-search-container shadow-lg max-h-60 overflow-auto">
+          <div class="flex items-center justify-center py-4 ml-text-muted">
             <svg class="animate-spin mr-2" width="18" height="18" fill="none" viewBox="0 0 18 18">
               ${svg`<circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="2" stroke-dasharray="44" stroke-dashoffset="10" fill="none"/>`}
             </svg>
@@ -318,20 +317,20 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
     if (suggestions.length === 0) {
       if (this.hasSlot('Empty')) {
         return html`
-          <div class="mlsh-suggestions absolute z-10 mt-1 w-full rounded-lg bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 max-h-60 overflow-auto">
-            <div class="py-4 px-3 text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Empty'))}</div>
+          <div class="mlsh-suggestions absolute z-10 mt-1 w-full rounded-lg ml-search-container shadow-lg max-h-60 overflow-auto">
+            <div class="py-4 px-3 ml-text-muted">${unsafeHTML(this.getSlotContent('Empty'))}</div>
           </div>
         `;
       }
       return html`
-        <div class="mlsh-suggestions absolute z-10 mt-1 w-full rounded-lg bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 max-h-60 overflow-auto">
-          <div class="py-4 px-3 text-slate-500 dark:text-slate-400">${this.msg.noResults}</div>
+        <div class="mlsh-suggestions absolute z-10 mt-1 w-full rounded-lg ml-search-container shadow-lg max-h-60 overflow-auto">
+          <div class="py-4 px-3 ml-text-muted">${this.msg.noResults}</div>
         </div>
       `;
     }
     // Render suggestions
     return html`
-      <div class="mlsh-suggestions absolute z-10 mt-1 w-full rounded-lg bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 max-h-60 overflow-auto" role="listbox">
+      <div class="mlsh-suggestions absolute z-10 mt-1 w-full rounded-lg ml-search-container shadow-lg max-h-60 overflow-auto" role="listbox">
         ${suggestions.map((el, idx) => {
           const value = el.getAttribute('value') || '';
           const label = el.innerHTML;
@@ -363,7 +362,7 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
     const ariaDescribedBy = this.error ? this.errorId : undefined;
     const placeholder = this.placeholder || this.msg.placeholder;
     return html`
-      <div class="relative w-full">
+      <div class=${cn('relative w-full', this.cssClass)}>
         ${this.renderLabel()}
         <div class="relative">
           <input

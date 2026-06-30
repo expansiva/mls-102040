@@ -10,6 +10,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -247,30 +248,24 @@ export class MlNumberInputMolecule extends MoleculeAuraElement {
 
     private getInputClasses(): string {
         return [
-            'w-full flex-1 rounded-md px-3 py-2 text-sm border transition',
-            'bg-white dark:bg-slate-900',
-            'text-slate-900 dark:text-slate-100',
-            'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-            this.error
-                ? 'border-red-500 dark:border-red-400'
-                : 'border-slate-200 dark:border-slate-700',
-            'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-            (this.disabled || this.loading) ? 'opacity-50 cursor-not-allowed' : '',
+            'w-full flex-1 bg-transparent outline-none text-sm ml-input',
+            (this.disabled || this.loading) ? 'cursor-not-allowed' : '',
             this.readonly ? 'cursor-default' : '',
         ].filter(Boolean).join(' ');
     }
 
     private getContainerClasses(): string {
         return [
-            'w-full',
-            (this.disabled || this.loading) ? 'opacity-50 cursor-not-allowed' : '',
+            'relative flex w-full items-center gap-2 ml-input-container py-2 px-3',
+            this.error ? 'ml-input-container-error' : '',
+            (this.disabled || this.loading) ? 'ml-disabled' : 'cursor-text',
         ].filter(Boolean).join(' ');
     }
 
     private renderLabel(labelId: string): TemplateResult {
         if (!this.hasSlot('Label')) return html``;
         return html`
-<label id=${labelId} class="mb-1 block text-sm font-medium text-slate-600 dark:text-slate-400">
+<label id=${labelId} class="${cn('mb-1 block text-sm ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>
 `;
@@ -279,14 +274,14 @@ ${unsafeHTML(this.getSlotContent('Label'))}
     private renderHelperOrError(errorId: string, helperId: string): TemplateResult {
         if (this.error) {
             return html`
-<p id=${errorId} class="mt-1 text-xs text-red-600 dark:text-red-400">
+<p id=${errorId} class="mt-1 text-xs ml-error-text">
 ${unsafeHTML(String(this.error))}
 </p>
 `;
         }
         if (this.hasSlot('Helper')) {
             return html`
-<p id=${helperId} class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+<p id=${helperId} class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">
 ${unsafeHTML(this.getSlotContent('Helper'))}
 </p>
 `;
@@ -297,7 +292,7 @@ ${unsafeHTML(this.getSlotContent('Helper'))}
     private renderPrefix(): TemplateResult {
         if (!this.hasSlot('Prefix')) return html``;
         return html`
-<span class="mr-2 text-sm text-slate-600 dark:text-slate-400">
+<span class="${cn('mr-2 text-sm ml-text-muted', this.getSlotClass('Prefix'))}">
 ${unsafeHTML(this.getSlotContent('Prefix'))}
 </span>
 `;
@@ -306,7 +301,7 @@ ${unsafeHTML(this.getSlotContent('Prefix'))}
     private renderSuffix(): TemplateResult {
         if (!this.hasSlot('Suffix')) return html``;
         return html`
-<span class="ml-2 text-sm text-slate-600 dark:text-slate-400">
+<span class="${cn('ml-2 text-sm ml-text-muted', this.getSlotClass('Suffix'))}">
 ${unsafeHTML(this.getSlotContent('Suffix'))}
 </span>
 `;
@@ -319,9 +314,9 @@ ${unsafeHTML(this.getSlotContent('Suffix'))}
             : this.formatToDisplay(this.value);
 
         return html`
-<div class="${this.getContainerClasses()}">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel(labelId)}
-<div class="flex items-center gap-2 text-sm text-slate-900 dark:text-slate-100">
+<div class="flex items-center gap-2 text-sm ml-text">
 ${this.renderPrefix()}
 <span>${displayValue}</span>
 ${this.renderSuffix()}
@@ -345,9 +340,9 @@ ${this.renderSuffix()}
                 : undefined;
 
         return html`
-<div class="${this.getContainerClasses()}">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel(labelId)}
-<div class="flex items-center rounded-md">
+<div class="${this.getContainerClasses()}">
 ${this.renderPrefix()}
 <input
 class="${this.getInputClasses()}"
@@ -368,7 +363,7 @@ aria-required=${this.required ? 'true' : 'false'}
 />
 ${this.renderSuffix()}
 </div>
-${this.loading ? html`<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</p>` : nothing}
+${this.loading ? html`<p class="mt-1 text-xs ml-text-muted">${this.msg.loading}</p>` : nothing}
 ${this.renderHelperOrError(errorId, helperId)}
 </div>
 `;

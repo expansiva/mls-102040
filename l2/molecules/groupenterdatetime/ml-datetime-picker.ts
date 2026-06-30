@@ -10,6 +10,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
     placeholder: 'Select date and time',
@@ -98,7 +99,7 @@ export class MlDatetimePickerMolecule extends MoleculeAuraElement {
     private errorId = `ml-dt-error-${Math.random().toString(36).slice(2)}`;
     private documentClickBound = false;
     protected portalContainer: HTMLDivElement | null = null;
-    protected portalClassName = '';
+    protected portalClassName = 'groupenterdatetime--ml-datetime-picker';
     private boundUpdatePosition: () => void = this.updatePanelPosition.bind(this);
 
     createRenderRoot() {
@@ -369,45 +370,41 @@ export class MlDatetimePickerMolecule extends MoleculeAuraElement {
     // RENDER HELPERS
     // ==========================================================================='
     private getTriggerClasses(): string {
-        return [
-            'w-full flex items-center justify-between gap-3 rounded-lg border px-3 py-2 text-sm transition',
-            'bg-white dark:bg-slate-900',
-            'border-slate-200 dark:border-slate-700',
-            'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-            this.isFocused ? 'ring-2 ring-sky-500 dark:ring-sky-400' : '',
-            this.error ? 'border-red-500 dark:border-red-400' : '',
-            this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-        ].filter(Boolean).join(' ');
+        return cn(
+            'ml-input-container w-full flex items-center justify-between gap-3 rounded-lg border px-3 py-2 text-sm transition',
+            'focus:outline-none focus:ring-2',
+            this.isFocused ? 'ml-input-container-focused' : '',
+            this.error ? 'ml-input-container-error' : '',
+            this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
+        );
     }
     private getLabelClasses(): string {
-        return [
-            'text-sm font-medium text-slate-700 dark:text-slate-300',
-            this.disabled ? 'opacity-50' : '',
-        ].filter(Boolean).join(' ');
+        return cn(
+            'ml-label text-sm',
+            this.disabled ? 'ml-disabled' : '',
+        );
     }
     private getPanelClasses(): string {
-        return [
-            'mt-2 rounded-lg border p-4 shadow-lg',
-            'bg-white dark:bg-slate-800',
-            'border-slate-200 dark:border-slate-700',
-        ].filter(Boolean).join(' ');
+        return cn(
+            'ml-calendar-container mt-2 rounded-lg border p-4',
+        );
     }
     private getDayButtonClasses(selected: boolean, disabled: boolean, today: boolean): string {
-        return [
-            'h-8 w-8 rounded-md text-xs transition',
-            selected ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400' : 'text-slate-900 dark:text-slate-100 border border-transparent',
-            !disabled && !selected ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-            disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-            today && !selected ? 'ring-1 ring-sky-300 dark:ring-sky-500' : '',
-        ].filter(Boolean).join(' ');
+        return cn(
+            'ml-calendar-day h-8 w-8 rounded-md text-xs transition border border-transparent',
+            selected ? 'ml-calendar-day-selected' : '',
+            !disabled && !selected ? 'ml-calendar-day--hoverable' : '',
+            disabled ? 'ml-calendar-day-disabled' : 'cursor-pointer',
+            today && !selected ? 'ml-calendar-day-today' : '',
+        );
     }
     private getTimeButtonClasses(selected: boolean, disabled: boolean): string {
-        return [
-            'w-full rounded-md px-2 py-1 text-xs text-left transition',
-            selected ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400' : 'text-slate-900 dark:text-slate-100 border border-transparent',
-            !disabled && !selected ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-            disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-        ].filter(Boolean).join(' ');
+        return cn(
+            'ml-calendar-time-btn w-full rounded-md px-2 py-1 text-xs text-left transition border border-transparent',
+            selected ? 'ml-calendar-time-btn-selected' : '',
+            !disabled && !selected ? 'ml-calendar-time-btn--hoverable' : '',
+            disabled ? 'ml-disabled' : 'cursor-pointer',
+        );
     }
     private getAriaDescribedBy(): string | undefined {
         if (this.error) return this.errorId;
@@ -422,9 +419,9 @@ export class MlDatetimePickerMolecule extends MoleculeAuraElement {
     private renderLabel(): TemplateResult {
         if (!this.hasSlot('Label')) return html``;
         return html`
-<label id=${this.labelId} class=${this.getLabelClasses()}>
+<label id=${this.labelId} class="${cn(this.getLabelClasses(), this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
-${this.required ? html`<span class="ml-1 text-red-600 dark:text-red-400">*</span>` : nothing}
+${this.required ? html`<span class="ml-error-text ml-1">*</span>` : nothing}
 </label>
 `;
     }
@@ -435,10 +432,10 @@ ${this.required ? html`<span class="ml-1 text-red-600 dark:text-red-400">*</span
     private renderHelperOrError(): TemplateResult {
         if (!this.isEditing) return html``;
         if (this.error) {
-            return html`<p id=${this.errorId} class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+            return html`<p id=${this.errorId} class="ml-error-text mt-1 text-xs">${unsafeHTML(String(this.error))}</p>`;
         }
         if (this.hasSlot('Helper')) {
-            return html`<p id=${this.helperId} class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+            return html`<p id=${this.helperId} class="${cn('ml-helper mt-1 text-xs', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
         }
         return html``;
     }
@@ -460,21 +457,21 @@ aria-label=${text}
 @click=${this.handleTriggerClick}
 ?disabled=${this.disabled || this.loading}
 >
-<span class=${[
+<span class="${cn(
                 'flex-1 text-left truncate',
-                this.value ? 'text-slate-900 dark:text-slate-100' : 'text-slate-400 dark:text-slate-500',
-            ].filter(Boolean).join(' ')}>${text}</span>
+                this.value ? 'ml-text' : 'ml-text-muted',
+            )}">${text}</span>
 <span class="flex items-center gap-2">
 ${this.loading
-                ? html`<span class="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600 dark:border-slate-600 dark:border-t-slate-300"></span>`
+                ? html`<span class="ml-spinner h-4 w-4 animate-spin rounded-full border-2"></span>`
                 : html`
-<svg class="h-4 w-4 text-slate-500 dark:text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg class="h-4 w-4 ml-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 ${svg`<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>`}
 ${svg`<line x1="16" y1="2" x2="16" y2="6"></line>`}
 ${svg`<line x1="8" y1="2" x2="8" y2="6"></line>`}
 ${svg`<line x1="3" y1="10" x2="21" y2="10"></line>`}
 </svg>
-<svg class="h-4 w-4 text-slate-500 dark:text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg class="h-4 w-4 ml-text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 ${svg`<circle cx="12" cy="12" r="9"></circle>`}
 ${svg`<polyline points="12 7 12 12 15 15"></polyline>`}
 </svg>
@@ -516,13 +513,13 @@ ${day}
         const weekdayNames = this.getWeekdays();
         return html`
 <div class="flex items-center justify-between mb-2">
-<button type="button" class="px-2 py-1 text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100" @click=${this.handlePrevMonth}>‹</button>
-<div class="text-sm font-medium text-slate-700 dark:text-slate-200">
+<button type="button" class="ml-calendar-nav px-2 py-1 text-xs" @click=${this.handlePrevMonth}>‹</button>
+<div class="ml-text text-sm font-medium">
 ${new Intl.DateTimeFormat(this.locale || undefined, { month: 'long', year: 'numeric' }).format(this.currentMonth)}
 </div>
-<button type="button" class="px-2 py-1 text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100" @click=${this.handleNextMonth}>›</button>
+<button type="button" class="ml-calendar-nav px-2 py-1 text-xs" @click=${this.handleNextMonth}>›</button>
 </div>
-<div class="grid grid-cols-7 gap-1 mb-2 text-[10px] text-slate-500 dark:text-slate-400">
+<div class="grid grid-cols-7 gap-1 mb-2 text-[10px] ml-text-muted">
 ${weekdayNames.map((d) => html`<div class="text-center">${d}</div>`)}
 </div>
 <div class="grid grid-cols-7 gap-1">
@@ -601,7 +598,7 @@ ${this.pad(minute)}
     }
     private renderPortalContent() {
         if (!this.portalContainer) return;
-        litRender(this.getPortalTemplate(), this.portalContainer);
+        litRender(this.getPortalTemplate(), this.portalContainer, { host: this });
     }
     protected getPortalTemplate(): TemplateResult {
         return html`
@@ -615,10 +612,10 @@ ${this.renderTime()}
 </div>
 </div>
 <div class="mt-4 flex items-center justify-end gap-2">
-<button type="button" class="rounded-md px-3 py-1 text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100" @click=${this.handleClear}>
+<button type="button" class="ml-calendar-nav rounded-md px-3 py-1 text-xs" @click=${this.handleClear}>
 ${this.msg.clear}
 </button>
-<button type="button" class="rounded-md bg-sky-600 px-3 py-1 text-xs text-white hover:bg-sky-700" @click=${this.handleConfirm}>
+<button type="button" class="ml-calendar-confirm rounded-md px-3 py-1 text-xs" @click=${this.handleConfirm}>
 ${this.msg.confirm}
 </button>
 </div>
@@ -634,15 +631,15 @@ ${this.msg.confirm}
         if (!this.isEditing) {
             const display = this.displayValue || this.formatDisplay(this.value) || this.msg.empty;
             return html`
-<div class="flex flex-col gap-1">
+<div class="${cn('flex flex-col gap-1', this.cssClass)}">
 ${this.renderHiddenInput()}
 ${this.renderLabel()}
-<div class="text-sm text-slate-900 dark:text-slate-100">${display}</div>
+<div class="ml-text text-sm">${display}</div>
 </div>
 `;
         }
         return html`
-<div class="relative flex flex-col gap-1">
+<div class="${cn('relative flex flex-col gap-1', this.cssClass)}">
 ${this.renderHiddenInput()}
 ${this.renderLabel()}
 ${this.renderTrigger()}

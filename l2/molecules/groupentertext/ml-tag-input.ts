@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -267,26 +268,12 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
   // ===========================================================================
   private getContainerClasses(): string {
     const hasError = this.error && this.error.length > 0;
-    
+
     return [
-      'w-full rounded-lg border transition-all',
-      'bg-white dark:bg-slate-900',
-      
-      // Border states
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : this.isFocused && this.isInteractive
-          ? 'border-sky-500 dark:border-sky-400'
-          : 'border-slate-200 dark:border-slate-700',
-      
-      // Focus ring
-      this.isFocused && this.isInteractive && !hasError
-        ? 'ring-2 ring-sky-500/20 dark:ring-sky-400/20'
-        : '',
-      
-      // Disabled/loading state
+      'w-full rounded-lg transition-all ml-input-container',
+      hasError ? 'ml-input-container-error' : '',
       this.disabled || this.loading
-        ? 'opacity-50 cursor-not-allowed'
+        ? 'ml-disabled'
         : this.readonly
           ? 'cursor-default'
           : 'cursor-text',
@@ -295,9 +282,7 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
 
   private getInputClasses(): string {
     return [
-      'flex-1 min-w-[120px] bg-transparent border-none outline-none',
-      'text-sm text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+      'flex-1 min-w-[120px] bg-transparent border-none outline-none text-sm ml-input',
       this.disabled || this.loading ? 'cursor-not-allowed' : '',
       this.readonly ? 'cursor-default' : '',
     ].filter(Boolean).join(' ');
@@ -305,21 +290,17 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
 
   private getTagClasses(): string {
     return [
-      'inline-flex items-center gap-1 px-2 py-1 rounded-md text-sm',
-      'bg-sky-50 dark:bg-sky-900/40',
-      'text-sky-700 dark:text-sky-300',
-      'border border-sky-200 dark:border-sky-700',
+      'inline-flex items-center gap-1 px-2 py-1 rounded-md text-sm ml-tag',
     ].join(' ');
   }
 
   private getRemoveButtonClasses(): string {
     return [
       'inline-flex items-center justify-center w-4 h-4 rounded-full',
-      'text-sky-500 dark:text-sky-400',
-      'hover:bg-sky-200 dark:hover:bg-sky-800',
-      'focus:outline-none focus:ring-1 focus:ring-sky-500 dark:focus:ring-sky-400',
+      'ml-tag-remove',
+      'focus:outline-none',
       'transition-colors',
-      !this.isInteractive ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
+      !this.isInteractive ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
@@ -328,9 +309,9 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
     
     const labelContent = this.getSlotContent('Label');
     return html`
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+      <label class="${cn('block text-sm font-medium mb-1 ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(labelContent)}
-        ${this.required ? html`<span class="text-red-500 dark:text-red-400 ml-0.5">*</span>` : ''}
+        ${this.required ? html`<span class="ml-error-text ml-0.5">*</span>` : ''}
       </label>
     `;
   }
@@ -340,7 +321,7 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
     
     const prefixContent = this.getSlotContent('Prefix');
     return html`
-      <span class="flex-shrink-0 text-slate-500 dark:text-slate-400">
+      <span class="${cn('flex-shrink-0 ml-text-faint', this.getSlotClass('Prefix'))}">
         ${unsafeHTML(prefixContent)}
       </span>
     `;
@@ -351,7 +332,7 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
     
     const suffixContent = this.getSlotContent('Suffix');
     return html`
-      <span class="flex-shrink-0 text-slate-500 dark:text-slate-400">
+      <span class="${cn('flex-shrink-0 ml-text-faint', this.getSlotClass('Suffix'))}">
         ${unsafeHTML(suffixContent)}
       </span>
     `;
@@ -431,7 +412,7 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
         @blur=${this.handleBlur}
       ></textarea>
       ${this.maxLength !== null ? html`
-        <div class="text-xs text-slate-500 dark:text-slate-400 text-right mt-1" aria-live="polite">
+        <div class="text-xs ml-text-muted text-right mt-1" aria-live="polite">
           ${currentLength} / ${this.maxLength}
         </div>
       ` : ''}
@@ -470,7 +451,7 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
       : this.msg.noValue;
     
     return html`
-      <div class="flex items-center gap-2 py-2 text-sm text-slate-900 dark:text-slate-100">
+      <div class="flex items-center gap-2 py-2 text-sm ml-text">
         ${this.renderPrefix()}
         <span>${displayValue}</span>
         ${this.renderSuffix()}
@@ -483,7 +464,7 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
     
     if (this.error && this.error.length > 0) {
       return html`
-        <p class="mt-1 text-xs text-red-600 dark:text-red-400" role="alert">
+        <p class="mt-1 text-xs ml-error-text" role="alert">
           ${unsafeHTML(this.error)}
         </p>
       `;
@@ -491,7 +472,7 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
     
     if (this.hasSlot('Helper')) {
       return html`
-        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+        <div class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </div>
       `;
@@ -504,8 +485,8 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
     if (!this.loading) return html``;
     
     return html`
-      <div class="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-slate-900/50 rounded-lg">
-        <svg class="animate-spin h-5 w-5 text-sky-500 dark:text-sky-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <div class="absolute inset-0 flex items-center justify-center rounded-lg ml-loading-overlay">
+        <svg class="animate-spin h-5 w-5 ml-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
@@ -521,7 +502,7 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
     this.msg = messages[lang];
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
         <div class="relative">
           ${this.isEditing ? this.renderEditMode() : this.renderViewMode()}

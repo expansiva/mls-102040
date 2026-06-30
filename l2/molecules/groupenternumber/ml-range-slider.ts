@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -290,7 +291,7 @@ export class RangeSliderMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <label id=${this.getLabelId()} class="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300">
+      <label id=${this.getLabelId()} class="${cn('mb-1 text-sm ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </label>
     `;
@@ -301,9 +302,9 @@ export class RangeSliderMolecule extends MoleculeAuraElement {
     const suffix = this.hasSlot('Suffix') ? unsafeHTML(this.getSlotContent('Suffix')) : null;
     return html`
       <span class="inline-flex items-center gap-1">
-        ${prefix ? html`<span class="text-slate-600 dark:text-slate-400">${prefix}</span>` : html``}
-        <span class="text-slate-900 dark:text-slate-100">${content}</span>
-        ${suffix ? html`<span class="text-slate-600 dark:text-slate-400">${suffix}</span>` : html``}
+        ${prefix ? html`<span class="${cn('ml-text-muted', this.getSlotClass('Prefix'))}">${prefix}</span>` : html``}
+        <span class="ml-text">${content}</span>
+        ${suffix ? html`<span class="${cn('ml-text-muted', this.getSlotClass('Suffix'))}">${suffix}</span>` : html``}
       </span>
     `;
   }
@@ -311,21 +312,19 @@ export class RangeSliderMolecule extends MoleculeAuraElement {
   private renderHelperOrError(): TemplateResult {
     if (!this.isEditing) return html``;
     if (this.error) {
-      return html`<p id=${this.getErrorId()} class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+      return html`<p id=${this.getErrorId()} class="mt-1 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<p id=${this.getHelperId()} class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+      return html`<p id=${this.getHelperId()} class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
     }
     return html``;
   }
 
   private getInputClasses(): string {
     return [
-      'w-full h-2 rounded-full border transition',
-      'bg-slate-50 dark:bg-slate-900',
-      this.error ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+      'w-full h-2 rounded-full transition ml-slider-track',
+      this.error ? 'ml-input-container-error' : '',
+      this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
       this.readonly ? 'opacity-80' : '',
     ].filter(Boolean).join(' ');
   }
@@ -342,7 +341,7 @@ export class RangeSliderMolecule extends MoleculeAuraElement {
 
   private renderLoading(): TemplateResult {
     if (!this.loading) return html``;
-    return html`<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>`;
+    return html`<div class="mt-2 text-xs ml-text-muted">${this.msg.loading}</div>`;
   }
 
   private renderEditMode(): TemplateResult {
@@ -352,11 +351,11 @@ export class RangeSliderMolecule extends MoleculeAuraElement {
     const ariaLabelledBy = this.hasSlot('Label') ? this.getLabelId() : undefined;
 
     return html`
-      <div class="flex flex-col">
+      <div class="${cn('flex flex-col', this.cssClass)}">
         ${this.renderLabel()}
-        <div class="mb-2 flex items-center justify-between text-sm text-slate-600 dark:text-slate-400">
+        <div class="mb-2 flex items-center justify-between text-sm ml-text-muted">
           ${this.renderPrefixSuffix(display.low)}
-          <span class="text-slate-500 dark:text-slate-400">${this.msg.rangeSeparator}</span>
+          <span class="ml-text-muted">${this.msg.rangeSeparator}</span>
           ${this.renderPrefixSuffix(display.high)}
         </div>
         <div class="grid gap-3">
@@ -416,9 +415,9 @@ export class RangeSliderMolecule extends MoleculeAuraElement {
       : `${display.low} ${this.msg.rangeSeparator} ${display.high}`;
 
     return html`
-      <div class="flex flex-col">
+      <div class="${cn('flex flex-col', this.cssClass)}">
         ${this.renderLabel()}
-        <div class="text-sm text-slate-900 dark:text-slate-100">
+        <div class="text-sm ml-text">
           ${this.renderPrefixSuffix(content)}
         </div>
       </div>

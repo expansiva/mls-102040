@@ -10,6 +10,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 labelStart: 'Start',
@@ -389,7 +390,7 @@ return value < 10 ? `0${value}` : String(value);
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">
+<label class="${cn('block text-sm font-medium ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>
 `;
@@ -397,7 +398,7 @@ ${unsafeHTML(this.getSlotContent('Label'))}
 private renderPreview(): TemplateResult {
 const preview = this.getDisplayRange();
 return html`
-<div class="text-sm text-slate-600 dark:text-slate-400">
+<div class="text-sm ml-text-muted">
 ${preview}
 </div>
 `;
@@ -415,22 +416,21 @@ const placeholder = isStart ? this.msg.placeholderStart : this.msg.placeholderEn
 const displayValue = value ? this.formatDateTime(value) : placeholder;
 const isActive = this.activeField === field;
 const hasError = Boolean(this.error) && this.isEditing;
-const buttonClasses = [
+const buttonClasses = cn(
 'w-full flex items-center justify-between gap-2 rounded-lg border px-3 py-2 text-sm transition',
-'bg-white dark:bg-slate-900',
-'value' in { value: 0 } ? '' : '',
-value ? 'text-slate-900 dark:text-slate-100' : 'text-slate-400 dark:text-slate-500',
+'ml-input',
+value ? 'ml-text' : 'ml-text-muted',
 hasError
-? 'border-red-500 dark:border-red-400'
+? 'ml-input-container-error'
 : isActive
-? 'border-sky-500 dark:border-sky-400'
-: 'border-slate-200 dark:border-slate-700',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+? 'ml-input-active'
+: '',
+this.disabled ? 'ml-disabled' : '',
 this.readonly ? 'cursor-default' : 'cursor-pointer',
-].filter(Boolean).join(' ');
+);
 return html`
 <div class="flex flex-col gap-1">
-<label id=${labelId} for=${inputId} class="text-xs font-medium text-slate-600 dark:text-slate-400">
+<label id=${labelId} for=${inputId} class="text-xs font-medium ml-text-muted">
 ${labelContent}
 </label>
 <button
@@ -445,7 +445,7 @@ aria-describedby=${hasError ? errorId : nothing}
 @click=${() => this.handleOpenField(field)}
 >
 <span class="truncate">${displayValue}</span>
-<span class="text-slate-400 dark:text-slate-500">▾</span>
+<span class="ml-text-muted">▾</span>
 </button>
 ${isActive ? this.renderPickerPanel(field) : html``}
 </div>
@@ -461,10 +461,10 @@ const step = Math.max(this.minuteStep, 1) * 60;
 const value = isStart ? this.startDraft : this.endDraft;
 const confirmDisabled = isStart ? !this.isStartDraftValid() : !this.isEndDraftValid();
 return html`
-<div class="mt-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 shadow-sm" role="dialog" aria-modal="true">
+<div class="mt-2 rounded-lg border p-3 ml-interval-picker" role="dialog" aria-modal="true">
 <div class="flex flex-col gap-2">
 <input
-class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
+class="w-full rounded-lg border px-3 py-2 text-sm ml-input ml-input-focus"
 type="datetime-local"
 step=${step}
 .value=${value}
@@ -474,14 +474,14 @@ max=${ifDefined(maxValue)}
 />
 <div class="flex items-center justify-end gap-2">
 <button
-class="rounded-md px-3 py-1 text-xs border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"
+class="rounded-md px-3 py-1 text-xs border ml-interval-btn-secondary"
 type="button"
 @click=${isStart ? this.handleClearStart : this.handleClearEnd}
 >
 ${this.msg.clear}
 </button>
 <button
-class="rounded-md px-3 py-1 text-xs border border-sky-500 dark:border-sky-400 text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/40"
+class="rounded-md px-3 py-1 text-xs border ml-interval-btn-primary"
 type="button"
 ?disabled=${confirmDisabled}
 @click=${isStart ? this.handleConfirmStart : this.handleConfirmEnd}
@@ -497,12 +497,12 @@ private renderFeedback(): TemplateResult {
 if (!this.isEditing) return html``;
 if (this.error) {
 return html`
-<p id="${this.uid}-error" class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>
+<p id="${this.uid}-error" class="mt-1 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>
 `;
 }
 if (this.hasSlot('Helper')) {
 return html`
-<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>
+<p class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>
 `;
 }
 return html``;
@@ -510,7 +510,7 @@ return html``;
 private renderLoading(): TemplateResult {
 if (!this.loading) return html``;
 return html`
-<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+<div class="mt-2 text-xs ml-text-muted">
 ${this.msg.loading}
 </div>
 `;
@@ -523,16 +523,16 @@ const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
 if (!this.isEditing) {
 return html`
-<div class="w-full space-y-2">
+<div class="${cn('w-full space-y-2', this.cssClass)}">
 ${this.renderLabel()}
-<div class="text-sm text-slate-900 dark:text-slate-100">
+<div class="text-sm ml-text">
 ${this.getDisplayRange()}
 </div>
 </div>
 `;
 }
 return html`
-<div class="w-full space-y-3">
+<div class="${cn('w-full space-y-3', this.cssClass)}">
 ${this.renderLabel()}
 ${this.renderPreview()}
 <div class="grid grid-cols-1 gap-3">

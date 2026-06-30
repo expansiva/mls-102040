@@ -8,6 +8,7 @@ import { html, svg, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -133,47 +134,16 @@ return sizeMap[size] || sizeMap.md;
 }
 
 private getIndicatorClasses(step: StepItem, isActive: boolean, isSelectable: boolean): string {
-const base = [
+const disabled = step.disabled || this.disabled;
+return [
 'flex items-center justify-center rounded-full border transition',
 this.getIndicatorSizeClasses(),
-].join(' ');
-const disabled = step.disabled || this.disabled;
-const pendingClasses = [
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-'text-slate-600 dark:text-slate-400',
-].join(' ');
-const completedClasses = [
-'bg-sky-50 dark:bg-sky-900/40',
-'border-sky-500 dark:border-sky-400',
-'text-sky-700 dark:text-sky-300',
-].join(' ');
-const activeClasses = [
-'bg-sky-50 dark:bg-sky-900/40',
-'border-sky-500 dark:border-sky-400',
-'text-sky-700 dark:text-sky-300',
-'ring-2 ring-sky-500/30 dark:ring-sky-400/30',
-].join(' ');
-const disabledClasses = [
-'bg-slate-50 dark:bg-slate-900',
-'border-slate-200 dark:border-slate-700',
-'text-slate-400 dark:text-slate-600',
-'opacity-50',
-].join(' ');
-const stateClasses = disabled
-? disabledClasses
-: isActive
-? activeClasses
-: step.completed
-? completedClasses
-: pendingClasses;
-const interactionClasses = isSelectable
-? 'cursor-pointer focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400'
-: 'cursor-not-allowed';
-const hoverClasses = isSelectable && !isActive && !step.completed
-? 'hover:bg-slate-50 dark:hover:bg-slate-700'
-: '';
-return [base, stateClasses, interactionClasses, hoverClasses].filter(Boolean).join(' ');
+'ml-step-number',
+isActive ? 'ml-step-active' : '',
+step.completed ? 'ml-step-completed' : '',
+disabled ? 'ml-disabled' : '',
+isSelectable ? 'cursor-pointer' : 'cursor-not-allowed',
+].filter(Boolean).join(' ');
 }
 
 private getStepAriaLabel(step: StepItem, isActive: boolean): string {
@@ -203,9 +173,9 @@ aria-live="polite"
 aria-busy="true"
 >
 <span class="sr-only">${this.msg.loading}</span>
-<div class="h-2 w-2 rounded-full bg-slate-400 dark:bg-slate-500 animate-pulse"></div>
-<div class="h-2 w-2 rounded-full bg-slate-400 dark:bg-slate-500 animate-pulse"></div>
-<div class="h-2 w-2 rounded-full bg-slate-400 dark:bg-slate-500 animate-pulse"></div>
+<div class="h-2 w-2 rounded-full ml-step-loading-dot animate-pulse"></div>
+<div class="h-2 w-2 rounded-full ml-step-loading-dot animate-pulse"></div>
+<div class="h-2 w-2 rounded-full ml-step-loading-dot animate-pulse"></div>
 </div>
 `;
 }
@@ -259,7 +229,7 @@ return this.renderLoading();
 }
 const steps = this.getSteps();
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderSteps(steps)}
 </div>
 `;

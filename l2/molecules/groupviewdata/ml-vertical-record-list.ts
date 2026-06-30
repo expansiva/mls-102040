@@ -4,33 +4,34 @@
 // =============================================================================
 // Skill Group: groupViewData
 // This molecule does NOT contain business logic.
-import { html, TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html, TemplateResult } from'lit';
+import { customElement, state } from'lit/decorators.js';
+import { unsafeHTML } from'lit/directives/unsafe-html.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
-loading: 'Loading...',
-empty: 'No records to display',
-missingColumns: 'Missing required slot <Columns>',
-missingRows: 'Missing required slot <Rows>',
-missingColumnItem: 'At least 1 <Column> is required inside <Columns>',
-missingColumnField: '<Column> requires attribute "field"',
-missingColumnHeader: '<Column> requires attribute "header"',
+loading:'Loading...',
+empty:'No records to display',
+missingColumns:'Missing required slot <Columns>',
+missingRows:'Missing required slot <Rows>',
+missingColumnItem:'At least 1 <Column> is required inside <Columns>',
+missingColumnField:'<Column> requires attribute"field"',
+missingColumnHeader:'<Column> requires attribute"header"',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
 en: message_en,
 pt: {
-loading: 'Carregando...',
-empty: 'Nenhum registro para exibir',
-missingColumns: 'Slot obrigatório ausente: <Columns>',
-missingRows: 'Slot obrigatório ausente: <Rows>',
-missingColumnItem: 'É necessário pelo menos 1 <Column> dentro de <Columns>',
-missingColumnField: '<Column> requer o atributo "field"',
-missingColumnHeader: '<Column> requer o atributo "header"',
+loading:'Carregando...',
+empty:'Nenhum registro para exibir',
+missingColumns:'Slot obrigatório ausente: <Columns>',
+missingRows:'Slot obrigatório ausente: <Rows>',
+missingColumnItem:'É necessário pelo menos 1 <Column> dentro de <Columns>',
+missingColumnField:'<Column> requer o atributo"field"',
+missingColumnHeader:'<Column> requer o atributo"header"',
 },
 };
 /// **collab_i18n_end**
@@ -39,7 +40,7 @@ type ColumnDef = {
 field: string;
 header: string;
 width?: string;
-align: 'left' | 'center' | 'right';
+align:'left' |'center' |'right';
 hidden: boolean;
 };
 
@@ -50,7 +51,7 @@ private msg: MessageType = messages.en;
 // ===========================================================================
 // SLOT TAGS
 // ===========================================================================
-slotTags = ['Columns', 'Column', 'Rows', 'Row', 'Cell', 'Empty', 'Loading'];
+slotTags = ['Columns','Column','Rows','Row','Cell','Empty','Loading'];
 
 // ===========================================================================
 // PROPERTIES — From Contract
@@ -96,7 +97,7 @@ this.pruneSelection(rows.length);
 private initializeSelection(rows: Element[]) {
 const next = new Set<number>();
 rows.forEach((row, index) => {
-if (this.parseBooleanAttr(row, 'selected')) {
+if (this.parseBooleanAttr(row,'selected')) {
 next.add(index);
 }
 });
@@ -148,14 +149,14 @@ this.emitSelectionChange();
 private parseColumns(): ColumnDef[] {
 const columnEls = this.getSlots('Column');
 return columnEls.map((col) => {
-const alignAttr = (col.getAttribute('align') || 'left') as 'left' | 'center' | 'right';
-const align = ['left', 'center', 'right'].includes(alignAttr) ? alignAttr : 'left';
+const alignAttr = (col.getAttribute('align') ||'left') as'left' |'center' |'right';
+const align = ['left','center','right'].includes(alignAttr) ? alignAttr :'left';
 return {
-field: col.getAttribute('field') || '',
-header: col.getAttribute('header') || '',
+field: col.getAttribute('field') ||'',
+header: col.getAttribute('header') ||'',
 width: col.getAttribute('width') || undefined,
 align,
-hidden: this.parseBooleanAttr(col, 'hidden'),
+hidden: this.parseBooleanAttr(col,'hidden'),
 };
 });
 }
@@ -164,7 +165,7 @@ private parseBooleanAttr(el: Element, attr: string): boolean {
 if (!el.hasAttribute(attr)) return false;
 const value = el.getAttribute(attr);
 if (value === null) return true;
-return value !== 'false';
+return value !=='false';
 }
 
 // ===========================================================================
@@ -185,7 +186,7 @@ return errors;
 private renderValidation(errors: string[]): TemplateResult {
 if (errors.length === 0) return html``;
 return html`
-<div class="mb-3 rounded-lg border border-red-500 dark:border-red-400 bg-red-50 dark:bg-red-900/30 p-3 text-sm text-red-600 dark:text-red-400">
+<div class="mb-3 rounded-lg border ml-border-error ml-error-dim-bg p-3 text-sm ml-error-text">
 ${errors.map((err) => html`<div>${err}</div>`)}
 </div>
 `;
@@ -203,7 +204,7 @@ ${unsafeHTML(this.getSlotContent('Loading'))}
 `;
 }
 return html`
-<div class="w-full py-8 text-center text-sm text-slate-500 dark:text-slate-400">
+<div class="w-full py-8 text-center text-sm ml-text-muted">
 ${this.msg.loading}
 </div>
 `;
@@ -218,7 +219,7 @@ ${unsafeHTML(this.getSlotContent('Empty'))}
 `;
 }
 return html`
-<div class="w-full py-10 text-center text-sm text-slate-500 dark:text-slate-400">
+<div class="w-full py-10 text-center text-sm ml-text-muted">
 ${this.msg.empty}
 </div>
 `;
@@ -233,7 +234,7 @@ ${rows.map((row, index) => this.renderRow(row, index, columns, index === rows.le
 }
 
 private renderRow(row: Element, index: number, columns: ColumnDef[], isLast: boolean): TemplateResult {
-const isDisabled = this.parseBooleanAttr(row, 'disabled');
+const isDisabled = this.parseBooleanAttr(row,'disabled');
 const isSelected = this.selectedIndices.has(index);
 const classes = this.getRowClasses(isSelected, isDisabled, isLast);
 const cells = Array.from(row.querySelectorAll('Cell')) as Element[];
@@ -241,8 +242,8 @@ return html`
 <div
 role="listitem"
 class="${classes}"
-aria-selected="${isSelected ? 'true' : 'false'}"
-aria-disabled="${isDisabled ? 'true' : 'false'}"
+aria-selected="${isSelected ?'true' :'false'}"
+aria-disabled="${isDisabled ?'true' :'false'}"
 @click=${() => this.handleRowClick(index, row, isDisabled)}
 >
 ${this.renderCells(cells, columns)}
@@ -255,7 +256,7 @@ return html`
 <div class="flex w-full items-start gap-4">
 ${cells.map((cell, index) => {
 const col = columns[index];
-const colspan = parseInt(cell.getAttribute('colspan') || '1', 10);
+const colspan = parseInt(cell.getAttribute('colspan') ||'1', 10);
 const style = this.getCellStyle(col, colspan);
 const classes = this.getCellClasses(col, colspan);
 return html`
@@ -269,13 +270,13 @@ ${unsafeHTML(cell.innerHTML)}
 }
 
 private getCellClasses(col: ColumnDef | undefined, colspan: number): string {
-const align = col?.align || 'left';
+const align = col?.align ||'left';
 return [
 'flex min-w-0',
-col?.hidden ? 'hidden' : '',
-colspan > 1 ? '' : 'flex-1',
-align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left',
-'text-slate-900 dark:text-slate-100',
+col?.hidden ?'hidden' :'',
+colspan > 1 ?'' :'flex-1',
+align ==='center' ?'text-center' : align ==='right' ?'text-right' :'text-left',
+'ml-text',
 ].filter(Boolean).join(' ');
 }
 
@@ -286,17 +287,17 @@ return `width: ${col.width};`;
 if (colspan > 1) {
 return `flex: ${colspan} 1 0%;`;
 }
-return '';
+return'';
 }
 
 private getRowClasses(isSelected: boolean, isDisabled: boolean, isLast: boolean): string {
 return [
 'w-full px-4 py-3 transition',
-'bg-white dark:bg-slate-800',
-!isLast ? 'border-b border-slate-200 dark:border-slate-700' : '',
-this.hoverable && !isDisabled ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-isSelected ? 'bg-sky-50 dark:bg-sky-900/40 border-l-4 border-sky-500 dark:border-sky-400' : 'border-l-4 border-transparent',
-!isDisabled ? 'cursor-pointer' : 'cursor-not-allowed opacity-50',
+'ml-surface-bg',
+!isLast ?'border-b ml-border' :'',
+this.hoverable && !isDisabled ?'hover:ml-surface-dim-bg' :'',
+isSelected ?'ml-primary-dim-bg border-l-4 ml-border-focus' :'border-l-4 border-transparent',
+!isDisabled ?'cursor-pointer' :'cursor-not-allowed opacity-50',
 ].filter(Boolean).join(' ');
 }
 
@@ -313,7 +314,7 @@ const rows = this.getSlots('Row');
 const validationErrors = this.getValidationErrors(columnsEl, rowsEl, columns);
 
 return html`
-<div class="w-full" aria-busy="${this.loading ? 'true' : 'false'}">
+<div class="${cn('w-full', this.cssClass)}" aria-busy="${this.loading ?'true' :'false'}">
 ${this.renderValidation(validationErrors)}
 ${this.loading
 ? this.renderLoading()

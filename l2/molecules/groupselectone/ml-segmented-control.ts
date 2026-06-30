@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -209,51 +210,39 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
   // RENDER HELPERS
   // ===========================================================================
   private getContainerClasses(): string {
-    return [
-      'flex w-full rounded-lg p-1 gap-1',
-      'bg-slate-100 dark:bg-slate-800',
-      this.error ? 'ring-2 ring-red-500 dark:ring-red-400' : '',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-      this.loading ? 'opacity-50 cursor-wait' : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+    return cn(
+      'flex w-full p-1 gap-1 ml-segmented-track',
+      this.error ? 'ml-segmented-track-error' : '',
+      this.disabled ? 'ml-disabled' : '',
+      this.loading ? 'ml-disabled cursor-wait' : '',
+    );
   }
 
   private getSegmentClasses(item: ParsedItem, isSelected: boolean): string {
-    return [
-      'px-4 py-2 text-sm font-medium rounded-md transition-all duration-200',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400 focus:ring-offset-1',
-      isSelected
-        ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-sm'
-        : 'bg-transparent text-slate-600 dark:text-slate-400',
-      !isSelected && !item.disabled && !this.disabled && !this.readonly && !this.loading
-        ? 'hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50'
-        : '',
-      item.disabled ? 'opacity-50 cursor-not-allowed' : '',
-      !item.disabled && !this.disabled && !this.readonly && !this.loading
-        ? 'cursor-pointer'
-        : '',
+    return cn(
+      'px-4 py-2 text-sm font-medium transition-all duration-200 focus:outline-none ml-segmented-option',
+      isSelected ? 'ml-segmented-option-active' : '',
+      item.disabled ? 'ml-disabled' : '',
+      !item.disabled && !this.disabled && !this.readonly && !this.loading ? 'cursor-pointer' : '',
       this.readonly && !item.disabled ? 'cursor-default' : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+      this.getSlotClass('Item'),
+    );
   }
 
   private getLabelClasses(): string {
-    return 'block text-xs text-slate-600 dark:text-slate-400';
+    return cn('block text-xs ml-label', this.getSlotClass('Label'));
   }
 
   private getHelperClasses(): string {
-    return 'mt-1.5 text-xs text-slate-500 dark:text-slate-400';
+    return cn('mt-1.5 text-xs ml-helper', this.getSlotClass('Helper'));
   }
 
   private getErrorClasses(): string {
-    return 'mt-1.5 text-xs text-red-600 dark:text-red-400';
+    return 'mt-1.5 text-xs ml-error-text';
   }
 
   private getViewModeClasses(): string {
-    return 'text-sm text-slate-900 dark:text-slate-100';
+    return 'text-sm ml-text';
   }
 
   // ===========================================================================
@@ -291,7 +280,7 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
     const hasError = !!this.error;
 
     return html`
-      <div class="flex flex-col w-full">
+      <div class="${cn('flex flex-col w-full', this.cssClass)}">
         <div class="min-h-[1rem]">
           ${this.renderLabel(labelId)}
         </div>
@@ -310,7 +299,7 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
       <label id=${labelId} class=${this.getLabelClasses()}>
         ${unsafeHTML(this.getSlotContent('Label'))}
         ${this.required
-          ? html`<span class="text-red-500 dark:text-red-400 ml-0.5">*</span>`
+          ? html`<span class="ml-error-text ml-0.5">*</span>`
           : html``}
       </label>
     `;
@@ -319,7 +308,7 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
   private renderLoading(): TemplateResult {
     return html`
       <div class=${this.getContainerClasses()}>
-        <div class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400">
+        <div class="px-4 py-2 text-sm ml-text-muted">
           ${this.msg.loading}
         </div>
       </div>
@@ -380,14 +369,14 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
   private renderEmpty(): TemplateResult {
     if (this.hasSlot('Empty')) {
       return html`
-        <div class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400">
+        <div class="${cn('px-4 py-2 text-sm ml-text-muted', this.getSlotClass('Empty'))}">
           ${unsafeHTML(this.getSlotContent('Empty'))}
         </div>
       `;
     }
 
     return html`
-      <div class="px-4 py-2 text-sm text-slate-500 dark:text-slate-400">
+      <div class="px-4 py-2 text-sm ml-text-muted">
         ${this.msg.noOptions}
       </div>
     `;

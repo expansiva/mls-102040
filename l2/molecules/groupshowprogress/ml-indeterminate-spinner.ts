@@ -4,14 +4,15 @@
 // =============================================================================
 // Skill Group: groupShowProgress
 // This molecule does NOT contain business logic.
-import { html } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html } from'lit';
+import { customElement } from'lit/decorators.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
-loading: 'Loading',
+loading:'Loading',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
@@ -33,12 +34,12 @@ slotTags = [];
 value: number | null = null;
 
 @propertyDataSource({ type: String })
-size: 'xs' | 'sm' | 'md' | 'lg' = 'md';
+size:'xs' |'sm' |'md' |'lg' ='md';
 
 @propertyDataSource({ type: String })
-label: string = '';
+label: string ='';
 
-@propertyDataSource({ type: Boolean, attribute: 'show-value' })
+@propertyDataSource({ type: Boolean, attribute:'show-value' })
 showValue: boolean = false;
 // ===========================================================================
 // RENDER
@@ -50,7 +51,7 @@ const ariaLabel = this.label || this.msg.loading;
 const sizeConfig = this.getSizeConfig();
 return html`
 <div
-class="${sizeConfig.wrapper}"
+class="${cn(sizeConfig.wrapper, this.cssClass)}"
 role="progressbar"
 aria-label="${ariaLabel}"
 >
@@ -65,35 +66,35 @@ ${this.label
 // HELPERS
 // ===========================================================================
 private getSizeConfig(): { wrapper: string; spinner: string; text: string } {
-const baseWrapper = 'inline-flex items-center';
+const baseWrapper ='inline-flex items-center';
 const baseSpinner = [
 'rounded-full border-solid animate-spin',
-'border-slate-200 dark:border-slate-700',
-'border-t-sky-500 dark:border-t-sky-400',
+'ml-border',
+'ml-border-top-primary',
 'motion-reduce:animate-none',
 ].join(' ');
-const baseText = 'text-slate-600 dark:text-slate-400';
+const baseText ='ml-text-muted';
 
 switch (this.size) {
-case 'xs':
+case'xs':
 return {
 wrapper: `${baseWrapper} gap-1`,
 spinner: `${baseSpinner} w-3 h-3 border-2`,
 text: `${baseText} text-xs`,
 };
-case 'sm':
+case'sm':
 return {
 wrapper: `${baseWrapper} gap-2`,
 spinner: `${baseSpinner} w-5 h-5 border-2`,
 text: `${baseText} text-sm`,
 };
-case 'lg':
+case'lg':
 return {
 wrapper: `${baseWrapper} gap-3`,
 spinner: `${baseSpinner} w-12 h-12 border-4`,
 text: `${baseText} text-base`,
 };
-case 'md':
+case'md':
 default:
 return {
 wrapper: `${baseWrapper} gap-2`,

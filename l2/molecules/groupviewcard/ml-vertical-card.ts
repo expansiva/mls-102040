@@ -10,6 +10,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 @customElement('groupviewcard--ml-vertical-card')
 export class MlVerticalCardMolecule extends MoleculeAuraElement {
@@ -83,16 +84,14 @@ el.removeAttribute('is-editing');
 
 private getRootClasses(): string {
 const interactive = this.isInteractive();
-return [
+return cn(
 'w-full rounded-xl border transition p-4 flex flex-col gap-4',
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
-this.selected
-? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40'
-: 'border-slate-200 dark:border-slate-700',
-interactive ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-this.disabled ? 'opacity-50 cursor-not-allowed' : ''
-].filter(Boolean).join(' ');
+'ml-card',
+this.selected ? 'ml-card-header' : '',
+interactive ? 'cursor-pointer ml-card-hover' : '',
+this.disabled ? 'ml-disabled' : '',
+this.cssClass,
+);
 }
 
 private renderHeader(): TemplateResult {
@@ -115,10 +114,10 @@ ${unsafeHTML(this.getSlotContent('CardHeader'))}
 return html`
 <div class="flex flex-col gap-1">
 ${hasTitle
-? html`<div class="text-base font-semibold text-slate-900 dark:text-slate-100">${unsafeHTML(this.getSlotContent('CardTitle'))}</div>`
+? html`<div class="${cn('text-base font-semibold ml-label', this.getSlotClass('CardTitle'))}">${unsafeHTML(this.getSlotContent('CardTitle'))}</div>`
 : html``}
 ${hasDescription
-? html`<div class="text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('CardDescription'))}</div>`
+? html`<div class="${cn('text-sm ml-text-muted', this.getSlotClass('CardDescription'))}">${unsafeHTML(this.getSlotContent('CardDescription'))}</div>`
 : html``}
 </div>
 `;
@@ -127,7 +126,7 @@ ${hasDescription
 private renderContent(): TemplateResult {
 if (!this.hasSlot('CardContent')) return html``;
 return html`
-<div class="text-sm text-slate-700 dark:text-slate-300">
+<div class="${cn('text-sm ml-text', this.getSlotClass('CardContent'))}">
 ${unsafeHTML(this.getSlotContent('CardContent'))}
 </div>
 `;
@@ -136,7 +135,7 @@ ${unsafeHTML(this.getSlotContent('CardContent'))}
 private renderFooter(): TemplateResult {
 if (!this.hasSlot('CardFooter')) return html``;
 return html`
-<div class="text-xs text-slate-500 dark:text-slate-400">
+<div class="${cn('text-xs ml-text-muted', this.getSlotClass('CardFooter'))}">
 ${unsafeHTML(this.getSlotContent('CardFooter'))}
 </div>
 `;
@@ -145,7 +144,7 @@ ${unsafeHTML(this.getSlotContent('CardFooter'))}
 private renderAction(): TemplateResult {
 if (!this.hasSlot('CardAction')) return html``;
 return html`
-<div class="pt-3 border-t border-slate-200 dark:border-slate-700">
+<div class="${cn('pt-3 border-t ml-card-divider', this.getSlotClass('CardAction'))}">
 ${unsafeHTML(this.getSlotContent('CardAction'))}
 </div>
 `;
@@ -154,11 +153,11 @@ ${unsafeHTML(this.getSlotContent('CardAction'))}
 private renderLoading(): TemplateResult {
 return html`
 <div class="flex flex-col gap-4 animate-pulse">
-<div class="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="h-3 w-1/2 rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="h-20 w-full rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="h-3 w-1/3 rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="h-9 w-28 rounded bg-slate-200 dark:bg-slate-700"></div>
+<div class="h-4 w-2/3 rounded ml-skeleton"></div>
+<div class="h-3 w-1/2 rounded ml-skeleton"></div>
+<div class="h-20 w-full rounded ml-skeleton"></div>
+<div class="h-3 w-1/3 rounded ml-skeleton"></div>
+<div class="h-9 w-28 rounded ml-skeleton"></div>
 </div>
 `;
 }

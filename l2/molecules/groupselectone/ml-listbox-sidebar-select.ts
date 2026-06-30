@@ -11,6 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -276,18 +277,18 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
   private getLabelClasses(): string {
     return [
       'text-sm font-medium',
-      'text-slate-700 dark:text-slate-300',
+      'ml-label',
     ].join(' ');
   }
 
   private getPanelClasses(): string {
     return [
       'w-full rounded-lg border overflow-hidden',
-      'bg-white dark:bg-slate-800',
+      'ml-listbox-panel',
       this.error
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      this.disabled ? 'opacity-50' : '',
+        ? 'ml-listbox-panel-error'
+        : '',
+      this.disabled ? 'ml-disabled' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -296,11 +297,8 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
   private getSearchInputClasses(): string {
     return [
       'w-full px-3 py-2 text-sm border-b',
-      'bg-slate-50 dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500 dark:focus:ring-sky-400',
+      'ml-listbox-search',
+      'focus:outline-none focus:ring-2 focus:ring-inset',
       this.disabled || this.readonly ? 'cursor-not-allowed' : '',
     ]
       .filter(Boolean)
@@ -310,15 +308,14 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
   private getListClasses(): string {
     return [
       'max-h-64 overflow-y-auto',
-      'divide-y divide-slate-100 dark:divide-slate-700',
+      'ml-listbox-divider',
     ].join(' ');
   }
 
   private getGroupLabelClasses(): string {
     return [
       'px-3 py-2 text-xs font-semibold uppercase tracking-wider',
-      'text-slate-500 dark:text-slate-400',
-      'bg-slate-50 dark:bg-slate-900',
+      'ml-listbox-group-label',
     ].join(' ');
   }
 
@@ -327,16 +324,16 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
       'w-full px-3 py-2.5 text-sm text-left transition-colors',
       'flex items-center gap-2',
       isSelected
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 font-medium'
-        : 'text-slate-900 dark:text-slate-100',
+        ? 'ml-listbox-item-selected'
+        : 'ml-listbox-item',
       isFocused && !isSelected
-        ? 'bg-slate-100 dark:bg-slate-700'
+        ? 'ml-listbox-item-focused'
         : '',
       !item.disabled && !isSelected && !isFocused
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700'
+        ? 'ml-listbox-item-hover'
         : '',
       item.disabled
-        ? 'opacity-50 cursor-not-allowed text-slate-400 dark:text-slate-600'
+        ? 'ml-disabled ml-text-muted'
         : 'cursor-pointer',
     ]
       .filter(Boolean)
@@ -344,31 +341,31 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
   }
 
   private getHelperClasses(): string {
-    return ['text-xs text-slate-500 dark:text-slate-400'].join(' ');
+    return ['text-xs ml-helper'].join(' ');
   }
 
   private getErrorClasses(): string {
-    return ['text-xs text-red-600 dark:text-red-400'].join(' ');
+    return ['text-xs ml-error-text'].join(' ');
   }
 
   private getViewModeClasses(): string {
     return [
       'text-sm',
-      'text-slate-900 dark:text-slate-100',
+      'ml-text',
     ].join(' ');
   }
 
   private getLoadingClasses(): string {
     return [
       'flex items-center justify-center gap-2 py-8',
-      'text-sm text-slate-500 dark:text-slate-400',
+      'text-sm ml-text-muted',
     ].join(' ');
   }
 
   private getEmptyClasses(): string {
     return [
       'flex items-center justify-center py-8',
-      'text-sm text-slate-500 dark:text-slate-400',
+      'text-sm ml-text-muted',
     ].join(' ');
   }
 
@@ -379,9 +376,9 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('Label')) return html``;
 
     return html`
-      <label id=${this.labelId} class=${this.getLabelClasses()}>
+      <label id=${this.labelId} class=${cn(this.getLabelClasses(), this.getSlotClass('Label'))}>
         ${unsafeHTML(this.getSlotContent('Label'))}
-        ${this.required ? html`<span class="text-red-500 dark:text-red-400 ml-0.5">*</span>` : html``}
+        ${this.required ? html`<span class="ml-error-text ml-0.5">*</span>` : html``}
       </label>
     `;
   }
@@ -421,7 +418,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
         ${isSelected
           ? html`
               <svg
-                class="w-4 h-4 text-sky-500 dark:text-sky-400 flex-shrink-0"
+                class="w-4 h-4 ml-listbox-check flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -492,7 +489,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
     return html`
       <div class=${this.getLoadingClasses()}>
         <svg
-          class="animate-spin h-4 w-4 text-sky-500 dark:text-sky-400"
+          class="animate-spin h-4 w-4 ml-listbox-spinner"
           fill="none"
           viewBox="0 0 24 24"
         >
@@ -542,7 +539,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
       : this.placeholder || this.msg.noSelection;
 
     return html`
-      <div class=${this.getContainerClasses()}>
+      <div class=${cn(this.getContainerClasses(), this.cssClass)}>
         ${this.renderLabel()}
         <span class=${this.getViewModeClasses()}>
           ${unsafeHTML(displayText)}
@@ -557,7 +554,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
     const hasItems = items.length > 0;
 
     return html`
-      <div class=${this.getContainerClasses()}>
+      <div class=${cn(this.getContainerClasses(), this.cssClass)}>
         ${this.renderLabel()}
         <div
           class=${this.getPanelClasses()}

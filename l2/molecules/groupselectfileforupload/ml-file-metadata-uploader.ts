@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -278,51 +279,38 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
       // Base
       'relative flex flex-col items-center justify-center w-full min-h-32 p-6',
       'border-2 border-dashed rounded-lg transition-all duration-200',
-      'cursor-pointer',
-
-      // Background
-      'bg-slate-50 dark:bg-slate-900',
+      'cursor-pointer ml-dropzone',
 
       // Border states
       this.isDragging && !this.disabled && !this.loading
-        ? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/20'
+        ? 'ml-dropzone-active'
         : hasError
-          ? 'border-red-500 dark:border-red-400'
-          : 'border-slate-300 dark:border-slate-600',
-
-      // Hover (only when not disabled/loading/dragging)
-      !this.disabled && !this.loading && !this.isDragging
-        ? 'hover:border-sky-400 dark:hover:border-sky-500 hover:bg-slate-100 dark:hover:bg-slate-800'
-        : '',
+          ? 'ml-dropzone-error'
+          : '',
 
       // Disabled/Loading state
       this.disabled || this.loading
-        ? 'opacity-50 cursor-not-allowed'
+        ? 'ml-disabled'
         : '',
 
       // Focus
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400 focus:ring-offset-2 dark:focus:ring-offset-slate-900',
+      'focus:outline-none',
     ].filter(Boolean).join(' ');
   }
 
   private getFileItemClasses(): string {
     return [
-      'flex items-center justify-between gap-3 p-3 rounded-lg',
-      'bg-white dark:bg-slate-800',
-      'border border-slate-200 dark:border-slate-700',
-      'text-sm text-slate-900 dark:text-slate-100',
+      'flex items-center justify-between gap-3 p-3 rounded-lg ml-metadata-card',
+      'text-sm',
     ].join(' ');
   }
 
   private getRemoveButtonClasses(): string {
     return [
-      'flex items-center justify-center w-6 h-6 rounded-full',
-      'text-slate-400 dark:text-slate-500',
-      'hover:text-red-500 dark:hover:text-red-400',
-      'hover:bg-red-50 dark:hover:bg-red-900/20',
+      'flex items-center justify-center w-6 h-6 rounded-full ml-metadata-remove',
       'transition-colors duration-150',
-      'focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+      'focus:outline-none',
+      this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
@@ -335,7 +323,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
     return html`
       <label
         id="${this.labelId}"
-        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"
+        class="${cn('block text-sm font-medium mb-2 ml-label', this.getSlotClass('Label'))}"
       >
         ${unsafeHTML(this.getSlotContent('Label'))}
       </label>
@@ -390,7 +378,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
     return html`
       <div class="flex flex-col items-center gap-2 text-center">
         <svg
-          class="w-10 h-10 text-slate-400 dark:text-slate-500"
+          class="w-10 h-10 ml-dropzone-icon-svg"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -403,10 +391,10 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
             d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
           />
         </svg>
-        <p class="text-sm text-slate-600 dark:text-slate-400">
+        <p class="text-sm ml-text-muted">
           ${dropText}
         </p>
-        <span class="inline-flex items-center px-3 py-1.5 text-sm font-medium text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/30 rounded-md">
+        <span class="inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-md ml-metadata-browse-btn">
           ${this.msg.browse}
         </span>
       </div>
@@ -417,7 +405,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
     return html`
       <div class="flex flex-col items-center gap-2 text-center">
         <svg
-          class="w-10 h-10 text-sky-500 dark:text-sky-400 animate-bounce"
+          class="w-10 h-10 animate-bounce ml-dropzone-icon-active"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -430,7 +418,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
             d="M19 14l-7 7m0 0l-7-7m7 7V3"
           />
         </svg>
-        <p class="text-sm font-medium text-sky-600 dark:text-sky-400">
+        <p class="text-sm font-medium ml-dropzone-icon-active">
           ${this.msg.dragActive}
         </p>
       </div>
@@ -441,7 +429,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
     return html`
       <div class="flex flex-col items-center gap-2 text-center">
         <svg
-          class="w-8 h-8 text-sky-500 dark:text-sky-400 animate-spin"
+          class="w-8 h-8 animate-spin ml-dropzone-icon-active"
           fill="none"
           viewBox="0 0 24 24"
           aria-hidden="true"
@@ -460,7 +448,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
           />
         </svg>
-        <p class="text-sm text-slate-600 dark:text-slate-400">
+        <p class="text-sm ml-text-muted">
           ${this.msg.loading}
         </p>
       </div>
@@ -472,7 +460,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
 
     return html`
       <div class="mt-4 space-y-2">
-        <p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+        <p class="text-xs font-medium uppercase tracking-wide ml-text-muted">
           ${this.msg.selectedFiles} (${this.value.length})
         </p>
         <ul class="space-y-2">
@@ -487,7 +475,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
       <li class="${this.getFileItemClasses()}">
         <div class="flex items-center gap-3 min-w-0 flex-1">
           <svg
-            class="w-5 h-5 flex-shrink-0 text-slate-400 dark:text-slate-500"
+            class="w-5 h-5 flex-shrink-0 ml-metadata-file-icon"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -500,11 +488,11 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
               d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
             />
           </svg>
-          <div class="min-w-0 flex-1">
-            <p class="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
+          <div class="min-w-0 flex-1 ml-metadata-field">
+            <p class="text-sm font-medium truncate ml-text">
               ${file.name}
             </p>
-            <p class="text-xs text-slate-500 dark:text-slate-400">
+            <p class="text-xs ml-text-muted">
               ${this.formatFileSize(file.size)}
             </p>
           </div>
@@ -548,7 +536,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
       return html`
         <p
           id="${this.errorId}"
-          class="mt-2 text-xs text-red-600 dark:text-red-400"
+          class="mt-2 text-xs ml-error-text"
           role="alert"
         >
           ${unsafeHTML(String(this.error))}
@@ -558,7 +546,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
 
     if (this.hasSlot('Helper')) {
       return html`
-        <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+        <p class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
@@ -575,7 +563,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
     this.msg = messages[lang];
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
         ${this.renderDropZone()}
         ${this.renderSelectedFiles()}

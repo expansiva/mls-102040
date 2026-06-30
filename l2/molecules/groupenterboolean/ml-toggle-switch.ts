@@ -9,6 +9,7 @@ import { customElement } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -105,7 +106,7 @@ export class ToggleSwitchMolecule extends MoleculeAuraElement {
   private renderLabel(labelId: string | undefined): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <div id=${labelId || ''} class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+      <div id=${labelId || ''} class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </div>
     `;
@@ -115,7 +116,7 @@ export class ToggleSwitchMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('Helper')) return html``;
     if (this.error) return html``;
     return html`
-      <div id=${helperId || ''} class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+      <div id=${helperId || ''} class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">
         ${unsafeHTML(this.getSlotContent('Helper'))}
       </div>
     `;
@@ -124,7 +125,7 @@ export class ToggleSwitchMolecule extends MoleculeAuraElement {
   private renderError(errorId: string | undefined): TemplateResult {
     if (!this.error) return html``;
     return html`
-      <div id=${errorId || ''} class="mt-2 text-xs text-red-600 dark:text-red-400">
+      <div id=${errorId || ''} class="mt-2 text-xs ml-error-text">
         ${unsafeHTML(String(this.error))}
       </div>
     `;
@@ -132,36 +133,28 @@ export class ToggleSwitchMolecule extends MoleculeAuraElement {
 
   private getToggleButtonClasses(): string {
     return [
-      'relative inline-flex h-6 w-11 items-center rounded-full border transition',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.value
-        ? 'bg-sky-500 dark:bg-sky-400'
-        : 'bg-slate-200 dark:bg-slate-700',
-      this.error
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-    ]
-      .filter(Boolean)
-      .join(' ');
+      'relative inline-flex h-6 w-11 items-center',
+      'ml-toggle-track',
+      this.value ? 'ml-toggle-track-on' : '',
+      this.error ? 'ml-toggle-track-error' : '',
+      this.disabled ? 'ml-disabled' : 'cursor-pointer',
+    ].filter(Boolean).join(' ');
   }
 
   private getThumbClasses(): string {
     return [
-      'inline-block h-4 w-4 transform rounded-full bg-white dark:bg-slate-100 transition',
+      'inline-block h-4 w-4 transform ml-toggle-thumb',
       this.value ? 'translate-x-6' : 'translate-x-1',
-    ]
-      .filter(Boolean)
-      .join(' ');
+    ].join(' ');
   }
 
   private renderViewMode(): TemplateResult {
     const labelId = this.hasSlot('Label') ? `${this.uid}-label` : undefined;
     const viewValue = this.value ? this.msg.yes : this.msg.no;
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel(labelId)}
-        <div class="text-sm text-slate-900 dark:text-slate-100">${viewValue}</div>
+        <div class="text-sm ml-text">${viewValue}</div>
       </div>
     `;
   }
@@ -183,7 +176,7 @@ export class ToggleSwitchMolecule extends MoleculeAuraElement {
     const describedBy = this.error ? errorId : helperId;
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel(labelId)}
         <button
           type="button"

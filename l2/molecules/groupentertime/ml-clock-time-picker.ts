@@ -9,6 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -382,45 +383,27 @@ export class ClockTimePickerMolecule extends MoleculeAuraElement {
   }
 
   private getInputClasses(): string {
-    const hasError = !!this.error;
     return [
-      'w-full rounded-lg px-3 py-2 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled || this.readonly ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+      'w-full px-3 py-2 text-sm ml-input ml-input-container',
+      this.error ? 'ml-input-container-error' : '',
+      this.disabled || this.readonly ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getOptionClasses(selected: boolean, disabled: boolean): string {
     return [
-      'w-10 h-10 rounded-full flex items-center justify-center text-sm border transition',
-      selected
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-        : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-700',
-      !disabled && !selected ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-      disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+      'w-10 h-10 flex items-center justify-center text-sm ml-clock-number',
+      selected ? 'ml-clock-number-selected' : '',
+      disabled ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getPanelClasses(): string {
-    return [
-      'mt-2 rounded-lg border p-3',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
-      'shadow-sm',
-    ].join(' ');
+    return 'mt-2 p-3 ml-clock-panel';
   }
 
   private getLabelClasses(): string {
-    return [
-      'mb-1 text-sm font-medium',
-      'text-slate-600 dark:text-slate-400',
-    ].join(' ');
+    return 'mb-1 text-sm ml-label';
   }
 
   private getStepLabel(): string {
@@ -431,9 +414,9 @@ export class ClockTimePickerMolecule extends MoleculeAuraElement {
 
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
-    const requiredMark = this.required ? html`<span class="text-red-600 dark:text-red-400">*</span>` : nothing;
+    const requiredMark = this.required ? html`<span class="ml-error-text">*</span>` : nothing;
     return html`
-      <label class="${this.getLabelClasses()}">
+      <label class="${cn(this.getLabelClasses(), this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
         ${requiredMark}
       </label>
@@ -443,10 +426,10 @@ export class ClockTimePickerMolecule extends MoleculeAuraElement {
   private renderHelperOrError(): TemplateResult {
     if (!this.isEditing) return html``;
     if (this.error) {
-      return html`<p id="${this.getErrorId()}" class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>`;
+      return html`<p id="${this.getErrorId()}" class="mt-1 text-xs ml-error-text">${unsafeHTML(this.error)}</p>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<p id="${this.getHelperId()}" class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+      return html`<p id="${this.getHelperId()}" class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
     }
     return html``;
   }
@@ -520,18 +503,14 @@ export class ClockTimePickerMolecule extends MoleculeAuraElement {
 
   private renderAmPm(): TemplateResult {
     if (!this.hour12) return html``;
-    const amClasses = [
-      'px-3 py-1 rounded-md text-xs border',
-      this.amPm === 'AM'
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-        : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-700',
-    ].join(' ');
-    const pmClasses = [
-      'px-3 py-1 rounded-md text-xs border',
-      this.amPm === 'PM'
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-slate-300 border-sky-500 dark:border-sky-400'
-        : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-700',
-    ].join(' ');
+    const amClasses = cn(
+      'px-3 py-1 text-xs ml-clock-ampm',
+      this.amPm === 'AM' && 'ml-clock-ampm-selected',
+    );
+    const pmClasses = cn(
+      'px-3 py-1 text-xs ml-clock-ampm',
+      this.amPm === 'PM' && 'ml-clock-ampm-selected',
+    );
     return html`
       <div class="flex items-center gap-2">
         <button class="${amClasses}" @click=${() => this.onToggleAmPm('AM')}>${this.msg.am}</button>
@@ -561,9 +540,9 @@ export class ClockTimePickerMolecule extends MoleculeAuraElement {
 
     if (!this.isEditing) {
       return html`
-        <div class="w-full">
+        <div class="${cn('w-full', this.cssClass)}">
           ${this.renderLabel()}
-          <div class="text-sm text-slate-900 dark:text-slate-100">
+          <div class="text-sm ml-text">
             ${this.formatTime(this.value)}
           </div>
         </div>
@@ -575,7 +554,7 @@ export class ClockTimePickerMolecule extends MoleculeAuraElement {
     const ariaDescribedBy = this.error ? this.getErrorId() : (this.hasSlot('Helper') ? this.getHelperId() : undefined);
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
         <div class="relative">
           <input
@@ -594,7 +573,7 @@ export class ClockTimePickerMolecule extends MoleculeAuraElement {
             aria-label=${displayValue || placeholder}
           />
           <button
-            class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 dark:text-slate-400"
+            class="absolute right-2 top-1/2 -translate-y-1/2 ml-text-muted"
             @click=${this.onToggleOpen}
             ?disabled=${!this.canInteract()}
             aria-label="${this.msg.hour}"
@@ -604,26 +583,26 @@ export class ClockTimePickerMolecule extends MoleculeAuraElement {
         </div>
 
         ${this.loading
-        ? html`<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>`
+        ? html`<div class="mt-2 text-xs ml-text-muted">${this.msg.loading}</div>`
         : nothing}
 
         ${this.isOpen && !this.loading
         ? html`
               <div class="${this.getPanelClasses()}" role="dialog" aria-modal="true">
                 <div class="flex items-center justify-between mb-3">
-                  <span class="text-xs uppercase tracking-wide text-slate-600 dark:text-slate-400">${this.getStepLabel()}</span>
+                  <span class="text-xs uppercase tracking-wide ml-text-muted">${this.getStepLabel()}</span>
                   ${this.renderAmPm()}
                 </div>
                 ${this.renderClockOptions()}
                 <div class="mt-3 flex items-center justify-between">
                   <button
-                    class="text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
+                    class="text-xs ml-clock-action"
                     @click=${this.onClear}
                   >
                     ${this.msg.clear}
                   </button>
                   <button
-                    class="px-3 py-1 rounded-md text-xs border border-sky-500 dark:border-sky-400 text-sky-700 dark:text-sky-300"
+                    class="px-3 py-1 text-xs ml-clock-confirm"
                     @click=${this.onConfirm}
                   >
                     ${this.msg.confirm}

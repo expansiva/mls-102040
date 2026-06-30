@@ -10,6 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -277,18 +278,17 @@ return groups;
 private getContainerClasses(hasError: boolean): string {
 return [
 'w-full rounded-lg border p-4 transition',
-'bg-white dark:bg-slate-800',
-hasError ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-'focus-within:ring-2 focus-within:ring-sky-500 dark:focus-within:ring-sky-400',
-this.isInteractionBlocked() ? 'opacity-50' : '',
+'ml-dual-container',
+hasError ? 'ml-dual-container-error' : '',
+'ml-dual-container-focus',
+this.isInteractionBlocked() ? 'ml-dual-container-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 
 private getPanelClasses(): string {
 return [
 'rounded-lg border p-3',
-'bg-white dark:bg-slate-900',
-'border-slate-200 dark:border-slate-700',
+'ml-dual-panel',
 ].join(' ');
 }
 
@@ -296,28 +296,26 @@ private getItemRowClasses(isSelectedList: boolean, disabled: boolean): string {
 return [
 'flex items-center justify-between gap-2 rounded-md border px-2 py-1.5 text-sm transition',
 isSelectedList
-? 'bg-sky-50 dark:bg-sky-900/40 border-sky-500 dark:border-sky-400 text-sky-700 dark:text-sky-300'
-: 'bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100',
-!disabled ? 'hover:bg-slate-100 dark:hover:bg-slate-800' : '',
-disabled ? 'opacity-50 cursor-not-allowed' : '',
+? 'ml-dual-item-selected'
+: 'ml-dual-item',
+!disabled ? 'ml-dual-item-hover' : '',
+disabled ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 
 private getActionButtonClasses(disabled: boolean): string {
 return [
 'rounded-md border px-2 py-1 text-xs font-medium transition',
-'border-slate-200 dark:border-slate-700',
-'bg-white dark:bg-slate-800',
-'text-slate-700 dark:text-slate-200',
-!disabled ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-disabled ? 'opacity-50 cursor-not-allowed' : '',
+'ml-dual-button',
+!disabled ? 'ml-dual-button-hover' : '',
+disabled ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<label id="${this.uid}-label" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+<label id="${this.uid}-label" class=${cn('mb-2 block text-sm font-medium ml-label', this.getSlotClass('Label'))}>
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>
 `;
@@ -326,7 +324,7 @@ ${unsafeHTML(this.getSlotContent('Label'))}
 private renderEmpty(): TemplateResult {
 const content = this.getSlotContent('Empty') || this.msg.empty;
 return html`
-<div class="text-sm text-slate-500 dark:text-slate-400">
+<div class=${cn('text-sm ml-text-muted', this.getSlotClass('Empty'))}>
 ${unsafeHTML(content)}
 </div>
 `;
@@ -336,7 +334,7 @@ private renderSearch(): TemplateResult {
 return html`
 <div class="mb-3">
 <input
-class="w-full rounded-md border px-3 py-2 text-sm transition bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
+class="w-full rounded-md border px-3 py-2 text-sm transition ml-dual-search focus:outline-none focus:ring-2"
 .type="text"
 placeholder="${this.msg.searchPlaceholder}"
 .value="${this.searchQuery}"
@@ -351,14 +349,14 @@ private renderFeedback(): TemplateResult {
 if (!this.isEditing) return html``;
 if (this.error) {
 return html`
-<p id="${this.uid}-error" class="mt-2 text-xs text-red-600 dark:text-red-400">
+<p id="${this.uid}-error" class="mt-2 text-xs ml-error-text">
 ${unsafeHTML(String(this.error))}
 </p>
 `;
 }
 if (this.hasSlot('Helper')) {
 return html`
-<p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+<p class=${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}>
 ${unsafeHTML(this.getSlotContent('Helper'))}
 </p>
 `;
@@ -380,8 +378,8 @@ const groups = this.buildGroups(items, hasGroups);
 return html`
 <div class="${this.getPanelClasses()}" role="listbox" aria-multiselectable="true">
 <div class="mb-2 flex items-center justify-between">
-<h4 class="text-sm font-medium text-slate-700 dark:text-slate-300">${listTitle}</h4>
-<span class="text-xs text-slate-500 dark:text-slate-400">${items.length}</span>
+<h4 class="text-sm font-medium ml-label">${listTitle}</h4>
+<span class="text-xs ml-text-muted">${items.length}</span>
 </div>
 ${items.length === 0
 ? this.renderEmpty()
@@ -390,7 +388,7 @@ ${items.length === 0
 ${groups.map((group) => html`
 <div class="space-y-2">
 ${hasGroups && group.label
-? html`<div class="text-xs font-semibold text-slate-500 dark:text-slate-400">${group.label}</div>`
+? html`<div class="text-xs font-semibold ml-text-muted">${group.label}</div>`
 : html``}
 ${group.items.map((item) => {
 const isSelected = selectedSet.has(item.value);
@@ -466,15 +464,15 @@ const selectedSet = new Set(selectedValues);
 const selectedItems = items.filter((item) => selectedSet.has(item.value));
 const placeholder = this.placeholder || this.msg.placeholder || this.msg.noSelection;
 return html`
-<div class="w-full">
+<div class=${cn('w-full', this.cssClass)}>
 ${this.renderLabel()}
 ${selectedItems.length === 0
-? html`<div class="text-sm text-slate-500 dark:text-slate-400">${placeholder || this.msg.noSelection}</div>`
+? html`<div class="text-sm ml-text-muted">${placeholder || this.msg.noSelection}</div>`
 : html`
 <div class="flex flex-wrap gap-2">
 ${selectedItems.map(
 (item) => html`
-<span class="rounded-md border px-2 py-1 text-xs bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+<span class="rounded-md border px-2 py-1 text-xs ml-dual-view-tag">
 ${unsafeHTML(item.labelHtml)}
 </span>
 `
@@ -505,7 +503,7 @@ const maxSelection = this.getMaxSelection();
 const placeholder = this.placeholder || this.msg.placeholder;
 return html`
 <div
-class="${this.getContainerClasses(!!this.error)}"
+class="${cn(this.getContainerClasses(!!this.error), this.cssClass)}"
 role="group"
 aria-labelledby="${this.hasSlot('Label') ? `${this.uid}-label` : ''}"
 aria-describedby="${this.error ? `${this.uid}-error` : ''}"
@@ -517,11 +515,11 @@ aria-busy="${this.loading ? 'true' : 'false'}"
 >
 ${this.renderLabel()}
 ${this.loading
-? html`<div class="mb-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>`
+? html`<div class="mb-2 text-xs ml-text-muted">${this.msg.loading}</div>`
 : html``}
 ${this.searchable ? this.renderSearch() : html``}
 ${!selectedValues.length && placeholder
-? html`<div class="mb-3 text-xs text-slate-400 dark:text-slate-500">${placeholder}</div>`
+? html`<div class="mb-3 text-xs ml-text-muted">${placeholder}</div>`
 : html``}
 <div class="grid grid-cols-1 items-start gap-3 md:grid-cols-[1fr_auto_1fr]">
 ${this.renderList(

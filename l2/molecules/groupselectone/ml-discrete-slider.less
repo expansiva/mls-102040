@@ -1,9 +1,60 @@
-/// <mls fileReference="_102040_/l2/molecules/groupselectone/ml-discrete-slider.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupselectone/ml-discrete-slider.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupselectone--ml-discrete-slider-102040 {
+groupselectone--ml-discrete-slider {
 
-// Here your less
+.ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
+.ml-helper { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+.ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+.ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+.ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+.ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
+
+.ml-slider-track {
+  background-color: var(--ml-surface-dim, #f5f5f5);
+}
+.ml-slider-track-error {
+  background-color: color-mix(in srgb, var(--ml-error, #ef4444) 15%, var(--ml-surface, #ffffff));
+}
+.ml-slider-thumb {
+  background-color: var(--ml-primary, #3b82f6);
+  color: var(--ml-on-primary, #ffffff);
+}
+.ml-slider-thumb-arrow {
+  &::after { border-top-color: var(--ml-primary, #3b82f6); }
+}
+.ml-slider-mark {
+  background-color: var(--ml-surface, #ffffff);
+  border-color: var(--ml-outline-variant, #e2e8f0);
+}
+.ml-slider-mark-active {
+  background-color: var(--ml-primary, #3b82f6);
+  border-color: var(--ml-primary, #3b82f6);
+}
+.ml-slider-mark-focus {
+  box-shadow: 0 0 0 2px var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+}
+.ml-slider-label {
+  color: var(--ml-on-surface-muted, #49454f);
+}
+.ml-slider-label-active {
+  color: var(--ml-primary, #3b82f6);
+  font-weight: var(--ml-font-weight-medium, 500);
+}
+.ml-slider-label-disabled {
+  opacity: var(--ml-disabled-opacity, 0.5);
+}
+.ml-slider-indicator-idle {
+  background-color: var(--ml-surface-dim, #f5f5f5);
+  color: var(--ml-on-surface-muted, #49454f);
+}
+.ml-slider-filled {
+  background-color: var(--ml-primary, #3b82f6);
+}
+.ml-slider-drag-thumb {
+  background-color: var(--ml-primary, #3b82f6);
+  border-color: var(--ml-primary, #3b82f6);
+  box-shadow: 0 0 0 9px color-mix(in srgb, var(--ml-primary, #3b82f6) 18%, transparent);
+}
 
  }
-
 

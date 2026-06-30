@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -229,22 +230,19 @@ labelText: el.textContent || '',
 private getInputClasses(): string {
 return [
 'w-full rounded-lg pl-10 pr-10 py-2 text-sm border transition',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+'ml-search-input',
 this.error
-? 'border-red-500 dark:border-red-400'
-: 'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+? 'ml-error-border'
+: 'ml-search-border',
+'ml-search-focus',
+this.disabled ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 
 private getPanelClasses(): string {
 return [
 'rounded-lg border mt-2 p-2 space-y-1',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
+'ml-search-container',
 this.isOpen ? 'block' : 'hidden',
 ].filter(Boolean).join(' ');
 }
@@ -253,10 +251,10 @@ private getSuggestionClasses(isActive: boolean): string {
 return [
 'w-full text-left rounded-md px-3 py-2 text-sm transition',
 isActive
-? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400'
-: 'text-slate-900 dark:text-slate-100 border border-transparent',
-!this.disabled && !isActive ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-this.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+? 'ml-filter-chip-active'
+: 'ml-text border border-transparent',
+!this.disabled && !isActive ? 'ml-search-icon' : '',
+this.disabled ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 
@@ -264,7 +262,7 @@ private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 const labelId = `${this.componentId}-label`;
 return html`
-<label id=${labelId} class="block mb-1 text-sm text-slate-600 dark:text-slate-400">
+<label id=${labelId} class=${cn('block mb-1 text-sm ml-label', this.getSlotClass('Label'))}>
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>
 `;
@@ -273,11 +271,11 @@ ${unsafeHTML(this.getSlotContent('Label'))}
 private renderHelperOrError(): TemplateResult {
 if (this.error) {
 const errorId = `${this.componentId}-error`;
-return html`<p id=${errorId} class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+return html`<p id=${errorId} class="mt-1 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
 }
 if (this.hasSlot('Helper')) {
 const helperId = `${this.componentId}-helper`;
-return html`<p id=${helperId} class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p id=${helperId} class=${cn('mt-1 text-xs ml-text-muted', this.getSlotClass('Helper'))}>${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }
@@ -290,7 +288,7 @@ const showEmpty = !this.loading && !hasSuggestions && this.query;
 return html`
 <div id=${`${this.componentId}-list`} class=${this.getPanelClasses()} role="listbox">
 ${this.loading ? html`
-<div class="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+<div class="px-3 py-2 text-sm ml-text-muted">
 ${this.msg.loading}
 </div>
 ` : html``}
@@ -307,7 +305,7 @@ ${unsafeHTML(item.labelHtml)}
 </button>
 `) : html``}
 ${showEmpty ? html`
-<div class="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+<div class=${cn('px-3 py-2 text-sm ml-text-muted', this.getSlotClass('Empty'))}>
 ${unsafeHTML(this.getSlotContent('Empty') || this.msg.noResults)}
 </div>
 ` : html``}
@@ -330,10 +328,10 @@ const inputPlaceholder = this.placeholder || this.msg.placeholder;
 const showClear = !!this.query && !this.disabled;
 
 return html`
-<div class="w-full">
+<div class=${cn('w-full', this.cssClass)}>
 ${this.renderLabel()}
 <div class="relative">
-<span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 ml-search-icon">
 <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
 ${svg`<path d="M10.5 3a7.5 7.5 0 1 1-4.24 13.68l-3.97 3.97a1 1 0 1 1-1.42-1.42l3.97-3.97A7.5 7.5 0 0 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z" fill="currentColor" />`}
 </svg>
@@ -359,7 +357,7 @@ aria-invalid=${this.error ? 'true' : 'false'}
 />
 ${showClear ? html`
 <button
-class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+class="absolute right-3 top-1/2 -translate-y-1/2 ml-search-clear"
 aria-label=${this.msg.clear}
 @mousedown=${(e: Event) => e.preventDefault()}
 @click=${this.handleClearClick}

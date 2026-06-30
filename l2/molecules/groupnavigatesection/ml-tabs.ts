@@ -11,6 +11,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -144,36 +145,25 @@ export class MlTabsMolecule extends MoleculeAuraElement {
 
   private getTabClasses(isActive: boolean, isDisabled: boolean): string {
     return [
-      'inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border-b-2 transition',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      isActive
-        ? 'border-sky-500 dark:border-sky-400 text-sky-700 dark:text-sky-300'
-        : 'border-transparent text-slate-600 dark:text-slate-400',
-      !isActive && !isDisabled ? 'hover:text-slate-900 dark:hover:text-slate-100' : '',
-      isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+      'inline-flex items-center gap-2 px-4 py-2 text-sm border-b-2 transition',
+      'ml-tab',
+      isActive ? 'ml-tab-active' : '',
+      isDisabled ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getTabListClasses(): string {
-    return [
-      'flex flex-wrap gap-2 border-b',
-      'border-slate-200 dark:border-slate-700',
-    ].join(' ');
+    return 'flex flex-wrap gap-2 border-b ml-tab-list';
   }
 
   private getPanelClasses(): string {
-    return [
-      'mt-4 rounded-lg border p-4',
-      'border-slate-200 dark:border-slate-700',
-      'bg-white dark:bg-slate-800',
-      'text-slate-900 dark:text-slate-100',
-    ].join(' ');
+    return 'mt-4 rounded-lg border p-4 ml-tab-panel';
   }
 
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <div id="${this.uid}-label" class="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+      <div id="${this.uid}-label" class="${cn('mb-2 text-sm font-semibold ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </div>
     `;
@@ -181,7 +171,7 @@ export class MlTabsMolecule extends MoleculeAuraElement {
 
   private renderLoading(): TemplateResult {
     return html`
-      <div class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 text-sm text-slate-500 dark:text-slate-400">
+      <div class="rounded-lg border p-4 text-sm ml-tab-container ml-text-muted">
         ${this.msg.loading}
       </div>
     `;
@@ -190,7 +180,7 @@ export class MlTabsMolecule extends MoleculeAuraElement {
   private renderError(): TemplateResult {
     if (!this.error) return html``;
     return html`
-      <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+      <p class="mt-2 text-xs ml-error-text">
         ${unsafeHTML(String(this.error))}
       </p>
     `;
@@ -205,7 +195,7 @@ export class MlTabsMolecule extends MoleculeAuraElement {
 
     if (this.loading) {
       return html`
-        <div class="w-full">
+        <div class="${cn('w-full', this.cssClass)}">
           ${this.renderLabel()}
           ${this.renderLoading()}
         </div>
@@ -215,9 +205,9 @@ export class MlTabsMolecule extends MoleculeAuraElement {
     const tabs = this.parseTabs();
     if (tabs.length === 0) {
       return html`
-        <div class="w-full">
+        <div class="${cn('w-full', this.cssClass)}">
           ${this.renderLabel()}
-          <div class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 text-sm text-slate-500 dark:text-slate-400">
+          <div class="rounded-lg border p-4 text-sm ml-tab-container ml-text-muted">
             ${this.msg.empty}
           </div>
         </div>
@@ -229,7 +219,7 @@ export class MlTabsMolecule extends MoleculeAuraElement {
     const labelId = this.hasSlot('Label') ? `${this.uid}-label` : undefined;
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
         <div
           class="${this.getTabListClasses()}"

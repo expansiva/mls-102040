@@ -10,6 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -376,35 +377,30 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
   }
 
   private getInputClasses(active: boolean): string {
-    return [
+    return cn(
       'w-full rounded-lg border px-3 py-2 text-sm transition flex items-center justify-between',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      active ? 'border-sky-500 dark:border-sky-400' : 'border-slate-200 dark:border-slate-700',
-      this.error ? 'border-red-500 dark:border-red-400' : '',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-    ].filter(Boolean).join(' ');
+      'ml-input',
+      active ? 'ml-input-active' : '',
+      this.error ? 'ml-input-container-error' : '',
+      'ml-input-focus',
+      this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
+    );
   }
 
   private getPickerClasses(): string {
-    return [
-      'mt-2 rounded-lg border p-4 shadow-sm',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
-    ].join(' ');
+    return cn(
+      'mt-2 rounded-lg border p-4',
+      'ml-interval-picker',
+    );
   }
 
   private getSelectClasses(): string {
-    return [
+    return cn(
       'w-full rounded-md border px-2 py-1 text-sm',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : '',
-    ].filter(Boolean).join(' ');
+      'ml-input',
+      'ml-input-focus',
+      this.disabled || this.loading ? 'ml-disabled' : '',
+    );
   }
 
   // =========================================================================
@@ -423,13 +419,13 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
 
   private renderViewMode(): TemplateResult {
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.hasSlot('Label')
-        ? html`<div id="${this.uid}-label" class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+        ? html`<div id="${this.uid}-label" class="${cn('mb-2 text-sm font-medium ml-label', this.getSlotClass('Label'))}">
               ${unsafeHTML(this.getSlotContent('Label'))}
             </div>`
         : nothing}
-        <div class="text-sm text-slate-900 dark:text-slate-100">
+        <div class="text-sm ml-text">
           ${this.getRangeDisplay()}
         </div>
       </div>
@@ -442,9 +438,9 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
     const errorId = `${this.uid}-error`;
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.hasSlot('Label')
-        ? html`<div id="${this.uid}-label" class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+        ? html`<div id="${this.uid}-label" class="${cn('mb-2 text-sm font-medium ml-label', this.getSlotClass('Label'))}">
               ${unsafeHTML(this.getSlotContent('Label'))}
             </div>`
         : nothing}
@@ -452,7 +448,7 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
         <div class="grid grid-cols-2 gap-3">
           <div>
             ${this.hasSlot('LabelStart')
-        ? html`<div id="${startLabelId}" class="mb-1 text-xs font-medium text-slate-600 dark:text-slate-400">
+        ? html`<div id="${startLabelId}" class="${cn('mb-1 text-xs font-medium ml-text-muted', this.getSlotClass('LabelStart'))}">
                   ${unsafeHTML(this.getSlotContent('LabelStart'))}
                 </div>`
         : nothing}
@@ -476,7 +472,7 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
 
           <div>
             ${this.hasSlot('LabelEnd')
-        ? html`<div id="${endLabelId}" class="mb-1 text-xs font-medium text-slate-600 dark:text-slate-400">
+        ? html`<div id="${endLabelId}" class="${cn('mb-1 text-xs font-medium ml-text-muted', this.getSlotClass('LabelEnd'))}">
                   ${unsafeHTML(this.getSlotContent('LabelEnd'))}
                 </div>`
         : nothing}
@@ -494,7 +490,7 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
               <span class="flex items-center gap-2">
                 ${this.endTime ? this.formatForDisplay(this.endTime) : this.msg.placeholderEnd}
                 ${this.isOvernight(this.startTime, this.endTime)
-        ? html`<span class="rounded bg-sky-50 px-1.5 py-0.5 text-xs text-sky-700 dark:bg-sky-900/40 dark:text-sky-300" aria-label="${this.msg.nextDay}">
+        ? html`<span class="rounded px-1.5 py-0.5 text-xs ml-interval-overnight-badge" aria-label="${this.msg.nextDay}">
                       ${this.msg.nextDay}
                     </span>`
         : nothing}
@@ -505,7 +501,7 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
         </div>
 
         ${this.loading
-        ? html`<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>`
+        ? html`<div class="mt-2 text-xs ml-text-muted">${this.msg.loading}</div>`
         : nothing}
 
         ${this.renderPicker()}
@@ -523,20 +519,20 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
       <div class="${this.getPickerClasses()}" role="dialog" aria-modal="true">
         <div class="grid ${this.showSeconds ? 'grid-cols-3' : 'grid-cols-2'} gap-3">
           <div>
-            <label class="mb-1 block text-xs text-slate-500 dark:text-slate-400">${this.hour12 ? 'Hour' : 'Hour'}</label>
+            <label class="mb-1 block text-xs ml-text-muted">${this.hour12 ? 'Hour' : 'Hour'}</label>
             <select class="${this.getSelectClasses()}" @change="${this.handleHourChange}">
               ${this.renderHourOptions()}
             </select>
           </div>
           <div>
-            <label class="mb-1 block text-xs text-slate-500 dark:text-slate-400">Minute</label>
+            <label class="mb-1 block text-xs ml-text-muted">Minute</label>
             <select class="${this.getSelectClasses()}" @change="${this.handleMinuteChange}">
               ${this.renderMinuteOptions()}
             </select>
           </div>
           ${this.showSeconds
         ? html`<div>
-                <label class="mb-1 block text-xs text-slate-500 dark:text-slate-400">Second</label>
+                <label class="mb-1 block text-xs ml-text-muted">Second</label>
                 <select class="${this.getSelectClasses()}" @change="${this.handleSecondChange}">
                   ${this.renderSecondOptions()}
                 </select>
@@ -546,7 +542,7 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
 
         ${this.hour12
         ? html`<div class="mt-3">
-              <label class="mb-1 block text-xs text-slate-500 dark:text-slate-400">AM / PM</label>
+              <label class="mb-1 block text-xs ml-text-muted">AM / PM</label>
               <select class="${this.getSelectClasses()}" @change="${this.handleAmPmChange}">
                 <option value="AM" ?selected="${this.tempAmPm === 'AM'}">AM</option>
                 <option value="PM" ?selected="${this.tempAmPm === 'PM'}">PM</option>
@@ -557,14 +553,14 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
         <div class="mt-4 flex items-center gap-2">
           <button
             type="button"
-            class="rounded-md border px-3 py-1.5 text-xs text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+            class="rounded-md border px-3 py-1.5 text-xs ml-interval-btn-secondary"
             @click="${this.handleClear}"
           >
             ${this.msg.clear}
           </button>
           <button
             type="button"
-            class="rounded-md px-3 py-1.5 text-xs text-white bg-sky-600 dark:bg-sky-500 disabled:opacity-50"
+            class="rounded-md px-3 py-1.5 text-xs ml-interval-btn-confirm disabled:opacity-50"
             ?disabled="${invalid}"
             @click="${this.handleConfirm}"
           >
@@ -572,7 +568,7 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
           </button>
           <button
             type="button"
-            class="ml-auto rounded-md border px-3 py-1.5 text-xs text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700"
+            class="ml-auto rounded-md border px-3 py-1.5 text-xs ml-interval-btn-secondary"
             @click="${this.handleClose}"
           >
             OK
@@ -607,17 +603,17 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
 
   private renderFeedback(errorId: string): TemplateResult {
     if (this.error) {
-      return html`<p id="${errorId}" class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+      return html`<p id="${errorId}" class="mt-2 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<p class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+      return html`<p class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
     }
     return html``;
   }
 
   private renderClockIcon(): TemplateResult {
     return html`
-      <svg class="h-4 w-4 text-slate-400 dark:text-slate-500" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <svg class="h-4 w-4 ml-text-muted" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"></circle>
         <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>

@@ -1,9 +1,50 @@
-/// <mls fileReference="_102040_/l2/molecules/groupselectfileforupload/ml-user-photo-upload.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupselectfileforupload/ml-user-photo-upload.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupselectfileforupload--ml-user-photo-upload-102040 {
+groupselectfileforupload--ml-user-photo-upload {
 
-// Here your less
+  .ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
+  .ml-helper { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
 
- }
+  .ml-photo-container {
+    background: var(--ml-surface, #ffffff);
+    color: var(--ml-on-surface-muted, #49454f);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+    &:hover {
+      background: var(--ml-surface-dim, #f5f5f5);
+    }
+  }
 
+  .ml-photo-overlay {
+    // Preview area styling
+  }
 
+  .ml-photo-placeholder {
+    // Placeholder content styling
+  }
+
+  .ml-dropzone-error {
+    border-color: var(--ml-outline-error, #ef4444) !important;
+  }
+
+  .ml-dropzone-active {
+    background: var(--ml-primary-container, rgba(59, 130, 246, 0.1));
+    border-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-preview-card {
+    border-color: var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-preview-remove {
+    border-color: var(--ml-outline-variant, #e2e8f0);
+    color: var(--ml-on-surface-muted, #49454f);
+    &:hover {
+      background: var(--ml-surface-dim, #f5f5f5);
+    }
+  }
+
+}

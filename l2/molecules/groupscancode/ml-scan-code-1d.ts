@@ -4,20 +4,21 @@
 // =============================================================================
 // Skill Group: groupScanCode
 // This molecule does NOT contain business logic.
-import { html, TemplateResult } from 'lit';
-import { customElement, state, query } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html, TemplateResult } from'lit';
+import { customElement, state, query } from'lit/decorators.js';
+import { unsafeHTML } from'lit/directives/unsafe-html.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
-open: 'Open camera scanner',
-capture: 'Capture',
-close: 'Close',
-processing: 'Processing...',
-noResult: 'No result',
-permissionDenied: 'Camera permission denied',
-notSupported: 'Camera not supported on this device',
+open:'Open camera scanner',
+capture:'Capture',
+close:'Close',
+processing:'Processing...',
+noResult:'No result',
+permissionDenied:'Camera permission denied',
+notSupported:'Camera not supported on this device',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
@@ -30,21 +31,21 @@ private msg: MessageType = messages.en;
 // ===========================================================================
 // SLOT TAGS
 // ===========================================================================
-slotTags = ['Label', 'Helper', 'Trigger', 'Result'];
+slotTags = ['Label','Helper','Trigger','Result'];
 // ===========================================================================
 // PROPERTIES — From Contract
 // ===========================================================================
 @propertyDataSource({ type: String })
 value: string | null = null;
 @propertyDataSource({ type: String })
-error: string = '';
+error: string ='';
 @propertyDataSource({ type: String })
-name: string = '';
+name: string ='';
 @propertyDataSource({ type: String })
-facing: string = 'environment';
-@propertyDataSource({ type: Boolean, attribute: 'auto-capture' })
+facing: string ='environment';
+@propertyDataSource({ type: Boolean, attribute:'auto-capture' })
 autoCapture: boolean = false;
-@propertyDataSource({ type: Number, attribute: 'capture-interval' })
+@propertyDataSource({ type: Number, attribute:'capture-interval' })
 captureInterval: number = 500;
 @propertyDataSource({ type: Boolean })
 disabled: boolean = false;
@@ -152,12 +153,12 @@ return;
 }
 try {
 const stream = await navigator.mediaDevices.getUserMedia({
-video: { facingMode: this.facing || 'environment' },
+video: { facingMode: this.facing ||'environment' },
 });
 this.stream = stream;
 this.isOpen = true;
 this.hasSupport = true;
-this.error = '';
+this.error ='';
 this.emitOpen();
 if (this.videoEl) {
 this.videoEl.srcObject = stream;
@@ -231,7 +232,7 @@ private async tryLocalDecode(canvas: HTMLCanvasElement) {
 const Detector = (window as any).BarcodeDetector as any;
 if (!Detector) return;
 try {
-const formats = ['ean_13', 'ean_8', 'upc_a', 'code_128', 'code_39', 'itf'];
+const formats = ['ean_13','ean_8','upc_a','code_128','code_39','itf'];
 const detector = new Detector({ formats });
 const results = await detector.detect(canvas);
 if (results && results.length > 0) {
@@ -258,13 +259,13 @@ this.openCamera();
 }
 }
 private handleTriggerKeydown(event: KeyboardEvent) {
-if (event.key === 'Enter' || event.key === ' ') {
+if (event.key ==='Enter' || event.key ==='') {
 event.preventDefault();
 this.handleTriggerClick();
 }
 }
 private handleCloseKeydown(event: KeyboardEvent) {
-if (event.key === 'Escape') {
+if (event.key ==='Escape') {
 this.closeCamera();
 }
 }
@@ -273,15 +274,15 @@ this.closeCamera();
 // ===========================================================================
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
-return html`<div class="mb-2 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Label'))}</div>`;
+return html`<div class="${cn('mb-2 text-sm ml-text-muted', this.getSlotClass('Label'))}">${unsafeHTML(this.getSlotContent('Label'))}</div>`;
 }
 private renderHelper(): TemplateResult {
 if (!this.hasSlot('Helper')) return html``;
-return html`<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</div>`;
+return html`<div class="${cn('mt-2 text-xs ml-text-muted', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</div>`;
 }
 private renderError(): TemplateResult {
 if (!this.error) return html``;
-return html`<div class="mt-2 text-xs text-red-600 dark:text-red-400" role="alert">${unsafeHTML(String(this.error))}</div>`;
+return html`<div class="mt-2 text-xs ml-error-text" role="alert">${unsafeHTML(String(this.error))}</div>`;
 }
 private renderResult(): TemplateResult {
 if (!this.value) return html``;
@@ -289,7 +290,7 @@ if (this.hasSlot('Result')) {
 return html`<div class="mt-3">${unsafeHTML(this.getSlotContent('Result'))}</div>`;
 }
 return html`
-<div class="mt-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100" aria-live="polite">
+<div class="mt-3 rounded-lg border ml-border ml-surface-dim-bg px-3 py-2 text-sm ml-text" aria-live="polite">
 ${this.value}
 </div>
 `;
@@ -303,40 +304,40 @@ return html`<span>${this.isOpen ? this.msg.close : this.msg.open}</span>`;
 private getFrameClasses(): string {
 return [
 'relative w-full rounded-xl border transition',
-'bg-white dark:bg-slate-800',
-this.error ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-this.isCapturing ? 'ring-2 ring-sky-500 dark:ring-sky-400' : '',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+'ml-surface-bg',
+this.error ?'ml-border-error' :'ml-border',
+this.isCapturing ?'ml-focus-ring' :'',
+this.disabled ?'ml-disabled' :'',
 ].filter(Boolean).join(' ');
 }
 private getVideoWrapperClasses(): string {
 return [
 'relative w-full overflow-hidden rounded-lg border',
-'border-slate-200 dark:border-slate-700',
-'bg-slate-50 dark:bg-slate-900',
-this.isOpen ? 'block' : 'hidden',
+'ml-border',
+'ml-surface-dim-bg',
+this.isOpen ?'block' :'hidden',
 ].filter(Boolean).join(' ');
 }
 private getTriggerClasses(): string {
 return [
 'inline-flex items-center justify-center rounded-lg border px-3 py-2 text-sm transition',
-'border-slate-200 dark:border-slate-700',
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
-'hover:bg-slate-50 dark:hover:bg-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+'ml-border',
+'ml-surface-bg',
+'ml-text',
+'hover:ml-surface-dim-bg',
+'',
+this.disabled ?'ml-disabled' :'',
 ].filter(Boolean).join(' ');
 }
 private getCaptureButtonClasses(): string {
 return [
 'inline-flex items-center justify-center rounded-lg border px-3 py-2 text-sm transition',
-'border-sky-500 dark:border-sky-400',
-'bg-sky-50 dark:bg-sky-900/40',
-'text-sky-700 dark:text-sky-300',
-'hover:bg-sky-100 dark:hover:bg-sky-900/60',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.loading ? 'opacity-50 cursor-not-allowed' : '',
+'ml-border-focus',
+'ml-primary-dim-bg',
+'ml-primary-text',
+'hover:ml-surface-dim-bg',
+'',
+this.loading ?'ml-disabled' :'',
 ].filter(Boolean).join(' ');
 }
 // ===========================================================================
@@ -347,7 +348,7 @@ const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
 const hasResult = Boolean(this.value);
 return html`
-<div class="w-full" @keydown=${this.handleCloseKeydown}>
+<div class="${cn('w-full', this.cssClass)}" @keydown=${this.handleCloseKeydown}>
 ${this.renderLabel()}
 <div class=${this.getFrameClasses()}>
 <div class="flex items-center justify-between px-4 py-3">
@@ -376,18 +377,18 @@ ${this.msg.capture}
 <video class="w-full h-64 object-cover"></video>
 </div>
 ${this.loading ? html`
-<div class="px-4 py-3 text-sm text-slate-600 dark:text-slate-400">
+<div class="px-4 py-3 text-sm ml-text-muted">
 ${this.msg.processing}
 </div>
 ` : html``}
 ${!this.isOpen && hasResult ? this.renderResult() : html``}
 ${!this.isOpen && !hasResult && !this.loading ? html`
-<div class="px-4 pb-3 text-xs text-slate-400 dark:text-slate-500">${this.msg.noResult}</div>
+<div class="px-4 pb-3 text-xs ml-text-faint">${this.msg.noResult}</div>
 ` : html``}
 </div>
 ${this.renderError()}
 ${this.renderHelper()}
-${this.name ? html`<input type="hidden" name=${this.name} .value=${this.value ?? ''} />` : html``}
+${this.name ? html`<input type="hidden" name=${this.name} .value=${this.value ??''} />` : html``}
 </div>
 `;
 }

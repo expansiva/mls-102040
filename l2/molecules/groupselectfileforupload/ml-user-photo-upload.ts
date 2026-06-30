@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -281,21 +282,16 @@ return `${(kb / 1024).toFixed(1)} MB`;
 
 private getTriggerClasses(hasError: boolean, isBusy: boolean): string {
 return [
-'w-full rounded-lg border-2 border-dashed p-4 text-center transition',
-'bg-white dark:bg-slate-800',
-'text-slate-600 dark:text-slate-400',
-hasError ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-this.isDragging ? 'bg-sky-50 dark:bg-sky-900/40 border-sky-500 dark:border-sky-400' : '',
-!isBusy ? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700' : 'opacity-50 cursor-not-allowed',
+'w-full rounded-lg border-2 border-dashed p-4 text-center transition ml-photo-container',
+hasError ? 'ml-dropzone-error' : '',
+this.isDragging ? 'ml-dropzone-active' : '',
+!isBusy ? 'cursor-pointer' : 'ml-disabled',
 ].filter(Boolean).join(' ');
 }
 
 private getRemoveButtonClasses(): string {
 return [
-'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium border transition',
-'border-slate-200 dark:border-slate-700',
-'text-slate-600 dark:text-slate-300',
-'hover:bg-slate-50 dark:hover:bg-slate-700',
+'inline-flex items-center rounded-md px-2 py-1 text-xs font-medium border transition ml-preview-remove',
 ].filter(Boolean).join(' ');
 }
 
@@ -317,7 +313,7 @@ const files = this.value || [];
 const acceptAttr = this.accept || 'image/*';
 
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel(labelId)}
 <div
 class="${this.getTriggerClasses(hasError, isBusy)}"
@@ -355,7 +351,7 @@ ${this.renderFeedback(hasError, hasHelper, errorId, helperId)}
 private renderLabel(labelId: string): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<label id="${labelId}" class="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-300">
+<label id="${labelId}" class="${cn('mb-2 block text-sm font-medium ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>
 `;
@@ -366,10 +362,10 @@ if (this.hasSlot('Trigger')) {
 return html`${unsafeHTML(this.getSlotContent('Trigger'))}`;
 }
 return html`
-<div class="flex flex-col items-center gap-1">
-<span class="text-sm font-medium text-slate-900 dark:text-slate-100">${this.msg.selectPhoto}</span>
-<span class="text-xs text-slate-500 dark:text-slate-400">${this.msg.dropHere}</span>
-${this.loading ? html`<span class="text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</span>` : html``}
+<div class="flex flex-col items-center gap-1 ml-photo-placeholder">
+<span class="text-sm font-medium ml-text">${this.msg.selectPhoto}</span>
+<span class="text-xs ml-text-muted">${this.msg.dropHere}</span>
+${this.loading ? html`<span class="text-xs ml-text-muted">${this.msg.loading}</span>` : html``}
 </div>
 `;
 }
@@ -378,15 +374,15 @@ private renderPreview(files: File[]): TemplateResult {
 if (!files || files.length === 0 || !this.previewUrl) return html``;
 const file = files[0];
 return html`
-<div class="mt-4 flex items-center gap-4">
+<div class="mt-4 flex items-center gap-4 ml-photo-overlay">
 <img
 src="${this.previewUrl}"
 alt="${file.name}"
-class="h-20 w-20 rounded-lg border border-slate-200 dark:border-slate-700 object-cover"
+class="h-20 w-20 rounded-lg border object-cover ml-preview-card"
 />
 <div class="flex-1">
-<p class="text-sm font-medium text-slate-900 dark:text-slate-100">${file.name}</p>
-<p class="text-xs text-slate-500 dark:text-slate-400">${this.formatSize(file.size)}</p>
+<p class="text-sm font-medium ml-text">${file.name}</p>
+<p class="text-xs ml-text-muted">${this.formatSize(file.size)}</p>
 </div>
 <button
 type="button"
@@ -404,13 +400,13 @@ private renderFileList(files: File[]): TemplateResult {
 if (!this.multiple || files.length <= 1) return html``;
 return html`
 <div class="mt-3">
-<p class="text-xs text-slate-500 dark:text-slate-400">${this.msg.fileCount}: ${files.length}</p>
+<p class="text-xs ml-text-muted">${this.msg.fileCount}: ${files.length}</p>
 <ul class="mt-2 space-y-2">
 ${files.map((file, index) => html`
-<li class="flex items-center justify-between rounded-md border border-slate-200 dark:border-slate-700 px-3 py-2">
+<li class="flex items-center justify-between rounded-md border px-3 py-2 ml-preview-card">
 <div>
-<p class="text-sm text-slate-900 dark:text-slate-100">${file.name}</p>
-<p class="text-xs text-slate-500 dark:text-slate-400">${this.formatSize(file.size)}</p>
+<p class="text-sm ml-text">${file.name}</p>
+<p class="text-xs ml-text-muted">${this.formatSize(file.size)}</p>
 </div>
 <button
 type="button"
@@ -429,10 +425,10 @@ ${this.msg.remove}
 
 private renderFeedback(hasError: boolean, hasHelper: boolean, errorId: string, helperId: string): TemplateResult {
 if (hasError) {
-return html`<p id="${errorId}" class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+return html`<p id="${errorId}" class="mt-2 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
 }
 if (hasHelper) {
-return html`<p id="${helperId}" class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p id="${helperId}" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }

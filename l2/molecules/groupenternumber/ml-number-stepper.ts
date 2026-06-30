@@ -9,6 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -245,13 +246,8 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
 
   private getInputClasses(hasError: boolean): string {
     return [
-      'w-full flex-1 rounded-md px-3 py-2 text-sm border transition outline-none',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      hasError ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-      'focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : '',
+      'w-full flex-1 bg-transparent outline-none text-sm ml-input',
+      this.disabled || this.loading ? 'cursor-not-allowed' : '',
       this.readonly ? 'cursor-default' : '',
     ]
       .filter(Boolean)
@@ -260,14 +256,10 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
 
   private getButtonClasses(): string {
     return [
-      'h-9 w-9 inline-flex items-center justify-center rounded-md border text-sm transition',
-      'bg-white dark:bg-slate-800',
-      'text-slate-900 dark:text-slate-100',
-      'border-slate-200 dark:border-slate-700',
+      'h-9 w-9 inline-flex items-center justify-center rounded-md text-sm transition ml-stepper-button',
       !this.disabled && !this.readonly && !this.loading
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700'
-        : 'opacity-50 cursor-not-allowed',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+        ? ''
+        : 'ml-disabled',
     ]
       .filter(Boolean)
       .join(' ');
@@ -276,7 +268,7 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
   private getContainerClasses(): string {
     return [
       'w-full',
-      this.disabled || this.loading ? 'opacity-50' : '',
+      this.disabled || this.loading ? 'ml-disabled' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -284,8 +276,8 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
 
   private getRowClasses(): string {
     return [
-      'flex items-center gap-2',
-      'rounded-lg',
+      'flex items-center gap-2 ml-input-container py-2 px-3',
+      this.error ? 'ml-input-container-error' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -308,7 +300,7 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
     const placeholder = this.placeholder || '';
 
     return html`
-      <div class="${this.getContainerClasses()}">
+      <div class="${cn(this.getContainerClasses(), this.cssClass)}">
         ${this.renderLabel()}
         <div class="${this.getRowClasses()}">
           ${this.renderPrefix()}
@@ -350,7 +342,7 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
           </button>
         </div>
         ${this.loading
-          ? html`<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>`
+          ? html`<div class="mt-2 text-xs ml-text-muted">${this.msg.loading}</div>`
           : this.renderHelperOrError(effectiveError)}
       </div>
     `;
@@ -359,9 +351,9 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
   private renderViewMode(): TemplateResult {
     const display = this.value === null || this.value === undefined ? this.msg.emptyValue : this.formatToDisplay(this.value);
     return html`
-      <div class="${this.getContainerClasses()}">
+      <div class="${cn(this.getContainerClasses(), this.cssClass)}">
         ${this.renderLabel()}
-        <div class="flex items-center gap-2 text-sm text-slate-900 dark:text-slate-100">
+        <div class="flex items-center gap-2 text-sm ml-text">
           ${this.renderPrefix()}
           <span>${display}</span>
           ${this.renderSuffix()}
@@ -373,7 +365,7 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <label id="${this.labelId}" class="mb-1 block text-sm text-slate-600 dark:text-slate-400">
+      <label id="${this.labelId}" class="${cn('mb-1 block text-sm ml-text-muted', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </label>
     `;
@@ -382,14 +374,14 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
   private renderHelperOrError(effectiveError: string): TemplateResult {
     if (String(effectiveError).length > 0) {
       return html`
-        <p id="${this.errorId}" class="mt-1 text-xs text-red-600 dark:text-red-400">
+        <p id="${this.errorId}" class="mt-1 text-xs ml-error-text">
           ${unsafeHTML(String(effectiveError))}
         </p>
       `;
     }
     if (this.hasSlot('Helper')) {
       return html`
-        <p id="${this.helperId}" class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+        <p id="${this.helperId}" class="${cn('mt-1 text-xs ml-text-muted', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
@@ -400,7 +392,7 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
   private renderPrefix(): TemplateResult {
     if (!this.hasSlot('Prefix')) return html``;
     return html`
-      <span class="text-sm text-slate-600 dark:text-slate-400">
+      <span class="${cn('text-sm ml-text-muted', this.getSlotClass('Prefix'))}">
         ${unsafeHTML(this.getSlotContent('Prefix'))}
       </span>
     `;
@@ -409,7 +401,7 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
   private renderSuffix(): TemplateResult {
     if (!this.hasSlot('Suffix')) return html``;
     return html`
-      <span class="text-sm text-slate-600 dark:text-slate-400">
+      <span class="${cn('text-sm ml-text-muted', this.getSlotClass('Suffix'))}">
         ${unsafeHTML(this.getSlotContent('Suffix'))}
       </span>
     `;

@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -250,16 +251,15 @@ export class MlAreaChartMolecule extends MoleculeAuraElement {
   // RENDER METHODS
   // ===========================================================================
   private renderLoading(): TemplateResult {
-    const containerClasses = [
+    const containerClasses = cn(
       'w-full rounded-lg border p-4',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
-    ].join(' ');
+      'ml-chart-container',
+    );
 
-    const skeletonClasses = [
+    const skeletonClasses = cn(
       'animate-pulse rounded',
-      'bg-slate-200 dark:bg-slate-700',
-    ].join(' ');
+      'ml-skeleton',
+    );
 
     return html`
       <div class=${containerClasses}>
@@ -275,20 +275,19 @@ export class MlAreaChartMolecule extends MoleculeAuraElement {
   }
 
   private renderEmpty(): TemplateResult {
-    const containerClasses = [
+    const containerClasses = cn(
       'w-full rounded-lg border p-8 text-center',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
-    ].join(' ');
+      'ml-chart-container',
+    );
 
-    const textClasses = ['text-slate-500 dark:text-slate-400'].join(' ');
+    const textClasses = 'ml-text-muted';
 
     const emptyContent = this.getSlotContent('Empty');
 
     return html`
       <div class=${containerClasses}>
         <svg
-          class="mx-auto h-12 w-12 text-slate-400 dark:text-slate-500 mb-4"
+          class="mx-auto h-12 w-12 ml-text-muted mb-4"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -331,7 +330,7 @@ export class MlAreaChartMolecule extends MoleculeAuraElement {
           x=${this.padding.left - 10}
           y=${y + 4}
           text-anchor="end"
-          class="text-xs fill-slate-500 dark:fill-slate-400"
+          class="text-xs ml-chart-axis"
         >${value}</text>
       `);
     }
@@ -343,7 +342,7 @@ export class MlAreaChartMolecule extends MoleculeAuraElement {
           x=${x}
           y=${this.chartHeight - this.padding.bottom + 20}
           text-anchor="middle"
-          class="text-xs fill-slate-500 dark:fill-slate-400"
+          class="text-xs ml-chart-axis"
         >${label}</text>
       `);
     });
@@ -417,7 +416,7 @@ export class MlAreaChartMolecule extends MoleculeAuraElement {
               x=${x}
               y=${y - 10}
               text-anchor="middle"
-              class="text-xs fill-slate-700 dark:fill-slate-300 font-medium"
+              class="text-xs ml-chart-axis font-medium"
             >${point.value}</text>
           `);
         }
@@ -430,19 +429,18 @@ export class MlAreaChartMolecule extends MoleculeAuraElement {
   private renderTooltip(): TemplateResult {
     if (!this.tooltip) return html``;
 
-    const tooltipClasses = [
+    const tooltipClasses = cn(
       'absolute pointer-events-none z-10 px-3 py-2 rounded-lg shadow-lg text-sm',
-      'bg-slate-900 dark:bg-slate-700',
-      'text-white',
-      'border border-slate-700 dark:border-slate-600',
-    ].join(' ');
+      'ml-chart-tooltip',
+      'border',
+    );
 
     const style = `left: ${this.tooltip.x}px; top: ${this.tooltip.y - 50}px; transform: translateX(-50%);`;
 
     return html`
       <div class=${tooltipClasses} style=${style}>
         <div class="font-medium">${this.tooltip.label}</div>
-        <div class="text-slate-300 dark:text-slate-400">
+        <div class="ml-chart-tooltip-detail">
           ${this.tooltip.series ? html`<span>${this.tooltip.series}: </span>` : ''}
           ${this.tooltip.value}
         </div>
@@ -457,10 +455,10 @@ export class MlAreaChartMolecule extends MoleculeAuraElement {
       'flex flex-wrap gap-4 mt-4 justify-center',
     ].join(' ');
 
-    const itemClasses = [
+    const itemClasses = cn(
       'flex items-center gap-2 text-sm',
-      'text-slate-700 dark:text-slate-300',
-    ].join(' ');
+      'ml-chart-legend',
+    );
 
     return html`
       <div class=${legendClasses}>
@@ -531,16 +529,17 @@ export class MlAreaChartMolecule extends MoleculeAuraElement {
     const maxValue = this.getMaxValue();
     const labels = this.getLabels();
 
-    const containerClasses = [
+    const containerClasses = cn(
       'w-full rounded-lg border p-4',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
-    ].join(' ');
+      'ml-chart-container',
+      this.cssClass,
+    );
 
-    const titleClasses = [
+    const titleClasses = cn(
       'text-lg font-semibold mb-4',
-      'text-slate-900 dark:text-slate-100',
-    ].join(' ');
+      'ml-label',
+      this.getSlotClass('Label'),
+    );
 
     const chartLabel = this.chartTitle || this.msg.chartLabel;
 
@@ -552,7 +551,7 @@ export class MlAreaChartMolecule extends MoleculeAuraElement {
         <div class="relative" role="img" aria-label=${chartLabel}>
           <svg
             viewBox="0 0 ${this.chartWidth} ${this.chartHeight}"
-            class="w-full h-auto text-slate-900 dark:text-slate-100"
+            class="w-full h-auto ml-text"
             preserveAspectRatio="xMidYMid meet"
           >
             ${this.renderGrid(maxValue, labels)}

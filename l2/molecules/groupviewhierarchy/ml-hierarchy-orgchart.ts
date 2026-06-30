@@ -4,19 +4,20 @@
 // =============================================================================
 // Skill Group: view + hierarchy
 // This molecule does NOT contain business logic.
-import { html, svg, TemplateResult, nothing} from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { customElement, state } from 'lit/decorators.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html, svg, TemplateResult, nothing} from'lit';
+import { unsafeHTML } from'lit/directives/unsafe-html.js';
+import { ifDefined } from'lit/directives/if-defined.js';
+import { customElement, state } from'lit/decorators.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
-empty: 'No hierarchy available',
-loading: 'Loading...',
-expand: 'Expand',
-collapse: 'Collapse',
+empty:'No hierarchy available',
+loading:'Loading...',
+expand:'Expand',
+collapse:'Collapse',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
@@ -44,13 +45,13 @@ private msg: MessageType = messages.en;
 // ===========================================================================
 // SLOT TAGS
 // ==========================================================================
-slotTags = ['Label', 'Node', 'Empty'];
+slotTags = ['Label','Node','Empty'];
 // ===========================================================================
 // PROPERTIES — From Contract
 // ==========================================================================
 @propertyDataSource({ type: Boolean })
 multiple = true;
-@propertyDataSource({ type: Boolean, attribute: 'expand-all' })
+@propertyDataSource({ type: Boolean, attribute:'expand-all' })
 expandAll = false;
 @propertyDataSource({ type: Boolean })
 disabled = false;
@@ -109,11 +110,11 @@ private getRootNodeElements(): Element[] {
 const nodes = this.getSlots('Node');
 return nodes.filter((node) => {
 const parent = node.parentElement;
-return !parent || parent.tagName.toLowerCase() !== 'node';
+return !parent || parent.tagName.toLowerCase() !=='node';
 });
 }
 private getChildNodeElements(node: Element): Element[] {
-return Array.from(node.children).filter((child) => child.tagName.toLowerCase() === 'node');
+return Array.from(node.children).filter((child) => child.tagName.toLowerCase() ==='node');
 }
 private getNodeLabelHtml(node: Element): string {
 const clone = node.cloneNode(true) as Element;
@@ -133,7 +134,7 @@ return node.hasAttribute('expanded');
 // ==========================================================================
 private ensureFocusPath() {
 const buttons = Array.from(this.querySelectorAll('.gvh-node-button')) as HTMLElement[];
-const paths = buttons.map((b) => b.dataset.path || '');
+const paths = buttons.map((b) => b.dataset.path ||'');
 if (paths.length === 0) return;
 if (!this.focusedPath || !paths.includes(this.focusedPath)) {
 this.focusedPath = paths[0];
@@ -166,7 +167,7 @@ this.applyToggle(model.path, model.value, nextExpanded, model.parentPath);
 private applyToggle(path: string, value: string | null, expanded: boolean, parentPath: string | null) {
 const next = { ...this.expandedState, [path]: expanded };
 if (!this.multiple && expanded) {
-const parentKey = parentPath ?? '';
+const parentKey = parentPath ??'';
 const siblings = Array.from(this.querySelectorAll(`.gvh-node-button[data-parent="${parentKey}"]`)) as HTMLElement[];
 siblings.forEach((el) => {
 const siblingPath = el.dataset.path;
@@ -189,23 +190,23 @@ const button = target.closest('.gvh-node-button') as HTMLElement | null;
 if (!button) return;
 const buttons = Array.from(this.querySelectorAll('.gvh-node-button')) as HTMLElement[];
 const currentIndex = buttons.indexOf(button);
-const hasChildren = button.dataset.hasChildren === 'true';
-const expanded = button.dataset.expanded === 'true';
-const path = button.dataset.path || '';
+const hasChildren = button.dataset.hasChildren ==='true';
+const expanded = button.dataset.expanded ==='true';
+const path = button.dataset.path ||'';
 const value = button.dataset.value || null;
 const parentPath = button.dataset.parent || null;
-const isDisabled = button.getAttribute('aria-disabled') === 'true';
-if (event.key === 'ArrowDown') {
+const isDisabled = button.getAttribute('aria-disabled') ==='true';
+if (event.key ==='ArrowDown') {
 event.preventDefault();
 this.focusButton(buttons[currentIndex + 1] || null);
 return;
 }
-if (event.key === 'ArrowUp') {
+if (event.key ==='ArrowUp') {
 event.preventDefault();
 this.focusButton(buttons[currentIndex - 1] || null);
 return;
 }
-if (event.key === 'ArrowRight') {
+if (event.key ==='ArrowRight') {
 event.preventDefault();
 if (!isDisabled && hasChildren && !expanded) {
 this.applyToggle(path, value, true, parentPath);
@@ -214,7 +215,7 @@ return;
 this.focusButton(buttons[currentIndex + 1] || null);
 return;
 }
-if (event.key === 'ArrowLeft') {
+if (event.key ==='ArrowLeft') {
 event.preventDefault();
 if (!isDisabled && hasChildren && expanded) {
 this.applyToggle(path, value, false, parentPath);
@@ -226,7 +227,7 @@ const parent = parentPath
 this.focusButton(parent);
 return;
 }
-if (event.key === 'Enter') {
+if (event.key ==='Enter') {
 event.preventDefault();
 if (isDisabled) return;
 if (hasChildren) {
@@ -246,12 +247,12 @@ detail: { value },
 render() {
 const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
-const labelContent = this.hasSlot('Label') ? this.getSlotContent('Label') : '';
+const labelContent = this.hasSlot('Label') ? this.getSlotContent('Label') :'';
 const tree = this.buildTree();
 return html`
-<div class="w-full text-sm text-slate-900 dark:text-slate-100" role="tree" @keydown=${this.handleKeyDown}>
+<div class="${cn('w-full text-sm ml-text', this.cssClass)}" role="tree" @keydown=${this.handleKeyDown}>
 ${labelContent
-? html`<div class="mb-3 text-base font-semibold text-slate-900 dark:text-slate-100">${unsafeHTML(labelContent)}</div>`
+? html`<div class="${cn('mb-3 text-base font-semibold ml-text', this.getSlotClass('Label'))}">${unsafeHTML(labelContent)}</div>`
 : nothing}
 ${this.loading
 ? this.renderLoading()
@@ -264,16 +265,16 @@ ${this.loading
 private renderLoading(): TemplateResult {
 return html`
 <div class="space-y-3" role="status" aria-live="polite">
-<div class="h-4 w-48 animate-pulse rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="h-4 w-56 animate-pulse rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="h-4 w-40 animate-pulse rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>
+<div class="h-4 w-48 animate-pulse rounded ml-surface-dim-bg"></div>
+<div class="h-4 w-56 animate-pulse rounded ml-surface-dim-bg"></div>
+<div class="h-4 w-40 animate-pulse rounded ml-surface-dim-bg"></div>
+<div class="text-xs ml-text-muted">${this.msg.loading}</div>
 </div>
 `;
 }
 private renderEmpty(): TemplateResult {
 const emptyContent = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
-return html`<div class="text-sm text-slate-500 dark:text-slate-400">${unsafeHTML(emptyContent)}</div>`;
+return html`<div class="${cn('text-sm ml-text-muted', this.getSlotClass('Empty'))}">${unsafeHTML(emptyContent)}</div>`;
 }
 private renderNode(model: NodeModel): TemplateResult {
 const nodeDisabled = this.disabled || model.disabled;
@@ -281,7 +282,7 @@ const buttonClasses = this.getNodeButtonClasses(nodeDisabled);
 const toggleClasses = this.getToggleButtonClasses(nodeDisabled);
 const connectorClasses = [
 'absolute -left-4 top-1/2 w-4 border-t',
-'border-slate-200 dark:border-slate-700',
+'ml-border',
 ].join(' ');
 return html`
 <div class="gvh-node-row">
@@ -303,14 +304,14 @@ ${this.renderChevron(model.expanded)}
 <button
 class="${buttonClasses} gvh-node-button"
 data-path=${model.path}
-data-parent=${model.parentPath ?? ''}
+data-parent=${model.parentPath ??''}
 data-value=${ifDefined(model.value ?? undefined)}
-data-has-children=${model.hasChildren ? 'true' : 'false'}
-data-expanded=${model.expanded ? 'true' : 'false'}
+data-has-children=${model.hasChildren ?'true' :'false'}
+data-expanded=${model.expanded ?'true' :'false'}
 role="treeitem"
-aria-disabled=${nodeDisabled ? 'true' : 'false'}
+aria-disabled=${nodeDisabled ?'true' :'false'}
 aria-expanded=${ifDefined(model.hasChildren ? String(model.expanded) : undefined)}
-tabindex=${this.focusedPath === model.path ? '0' : '-1'}
+tabindex=${this.focusedPath === model.path ?'0' :'-1'}
 @click=${(e: Event) => this.handleNodeClick(e, model)}
 @focus=${() => (this.focusedPath = model.path)}
 type="button"
@@ -320,7 +321,7 @@ ${unsafeHTML(model.labelHtml)}
 </div>
 ${model.hasChildren && model.expanded
 ? html`
-<div role="group" class="ml-6 space-y-3 border-l border-slate-200 dark:border-slate-700 pl-4">
+<div role="group" class="ml-6 space-y-3 border-l ml-border pl-4">
 ${model.children.map((child) => this.renderNode(child))}
 </div>
 `
@@ -330,8 +331,8 @@ ${model.children.map((child) => this.renderNode(child))}
 }
 private renderChevron(expanded: boolean): TemplateResult {
 const iconClasses = [
-'h-4 w-4 text-slate-600 dark:text-slate-300 transition-transform',
-expanded ? 'rotate-90' : 'rotate-0',
+'h-4 w-4 ml-text-muted transition-transform',
+expanded ?'rotate-90' :'rotate-0',
 ].join(' ');
 return html`
 <svg class="${iconClasses}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -342,20 +343,20 @@ ${svg`<path d="M7.25 4.75L12.5 10l-5.25 5.25-1.5-1.5L9.5 10 5.75 6.25z" />`}
 private getNodeButtonClasses(nodeDisabled: boolean): string {
 return [
 'flex items-center gap-2 rounded-md px-3 py-1.5 text-sm border transition',
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
-'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-nodeDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50 dark:hover:bg-slate-700',
+'ml-surface-bg',
+'ml-text',
+'ml-border',
+'',
+nodeDisabled ?'ml-disabled' :'hover:ml-surface-dim-bg',
 ].filter(Boolean).join(' ');
 }
 private getToggleButtonClasses(nodeDisabled: boolean): string {
 return [
 'flex h-6 w-6 items-center justify-center rounded-md transition',
-'bg-slate-50 dark:bg-slate-900',
-'border border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-nodeDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-100 dark:hover:bg-slate-700',
+'ml-surface-dim-bg',
+'border ml-border',
+'',
+nodeDisabled ?'ml-disabled' :'hover:ml-surface-dim-bg',
 ].filter(Boolean).join(' ');
 }
 }

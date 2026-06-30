@@ -4,24 +4,25 @@
 // =============================================================================
 // Skill Group: groupPlayMedia
 // This molecule does NOT contain business logic.
-import { html, TemplateResult } from 'lit';
-import { customElement, state, query } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html, TemplateResult } from'lit';
+import { customElement, state, query } from'lit/decorators.js';
+import { unsafeHTML } from'lit/directives/unsafe-html.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
-play: 'Play',
-pause: 'Pause',
-replay: 'Replay',
-mute: 'Mute',
-unmute: 'Unmute',
-loading: 'Loading audio...',
-error: 'Unable to load audio.',
-currentTime: 'Current time',
-duration: 'Duration',
-volume: 'Volume',
+play:'Play',
+pause:'Pause',
+replay:'Replay',
+mute:'Mute',
+unmute:'Unmute',
+loading:'Loading audio...',
+error:'Unable to load audio.',
+currentTime:'Current time',
+duration:'Duration',
+volume:'Volume',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
@@ -35,12 +36,12 @@ private msg: MessageType = messages.en;
 // ==========================================================================
 // SLOT TAGS
 // ==========================================================================
-slotTags = ['Label', 'Source', 'Track'];
+slotTags = ['Label','Source','Track'];
 // ==========================================================================
 // PROPERTIES — From Contract
 // ==========================================================================
 @propertyDataSource({ type: String })
-poster: string = '';
+poster: string ='';
 
 @propertyDataSource({ type: Boolean })
 autoplay = false;
@@ -52,7 +53,7 @@ loop = false;
 muted = false;
 
 @propertyDataSource({ type: String })
-preload: 'none' | 'metadata' | 'auto' = 'metadata';
+preload:'none' |'metadata' |'auto' ='metadata';
 
 @propertyDataSource({ type: Boolean })
 disabled = false;
@@ -228,27 +229,27 @@ this.setVolume(parseFloat(input.value));
 
 private handleKeyboard(e: KeyboardEvent) {
 if (this.disabled || this.errorMessage) return;
-if (e.code === 'Space') {
+if (e.code ==='Space') {
 e.preventDefault();
 this.togglePlay();
 return;
 }
-if (e.code === 'ArrowLeft') {
+if (e.code ==='ArrowLeft') {
 e.preventDefault();
 this.seekTo(this.currentTime - 5);
 return;
 }
-if (e.code === 'ArrowRight') {
+if (e.code ==='ArrowRight') {
 e.preventDefault();
 this.seekTo(this.currentTime + 5);
 return;
 }
-if (e.code === 'ArrowUp') {
+if (e.code ==='ArrowUp') {
 e.preventDefault();
 this.setVolume(this.volume + 0.05);
 return;
 }
-if (e.code === 'ArrowDown') {
+if (e.code ==='ArrowDown') {
 e.preventDefault();
 this.setVolume(this.volume - 0.05);
 }
@@ -269,37 +270,37 @@ this.audioEl.muted = this.muted;
 
 private getLabelText(): string {
 const labelContent = this.getSlotContent('Label');
-if (!labelContent) return 'Audio player';
+if (!labelContent) return'Audio player';
 const temp = document.createElement('div');
 temp.innerHTML = labelContent;
-return temp.textContent?.trim() || 'Audio player';
+return temp.textContent?.trim() ||'Audio player';
 }
 
 private formatTime(totalSeconds: number): string {
-if (!totalSeconds || Number.isNaN(totalSeconds)) return '0:00';
+if (!totalSeconds || Number.isNaN(totalSeconds)) return'0:00';
 const minutes = Math.floor(totalSeconds / 60);
 const seconds = Math.floor(totalSeconds % 60);
-return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+return `${minutes}:${seconds.toString().padStart(2,'0')}`;
 }
 
 private getButtonClasses(): string {
 return [
 'inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium border transition',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-'text-slate-900 dark:text-slate-100',
-'hover:bg-slate-50 dark:hover:bg-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-(this.disabled || this.errorMessage) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+'ml-surface-bg',
+'ml-border',
+'ml-text',
+'hover:ml-surface-dim-bg',
+'',
+(this.disabled || this.errorMessage) ?'ml-disabled' :'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 
 private getRangeClasses(): string {
 return [
 'w-full h-2 rounded-lg appearance-none cursor-pointer',
-'bg-slate-200 dark:bg-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-(this.disabled || this.errorMessage) ? 'opacity-50 cursor-not-allowed' : '',
+'ml-surface-dim-bg',
+'',
+(this.disabled || this.errorMessage) ?'ml-disabled' :'',
 ].filter(Boolean).join(' ');
 }
 
@@ -311,14 +312,14 @@ const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
 
 const sources = this.getSlots('Source').map((el) => ({
-src: el.getAttribute('src') || '',
-type: el.getAttribute('type') || '',
+src: el.getAttribute('src') ||'',
+type: el.getAttribute('type') ||'',
 }));
 const tracks = this.getSlots('Track').map((el) => ({
-src: el.getAttribute('src') || '',
-kind: el.getAttribute('kind') || 'subtitles',
-lang: el.getAttribute('lang') || '',
-label: el.getAttribute('label') || '',
+src: el.getAttribute('src') ||'',
+kind: el.getAttribute('kind') ||'subtitles',
+lang: el.getAttribute('lang') ||'',
+label: el.getAttribute('label') ||'',
 }));
 
 const labelContent = this.getSlotContent('Label');
@@ -326,27 +327,27 @@ const isLoading = this.loading || this.isBuffering;
 
 return html`
 <div
-class=${[
+class=${cn([
 'w-full rounded-xl border p-4 space-y-3',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-(this.disabled || this.errorMessage) ? 'opacity-70' : '',
-].filter(Boolean).join(' ')}
+'ml-surface-bg',
+'ml-border',
+(this.disabled || this.errorMessage) ?'opacity-70' :'',
+].filter(Boolean).join(' '), this.cssClass)}
 role="group"
 aria-label=${this.getLabelText()}
 @keydown=${this.handleKeyboard}
 >
 ${labelContent
-? html`<div class="text-sm font-medium text-slate-900 dark:text-slate-100">${unsafeHTML(labelContent)}</div>`
+? html`<div class="${cn('text-sm font-medium ml-text', this.getSlotClass('Label'))}">${unsafeHTML(labelContent)}</div>`
 : html``}
 
 <div class="relative">
 ${isLoading
-? html`<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-white/80 dark:bg-slate-900/70 text-slate-600 dark:text-slate-300 text-sm">${this.msg.loading}</div>`
+? html`<div class="absolute inset-0 flex items-center justify-center rounded-lg ml-surface-bg/80 ml-text-muted text-sm">${this.msg.loading}</div>`
 : html``}
 
 ${this.errorMessage
-? html`<div class="rounded-lg border border-red-500 dark:border-red-400 bg-red-50 dark:bg-red-900/30 px-3 py-2 text-sm text-red-600 dark:text-red-400">${this.errorMessage}</div>`
+? html`<div class="rounded-lg border ml-border-error ml-error-dim-bg px-3 py-2 text-sm ml-error-text">${this.errorMessage}</div>`
 : html`<audio
 @play=${this.handlePlay}
 @pause=${this.handlePause}
@@ -406,13 +407,13 @@ aria-valuenow=${String(this.currentTime)}
 />
 </div>
 
-<div class="text-xs text-slate-600 dark:text-slate-400 min-w-[90px] text-right">
+<div class="text-xs ml-text-muted min-w-[90px] text-right">
 ${this.formatTime(this.currentTime)} / ${this.formatTime(this.duration)}
 </div>
 </div>
 
 <div class="flex items-center gap-3">
-<span class="text-xs text-slate-600 dark:text-slate-400">${this.msg.volume}</span>
+<span class="text-xs ml-text-muted">${this.msg.volume}</span>
 <input
 class=${this.getRangeClasses()}
 type="range"

@@ -11,6 +11,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -202,59 +203,33 @@ export class MlVerticalStepperMolecule extends MoleculeAuraElement {
   private getStepButtonClasses(isActive: boolean, isCompleted: boolean, isDisabled: boolean): string {
     return [
       'flex w-full items-start gap-3 rounded-md p-1 text-left transition',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      isDisabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
-      isActive ? 'bg-sky-50 dark:bg-sky-900/40' : 'hover:bg-slate-50 dark:hover:bg-slate-700',
-      isCompleted && !isActive ? 'bg-transparent' : '',
+      'ml-step',
+      isDisabled ? 'ml-disabled' : 'cursor-pointer',
+      isActive ? 'ml-step-active' : '',
     ]
       .filter(Boolean)
       .join(' ');
   }
 
   private getIndicatorClasses(isActive: boolean, isCompleted: boolean, isDisabled: boolean): string {
-    if (isCompleted) {
-      return [
-        'flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold',
-        'bg-sky-500 dark:bg-sky-400',
-        'text-white dark:text-slate-900',
-        'border-sky-500 dark:border-sky-400',
-      ].join(' ');
-    }
-
-    if (isActive) {
-      return [
-        'flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold',
-        'bg-sky-50 dark:bg-sky-900/40',
-        'text-sky-700 dark:text-sky-300',
-        'border-sky-500 dark:border-sky-400',
-      ].join(' ');
-    }
-
     return [
       'flex h-8 w-8 items-center justify-center rounded-full border text-xs font-semibold',
-      isDisabled
-        ? 'bg-slate-50 dark:bg-slate-900 text-slate-400 dark:text-slate-600 border-slate-200 dark:border-slate-700'
-        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-600',
-    ].join(' ');
+      'ml-step-number',
+      isCompleted ? 'ml-step-completed' : '',
+      isActive ? 'ml-step-number-active' : '',
+      isDisabled ? 'ml-text-muted' : '',
+    ].filter(Boolean).join(' ');
   }
 
   private getTitleClasses(isActive: boolean, isCompleted: boolean, isDisabled: boolean): string {
-    if (isDisabled) {
-      return 'text-sm font-medium text-slate-400 dark:text-slate-600';
-    }
-    if (isActive) {
-      return 'text-sm font-medium text-sky-700 dark:text-sky-300';
-    }
-    if (isCompleted) {
-      return 'text-sm font-medium text-slate-900 dark:text-slate-100';
-    }
-    return 'text-sm font-medium text-slate-700 dark:text-slate-300';
+    return [
+      'text-sm font-medium',
+      isDisabled ? 'ml-text-muted' : isActive ? 'ml-step-active-text' : 'ml-text',
+    ].join(' ');
   }
 
   private getDescriptionClasses(isDisabled: boolean): string {
-    return isDisabled
-      ? 'text-xs text-slate-400 dark:text-slate-600'
-      : 'text-xs text-slate-500 dark:text-slate-400';
+    return 'text-xs ml-text-muted';
   }
 
   private getConnectorClasses(index: number, steps: StepItem[]): string {
@@ -263,10 +238,9 @@ export class MlVerticalStepperMolecule extends MoleculeAuraElement {
     const isNextCompleted = next?.completed ?? false;
     return [
       'mt-2 h-6 w-px',
-      isNextActive || isNextCompleted
-        ? 'bg-sky-500 dark:bg-sky-400'
-        : 'bg-slate-200 dark:bg-slate-700',
-    ].join(' ');
+      'ml-step-connector',
+      isNextActive || isNextCompleted ? 'ml-step-connector-completed' : '',
+    ].filter(Boolean).join(' ');
   }
 
   // ==========================================================================
@@ -278,7 +252,7 @@ export class MlVerticalStepperMolecule extends MoleculeAuraElement {
 
     if (this.loading) {
       return html`
-        <div class="rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 text-sm text-slate-600 dark:text-slate-400">
+        <div class="rounded-md border p-4 text-sm ml-step-container ml-text-muted">
           ${this.msg.loading}
         </div>
       `;
@@ -287,7 +261,7 @@ export class MlVerticalStepperMolecule extends MoleculeAuraElement {
     const steps = this.parseSteps();
     if (steps.length === 0) {
       return html`
-        <div class="rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 text-sm text-slate-500 dark:text-slate-400">
+        <div class="rounded-md border p-4 text-sm ml-step-container ml-text-muted">
           ${this.msg.empty}
         </div>
       `;
@@ -296,10 +270,10 @@ export class MlVerticalStepperMolecule extends MoleculeAuraElement {
     const labelText = this.getLabelText();
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.hasSlot('Label')
         ? html`
-              <div class="mb-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+              <div class="mb-3 text-sm font-medium ml-label">
                 ${unsafeHTML(this.getSlotContent('Label'))}
               </div>
             `

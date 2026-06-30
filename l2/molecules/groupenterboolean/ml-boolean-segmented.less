@@ -1,9 +1,63 @@
-/// <mls fileReference="_102040_/l2/molecules/groupenterboolean/ml-boolean-segmented.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupenterboolean/ml-boolean-segmented.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupenterboolean--ml-boolean-segmented-102040 {
+groupenterboolean--ml-boolean-segmented {
 
-// Here your less
+  .ml-text {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
 
- }
+  .ml-label {
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    font-weight: var(--ml-font-weight-medium, 500);
+    color: var(--ml-on-surface, #1c1b1f);
+  }
 
+  .ml-helper {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
 
+  .ml-error-text {
+    color: var(--ml-error, #ef4444);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
+
+  .ml-segmented-track {
+    border-radius: var(--ml-radius-md, 0.375rem);
+  }
+
+  .ml-segmented-option {
+    background: var(--ml-surface, #ffffff);
+    color: var(--ml-on-surface, #1c1b1f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    font-weight: var(--ml-font-weight-medium, 500);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-radius: var(--ml-radius-md, 0.375rem);
+    transition: background var(--ml-transition, 200ms ease), border-color var(--ml-transition, 200ms ease), color var(--ml-transition, 200ms ease);
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+    }
+    &:hover:not(.ml-disabled):not(.ml-segmented-option-active) {
+      background: var(--ml-surface-variant, #f1f5f9);
+    }
+  }
+
+  .ml-segmented-option-active {
+    background: var(--ml-primary-container, #e0f2fe);
+    color: var(--ml-on-primary-container, #0369a1);
+    border-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-segmented-option-error {
+    border-color: var(--ml-outline-error, #ef4444);
+  }
+
+  .ml-disabled {
+    opacity: var(--ml-disabled-opacity, 0.5);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+}

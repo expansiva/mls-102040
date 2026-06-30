@@ -10,6 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -203,15 +204,15 @@ export class PieChartMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     const content = this.getSlotContent('Label');
-    return html`<div class="mb-3 text-sm font-medium text-slate-900 dark:text-slate-100">${unsafeHTML(content)}</div>`;
+    return html`<div class="${cn('mb-3 text-sm font-medium ml-label', this.getSlotClass('Label'))}">${unsafeHTML(content)}</div>`;
   }
 
   private renderLoading(): TemplateResult {
     return html`
-      <div class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
-        <div class="h-4 w-40 rounded bg-slate-200 dark:bg-slate-700 animate-pulse"></div>
-        <div class="mt-4 h-40 w-full rounded-full bg-slate-100 dark:bg-slate-700 animate-pulse"></div>
-        <div class="mt-3 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>
+      <div class="w-full rounded-lg border ml-chart-container p-6">
+        <div class="h-4 w-40 rounded ml-skeleton animate-pulse"></div>
+        <div class="mt-4 h-40 w-full rounded-full ml-skeleton animate-pulse"></div>
+        <div class="mt-3 text-xs ml-text-muted">${this.msg.loading}</div>
       </div>
     `;
   }
@@ -219,8 +220,8 @@ export class PieChartMolecule extends MoleculeAuraElement {
   private renderEmpty(): TemplateResult {
     const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
     return html`
-      <div class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-6">
-        <div class="text-sm text-slate-500 dark:text-slate-400">${unsafeHTML(content)}</div>
+      <div class="w-full rounded-lg border ml-chart-container p-6">
+        <div class="text-sm ml-text-muted">${unsafeHTML(content)}</div>
       </div>
     `;
   }
@@ -234,7 +235,7 @@ export class PieChartMolecule extends MoleculeAuraElement {
     if (items.length === 0) return html``;
 
     return html`
-      <div class="mt-4 grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-400">
+      <div class="mt-4 grid grid-cols-2 gap-2 text-xs ml-chart-legend">
         ${items.map(
       (item) => html`
             <div class="flex items-center gap-2">
@@ -276,10 +277,10 @@ export class PieChartMolecule extends MoleculeAuraElement {
   private renderTooltip(): TemplateResult {
     if (!this.hoverState) return html``;
     const { label, value, series, color, x, y } = this.hoverState;
-    const seriesLabel = series ? html`<div class="text-[10px] text-slate-500 dark:text-slate-400">${series}</div>` : html``;
+    const seriesLabel = series ? html`<div class="text-[10px] ml-text-muted">${series}</div>` : html``;
     return html`
       <div
-        class="pointer-events-none absolute z-10 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs text-slate-900 dark:text-slate-100 shadow"
+        class="pointer-events-none absolute z-10 rounded-md border ml-chart-tooltip px-3 py-2 text-xs shadow"
         style="left:${x + 12}px; top:${y + 12}px;"
       >
         <div class="flex items-center gap-2">
@@ -287,7 +288,7 @@ export class PieChartMolecule extends MoleculeAuraElement {
           <span class="font-medium">${label}</span>
         </div>
         ${seriesLabel}
-        <div class="mt-1 text-slate-600 dark:text-slate-400">${value}</div>
+        <div class="mt-1 ml-text-muted">${value}</div>
       </div>
     `;
   }
@@ -337,7 +338,7 @@ export class PieChartMolecule extends MoleculeAuraElement {
                         y="${labelPos.y}"
                         text-anchor="middle"
                         dominant-baseline="middle"
-                        class="text-[6px] fill-slate-900 dark:fill-slate-100"
+                        class="text-[6px] ml-chart-axis"
                       >
                         ${point.value}
                       </text>
@@ -364,7 +365,7 @@ export class PieChartMolecule extends MoleculeAuraElement {
     const points = this.getSegments();
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
         ${this.loading
         ? this.renderLoading()

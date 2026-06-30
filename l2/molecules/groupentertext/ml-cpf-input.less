@@ -1,9 +1,70 @@
-/// <mls fileReference="_102040_/l2/molecules/groupentertext/ml-cpf-input.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupentertext/ml-cpf-input.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupentertext--ml-cpf-input-102040 {
+groupentertext--ml-cpf-input {
 
-// Here your less
+  .ml-text {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
 
- }
+  .ml-text-muted {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
 
+  .ml-text-faint {
+    color: var(--ml-on-surface-faint, #79747e);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
 
+  .ml-label {
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    font-weight: var(--ml-font-weight-medium, 500);
+    color: var(--ml-on-surface, #1c1b1f);
+  }
+
+  .ml-helper {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
+
+  .ml-error-text {
+    color: var(--ml-error, #ef4444);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
+
+  .ml-input-container {
+    background: var(--ml-surface, #ffffff);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-radius: var(--ml-radius-sm, 6px);
+    transition: border-color var(--ml-transition, 200ms ease), box-shadow var(--ml-transition, 200ms ease);
+    &:focus-within {
+      border-color: var(--ml-outline-focus, #3b82f6);
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+    }
+  }
+
+  .ml-input-container-error {
+    border-color: var(--ml-outline-error, #ef4444) !important;
+  }
+
+  .ml-input {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    &::placeholder {
+      color: var(--ml-on-surface-faint, #79747e);
+    }
+  }
+
+  .ml-spinner {
+    border-color: var(--ml-outline-variant, #e2e8f0);
+    border-top-color: var(--ml-on-surface, #1c1b1f);
+  }
+
+  .ml-disabled {
+    opacity: var(--ml-disabled-opacity, 0.5);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+}

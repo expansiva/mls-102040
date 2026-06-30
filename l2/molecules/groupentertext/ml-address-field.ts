@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -369,39 +370,31 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
   // ===========================================================================
   private getInputClasses(hasError: boolean, isFocused: boolean): string {
     return [
-      'w-full rounded-lg px-3 py-2 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : isFocused
-          ? 'border-sky-500 dark:border-sky-400'
-          : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-      this.readonly ? 'bg-slate-50 dark:bg-slate-800 cursor-default' : '',
+      'w-full rounded-lg px-3 py-2 text-sm transition ml-input ml-input-container',
+      hasError ? 'ml-input-container-error' : '',
+      this.disabled ? 'ml-disabled' : '',
+      this.readonly ? 'cursor-default' : '',
     ].filter(Boolean).join(' ');
   }
 
   private getLabelClasses(): string {
-    return 'block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1';
+    return 'block text-sm font-medium mb-1 ml-label';
   }
 
   private getErrorClasses(): string {
-    return 'mt-1 text-xs text-red-600 dark:text-red-400';
+    return 'mt-1 text-xs ml-error-text';
   }
 
   private getHelperClasses(): string {
-    return 'mt-1 text-xs text-slate-500 dark:text-slate-400';
+    return 'mt-1 text-xs ml-helper';
   }
 
   private getViewValueClasses(): string {
-    return 'text-sm text-slate-900 dark:text-slate-100';
+    return 'text-sm ml-text';
   }
 
   private getCounterClasses(): string {
-    return 'mt-1 text-xs text-slate-500 dark:text-slate-400 text-right';
+    return 'mt-1 text-xs ml-text-muted text-right';
   }
 
   private getContainerClasses(): string {
@@ -418,7 +411,7 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
     return html`
       <label class="${this.getLabelClasses()}">
         ${text}
-        ${required ? html`<span class="text-red-500 dark:text-red-400">*</span>` : html``}
+        ${required ? html`<span class="ml-error-text">*</span>` : html``}
       </label>
     `;
   }
@@ -574,7 +567,7 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
           />
           ${this.isSearching ? html`
             <div class="absolute right-3 top-1/2 -translate-y-1/2">
-              <svg class="animate-spin h-4 w-4 text-sky-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg class="animate-spin h-4 w-4 ml-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
@@ -590,9 +583,9 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
     if (!this.loading) return html``;
     
     return html`
-      <div class="absolute inset-0 bg-white/50 dark:bg-slate-900/50 flex items-center justify-center rounded-lg z-10">
-        <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
-          <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <div class="absolute inset-0 flex items-center justify-center rounded-lg z-10 ml-loading-overlay">
+        <div class="flex items-center gap-2 ml-text-muted">
+          <svg class="animate-spin h-5 w-5 ml-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
@@ -610,9 +603,9 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
     this.msg = messages[lang];
 
     return html`
-      <div class="${this.getContainerClasses()}">
+      <div class="${cn(this.getContainerClasses(), this.cssClass)}">
         ${this.renderLoadingOverlay()}
-        
+
         <div class="space-y-4">
           <!-- Postal Code -->
           ${this.renderPostalCodeField()}

@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -348,14 +349,14 @@ render() {
 const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
 if (!this.isEditing) {
-return html`<div class="w-full">
+return html`<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
-<div class="text-sm text-slate-900 dark:text-slate-100">${this.formatRangeDisplay()}</div>
+<div class="text-sm ml-text">${this.formatRangeDisplay()}</div>
 </div>`;
 }
 
 if (this.loading) {
-return html`<div class="text-sm text-slate-600 dark:text-slate-400">${this.msg.loading}</div>`;
+return html`<div class="text-sm ml-text-muted">${this.msg.loading}</div>`;
 }
 
 const startMinMax = this.getStartMinMax();
@@ -367,7 +368,7 @@ const hasComplete = Boolean(this.startDatetime && this.endDatetime);
 const durationMinutes = this.getDurationMinutes();
 
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
 <div>
@@ -417,7 +418,7 @@ aria-describedby="${ariaDescribedBy}"
 </div>
 
 <div class="mt-3 grid grid-cols-1 gap-2 md:grid-cols-[1fr_auto]">
-<label class="text-xs text-slate-600 dark:text-slate-400" for="${this.componentId}-duration">
+<label class="text-xs ml-text-muted" for="${this.componentId}-duration">
 ${this.msg.duration}
 </label>
 <div class="flex gap-2">
@@ -454,28 +455,28 @@ ${this.renderHelper(errorId, helperId, durationMinutes, hasComplete)}
 // ===========================================================================
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
-return html`<div id="${this.getLabelId('Label')}" class="mb-2 text-sm text-slate-600 dark:text-slate-400">
+return html`<div id="${this.getLabelId('Label')}" class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </div>`;
 }
 
 private renderFieldLabel(tag: 'LabelStart' | 'LabelEnd', fallback: string): TemplateResult {
 const content = this.hasSlot(tag) ? this.getSlotContent(tag) : fallback;
-return html`<div id="${this.getLabelId(tag)}" class="mb-1 text-xs text-slate-600 dark:text-slate-400">
+return html`<div id="${this.getLabelId(tag)}" class="${cn('mb-1 text-xs ml-text-muted', this.getSlotClass(tag))}">
 ${unsafeHTML(content)}
 </div>`;
 }
 
 private renderHelper(errorId: string, helperId: string, durationMinutes: number | null, hasComplete: boolean): TemplateResult {
 if (this.error) {
-return html`<p id="${errorId}" class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>`;
+return html`<p id="${errorId}" class="mt-2 text-xs ml-error-text">${unsafeHTML(this.error)}</p>`;
 }
 const helper = this.hasSlot('Helper') ? this.getSlotContent('Helper') : '';
 if (!helper && (!hasComplete || durationMinutes === null)) return html``;
 const durationText = durationMinutes !== null
 ? `(${durationMinutes} ${this.msg.minutes.toLowerCase()})`
 : '';
-return html`<p id="${helperId}" class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+return html`<p id="${helperId}" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">
 ${unsafeHTML(helper)} ${durationText}
 </p>`;
 }
@@ -485,32 +486,24 @@ return `${this.componentId}-${tag}`;
 }
 
 private getInputClasses(isActive: boolean): string {
-const base = [
+return cn(
 'w-full rounded-md px-3 py-2 text-sm border transition',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-this.error
-? 'border-red-500 dark:border-red-400'
-: 'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-text',
-isActive ? 'ring-2 ring-sky-500 dark:ring-sky-400' : '',
-].filter(Boolean).join(' ');
-return base;
+'ml-input',
+this.error ? 'ml-input-container-error' : '',
+'ml-input-focus',
+this.disabled || this.loading ? 'ml-disabled' : 'cursor-text',
+isActive ? 'ml-input-active' : '',
+);
 }
 
 private getSelectClasses(): string {
-return [
+return cn(
 'rounded-md px-3 py-2 text-sm border transition',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-this.error
-? 'border-red-500 dark:border-red-400'
-: 'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-].filter(Boolean).join(' ');
+'ml-input',
+this.error ? 'ml-input-container-error' : '',
+'ml-input-focus',
+this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
+);
 }
 }
 

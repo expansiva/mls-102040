@@ -4,11 +4,12 @@
 // =============================================================================
 // Skill Group: groupRateItem
 // This molecule does NOT contain business logic.
-import { html, TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html, TemplateResult } from'lit';
+import { customElement, state } from'lit/decorators.js';
+import { unsafeHTML } from'lit/directives/unsafe-html.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 type RatingItem = {
 value: number;
 label: string;
@@ -19,23 +20,23 @@ export class MlRatingSliderMolecule extends MoleculeAuraElement {
 // ==========================================================================
 // SLOT TAGS
 // ==========================================================================
-slotTags = ['Label', 'Helper', 'Item'];
+slotTags = ['Label','Helper','Item'];
 // ==========================================================================
 // PROPERTIES — From Contract
 // ==========================================================================
 @propertyDataSource({ type: Number })
 value: number | null = null;
 @propertyDataSource({ type: String })
-error: string = '';
+error: string ='';
 @propertyDataSource({ type: String })
-name: string = '';
+name: string ='';
 @propertyDataSource({ type: Number })
 min: number = 0;
 @propertyDataSource({ type: Number })
 max: number = 5;
 @propertyDataSource({ type: Number })
 step: number = 1;
-@propertyDataSource({ type: Boolean, attribute: 'is-editing' })
+@propertyDataSource({ type: Boolean, attribute:'is-editing' })
 isEditing: boolean = true;
 @propertyDataSource({ type: Boolean })
 disabled: boolean = false;
@@ -95,19 +96,19 @@ if (options.length === 0) return;
 const currentIndex = options.findIndex(opt => opt === event.target);
 const valueIndex = this.getIndexFromValue(options, this.value);
 let index = currentIndex >= 0 ? currentIndex : (valueIndex >= 0 ? valueIndex : 0);
-if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+if (event.key ==='ArrowRight' || event.key ==='ArrowDown') {
 event.preventDefault();
 const next = Math.min(options.length - 1, index + 1);
 options[next].focus();
 this.previewHoverFromOption(options[next]);
 }
-if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+if (event.key ==='ArrowLeft' || event.key ==='ArrowUp') {
 event.preventDefault();
 const prev = Math.max(0, index - 1);
 options[prev].focus();
 this.previewHoverFromOption(options[prev]);
 }
-if (event.key === 'Enter' || event.key === ' ') {
+if (event.key ==='Enter' || event.key ==='') {
 event.preventDefault();
 const option = options[index];
 this.selectValueFromOption(option);
@@ -169,31 +170,31 @@ return itemValue <= activeValue;
 private getGroupClasses(hasError: boolean): string {
 return [
 'relative rounded-lg border px-2 py-3',
-'bg-white dark:bg-slate-800',
+'ml-surface-bg',
 hasError
-? 'border-red-500 dark:border-red-400'
-: 'border-slate-200 dark:border-slate-700',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-this.readonly ? 'opacity-70' : '',
+?'ml-border-error'
+:'ml-border',
+this.disabled ?'ml-disabled' :'',
+this.readonly ?'opacity-70' :'',
 ].filter(Boolean).join(' ');
 }
 private getOptionButtonClasses(isHighlighted: boolean): string {
 return [
 'w-7 h-7 rounded-full border flex items-center justify-center text-xs font-medium transition',
-'bg-white dark:bg-slate-800',
+'ml-surface-bg',
 isHighlighted
-? 'bg-sky-500 dark:bg-sky-600 border-sky-500 dark:border-sky-400 text-white'
-: 'border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300',
-!this.disabled && !this.readonly ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled || this.readonly ? 'cursor-not-allowed' : 'cursor-pointer',
+?'ml-primary-bg ml-border-focus'
+:'ml-border ml-text',
+!this.disabled && !this.readonly ?'hover:ml-surface-dim-bg' :'',
+'',
+this.disabled || this.readonly ?'cursor-not-allowed' :'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 const labelId = `label-${this.uid}`;
 return html`
-<div id=${labelId} class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+<div id=${labelId} class="${cn('mb-2 text-sm font-medium ml-text', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </div>
 `;
@@ -202,10 +203,10 @@ private renderHelperOrError(hasError: boolean): TemplateResult {
 if (!this.isEditing) return html``;
 if (this.error) {
 const errorId = `error-${this.uid}`;
-return html`<p id=${errorId} class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>`;
+return html`<p id=${errorId} class="mt-2 text-xs ml-error-text">${unsafeHTML(this.error)}</p>`;
 }
 if (this.hasSlot('Helper')) {
-return html`<p class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p class="${cn('mt-2 text-xs ml-text-muted', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }
@@ -213,13 +214,13 @@ private renderRatingOptions(items: RatingItem[], hasCustomItems: boolean): Templ
 const activeValue = this.getActiveValue();
 return html`
 <div class="relative flex items-start justify-between gap-3" @mouseleave=${this.handleGroupMouseLeave}>
-<div class="absolute left-3 right-3 top-3 h-1 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+<div class="absolute left-3 right-3 top-3 h-1 rounded-full ml-surface-dim-bg"></div>
 ${items.map((item, index) => {
 const highlighted = this.isHighlighted(item.value, activeValue);
 const buttonClasses = this.getOptionButtonClasses(highlighted);
 const labelBelow = item.fromSlot
 ? html``
-: html`<span class="text-xs text-slate-600 dark:text-slate-400">${item.label}</span>`;
+: html`<span class="text-xs ml-text-muted">${item.label}</span>`;
 const innerContent = item.fromSlot
 ? unsafeHTML(item.label)
 : html`<span class="w-2 h-2 rounded-full bg-current"></span>`;
@@ -254,15 +255,15 @@ private renderViewMode(items: RatingItem[], hasCustomItems: boolean): TemplateRe
 const label = this.renderLabel();
 if (this.value === null) {
 return html`
-<div class="text-slate-900 dark:text-slate-100">
+<div class="${cn('ml-text', this.cssClass)}">
 ${label}
-<div class="text-slate-400 dark:text-slate-500">—</div>
+<div class="ml-text-faint">—</div>
 ${this.name ? html`<input type="hidden" name=${this.name} value="">` : html``}
 </div>
 `;
 }
 return html`
-<div class="text-slate-900 dark:text-slate-100">
+<div class="${cn('ml-text', this.cssClass)}">
 ${label}
 ${this.renderRatingOptions(items, hasCustomItems)}
 ${this.name ? html`<input type="hidden" name=${this.name} value=${String(this.value)}>` : html``}
@@ -283,7 +284,7 @@ const hasError = Boolean(this.error) || invalidRequired;
 const labelId = this.hasSlot('Label') ? `label-${this.uid}` : undefined;
 const errorId = this.error ? `error-${this.uid}` : undefined;
 return html`
-<div class="text-slate-900 dark:text-slate-100">
+<div class="${cn('ml-text', this.cssClass)}">
 ${this.renderLabel()}
 <div
 class=${this.getGroupClasses(hasError)}
@@ -292,14 +293,14 @@ aria-disabled=${this.disabled}
 aria-readonly=${this.readonly}
 aria-required=${this.required}
 aria-invalid=${hasError}
-aria-labelledby=${labelId || ''}
-aria-describedby=${errorId || ''}
+aria-labelledby=${labelId ||''}
+aria-describedby=${errorId ||''}
 @keydown=${this.handleKeyDown}
 >
 ${this.renderRatingOptions(items, hasCustomItems)}
 </div>
 ${this.renderHelperOrError(hasError)}
-${this.name ? html`<input type="hidden" name=${this.name} value=${this.value === null ? '' : String(this.value)}>` : html``}
+${this.name ? html`<input type="hidden" name=${this.name} value=${this.value === null ?'' : String(this.value)}>` : html``}
 </div>
 `;
 }

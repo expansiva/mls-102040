@@ -9,6 +9,7 @@ import { customElement } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -106,7 +107,7 @@ export class BooleanSegmentedMolecule extends MoleculeAuraElement {
     return html`
       <div
         id=${this.labelId}
-        class="mb-1 text-sm font-medium text-slate-700 dark:text-slate-300"
+        class="${cn('mb-1 text-sm ml-label', this.getSlotClass('Label'))}"
       >
         ${unsafeHTML(this.getSlotContent('Label'))}
       </div>
@@ -119,7 +120,7 @@ export class BooleanSegmentedMolecule extends MoleculeAuraElement {
       return html`
         <div
           id=${this.helperId}
-          class="mt-1 text-xs text-red-600 dark:text-red-400"
+          class="mt-1 text-xs ml-error-text"
         >
           ${unsafeHTML(String(this.error))}
         </div>
@@ -129,7 +130,7 @@ export class BooleanSegmentedMolecule extends MoleculeAuraElement {
       return html`
         <div
           id=${this.helperId}
-          class="mt-1 text-xs text-slate-500 dark:text-slate-400"
+          class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}"
         >
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </div>
@@ -140,16 +141,10 @@ export class BooleanSegmentedMolecule extends MoleculeAuraElement {
 
   private getSegmentClasses(isSelected: boolean): string {
     return [
-      'flex-1 rounded-md px-3 py-2 text-sm font-medium border transition',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      isSelected
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-        : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-700',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-      !this.disabled && !isSelected
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700'
-        : '',
-      this.error ? 'border-red-500 dark:border-red-400' : '',
+      'flex-1 px-3 py-2 text-sm ml-segmented-option',
+      isSelected ? 'ml-segmented-option-active' : '',
+      this.disabled ? 'ml-disabled' : 'cursor-pointer',
+      this.error ? 'ml-segmented-option-error' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -158,7 +153,7 @@ export class BooleanSegmentedMolecule extends MoleculeAuraElement {
   private renderViewMode(): TemplateResult {
     const text = this.value ? this.msg.yes : this.msg.no;
     return html`
-      <div class="text-sm text-slate-900 dark:text-slate-100">
+      <div class="text-sm ml-text">
         ${text}
       </div>
     `;
@@ -169,7 +164,7 @@ export class BooleanSegmentedMolecule extends MoleculeAuraElement {
     const ariaDescribedBy = this.error || this.hasSlot('Helper') ? this.helperId : undefined;
     return html`
       <div
-        class="inline-flex w-full gap-2"
+        class="inline-flex w-full gap-2 ml-segmented-track"
         role="radiogroup"
         aria-labelledby=${ariaLabelledBy || ''}
         aria-describedby=${ariaDescribedBy || ''}
@@ -216,7 +211,7 @@ export class BooleanSegmentedMolecule extends MoleculeAuraElement {
     const lang = this.getMessageKey(messages);
     this.msg = messages[lang];
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
         ${this.isEditing ? this.renderEditMode() : this.renderViewMode()}
         ${this.renderHelperOrError()}

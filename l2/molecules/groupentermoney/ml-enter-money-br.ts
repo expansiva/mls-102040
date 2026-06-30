@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -215,20 +216,24 @@ export class EnterMoneyBrMolecule extends MoleculeAuraElement {
     const hasError = !!this.error;
     const isBlocked = this.disabled || this.loading;
     return [
-      'w-full rounded-lg px-3 py-2 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      hasError ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      isBlocked ? 'opacity-50 cursor-not-allowed' : '',
+      'w-full flex-1 bg-transparent outline-none text-sm ml-input',
+      isBlocked ? 'cursor-not-allowed' : '',
+      this.readonly ? 'cursor-default' : '',
+    ].filter(Boolean).join(' ');
+  }
+
+  private getContainerClasses(): string {
+    return [
+      'relative flex w-full items-center gap-2 ml-input-container py-2 px-3',
+      this.error ? 'ml-input-container-error' : '',
+      (this.disabled || this.loading) ? 'ml-disabled' : 'cursor-text',
     ].filter(Boolean).join(' ');
   }
 
   private renderLabel(labelId: string) {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <label id=${labelId} class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
+      <label id=${labelId} class="${cn('mb-1 block text-sm ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </label>
     `;
@@ -237,14 +242,14 @@ export class EnterMoneyBrMolecule extends MoleculeAuraElement {
   private renderHelper(helperId: string) {
     if (this.error) {
       return html`
-        <p id=${helperId} class="mt-1 text-xs text-red-600 dark:text-red-400">
+        <p id=${helperId} class="mt-1 text-xs ml-error-text">
           ${unsafeHTML(String(this.error))}
         </p>
       `;
     }
     if (this.hasSlot('Helper')) {
       return html`
-        <p id=${helperId} class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+        <p id=${helperId} class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
@@ -255,7 +260,7 @@ export class EnterMoneyBrMolecule extends MoleculeAuraElement {
   private renderLoading() {
     if (!this.loading) return html``;
     return html`
-      <div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>
+      <div class="mt-2 text-xs ml-text-muted">${this.msg.loading}</div>
     `;
   }
 
@@ -271,10 +276,10 @@ export class EnterMoneyBrMolecule extends MoleculeAuraElement {
 
     if (!this.isEditing) {
       return html`
-        <div class="w-full">
+        <div class="${cn('w-full', this.cssClass)}">
           ${this.renderLabel(labelId)}
           <div
-            class="text-sm text-slate-900 dark:text-slate-100"
+            class="text-sm ml-text"
             aria-labelledby=${labelId}
           >
             ${this.formatNumberToView(this.value)}
@@ -287,9 +292,9 @@ export class EnterMoneyBrMolecule extends MoleculeAuraElement {
     const ariaInvalid = this.error ? 'true' : 'false';
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel(labelId)}
-        <div class="relative">
+        <div class="${this.getContainerClasses()}">
           <input
             class=${this.getInputClasses()}
             type="text"

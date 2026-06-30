@@ -10,6 +10,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -100,7 +101,7 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
     const sectionElements = this.getSlots('Section');
     // Only process the first section as per spec
     const sectionsToProcess = sectionElements.slice(0, 1);
-    
+
     this.parsedSections = sectionsToProcess.map((el, index) => ({
       index,
       title: el.getAttribute('title') || '',
@@ -185,53 +186,41 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
   // ===========================================================================
   private getHeaderClasses(section: ParsedSection, isExpanded: boolean): string {
     const isDisabled = this.disabled || section.disabled;
-    
+
     return [
-      'w-full flex items-center justify-between px-4 py-3 text-left',
-      'rounded-lg border transition-all duration-200',
-      'bg-white dark:bg-slate-800',
-      'text-slate-900 dark:text-slate-100',
-      isExpanded
-        ? 'border-sky-500 dark:border-sky-400'
-        : 'border-slate-200 dark:border-slate-700',
-      isDisabled
-        ? 'opacity-50 cursor-not-allowed'
-        : 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700',
-      !isDisabled ? 'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400' : '',
+      'w-full flex items-center justify-between px-4 py-3 text-left transition-all duration-200',
+      'ml-expand-header',
+      isExpanded ? 'ml-expand-header-open' : '',
+      isDisabled ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getContentClasses(isExpanded: boolean): string {
     return [
-      'overflow-hidden transition-all duration-300 ease-in-out',
+      'overflow-hidden transition-all duration-300 ease-in-out ml-expand-content',
       isExpanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0',
     ].join(' ');
   }
 
   private getContentInnerClasses(): string {
     return [
-      'px-4 py-3 mt-2',
-      'bg-slate-50 dark:bg-slate-900',
-      'border border-slate-200 dark:border-slate-700',
-      'rounded-lg',
-      'text-slate-700 dark:text-slate-300',
+      'px-4 py-3 mt-2 ml-expand-content',
     ].join(' ');
   }
 
   private getChevronClasses(isExpanded: boolean): string {
     return [
-      'w-5 h-5 transition-transform duration-200',
-      'text-slate-500 dark:text-slate-400',
-      isExpanded ? 'rotate-180' : 'rotate-0',
+      'w-5 h-5 transition-transform duration-200 ml-expand-chevron',
+      isExpanded ? 'rotate-180 ml-expand-chevron-open' : 'rotate-0',
     ].join(' ');
   }
 
   private renderChevron(isExpanded: boolean): TemplateResult {
     return html`
-      <svg 
-        class="${this.getChevronClasses(isExpanded)}" 
-        fill="none" 
-        stroke="currentColor" 
+      <svg
+        class="${this.getChevronClasses(isExpanded)}"
+        fill="none"
+        stroke="currentColor"
         viewBox="0 0 24 24"
         aria-hidden="true"
       >
@@ -247,7 +236,7 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
 
     const labelContent = this.getSlotContent('Label');
     return html`
-      <div class="mb-3 text-sm font-medium text-slate-700 dark:text-slate-300">
+      <div class="${cn('mb-3 text-sm ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(labelContent)}
       </div>
     `;
@@ -256,8 +245,8 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
   private renderLoadingPlaceholder(): TemplateResult {
     return html`
       <div class="animate-pulse space-y-3">
-        <div class="h-12 bg-slate-200 dark:bg-slate-700 rounded-lg"></div>
-        <div class="h-24 bg-slate-100 dark:bg-slate-800 rounded-lg"></div>
+        <div class="h-12 ml-skeleton"></div>
+        <div class="h-24 ml-skeleton"></div>
       </div>
     `;
   }
@@ -269,7 +258,7 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
     const contentId = `section-content-${section.index}`;
 
     return html`
-      <div class="section-wrapper">
+      <div>
         <div
           id="${headerId}"
           role="button"
@@ -281,10 +270,10 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
           @click="${() => this.handleToggle(section)}"
           @keydown="${(e: KeyboardEvent) => this.handleKeyDown(e, section)}"
         >
-          <span class="font-medium text-sm">${section.title}</span>
+          <span class="text-sm ml-label">${section.title}</span>
           ${this.renderChevron(isExpanded)}
         </div>
-        
+
         <div
           id="${contentId}"
           role="region"
@@ -308,7 +297,7 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
 
     if (this.loading) {
       return html`
-        <div class="w-full">
+        <div class="${cn('w-full', this.cssClass)}">
           ${this.renderLabel()}
           ${this.renderLoadingPlaceholder()}
         </div>
@@ -321,7 +310,7 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
     }
 
     return html`
-      <div class="w-full space-y-2">
+      <div class="${cn('w-full space-y-2', this.cssClass)}">
         ${this.renderLabel()}
         ${this.parsedSections.map(section => this.renderSection(section))}
       </div>

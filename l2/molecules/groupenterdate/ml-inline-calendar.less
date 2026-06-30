@@ -1,9 +1,63 @@
-/// <mls fileReference="_102040_/l2/molecules/groupenterdate/ml-inline-calendar.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupenterdate/ml-inline-calendar.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupenterdate--ml-inline-calendar-102040 {
+groupenterdate--ml-inline-calendar {
 
-// Here your less
+  .ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
+  .ml-helper { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
 
- }
+  .ml-calendar-container {
+    background-color: var(--ml-surface, #ffffff);
+    border-color: var(--ml-outline-variant, #e2e8f0);
 
+    &--error {
+      border-color: var(--ml-error, #ef4444);
+    }
+  }
 
+  .ml-calendar-nav-btn {
+    background-color: var(--ml-surface, #ffffff);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+    color: var(--ml-on-surface, #1c1b1f);
+
+    &--enabled:hover {
+      background-color: var(--ml-surface-dim, #f5f5f5);
+    }
+  }
+
+  .ml-calendar-day {
+    background-color: var(--ml-surface, #ffffff);
+    color: var(--ml-on-surface, #1c1b1f);
+
+    &:focus {
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+    }
+
+    &--hoverable:hover {
+      background-color: var(--ml-surface-dim, #f5f5f5);
+    }
+  }
+
+  .ml-calendar-day-outside {
+    color: var(--ml-on-surface-faint, #79747e);
+  }
+
+  .ml-calendar-day-selected {
+    background-color: var(--ml-primary, #3b82f6);
+    color: var(--ml-on-primary, #ffffff);
+    border-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-calendar-day-today {
+    border-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-calendar-day-disabled {
+    opacity: var(--ml-disabled-opacity, 0.5);
+    cursor: not-allowed;
+  }
+
+}

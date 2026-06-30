@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -492,31 +493,23 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
   // RENDER HELPERS
   // ===========================================================================
   private getTriggerClasses(): string {
-    return [
-      'w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border text-sm transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      this.error
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      !this.disabled && !this.readonly
-        ? 'hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer'
-        : '',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+    return cn(
+      'ml-input-container w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg border text-sm transition',
+      this.error ? 'ml-input-container-error' : '',
+      !this.disabled && !this.readonly ? 'ml-input-container--hoverable cursor-pointer' : '',
+      this.disabled ? 'ml-disabled' : '',
       this.readonly ? 'cursor-default' : '',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-    ].filter(Boolean).join(' ');
+      'focus:outline-none focus:ring-2',
+    );
   }
 
   private getPresetClasses(isActive: boolean): string {
-    return [
-      'w-full px-3 py-2 text-sm rounded-md text-left transition',
-      isActive
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400'
-        : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700',
-      !isActive ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-    ].filter(Boolean).join(' ');
+    return cn(
+      'w-full px-3 py-2 text-sm rounded-md text-left transition border',
+      isActive ? 'ml-preset-active' : 'ml-preset',
+      !isActive ? 'ml-preset--hoverable' : '',
+      'focus:outline-none focus:ring-2',
+    );
   }
 
   private getDayClasses(day: { date: string; day: number; isCurrentMonth: boolean }): string {
@@ -526,23 +519,17 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
     const isEnd = this.isRangeEnd(day.date);
     const isToday = day.date === this.formatDateISO(new Date());
 
-    return [
-      'w-8 h-8 flex items-center justify-center text-sm rounded-md transition',
-      !day.isCurrentMonth ? 'text-slate-400 dark:text-slate-600' : '',
+    return cn(
+      'ml-calendar-day w-8 h-8 flex items-center justify-center text-sm rounded-md transition',
+      !day.isCurrentMonth ? 'ml-calendar-day-outside' : '',
       day.isCurrentMonth && !isDisabled && !isInRange && !isStart && !isEnd
-        ? 'text-slate-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-700'
+        ? 'ml-calendar-day--hoverable'
         : '',
-      isInRange && !isStart && !isEnd
-        ? 'bg-sky-100 dark:bg-sky-900/30 text-sky-900 dark:text-sky-100'
-        : '',
-      isStart || isEnd
-        ? 'bg-sky-500 dark:bg-sky-600 text-white'
-        : '',
-      isToday && !isStart && !isEnd && !isInRange
-        ? 'ring-1 ring-sky-500 dark:ring-sky-400'
-        : '',
-      isDisabled ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer',
-    ].filter(Boolean).join(' ');
+      isInRange && !isStart && !isEnd ? 'ml-interval-range' : '',
+      isStart || isEnd ? 'ml-interval-start' : '',
+      isToday && !isStart && !isEnd && !isInRange ? 'ml-calendar-day-today' : '',
+      isDisabled ? 'ml-calendar-day-disabled' : 'cursor-pointer',
+    );
   }
 
   // ===========================================================================
@@ -565,7 +552,7 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
 
   private renderLoading(): TemplateResult {
     return html`
-      <div class="flex items-center gap-2 px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+      <div class="flex items-center gap-2 px-3 py-2 text-sm ml-text-muted">
         ${this.renderSpinner()}
         <span>${this.msg.loading}</span>
       </div>
@@ -585,7 +572,7 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
 
   private renderViewMode(): TemplateResult {
     return html`
-      <div class="text-sm text-slate-900 dark:text-slate-100">
+      <div class="${cn('ml-text text-sm', this.cssClass)}">
         ${this.formatRangeDisplay()}
       </div>
     `;
@@ -593,7 +580,7 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
 
   private renderEditMode(): TemplateResult {
     return html`
-      <div class="relative w-full">
+      <div class="${cn('relative w-full', this.cssClass)}">
         ${this.renderLabel()}
         ${this.renderTrigger()}
         ${this.isOpen ? this.renderDropdown() : html``}
@@ -605,9 +592,9 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+      <label class="${cn('ml-label block text-sm mb-1', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
-        ${this.required ? html`<span class="text-red-500 dark:text-red-400">*</span>` : html``}
+        ${this.required ? html`<span class="ml-error-text">*</span>` : html``}
       </label>
     `;
   }
@@ -627,11 +614,11 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
         <div class="flex items-center gap-2 flex-1 min-w-0">
           ${this.renderCalendarIcon()}
           <div class="flex items-center gap-1 truncate">
-            <span class=${this.startDate ? 'text-slate-900 dark:text-slate-100' : 'text-slate-400 dark:text-slate-500'}>
+            <span class=${this.startDate ? 'ml-text' : 'ml-text-muted'}>
               ${this.formatDateDisplay(this.startDate)}
             </span>
-            <span class="text-slate-400 dark:text-slate-500">${this.msg.to}</span>
-            <span class=${this.endDate ? 'text-slate-900 dark:text-slate-100' : 'text-slate-400 dark:text-slate-500'}>
+            <span class="ml-text-muted">${this.msg.to}</span>
+            <span class=${this.endDate ? 'ml-text' : 'ml-text-muted'}>
               ${this.formatDateDisplay(this.endDate)}
             </span>
           </div>
@@ -643,7 +630,7 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
 
   private renderCalendarIcon(): TemplateResult {
     return html`
-      <svg class="w-4 h-4 text-slate-400 dark:text-slate-500 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+      <svg class="w-4 h-4 ml-text-muted flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
         ${svg`
           <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
         `}
@@ -653,7 +640,7 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
 
   private renderChevronIcon(): TemplateResult {
     return html`
-      <svg class="w-4 h-4 text-slate-400 dark:text-slate-500 flex-shrink-0 transition-transform ${this.isOpen ? 'rotate-180' : ''}" viewBox="0 0 20 20" fill="currentColor">
+      <svg class="w-4 h-4 ml-text-muted flex-shrink-0 transition-transform ${this.isOpen ? 'rotate-180' : ''}" viewBox="0 0 20 20" fill="currentColor">
         ${svg`
           <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
         `}
@@ -664,7 +651,7 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
   private renderDropdown(): TemplateResult {
     return html`
       <div
-        class="absolute z-50 mt-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg p-4 min-w-[320px]"
+        class="ml-calendar-container absolute z-50 mt-1 rounded-lg border p-4 min-w-[320px]"
         role="dialog"
         aria-modal="true"
       >
@@ -680,8 +667,8 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
 
   private renderPresets(): TemplateResult {
     return html`
-      <div class="w-40 border-r border-slate-200 dark:border-slate-700 pr-4">
-        <div class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">
+      <div class="ml-preset-sidebar w-40 border-r pr-4">
+        <div class="ml-text-muted text-xs font-medium uppercase tracking-wide mb-2">
           ${this.msg.presets}
         </div>
         <div class="flex flex-col gap-1">
@@ -708,7 +695,7 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
         ${this.renderCalendarHeader()}
         <div class="grid grid-cols-7 gap-1 mb-2">
           ${dayNames.map(name => html`
-            <div class="w-8 h-6 flex items-center justify-center text-xs font-medium text-slate-500 dark:text-slate-400">
+            <div class="w-8 h-6 flex items-center justify-center text-xs font-medium ml-text-muted">
               ${name}
             </div>
           `)}
@@ -740,19 +727,19 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
       <div class="flex items-center justify-between mb-4">
         <button
           type="button"
-          class="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400"
+          class="ml-calendar-nav p-1 rounded"
           @click=${this.handlePrevMonth}
         >
           <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
             ${svg`<path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"/>`}
           </svg>
         </button>
-        <span class="text-sm font-medium text-slate-900 dark:text-slate-100">
+        <span class="ml-text text-sm font-medium">
           ${this.msg.monthNames[this.viewingMonth]} ${this.viewingYear}
         </span>
         <button
           type="button"
-          class="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400"
+          class="ml-calendar-nav p-1 rounded"
           @click=${this.handleNextMonth}
         >
           <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
@@ -766,8 +753,8 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
   private renderSelectionHint(): TemplateResult {
     const hintText = this.selectingEnd ? this.msg.selectEndDate : this.msg.selectStartDate;
     return html`
-      <div class="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700">
-        <p class="text-xs text-slate-500 dark:text-slate-400 text-center">
+      <div class="ml-calendar-hint mt-3 pt-3 border-t">
+        <p class="ml-text-muted text-xs text-center">
           ${hintText}
         </p>
       </div>
@@ -777,14 +764,14 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
   private renderFeedback(): TemplateResult {
     if (this.error) {
       return html`
-        <p class="mt-1 text-xs text-red-600 dark:text-red-400" role="alert">
+        <p class="ml-error-text mt-1 text-xs" role="alert">
           ${unsafeHTML(String(this.error))}
         </p>
       `;
     }
     if (this.hasSlot('Helper')) {
       return html`
-        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+        <p class="${cn('ml-helper mt-1 text-xs', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;

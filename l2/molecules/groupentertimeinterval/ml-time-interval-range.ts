@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -232,29 +233,26 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
   }
 
   private getInputClasses(isActive: boolean, hasError: boolean): string {
-    return [
+    return cn(
       'w-full rounded-lg px-3 py-2 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+      'ml-input',
       hasError
-        ? 'border-red-500 dark:border-red-400'
+        ? 'ml-input-container-error'
         : isActive
-        ? 'border-sky-500 dark:border-sky-400'
-        : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-      this.readonly ? 'bg-slate-50 dark:bg-slate-900' : '',
-    ].filter(Boolean).join(' ');
+        ? 'ml-input-active'
+        : '',
+      'ml-input-focus',
+      this.disabled ? 'ml-disabled' : '',
+      this.readonly ? 'ml-interval-container-readonly' : '',
+    );
   }
 
   private getWrapperClasses(): string {
-    return [
+    return cn(
       'w-full rounded-xl border p-4 transition',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
-      this.disabled ? 'opacity-50' : '',
-    ].filter(Boolean).join(' ');
+      'ml-interval-container',
+      this.disabled ? 'ml-disabled' : '',
+    );
   }
 
   // ==========================================================================
@@ -279,13 +277,13 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
     const durationText = duration === null ? '' : `${duration} ${this.msg.minutes}`;
 
     return html`
-      <div class="${this.getWrapperClasses()}">
+      <div class="${cn(this.getWrapperClasses(), this.cssClass)}">
         ${this.renderMainLabel()}
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div class="flex flex-col gap-2">
-            <label id="${startLabelId}" class="text-xs font-medium text-slate-600 dark:text-slate-400">
+            <label id="${startLabelId}" class="${cn('text-xs font-medium ml-text-muted', this.getSlotClass('LabelStart'))}">
               ${this.renderLabelStart()}
-              ${this.required ? html`<span class="text-red-600 dark:text-red-400">*</span>` : nothing}
+              ${this.required ? html`<span class="ml-error-text">*</span>` : nothing}
             </label>
             <input
               type="time"
@@ -306,9 +304,9 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
             />
           </div>
           <div class="flex flex-col gap-2">
-            <label id="${endLabelId}" class="text-xs font-medium text-slate-600 dark:text-slate-400">
+            <label id="${endLabelId}" class="${cn('text-xs font-medium ml-text-muted', this.getSlotClass('LabelEnd'))}">
               ${this.renderLabelEnd()}
-              ${this.required ? html`<span class="text-red-600 dark:text-red-400">*</span>` : nothing}
+              ${this.required ? html`<span class="ml-error-text">*</span>` : nothing}
             </label>
             <input
               type="time"
@@ -329,17 +327,17 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
             />
           </div>
         </div>
-        <div class="mt-3 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+        <div class="mt-3 flex items-center justify-between text-xs ml-text-muted">
           <span>${this.msg.duration}</span>
-          <span class="text-slate-900 dark:text-slate-100">${durationText || this.msg.emptyView}</span>
+          <span class="ml-text">${durationText || this.msg.emptyView}</span>
         </div>
         ${hasError
-          ? html`<p id="${errorId}" class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(validationError)}</p>`
+          ? html`<p id="${errorId}" class="mt-2 text-xs ml-error-text">${unsafeHTML(validationError)}</p>`
           : this.hasSlot('Helper')
-            ? html`<p id="${helperId}" class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`
+            ? html`<p id="${helperId}" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`
             : nothing}
         ${this.loading
-          ? html`<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">Loading...</div>`
+          ? html`<div class="mt-2 text-xs ml-text-muted">Loading...</div>`
           : nothing}
       </div>
     `;
@@ -347,9 +345,9 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
 
   private renderMainLabel() {
     if (this.hasSlot('Label')) {
-      return html`<div class="mb-3 text-sm font-semibold text-slate-900 dark:text-slate-100">${unsafeHTML(this.getSlotContent('Label'))}</div>`;
+      return html`<div class="${cn('mb-3 text-sm font-semibold ml-label', this.getSlotClass('Label'))}">${unsafeHTML(this.getSlotContent('Label'))}</div>`;
     }
-    return html`<div class="mb-3 text-sm font-semibold text-slate-900 dark:text-slate-100">${this.msg.label}</div>`;
+    return html`<div class="mb-3 text-sm font-semibold ml-label">${this.msg.label}</div>`;
   }
 
   private renderLabelStart() {
@@ -373,8 +371,8 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
     const rangeText = `${startDisplay} – ${endDisplay}${overnight ? ` ${this.msg.nextDay}` : ''}`;
 
     return html`
-      <div class="w-full rounded-xl border p-4 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-        <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">
+      <div class="${cn('w-full rounded-xl border p-4 ml-interval-container', this.cssClass)}">
+        <div class="text-sm font-semibold ml-text">
           ${rangeText.includes(this.msg.emptyView) && !this.startTime && !this.endTime
             ? this.msg.emptyView
             : rangeText}

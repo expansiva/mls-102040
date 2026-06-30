@@ -10,6 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -443,7 +444,7 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <div id="${this.uid}-label" class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+      <div id="${this.uid}-label" class="${cn('mb-2 text-sm font-medium ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </div>
     `;
@@ -452,7 +453,7 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
   private renderStartLabel(): TemplateResult {
     if (!this.hasSlot('LabelStart')) return html``;
     return html`
-      <div id="${this.uid}-label-start" class="mb-1 text-xs text-slate-500 dark:text-slate-400">
+      <div id="${this.uid}-label-start" class="${cn('mb-1 text-xs ml-text-muted', this.getSlotClass('LabelStart'))}">
         ${unsafeHTML(this.getSlotContent('LabelStart'))}
       </div>
     `;
@@ -461,7 +462,7 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
   private renderEndLabel(): TemplateResult {
     if (!this.hasSlot('LabelEnd')) return html``;
     return html`
-      <div id="${this.uid}-label-end" class="mb-1 text-xs text-slate-500 dark:text-slate-400">
+      <div id="${this.uid}-label-end" class="${cn('mb-1 text-xs ml-text-muted', this.getSlotClass('LabelEnd'))}">
         ${unsafeHTML(this.getSlotContent('LabelEnd'))}
       </div>
     `;
@@ -470,17 +471,17 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
   private renderHelperOrError(): TemplateResult {
     if (!this.isEditing) return html``;
     if (this.error) {
-      return html`<p id="${this.uid}-error" class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+      return html`<p id="${this.uid}-error" class="mt-2 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<p id="${this.uid}-helper" class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+      return html`<p id="${this.uid}-helper" class="${cn('mt-2 text-xs ml-text-muted', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
     }
     return html``;
   }
 
   private renderCalendarIcon(): TemplateResult {
     return html`
-      <svg class="h-4 w-4 text-slate-400 dark:text-slate-500" viewBox="0 0 24 24" aria-hidden="true">
+      <svg class="h-4 w-4 ml-icon-muted" viewBox="0 0 24 24" aria-hidden="true">
         ${svg`
           <path fill="currentColor" d="M7 2a1 1 0 0 1 1 1v1h8V3a1 1 0 1 1 2 0v1h1.5A2.5 2.5 0 0 1 22 6.5v13A2.5 2.5 0 0 1 19.5 22h-15A2.5 2.5 0 0 1 2 19.5v-13A2.5 2.5 0 0 1 4.5 4H6V3a1 1 0 0 1 1-1Zm12.5 7h-15V19.5a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V9ZM6 6h12V6.5H6V6Z" />
         `}
@@ -500,9 +501,9 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
     const days = Array.from({ length: 42 }).map((_, i) => this.addDays(gridStart, i));
 
     return html`
-      <div class="flex-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3">
-        <div class="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-200">${title}</div>
-        <div class="grid grid-cols-7 gap-1 text-xs text-slate-500 dark:text-slate-400 mb-1">
+      <div class="flex-1 rounded-lg border p-3 ml-calendar-container">
+        <div class="mb-3 text-sm font-semibold ml-label">${title}</div>
+        <div class="grid grid-cols-7 gap-1 text-xs ml-text-muted mb-1">
           ${weekdayLabels.map((label) => html`<div class="text-center">${label}</div>`)}
         </div>
         <div class="grid grid-cols-7 gap-1" role="grid">
@@ -514,14 +515,13 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
             const inRange = this.isInRange(day);
             const disabled = this.isDateDisabled(day, this.selectingEnd ? 'end' : 'start');
 
-            const classes = [
-              'h-8 w-8 rounded-md text-xs font-medium transition',
-              isCurrentMonth ? 'text-slate-900 dark:text-slate-100' : 'text-slate-300 dark:text-slate-600',
-              inRange ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300' : '',
-              isStart || isEnd ? 'border border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300' : 'border border-transparent',
-              disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer',
-              'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-            ].filter(Boolean).join(' ');
+            const classes = cn(
+              'h-8 w-8 rounded-md text-xs font-medium transition ml-calendar-day',
+              isCurrentMonth ? 'ml-text' : 'ml-calendar-day-outside',
+              inRange ? 'ml-interval-range' : '',
+              isStart || isEnd ? 'border ml-interval-start' : 'border border-transparent',
+              disabled ? 'ml-calendar-day-disabled' : 'ml-calendar-day--hoverable cursor-pointer',
+            );
 
             return html`
               <button
@@ -550,27 +550,27 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
     const navDisabledPrev = !this.canNavigateToMonth(this.addMonths(this.currentMonthLeft, -1));
     const navDisabledNext = !this.canNavigateToMonth(this.addMonths(this.currentMonthLeft, 1));
 
-    const panelClasses = [
-      'mt-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3',
-      'shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50',
-    ].join(' ');
+    const panelClasses = cn(
+      'mt-3 rounded-lg border p-3 ml-calendar-panel',
+      'shadow-lg',
+    );
 
     return html`
       <div class="${panelClasses}" role="dialog" aria-modal="true">
         <div class="mb-3 flex items-center justify-between">
           <button
             type="button"
-            class="h-8 w-8 rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50"
+            class="h-8 w-8 rounded-md ml-calendar-nav disabled:opacity-50"
             ?disabled=${navDisabledPrev}
             @click=${this.handlePrevMonth}
             aria-label="Previous month"
           >
             ${svg`<svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" /></svg>`}
           </button>
-          <div class="text-xs text-slate-500 dark:text-slate-400">${this.selectingEnd ? this.msg.placeholderEnd : this.msg.placeholderStart}</div>
+          <div class="text-xs ml-text-muted">${this.selectingEnd ? this.msg.placeholderEnd : this.msg.placeholderStart}</div>
           <button
             type="button"
-            class="h-8 w-8 rounded-md text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-50"
+            class="h-8 w-8 rounded-md ml-calendar-nav disabled:opacity-50"
             ?disabled=${navDisabledNext}
             @click=${this.handleNextMonth}
             aria-label="Next month"
@@ -585,12 +585,12 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
         <div class="mt-3 flex justify-between">
           <button
             type="button"
-            class="text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100"
+            class="text-xs ml-clear-btn"
             @click=${this.handleClear}
           >
             ${this.msg.clear}
           </button>
-          <div class="text-xs text-slate-500 dark:text-slate-400">
+          <div class="text-xs ml-text-muted">
             ${this.minRangeDays > 0 ? html`<span>Min: ${this.minRangeDays}</span>` : html``}
             ${this.maxRangeDays > 0 ? html`<span class="ml-2">Max: ${this.maxRangeDays}</span>` : html``}
           </div>
@@ -605,9 +605,9 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
     const value = `${start} – ${end}`;
 
     return html`
-      <div class="flex flex-col" @focusin=${this.handleFocusIn} @focusout=${this.handleFocusOut}>
+      <div class="${cn('flex flex-col', this.cssClass)}" @focusin=${this.handleFocusIn} @focusout=${this.handleFocusOut}>
         ${this.renderLabel()}
-        <div class="text-sm text-slate-900 dark:text-slate-100">${value}</div>
+        <div class="text-sm ml-text">${value}</div>
       </div>
     `;
   }
@@ -617,19 +617,18 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
     const startText = this.startDate ? this.formatDisplay(this.startDate) : this.msg.placeholderStart;
     const endText = this.endDate ? this.formatDisplay(this.endDate) : this.msg.placeholderEnd;
 
-    const triggerBase = [
+    const triggerBase = cn(
       'w-full rounded-lg border px-3 py-2 text-left text-sm transition flex items-center justify-between gap-2',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      hasError ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      (this.disabled || this.loading) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-    ].join(' ');
+      'ml-input-container ml-text',
+      hasError ? 'ml-input-container-error' : '',
+      (this.disabled || this.loading) ? 'ml-disabled' : 'cursor-pointer',
+    );
 
-    const containerClasses = [
-      'rounded-lg border border-slate-200 dark:border-slate-700 p-4',
-      (this.disabled || this.loading) ? 'opacity-50' : '',
-    ].filter(Boolean).join(' ');
+    const containerClasses = cn(
+      'rounded-lg border p-4 ml-input-container',
+      (this.disabled || this.loading) ? 'ml-disabled' : '',
+      this.cssClass,
+    );
 
     return html`
       <div class="${containerClasses}" @focusin=${this.handleFocusIn} @focusout=${this.handleFocusOut}>
@@ -646,7 +645,7 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
               ?disabled=${this.disabled || this.readonly || this.loading}
               @click=${() => this.handleOpenCalendar(false)}
             >
-              <span class="${this.startDate ? '' : 'text-slate-400 dark:text-slate-500'}">${startText}</span>
+              <span class="${this.startDate ? '' : 'ml-placeholder'}">${startText}</span>
               ${this.renderCalendarIcon()}
             </button>
           </div>
@@ -661,13 +660,13 @@ export class DateRangeDualCalendarMolecule extends MoleculeAuraElement {
               ?disabled=${this.disabled || this.readonly || this.loading}
               @click=${() => this.handleOpenCalendar(true)}
             >
-              <span class="${this.endDate ? '' : 'text-slate-400 dark:text-slate-500'}">${endText}</span>
+              <span class="${this.endDate ? '' : 'ml-placeholder'}">${endText}</span>
               ${this.renderCalendarIcon()}
             </button>
           </div>
         </div>
 
-        ${this.loading ? html`<div class="mt-3 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>` : html``}
+        ${this.loading ? html`<div class="mt-3 text-xs ml-text-muted">${this.msg.loading}</div>` : html``}
         ${this.renderCalendarPanel()}
         ${this.renderHelperOrError()}
 

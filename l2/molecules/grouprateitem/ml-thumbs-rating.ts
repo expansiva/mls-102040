@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -144,8 +145,8 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
   private getGroupClasses(errorState: boolean): string {
     return [
       'flex items-center gap-2 rounded-md border p-1 w-max',
-      errorState ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-      this.disabled ? 'opacity-50' : '',
+      errorState ? 'ml-border-error' : 'ml-border',
+      this.disabled ? 'ml-disabled' : '',
       !this.disabled && this.readonly ? 'opacity-80' : '',
     ].filter(Boolean).join(' ');
   }
@@ -153,14 +154,13 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
   private getOptionClasses(isActive: boolean, isEditing: boolean): string {
     return [
       'inline-flex items-center justify-center rounded-md border px-3 py-2 text-xl transition',
-      'bg-white dark:bg-slate-800',
-      'text-slate-700 dark:text-slate-300',
+      'ml-surface ml-text',
       isActive
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-        : 'border-slate-200 dark:border-slate-700',
-      isEditing && this.canInteract() && !isActive ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-      isEditing && this.canInteract() ? 'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400' : '',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+        ? 'ml-thumbs-option-selected'
+        : 'ml-border',
+      isEditing && this.canInteract() && !isActive ? 'ml-thumbs-option' : '',
+      isEditing && this.canInteract() ? 'ml-focus-ring' : '',
+      this.disabled ? 'ml-disabled' : '',
       !this.disabled && (this.readonly || !isEditing) ? 'cursor-default' : '',
       this.canInteract() ? 'cursor-pointer' : '',
     ].filter(Boolean).join(' ');
@@ -256,7 +256,7 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
   private renderLabel() {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <div id=${this.labelId} class="text-sm font-medium text-slate-700 dark:text-slate-300">
+      <div id=${this.labelId} class="${cn('text-sm ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </div>
     `;
@@ -267,7 +267,7 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
 
     if (this.error) {
       return html`
-        <div id=${this.errorId} class="text-xs text-red-600 dark:text-red-400">
+        <div id=${this.errorId} class="text-xs ml-error-text">
           ${unsafeHTML(this.error)}
         </div>
       `;
@@ -275,7 +275,7 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
 
     if (this.hasSlot('Helper')) {
       return html`
-        <div id=${this.helperId} class="text-xs text-slate-500 dark:text-slate-400">
+        <div id=${this.helperId} class="${cn('text-xs ml-helper', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </div>
       `;
@@ -338,7 +338,7 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
     if (!this.isEditing) {
       const hasValue = this.value !== null;
       return html`
-        <div class="flex flex-col gap-1">
+        <div class="${cn('flex flex-col gap-1', this.cssClass)}">
           ${this.renderLabel()}
           <div
             class=${this.getGroupClasses(false)}
@@ -348,14 +348,14 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
           >
             ${hasValue
               ? items.map((item, index) => this.renderOption(item, index, false))
-              : html`<span class="px-3 py-2 text-slate-400 dark:text-slate-500">${this.msg.empty}</span>`}
+              : html`<span class="px-3 py-2 ml-text-muted">${this.msg.empty}</span>`}
           </div>
         </div>
       `;
     }
 
     return html`
-      <div class="flex flex-col gap-1" data-name=${this.name}>
+      <div class="${cn('flex flex-col gap-1', this.cssClass)}" data-name=${this.name}>
         ${this.renderLabel()}
         <div
           class=${this.getGroupClasses(errorState)}

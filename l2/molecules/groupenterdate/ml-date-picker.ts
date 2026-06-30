@@ -9,6 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -99,7 +100,7 @@ private viewYear: number = new Date().getUTCFullYear();
 private fieldId: string = `date-${Math.random().toString(36).slice(2)}`;
 
 protected portalContainer: HTMLDivElement | null = null;
-protected portalClassName = '';
+protected portalClassName = 'groupenterdate--ml-date-picker';
 private boundUpdatePosition: () => void = this.updatePanelPosition.bind(this);
 
 // ===========================================================================
@@ -376,44 +377,37 @@ return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
 }
 
 private getContainerClasses(): string {
-return [
-'relative w-full',
-].join(' ');
+return cn('relative w-full', this.cssClass);
 }
 
 private getTriggerClasses(hasError: boolean): string {
-return [
-'w-full rounded-lg px-3 py-2 text-sm border transition flex items-center justify-between gap-2',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-hasError ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+return cn(
+'ml-date-picker-trigger w-full rounded-lg px-3 py-2 text-sm border transition flex items-center justify-between gap-2',
+hasError ? 'ml-date-picker-trigger--error' : '',
+'focus:outline-none focus:ring-2',
+this.disabled ? 'ml-disabled' : 'cursor-pointer',
 this.readonly ? 'select-text' : '',
-].filter(Boolean).join(' ');
+);
 }
 
 private getDayClasses(isToday: boolean, isSelected: boolean, disabled: boolean): string {
-return [
-'w-9 h-9 rounded-md text-sm flex items-center justify-center transition',
+return cn(
+'ml-calendar-day w-9 h-9 rounded-md text-sm flex items-center justify-center transition',
 'border border-transparent',
-isSelected
-? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-: 'text-slate-900 dark:text-slate-100',
-!disabled && !isSelected ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-isToday && !isSelected ? 'border-sky-500 dark:border-sky-400' : '',
-].filter(Boolean).join(' ');
+isSelected ? 'ml-calendar-day-selected' : '',
+!isSelected && isToday ? 'ml-calendar-day-today' : '',
+!disabled && !isSelected ? 'ml-calendar-day--hoverable' : '',
+disabled ? 'ml-calendar-day-disabled' : '',
+);
 }
 
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 const labelId = `${this.fieldId}-label`;
 return html`
-<label id=${labelId} class="mb-1 block text-sm text-slate-600 dark:text-slate-400">
+<label id=${labelId} class="${cn('ml-label mb-1 block text-sm', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
-${this.required ? html`<span class="text-red-600 dark:text-red-400"> *</span>` : html``}
+${this.required ? html`<span class="ml-error-text"> *</span>` : html``}
 </label>
 `;
 }
@@ -421,10 +415,10 @@ ${this.required ? html`<span class="text-red-600 dark:text-red-400"> *</span>` :
 private renderHelperOrError(): TemplateResult {
 if (!this.isEditing) return html``;
 if (this.error) {
-return html`<p id=${`${this.fieldId}-error`} class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>`;
+return html`<p id=${`${this.fieldId}-error`} class="ml-error-text mt-1 text-xs">${unsafeHTML(this.error)}</p>`;
 }
 if (this.hasSlot('Helper')) {
-return html`<p id=${`${this.fieldId}-helper`} class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p id=${`${this.fieldId}-helper`} class="${cn('ml-helper mt-1 text-xs', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }
@@ -466,7 +460,7 @@ zIndex: '9999',
 
 private renderPortalContent() {
 if (!this.portalContainer) return;
-litRender(this.getPortalTemplate(), this.portalContainer);
+litRender(this.getPortalTemplate(), this.portalContainer, { host: this });
 }
 
 protected getPortalTemplate(): TemplateResult {
@@ -494,21 +488,21 @@ currentDay++;
 }
 
 return html`
-<div class="mt-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3 shadow-lg">
-<div class="flex items-center justify-between mb-2">
+<div class="ml-calendar-container mt-2 rounded-lg border p-3">
+<div class="ml-calendar-nav flex items-center justify-between mb-2">
 <button
-class="p-2 rounded-md border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 ${this.canNavigatePrev() ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : 'opacity-50 cursor-not-allowed'}"
+class="${cn('ml-calendar-nav-btn p-2 rounded-md border', this.canNavigatePrev() ? 'ml-calendar-nav-btn--enabled' : 'ml-disabled')}"
 ?disabled=${!this.canNavigatePrev()}
 @click=${this.handlePrevMonth}
 aria-label="Previous month"
 >
 ${svg`<svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M12.7 15.3a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 0-1.4l5-5a1 1 0 0 1 1.4 1.4L8.4 9l4.3 4.3a1 1 0 0 1 0 1.4z"></path></svg>`}
 </button>
-<div class="text-sm text-slate-900 dark:text-slate-100" aria-live="polite">
+<div class="ml-text text-sm" aria-live="polite">
 ${new Intl.DateTimeFormat(this.locale || 'en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(this.viewYear, this.viewMonth, 1)))}
 </div>
 <button
-class="p-2 rounded-md border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 ${this.canNavigateNext() ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : 'opacity-50 cursor-not-allowed'}"
+class="${cn('ml-calendar-nav-btn p-2 rounded-md border', this.canNavigateNext() ? 'ml-calendar-nav-btn--enabled' : 'ml-disabled')}"
 ?disabled=${!this.canNavigateNext()}
 @click=${this.handleNextMonth}
 aria-label="Next month"
@@ -516,8 +510,8 @@ aria-label="Next month"
 ${svg`<svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M7.3 4.7a1 1 0 0 1 1.4 0l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 1 1-1.4-1.4L11.6 10 7.3 5.7a1 1 0 0 1 0-1.4z"></path></svg>`}
 </button>
 </div>
-<div class="grid grid-cols-7 gap-1 mb-1 text-xs text-slate-500 dark:text-slate-400">
-${weekdayLabels.map((label) => html`<div class="text-center">${label}</div>`)}
+<div class="ml-calendar-grid grid grid-cols-7 gap-1 mb-1 text-xs">
+${weekdayLabels.map((label) => html`<div class="ml-text-muted text-center">${label}</div>`)}
 </div>
 <div class="grid grid-cols-${this.showWeekNumbers ? '8' : '7'} gap-1" role="grid">
 ${weeks.map((week, rowIndex) => {
@@ -525,7 +519,7 @@ const weekDayIndex = Math.max(1, rowIndex * 7 - offset + 1);
 const weekDate = new Date(Date.UTC(this.viewYear, this.viewMonth, weekDayIndex));
 const weekNumber = this.getISOWeekNumber(weekDate);
 return html`
-${this.showWeekNumbers ? html`<div class="w-9 h-9 text-xs flex items-center justify-center text-slate-400 dark:text-slate-500">${weekNumber}</div>` : html``}
+${this.showWeekNumbers ? html`<div class="ml-text-muted w-9 h-9 text-xs flex items-center justify-center">${weekNumber}</div>` : html``}
 ${week.map((day) => {
 if (!day) {
 return html`<div class="w-9 h-9"></div>`;
@@ -554,7 +548,7 @@ ${day}
 </div>
 <div class="mt-2 flex justify-end">
 <button
-class="text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
+class="ml-date-picker-clear ml-text-muted text-xs"
 @click=${this.handleClear}
 ?disabled=${this.disabled || this.readonly || this.loading}
 >
@@ -574,9 +568,9 @@ this.msg = messages[lang];
 
 if (!this.isEditing) {
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
-<p class="text-sm text-slate-900 dark:text-slate-100">${this.formatDisplay(this.value)}</p>
+<p class="ml-text text-sm">${this.formatDisplay(this.value)}</p>
 </div>
 `;
 }
@@ -603,14 +597,14 @@ aria-invalid=${hasError ? 'true' : 'false'}
 aria-required=${this.required ? 'true' : 'false'}
 ?disabled=${this.disabled}
 >
-<span class=${this.value ? 'text-slate-900 dark:text-slate-100' : 'text-slate-400 dark:text-slate-500'}>
+<span class=${this.value ? 'ml-text' : 'ml-text-muted'}>
 ${this.formatTriggerValue()}
 </span>
-<span class="text-slate-400 dark:text-slate-500">
+<span class="ml-text-muted">
 ${svg`<svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4"><path d="M6 2a1 1 0 0 1 1 1v1h6V3a1 1 0 1 1 2 0v1h1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1V3a1 1 0 0 1 1-1zm9 7H5v7a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V9z"></path></svg>`}
 </span>
 </button>
-${this.loading ? html`<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>` : html``}
+${this.loading ? html`<div class="ml-text-muted mt-2 text-xs">${this.msg.loading}</div>` : html``}
 ${this.renderHelperOrError()}
 </div>
 `;

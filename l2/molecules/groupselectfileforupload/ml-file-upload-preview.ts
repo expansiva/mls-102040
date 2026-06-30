@@ -11,6 +11,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -263,45 +264,31 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
   private getContainerClasses(): string {
     return [
       'w-full',
-      this.disabled || this.loading ? 'opacity-50' : '',
+      this.disabled || this.loading ? 'ml-disabled' : '',
     ].filter(Boolean).join(' ');
   }
 
   private getDropZoneClasses(hasError: boolean): string {
     return [
-      'relative w-full rounded-lg border border-dashed p-4 transition',
-      'bg-white dark:bg-slate-800',
-      'text-slate-900 dark:text-slate-100',
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : this.isDragging
-          ? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40'
-          : 'border-slate-200 dark:border-slate-700',
-      !this.disabled && !this.loading
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer'
-        : 'cursor-not-allowed',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+      'relative w-full rounded-lg border border-dashed p-4 transition ml-dropzone',
+      hasError ? 'ml-dropzone-error' : '',
+      this.isDragging ? 'ml-dropzone-active' : '',
+      !this.disabled && !this.loading ? 'cursor-pointer' : 'cursor-not-allowed',
+      'focus:outline-none',
     ].filter(Boolean).join(' ');
   }
 
   private getFileItemClasses(): string {
     return [
-      'flex items-center gap-3 rounded-md border p-2',
-      'bg-slate-50 dark:bg-slate-900',
-      'border-slate-200 dark:border-slate-700',
+      'flex items-center gap-3 rounded-md border p-2 ml-preview-card',
     ].join(' ');
   }
 
   private getRemoveButtonClasses(): string {
     return [
-      'ml-auto inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition',
-      'bg-white dark:bg-slate-800',
-      'text-slate-600 dark:text-slate-300',
-      'border border-slate-200 dark:border-slate-700',
-      !this.disabled && !this.loading
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700'
-        : 'cursor-not-allowed',
-    ].join(' ');
+      'ml-auto inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium transition ml-preview-remove',
+      !this.disabled && !this.loading ? '' : 'cursor-not-allowed',
+    ].filter(Boolean).join(' ');
   }
 
   private formatSize(size: number): string {
@@ -315,7 +302,7 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <div id="${this.uid}-label" class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+      <div id="${this.uid}-label" class="${cn('mb-2 text-sm font-medium ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </div>
     `;
@@ -324,14 +311,14 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
   private renderHelperOrError(): TemplateResult {
     if (this.error) {
       return html`
-        <p id="${this.uid}-error" class="mt-2 text-xs text-red-600 dark:text-red-400">
+        <p id="${this.uid}-error" class="mt-2 text-xs ml-error-text">
           ${unsafeHTML(String(this.error))}
         </p>
       `;
     }
     if (this.hasSlot('Helper')) {
       return html`
-        <p id="${this.uid}-helper" class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+        <p id="${this.uid}-helper" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
@@ -350,8 +337,8 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
 
     return html`
       <div class="flex flex-col items-center justify-center gap-1 text-center">
-        <div class="text-sm font-medium text-slate-700 dark:text-slate-200">${title}</div>
-        <div class="text-xs text-slate-500 dark:text-slate-400">${this.msg.triggerSubtitle}</div>
+        <div class="text-sm font-medium ml-label">${title}</div>
+        <div class="text-xs ml-text-muted">${this.msg.triggerSubtitle}</div>
       </div>
     `;
   }
@@ -359,9 +346,9 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
   private renderLoadingIndicator(): TemplateResult {
     if (!this.loading) return html``;
     return html`
-      <div class="absolute inset-0 flex items-center justify-center rounded-lg bg-white/70 dark:bg-slate-800/70">
-        <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
-          <span class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600 dark:border-slate-600 dark:border-t-slate-200"></span>
+      <div class="absolute inset-0 flex items-center justify-center rounded-lg ml-dropzone-loading-overlay">
+        <div class="flex items-center gap-2 text-sm ml-text-muted">
+          <span class="inline-block h-4 w-4 animate-spin rounded-full ml-dropzone-spinner"></span>
           ${this.msg.loading}
         </div>
       </div>
@@ -377,15 +364,15 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
           const previewUrl = this.getPreviewUrl(file);
           return html`
             <div class="${this.getFileItemClasses()}">
-              <div class="h-12 w-12 overflow-hidden rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center justify-center">
+              <div class="h-12 w-12 overflow-hidden rounded-md border flex items-center justify-center ml-preview-thumbnail">
                 ${previewUrl
                   ? html`<img src="${previewUrl}" alt="${file.name}" class="h-full w-full object-cover" />`
-                  : html`<span class="text-[10px] text-slate-500 dark:text-slate-400">${this.msg.noPreview}</span>`
+                  : html`<span class="text-[10px] ml-text-muted">${this.msg.noPreview}</span>`
                 }
               </div>
               <div class="flex flex-col">
-                <span class="text-sm text-slate-700 dark:text-slate-200">${file.name}</span>
-                <span class="text-xs text-slate-500 dark:text-slate-400">${this.formatSize(file.size)}</span>
+                <span class="text-sm ml-text">${file.name}</span>
+                <span class="text-xs ml-text-muted">${this.formatSize(file.size)}</span>
               </div>
               <button
                 class="${this.getRemoveButtonClasses()}"
@@ -431,7 +418,7 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
     const labelledBy = this.hasSlot('Label') ? `${this.uid}-label` : nothing;
 
     return html`
-      <div class="${this.getContainerClasses()}">
+      <div class="${cn(this.getContainerClasses(), this.cssClass)}">
         ${this.renderLabel()}
 
         <div

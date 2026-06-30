@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 type RatingItem = {
 value: number;
@@ -161,7 +162,7 @@ return !!this.error || (this.required && this.value === null);
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<label id="${this.getLabelId() || ''}" class="mb-1 text-sm font-medium text-slate-600 dark:text-slate-400">
+<label id="${this.getLabelId() || ''}" class="${cn('mb-1 text-sm ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>
 `;
@@ -170,14 +171,14 @@ private renderHelperOrError(): TemplateResult {
 if (!this.isEditing) return html``;
 if (this.error) {
 return html`
-<p id="${this.getHelpId() || ''}" class="mt-1 text-xs text-red-600 dark:text-red-400">
+<p id="${this.getHelpId() || ''}" class="mt-1 text-xs ml-error-text">
 ${unsafeHTML(String(this.error))}
 </p>
 `;
 }
 if (this.hasSlot('Helper')) {
 return html`
-<p id="${this.getHelpId() || ''}" class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+<p id="${this.getHelpId() || ''}" class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">
 ${unsafeHTML(this.getSlotContent('Helper'))}
 </p>
 `;
@@ -193,8 +194,8 @@ private renderStarIcon(isActive: boolean): TemplateResult {
 const iconClasses = [
 'w-5 h-5 transition',
 isActive
-? 'text-sky-500 dark:text-sky-400'
-: 'text-slate-300 dark:text-slate-600',
+? 'ml-rating-star-filled'
+: 'ml-rating-star',
 ].join(' ');
 return html`
 <svg class="${iconClasses}" viewBox="0 0 20 20" aria-hidden="true">
@@ -207,9 +208,9 @@ const isActive = this.isItemActive(item.value, activeValue);
 const isSelected = this.value === item.value;
 const optionClasses = [
 'inline-flex items-center justify-center rounded-md p-1 transition',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
-isSelected ? 'bg-sky-50 dark:bg-sky-900/40' : 'bg-transparent',
+'ml-rating-star-hover',
+this.disabled ? 'ml-disabled' : 'cursor-pointer',
+isSelected ? 'ml-rating-star-filled' : '',
 ].join(' ');
 const ariaChecked = isSelected ? 'true' : 'false';
 const label = item.label ? item.label : `Rating ${item.value}`;
@@ -242,11 +243,10 @@ const helpId = this.getHelpId();
 const isInvalid = this.getIsInvalid();
 const containerClasses = [
 'flex items-center gap-1 rounded-lg border px-2 py-1',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-'focus-within:ring-2 focus-within:ring-sky-500 dark:focus-within:ring-sky-400',
-isInvalid ? 'border-red-500 dark:border-red-400' : '',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+'ml-surface ml-border',
+'ml-focus-within',
+isInvalid ? 'ml-border-error' : '',
+this.disabled ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 const defaultTabValue = this.value !== null ? this.value : (items[0]?.value ?? 0);
 return html`
@@ -269,7 +269,7 @@ private renderViewMode(items: RatingItem[]): TemplateResult {
 const labelId = this.getLabelId();
 const selected = items.find((i) => i.value === this.value);
 const content = this.value === null
-? html`<span class="text-slate-400 dark:text-slate-500">—</span>`
+? html`<span class="ml-text-muted">—</span>`
 : selected && selected.label
 ? html`${unsafeHTML(selected.label)}`
 : html`
@@ -290,7 +290,7 @@ ${this.renderHiddenInput()}
 render() {
 const items = this.getRatingItems();
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 ${this.isEditing ? this.renderEditMode(items) : this.renderViewMode(items)}
 </div>

@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
     placeholder: 'Type to search',
@@ -300,29 +301,24 @@ export class SelectOneAutocompleteMolecule extends MoleculeAuraElement {
     }
 
     private getInputClasses(hasError: boolean): string {
-        return [
-            'w-full rounded-lg px-3 py-2 text-sm border transition',
-            'bg-white dark:bg-slate-900',
-            'text-slate-900 dark:text-slate-100',
-            'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-            hasError
-                ? 'border-red-500 dark:border-red-400'
-                : 'border-slate-200 dark:border-slate-700',
-            'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-            (this.disabled || this.readonly) ? 'opacity-50 cursor-not-allowed' : '',
-        ].filter(Boolean).join(' ');
+        return cn(
+            'w-full rounded-lg px-3 py-2 text-sm border transition ml-combobox-input ml-select-trigger',
+            'focus:outline-none focus:ring-2',
+            hasError ? 'ml-select-trigger-error' : '',
+            this.isOpen ? 'ml-select-trigger-open' : '',
+            (this.disabled || this.readonly) ? 'ml-disabled' : '',
+            this.getSlotClass('Trigger'),
+        );
     }
 
     private getOptionClasses(item: ParsedItem, isHighlighted: boolean, isSelected: boolean): string {
-        return [
-            'flex w-full items-center rounded-md px-3 py-2 text-sm transition border',
-            isSelected
-                ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-                : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-transparent',
-            !item.disabled && !isSelected ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-            isHighlighted && !item.disabled ? 'ring-2 ring-sky-500 dark:ring-sky-400' : '',
-            item.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-        ].filter(Boolean).join(' ');
+        return cn(
+            'flex w-full items-center rounded-md px-3 py-2 text-sm transition border ml-select-item',
+            isSelected ? 'ml-select-item-selected' : 'border-transparent',
+            isHighlighted && !item.disabled ? 'ml-select-item-highlighted' : '',
+            item.disabled ? 'ml-disabled' : 'cursor-pointer',
+            this.getSlotClass('Item'),
+        );
     }
 
     // ===========================================================================
@@ -353,11 +349,11 @@ export class SelectOneAutocompleteMolecule extends MoleculeAuraElement {
 
         if (!this.isEditing) {
             return html`
-<div class="flex flex-col gap-1">
+<div class="${cn('flex flex-col gap-1', this.cssClass)}">
 ${this.hasSlot('Label')
-                    ? html`<label id=${this.labelId} class="text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Label'))}</label>`
+                    ? html`<label id=${this.labelId} class="${cn('text-sm ml-label', this.getSlotClass('Label'))}">${unsafeHTML(this.getSlotContent('Label'))}</label>`
                     : html``}
-<div class="text-sm text-slate-900 dark:text-slate-100">
+<div class="text-sm ml-text">
 ${selectedLabelText || placeholderText || '—'}
 </div>
 </div>
@@ -365,9 +361,9 @@ ${selectedLabelText || placeholderText || '—'}
         }
 
         return html`
-<div class="flex flex-col gap-1" @focusout=${this.handleFocusOut}>
+<div class="${cn('flex flex-col gap-1', this.cssClass)}" @focusout=${this.handleFocusOut}>
 ${this.hasSlot('Label')
-                ? html`<label id=${this.labelId} for=${this.inputId} class="text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Label'))}</label>`
+                ? html`<label id=${this.labelId} for=${this.inputId} class="${cn('text-sm ml-label', this.getSlotClass('Label'))}">${unsafeHTML(this.getSlotContent('Label'))}</label>`
                 : html``}
 <div class="relative">
 <input
@@ -392,7 +388,7 @@ aria-required=${this.required ? 'true' : 'false'}
 @mousedown=${this.handleMouseDown}
 autocomplete="off"
 />
-<div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">
+<div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 ml-text-muted">
 ${this.loading ? html`${this.msg.loading}` : html`
 <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
 ${svg`<path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />`}
@@ -401,7 +397,7 @@ ${svg`<path d="M5 7l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-lin
 ${this.clearable && this.value && !this.disabled && !this.readonly
                 ? html`
 <button
-class="absolute right-8 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+class="absolute right-8 top-1/2 -translate-y-1/2 ml-text-muted"
 @mousedown=${(e: Event) => e.preventDefault()}
 @click=${this.handleClear}
 aria-label=${this.msg.clear}
@@ -418,18 +414,18 @@ ${this.isOpen && !this.loading
 <div
 id=${this.listId}
 role="listbox"
-class="mt-2 max-h-64 overflow-auto rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-2"
+class="mt-2 max-h-64 overflow-auto rounded-lg border p-2 ml-select-panel"
 >
 ${filteredFlat.length === 0
                         ? html`
-<div class="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+<div class="px-3 py-2 text-sm ml-select-empty">
 ${this.hasSlot('Empty') ? unsafeHTML(this.getSlotContent('Empty')) : this.msg.noResults}
 </div>
 `
                         : html`
 ${filteredGroups.map((group) => html`
 <div class="mb-2">
-<div class="px-3 py-1 text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
+<div class="px-3 py-1 text-xs font-semibold uppercase ml-text-muted">
 ${group.label}
 </div>
 ${group.items.map((item) => {
@@ -470,9 +466,9 @@ ${unsafeHTML(item.label)}
                 : html``}
 
 ${hasError
-                ? html`<p id=${this.errorId} class="mt-1 text-xs text-red-600 dark:text-red-400">${errorMessage}</p>`
+                ? html`<p id=${this.errorId} class="mt-1 text-xs ml-error-text">${errorMessage}</p>`
                 : this.hasSlot('Helper')
-                    ? html`<p id=${this.helperId} class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`
+                    ? html`<p id=${this.helperId} class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`
                     : html``}
 </div>
 `;

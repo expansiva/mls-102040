@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -142,20 +143,15 @@ content: el.innerHTML || '',
 
 private getTriggerClasses(expanded: boolean, sectionDisabled: boolean): string {
 return [
-'w-full flex items-center justify-between gap-3 rounded-lg px-4 py-3 text-left border transition',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-expanded
-? 'text-slate-900 dark:text-slate-100'
-: 'text-slate-700 dark:text-slate-200',
-(sectionDisabled || this.disabled) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50 dark:hover:bg-slate-700',
+'w-full flex items-center justify-between gap-3 px-4 py-3 text-left transition',
+'ml-readmore-toggle',
+(sectionDisabled || this.disabled) ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 
 private getPanelClasses(expanded: boolean): string {
 return [
-'grid transition-all duration-200',
+'grid transition-all duration-200 ml-readmore-content',
 expanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
 ].join(' ');
 }
@@ -163,7 +159,7 @@ expanded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
 private getPanelInnerClasses(): string {
 return [
 'overflow-hidden px-4 pb-4 text-sm',
-'text-slate-700 dark:text-slate-200',
+'ml-readmore-content',
 ].join(' ');
 }
 
@@ -171,7 +167,7 @@ private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 const content = this.getSlotContent('Label');
 return html`
-<div class="mb-2 text-sm font-medium text-slate-600 dark:text-slate-400">
+<div class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(content)}
 </div>
 `;
@@ -179,7 +175,7 @@ ${unsafeHTML(content)}
 
 private renderLoading(): TemplateResult {
 return html`
-<div class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-sm text-slate-500 dark:text-slate-400">
+<div class="w-full px-4 py-3 text-sm ml-skeleton ml-text-muted">
 ${this.msg.loading}
 </div>
 `;
@@ -187,7 +183,7 @@ ${this.msg.loading}
 
 private renderChevron(expanded: boolean): TemplateResult {
 const classes = [
-'h-4 w-4 transition-transform text-slate-500 dark:text-slate-400',
+'h-4 w-4 transition-transform ml-readmore-gradient',
 expanded ? 'rotate-180' : 'rotate-0',
 ].join(' ');
 return html`
@@ -204,7 +200,7 @@ const headerId = `${this.uid}-header-${section.index}`;
 const panelId = `${this.uid}-panel-${section.index}`;
 
 return html`
-<div class="rounded-lg">
+<div>
 <button
 class="${this.getTriggerClasses(expanded, sectionDisabled)}"
 type="button"
@@ -214,11 +210,10 @@ aria-expanded="${expanded ? 'true' : 'false'}"
 aria-controls="${panelId}"
 aria-disabled="${sectionDisabled ? 'true' : 'false'}"
 id="${headerId}"
-@ذف="${(e: Event) => e.preventDefault()}"
 @click=${() => this.handleToggle(section.index, section.title, sectionDisabled)}
 @keydown=${(e: KeyboardEvent) => this.handleKeyDown(e, section.index, section.title, sectionDisabled)}
 >
-<span class="text-sm font-medium text-slate-900 dark:text-slate-100">${section.title}</span>
+<span class="text-sm ml-label">${section.title}</span>
 ${this.renderChevron(expanded)}
 </button>
 <div
@@ -244,7 +239,7 @@ this.msg = messages[lang];
 const sections = this.getSectionInfo();
 
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 <div class="flex flex-col gap-3">
 ${this.loading ? this.renderLoading() : sections.map((section) => this.renderSection(section))}

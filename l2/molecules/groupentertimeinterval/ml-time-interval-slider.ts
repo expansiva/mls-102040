@@ -10,6 +10,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -335,41 +336,39 @@ export class TimeIntervalSliderMolecule extends MoleculeAuraElement {
   }
 
   private getContainerClasses(): string {
-    return [
+    return cn(
       'w-full rounded-lg border p-4 transition',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
-      this.error ? 'border-red-500 dark:border-red-400' : '',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-    ].filter(Boolean).join(' ');
+      'ml-interval-container',
+      this.error ? 'ml-input-container-error' : '',
+      this.disabled ? 'ml-disabled' : '',
+      this.cssClass,
+    );
   }
 
   private getInputBoxClasses(active: boolean): string {
-    return [
+    return cn(
       'w-full rounded-md border px-3 py-2 text-sm transition',
-      'bg-slate-50 dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'border-slate-200 dark:border-slate-700',
-      active ? 'border-sky-500 dark:border-sky-400 ring-2 ring-sky-500/20 dark:ring-sky-400/20' : '',
+      'ml-slider-display',
+      active ? 'ml-input-active' : '',
       this.readonly ? 'cursor-default' : 'cursor-pointer',
-    ].filter(Boolean).join(' ');
+    );
   }
 
   private getRangeClasses(active: boolean): string {
-    return [
+    return cn(
       'absolute left-0 top-0 h-3 w-full appearance-none bg-transparent',
-      'accent-sky-500 dark:accent-sky-400',
-      active ? 'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400' : 'focus:outline-none',
+      'ml-slider-thumb',
+      active ? 'ml-input-focus' : 'focus:outline-none',
       this.disabled || this.loading ? 'cursor-not-allowed' : 'cursor-pointer',
-    ].filter(Boolean).join(' ');
+    );
   }
 
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     const content = this.getSlotContent('Label');
-    const required = this.required ? html`<span class="text-red-600 dark:text-red-400"> *</span>` : nothing;
+    const required = this.required ? html`<span class="ml-error-text"> *</span>` : nothing;
     return html`
-      <div id="${this.baseId}-label" class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+      <div id="${this.baseId}-label" class="${cn('mb-2 text-sm font-medium ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(content)}${required}
       </div>
     `;
@@ -378,10 +377,10 @@ export class TimeIntervalSliderMolecule extends MoleculeAuraElement {
   private renderHelperOrError(): TemplateResult {
     if (!this.isEditing) return html``;
     if (this.error) {
-      return html`<p id="${this.baseId}-error" class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+      return html`<p id="${this.baseId}-error" class="mt-2 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<p id="${this.baseId}-helper" class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+      return html`<p id="${this.baseId}-helper" class="${cn('mt-2 text-xs ml-text-muted', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
     }
     return html``;
   }
@@ -396,9 +395,9 @@ export class TimeIntervalSliderMolecule extends MoleculeAuraElement {
       : `${startDisplay} – ${endDisplay}${overnight ? ` ${this.msg.nextDay}` : ''}`;
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
         ${this.renderLabel()}
-        <div class="text-sm text-slate-900 dark:text-slate-100">${display}</div>
+        <div class="text-sm ml-text">${display}</div>
       </div>
     `;
   }
@@ -438,16 +437,16 @@ export class TimeIntervalSliderMolecule extends MoleculeAuraElement {
       if (!this.allowOvernight || endSeconds >= startSeconds) {
         const seg = this.getTrackSegmentStyles(startSeconds, endSeconds);
         highlightSegments.push(html`
-          <div class="absolute top-0 h-3 rounded-full bg-sky-500/30 dark:bg-sky-400/30"
+          <div class="absolute top-0 h-3 rounded-full ml-slider-highlight"
             style="left:${seg.left};width:${seg.width};"></div>
         `);
       } else {
         const seg1 = this.getTrackSegmentStyles(startSeconds, 86400);
         const seg2 = this.getTrackSegmentStyles(0, endSeconds);
         highlightSegments.push(html`
-          <div class="absolute top-0 h-3 rounded-full bg-sky-500/30 dark:bg-sky-400/30"
+          <div class="absolute top-0 h-3 rounded-full ml-slider-highlight"
             style="left:${seg1.left};width:${seg1.width};"></div>
-          <div class="absolute top-0 h-3 rounded-full bg-sky-500/30 dark:bg-sky-400/30"
+          <div class="absolute top-0 h-3 rounded-full ml-slider-highlight"
             style="left:${seg2.left};width:${seg2.width};"></div>
         `);
       }
@@ -459,22 +458,22 @@ export class TimeIntervalSliderMolecule extends MoleculeAuraElement {
 
         <div class="flex gap-3">
           <div class="flex-1">
-            <div id="${startId}" class="mb-1 text-xs text-slate-600 dark:text-slate-400">${labelStart}</div>
+            <div id="${startId}" class="${cn('mb-1 text-xs ml-text-muted', this.getSlotClass('LabelStart'))}">${labelStart}</div>
             <div class="${this.getInputBoxClasses(this.activeField === 'start')}" aria-hidden="true">
               ${startDisplay}
             </div>
           </div>
           <div class="flex-1">
-            <div id="${endId}" class="mb-1 text-xs text-slate-600 dark:text-slate-400">${labelEnd}</div>
+            <div id="${endId}" class="${cn('mb-1 text-xs ml-text-muted', this.getSlotClass('LabelEnd'))}">${labelEnd}</div>
             <div class="${this.getInputBoxClasses(this.activeField === 'end')}" aria-hidden="true">
               ${endDisplay}
-              ${overnight ? html`<span class="ml-2 text-xs text-sky-700 dark:text-sky-300" aria-label="${this.msg.nextDay}">${this.msg.nextDay}</span>` : nothing}
+              ${overnight ? html`<span class="ml-2 text-xs ml-overnight-badge" aria-label="${this.msg.nextDay}">${this.msg.nextDay}</span>` : nothing}
             </div>
           </div>
         </div>
 
         <div class="mt-4">
-          <div class="relative h-3 rounded-full bg-slate-100 dark:bg-slate-700">
+          <div class="relative h-3 rounded-full ml-slider-track">
             ${highlightSegments}
             <input
               type="range"
@@ -513,7 +512,7 @@ export class TimeIntervalSliderMolecule extends MoleculeAuraElement {
           </div>
         </div>
 
-        ${this.loading ? html`<div class="mt-3 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>` : nothing}
+        ${this.loading ? html`<div class="mt-3 text-xs ml-text-muted">${this.msg.loading}</div>` : nothing}
         ${this.renderHelperOrError()}
       </div>
     `;

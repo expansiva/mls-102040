@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -254,24 +255,21 @@ return `${startText} – ${endText}${overnight ? ` ${this.msg.nextDay}` : ''}`;
 // CLASS BUILDERS
 // ==========================================================================
 private getContainerClasses(): string {
-return [
+return cn(
 'w-full',
-this.disabled || this.loading ? 'opacity-50 pointer-events-none' : '',
-].filter(Boolean).join(' ');
+this.disabled || this.loading ? 'ml-disabled' : '',
+);
 }
 
 private getInputClasses(isActive: boolean): string {
-return [
+return cn(
 'w-full rounded-lg px-3 py-2 text-sm border transition',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-this.error
-? 'border-red-500 dark:border-red-400'
-: 'border-slate-200 dark:border-slate-700',
-isActive ? 'border-sky-500 dark:border-sky-400 focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400' : 'focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.readonly ? 'bg-slate-50 dark:bg-slate-900' : '',
-].filter(Boolean).join(' ');
+'ml-input',
+this.error ? 'ml-input-container-error' : '',
+isActive ? 'ml-input-active' : '',
+'ml-input-focus',
+this.readonly ? 'ml-interval-container-readonly' : '',
+);
 }
 
 // ==========================================================================
@@ -283,8 +281,8 @@ this.msg = messages[lang];
 
 if (!this.isEditing) {
 return html`
-<div class="${this.getContainerClasses()}">
-<div class="text-sm text-slate-900 dark:text-slate-100">
+<div class="${cn(this.getContainerClasses(), this.cssClass)}">
+<div class="text-sm ml-text">
 ${this.getDisplayRange()}
 </div>
 </div>
@@ -313,9 +311,9 @@ const ariaDescribedBy = hasError
 : (hasHelper ? helperId : undefined);
 
 return html`
-<div class="${this.getContainerClasses()}">
+<div class="${cn(this.getContainerClasses(), this.cssClass)}">
 ${this.hasSlot('Label') ? html`
-<label id="${labelId}" class="mb-1 block text-sm font-medium text-slate-600 dark:text-slate-400">
+<label id="${labelId}" class="${cn('mb-1 block text-sm font-medium ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>
 ` : html``}
@@ -323,7 +321,7 @@ ${unsafeHTML(this.getSlotContent('Label'))}
 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
 <div>
 ${this.hasSlot('LabelStart') ? html`
-<label id="${labelStartId}" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400">
+<label id="${labelStartId}" class="${cn('mb-1 block text-xs font-medium ml-text-muted', this.getSlotClass('LabelStart'))}">
 ${unsafeHTML(this.getSlotContent('LabelStart'))}
 </label>
 ` : html``}
@@ -350,7 +348,7 @@ aria-required=${this.required ? 'true' : 'false'}
 
 <div>
 ${this.hasSlot('LabelEnd') ? html`
-<label id="${labelEndId}" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-400">
+<label id="${labelEndId}" class="${cn('mb-1 block text-xs font-medium ml-text-muted', this.getSlotClass('LabelEnd'))}">
 ${unsafeHTML(this.getSlotContent('LabelEnd'))}
 </label>
 ` : html``}
@@ -374,7 +372,7 @@ aria-required=${this.required ? 'true' : 'false'}
 @blur=${this.handleBlur}
 />
 ${overnight ? html`
-<p class="mt-1 text-xs text-slate-500 dark:text-slate-400" aria-label="${this.msg.nextDayAria}">
+<p class="mt-1 text-xs ml-text-muted" aria-label="${this.msg.nextDayAria}">
 ${this.msg.nextDay}
 </p>
 ` : html``}
@@ -382,17 +380,17 @@ ${this.msg.nextDay}
 </div>
 
 ${this.loading ? html`
-<p class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</p>
+<p class="mt-2 text-xs ml-text-muted">${this.msg.loading}</p>
 ` : html``}
 
 ${hasError ? html`
-<p id="${errorId}" class="mt-2 text-xs text-red-600 dark:text-red-400">
+<p id="${errorId}" class="mt-2 text-xs ml-error-text">
 ${unsafeHTML(String(this.error))}
 </p>
 ` : html``}
 
 ${!hasError && hasHelper ? html`
-<p id="${helperId}" class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+<p id="${helperId}" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">
 ${unsafeHTML(this.getSlotContent('Helper'))}
 </p>
 ` : html``}

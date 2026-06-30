@@ -10,6 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
     labelStart: 'Start',
@@ -249,69 +250,62 @@ export class DatetimeIntervalTimelineMolecule extends MoleculeAuraElement {
     }
 
     private getContainerClasses(): string {
-        return [
+        return cn(
             'w-full rounded-lg border p-4 transition',
-            'bg-white dark:bg-slate-800',
-            'border-slate-200 dark:border-slate-700',
-            this.error ? 'border-red-500 dark:border-red-400' : '',
-            this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-            this.readonly ? 'bg-slate-50 dark:bg-slate-900' : '',
-        ].filter(Boolean).join(' ');
+            'ml-interval-container',
+            this.error ? 'ml-input-container-error' : '',
+            this.disabled ? 'ml-disabled' : '',
+            this.readonly ? 'ml-interval-container-readonly' : '',
+        );
     }
 
     private getInputClasses(active: boolean): string {
-        return [
+        return cn(
             'w-full rounded-md px-3 py-2 text-sm border transition',
-            'bg-white dark:bg-slate-900',
-            'text-slate-900 dark:text-slate-100',
-            'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-            active
-                ? 'border-sky-500 dark:border-sky-400'
-                : 'border-slate-200 dark:border-slate-700',
-            this.error ? 'border-red-500 dark:border-red-400' : '',
-            this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-            'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-        ].filter(Boolean).join(' ');
+            'ml-input',
+            active ? 'ml-input-active' : '',
+            this.error ? 'ml-input-container-error' : '',
+            this.disabled ? 'ml-disabled' : '',
+            'ml-input-focus',
+        );
     }
 
     private getMarkerClasses(active: boolean): string {
-        return [
+        return cn(
             'h-4 w-4 rounded-full border-2 absolute -top-1 transition',
-            active
-                ? 'bg-sky-500 dark:bg-sky-400 border-sky-500 dark:border-sky-400'
-                : 'bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600',
+            active ? 'ml-timeline-marker-active' : 'ml-timeline-marker',
             this.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-        ].filter(Boolean).join(' ');
+        );
     }
 
     private getTimelineProgressClasses(): string {
-        return [
+        return cn(
             'h-2 rounded-full absolute top-0 left-0 transition',
-            'bg-sky-200 dark:bg-sky-900/40',
-        ].join(' ');
+            'ml-timeline-progress',
+        );
     }
 
     private renderLabel(): TemplateResult {
         if (!this.hasSlot('Label')) return html``;
-        return html`<div class="mb-2 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Label'))}</div>`;
+        return html`<div class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}">${unsafeHTML(this.getSlotContent('Label'))}</div>`;
     }
 
     private renderHelperOrError(): TemplateResult {
         if (!this.isEditing) return html``;
         if (this.error) {
-            return html`<p id="${this.uid}-error" class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+            return html`<p id="${this.uid}-error" class="mt-2 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
         }
         if (this.hasSlot('Helper')) {
-            return html`<p id="${this.uid}-helper" class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+            return html`<p id="${this.uid}-helper" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
         }
         return html``;
     }
 
     private renderViewMode(): TemplateResult {
         return html`
-<div class="${this.getContainerClasses()}">
+<div class="${cn(this.getContainerClasses(), this.cssClass)}">
 ${this.renderLabel()}
-<div class="text-sm text-slate-900 dark:text-slate-100">${this.formatRange()}</div>
+<div class="text-sm ml-text">${this.formatRange()}</div>
 </div>
 `;
     }
@@ -328,7 +322,7 @@ ${this.renderLabel()}
         const progressWidth = Math.abs(endPct - startPct);
         return html`
 <div class="relative mt-4">
-<div class="h-2 rounded-full bg-slate-100 dark:bg-slate-700 relative">
+<div class="h-2 rounded-full ml-timeline-track relative">
 <div class="${this.getTimelineProgressClasses()}" style="left: ${progressLeft}%; width: ${progressWidth}%;"></div>
 <div
 class="${this.getMarkerClasses(this.activeField === 'start')}"
@@ -362,11 +356,11 @@ aria-label="${this.msg.labelEnd}"
         const labelEnd = this.hasSlot('LabelEnd') ? this.getSlotContent('LabelEnd') : this.msg.labelEnd;
         const describedBy = this.error ? `${this.uid}-error` : this.hasSlot('Helper') ? `${this.uid}-helper` : '';
         return html`
-<div class="${this.getContainerClasses()}">
+<div class="${cn(this.getContainerClasses(), this.cssClass)}">
 ${this.renderLabel()}
 <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
 <div>
-<label id="${this.uid}-label-start" class="mb-1 block text-xs text-slate-600 dark:text-slate-400">${unsafeHTML(labelStart)}</label>
+<label id="${this.uid}-label-start" class="${cn('mb-1 block text-xs ml-text-muted', this.getSlotClass('LabelStart'))}">${unsafeHTML(labelStart)}</label>
 <input
 class="${this.getInputClasses(this.activeField === 'start')}"
 type="datetime-local"
@@ -386,7 +380,7 @@ aria-required="${this.required ? 'true' : 'false'}"
 />
 </div>
 <div>
-<label id="${this.uid}-label-end" class="mb-1 block text-xs text-slate-600 dark:text-slate-400">${unsafeHTML(labelEnd)}</label>
+<label id="${this.uid}-label-end" class="${cn('mb-1 block text-xs ml-text-muted', this.getSlotClass('LabelEnd'))}">${unsafeHTML(labelEnd)}</label>
 <input
 class="${this.getInputClasses(this.activeField === 'end')}"
 type="datetime-local"
@@ -406,7 +400,7 @@ aria-required="${this.required ? 'true' : 'false'}"
 />
 </div>
 </div>
-${this.loading ? html`<div class="mt-3 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>` : html``}
+${this.loading ? html`<div class="mt-3 text-xs ml-text-muted">${this.msg.loading}</div>` : html``}
 ${this.renderTimeline()}
 ${this.renderHelperOrError()}
 </div>

@@ -10,6 +10,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -256,19 +257,19 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
   // RENDER HELPERS
   // ===========================================================================
   private renderLoading(): TemplateResult {
-    const classes = [
+    const classes = cn(
       'flex items-center justify-center',
       'w-full h-64',
-      'bg-slate-50 dark:bg-slate-900',
+      'ml-chart-container',
       'rounded-lg',
       'animate-pulse',
-    ].join(' ');
+    );
 
     return html`
       <div class=${classes}>
         <div class="flex flex-col items-center gap-2">
-          <div class="w-8 h-8 border-2 border-sky-500 dark:border-sky-400 border-t-transparent rounded-full animate-spin"></div>
-          <span class="text-sm text-slate-500 dark:text-slate-400">${this.msg.loading}</span>
+          <div class="w-8 h-8 border-2 ml-chart-axis border-t-transparent rounded-full animate-spin"></div>
+          <span class="text-sm ml-text-muted">${this.msg.loading}</span>
         </div>
       </div>
     `;
@@ -279,14 +280,14 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
       ? this.getSlotContent('Empty')
       : this.msg.noData;
 
-    const classes = [
+    const classes = cn(
       'flex items-center justify-center',
       'w-full h-64',
-      'bg-slate-50 dark:bg-slate-900',
+      'ml-chart-container',
       'rounded-lg',
-      'text-slate-500 dark:text-slate-400',
+      'ml-text-muted',
       'text-sm',
-    ].join(' ');
+    );
 
     return html`
       <div class=${classes}>
@@ -305,7 +306,7 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
             y1=${y}
             x2=${this.chartWidth - this.padding.right}
             y2=${y}
-            class="stroke-slate-200 dark:stroke-slate-700"
+            class="ml-chart-axis"
             stroke-width="1"
             stroke-dasharray="4,4"
           />
@@ -324,7 +325,7 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
             y=${y}
             text-anchor="end"
             dominant-baseline="middle"
-            class="fill-slate-600 dark:fill-slate-400 text-xs"
+            class="ml-chart-axis text-xs"
           >${tick}</text>
         `;
       })}
@@ -341,7 +342,7 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
             x=${x}
             y=${y}
             text-anchor="middle"
-            class="fill-slate-600 dark:fill-slate-400 text-xs"
+            class="ml-chart-axis text-xs"
           >${label}</text>
         `;
       })}
@@ -405,7 +406,7 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
                 x=${x}
                 y=${y - 12}
                 text-anchor="middle"
-                class="fill-slate-700 dark:fill-slate-300 text-xs font-medium pointer-events-none"
+                class="ml-chart-axis text-xs font-medium pointer-events-none"
               >${point.value}</text>
             `
             : ''}
@@ -417,13 +418,13 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
   private renderTooltip(): TemplateResult {
     if (!this.tooltip) return html``;
 
-    const classes = [
+    const classes = cn(
       'absolute z-10 px-3 py-2 rounded-lg shadow-lg',
-      'bg-slate-800 dark:bg-slate-700',
-      'text-white text-xs',
+      'ml-chart-tooltip',
+      'text-xs',
       'pointer-events-none',
       'transform -translate-x-1/2 -translate-y-full',
-    ].join(' ');
+    );
 
     return html`
       <div
@@ -431,7 +432,7 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
         style="left: ${this.tooltip.x}px; top: ${this.tooltip.y}px;"
       >
         <div class="font-medium">${this.tooltip.label}</div>
-        <div class="text-slate-300 dark:text-slate-400">
+        <div class="ml-chart-tooltip-detail">
           ${this.tooltip.series ? `${this.tooltip.series}: ` : ''}${this.tooltip.value}
         </div>
       </div>
@@ -448,10 +449,10 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
     return html`
       <div class=${classes}>
         ${series.map((s) => {
-          const itemClasses = [
+          const itemClasses = cn(
             'flex items-center gap-2 text-sm',
-            'text-slate-700 dark:text-slate-300',
-          ].join(' ');
+            'ml-chart-legend',
+          );
 
           return html`
             <div class=${itemClasses}>
@@ -512,17 +513,19 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
     const { min, max, ticks } = this.calculateScale(series);
     const labelContent = this.hasSlot('Label') ? this.getSlotContent('Label') : '';
 
-    const containerClasses = [
+    const containerClasses = cn(
       'relative w-full',
-      'bg-white dark:bg-slate-800',
+      'ml-chart-container',
       'rounded-lg p-4',
-      'border border-slate-200 dark:border-slate-700',
-    ].join(' ');
+      'border',
+      this.cssClass,
+    );
 
-    const titleClasses = [
+    const titleClasses = cn(
       'text-lg font-semibold text-center mb-4',
-      'text-slate-900 dark:text-slate-100',
-    ].join(' ');
+      'ml-label',
+      this.getSlotClass('Label'),
+    );
 
     return html`
       <div class=${containerClasses}>

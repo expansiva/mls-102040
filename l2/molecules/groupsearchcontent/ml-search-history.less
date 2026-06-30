@@ -1,9 +1,57 @@
-/// <mls fileReference="_102040_/l2/molecules/groupsearchcontent/ml-search-history.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupsearchcontent/ml-search-history.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupsearchcontent--ml-search-history-102040 {
+groupsearchcontent--ml-search-history {
 
-// Here your less
+.ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
+.ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+.ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+.ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+.ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
+
+.ml-search-container {
+  background: var(--ml-surface, #fff);
+  border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+}
+
+.ml-search-input {
+  background: var(--ml-surface, #fff);
+  color: var(--ml-on-surface, #1c1b1f);
+  font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  &::placeholder { color: var(--ml-on-surface-muted, #49454f); }
+}
+
+.ml-search-border {
+  border-color: var(--ml-outline-variant, #e2e8f0);
+}
+
+.ml-error-border {
+  border-color: var(--ml-error, #ef4444);
+}
+
+.ml-search-focus {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+    border-color: var(--ml-outline-focus, #3b82f6);
+  }
+}
+
+.ml-history-item {
+  background: var(--ml-surface-dim, #f5f5f5);
+}
+
+.ml-history-item-hover {
+  &:hover { background: var(--ml-surface-dim, #f5f5f5); }
+}
+
+.ml-history-remove {
+  &:hover { background: var(--ml-surface-dim, #f5f5f5); }
+}
+
+.ml-filter-chip-active {
+  background: color-mix(in srgb, var(--ml-primary, #3b82f6) 10%, transparent);
+  color: var(--ml-primary, #3b82f6);
+  border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-primary, #3b82f6);
+}
 
  }
-
-

@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 reveal: 'Reveal',
@@ -97,51 +98,43 @@ headers[nextIndex]?.focus();
 // ===========================================================================
 private renderLoading(): TemplateResult {
 return html`
-<div class="rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 text-sm text-slate-500 dark:text-slate-400">
+<div class="p-4 text-sm ml-skeleton ml-text-muted">
 ${this.msg.loading}
 </div>
 `;
 }
 private getHeaderClasses(sectionDisabled: boolean): string {
 return [
-'w-full flex items-center justify-between rounded-md px-4 py-3 text-sm font-medium border transition',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-'text-slate-900 dark:text-slate-100',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-(this.disabled || sectionDisabled) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+'w-full flex items-center justify-between px-4 py-3 text-sm transition',
+'ml-reveal-trigger',
+(this.disabled || sectionDisabled) ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 private getContainerClasses(sectionDisabled: boolean): string {
 return [
-'relative mt-2 rounded-lg border border-slate-200 dark:border-slate-700',
-'bg-slate-50 dark:bg-slate-900',
-(this.disabled || sectionDisabled) ? 'opacity-50' : '',
+'relative mt-2 ml-reveal-panel',
+(this.disabled || sectionDisabled) ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 private getOverlayClasses(expanded: boolean, sectionDisabled: boolean): string {
 return [
-'absolute inset-0 flex items-center justify-center rounded-lg transition',
-'bg-white/90 dark:bg-slate-800/90',
+'absolute inset-0 flex items-center justify-center transition',
+'ml-reveal-overlay',
 'backdrop-blur-sm',
 expanded ? 'opacity-0 pointer-events-none' : 'opacity-100',
-(this.disabled || sectionDisabled) ? 'opacity-50 pointer-events-none' : '',
+(this.disabled || sectionDisabled) ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 private getActionButtonClasses(sectionDisabled: boolean): string {
 return [
-'rounded-md px-4 py-2 text-sm font-medium border transition',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-'text-slate-900 dark:text-slate-100',
-'hover:bg-slate-50 dark:hover:bg-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-(this.disabled || sectionDisabled) ? 'opacity-50 cursor-not-allowed' : '',
+'px-4 py-2 text-sm transition',
+'ml-reveal-close',
+(this.disabled || sectionDisabled) ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 private renderSectionContent(content: string): TemplateResult {
 return html`
-<div class="relative p-4 text-sm text-slate-900 dark:text-slate-100">
+<div class="relative p-4 text-sm ml-reveal-panel">
 ${unsafeHTML(content)}
 </div>
 `;
@@ -164,7 +157,7 @@ sectionDisabled: el.hasAttribute('disabled'),
 expanded: this.openSections.has(index),
 }));
 return html`
-<div class="space-y-4">
+<div class="${cn('space-y-4', this.cssClass)}">
 ${sections.map((section) => {
 const headerId = `reveal-header-${section.index}`;
 const regionId = `reveal-region-${section.index}`;
@@ -187,10 +180,10 @@ tabindex=${(this.disabled || section.sectionDisabled) ? '-1' : '0'}
 @keydown=${(e: KeyboardEvent) => this.handleHeaderKeydown(e, section.index, section.title, section.sectionDisabled)}
 >
 <span>${section.title}</span>
-<span class="text-slate-600 dark:text-slate-400">${actionLabel}</span>
+<span class="ml-text-muted">${actionLabel}</span>
 </button>
 ${warning
-? html`<div class="mt-2 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(warning)}</div>`
+? html`<div class="mt-2 px-4 py-3 text-sm ml-text-muted ml-reveal-panel">${unsafeHTML(warning)}</div>`
 : html``}
 <div
 id=${regionId}

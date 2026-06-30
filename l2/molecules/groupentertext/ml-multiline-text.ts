@@ -10,6 +10,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 @customElement('groupentertext--ml-multiline-text')
 export class MultilineTextMolecule extends MoleculeAuraElement {
@@ -188,54 +189,37 @@ export class MultilineTextMolecule extends MoleculeAuraElement {
 
     private getWrapperClasses(hasError: boolean): string {
         return [
-            'flex items-stretch gap-2 w-full rounded-lg border px-3 py-2 transition',
-            'bg-white dark:bg-slate-900',
-            'focus-within:ring-2 focus-within:ring-sky-500 dark:focus-within:ring-sky-400',
-            hasError ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-            this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : '',
-            this.readonly ? 'bg-slate-50 dark:bg-slate-800' : '',
+            'flex items-stretch gap-2 w-full px-3 py-2 ml-input-container',
+            hasError ? 'ml-input-container-error' : '',
+            this.disabled || this.loading ? 'ml-disabled' : '',
         ].filter(Boolean).join(' ');
     }
 
     private getInputClasses(): string {
         return [
-            'flex-1 bg-transparent outline-none text-sm',
-            'text-slate-900 dark:text-slate-100',
-            'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+            'flex-1 bg-transparent outline-none text-sm ml-input',
             this.disabled || this.loading ? 'cursor-not-allowed' : '',
             this.readonly ? 'cursor-default' : '',
         ].filter(Boolean).join(' ');
     }
 
-    private getLabelClasses(): string {
-        return 'mb-1 block text-sm font-medium text-slate-600 dark:text-slate-400';
-    }
-
-    private getHelperClasses(): string {
-        return 'mt-1 text-xs text-slate-500 dark:text-slate-400';
-    }
-
-    private getErrorClasses(): string {
-        return 'mt-1 text-xs text-red-600 dark:text-red-400';
-    }
-
     private renderLabel(): TemplateResult {
         if (!this.hasSlot('Label')) return html``;
-        return html`<label id=${this.labelId} class=${this.getLabelClasses()} for=${this.inputId}>
+        return html`<label id=${this.labelId} class="${cn('mb-1 block text-sm ml-label', this.getSlotClass('Label'))}" for=${this.inputId}>
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>`;
     }
 
     private renderPrefix(): TemplateResult {
         if (!this.hasSlot('Prefix')) return html``;
-        return html`<div class="flex items-center text-slate-500 dark:text-slate-400">
+        return html`<div class="${cn('flex items-center ml-text-muted', this.getSlotClass('Prefix'))}">
 ${unsafeHTML(this.getSlotContent('Prefix'))}
 </div>`;
     }
 
     private renderSuffix(): TemplateResult {
         if (!this.hasSlot('Suffix')) return html``;
-        return html`<div class="flex items-center text-slate-500 dark:text-slate-400">
+        return html`<div class="${cn('flex items-center ml-text-muted', this.getSlotClass('Suffix'))}">
 ${unsafeHTML(this.getSlotContent('Suffix'))}
 </div>`;
     }
@@ -243,16 +227,16 @@ ${unsafeHTML(this.getSlotContent('Suffix'))}
     private renderLoading(): TemplateResult {
         if (!this.loading) return html``;
         return html`<div class="ml-2 flex items-center">
-<span class="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600 dark:border-slate-600 dark:border-t-slate-200"></span>
+<span class="h-4 w-4 animate-spin rounded-full ml-spinner"></span>
 </div>`;
     }
 
     private renderHelperOrError(): TemplateResult {
         if (this.error) {
-            return html`<p id=${this.errorId} class=${this.getErrorClasses()}>${unsafeHTML(String(this.error))}</p>`;
+            return html`<p id=${this.errorId} class="mt-1 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
         }
         if (this.hasSlot('Helper')) {
-            return html`<p id=${this.helperId} class=${this.getHelperClasses()}>${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+            return html`<p id=${this.helperId} class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
         }
         return html``;
     }
@@ -262,7 +246,7 @@ ${unsafeHTML(this.getSlotContent('Suffix'))}
         const hasMax = this.maxLength !== null && this.maxLength !== undefined;
         if (!isMultiline || !hasMax) return html``;
         const count = this.normalizeValue(this.value).length;
-        return html`<p class="mt-1 text-xs text-slate-500 dark:text-slate-400" aria-live="polite">
+        return html`<p class="mt-1 text-xs ml-text-muted" aria-live="polite">
 ${count} / ${this.maxLength}
 </p>`;
     }
@@ -344,11 +328,11 @@ ${count} / ${this.maxLength}
     private renderViewMode(): TemplateResult {
         const displayValue = this.getDisplayValue();
         return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 <div class="flex items-center gap-2">
 ${this.renderPrefix()}
-<div class="text-sm text-slate-900 dark:text-slate-100">${displayValue}</div>
+<div class="text-sm ml-text">${displayValue}</div>
 ${this.renderSuffix()}
 </div>
 </div>
@@ -368,7 +352,7 @@ ${this.renderSuffix()}
             : undefined;
 
         return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 <div class=${this.getWrapperClasses(hasError)}>
 ${this.renderPrefix()}

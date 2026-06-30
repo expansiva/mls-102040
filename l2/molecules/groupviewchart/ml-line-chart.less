@@ -1,9 +1,40 @@
-/// <mls fileReference="_102040_/l2/molecules/groupviewchart/ml-line-chart.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupviewchart/ml-line-chart.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupviewchart--ml-line-chart-102040 {
+groupviewchart--ml-line-chart {
 
-// Here your less
+  .ml-chart-container {
+    background: var(--ml-surface, #fff);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+  }
 
- }
+  .ml-chart-legend {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
 
+  .ml-chart-tooltip {
+    background: var(--ml-on-surface, #1c1b1f);
+    color: var(--ml-surface, #fff);
+  }
 
+  .ml-chart-tooltip-detail {
+    opacity: 0.7;
+  }
+
+  .ml-chart-axis {
+    fill: var(--ml-on-surface-muted, #49454f);
+    stroke: var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-label {
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    font-weight: var(--ml-font-weight-medium, 500);
+    color: var(--ml-on-surface, #1c1b1f);
+  }
+
+  .ml-text-muted {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
+
+}

@@ -11,6 +11,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -232,24 +233,22 @@ return -1;
 private getTriggerClasses(hasError: boolean): string {
 return [
 'relative flex items-center justify-center rounded-full border transition focus:outline-none focus:ring-2',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-hasError ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-'focus:ring-sky-500 dark:focus:ring-sky-400',
-(this.disabled || this.readonly || this.loading) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+'ml-dial-track',
+hasError ? 'ml-dial-track-error' : '',
+'ml-dial-focus',
+(this.disabled || this.readonly || this.loading) ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 
 private getItemClasses(item: ParsedItem, isSelected: boolean): string {
 return [
 'absolute flex items-center justify-center rounded-full border text-[11px] leading-tight text-center transition',
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
+'ml-dial-option',
 isSelected
-? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
-: 'border-slate-200 dark:border-slate-700',
-!item.disabled && !isSelected ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-item.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+? 'ml-dial-option-selected'
+: '',
+!item.disabled && !isSelected ? 'ml-dial-option-hover' : '',
+item.disabled ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 
@@ -322,12 +321,12 @@ const dialSize = maxRadius * 2 + itemSize;
 
 if (!this.isEditing) {
 const viewTextClass = selectedLabel || triggerContent
-? 'text-slate-900 dark:text-slate-100'
-: 'text-slate-400 dark:text-slate-500';
+? 'ml-text'
+: 'ml-text-muted';
 return html`
-<div class="w-full">
+<div class=${cn('w-full', this.cssClass)}>
 ${this.hasSlot('Label')
-? html`<div id=${labelId} class="mb-1 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Label'))}</div>`
+? html`<div id=${labelId} class=${cn('mb-1 text-sm ml-label', this.getSlotClass('Label'))}>${unsafeHTML(this.getSlotContent('Label'))}</div>`
 : nothing}
 <div class="text-sm ${viewTextClass}">
 ${selectedLabel
@@ -345,28 +344,28 @@ ${this.name
 
 const renderCenterContent = () => {
 if (this.loading) {
-return html`<span class="text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</span>`;
+return html`<span class="text-xs ml-text-muted">${this.msg.loading}</span>`;
 }
 if (selectedLabel) {
-return html`<span class="text-xs text-slate-900 dark:text-slate-100">${unsafeHTML(selectedLabel)}</span>`;
+return html`<span class="text-xs ml-text">${unsafeHTML(selectedLabel)}</span>`;
 }
 if (triggerContent) {
-return html`<span class="text-xs text-slate-900 dark:text-slate-100">${unsafeHTML(triggerContent)}</span>`;
+return html`<span class=${cn('text-xs ml-text', this.getSlotClass('Trigger'))}>${unsafeHTML(triggerContent)}</span>`;
 }
-return html`<span class="text-xs text-slate-400 dark:text-slate-500">${placeholderText}</span>`;
+return html`<span class="text-xs ml-text-muted">${placeholderText}</span>`;
 };
 
 return html`
-<div class="w-full">
+<div class=${cn('w-full', this.cssClass)}>
 ${this.hasSlot('Label')
-? html`<div id=${labelId} class="mb-2 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Label'))}</div>`
+? html`<div id=${labelId} class=${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}>${unsafeHTML(this.getSlotContent('Label'))}</div>`
 : nothing}
 
 <div class="flex flex-col items-center">
 ${this.searchable && this.isOpen
 ? html`
 <input
-class="mb-3 w-full max-w-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
+class="mb-3 w-full max-w-xs rounded-lg border ml-dial-search px-3 py-2 text-sm focus:outline-none focus:ring-2"
 placeholder=${this.msg.placeholder}
 .value=${this.searchQuery}
 @input=${this.handleSearchInput}
@@ -380,7 +379,7 @@ ${this.isOpen
 const radius = baseRadius + ringIndex * ringGap;
 return html`
 <div
-class="absolute rounded-full border border-slate-200 dark:border-slate-700"
+class="absolute rounded-full border ml-dial-ring"
 style="width:${radius * 2}px;height:${radius * 2}px;left:50%;top:50%;transform:translate(-50%, -50%);"
 ></div>
 ${ring.items.map((item, itemIndex) => {
@@ -407,7 +406,7 @@ style="width:${itemSize}px;height:${itemSize}px;left:50%;top:50%;transform:trans
 : nothing}
 
 <button
-class=${this.getTriggerClasses(hasError)}
+class=${cn(this.getTriggerClasses(hasError), this.getSlotClass('Trigger'))}
 style="width:84px;height:84px;left:50%;top:50%;transform:translate(-50%, -50%);"
 role="combobox"
 aria-expanded=${this.isOpen ? 'true' : 'false'}
@@ -444,9 +443,9 @@ ${this.name
 : nothing}
 
 ${this.error
-? html`<p id=${errorId} class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`
+? html`<p id=${errorId} class="mt-2 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`
 : !hasError && this.hasSlot('Helper')
-? html`<p class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`
+? html`<p class=${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}>${unsafeHTML(this.getSlotContent('Helper'))}</p>`
 : nothing}
 </div>
 `;

@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -170,14 +171,10 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
     return [
       'flex items-center justify-center rounded-full border text-sm font-semibold transition',
       'w-9 h-9',
-      isActive
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-        : isCompleted
-        ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border-emerald-400 dark:border-emerald-500'
-        : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700',
-      isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-      !isDisabled && !isActive ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-      !isDisabled ? 'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400' : '',
+      'ml-step-number',
+      isActive ? 'ml-step-active' : '',
+      isCompleted ? 'ml-step-completed' : '',
+      isDisabled ? 'ml-disabled' : 'cursor-pointer',
     ]
       .filter(Boolean)
       .join(' ');
@@ -186,8 +183,8 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
   private getTitleClasses(isActive: boolean, isDisabled: boolean): string {
     return [
       'mt-2 text-xs font-medium text-center',
-      isActive ? 'text-sky-700 dark:text-sky-300' : 'text-slate-700 dark:text-slate-300',
-      isDisabled ? 'text-slate-400 dark:text-slate-600' : '',
+      isActive ? 'ml-step-active-text' : 'ml-text',
+      isDisabled ? 'ml-text-muted' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -196,28 +193,27 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
   private getDescriptionClasses(isDisabled: boolean): string {
     return [
       'mt-1 text-[11px] text-center',
-      'text-slate-500 dark:text-slate-400',
-      isDisabled ? 'text-slate-400 dark:text-slate-600' : '',
+      'ml-text-muted',
     ]
       .filter(Boolean)
       .join(' ');
   }
 
   private getContainerClasses(): string {
-    return [
+    return cn([
       'w-full',
-      this.loading ? 'opacity-60 pointer-events-none' : '',
+      this.loading ? 'ml-disabled' : '',
     ]
       .filter(Boolean)
-      .join(' ');
+      .join(' '), this.cssClass);
   }
   // ===========================================================================
   // RENDER
   // =========================================================================
   private renderLoading(): TemplateResult {
     return html`
-      <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-        <span class="h-2 w-2 rounded-full bg-slate-400 dark:bg-slate-500 animate-pulse"></span>
+      <div class="flex items-center gap-2 text-sm ml-text-muted">
+        <span class="h-2 w-2 rounded-full ml-step-loading-dot animate-pulse"></span>
         <span>${this.msg.loading}</span>
       </div>
     `;
@@ -261,9 +257,7 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
     const isCompleted = afterIndex < this.value;
     return html`
       <div class="flex-1 flex items-start pt-[18px] px-2">
-        <div class="h-0.5 w-full transition-colors ${isCompleted
-          ? 'bg-emerald-400 dark:bg-emerald-500'
-          : 'bg-slate-200 dark:bg-slate-600'}"></div>
+        <div class="h-0.5 w-full transition-colors ml-step-connector ${isCompleted ? 'ml-step-connector-completed' : ''}"></div>
       </div>
     `;
   }
@@ -278,7 +272,7 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
     return html`
       <div class="${this.getContainerClasses()}">
         ${labelText
-          ? html`<div class="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">${unsafeHTML(this.getSlotContent('Label'))}</div>`
+          ? html`<div class="mb-3 text-sm font-semibold ml-label">${unsafeHTML(this.getSlotContent('Label'))}</div>`
           : html``}
         <div
           class="flex items-start"

@@ -9,6 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
   loading: 'Loading...',
@@ -178,34 +179,18 @@ export class GroupEnterMoneyMlCurrencyInputMolecule extends MoleculeAuraElement 
   // CSS CLASS BUILDERS (dark mode aware)
   // ===========================================================================
   private getInputClasses(): string {
-    const base = [
-      'w-full rounded-md px-3 py-2 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-    ];
-    if (this.error) {
-      base.push('border-red-500 dark:border-red-400');
-    } else {
-      base.push('border-slate-200 dark:border-slate-700');
-    }
-    if (this.disabled) {
-      base.push('opacity-50 cursor-not-allowed');
-    } else {
-      base.push('focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400');
-    }
-    if (this.readonly) {
-      base.push('bg-slate-50 dark:bg-slate-900');
-    }
-    return base.filter(Boolean).join(' ');
+    return [
+      'w-full flex-1 bg-transparent outline-none text-sm ml-input',
+      this.disabled ? 'cursor-not-allowed' : '',
+      this.readonly ? 'cursor-default' : '',
+    ].filter(Boolean).join(' ');
   }
   private getContainerClasses(): string {
     return [
-      'relative',
-      this.loading ? 'opacity-50 pointer-events-none' : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+      'relative flex w-full items-center gap-2 ml-input-container py-2 px-3',
+      this.error ? 'ml-input-container-error' : '',
+      (this.disabled || this.loading) ? 'ml-disabled' : 'cursor-text',
+    ].filter(Boolean).join(' ');
   }
   // ===========================================================================
   // RENDER HELPERS
@@ -213,19 +198,19 @@ export class GroupEnterMoneyMlCurrencyInputMolecule extends MoleculeAuraElement 
   private renderLabel(): TemplateResult | typeof nothing {
     if (!this.hasSlot('Label')) return nothing;
     const labelId = `${this.id}-label`;
-    return html`<label id="${labelId}" class="block mb-1 text-sm font-medium text-slate-700 dark:text-slate-200">
+    return html`<label id="${labelId}" class="${cn('block mb-1 text-sm ml-label', this.getSlotClass('Label'))}">
       ${unsafeHTML(this.getSlotContent('Label'))}
     </label>`;
   }
   private renderHelperOrError(): TemplateResult | typeof nothing {
     const describedId = `${this.id}-desc`;
     if (this.error) {
-      return html`<p id="${describedId}" class="mt-1 text-xs text-red-600 dark:text-red-400">
+      return html`<p id="${describedId}" class="mt-1 text-xs ml-error-text">
         ${unsafeHTML(this.error)}
       </p>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<p id="${describedId}" class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+      return html`<p id="${describedId}" class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">
         ${unsafeHTML(this.getSlotContent('Helper'))}
       </p>`;
     }
@@ -236,28 +221,30 @@ export class GroupEnterMoneyMlCurrencyInputMolecule extends MoleculeAuraElement 
     const describedId = this.error || this.hasSlot('Helper') ? `${this.id}-desc` : undefined;
     const placeholder = this.placeholder || this.getSlotAttr('Label', 'placeholder') || this.msg.placeholder;
     return html`
-      <input
-        id="${inputId}"
-        name="${this.name}"
-        class="${this.getInputClasses()}"
-        .value=${this.rawValue}
-        ?disabled=${this.disabled || this.loading}
-        ?readonly=${this.readonly}
-        placeholder="${placeholder}"
-        maxlength="20"
-        aria-labelledby="${this.hasSlot('Label') ? `${this.id}-label` : undefined}"
-        aria-describedby="${describedId}"
-        aria-invalid="${this.error ? 'true' : 'false'}"
-        aria-required="${this.required ? 'true' : 'false'}"
-        @focus="${this.onFocus}"
-        @input="${this.onInput}"
-        @blur="${this.onBlur}"
-      />
+      <div class="${this.getContainerClasses()}">
+        <input
+          id="${inputId}"
+          name="${this.name}"
+          class="${this.getInputClasses()}"
+          .value=${this.rawValue}
+          ?disabled=${this.disabled || this.loading}
+          ?readonly=${this.readonly}
+          placeholder="${placeholder}"
+          maxlength="20"
+          aria-labelledby="${this.hasSlot('Label') ? `${this.id}-label` : undefined}"
+          aria-describedby="${describedId}"
+          aria-invalid="${this.error ? 'true' : 'false'}"
+          aria-required="${this.required ? 'true' : 'false'}"
+          @focus="${this.onFocus}"
+          @input="${this.onInput}"
+          @blur="${this.onBlur}"
+        />
+      </div>
     `;
   }
   private renderViewMode(): TemplateResult {
     const display = this.value === null ? this.msg.noValue : this.formatNumber(this.value);
-    return html`<span class="block w-full text-sm text-slate-900 dark:text-slate-100">${unsafeHTML(display)}</span>`;
+    return html`<span class="block w-full text-sm ml-text">${unsafeHTML(display)}</span>`;
   }
   // ===========================================================================
   // RENDER
@@ -269,15 +256,14 @@ export class GroupEnterMoneyMlCurrencyInputMolecule extends MoleculeAuraElement 
     if (this.rawValue === '' && this.value !== null) {
       this.rawValue = this.formatToRaw(this.value);
     }
-    const containerClasses = this.getContainerClasses();
     return html`
-      <div class="${containerClasses}">
+      <div class="${cn('relative w-full', this.cssClass)}">
         ${this.renderLabel()}
         ${this.isEditing ? this.renderInput() : this.renderViewMode()}
         ${this.renderHelperOrError()}
         ${this.loading
-          ? html`<div class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 dark:bg-slate-800 dark:bg-opacity-50">
-              <span class="text-sm text-slate-600 dark:text-slate-300">${this.msg.loading}</span>
+          ? html`<div class="absolute inset-0 flex items-center justify-center ml-loading-overlay">
+              <span class="text-sm ml-text-muted">${this.msg.loading}</span>
             </div>`
           : nothing}
       </div>

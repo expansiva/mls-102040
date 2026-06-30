@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -279,17 +280,16 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
   // STYLES
   // ===========================================================================
   private getContainerClasses(): string {
-    return [
+    return cn([
       'w-full',
-      this.disabled ? 'opacity-50 pointer-events-none' : '',
-    ].filter(Boolean).join(' ');
+      this.disabled ? 'ml-disabled' : '',
+    ].filter(Boolean).join(' '), this.cssClass);
   }
 
   private getTabListClasses(): string {
     return [
       'relative flex overflow-x-auto scrollbar-hide',
-      'border-b border-slate-200 dark:border-slate-700',
-      'bg-white dark:bg-slate-800',
+      'border-b ml-tab-list',
     ].join(' ');
   }
 
@@ -297,22 +297,15 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
     return [
       'relative flex items-center gap-2 px-4 py-3 text-sm font-medium whitespace-nowrap',
       'transition-colors duration-200 outline-none',
-      'focus-visible:ring-2 focus-visible:ring-sky-500 dark:focus-visible:ring-sky-400 focus-visible:ring-inset',
-      isActive
-        ? 'text-sky-600 dark:text-sky-400'
-        : 'text-slate-600 dark:text-slate-400',
-      !tab.disabled && !isActive
-        ? 'hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50'
-        : '',
-      tab.disabled
-        ? 'opacity-50 cursor-not-allowed'
-        : 'cursor-pointer',
+      'ml-tab',
+      isActive ? 'ml-tab-active' : '',
+      tab.disabled ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getIndicatorClasses(): string {
     return [
-      'absolute bottom-0 h-0.5 bg-sky-500 dark:bg-sky-400',
+      'absolute bottom-0 h-0.5 ml-tab-indicator',
       'transition-all duration-300 ease-out',
     ].join(' ');
   }
@@ -320,27 +313,27 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
   private getPanelClasses(): string {
     return [
       'w-full py-4',
-      'text-slate-900 dark:text-slate-100',
+      'ml-tab-panel ml-text',
     ].join(' ');
   }
 
   private getLoadingClasses(): string {
     return [
       'flex items-center justify-center py-8',
-      'text-slate-500 dark:text-slate-400',
+      'ml-text-muted',
     ].join(' ');
   }
 
   private getErrorClasses(): string {
     return [
-      'mt-2 text-sm text-red-600 dark:text-red-400',
+      'mt-2 text-sm ml-error-text',
     ].join(' ');
   }
 
   private getLabelClasses(): string {
     return [
       'block mb-2 text-sm font-medium',
-      'text-slate-700 dark:text-slate-300',
+      'ml-label',
     ].join(' ');
   }
 

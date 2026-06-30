@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -418,145 +419,85 @@ export class MlMonthYearRangeMolecule extends MoleculeAuraElement {
   private getContainerClasses(): string {
     return [
       'w-full',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+      this.disabled ? 'ml-disabled' : '',
     ].filter(Boolean).join(' ');
   }
 
   private getGridContainerClasses(): string {
-    return [
-      'flex flex-col md:flex-row gap-6',
-    ].join(' ');
+    return 'flex flex-col md:flex-row gap-6';
   }
 
   private getGridPanelClasses(): string {
     return [
-      'flex-1 rounded-lg border p-4',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
-      this.isFocused && !this.error ? 'ring-2 ring-sky-500 dark:ring-sky-400' : '',
-      this.error ? 'border-red-500 dark:border-red-400' : '',
+      'flex-1 rounded-lg border p-4 ml-calendar-panel',
+      this.isFocused && !this.error ? 'ml-calendar-panel-focused' : '',
+      this.error ? 'ml-input-container-error' : '',
     ].filter(Boolean).join(' ');
   }
 
   private getYearNavClasses(): string {
-    return [
-      'flex items-center justify-between mb-4',
-    ].join(' ');
+    return 'flex items-center justify-between mb-4';
   }
 
   private getNavButtonClasses(): string {
     return [
-      'p-2 rounded-md transition',
-      'text-slate-600 dark:text-slate-400',
-      'hover:bg-slate-100 dark:hover:bg-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled || this.readonly ? 'opacity-50 cursor-not-allowed pointer-events-none' : 'cursor-pointer',
+      'p-2 rounded-md transition ml-calendar-nav',
+      this.disabled || this.readonly ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getYearLabelClasses(): string {
-    return [
-      'text-lg font-semibold',
-      'text-slate-900 dark:text-slate-100',
-    ].join(' ');
+    return 'text-lg font-semibold ml-text';
   }
 
   private getMonthGridClasses(): string {
-    return [
-      'grid grid-cols-3 gap-2',
-    ].join(' ');
+    return 'grid grid-cols-3 gap-2';
   }
 
   private getMonthButtonClasses(monthData: MonthData): string {
     const base = 'px-3 py-2 rounded-md text-sm font-medium transition';
 
     if (monthData.disabled) {
-      return [
-        base,
-        'opacity-40 cursor-not-allowed',
-        'text-slate-400 dark:text-slate-600',
-        'bg-slate-50 dark:bg-slate-900',
-      ].join(' ');
+      return `${base} ml-calendar-month-disabled`;
     }
 
     if (monthData.isStart || monthData.isEnd) {
-      return [
-        base,
-        'bg-sky-500 dark:bg-sky-600',
-        'text-white',
-        'cursor-pointer',
-      ].join(' ');
+      return `${base} ml-calendar-month-selected cursor-pointer`;
     }
 
     if (monthData.isHovered) {
-      return [
-        base,
-        'bg-sky-200 dark:bg-sky-800',
-        'text-sky-900 dark:text-sky-100',
-        'cursor-pointer',
-      ].join(' ');
+      return `${base} ml-calendar-month-hovered cursor-pointer`;
     }
 
     if (monthData.isInRange) {
-      return [
-        base,
-        'bg-sky-100 dark:bg-sky-900/50',
-        'text-sky-800 dark:text-sky-200',
-        'cursor-pointer',
-      ].join(' ');
+      return `${base} ml-calendar-month-range cursor-pointer`;
     }
 
-    return [
-      base,
-      'bg-white dark:bg-slate-800',
-      'text-slate-900 dark:text-slate-100',
-      'border border-slate-200 dark:border-slate-700',
-      'hover:bg-slate-50 dark:hover:bg-slate-700',
-      'cursor-pointer',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-    ].join(' ');
+    return `${base} ml-calendar-month cursor-pointer`;
   }
 
   private getLabelClasses(): string {
-    return [
-      'block text-sm font-medium mb-2',
-      'text-slate-700 dark:text-slate-300',
-    ].join(' ');
+    return 'block text-sm font-medium mb-2 ml-label';
   }
 
   private getGridLabelClasses(): string {
-    return [
-      'text-xs font-medium mb-2',
-      'text-slate-500 dark:text-slate-400',
-    ].join(' ');
+    return 'text-xs font-medium mb-2 ml-text-muted';
   }
 
   private getHelperClasses(): string {
-    return [
-      'mt-2 text-xs',
-      'text-slate-500 dark:text-slate-400',
-    ].join(' ');
+    return 'mt-2 text-xs ml-helper';
   }
 
   private getErrorClasses(): string {
-    return [
-      'mt-2 text-xs',
-      'text-red-600 dark:text-red-400',
-    ].join(' ');
+    return 'mt-2 text-xs ml-error-text';
   }
 
   private getViewModeClasses(): string {
-    return [
-      'text-sm',
-      'text-slate-900 dark:text-slate-100',
-    ].join(' ');
+    return 'text-sm ml-text';
   }
 
   private getLoadingClasses(): string {
-    return [
-      'flex items-center justify-center p-8',
-      'text-slate-500 dark:text-slate-400',
-    ].join(' ');
+    return 'flex items-center justify-center p-8 ml-text-muted';
   }
 
   // ===========================================================================
@@ -565,9 +506,9 @@ export class MlMonthYearRangeMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <label class=${this.getLabelClasses()}>
+      <label class="${cn(this.getLabelClasses(), this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
-        ${this.required ? html`<span class="text-red-500 dark:text-red-400 ml-1">*</span>` : html``}
+        ${this.required ? html`<span class="ml-error-text ml-1">*</span>` : html``}
       </label>
     `;
   }
@@ -575,7 +516,7 @@ export class MlMonthYearRangeMolecule extends MoleculeAuraElement {
   private renderGridLabel(slotName: 'LabelStart' | 'LabelEnd'): TemplateResult {
     if (!this.hasSlot(slotName)) return html``;
     return html`
-      <div class=${this.getGridLabelClasses()}>
+      <div class="${cn(this.getGridLabelClasses(), this.getSlotClass(slotName))}">
         ${unsafeHTML(this.getSlotContent(slotName))}
       </div>
     `;
@@ -682,7 +623,7 @@ export class MlMonthYearRangeMolecule extends MoleculeAuraElement {
   private renderFeedback(): TemplateResult {
     if (this.error) {
       return html`
-        <p class=${this.getErrorClasses()} role="alert">
+        <p class="${this.getErrorClasses()}" role="alert">
           ${unsafeHTML(this.error)}
         </p>
       `;
@@ -690,7 +631,7 @@ export class MlMonthYearRangeMolecule extends MoleculeAuraElement {
 
     if (this.hasSlot('Helper')) {
       return html`
-        <p class=${this.getHelperClasses()}>
+        <p class="${cn(this.getHelperClasses(), this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
@@ -713,9 +654,9 @@ export class MlMonthYearRangeMolecule extends MoleculeAuraElement {
     }
 
     return html`
-      <div class=${this.getContainerClasses()}>
+      <div class="${cn(this.getContainerClasses(), this.cssClass)}">
         ${this.renderLabel()}
-        <div class=${this.getViewModeClasses()}>
+        <div class="${this.getViewModeClasses()}">
           ${displayText}
         </div>
       </div>
@@ -724,9 +665,9 @@ export class MlMonthYearRangeMolecule extends MoleculeAuraElement {
 
   private renderLoading(): TemplateResult {
     return html`
-      <div class=${this.getContainerClasses()}>
+      <div class="${cn(this.getContainerClasses(), this.cssClass)}">
         ${this.renderLabel()}
-        <div class=${this.getLoadingClasses()}>
+        <div class="${this.getLoadingClasses()}">
           <svg class="animate-spin h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -754,14 +695,14 @@ export class MlMonthYearRangeMolecule extends MoleculeAuraElement {
 
     return html`
       <div
-        class=${this.getContainerClasses()}
+        class="${cn(this.getContainerClasses(), this.cssClass)}"
         @focusin=${this.handleFocus}
         @focusout=${this.handleBlur}
         aria-invalid=${this.error ? 'true' : 'false'}
         aria-required=${this.required ? 'true' : 'false'}
       >
         ${this.renderLabel()}
-        <div class=${this.getGridContainerClasses()}>
+        <div class="${this.getGridContainerClasses()}">
           ${this.renderStartGrid()}
           ${this.renderEndGrid()}
         </div>

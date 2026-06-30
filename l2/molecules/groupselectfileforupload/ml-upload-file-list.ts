@@ -9,6 +9,7 @@ import { customElement, query, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -241,46 +242,36 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
 
   private getDropZoneClasses(hasError: boolean): string {
     return [
-      'w-full rounded-lg border border-dashed p-4 transition text-sm flex flex-col gap-2 items-center justify-center text-center',
-      'bg-white dark:bg-slate-900',
-      'text-slate-700 dark:text-slate-300',
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      this.isDragging
-        ? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40'
-        : '',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+      'w-full rounded-lg border border-dashed p-4 transition text-sm flex flex-col gap-2 items-center justify-center text-center ml-dropzone',
+      hasError ? 'ml-dropzone-error' : '',
+      this.isDragging ? 'ml-dropzone-active' : '',
+      this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getFileRowClasses(): string {
     return [
-      'w-full rounded-md border p-3 flex flex-col gap-2',
-      'border-slate-200 dark:border-slate-700',
-      'bg-white dark:bg-slate-800',
+      'w-full rounded-md border p-3 flex flex-col gap-2 ml-file-item',
     ].join(' ');
   }
 
   private getTypeBadgeClasses(): string {
     return [
-      'inline-flex items-center justify-center rounded-full px-2 py-1 text-xs font-semibold',
-      'bg-slate-100 dark:bg-slate-700',
-      'text-slate-600 dark:text-slate-300',
+      'inline-flex items-center justify-center rounded-full px-2 py-1 text-xs font-semibold ml-file-type-badge',
     ].join(' ');
   }
 
   private getRemoveButtonClasses(): string {
     return [
-      'text-xs font-medium text-red-600 dark:text-red-400 transition',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'hover:underline',
-    ].join(' ');
+      'text-xs font-medium transition ml-file-remove',
+      this.disabled || this.loading ? 'ml-disabled' : '',
+    ].filter(Boolean).join(' ');
   }
 
   private renderLabel(labelId: string): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     return html`
-      <div id=${labelId} class="text-sm font-medium text-slate-700 dark:text-slate-300">
+      <div id=${labelId} class="${cn('text-sm font-medium ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(this.getSlotContent('Label'))}
       </div>
     `;
@@ -289,14 +280,14 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
   private renderHelperOrError(helperId: string, hasError: boolean): TemplateResult {
     if (hasError) {
       return html`
-        <p id=${helperId} class="text-xs text-red-600 dark:text-red-400">
+        <p id=${helperId} class="text-xs ml-error-text">
           ${unsafeHTML(String(this.error))}
         </p>
       `;
     }
     if (this.hasSlot('Helper')) {
       return html`
-        <p id=${helperId} class="text-xs text-slate-500 dark:text-slate-400">
+        <p id=${helperId} class="${cn('text-xs ml-helper', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
@@ -309,15 +300,15 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
       return html`${unsafeHTML(this.getSlotContent('Trigger'))}`;
     }
     return html`
-      <div class="text-sm font-medium text-slate-700 dark:text-slate-200">${this.msg.addFiles}</div>
-      <div class="text-xs text-slate-500 dark:text-slate-400">${this.msg.dropHere}</div>
+      <div class="text-sm font-medium ml-label">${this.msg.addFiles}</div>
+      <div class="text-xs ml-text-muted">${this.msg.dropHere}</div>
     `;
   }
 
   private renderFileList(hasFiles: boolean): TemplateResult {
     if (!hasFiles) {
       return html`
-        <div class="text-sm text-slate-500 dark:text-slate-400">${this.msg.noFiles}</div>
+        <div class="text-sm ml-text-muted">${this.msg.noFiles}</div>
       `;
     }
 
@@ -329,8 +320,8 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
               <div class="flex items-center gap-3">
                 <span class=${this.getTypeBadgeClasses()}>${this.getFileExtension(file)}</span>
                 <div class="flex flex-col">
-                  <span class="text-sm font-medium text-slate-900 dark:text-slate-100">${file.name}</span>
-                  <span class="text-xs text-slate-500 dark:text-slate-400">${this.msg.size}: ${this.formatSize(file.size)}</span>
+                  <span class="text-sm font-medium ml-text">${file.name}</span>
+                  <span class="text-xs ml-text-muted">${this.msg.size}: ${this.formatSize(file.size)}</span>
                 </div>
               </div>
               <button
@@ -344,15 +335,15 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
               </button>
             </div>
             <div class="flex flex-col gap-1">
-              <div class="text-xs text-slate-500 dark:text-slate-400">
+              <div class="text-xs ml-text-muted">
                 ${this.loading ? this.msg.uploading : this.msg.uploaded}
               </div>
-              <div class="h-1 w-full rounded bg-slate-200 dark:bg-slate-700 overflow-hidden">
+              <div class="h-1 w-full rounded overflow-hidden ml-file-progress-track">
                 <div class=${[
                   'h-full w-full',
                   this.loading
-                    ? 'bg-sky-500 dark:bg-sky-400 animate-pulse'
-                    : 'bg-emerald-500 dark:bg-emerald-400',
+                    ? 'ml-file-progress-active animate-pulse'
+                    : 'ml-file-progress-done',
                 ].join(' ')}></div>
               </div>
             </div>
@@ -376,7 +367,7 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
     const hasFiles = Array.isArray(this.value) && this.value.length > 0;
 
     return html`
-      <div class="flex flex-col gap-3">
+      <div class="${cn('flex flex-col gap-3', this.cssClass)}">
         ${this.renderLabel(labelId)}
 
         <div

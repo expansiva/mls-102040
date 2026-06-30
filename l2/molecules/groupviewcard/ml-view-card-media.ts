@@ -10,6 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 @customElement('groupviewcard--ml-view-card-media')
 export class MlViewCardMediaMolecule extends MoleculeAuraElement {
@@ -114,10 +115,10 @@ const mediaContent = this.getSlotContent('CardHeader').trim();
 const hasMedia = mediaContent.length > 0;
 const showPlaceholder = !hasMedia || this.mediaFailed;
 
-const placeholderClasses = [
+const placeholderClasses = cn(
 'absolute inset-0',
-'bg-slate-100 dark:bg-slate-700',
-].join(' ');
+'ml-card-media',
+);
 
 const mediaContentClasses = [
 'absolute inset-0 w-full h-full',
@@ -161,10 +162,10 @@ if (!title && !description) return html``;
 return html`
 <div class="space-y-1">
 ${title
-? html`<div class="text-base font-semibold text-slate-900 dark:text-slate-100">${unsafeHTML(title)}</div>`
+? html`<div class="${cn('text-base font-semibold ml-label', this.getSlotClass('CardTitle'))}">${unsafeHTML(title)}</div>`
 : html``}
 ${description
-? html`<div class="text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(description)}</div>`
+? html`<div class="${cn('text-sm ml-text-muted', this.getSlotClass('CardDescription'))}">${unsafeHTML(description)}</div>`
 : html``}
 </div>
 `;
@@ -174,7 +175,7 @@ private renderContentSection(): TemplateResult {
 const content = this.getSlotContent('CardContent').trim();
 if (!content) return html``;
 return html`
-<div class="text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(content)}</div>
+<div class="${cn('text-sm ml-text-muted', this.getSlotClass('CardContent'))}">${unsafeHTML(content)}</div>
 `;
 }
 
@@ -190,7 +191,7 @@ footer ? 'justify-between' : 'justify-end',
 
 return html`
 <div class="${containerClasses}">
-${footer ? html`<div class="text-sm text-slate-500 dark:text-slate-400">${unsafeHTML(footer)}</div>` : html``}
+${footer ? html`<div class="${cn('text-sm ml-text-muted', this.getSlotClass('CardFooter'))}">${unsafeHTML(footer)}</div>` : html``}
 ${action ? html`<div class="shrink-0">${unsafeHTML(action)}</div>` : html``}
 </div>
 `;
@@ -198,14 +199,13 @@ ${action ? html`<div class="shrink-0">${unsafeHTML(action)}</div>` : html``}
 
 private renderSkeleton(): TemplateResult {
 const ratioClass = this.getMediaRatioClass();
-const skeletonClasses = [
+const skeletonClasses = cn(
 'animate-pulse',
 'w-full rounded-xl border overflow-hidden',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-].join(' ');
+'ml-card',
+);
 
-const blockClasses = 'bg-slate-200 dark:bg-slate-700 rounded';
+const blockClasses = 'ml-skeleton rounded';
 
 return html`
 <div class="${skeletonClasses}" aria-hidden="true">
@@ -239,16 +239,16 @@ return this.clickable && !this.disabled && !this.loading;
 
 private getCardClasses(): string {
 const isSelected = this.selected && !this.disabled && !this.loading;
-return [
+return cn(
 'w-full rounded-xl border overflow-hidden transition',
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
-isSelected ? 'border-sky-500 dark:border-sky-400' : 'border-slate-200 dark:border-slate-700',
+'ml-card',
+isSelected ? 'ml-card-header' : '',
 this.isInteractive()
-? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400'
+? 'cursor-pointer focus:outline-none focus:ring-2'
 : '',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-].filter(Boolean).join(' ');
+this.disabled ? 'ml-disabled' : '',
+this.cssClass,
+);
 }
 
 private attachMediaListeners() {

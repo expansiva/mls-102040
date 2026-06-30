@@ -11,6 +11,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -338,15 +339,15 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
   private getContainerClasses(): string {
     return [
       'w-full',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+      this.disabled ? 'ml-disabled' : '',
     ].filter(Boolean).join(' ');
   }
 
   private getSliderTrackClasses(): string {
     return [
       'relative w-full h-2 rounded-full transition-colors',
-      'bg-slate-200 dark:bg-slate-700',
-      this.error ? 'bg-red-200 dark:bg-red-900/40' : '',
+      'ml-slider-track',
+      this.error ? 'ml-slider-track-error' : '',
       !this.disabled && !this.readonly && !this.loading && this.isEditing
         ? 'cursor-pointer'
         : '',
@@ -363,14 +364,14 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
       'w-4 h-4 rounded-full border-2 touch-none',
       !this.isDragging ? 'transition-all' : '',
       isBlue
-        ? 'bg-sky-500 dark:bg-sky-400 border-sky-500 dark:border-sky-400'
-        : 'bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600',
+        ? 'ml-slider-mark-active'
+        : 'ml-slider-mark',
       isSelected || isPending ? 'scale-125' : '',
       isFocused && !isBlue
-        ? 'ring-2 ring-sky-500 dark:ring-sky-400 ring-offset-2 ring-offset-white dark:ring-offset-slate-900'
+        ? 'ml-slider-mark-focus'
         : '',
       item?.disabled
-        ? 'opacity-50 cursor-not-allowed'
+        ? 'ml-disabled'
         : !this.disabled && !this.readonly && !this.loading && this.isEditing
           ? 'cursor-grab hover:scale-110'
           : '',
@@ -383,25 +384,25 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
     return [
       'absolute top-6 -translate-x-1/2 text-xs text-center whitespace-nowrap transition-colors',
       isActiveStop
-        ? 'text-sky-700 dark:text-sky-300 font-medium'
-        : 'text-slate-600 dark:text-slate-400',
-      item?.disabled ? 'opacity-50' : '',
+        ? 'ml-slider-label-active'
+        : 'ml-slider-label',
+      item?.disabled ? 'ml-slider-label-disabled' : '',
     ].filter(Boolean).join(' ');
   }
 
   private getIndicatorClasses(): string {
     return [
       'absolute -top-8 -translate-x-1/2 px-2 py-1 rounded text-xs font-medium transition-all',
-      'bg-sky-500 dark:bg-sky-400 text-white dark:text-slate-900',
+      'ml-slider-thumb',
       'after:content-[""] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2',
-      'after:border-4 after:border-transparent after:border-t-sky-500 dark:after:border-t-sky-400',
+      'after:border-4 after:border-transparent ml-slider-thumb-arrow',
     ].join(' ');
   }
 
   private getGroupLabelClasses(): string {
     return [
       'absolute -bottom-8 text-xs font-medium text-center',
-      'text-slate-500 dark:text-slate-400',
+      'ml-text-muted',
     ].join(' ');
   }
 
@@ -439,7 +440,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
     }
 
     return html`
-      <div class=${this.getContainerClasses()}>
+      <div class=${cn(this.getContainerClasses(), this.cssClass)}>
         ${this.renderLabel()}
         ${this.renderSlider()}
         ${this.renderFeedback()}
@@ -454,7 +455,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
       : (this.placeholder || this.msg.noSelection);
 
     return html`
-      <div class="text-slate-900 dark:text-slate-100">
+      <div class=${cn('ml-text', this.cssClass)}>
         ${unsafeHTML(displayText)}
       </div>
     `;
@@ -463,7 +464,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
   private renderEmptyState(): TemplateResult {
     if (this.hasSlot('Empty')) {
       return html`
-        <div class="text-slate-500 dark:text-slate-400 text-sm">
+        <div class=${cn('ml-text-muted text-sm', this.getSlotClass('Empty'))}>
           ${unsafeHTML(this.getSlotContent('Empty'))}
         </div>
       `;
@@ -477,10 +478,10 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
     return html`
       <label
         id="slider-label"
-        class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3"
+        class=${cn('block text-sm font-medium ml-label mb-3', this.getSlotClass('Label'))}
       >
         ${unsafeHTML(this.getSlotContent('Label'))}
-        ${this.required ? html`<span class="text-red-500 dark:text-red-400 ml-1">*</span>` : html``}
+        ${this.required ? html`<span class="ml-error-text ml-1">*</span>` : html``}
       </label>
     `;
   }
@@ -530,7 +531,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
     if (this.loading) {
       return html`
         <div
-          class="absolute left-1/2 -top-2 -translate-x-1/2 px-2 py-1 rounded text-xs font-medium bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400"
+          class="absolute left-1/2 -top-2 -translate-x-1/2 px-2 py-1 rounded text-xs font-medium ml-slider-indicator-idle"
         >
           ${this.msg.loading}
         </div>
@@ -544,7 +545,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
 
       return html`
         <div
-          class="absolute left-1/2 -top-2 -translate-x-1/2 px-2 py-1 rounded text-xs font-medium bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
+          class=${cn('absolute left-1/2 -top-2 -translate-x-1/2 px-2 py-1 rounded text-xs font-medium ml-slider-indicator-idle', this.getSlotClass('Trigger'))}
         >
           ${unsafeHTML(triggerContent)}
         </div>
@@ -568,7 +569,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
 
     return html`
       <div
-        class="absolute top-0 left-0 h-full rounded-full bg-sky-500 dark:bg-sky-400 pointer-events-none ${this.isDragging ? '' : 'transition-all'}"
+        class="absolute top-0 left-0 h-full rounded-full ml-slider-filled pointer-events-none ${this.isDragging ? '' : 'transition-all'}"
         style="width: ${visualPos}%"
       ></div>
     `;
@@ -577,7 +578,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
   private renderDragThumb(visualPos: number): TemplateResult {
     return html`
       <div
-        class="absolute top-1/2 w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2 scale-150 pointer-events-none z-10 bg-sky-500 dark:bg-sky-400 border-2 border-sky-500 dark:border-sky-400 shadow-[0_0_0_9px_rgba(14,165,233,0.18)]"
+        class="absolute top-1/2 w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2 scale-150 pointer-events-none z-10 ml-slider-drag-thumb border-2"
         style="left: ${visualPos}%"
       ></div>
     `;
@@ -636,7 +637,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
   private renderFeedback(): TemplateResult {
     if (this.error) {
       return html`
-        <p id="slider-error" class="mt-2 text-xs text-red-600 dark:text-red-400">
+        <p id="slider-error" class="mt-2 text-xs ml-error-text">
           ${unsafeHTML(String(this.error))}
         </p>
       `;
@@ -644,7 +645,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
 
     if (this.hasSlot('Helper')) {
       return html`
-        <p id="slider-helper" class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+        <p id="slider-helper" class=${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}>
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;

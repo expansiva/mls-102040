@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 placeholder: 'Select options',
@@ -88,7 +89,7 @@ private errorId = `ml-popover-multi-select-error-${Math.random().toString(36).sl
 private panelId = `ml-popover-multi-select-panel-${Math.random().toString(36).slice(2)}`;
 private hasFocus = false;
 protected portalContainer: HTMLDivElement | null = null;
-protected portalClassName = '';
+protected portalClassName = 'groupselectmany--ml-popover-multi-select';
 private boundUpdatePosition = () => this.updatePanelPosition();
 // ===========================================================================
 // LIFECYCLE
@@ -399,7 +400,7 @@ zIndex: '9999',
 }
 private renderPortalContent() {
 if (!this.portalContainer) return;
-litRender(this.getPortalTemplate(), this.portalContainer);
+litRender(this.getPortalTemplate(), this.portalContainer, { host: this });
 }
 protected getPortalTemplate(): TemplateResult {
 const slotData = this.collectSlotData();
@@ -409,16 +410,16 @@ const showEmpty = filtered.groups.length === 0 && filtered.items.length === 0;
 return html`
 <div
 id="${this.panelId}"
-class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-lg"
+class="w-full rounded-lg border ml-select-panel shadow-lg"
 role="listbox"
 aria-multiselectable="true"
 @keydown=${(e: KeyboardEvent) => this.handlePanelKeyDown(e)}
 >
 ${this.searchable
 ? html`
-<div class="p-2 border-b border-slate-200 dark:border-slate-700">
+<div class="p-2 border-b ml-select-panel-divider">
 <input
-class="w-full rounded-md px-3 py-2 text-sm border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
+class="w-full rounded-md px-3 py-2 text-sm border ml-select-search focus:outline-none focus:ring-2"
 .placeholder=${this.msg.search}
 value=${this.searchQuery}
 @input=${(e: Event) => this.handleSearchInput(e)}
@@ -438,57 +439,55 @@ ${showEmpty ? this.renderEmpty() : this.renderItems(filtered.groups, filtered.it
 private getTriggerClasses(hasError: boolean): string {
 return [
 'w-full min-h-[40px] rounded-lg px-3 py-2 text-sm border transition flex items-center justify-between gap-2',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+'ml-select-trigger',
 hasError
-? 'border-red-500 dark:border-red-400'
-: 'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-(this.disabled || this.readonly || this.loading) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-this.isOpen ? 'border-sky-500 dark:border-sky-400' : '',
+? 'ml-select-trigger-error'
+: '',
+'focus:outline-none focus:ring-2 ml-select-trigger-focus',
+(this.disabled || this.readonly || this.loading) ? 'ml-disabled' : 'cursor-pointer',
+this.isOpen ? 'ml-select-trigger-active' : '',
 ].filter(Boolean).join(' ');
 }
 private getItemClasses(isSelected: boolean, isDisabled: boolean): string {
 return [
 'w-full rounded-md px-3 py-2 text-sm transition flex items-center justify-between',
 isSelected
-? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400'
-: 'text-slate-900 dark:text-slate-100 border border-transparent',
-(!isDisabled && !isSelected) ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+? 'ml-select-item-selected'
+: 'ml-select-item border border-transparent',
+(!isDisabled && !isSelected) ? 'ml-select-item-hover' : '',
+isDisabled ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 private renderLabel(): TemplateResult | typeof nothing {
 if (!this.hasSlot('Label')) return nothing;
-return html`<label id="${this.labelId}" class="text-sm font-medium text-slate-700 dark:text-slate-300">${unsafeHTML(this.getSlotContent('Label'))}</label>`;
+return html`<label id="${this.labelId}" class=${cn('text-sm font-medium ml-label', this.getSlotClass('Label'))}>${unsafeHTML(this.getSlotContent('Label'))}</label>`;
 }
 private renderHelper(hasError: boolean): TemplateResult | typeof nothing {
 if (hasError || !this.hasSlot('Helper')) return nothing;
-return html`<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p class=${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}>${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 private renderError(hasError: boolean): TemplateResult | typeof nothing {
 if (!hasError) return nothing;
 const message = this.error || '';
-return html`<p id="${this.errorId}" class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(message)}</p>`;
+return html`<p id="${this.errorId}" class="mt-1 text-xs ml-error-text">${unsafeHTML(message)}</p>`;
 }
 private renderSelectedTag(label: string, isHtml: boolean): TemplateResult {
 return html`
-<span class="px-2 py-0.5 rounded-full text-xs bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
+<span class="px-2 py-0.5 rounded-full text-xs ml-select-tag">
 ${isHtml ? unsafeHTML(label) : label}
 </span>
 `;
 }
 private renderTriggerContent(selectedLabels: { label: string; isHtml: boolean }[], selectedCount: number): TemplateResult {
 if (this.loading) {
-return html`<span class="text-slate-500 dark:text-slate-400">${this.msg.loading}</span>`;
+return html`<span class="ml-text-muted">${this.msg.loading}</span>`;
 }
 if (this.hasSlot('Trigger')) {
-return html`${unsafeHTML(this.getSlotContent('Trigger'))}`;
+return html`<span class=${cn('', this.getSlotClass('Trigger'))}>${unsafeHTML(this.getSlotContent('Trigger'))}</span>`;
 }
 if (selectedCount === 0) {
 const placeholder = this.placeholder || this.msg.placeholder;
-return html`<span class="text-slate-400 dark:text-slate-500">${placeholder}</span>`;
+return html`<span class="ml-text-muted">${placeholder}</span>`;
 }
 const visible = selectedLabels.slice(0, 2);
 const extraCount = selectedCount - visible.length;
@@ -496,21 +495,21 @@ return html`
 <div class="flex flex-wrap items-center gap-1">
 ${visible.map((item) => this.renderSelectedTag(item.label, item.isHtml))}
 ${extraCount > 0
-? html`<span class="text-xs text-slate-500 dark:text-slate-400">+${extraCount}</span>`
+? html`<span class="text-xs ml-text-muted">+${extraCount}</span>`
 : nothing}
 </div>
 `;
 }
 private renderEmpty(): TemplateResult {
 const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.noResults;
-return html`<div class="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">${unsafeHTML(content)}</div>`;
+return html`<div class=${cn('px-3 py-2 text-sm ml-text-muted', this.getSlotClass('Empty'))}>${unsafeHTML(content)}</div>`;
 }
 private renderGroup(group: GroupData, selectedSet: Set<string>, selectionFull: boolean, baseIndex: number): TemplateResult {
 let runningIndex = baseIndex;
 return html`
 <div class="mb-2">
 ${group.label
-? html`<div class="px-3 py-1 text-xs font-semibold text-slate-500 dark:text-slate-400">${group.label}</div>`
+? html`<div class="px-3 py-1 text-xs font-semibold ml-text-muted">${group.label}</div>`
 : nothing}
 <div class="flex flex-col gap-1">
 ${group.items.map((item) => {
@@ -533,7 +532,7 @@ data-ml-item
 >
 <span>${unsafeHTML(item.labelHtml || item.labelText)}</span>
 ${isSelected
-? html`<span class="text-xs text-sky-600 dark:text-sky-300">✓</span>`
+? html`<span class="text-xs ml-select-check">✓</span>`
 : nothing}
 </button>
 `;
@@ -572,7 +571,7 @@ data-ml-item
 >
 <span>${unsafeHTML(item.labelHtml || item.labelText)}</span>
 ${isSelected
-? html`<span class="text-xs text-sky-600 dark:text-sky-300">✓</span>`
+? html`<span class="text-xs ml-select-check">✓</span>`
 : nothing}
 </button>
 `;
@@ -585,14 +584,14 @@ private renderViewMode(selectedLabels: { label: string; isHtml: boolean }[]): Te
 const hasSelection = selectedLabels.length > 0;
 const placeholder = this.placeholder || this.msg.placeholder;
 return html`
-<div class="flex flex-col gap-1">
+<div class=${cn('flex flex-col gap-1', this.cssClass)}>
 ${this.renderLabel()}
-<div class="min-h-[40px] rounded-lg px-3 py-2 text-sm border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+<div class="min-h-[40px] rounded-lg px-3 py-2 text-sm border ml-select-view">
 ${hasSelection
 ? html`<div class="flex flex-wrap gap-1">
 ${selectedLabels.map((item) => this.renderSelectedTag(item.label, item.isHtml))}
 </div>`
-: html`<span class="text-slate-400 dark:text-slate-500">${placeholder}</span>`}
+: html`<span class="ml-text-muted">${placeholder}</span>`}
 </div>
 </div>
 `;
@@ -620,7 +619,7 @@ return this.renderViewMode(selectedLabels);
 }
 const triggerClasses = this.getTriggerClasses(hasError);
 return html`
-<div class="w-full" role="group">
+<div class=${cn('w-full', this.cssClass)} role="group">
 <div class="flex items-start gap-3">
 ${this.renderLabel()}
 <div class="relative flex-1">
@@ -649,7 +648,7 @@ this.openPanel();
 <div class="flex-1 flex items-center gap-2">
 ${this.renderTriggerContent(selectedLabels, selectedCount)}
 </div>
-<span class="text-slate-400 dark:text-slate-500">
+<span class="ml-text-muted">
 <svg viewBox="0 0 20 20" class="w-4 h-4" aria-hidden="true">
 ${svg`<path d="M5 7l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>`}
 </svg>

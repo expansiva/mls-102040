@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -110,7 +111,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
   private boundHandleOutsideClick: (e: MouseEvent) => void;
   private boundHandleKeydown: (e: KeyboardEvent) => void;
   protected portalContainer: HTMLDivElement | null = null;
-  protected portalClassName = '';
+  protected portalClassName = 'groupselectone--ml-card-selector';
   private boundUpdatePosition: () => void;
 
   // ===========================================================================
@@ -326,67 +327,39 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
   // ===========================================================================
   private getTriggerClasses(): string {
     const hasError = this.error !== '';
-    return [
+    return cn(
       'w-full min-h-[44px] rounded-lg px-4 py-3 text-sm border transition',
-      'flex items-center justify-between gap-2 cursor-pointer',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : this.isOpen
-          ? 'border-sky-500 dark:border-sky-400 ring-2 ring-sky-500 dark:ring-sky-400'
-          : 'border-slate-200 dark:border-slate-700',
-      !hasError && !this.isOpen ? 'hover:border-slate-300 dark:hover:border-slate-600' : '',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+      'flex items-center justify-between gap-2 cursor-pointer ml-select-trigger',
+      hasError ? 'ml-select-trigger-error' : '',
+      this.isOpen ? 'ml-select-trigger-open' : '',
+      this.disabled ? 'ml-disabled' : '',
       this.readonly ? 'cursor-default' : '',
-    ].filter(Boolean).join(' ');
+      this.getSlotClass('Trigger'),
+    );
   }
 
   private getPanelClasses(): string {
-    return [
-      'w-full max-h-[400px] overflow-auto',
-      'rounded-lg border shadow-lg',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
-    ].join(' ');
+    return 'w-full max-h-[400px] overflow-auto rounded-lg border ml-select-panel';
   }
 
   private getCardClasses(item: ParsedItem, isSelected: boolean, isFocused: boolean): string {
-    return [
-      'rounded-lg border-2 p-4 transition cursor-pointer',
-      'bg-white dark:bg-slate-800',
-      isSelected
-        ? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40'
-        : 'border-slate-200 dark:border-slate-700',
-      isFocused && !isSelected
-        ? 'ring-2 ring-sky-500 dark:ring-sky-400'
-        : '',
-      !item.disabled && !isSelected
-        ? 'hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700'
-        : '',
-      item.disabled
-        ? 'opacity-50 cursor-not-allowed'
-        : '',
-    ].filter(Boolean).join(' ');
+    const hasError = this.error !== '';
+    return cn(
+      'rounded-lg border-2 p-4 transition cursor-pointer ml-card-option',
+      isSelected ? 'ml-card-option-selected' : '',
+      hasError ? 'ml-card-option-error' : '',
+      isFocused && !isSelected ? 'ml-select-item-highlighted' : '',
+      item.disabled ? 'ml-disabled' : '',
+      this.getSlotClass('Item'),
+    );
   }
 
   private getSearchInputClasses(): string {
-    return [
-      'w-full rounded-lg px-3 py-2 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      'focus:border-sky-500 dark:focus:border-sky-400',
-    ].join(' ');
+    return 'w-full rounded-lg px-3 py-2 text-sm border transition focus:outline-none focus:ring-2 ml-combobox-input ml-select-trigger';
   }
 
   private getGroupLabelClasses(): string {
-    return [
-      'text-xs font-semibold uppercase tracking-wider mb-2',
-      'text-slate-500 dark:text-slate-400',
-    ].join(' ');
+    return 'text-xs font-semibold uppercase tracking-wider mb-2 ml-text-muted';
   }
 
   // ===========================================================================
@@ -399,10 +372,10 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
     return html`
       <label
         id="${labelId}"
-        class="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300"
+        class="${cn('block text-sm font-medium mb-1.5 ml-label', this.getSlotClass('Label'))}"
       >
         ${unsafeHTML(labelContent)}
-        ${this.required ? html`<span class="text-red-500 dark:text-red-400 ml-0.5">*</span>` : html``}
+        ${this.required ? html`<span class="ml-error-text ml-0.5">*</span>` : html``}
       </label>
     `;
   }
@@ -428,10 +401,10 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
         class="${this.getTriggerClasses()}"
         @click="${this.handleTriggerClick}"
       >
-        <span class="flex-1 text-left ${!selectedItem ? 'text-slate-400 dark:text-slate-500' : ''}">
+        <span class="flex-1 text-left ${!selectedItem ? 'ml-text-muted' : ''}">
           ${this.loading
-            ? html`<span class="flex items-center gap-2">
-                <svg class="animate-spin h-4 w-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            ? html`<span class="flex items-center gap-2 ml-text-muted">
+                <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
@@ -443,7 +416,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
           }
         </span>
         <svg
-          class="w-5 h-5 text-slate-400 dark:text-slate-500 transition-transform ${this.isOpen ? 'rotate-180' : ''}"
+          class="w-5 h-5 ml-text-muted transition-transform ${this.isOpen ? 'rotate-180' : ''}"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -458,7 +431,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
     if (!this.searchable) return html``;
 
     return html`
-      <div class="p-3 border-b border-slate-200 dark:border-slate-700">
+      <div class="p-3 border-b ml-select-panel">
         <input
           type="text"
           class="${this.getSearchInputClasses()}"
@@ -490,7 +463,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
           </div>
           ${isSelected ? html`
             <div class="flex-shrink-0">
-              <svg class="w-5 h-5 text-sky-500 dark:text-sky-400" fill="currentColor" viewBox="0 0 20 20">
+              <svg class="w-5 h-5 ml-select-checkmark" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
               </svg>
             </div>
@@ -548,7 +521,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
       : this.msg.noResults;
 
     return html`
-      <div class="p-8 text-center text-slate-500 dark:text-slate-400">
+      <div class="p-8 text-center ml-select-empty">
         ${unsafeHTML(emptyContent)}
       </div>
     `;
@@ -591,7 +564,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
 
   private renderPortalContent() {
     if (!this.portalContainer) return;
-    litRender(this.getPortalTemplate(), this.portalContainer);
+    litRender(this.getPortalTemplate(), this.portalContainer, { host: this });
   }
 
   protected getPortalTemplate(): TemplateResult {
@@ -607,7 +580,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('Helper')) return html``;
     const helperContent = this.getSlotContent('Helper');
     return html`
-      <p class="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+      <p class="${cn('mt-1.5 text-xs ml-helper', this.getSlotClass('Helper'))}">
         ${unsafeHTML(helperContent)}
       </p>
     `;
@@ -617,7 +590,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
     if (!this.error) return html``;
     const errorId = `error-${this.name || 'card-selector'}`;
     return html`
-      <p id="${errorId}" class="mt-1.5 text-xs text-red-600 dark:text-red-400">
+      <p id="${errorId}" class="mt-1.5 text-xs ml-error-text">
         ${unsafeHTML(this.error)}
       </p>
     `;
@@ -637,9 +610,9 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
       : (this.placeholder || this.msg.noValue);
 
     return html`
-      <div class="text-sm text-slate-900 dark:text-slate-100">
+      <div class="${cn('text-sm ml-text', this.cssClass)}">
         ${this.hasSlot('Label') ? html`
-          <span class="text-slate-500 dark:text-slate-400">
+          <span class="${cn('ml-text-muted', this.getSlotClass('Label'))}">
             ${unsafeHTML(this.getSlotContent('Label'))}:
           </span>
           <span class="ml-1">${displayValue}</span>
@@ -662,7 +635,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
     }
 
     return html`
-      <div class="relative w-full">
+      <div class="${cn('relative w-full', this.cssClass)}">
         ${this.renderLabel()}
         ${this.renderTrigger()}
         ${this.renderFeedback()}

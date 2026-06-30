@@ -9,6 +9,7 @@ import { customElement } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 @customElement('groupviewcard--ml-profile-card')
 export class MlProfileCardMolecule extends MoleculeAuraElement {
@@ -72,17 +73,16 @@ return this.clickable && !this.disabled && !this.loading;
 }
 
 private getCardClasses(): string {
-const base = 'w-full rounded-xl border p-4 transition-colors';
-const surface = this.selected
-? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40'
-: 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800';
-const interactive = this.isInteractive()
-? 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400'
-: '';
-const disabled = (this.disabled || this.loading)
-? 'opacity-50 cursor-not-allowed'
-: '';
-return [base, surface, interactive, disabled].filter(Boolean).join(' ');
+return cn(
+'w-full rounded-xl border p-4 transition-colors',
+'ml-card',
+this.selected ? 'ml-card-hover' : '',
+this.isInteractive()
+? 'cursor-pointer ml-card-hover focus:outline-none focus:ring-2'
+: '',
+(this.disabled || this.loading) ? 'ml-disabled' : '',
+this.cssClass,
+);
 }
 
 private syncEditingAttribute() {
@@ -105,7 +105,7 @@ if (!hasHeader && !hasTitle && !hasDescription) return nothing;
 
 if (hasHeader) {
 return html`
-<div class="card-header text-slate-900 dark:text-slate-100">
+<div class="${cn('card-header ml-text', this.getSlotClass('CardHeader'))}">
 ${unsafeHTML(this.getSlotContent('CardHeader'))}
 </div>
 `;
@@ -114,12 +114,12 @@ ${unsafeHTML(this.getSlotContent('CardHeader'))}
 return html`
 <div class="card-header">
 ${hasTitle ? html`
-<div class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+<div class="${cn('text-lg font-semibold ml-label', this.getSlotClass('CardTitle'))}">
 ${unsafeHTML(this.getSlotContent('CardTitle'))}
 </div>
 ` : nothing}
 ${hasDescription ? html`
-<div class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+<div class="${cn('mt-1 text-sm ml-text-muted', this.getSlotClass('CardDescription'))}">
 ${unsafeHTML(this.getSlotContent('CardDescription'))}
 </div>
 ` : nothing}
@@ -130,7 +130,7 @@ ${unsafeHTML(this.getSlotContent('CardDescription'))}
 private renderContent() {
 if (!this.hasSlot('CardContent')) return nothing;
 return html`
-<div class="card-content text-slate-900 dark:text-slate-100">
+<div class="${cn('card-content ml-text', this.getSlotClass('CardContent'))}">
 ${unsafeHTML(this.getSlotContent('CardContent'))}
 </div>
 `;
@@ -139,7 +139,7 @@ ${unsafeHTML(this.getSlotContent('CardContent'))}
 private renderFooter() {
 if (!this.hasSlot('CardFooter')) return nothing;
 return html`
-<div class="card-footer text-slate-600 dark:text-slate-400">
+<div class="${cn('card-footer ml-text-muted', this.getSlotClass('CardFooter'))}">
 ${unsafeHTML(this.getSlotContent('CardFooter'))}
 </div>
 `;
@@ -158,13 +158,13 @@ private renderLoadingSkeleton() {
 return html`
 <div class="animate-pulse space-y-4">
 <div class="space-y-2">
-<div class="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="h-3 w-1/2 rounded bg-slate-200 dark:bg-slate-700"></div>
+<div class="h-4 w-2/3 rounded ml-skeleton"></div>
+<div class="h-3 w-1/2 rounded ml-skeleton"></div>
 </div>
-<div class="h-16 w-full rounded bg-slate-200 dark:bg-slate-700"></div>
+<div class="h-16 w-full rounded ml-skeleton"></div>
 <div class="flex gap-2">
-<div class="h-8 w-24 rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="h-8 w-20 rounded bg-slate-200 dark:bg-slate-700"></div>
+<div class="h-8 w-24 rounded ml-skeleton"></div>
+<div class="h-8 w-20 rounded ml-skeleton"></div>
 </div>
 </div>
 `;

@@ -10,6 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -165,19 +166,14 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
 
   private getInputClasses(): string {
     const base = [
-      'w-full rounded-md px-3 py-2 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      this.error ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-      this.isFocused ? 'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400' : '',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+      'w-full rounded-md px-3 py-2 text-sm transition ml-input ml-input-container',
+      this.error ? 'ml-input-container-error' : '',
+      this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
     return base;
   }
 
   private getTextareaClasses(): string {
-    // Same visual style as input, just different element
     return this.getInputClasses();
   }
 
@@ -245,7 +241,7 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult | typeof nothing {
     if (this.hasSlot('Label')) {
       const content = this.getSlotContent('Label');
-      return html`<label id="${this.getLabelId()}" class="block mb-1 text-sm font-medium text-slate-700 dark:text-slate-200">
+      return html`<label id="${this.getLabelId()}" class="${cn('block mb-1 text-sm font-medium ml-label', this.getSlotClass('Label'))}">
         ${unsafeHTML(content)}
       </label>`;
     }
@@ -254,13 +250,13 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
 
   private renderHelperOrError(): TemplateResult | typeof nothing {
     if (this.error && this.isEditing) {
-      return html`<p id="${this.getErrorId()}" class="mt-1 text-xs text-red-600 dark:text-red-400" role="alert">
+      return html`<p id="${this.getErrorId()}" class="mt-1 text-xs ml-error-text" role="alert">
         ${unsafeHTML(this.error)}
       </p>`;
     }
     if (this.hasSlot('Helper') && this.isEditing) {
       const content = this.getSlotContent('Helper');
-      return html`<p id="${this.getHelperId()}" class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+      return html`<p id="${this.getHelperId()}" class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">
         ${unsafeHTML(content)}
       </p>`;
     }
@@ -269,7 +265,7 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
 
   private renderPrefix(): TemplateResult | typeof nothing {
     if (this.hasSlot('Prefix')) {
-      return html`<span class="inline-flex items-center mr-2">
+      return html`<span class="${cn('inline-flex items-center mr-2', this.getSlotClass('Prefix'))}">
         ${unsafeHTML(this.getSlotContent('Prefix'))}
       </span>`;
     }
@@ -278,7 +274,7 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
 
   private renderSuffix(): TemplateResult | typeof nothing {
     if (this.hasSlot('Suffix')) {
-      return html`<span class="inline-flex items-center ml-2">
+      return html`<span class="${cn('inline-flex items-center ml-2', this.getSlotClass('Suffix'))}">
         ${unsafeHTML(this.getSlotContent('Suffix'))}
       </span>`;
     }
@@ -287,7 +283,7 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
 
   private renderCounter(): TemplateResult | typeof nothing {
     if (this.rows > 1 && this.maxLength !== null) {
-      return html`<div class="mt-1 text-xs text-slate-500 dark:text-slate-400" aria-live="polite">
+      return html`<div class="mt-1 text-xs ml-text-muted" aria-live="polite">
         ${this.value.length} / ${this.maxLength}
       </div>`;
     }
@@ -365,10 +361,10 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
     const lang = this.getMessageKey(messages);
     this.msg = messages[lang];
     if (this.loading) {
-      return html`<div class="text-sm text-slate-500 dark:text-slate-400">${this.msg.loading}</div>`;
+      return html`<div class="text-sm ml-text-muted">${this.msg.loading}</div>`;
     }
     return html`
-      <div class="groupentertext--ml-enter-text">
+      <div class="${cn('groupentertext--ml-enter-text', this.cssClass)}">
         ${this.renderLabel()}
         ${this.isEditing ? this.renderInput() : this.renderViewMode()}
         ${this.renderHelperOrError()}

@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 loading: 'Loading...',
@@ -172,19 +173,14 @@ private getWrapperClasses(): string {
 const isError = this.hasError();
 const isDisabled = this.disabled || this.loading;
 return [
-'flex items-stretch rounded-lg border transition',
-'bg-white dark:bg-slate-900',
-isError
-? 'border-red-500 dark:border-red-400 focus-within:ring-2 focus-within:ring-red-500 dark:focus-within:ring-red-400'
-: 'border-slate-200 dark:border-slate-700 focus-within:border-sky-500 dark:focus-within:border-sky-400 focus-within:ring-2 focus-within:ring-sky-500 dark:focus-within:ring-sky-400',
-isDisabled ? 'opacity-50 cursor-not-allowed' : '',
+'flex items-stretch ml-input-container',
+isError ? 'ml-input-container-error' : '',
+isDisabled ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 private getInputClasses(): string {
 return [
-'flex-1 bg-transparent px-3 py-2 text-sm outline-none',
-'text-slate-900 dark:text-slate-100',
-'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+'flex-1 bg-transparent px-3 py-2 text-sm outline-none ml-input',
 ].join(' ');
 }
 // ===========================================================================
@@ -193,7 +189,7 @@ return [
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<label id="${this.getLabelId()}" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
+<label id="${this.getLabelId()}" class="${cn('mb-1 block text-sm ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>
 `;
@@ -201,7 +197,7 @@ ${unsafeHTML(this.getSlotContent('Label'))}
 private renderPrefix(): TemplateResult {
 if (!this.hasSlot('Prefix')) return html``;
 return html`
-<div class="flex items-center px-3 text-sm text-slate-600 dark:text-slate-400">
+<div class="${cn('flex items-center px-3 text-sm ml-text-muted', this.getSlotClass('Prefix'))}">
 ${unsafeHTML(this.getSlotContent('Prefix'))}
 </div>
 `;
@@ -209,7 +205,7 @@ ${unsafeHTML(this.getSlotContent('Prefix'))}
 private renderSuffix(): TemplateResult {
 if (!this.hasSlot('Suffix')) return html``;
 return html`
-<div class="flex items-center px-3 text-sm text-slate-600 dark:text-slate-400">
+<div class="${cn('flex items-center px-3 text-sm ml-text-muted', this.getSlotClass('Suffix'))}">
 ${unsafeHTML(this.getSlotContent('Suffix'))}
 </div>
 `;
@@ -217,10 +213,10 @@ ${unsafeHTML(this.getSlotContent('Suffix'))}
 private renderHelperOrError(): TemplateResult {
 if (!this.isEditing) return html``;
 if (this.hasError()) {
-return html`<p id="${this.getErrorId()}" class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+return html`<p id="${this.getErrorId()}" class="mt-1 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`;
 }
 if (this.hasSlot('Helper')) {
-return html`<p id="${this.getHelperId()}" class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p id="${this.getHelperId()}" class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }
@@ -228,7 +224,7 @@ private renderCounter(): TemplateResult {
 if (!this.isEditing) return html``;
 if (this.rows <= 1 || this.maxLength === null) return html``;
 return html`
-<p id="${this.getCounterId()}" class="mt-1 text-xs text-slate-500 dark:text-slate-400" aria-live="polite">
+<p id="${this.getCounterId()}" class="mt-1 text-xs ml-text-muted" aria-live="polite">
 ${this.value.length} / ${this.maxLength}
 </p>
 `;
@@ -239,11 +235,11 @@ const viewValue = this.inputType === 'password'
 ? '••••••••'
 : (this.value ? formatted : this.msg.empty);
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
-<div class="flex items-stretch rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
+<div class="flex items-stretch ml-input-container">
 ${this.renderPrefix()}
-<div class="flex-1 px-3 py-2 text-sm text-slate-900 dark:text-slate-100">
+<div class="flex-1 px-3 py-2 text-sm ml-text">
 ${viewValue}
 </div>
 ${this.renderSuffix()}
@@ -260,7 +256,7 @@ const inputValue = this.rows <= 1
 ? (this.displayValue || this.formatCpf(this.value))
 : (this.displayValue || this.value);
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 <div class="${this.getWrapperClasses()}">
 ${this.renderPrefix()}
@@ -306,7 +302,7 @@ aria-describedby=${ariaDescribedBy || ''}
 `}
 ${this.renderSuffix()}
 </div>
-${this.loading ? html`<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</p>` : html``}
+${this.loading ? html`<p class="mt-1 text-xs ml-text-muted">${this.msg.loading}</p>` : html``}
 ${this.renderCounter()}
 ${this.renderHelperOrError()}
 </div>

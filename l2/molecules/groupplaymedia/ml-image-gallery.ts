@@ -4,22 +4,23 @@
 // =============================================================================
 // Skill Group: groupPlayMedia
 // This molecule does NOT contain business logic.
-import { html, TemplateResult } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html, TemplateResult } from'lit';
+import { customElement, state } from'lit/decorators.js';
+import { unsafeHTML } from'lit/directives/unsafe-html.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
-labelFallback: 'Image gallery',
-previous: 'Previous image',
-next: 'Next image',
-loading: 'Loading...',
-noSources: 'No image sources were provided.',
-openExpanded: 'Open expanded view',
-closeExpanded: 'Close expanded view',
-image: 'Image',
+labelFallback:'Image gallery',
+previous:'Previous image',
+next:'Next image',
+loading:'Loading...',
+noSources:'No image sources were provided.',
+openExpanded:'Open expanded view',
+closeExpanded:'Close expanded view',
+image:'Image',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
@@ -36,7 +37,7 @@ private msg: MessageType = messages.en;
 // ===========================================================================
 // SLOT TAGS
 // ===========================================================================
-slotTags = ['Label', 'Source', 'Track'];
+slotTags = ['Label','Source','Track'];
 // ===========================================================================
 // PROPERTIES — From Contract
 // ===========================================================================
@@ -45,7 +46,7 @@ disabled = false;
 @propertyDataSource({ type: Boolean })
 loading = false;
 @propertyDataSource({ type: String })
-error = '';
+error ='';
 // ===========================================================================
 // INTERNAL STATE
 // ===========================================================================
@@ -54,7 +55,7 @@ private activeIndex = 0;
 @state()
 private isExpanded = false;
 @state()
-private lastErrorMessage = '';
+private lastErrorMessage ='';
 // ===========================================================================
 // EVENT HELPERS
 // ===========================================================================
@@ -92,20 +93,20 @@ detail: { message },
 // ===========================================================================
 private getSources(): GallerySource[] {
 return this.getSlots('Source').map((el) => ({
-src: el.getAttribute('src') || '',
-type: el.getAttribute('type') || '',
+src: el.getAttribute('src') ||'',
+type: el.getAttribute('type') ||'',
 })).filter((item) => item.src);
 }
 private getTracks(): GalleryTrack[] {
 return this.getSlots('Track').map((el) => ({
-src: el.getAttribute('src') || '',
-kind: el.getAttribute('kind') || 'subtitles',
-lang: el.getAttribute('lang') || '',
-label: el.getAttribute('label') || '',
+src: el.getAttribute('src') ||'',
+kind: el.getAttribute('kind') ||'subtitles',
+lang: el.getAttribute('lang') ||'',
+label: el.getAttribute('label') ||'',
 }));
 }
 private getCaption(tracks: GalleryTrack[], index: number): string {
-return tracks[index]?.label || '';
+return tracks[index]?.label ||'';
 }
 private getAltText(tracks: GalleryTrack[], index: number): string {
 const caption = this.getCaption(tracks, index);
@@ -114,12 +115,12 @@ return `${this.msg.image} ${index + 1}`;
 }
 private getLabelText(): string {
 const labelContent = this.getSlotContent('Label');
-return labelContent ? labelContent.replace(/<[^>]*>/g, '').trim() : this.msg.labelFallback;
+return labelContent ? labelContent.replace(/<[^>]*>/g,'').trim() : this.msg.labelFallback;
 }
 private getComputedError(sources: GallerySource[]): string {
 if (this.error && this.error.trim()) return this.error;
 if (sources.length === 0) return this.msg.noSources;
-return '';
+return'';
 }
 private syncActiveIndex(sources: GallerySource[]) {
 if (sources.length === 0) {
@@ -137,7 +138,7 @@ this.dispatchErrorEvent(message);
 return;
 }
 if (!message && this.lastErrorMessage) {
-this.lastErrorMessage = '';
+this.lastErrorMessage ='';
 }
 }
 // ===========================================================================
@@ -176,17 +177,17 @@ this.dispatchPlayEvent();
 }
 private handleKeyDown(event: KeyboardEvent) {
 if (this.disabled || this.loading || this.lastErrorMessage) return;
-if (event.key === 'ArrowLeft') {
+if (event.key ==='ArrowLeft') {
 event.preventDefault();
 this.handlePrev();
 return;
 }
-if (event.key === 'ArrowRight') {
+if (event.key ==='ArrowRight') {
 event.preventDefault();
 this.handleNext();
 return;
 }
-if (event.key === ' ' && this.isExpanded) {
+if (event.key ==='' && this.isExpanded) {
 event.preventDefault();
 this.isExpanded = false;
 this.dispatchPauseEvent();
@@ -198,21 +199,21 @@ this.dispatchPauseEvent();
 private getControlButtonClasses(disabled: boolean): string {
 return [
 'inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium border transition',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-'text-slate-700 dark:text-slate-200',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-!disabled ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : 'opacity-50 cursor-not-allowed',
+'ml-surface-bg',
+'ml-border',
+'ml-text',
+'',
+!disabled ?'hover:ml-surface-dim-bg' :'ml-disabled',
 ].filter(Boolean).join(' ');
 }
 private getThumbnailClasses(isActive: boolean, disabled: boolean): string {
 return [
 'h-16 w-16 shrink-0 rounded-md border overflow-hidden transition',
-'bg-white dark:bg-slate-800',
+'ml-surface-bg',
 isActive
-? 'border-sky-500 dark:border-sky-400 ring-2 ring-sky-200 dark:ring-sky-900/40'
-: 'border-slate-200 dark:border-slate-700',
-!disabled ? 'hover:border-slate-300 dark:hover:border-slate-500' : 'opacity-50 cursor-not-allowed',
+?'ml-border-focus ml-focus-ring'
+:'ml-border',
+!disabled ?'hover:ml-border' :'ml-disabled',
 ].filter(Boolean).join(' ');
 }
 // ===========================================================================
@@ -237,19 +238,19 @@ const caption = this.getCaption(tracks, this.activeIndex);
 
 const rootClasses = [
 'relative w-full rounded-xl border p-4 transition',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-(this.disabled || this.loading) ? 'opacity-70' : '',
+'ml-surface-bg',
+'ml-border',
+(this.disabled || this.loading) ?'opacity-70' :'',
 ].filter(Boolean).join(' ');
 
 if (computedError) {
 return html`
-<div class="${rootClasses}" tabindex="0" aria-label="${ariaLabel}">
+<div class="${cn(rootClasses, this.cssClass)}" tabindex="0" aria-label="${ariaLabel}">
 ${labelContent
-? html`<div class="mb-3 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(labelContent)}</div>`
-: ''}
-<div class="flex min-h-[220px] items-center justify-center rounded-lg border border-red-500 dark:border-red-400 bg-slate-50 dark:bg-slate-900">
-<p class="text-sm text-red-600 dark:text-red-400">${computedError}</p>
+? html`<div class="${cn('mb-3 text-sm ml-text-muted', this.getSlotClass('Label'))}">${unsafeHTML(labelContent)}</div>`
+:''}
+<div class="flex min-h-[220px] items-center justify-center rounded-lg border ml-border-error ml-surface-dim-bg">
+<p class="text-sm ml-error-text">${computedError}</p>
 </div>
 </div>
 `;
@@ -257,17 +258,17 @@ ${labelContent
 
 return html`
 <div
-class="${rootClasses}"
+class="${cn(rootClasses, this.cssClass)}"
 tabindex="0"
 aria-label="${ariaLabel}"
 @keydown=${this.handleKeyDown}
 >
 ${labelContent
-? html`<div class="mb-3 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(labelContent)}</div>`
-: ''}
+? html`<div class="${cn('mb-3 text-sm ml-text-muted', this.getSlotClass('Label'))}">${unsafeHTML(labelContent)}</div>`
+:''}
 <div class="relative">
 <button
-class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 overflow-hidden focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
+class="w-full rounded-lg border ml-border ml-surface-dim-bg overflow-hidden"
 ?disabled=${this.disabled || this.loading}
 @click=${this.handleToggleExpanded}
 aria-label="${this.isExpanded ? this.msg.closeExpanded : this.msg.openExpanded}"
@@ -282,13 +283,13 @@ loading="lazy"
 : html`<div class="h-64"></div>`}
 </button>
 ${caption
-? html`<div class="mt-2 text-sm text-slate-600 dark:text-slate-400">${caption}</div>`
-: ''}
+? html`<div class="mt-2 text-sm ml-text-muted">${caption}</div>`
+:''}
 ${this.loading
-? html`<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-white/70 dark:bg-slate-900/70">
-<span class="text-sm text-slate-600 dark:text-slate-300">${this.msg.loading}</span>
+? html`<div class="absolute inset-0 flex items-center justify-center rounded-lg ml-surface-bg/70">
+<span class="text-sm ml-text-muted">${this.msg.loading}</span>
 </div>`
-: ''}
+:''}
 </div>
 <div class="mt-4 flex items-center justify-between gap-3">
 <button
@@ -300,8 +301,8 @@ aria-label="${this.msg.previous}"
 >
 ${this.msg.previous}
 </button>
-<div class="text-xs text-slate-500 dark:text-slate-400">
-${total > 0 ? `${this.activeIndex + 1} / ${total}` : '0 / 0'}
+<div class="text-xs ml-text-muted">
+${total > 0 ? `${this.activeIndex + 1} / ${total}` :'0 / 0'}
 </div>
 <button
 class="${this.getControlButtonClasses(this.disabled || this.loading || this.activeIndex === total - 1)}"
@@ -339,7 +340,7 @@ class="absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-blac
 <div class="max-h-[90%] max-w-[90%]">
 ${mainSource
 ? html`<img
-class="max-h-[90vh] w-auto rounded-lg border border-slate-200 dark:border-slate-700"
+class="max-h-[90vh] w-auto rounded-lg border ml-border"
 src="${mainSource.src}"
 alt="${this.getAltText(tracks, this.activeIndex)}"
 />`
@@ -347,7 +348,7 @@ alt="${this.getAltText(tracks, this.activeIndex)}"
 </div>
 </div>
 `
-: ''}
+:''}
 </div>
 `;
 }

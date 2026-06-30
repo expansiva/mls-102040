@@ -1,9 +1,65 @@
-/// <mls fileReference="_102040_/l2/molecules/groupenterdate/ml-date-shortcut-picker.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupenterdate/ml-date-shortcut-picker.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupenterdate--ml-date-shortcut-picker-102040 {
+groupenterdate--ml-date-shortcut-picker {
 
-// Here your less
+  .ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
+  .ml-helper { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
 
- }
+  .ml-date-shortcut {
+    background-color: var(--ml-surface, #ffffff);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+    color: var(--ml-on-surface, #1c1b1f);
 
+    &:focus {
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+    }
 
+    &--hoverable:hover {
+      background-color: var(--ml-surface-dim, #f5f5f5);
+      border-color: var(--ml-on-surface-faint, #79747e);
+    }
+  }
+
+  .ml-date-shortcut-active {
+    background-color: var(--ml-primary, #3b82f6);
+    color: var(--ml-on-primary, #ffffff);
+    border-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-date-shortcut-input {
+    background-color: var(--ml-surface, #ffffff);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+    color: var(--ml-on-surface, #1c1b1f);
+
+    &::placeholder {
+      color: var(--ml-on-surface-faint, #79747e);
+    }
+
+    &:focus {
+      border-color: var(--ml-outline-focus, #3b82f6);
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+    }
+
+    &--focused {
+      border-color: var(--ml-outline-focus, #3b82f6);
+    }
+
+    &--error {
+      border-color: var(--ml-outline-error, #ef4444);
+
+      &:focus {
+        box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) rgba(239,68,68,0.4);
+      }
+    }
+
+    &--readonly {
+      background-color: var(--ml-surface-dim, #f5f5f5);
+      cursor: default;
+    }
+  }
+
+}

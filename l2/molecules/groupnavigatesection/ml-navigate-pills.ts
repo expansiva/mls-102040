@@ -9,6 +9,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -141,29 +142,23 @@ return firstAvailable;
 private getTabClasses(isActive: boolean, isDisabled: boolean): string {
 return [
 'flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium border transition whitespace-nowrap',
-'bg-white dark:bg-slate-800',
-isActive
-? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
-: 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400',
-!isDisabled && !this.disabled && !this.loading
-? 'hover:bg-slate-50 dark:hover:bg-slate-700'
-: '',
-(isDisabled || this.disabled || this.loading) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+'ml-nav-pill',
+isActive ? 'ml-nav-pill-active' : '',
+(isDisabled || this.disabled || this.loading) ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 const labelContent = this.getSlotContent('Label');
-return html`<div class="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">${unsafeHTML(labelContent)}</div>`;
+return html`<div class="mb-2 text-sm font-semibold ml-label">${unsafeHTML(labelContent)}</div>`;
 }
 
 private renderLoading(): TemplateResult {
 return html`
 <div class="space-y-2">
 ${this.renderLabel()}
-<div class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-3 text-sm text-slate-500 dark:text-slate-400">
+<div class="flex items-center gap-2 rounded-lg border px-4 py-3 text-sm ml-nav-pill ml-text-muted">
 ${this.msg.loading}
 </div>
 </div>
@@ -187,7 +182,7 @@ this.lastActiveIndex = activeIndex;
 const activeTab = activeIndex >= 0 ? tabs[activeIndex] : null;
 
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 <div
 class="flex gap-2 overflow-x-auto pb-1"
@@ -220,7 +215,7 @@ ${tab.icon ? html`<span class="text-base">${unsafeHTML(tab.icon)}</span>` : html
 </div>
 ${activeTab ? html`
 <div
-class="mt-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 text-slate-900 dark:text-slate-100"
+class="mt-4 rounded-lg border p-4 ml-nav-pill-panel ml-text"
 role="tabpanel"
 id="${this.instanceId}-panel-${activeIndex}"
 aria-labelledby="${this.instanceId}-tab-${activeIndex}"
@@ -228,7 +223,7 @@ aria-labelledby="${this.instanceId}-tab-${activeIndex}"
 ${unsafeHTML(activeTab.content)}
 </div>
 ` : html``}
-${this.error ? html`<p class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(this.error)}</p>` : html``}
+${this.error ? html`<p class="mt-2 text-xs ml-error-text">${unsafeHTML(this.error)}</p>` : html``}
 </div>
 `;
 }

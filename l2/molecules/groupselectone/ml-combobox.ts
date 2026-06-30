@@ -12,6 +12,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -107,7 +108,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
   private lastValueSynced: string | null = undefined as any;
 
   protected portalContainer: HTMLDivElement | null = null;
-  protected portalClassName = '';
+  protected portalClassName = 'groupselectone--ml-combobox';
   private boundUpdatePosition: () => void;
 
   // ===========================================================================
@@ -349,31 +350,28 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
   // CLASS HELPERS
   // ===========================================================================
   private getInputClasses(hasError: boolean): string {
-    return [
-      'w-full rounded-lg border px-3 py-2 text-sm text-slate-900 dark:text-slate-100',
-      'bg-white dark:bg-slate-900',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+    return cn(
+      'w-full rounded-lg border px-3 py-2 text-sm ml-text ml-combobox-input',
+      'ml-select-trigger',
       'transition focus:outline-none focus:ring-2',
-      hasError
-        ? 'border-red-400 dark:border-red-500 focus:ring-red-400 dark:focus:ring-red-500'
-        : 'border-slate-200 dark:border-slate-700 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : '',
-      this.readonly ? 'bg-slate-50 dark:bg-slate-800 cursor-default' : '',
-    ].filter(Boolean).join(' ');
+      hasError ? 'ml-select-trigger-error' : '',
+      this.isOpen ? 'ml-select-trigger-open' : '',
+      (this.disabled || this.loading) ? 'ml-disabled' : '',
+      this.readonly ? 'cursor-default' : '',
+      this.getSlotClass('Trigger'),
+    );
   }
 
   private getOptionClasses(item: ComboItem, flatIndex: number): string {
     const isSelected = item.value === this.value;
     const isActive = flatIndex === this.activeIndex;
-    return [
-      'flex w-full items-center gap-2 px-3 py-2 text-sm cursor-pointer transition select-none',
-      isSelected
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
-        : isActive
-          ? 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-slate-100'
-          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700',
-      item.disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '',
-    ].filter(Boolean).join(' ');
+    return cn(
+      'flex w-full items-center gap-2 px-3 py-2 text-sm cursor-pointer transition select-none ml-select-item',
+      isSelected ? 'ml-select-item-selected' : '',
+      isActive ? 'ml-select-item-highlighted' : '',
+      item.disabled ? 'ml-disabled' : '',
+      this.getSlotClass('Item'),
+    );
   }
 
   // ===========================================================================
@@ -382,7 +380,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
   private renderCheckmark(item: ComboItem): TemplateResult {
     if (item.value !== this.value) return html``;
     return html`
-      <svg class="ml-auto h-4 w-4 flex-shrink-0 text-sky-600 dark:text-sky-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <svg class="ml-auto h-4 w-4 flex-shrink-0 ml-select-checkmark" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/>
       </svg>
     `;
@@ -416,19 +414,19 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
       <ul
         id=${listId}
         role="listbox"
-        class="mt-1 max-h-60 w-full overflow-auto rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-lg py-1 focus:outline-none"
+        class="mt-1 max-h-60 w-full overflow-auto rounded-lg border py-1 focus:outline-none ml-select-panel"
       >
         ${this.loading ? html`
-          <li class="px-3 py-2 text-sm text-slate-400 dark:text-slate-500">${this.msg.loading}</li>
+          <li class="px-3 py-2 text-sm ml-text-muted">${this.msg.loading}</li>
         ` : total === 0 ? html`
-          <li class="px-3 py-2 text-sm text-slate-400 dark:text-slate-500">
+          <li class="px-3 py-2 text-sm ml-select-empty">
             ${this.hasSlot('Empty') ? unsafeHTML(this.getSlotContent('Empty')) : this.msg.empty}
           </li>
         ` : html`
           ${filteredStandalone.map(item => this.renderOption(item, flatItems.indexOf(item)))}
           ${filteredGroups.map(group => html`
             ${group.label ? html`
-              <li role="presentation" class="px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 select-none">
+              <li role="presentation" class="px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-wider ml-text-muted select-none">
                 ${group.label}
               </li>
             ` : nothing}
@@ -438,10 +436,10 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
 
         ${this.freeText && this.inputText.trim() && !flatItems.find(i => i.labelText.toLowerCase() === this.inputText.trim().toLowerCase()) ? html`
           <li
-            class="flex items-center gap-2 px-3 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer transition select-none"
+            class="flex items-center gap-2 px-3 py-2 text-sm ml-select-item cursor-pointer transition select-none"
             @mousedown=${(e: MouseEvent) => { e.preventDefault(); this.commitFreeText(); }}
           >
-            <svg class="h-4 w-4 flex-shrink-0 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <svg class="h-4 w-4 flex-shrink-0 ml-select-checkmark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/>
             </svg>
             <span>${this.msg.useValue} "<strong>${this.inputText.trim()}</strong>"</span>
@@ -453,7 +451,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
 
   private renderLoading(): TemplateResult {
     return html`
-      <div class="h-9 w-full animate-pulse rounded-lg bg-slate-200 dark:bg-slate-700"></div>
+      <div class="h-9 w-full animate-pulse rounded-lg ml-select-trigger"></div>
     `;
   }
 
@@ -495,7 +493,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
 
   private renderPortalContent() {
     if (!this.portalContainer) return;
-    litRender(this.getPortalTemplate(), this.portalContainer);
+    litRender(this.getPortalTemplate(), this.portalContainer, { host: this });
   }
 
   protected getPortalTemplate(): TemplateResult {
@@ -531,11 +529,11 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     if (!this.isEditing) {
       const found = this.getAllItems().find(i => i.value === this.value);
       return html`
-        <div class="w-full">
+        <div class="${cn('w-full', this.cssClass)}">
           ${this.hasSlot('Label')
-            ? html`<div id=${labelId} class="mb-1 text-sm text-slate-600 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Label'))}</div>`
+            ? html`<div id=${labelId} class="${cn('mb-1 text-sm ml-label', this.getSlotClass('Label'))}">${unsafeHTML(this.getSlotContent('Label'))}</div>`
             : nothing}
-          <div class="text-sm ${this.value ? 'text-slate-900 dark:text-slate-100' : 'text-slate-400 dark:text-slate-500'}">
+          <div class="text-sm ${this.value ? 'ml-text' : 'ml-text-muted'}">
             ${this.value
               ? (found ? unsafeHTML(found.label) : this.value)
               : (this.placeholder || this.msg.placeholder)}
@@ -549,10 +547,10 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
     const inputPaddingRight = showClear ? '4rem' : '2.5rem';
 
     return html`
-      <div class="w-full">
+      <div class="${cn('w-full', this.cssClass)}">
 
         ${this.hasSlot('Label')
-          ? html`<label for=${inputId} id=${labelId} class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">${unsafeHTML(this.getSlotContent('Label'))}</label>`
+          ? html`<label for=${inputId} id=${labelId} class="${cn('mb-1.5 block text-sm font-medium ml-label', this.getSlotClass('Label'))}">${unsafeHTML(this.getSlotContent('Label'))}</label>`
           : nothing}
 
         <div class="relative">
@@ -593,7 +591,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
                 <button
                   type="button"
                   aria-label=${this.msg.clear}
-                  class="pointer-events-auto flex h-5 w-5 items-center justify-center rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
+                  class="pointer-events-auto flex h-5 w-5 items-center justify-center rounded-full ml-text-muted transition focus:outline-none focus:ring-2"
                   @click=${this.handleClear}
                 >
                   <svg class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -603,7 +601,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
               ` : nothing}
 
               <!-- Chevron / spinner -->
-              <span class="flex h-4 w-4 items-center justify-center text-slate-400 dark:text-slate-500">
+              <span class="flex h-4 w-4 items-center justify-center ml-text-muted">
                 <svg class="h-4 w-4 transition-transform duration-150 ${this.isOpen ? 'rotate-180' : ''}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
                 </svg>
@@ -615,9 +613,9 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
         ${this.name ? html`<input type="hidden" name=${this.name} value=${this.value ?? ''} />` : nothing}
 
         ${hasError && this.error
-          ? html`<p id=${errorId} class="mt-1.5 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`
+          ? html`<p id=${errorId} class="mt-1.5 text-xs ml-error-text">${unsafeHTML(String(this.error))}</p>`
           : !hasError && this.hasSlot('Helper')
-            ? html`<p class="mt-1.5 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`
+            ? html`<p class="${cn('mt-1.5 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`
             : nothing}
       </div>
     `;

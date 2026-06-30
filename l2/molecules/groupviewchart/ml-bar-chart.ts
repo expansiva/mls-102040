@@ -11,6 +11,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -186,7 +187,7 @@ export class MlBarChartMolecule extends MoleculeAuraElement {
     private renderLabel(): TemplateResult {
         if (!this.hasSlot('Label')) return html``;
         return html`
-<div class="mb-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
+<div class="${cn('mb-2 text-sm font-semibold ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </div>
 `;
@@ -195,10 +196,10 @@ ${unsafeHTML(this.getSlotContent('Label'))}
     private renderLoading(): TemplateResult {
         return html`
 <div class="mt-4 flex flex-col gap-3 animate-pulse">
-<div class="h-4 w-1/3 rounded bg-slate-200 dark:bg-slate-700"></div>
-<div class="h-40 w-full rounded bg-slate-100 dark:bg-slate-800"></div>
-<div class="h-4 w-1/2 rounded bg-slate-200 dark:bg-slate-700"></div>
-<span class="text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</span>
+<div class="h-4 w-1/3 rounded ml-surface-dim-bg"></div>
+<div class="h-40 w-full rounded ml-surface-dim-bg"></div>
+<div class="h-4 w-1/2 rounded ml-surface-dim-bg"></div>
+<span class="text-xs ml-text-muted">${this.msg.loading}</span>
 </div>
 `;
     }
@@ -206,7 +207,7 @@ ${unsafeHTML(this.getSlotContent('Label'))}
     private renderEmpty(): TemplateResult {
         const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
         return html`
-<div class="mt-4 rounded-md border border-dashed border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
+<div class="${cn('mt-4 rounded-md border border-dashed ml-border ml-surface-dim-bg px-4 py-6 text-center text-sm ml-text-muted', this.getSlotClass('Empty'))}">
 ${unsafeHTML(content)}
 </div>
 `;
@@ -217,12 +218,12 @@ ${unsafeHTML(content)}
         const seriesInfo = this.tooltip.series ? ` • ${this.tooltip.series}` : '';
         return html`
 <div
-class="absolute z-10 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-xs text-slate-900 dark:text-slate-100 shadow-lg"
+class="absolute z-10 rounded-md border ml-border ml-surface-bg px-3 py-2 text-xs ml-text shadow-lg"
 style=${ifDefined(`left:${this.tooltip.left}px; top:${this.tooltip.top}px; transform: translate(-50%, -100%);`)}
 >
 <span class="font-semibold">${this.tooltip.label}</span>
-<span class="text-slate-500 dark:text-slate-400">${seriesInfo}</span>
-<div class="mt-1 text-slate-700 dark:text-slate-200">${this.formatNumber(this.tooltip.value)}</div>
+<span class="ml-text-muted">${seriesInfo}</span>
+<div class="mt-1 ml-text">${this.formatNumber(this.tooltip.value)}</div>
 </div>
 `;
     }
@@ -235,12 +236,12 @@ style=${ifDefined(`left:${this.tooltip.left}px; top:${this.tooltip.top}px; trans
             : points.map((p) => ({ label: p.label, color: p.color }));
         return html`
 <div class="mt-4">
-<div class="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2">${this.msg.legend}</div>
+<div class="text-xs font-semibold ml-text-muted mb-2">${this.msg.legend}</div>
 <div class="flex flex-wrap gap-3">
 ${items.map((item) => html`
-<div class="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
+<div class="flex items-center gap-2 text-xs ml-chart-legend">
 <span
-class="h-3 w-3 rounded-full border border-slate-200 dark:border-slate-700"
+class="h-3 w-3 rounded-full border ml-border"
 style=${ifDefined(item.color ? `background-color:${item.color};` : undefined)}
 ></span>
 <span>${item.label}</span>
@@ -322,14 +323,13 @@ ${points.map((p) => html`
     private getBarClasses(): string {
         return [
             'rounded-t-md transition',
-            'bg-sky-500 dark:bg-sky-400',
-            'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+            'ml-primary-bg',
         ].join(' ');
     }
 
     private getCategoryLabelClasses(): string {
         return [
-            'pt-2 text-xs text-slate-600 dark:text-slate-400 text-center',
+            'pt-2 text-xs ml-text-muted text-center',
             'whitespace-nowrap',
         ].join(' ');
     }
@@ -342,7 +342,7 @@ ${points.map((p) => html`
         const barWidth = this.getBarWidth(seriesCount);
         return html`
 <div class="relative" data-chart-container>
-<div class="flex items-end gap-4 h-56 border-b border-slate-200 dark:border-slate-700">
+<div class="flex items-end gap-4 h-56 border-b ml-border">
 ${categories.map((category) => html`
 <div class="flex flex-1 flex-col items-center justify-end h-full">
 <div class="flex items-end gap-2 h-full">
@@ -355,7 +355,7 @@ ${hasSeries
                     const aria = `${point.label}: ${this.formatNumber(point.value)}${s.name ? ` - ${s.name}` : ''}`;
                     return html`
 <div class="flex flex-col items-center justify-end h-full">
-${this.showValues ? html`<span class="mb-1 text-xs text-slate-600 dark:text-slate-400">${this.formatNumber(point.value)}</span>` : html``}
+${this.showValues ? html`<span class="mb-1 text-xs ml-text-muted">${this.formatNumber(point.value)}</span>` : html``}
 <div
 class="${this.getBarClasses()} ${barWidth} cursor-pointer"
 style=${ifDefined(style)}
@@ -376,7 +376,7 @@ tabindex="0"
                     const aria = `${point.label}: ${this.formatNumber(point.value)}`;
                     return html`
 <div class="flex flex-col items-center justify-end h-full">
-${this.showValues ? html`<span class="mb-1 text-xs text-slate-600 dark:text-slate-400">${this.formatNumber(point.value)}</span>` : html``}
+${this.showValues ? html`<span class="mb-1 text-xs ml-text-muted">${this.formatNumber(point.value)}</span>` : html``}
 <div
 class="${this.getBarClasses()} ${barWidth} cursor-pointer"
 style=${ifDefined(style)}
@@ -413,7 +413,7 @@ ${this.renderTooltip()}
         const isEmpty = series.length === 0 && standalonePoints.length === 0;
 
         return html`
-<div role="img" aria-label="${this.getAriaLabel()}" class="w-full">
+<div role="img" aria-label="${this.getAriaLabel()}" class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 ${this.loading
                 ? this.renderLoading()

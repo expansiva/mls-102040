@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -262,58 +263,33 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
     // ===========================================================================
     private getTriggerClasses(): string {
         const hasError = this.error !== '';
-        return [
-            'w-full flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm border transition-all duration-200',
-            'bg-white dark:bg-slate-900',
-            'text-slate-900 dark:text-slate-100',
-            hasError
-                ? 'border-red-500 dark:border-red-400'
-                : this.isOpen
-                ? 'border-sky-500 dark:border-sky-400 ring-2 ring-sky-500/20 dark:ring-sky-400/20'
-                : 'border-slate-200 dark:border-slate-700',
-            !this.disabled && !this.readonly && !this.loading
-                ? 'cursor-pointer hover:border-slate-300 dark:hover:border-slate-600'
-                : '',
-            this.disabled ? 'opacity-50 cursor-not-allowed bg-slate-50 dark:bg-slate-800' : '',
-            this.readonly ? 'cursor-default bg-slate-50 dark:bg-slate-800' : '',
-        ].filter(Boolean).join(' ');
+        return cn(
+            'w-full flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm border transition-all duration-200 ml-select-trigger',
+            hasError ? 'ml-select-trigger-error' : '',
+            this.isOpen ? 'ml-select-trigger-open' : '',
+            !this.disabled && !this.readonly && !this.loading ? 'cursor-pointer' : '',
+            this.disabled ? 'ml-disabled' : '',
+            this.readonly ? 'cursor-default' : '',
+            this.getSlotClass('Trigger'),
+        );
     }
 
     private getPanelClasses(): string {
-        return [
-            'absolute z-50 w-full mt-1 rounded-lg border shadow-lg overflow-hidden',
-            'bg-white dark:bg-slate-800',
-            'border-slate-200 dark:border-slate-700',
-        ].join(' ');
+        return 'absolute z-50 w-full mt-1 rounded-lg border overflow-hidden ml-select-panel';
     }
 
     private getItemClasses(item: ParsedItem, isSelected: boolean, isFocused: boolean): string {
-        return [
-            'w-full flex items-center gap-3 px-3 py-2.5 text-sm transition-colors duration-150 cursor-pointer',
-            isSelected
-                ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300'
-                : 'text-slate-900 dark:text-slate-100',
-            !item.disabled && !isSelected
-                ? 'hover:bg-slate-50 dark:hover:bg-slate-700'
-                : '',
-            isFocused && !item.disabled
-                ? 'bg-slate-100 dark:bg-slate-700'
-                : '',
-            item.disabled
-                ? 'opacity-50 cursor-not-allowed'
-                : '',
-        ].filter(Boolean).join(' ');
+        return cn(
+            'w-full flex items-center gap-3 px-3 py-2.5 text-sm transition-colors duration-150 cursor-pointer ml-select-item',
+            isSelected ? 'ml-select-item-selected' : '',
+            isFocused && !item.disabled ? 'ml-select-item-highlighted' : '',
+            item.disabled ? 'ml-disabled' : '',
+            this.getSlotClass('Item'),
+        );
     }
 
     private getSearchInputClasses(): string {
-        return [
-            'w-full px-3 py-2 text-sm border-b outline-none',
-            'bg-white dark:bg-slate-800',
-            'text-slate-900 dark:text-slate-100',
-            'border-slate-200 dark:border-slate-700',
-            'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-            'focus:border-sky-500 dark:focus:border-sky-400',
-        ].join(' ');
+        return 'w-full px-3 py-2 text-sm border-b outline-none ml-combobox-input ml-select-trigger';
     }
 
     // ===========================================================================
@@ -324,11 +300,11 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
         const labelContent = this.getSlotContent('Label');
         return html`
             <label
-                class="block text-sm font-medium mb-1.5 text-slate-700 dark:text-slate-300"
+                class="${cn('block text-sm font-medium mb-1.5 ml-label', this.getSlotClass('Label'))}"
                 id="label-${this.name}"
             >
                 ${unsafeHTML(labelContent)}
-                ${this.required ? html`<span class="text-red-500 dark:text-red-400 ml-0.5">*</span>` : html``}
+                ${this.required ? html`<span class="ml-error-text ml-0.5">*</span>` : html``}
             </label>
         `;
     }
@@ -338,7 +314,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
 
         if (this.loading) {
             return html`
-                <span class="flex items-center gap-2 text-slate-400 dark:text-slate-500">
+                <span class="flex items-center gap-2 ml-text-muted">
                     <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -351,25 +327,25 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
         if (selectedItem) {
             return html`
                 <span class="flex items-center gap-2 truncate">
-                    ${selectedItem.icon ? html`<span class="flex-shrink-0 w-5 h-5 flex items-center justify-center [&>img]:max-w-full [&>img]:max-h-full [&>img]:object-contain">${unsafeHTML(selectedItem.icon)}</span>` : html``}
+                    ${selectedItem.icon ? html`<span class="flex-shrink-0 w-5 h-5 flex items-center justify-center ml-select-img [&>img]:max-w-full [&>img]:max-h-full [&>img]:object-contain">${unsafeHTML(selectedItem.icon)}</span>` : html``}
                     <span class="truncate">${unsafeHTML(selectedItem.label)}</span>
                 </span>
             `;
         }
 
         if (this.hasSlot('Trigger')) {
-            return html`<span class="text-slate-400 dark:text-slate-500 truncate">${unsafeHTML(this.getSlotContent('Trigger'))}</span>`;
+            return html`<span class="ml-text-muted truncate">${unsafeHTML(this.getSlotContent('Trigger'))}</span>`;
         }
 
         const placeholderText = this.placeholder || this.msg.placeholder;
-        return html`<span class="text-slate-400 dark:text-slate-500 truncate">${placeholderText}</span>`;
+        return html`<span class="ml-text-muted truncate">${placeholderText}</span>`;
     }
 
     private renderChevron(): TemplateResult {
         const rotateClass = this.isOpen ? 'rotate-180' : '';
         return html`
             <svg
-                class="w-4 h-4 flex-shrink-0 text-slate-400 dark:text-slate-500 transition-transform duration-200 ${rotateClass}"
+                class="w-4 h-4 flex-shrink-0 ml-text-muted transition-transform duration-200 ${rotateClass}"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -404,7 +380,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
     private renderSearch(): TemplateResult {
         if (!this.searchable) return html``;
         return html`
-            <div class="p-2 border-b border-slate-200 dark:border-slate-700">
+            <div class="p-2 border-b ml-select-panel">
                 <input
                     type="text"
                     class="${this.getSearchInputClasses()}"
@@ -424,13 +400,13 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
         if (filteredItems.length === 0) {
             if (this.hasSlot('Empty')) {
                 return html`
-                    <div class="px-3 py-4 text-sm text-slate-500 dark:text-slate-400 text-center">
+                    <div class="px-3 py-4 text-sm ml-select-empty text-center">
                         ${unsafeHTML(this.getSlotContent('Empty'))}
                     </div>
                 `;
             }
             return html`
-                <div class="px-3 py-4 text-sm text-slate-500 dark:text-slate-400 text-center">
+                <div class="px-3 py-4 text-sm ml-select-empty text-center">
                     ${this.msg.noResults}
                 </div>
             `;
@@ -469,10 +445,10 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
                     class="${this.getItemClasses(item, isSelected, isFocused)}"
                     @click="${() => this.handleSelect(item)}"
                 >
-                    ${item.icon ? html`<span class="flex-shrink-0 w-5 h-5 flex items-center justify-center [&>img]:max-w-full [&>img]:max-h-full [&>img]:object-contain">${unsafeHTML(item.icon)}</span>` : html``}
+                    ${item.icon ? html`<span class="flex-shrink-0 w-5 h-5 flex items-center justify-center ml-select-img [&>img]:max-w-full [&>img]:max-h-full [&>img]:object-contain">${unsafeHTML(item.icon)}</span>` : html``}
                     <span class="flex-1 truncate">${unsafeHTML(item.label)}</span>
                     ${isSelected ? html`
-                        <svg class="w-4 h-4 flex-shrink-0 text-sky-500 dark:text-sky-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <svg class="w-4 h-4 flex-shrink-0 ml-select-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                         </svg>
                     ` : html``}
@@ -484,7 +460,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
             <div role="listbox" class="max-h-60 overflow-y-auto py-1">
                 ${ungroupedItems.map((item) => renderItem(item))}
                 ${Array.from(groupedItems.entries()).map(([groupLabel, items]) => html`
-                    <div class="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider bg-slate-50 dark:bg-slate-900">
+                    <div class="px-3 py-2 text-xs font-semibold ml-text-muted uppercase tracking-wider">
                         ${groupLabel}
                     </div>
                     ${items.map((item) => renderItem(item))}
@@ -506,14 +482,14 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
     private renderHelper(): TemplateResult {
         if (this.error) {
             return html`
-                <p id="error-${this.name}" class="mt-1.5 text-xs text-red-600 dark:text-red-400">
+                <p id="error-${this.name}" class="mt-1.5 text-xs ml-error-text">
                     ${unsafeHTML(this.error)}
                 </p>
             `;
         }
         if (this.hasSlot('Helper')) {
             return html`
-                <p id="helper-${this.name}" class="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+                <p id="helper-${this.name}" class="${cn('mt-1.5 text-xs ml-helper', this.getSlotClass('Helper'))}">
                     ${unsafeHTML(this.getSlotContent('Helper'))}
                 </p>
             `;
@@ -524,11 +500,11 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
     private renderViewMode(): TemplateResult {
         const selectedItem = this.findItem(this.value);
         if (!selectedItem) {
-            return html`<span class="text-slate-400 dark:text-slate-500">—</span>`;
+            return html`<span class="${cn('ml-text-muted', this.cssClass)}">—</span>`;
         }
         return html`
-            <span class="flex items-center gap-2 text-slate-900 dark:text-slate-100">
-                ${selectedItem.icon ? html`<span class="flex-shrink-0 w-5 h-5 flex items-center justify-center [&>img]:max-w-full [&>img]:max-h-full [&>img]:object-contain">${unsafeHTML(selectedItem.icon)}</span>` : html``}
+            <span class="${cn('flex items-center gap-2 ml-text', this.cssClass)}">
+                ${selectedItem.icon ? html`<span class="flex-shrink-0 w-5 h-5 flex items-center justify-center ml-select-img [&>img]:max-w-full [&>img]:max-h-full [&>img]:object-contain">${unsafeHTML(selectedItem.icon)}</span>` : html``}
                 <span>${unsafeHTML(selectedItem.label)}</span>
             </span>
         `;
@@ -546,7 +522,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
         }
 
         return html`
-            <div class="relative w-full">
+            <div class="${cn('relative w-full', this.cssClass)}">
                 ${this.renderLabel()}
                 ${this.renderTrigger()}
                 ${this.renderPanel()}

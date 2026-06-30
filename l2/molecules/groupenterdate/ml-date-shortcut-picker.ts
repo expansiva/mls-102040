@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -315,96 +316,38 @@ export class DateShortcutPickerMolecule extends MoleculeAuraElement {
   // CSS CLASSES
   // ===========================================================================
   private getContainerClasses(): string {
-    return [
-      'flex flex-col gap-2 w-full',
-    ].join(' ');
+    return cn('flex flex-col gap-2 w-full', this.cssClass);
   }
 
   private getShortcutsContainerClasses(): string {
-    return [
-      'flex flex-wrap gap-2',
-    ].join(' ');
+    return 'flex flex-wrap gap-2';
   }
 
   private getShortcutClasses(shortcut: ShortcutOption): string {
     const isSelected = this.isShortcutSelected(shortcut);
     const isDisabled = this.disabled || !this.isDateInRange(shortcut.getDate());
 
-    return [
-      'px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-150',
+    return cn(
+      'ml-date-shortcut px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-150',
       'border cursor-pointer select-none',
       'focus:outline-none focus:ring-2 focus:ring-offset-1',
-      isSelected
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-        : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700',
-      !isDisabled && !isSelected
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
-        : '',
-      !isDisabled
-        ? 'focus:ring-sky-500 dark:focus:ring-sky-400'
-        : '',
-      isDisabled
-        ? 'opacity-50 cursor-not-allowed'
-        : '',
-    ].filter(Boolean).join(' ');
+      isSelected ? 'ml-date-shortcut-active' : '',
+      !isDisabled && !isSelected ? 'ml-date-shortcut--hoverable' : '',
+      isDisabled ? 'ml-disabled' : '',
+    );
   }
 
   private getInputClasses(): string {
     const hasError = !!this.error;
 
-    return [
-      'w-full rounded-lg px-3 py-2 text-sm border transition-all duration-150',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : this.isFocused
-          ? 'border-sky-500 dark:border-sky-400'
-          : 'border-slate-200 dark:border-slate-700',
+    return cn(
+      'ml-date-shortcut-input w-full rounded-lg px-3 py-2 text-sm border transition-all duration-150',
       'focus:outline-none focus:ring-2',
-      hasError
-        ? 'focus:ring-red-500 dark:focus:ring-red-400'
-        : 'focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed bg-slate-50 dark:bg-slate-800' : '',
-      this.readonly ? 'bg-slate-50 dark:bg-slate-800 cursor-default' : '',
-    ].filter(Boolean).join(' ');
-  }
-
-  private getLabelClasses(): string {
-    return [
-      'text-sm font-medium',
-      'text-slate-700 dark:text-slate-300',
-    ].join(' ');
-  }
-
-  private getHelperClasses(): string {
-    return [
-      'text-xs',
-      'text-slate-500 dark:text-slate-400',
-    ].join(' ');
-  }
-
-  private getErrorClasses(): string {
-    return [
-      'text-xs',
-      'text-red-600 dark:text-red-400',
-    ].join(' ');
-  }
-
-  private getViewModeClasses(): string {
-    return [
-      'text-sm',
-      'text-slate-900 dark:text-slate-100',
-    ].join(' ');
-  }
-
-  private getLoadingClasses(): string {
-    return [
-      'flex items-center justify-center py-4',
-      'text-sm',
-      'text-slate-500 dark:text-slate-400',
-    ].join(' ');
+      hasError ? 'ml-date-shortcut-input--error' : '',
+      this.isFocused && !hasError ? 'ml-date-shortcut-input--focused' : '',
+      this.disabled ? 'ml-disabled' : '',
+      this.readonly ? 'ml-date-shortcut-input--readonly' : '',
+    );
   }
 
   // ===========================================================================
@@ -415,9 +358,9 @@ export class DateShortcutPickerMolecule extends MoleculeAuraElement {
     const labelContent = this.getSlotContent('Label');
     const labelId = `label-${this.name || 'date-shortcut'}`;
     return html`
-      <label id="${labelId}" class="${this.getLabelClasses()}">
+      <label id="${labelId}" class="${cn('ml-label text-sm', this.getSlotClass('Label'))}">
         ${unsafeHTML(labelContent)}
-        ${this.required ? html`<span class="text-red-500 dark:text-red-400 ml-0.5">*</span>` : html``}
+        ${this.required ? html`<span class="ml-error-text ml-0.5">*</span>` : html``}
       </label>
     `;
   }
@@ -479,7 +422,7 @@ export class DateShortcutPickerMolecule extends MoleculeAuraElement {
 
     if (this.error) {
       return html`
-        <p id="${errorId}" class="${this.getErrorClasses()}">
+        <p id="${errorId}" class="ml-error-text text-xs">
           ${unsafeHTML(this.error)}
         </p>
       `;
@@ -487,7 +430,7 @@ export class DateShortcutPickerMolecule extends MoleculeAuraElement {
 
     if (this.hasSlot('Helper')) {
       return html`
-        <p class="${this.getHelperClasses()}">
+        <p class="${cn('ml-helper text-xs', this.getSlotClass('Helper'))}">
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
@@ -498,8 +441,8 @@ export class DateShortcutPickerMolecule extends MoleculeAuraElement {
 
   private renderLoading(): TemplateResult {
     return html`
-      <div class="${this.getLoadingClasses()}">
-        <svg class="animate-spin h-5 w-5 mr-2 text-slate-400 dark:text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <div class="ml-text-muted flex items-center justify-center py-4 text-sm">
+        <svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
@@ -516,7 +459,7 @@ export class DateShortcutPickerMolecule extends MoleculeAuraElement {
     return html`
       <div class="${this.getContainerClasses()}">
         ${this.renderLabel()}
-        <span class="${this.getViewModeClasses()}">${displayValue}</span>
+        <span class="ml-text text-sm">${displayValue}</span>
       </div>
     `;
   }

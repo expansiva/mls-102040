@@ -1,9 +1,42 @@
-/// <mls fileReference="_102040_/l2/molecules/groupnavigatesection/ml-tabs.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupnavigatesection/ml-tabs.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupnavigatesection--ml-tabs-102033 {
+groupnavigatesection--ml-tabs {
 
-// Here your less
+  .ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
+  .ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
 
- }
+  .ml-tab {
+    color: var(--ml-on-surface-muted, #49454f);
+    border-bottom: 2px var(--ml-border-style, solid) transparent;
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    transition: color var(--ml-transition, 200ms ease), border-color var(--ml-transition, 200ms ease);
 
+    &:hover {
+      color: var(--ml-on-surface, #1c1b1f);
+    }
+  }
 
+  .ml-tab-active {
+    color: var(--ml-primary, #3b82f6);
+    border-bottom-color: var(--ml-primary, #3b82f6);
+    font-weight: var(--ml-font-weight-medium, 500);
+  }
+
+  .ml-tab-list {
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-tab-panel {
+    background-color: var(--ml-surface, #ffffff);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    color: var(--ml-on-surface, #1c1b1f);
+  }
+
+  .ml-tab-container {
+    background-color: var(--ml-surface, #ffffff);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+  }
+
+}

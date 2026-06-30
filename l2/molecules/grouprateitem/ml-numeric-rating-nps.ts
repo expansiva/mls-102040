@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -194,21 +195,21 @@ return idx >= 0 ? idx : null;
 private getGroupClasses(hasError: boolean): string {
 return [
 'rounded-lg border p-2',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-hasError ? 'border-red-500 dark:border-red-400' : '',
-(this.disabled || this.readonly) ? 'opacity-50' : '',
+'ml-surface',
+'ml-border',
+hasError ? 'ml-border-error' : '',
+(this.disabled || this.readonly) ? 'ml-disabled' : '',
 ].filter(Boolean).join(' ');
 }
 
 private getOptionClasses(isActive: boolean): string {
 return [
 'h-10 w-10 rounded-md border text-sm font-medium transition',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+'ml-focus-ring',
 isActive
-? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-: 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-slate-200 dark:border-slate-700',
-(!this.disabled && !this.readonly) ? 'hover:bg-slate-50 dark:hover:bg-slate-700 cursor-pointer' : 'cursor-not-allowed',
+? 'ml-nps-option-selected'
+: 'ml-surface ml-text ml-border',
+(!this.disabled && !this.readonly) ? 'ml-nps-option cursor-pointer' : 'cursor-not-allowed',
 ].filter(Boolean).join(' ');
 }
 
@@ -216,7 +217,7 @@ private renderLabel(labelId: string): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 const content = this.getSlotContent('Label');
 return html`
-<div id=${labelId} class="mb-2 text-sm font-medium text-slate-700 dark:text-slate-300">
+<div id=${labelId} class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(content)}
 </div>
 `;
@@ -225,14 +226,14 @@ ${unsafeHTML(content)}
 private renderHelperOrError(hasError: boolean, errorMessage: string, helperId: string, errorId: string): TemplateResult {
 if (hasError && errorMessage) {
 return html`
-<p id=${errorId} class="mt-2 text-xs text-red-600 dark:text-red-400">
+<p id=${errorId} class="mt-2 text-xs ml-error-text">
 ${unsafeHTML(errorMessage)}
 </p>
 `;
 }
 if (!hasError && this.hasSlot('Helper')) {
 return html`
-<p id=${helperId} class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+<p id=${helperId} class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">
 ${unsafeHTML(this.getSlotContent('Helper'))}
 </p>
 `;
@@ -252,9 +253,9 @@ private renderViewMode(items: OptionItem[]): TemplateResult {
 const labelId = `${this.uid}-label`;
 const display = this.getViewDisplayValue(items);
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel(labelId)}
-<div class="text-sm text-slate-900 dark:text-slate-100">
+<div class="text-sm ml-text">
 ${display}
 </div>
 </div>
@@ -263,7 +264,7 @@ ${display}
 
 private getViewDisplayValue(items: OptionItem[]): TemplateResult {
 if (this.value === null || this.value === undefined) {
-return html`<span class="text-slate-400 dark:text-slate-500">${this.msg.emptyValue}</span>`;
+return html`<span class="ml-text-muted">${this.msg.emptyValue}</span>`;
 }
 const matched = items.find((i) => i.value === this.value);
 if (matched && matched.fromSlot) {
@@ -293,7 +294,7 @@ const errorMessage = this.error;
 const describedBy = hasError && errorMessage ? errorId : (!hasError && this.hasSlot('Helper') ? helperId : '');
 
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel(labelId)}
 <div
 class=${this.getGroupClasses(hasError)}

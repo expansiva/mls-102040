@@ -9,6 +9,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
   placeholder: 'No selection',
@@ -196,75 +197,40 @@ export class MlRadioGroupMolecule extends MoleculeAuraElement {
   // CSS HELPERS
   // ===========================================================================
   private getContainerClasses(): string {
-    return [
+    return cn(
       'flex flex-col gap-2',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+      this.disabled ? 'ml-disabled' : '',
+    );
   }
   private getOptionClasses(item: ParsedItem): string {
     const isSelected = this.value === item.value;
     const isFocused = this.focusedValue === item.value;
     const hasError = this.error !== '';
-    return [
-      'flex items-center gap-3 px-3 py-2 rounded-lg border transition-all cursor-pointer',
-      'bg-white dark:bg-slate-800',
-      // Selection state
-      isSelected
-        ? 'border-sky-500 dark:border-sky-400 bg-sky-50 dark:bg-sky-900/40'
-        : 'border-slate-200 dark:border-slate-700',
-      // Focus state
-      isFocused && !isSelected
-        ? 'ring-2 ring-sky-500 dark:ring-sky-400 ring-offset-1'
-        : '',
-      // Error state (only when not selected)
-      hasError && !isSelected
-        ? 'border-red-500 dark:border-red-400'
-        : '',
-      // Hover state
-      !item.disabled && !this.disabled && !this.readonly && !this.loading
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700'
-        : '',
-      // Disabled item
-      item.disabled
-        ? 'opacity-50 cursor-not-allowed'
-        : '',
-      // Component disabled/readonly/loading
-      this.disabled || this.readonly || this.loading
-        ? 'cursor-not-allowed'
-        : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+    return cn(
+      'flex items-center gap-3 px-3 py-2 transition-all cursor-pointer ml-radio-option',
+      isSelected ? 'ml-radio-option-selected' : '',
+      isFocused && !isSelected ? 'ml-radio-option-focused' : '',
+      hasError && !isSelected ? 'ml-radio-option-error' : '',
+      item.disabled ? 'ml-disabled' : '',
+      this.disabled || this.readonly || this.loading ? 'cursor-not-allowed' : '',
+      this.getSlotClass('Item'),
+    );
   }
   private getRadioClasses(item: ParsedItem): string {
     const isSelected = this.value === item.value;
-    return [
-      'w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all',
-      isSelected
-        ? 'border-sky-500 dark:border-sky-400 bg-sky-500 dark:bg-sky-400'
-        : 'border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800',
-      item.disabled
-        ? 'opacity-50'
-        : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+    return cn(
+      'w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ml-radio-dot',
+      isSelected ? 'ml-radio-dot-selected' : '',
+      item.disabled ? 'ml-disabled' : '',
+    );
   }
   private getLabelTextClasses(item: ParsedItem): string {
     const isSelected = this.value === item.value;
-    return [
-      'text-sm transition-colors',
-      isSelected
-        ? 'text-sky-700 dark:text-sky-300 font-medium'
-        : 'text-slate-900 dark:text-slate-100',
-      item.disabled
-        ? 'text-slate-400 dark:text-slate-600'
-        : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+    return cn(
+      'text-sm transition-colors ml-text',
+      isSelected ? 'font-medium ml-radio-label-selected' : '',
+      item.disabled ? 'ml-text-muted' : '',
+    );
   }
   // ===========================================================================
   // RENDER HELPERS
@@ -274,11 +240,11 @@ export class MlRadioGroupMolecule extends MoleculeAuraElement {
     return html`
 <label
 id=${this.labelId}
-class="text-sm font-medium text-slate-700 dark:text-slate-300"
+class="${cn('text-sm font-medium ml-label', this.getSlotClass('Label'))}"
 >
 ${unsafeHTML(this.getSlotContent('Label'))}
 ${this.required
-        ? html`<span class="text-red-500 dark:text-red-400 ml-0.5">*</span>`
+        ? html`<span class="ml-error-text ml-0.5">*</span>`
         : html``}
 </label>
 `;
@@ -288,7 +254,7 @@ ${this.required
     return html`
 <span class=${this.getRadioClasses(item)}>
 ${isSelected
-        ? html`<span class="w-2 h-2 rounded-full bg-white dark:bg-slate-900"></span>`
+        ? html`<span class="w-2 h-2 rounded-full ml-radio-dot-inner"></span>`
         : html``}
 </span>
 `;
@@ -321,7 +287,7 @@ ${unsafeHTML(item.label)}
     if (group.items.length === 0) return html``;
     return html`
 <div class="flex flex-col gap-1">
-<span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide px-1">
+<span class="${cn('text-xs font-semibold uppercase tracking-wide px-1 ml-select-group-label', this.getSlotClass('Group'))}">
 ${group.label}
 </span>
 <div class="flex flex-col gap-1">
@@ -337,13 +303,13 @@ ${group.items.map((item) => this.renderOption(item))}
     if (!hasItems) {
       if (this.hasSlot('Empty')) {
         return html`
-<div class="text-sm text-slate-500 dark:text-slate-400 py-2">
+<div class="${cn('text-sm py-2 ml-text-muted', this.getSlotClass('Empty'))}">
 ${unsafeHTML(this.getSlotContent('Empty'))}
 </div>
 `;
       }
       return html`
-<div class="text-sm text-slate-500 dark:text-slate-400 py-2">
+<div class="text-sm py-2 ml-text-muted">
 ${this.msg.noOptions}
 </div>
 `;
@@ -365,8 +331,8 @@ ${groups.map((group) => this.renderGroup(group))}
   private renderLoading(): TemplateResult {
     return html`
 <div class="flex items-center gap-2 py-2">
-<div class="w-4 h-4 border-2 border-sky-500 dark:border-sky-400 border-t-transparent rounded-full animate-spin"></div>
-<span class="text-sm text-slate-500 dark:text-slate-400">${this.msg.loading}</span>
+<div class="w-4 h-4 border-2 border-t-transparent rounded-full animate-spin ml-spinner"></div>
+<span class="text-sm ml-text-muted">${this.msg.loading}</span>
 </div>
 `;
   }
@@ -375,7 +341,7 @@ ${groups.map((group) => this.renderGroup(group))}
       return html`
 <p
 id=${this.errorId}
-class="text-xs text-red-600 dark:text-red-400"
+class="text-xs ml-error-text"
 >
 ${unsafeHTML(this.error)}
 </p>
@@ -383,7 +349,7 @@ ${unsafeHTML(this.error)}
     }
     if (this.hasSlot('Helper')) {
       return html`
-<p class="text-xs text-slate-500 dark:text-slate-400">
+<p class="${cn('text-xs ml-helper', this.getSlotClass('Helper'))}">
 ${unsafeHTML(this.getSlotContent('Helper'))}
 </p>
 `;
@@ -398,7 +364,7 @@ ${unsafeHTML(this.getSlotContent('Helper'))}
     return html`
 <div class="flex flex-col gap-1">
 ${this.renderLabel()}
-<span class="text-sm text-slate-900 dark:text-slate-100">
+<span class="text-sm ml-text">
 ${selectedItem ? unsafeHTML(displayText) : displayText}
 </span>
 </div>
@@ -414,7 +380,7 @@ ${selectedItem ? unsafeHTML(displayText) : displayText}
       return this.renderViewMode();
     }
     return html`
-<div class=${this.getContainerClasses()}>
+<div class="${cn(this.getContainerClasses(), this.cssClass)}">
 ${this.renderLabel()}
 ${this.loading ? this.renderLoading() : this.renderRadioOptions()}
 ${this.renderFeedback()}

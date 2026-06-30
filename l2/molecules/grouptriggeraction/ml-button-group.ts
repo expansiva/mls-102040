@@ -9,6 +9,7 @@ import { customElement } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 loading: 'Loading...',
@@ -82,29 +83,12 @@ return 'text-sm px-4 py-2';
 }
 }
 private getVariantClasses(variant: string): string {
-if (variant === 'primary') {
-return [
-'bg-sky-600 dark:bg-sky-500',
-'text-white dark:text-slate-100',
-'border-sky-600 dark:border-sky-400',
-!this.disabled && !this.loading ? 'hover:bg-sky-700 dark:hover:bg-sky-400' : '',
-].filter(Boolean).join(' ');
-}
-if (variant === 'ghost') {
-return [
-'bg-transparent dark:bg-transparent',
-'text-slate-700 dark:text-slate-300',
-'border-slate-200 dark:border-slate-700',
-!this.disabled && !this.loading ? 'hover:bg-slate-100 dark:hover:bg-slate-700' : '',
-].filter(Boolean).join(' ');
-}
-// secondary (default)
-return [
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
-'border-slate-200 dark:border-slate-700',
-!this.disabled && !this.loading ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-].filter(Boolean).join(' ');
+const baseMap: Record<string, string> = {
+primary: 'ml-button-primary',
+ghost: 'ml-button-ghost',
+secondary: 'ml-button-secondary',
+};
+return baseMap[variant] || baseMap.secondary;
 }
 private getButtonClasses(index: number, total: number, variant: string, isVertical: boolean): string {
 const isFirst = index === 0;
@@ -119,24 +103,18 @@ return [
 'items-center',
 'justify-center',
 'gap-2',
-'border',
-'font-medium',
-'transition',
-'focus:outline-none',
-'focus:ring-2',
-'focus:ring-sky-500',
-'dark:focus:ring-sky-400',
+'ml-button',
 'focus:z-10',
 this.getSizeClasses(),
 this.getVariantClasses(variant),
 rounding.join(' '),
 overlap,
-(this.disabled || this.loading) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+(this.disabled || this.loading) ? 'ml-disabled' : 'cursor-pointer',
 ].filter(Boolean).join(' ');
 }
 private renderSpinner(): TemplateResult {
 return html`
-<svg class="h-4 w-4 animate-spin text-slate-600 dark:text-slate-300" viewBox="0 0 24 24" aria-hidden="true">
+<svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
 ${svg`<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>`}
 ${svg`<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>`}
 </svg>
@@ -153,8 +131,8 @@ return html``;
 }
 if (hasIcon && hasLabel) {
 return this.iconPosition === 'end'
-? html`<span class="inline-flex items-center gap-2">${unsafeHTML(labelHtml)}${unsafeHTML(iconHtml)}</span>`
-: html`<span class="inline-flex items-center gap-2">${unsafeHTML(iconHtml)}${unsafeHTML(labelHtml)}</span>`;
+? html`<span class="${cn('inline-flex items-center gap-2', this.getSlotClass('Label'))}">${unsafeHTML(labelHtml)}${unsafeHTML(iconHtml)}</span>`
+: html`<span class="${cn('inline-flex items-center gap-2', this.getSlotClass('Label'))}">${unsafeHTML(iconHtml)}${unsafeHTML(labelHtml)}</span>`;
 }
 return hasLabel
 ? html`${unsafeHTML(labelHtml)}`
@@ -179,10 +157,10 @@ return { labelHtml, iconHtml, variant, ariaLabel, index };
 }).filter(Boolean) as Array<{ labelHtml: string; iconHtml: string; variant: string; ariaLabel: string; index: number }>;
 const isVertical = this.getDirection() === 'vertical';
 if (items.length === 0) {
-return html`<div class="${this.getGroupClasses(isVertical)}"></div>`;
+return html`<div class="${cn(this.getGroupClasses(isVertical), this.cssClass)}"></div>`;
 }
 return html`
-<div class="${this.getGroupClasses(isVertical)}" role="group">
+<div class="${cn(this.getGroupClasses(isVertical), 'ml-button-group', this.cssClass)}" role="group">
 ${items.map((item, idx) => html`
 <button
 class="${this.getButtonClasses(idx, items.length, item.variant, isVertical)}"

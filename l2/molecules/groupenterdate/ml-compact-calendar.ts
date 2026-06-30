@@ -9,6 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 /// **collab_i18n_start**
 const message_en = {
 labelRequired: '*',
@@ -190,7 +191,7 @@ const describedBy = this.error
 ? errorId
 : (this.hasSlot('Helper') ? helperId : '');
 return html`
-<div class="w-full" @focusin=${this.handleFocusIn} @focusout=${this.handleFocusOut}>
+<div class="${cn('w-full', this.cssClass)}" @focusin=${this.handleFocusIn} @focusout=${this.handleFocusOut}>
 ${this.renderLabel(labelId)}
 <div
 class="${this.getContainerClasses()}"
@@ -212,9 +213,9 @@ private renderViewMode(): TemplateResult {
 const labelId = `${this.instanceId}-label`;
 const display = this.formatDisplayValue(this.value);
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel(labelId)}
-<div class="text-sm text-slate-900 dark:text-slate-100">
+<div class="ml-text text-sm">
 ${display}
 </div>
 </div>
@@ -223,9 +224,9 @@ ${display}
 private renderLabel(labelId: string): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<label id=${labelId} class="mb-1 block text-sm text-slate-600 dark:text-slate-400">
+<label id=${labelId} class="${cn('ml-label mb-1 block text-sm', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
-${this.required ? html`<span class="ml-1 text-red-600 dark:text-red-400">${this.msg.labelRequired}</span>` : html``}
+${this.required ? html`<span class="ml-error-text ml-1">${this.msg.labelRequired}</span>` : html``}
 </label>
 `;
 }
@@ -233,15 +234,15 @@ private renderHeader(): TemplateResult {
 const display = this.formatDisplayValue(this.value, true);
 const canClear = !!this.value && !this.disabled && !this.readonly && !this.loading;
 return html`
-<div class="mb-2 flex items-center justify-between">
-<div class="text-sm text-slate-900 dark:text-slate-100">
+<div class="ml-calendar-header mb-2 flex items-center justify-between">
+<div class="ml-text text-sm">
 ${display}
 </div>
 <div class="flex items-center gap-2">
-${this.loading ? html`<span class="text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</span>` : html``}
+${this.loading ? html`<span class="ml-text-muted text-xs">${this.msg.loading}</span>` : html``}
 ${canClear ? html`
 <button
-class="text-xs text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
+class="ml-text-muted text-xs ml-calendar-header-clear"
 @click=${this.handleClear}
 >
 ${this.msg.clear}
@@ -257,11 +258,11 @@ const weekdays = this.getWeekdayNames();
 const grid = this.getCalendarDays();
 const gridCols = this.showWeekNumbers ? 'grid-cols-8' : 'grid-cols-7';
 const weekLabel = this.showWeekNumbers
-? html`<div class="text-xs font-medium text-slate-500 dark:text-slate-400">${this.msg.week}</div>`
+? html`<div class="ml-text-muted text-xs font-medium">${this.msg.week}</div>`
 : html``;
 return html`
-<div class="w-full">
-<div class="mb-2 flex items-center justify-between">
+<div class="ml-calendar-grid w-full">
+<div class="ml-calendar-nav mb-2 flex items-center justify-between">
 <button
 class="${this.getNavButtonClasses(this.canNavigatePrev())}"
 @click=${this.handlePrevMonth}
@@ -270,7 +271,7 @@ aria-label="Previous month"
 >
 ‹
 </button>
-<div class="text-sm font-medium text-slate-900 dark:text-slate-100" aria-live="polite">
+<div class="ml-text text-sm font-medium" aria-live="polite">
 ${monthTitle}
 </div>
 <button
@@ -284,12 +285,12 @@ aria-label="Next month"
 </div>
 <div class="grid ${gridCols} gap-1" role="row">
 ${weekLabel}
-${weekdays.map((d) => html`<div class="text-xs font-medium text-slate-500 dark:text-slate-400">${d}</div>`)}
+${weekdays.map((d) => html`<div class="ml-text-muted text-xs font-medium">${d}</div>`)}
 </div>
 <div class="mt-1 grid ${gridCols} gap-1" role="grid">
 ${grid.map((week) => html`
 ${this.showWeekNumbers ? html`
-<div class="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center">
+<div class="ml-text-muted text-xs flex items-center justify-center">
 ${week.weekNumber}
 </div>
 ` : html``}
@@ -318,10 +319,10 @@ ${day.date.getDate()}
 }
 private renderFeedback(errorId: string, helperId: string): TemplateResult {
 if (this.error) {
-return html`<p id=${errorId} class="mt-1 text-xs text-red-600 dark:text-red-400">${this.error}</p>`;
+return html`<p id=${errorId} class="ml-error-text mt-1 text-xs">${this.error}</p>`;
 }
 if (this.hasSlot('Helper')) {
-return html`<p id=${helperId} class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p id=${helperId} class="${cn('ml-helper mt-1 text-xs', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }
@@ -469,35 +470,30 @@ detail: { year: this.viewYear, month: this.viewMonth + 1 },
 // HELPERS — CLASSES
 // ===========================================================================
 private getContainerClasses(): string {
-return [
-'w-full rounded-lg border p-3 transition',
-'bg-white dark:bg-slate-800',
-this.error ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+return cn(
+'ml-calendar-container w-full rounded-lg border p-3 transition',
+this.error ? 'ml-calendar-container--error' : '',
+this.disabled ? 'ml-disabled' : '',
 this.readonly ? 'cursor-default' : '',
-].filter(Boolean).join(' ');
+);
 }
 private getNavButtonClasses(enabled: boolean): string {
-return [
-'h-7 w-7 rounded-md text-sm border transition',
-'bg-white dark:bg-slate-800',
-'border-slate-200 dark:border-slate-700',
-'text-slate-700 dark:text-slate-200',
-enabled ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : 'opacity-50 cursor-not-allowed',
-].filter(Boolean).join(' ');
+return cn(
+'ml-calendar-nav-btn h-7 w-7 rounded-md text-sm border transition',
+enabled ? 'ml-calendar-nav-btn--enabled' : 'ml-disabled',
+);
 }
 private getDayClasses(day: CalendarDay, isSelected: boolean): string {
 const isToday = this.isSameDay(day.date, new Date());
-return [
-'h-8 w-8 rounded-md text-xs border transition flex items-center justify-center',
-'bg-white dark:bg-slate-800',
-'border-transparent',
-!day.inCurrentMonth ? 'text-slate-300 dark:text-slate-600' : 'text-slate-900 dark:text-slate-100',
-isSelected ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400' : '',
-!isSelected && isToday ? 'border-sky-500 dark:border-sky-400' : '',
-!day.disabled && !isSelected ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-(day.disabled || this.disabled || this.readonly || this.loading) ? 'opacity-50 cursor-not-allowed' : '',
-].filter(Boolean).join(' ');
+const isDayDisabled = day.disabled || this.disabled || this.readonly || this.loading;
+return cn(
+'ml-calendar-day h-8 w-8 rounded-md text-xs border border-transparent transition flex items-center justify-center',
+!day.inCurrentMonth ? 'ml-calendar-day-outside' : '',
+isSelected ? 'ml-calendar-day-selected' : '',
+!isSelected && isToday ? 'ml-calendar-day-today' : '',
+!isDayDisabled && !isSelected ? 'ml-calendar-day--hoverable' : '',
+isDayDisabled ? 'ml-calendar-day-disabled' : '',
+);
 }
 }
 // ===========================================================================

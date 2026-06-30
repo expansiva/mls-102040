@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -316,37 +317,31 @@ return !!this.value && this.value === iso;
 }
 
 private getDayButtonClasses(disabledDay: boolean, selected: boolean, today: boolean): string {
-return [
-'w-full h-9 rounded-md text-sm border transition flex items-center justify-center',
-selected
-? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border-sky-500 dark:border-sky-400'
-: 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border-transparent',
-today && !selected ? 'border-sky-500 dark:border-sky-400' : '',
-!disabledDay && !selected && !this.disabled && !this.loading && !this.readonly
-? 'hover:bg-slate-50 dark:hover:bg-slate-700'
-: '',
-disabledDay || this.disabled || this.loading
-? 'opacity-50 cursor-not-allowed'
-: this.readonly
-? 'cursor-default'
-: 'cursor-pointer',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400'
-].filter(Boolean).join(' ');
+const isDayDisabled = disabledDay || this.disabled || this.loading;
+return cn(
+'ml-calendar-day w-full h-9 rounded-md text-sm border border-transparent transition flex items-center justify-center',
+'focus:outline-none focus:ring-2',
+selected ? 'ml-calendar-day-selected' : '',
+!selected && today ? 'ml-calendar-day-today' : '',
+!isDayDisabled && !selected && !this.readonly ? 'ml-calendar-day--hoverable' : '',
+isDayDisabled ? 'ml-calendar-day-disabled' : '',
+this.readonly && !isDayDisabled ? 'cursor-default' : '',
+);
 }
 
 private getContainerClasses(): string {
-return [
-'w-full rounded-lg border p-4',
-'bg-white dark:bg-slate-800',
-this.error ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-this.disabled || this.loading ? 'opacity-50' : '',
-].filter(Boolean).join(' ');
+return cn(
+'ml-calendar-container w-full rounded-lg border p-4',
+this.error ? 'ml-calendar-container--error' : '',
+this.disabled || this.loading ? 'ml-disabled' : '',
+this.readonly ? 'cursor-default' : '',
+);
 }
 
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 return html`
-<label id="${this.uid}-label" class="mb-2 block text-sm font-medium text-slate-600 dark:text-slate-400">
+<label id="${this.uid}-label" class="${cn('ml-label mb-2 block text-sm', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
 </label>
 `;
@@ -355,10 +350,10 @@ ${unsafeHTML(this.getSlotContent('Label'))}
 private renderHelperOrError(): TemplateResult {
 if (!this.isEditing) return html``;
 if (this.error) {
-return html`<p id="${this.uid}-error" class="mt-2 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+return html`<p id="${this.uid}-error" class="ml-error-text mt-2 text-xs">${unsafeHTML(String(this.error))}</p>`;
 }
 if (this.hasSlot('Helper')) {
-return html`<p id="${this.uid}-helper" class="mt-2 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p id="${this.uid}-helper" class="${cn('ml-helper mt-2 text-xs', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }
@@ -370,9 +365,9 @@ return html`<input type="hidden" name="${this.name}" value="${this.value ?? ''}"
 
 private renderViewMode(): TemplateResult {
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
-<div class="text-sm text-slate-900 dark:text-slate-100">${this.formatDisplayValue()}</div>
+<div class="ml-text text-sm">${this.formatDisplayValue()}</div>
 ${this.renderHiddenInput()}
 </div>
 `;
@@ -397,9 +392,9 @@ aria-required="${this.required ? 'true' : 'false'}"
 @focusin="${this.handleFocusIn}"
 @focusout="${this.handleFocusOut}"
 >
-<div class="flex items-center justify-between mb-3">
+<div class="ml-calendar-nav flex items-center justify-between mb-3">
 <button
-class="h-8 w-8 rounded-md border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 disabled:opacity-50"
+class="${cn('ml-calendar-nav-btn h-8 w-8 rounded-md border text-sm', prevDisabled ? 'ml-disabled' : 'ml-calendar-nav-btn--enabled')}"
 ?disabled="${prevDisabled}"
 @mousedown="${(e: Event) => e.preventDefault()}"
 @click="${this.handlePrevMonth}"
@@ -407,9 +402,9 @@ aria-label="${this.msg.previousMonth}"
 >
 <span class="text-lg">‹</span>
 </button>
-<div class="text-sm font-medium text-slate-900 dark:text-slate-100" aria-live="polite">${this.getMonthTitle()}</div>
+<div class="ml-text text-sm font-medium" aria-live="polite">${this.getMonthTitle()}</div>
 <button
-class="h-8 w-8 rounded-md border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 disabled:opacity-50"
+class="${cn('ml-calendar-nav-btn h-8 w-8 rounded-md border text-sm', nextDisabled ? 'ml-disabled' : 'ml-calendar-nav-btn--enabled')}"
 ?disabled="${nextDisabled}"
 @mousedown="${(e: Event) => e.preventDefault()}"
 @click="${this.handleNextMonth}"
@@ -418,14 +413,14 @@ aria-label="${this.msg.nextMonth}"
 <span class="text-lg">›</span>
 </button>
 </div>
-<div class="grid grid-cols-${this.showWeekNumbers ? '8' : '7'} gap-1 text-xs text-slate-600 dark:text-slate-400 mb-2">
-${this.showWeekNumbers ? html`<div class="text-center">${this.msg.week}</div>` : html``}
-${weekdayLabels.map((label) => html`<div class="text-center">${label}</div>`)}
+<div class="grid grid-cols-${this.showWeekNumbers ? '8' : '7'} gap-1 text-xs mb-2">
+${this.showWeekNumbers ? html`<div class="ml-text-muted text-center">${this.msg.week}</div>` : html``}
+${weekdayLabels.map((label) => html`<div class="ml-text-muted text-center">${label}</div>`)}
 </div>
 <div class="grid grid-cols-${this.showWeekNumbers ? '8' : '7'} gap-1" role="grid">
 ${weeks.map((week, weekIndex) => html`
 ${this.showWeekNumbers ? html`
-<div class="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center">${this.getWeekNumber(weekIndex)}</div>
+<div class="ml-text-muted text-xs flex items-center justify-center">${this.getWeekNumber(weekIndex)}</div>
 ` : html``}
 ${week.map((day) => {
 const selected = this.isSelected(day.iso);
@@ -441,7 +436,7 @@ aria-disabled="${day.disabled || this.disabled || this.loading ? 'true' : 'false
 @mousedown="${(e: Event) => e.preventDefault()}"
 @click="${() => this.handleDaySelect(day.iso, day.disabled)}"
 >
-<span class="${day.inMonth ? '' : 'text-slate-400 dark:text-slate-600'}">${day.day}</span>
+<span class="${day.inMonth ? '' : 'ml-calendar-day-outside'}">${day.day}</span>
 </button>
 `;
 })}
@@ -481,10 +476,10 @@ if (!this.isEditing) {
 return this.renderViewMode();
 }
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 ${this.loading
-? html`<div class="${this.getContainerClasses()} text-sm text-slate-500 dark:text-slate-400">${this.msg.loading}</div>`
+? html`<div class="${this.getContainerClasses()} ml-text-muted text-sm">${this.msg.loading}</div>`
 : this.renderCalendar()}
 ${this.renderHelperOrError()}
 </div>

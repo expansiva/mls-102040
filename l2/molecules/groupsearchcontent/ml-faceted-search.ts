@@ -9,6 +9,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -289,7 +290,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
         : '';
 
     return html`
-      <div class="w-full">
+      <div class=${cn('w-full', this.cssClass)}>
         ${this.renderLabel(labelId)}
 
         <div class="relative">
@@ -337,7 +338,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
                 >
                   ${this.loading
                     ? html`
-                        <div class="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+                        <div class="px-3 py-2 text-sm ml-text-muted">
                           ${this.msg.loading}
                         </div>
                       `
@@ -357,7 +358,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
     return html`
       <div
         id=${labelId}
-        class="mb-2 text-sm text-slate-600 dark:text-slate-400"
+        class=${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}
       >
         ${unsafeHTML(this.getSlotContent('Label'))}
       </div>
@@ -370,7 +371,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
         ? this.getSlotContent('Empty')
         : this.msg.empty;
       return html`
-        <div class="px-3 py-2 text-sm text-slate-500 dark:text-slate-400">
+        <div class="px-3 py-2 text-sm ml-text-muted">
           ${unsafeHTML(content)}
         </div>
       `;
@@ -399,7 +400,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
       return html`
         <p
           id=${errorId}
-          class="mt-1 text-xs text-red-600 dark:text-red-400"
+          class="mt-1 text-xs ml-error-text"
         >
           ${unsafeHTML(String(this.error))}
         </p>
@@ -408,7 +409,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
 
     if (this.hasSlot('Helper')) {
       return html`
-        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+        <p class=${cn('mt-1 text-xs ml-text-muted', this.getSlotClass('Helper'))}>
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;
@@ -423,14 +424,12 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
   private getInputClasses(): string {
     return [
       'w-full rounded-lg px-3 py-2 text-sm border transition',
-      'bg-white dark:bg-slate-900',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+      'ml-search-input',
       this.error
-        ? 'border-red-500 dark:border-red-400'
-        : 'border-slate-200 dark:border-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+        ? 'ml-error-border'
+        : 'ml-search-border',
+      'ml-search-focus',
+      this.disabled ? 'ml-disabled' : '',
       this.query.length > 0 && !this.disabled ? 'pr-9' : '',
     ]
       .filter(Boolean)
@@ -440,17 +439,15 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
   private getClearButtonClasses(): string {
     return [
       'absolute right-2 top-1/2 -translate-y-1/2',
-      'h-6 w-6 rounded-full text-slate-500 dark:text-slate-400',
-      'hover:bg-slate-100 dark:hover:bg-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
+      'h-6 w-6 rounded-full ml-search-clear',
+      'ml-search-focus',
     ].join(' ');
   }
 
   private getPanelClasses(): string {
     return [
       'absolute z-10 mt-2 w-full rounded-lg border',
-      'bg-white dark:bg-slate-800',
-      'border-slate-200 dark:border-slate-700',
+      'ml-facet-group',
       'shadow-sm',
       'max-h-60 overflow-auto',
     ].join(' ');
@@ -459,11 +456,11 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
   private getItemClasses(isActive: boolean): string {
     return [
       'px-3 py-2 text-sm cursor-pointer transition',
-      'text-slate-900 dark:text-slate-100',
+      'ml-text',
       isActive
-        ? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400'
+        ? 'ml-facet-option-selected'
         : 'border border-transparent',
-      !isActive ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
+      !isActive ? 'ml-facet-option' : '',
     ]
       .filter(Boolean)
       .join(' ');

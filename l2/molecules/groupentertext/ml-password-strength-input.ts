@@ -10,6 +10,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -255,10 +256,10 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
       veryStrong: 'w-full',
     };
     const colorMap: Record<StrengthLevel, string> = {
-      weak: 'bg-red-500 dark:bg-red-400',
-      medium: 'bg-yellow-500 dark:bg-yellow-400',
-      strong: 'bg-green-500 dark:bg-green-400',
-      veryStrong: 'bg-emerald-600 dark:bg-emerald-400',
+      weak: 'ml-strength-weak',
+      medium: 'ml-strength-fair',
+      strong: 'ml-strength-strong',
+      veryStrong: 'ml-strength-strong',
     };
 
     return [baseClasses, widthMap[level], colorMap[level]].join(' ');
@@ -266,10 +267,10 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
 
   private getStrengthTextClasses(level: StrengthLevel): string {
     const colorMap: Record<StrengthLevel, string> = {
-      weak: 'text-red-600 dark:text-red-400',
-      medium: 'text-yellow-600 dark:text-yellow-400',
-      strong: 'text-green-600 dark:text-green-400',
-      veryStrong: 'text-emerald-600 dark:text-emerald-400',
+      weak: 'ml-strength-weak-text',
+      medium: 'ml-strength-fair-text',
+      strong: 'ml-strength-strong-text',
+      veryStrong: 'ml-strength-strong-text',
     };
     return ['text-xs font-medium', colorMap[level]].join(' ');
   }
@@ -349,7 +350,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
   private getContainerClasses(): string {
     return [
       'w-full',
-      this.disabled ? 'opacity-50 cursor-not-allowed' : '',
+      this.disabled ? 'ml-disabled' : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -359,13 +360,8 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
     const hasError = !!this.error;
 
     return [
-      'flex items-center w-full rounded-lg border transition-all duration-200',
-      'bg-white dark:bg-slate-900',
-      hasError
-        ? 'border-red-500 dark:border-red-400'
-        : this.isFocused
-        ? 'border-sky-500 dark:border-sky-400 ring-2 ring-sky-500/20 dark:ring-sky-400/20'
-        : 'border-slate-200 dark:border-slate-700',
+      'flex items-center w-full rounded-lg transition-all duration-200 ml-input-container',
+      hasError ? 'ml-input-container-error' : '',
       this.disabled || this.loading
         ? 'cursor-not-allowed'
         : this.readonly
@@ -378,9 +374,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
 
   private getInputClasses(): string {
     return [
-      'flex-1 w-full px-3 py-2 text-sm bg-transparent border-none outline-none',
-      'text-slate-900 dark:text-slate-100',
-      'placeholder:text-slate-400 dark:placeholder:text-slate-500',
+      'flex-1 w-full px-3 py-2 text-sm bg-transparent border-none outline-none ml-input',
       this.disabled || this.loading ? 'cursor-not-allowed' : '',
     ]
       .filter(Boolean)
@@ -389,11 +383,10 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
 
   private getToggleButtonClasses(): string {
     return [
-      'flex items-center justify-center w-10 h-10 rounded-r-lg transition-colors',
-      'text-slate-500 dark:text-slate-400',
+      'flex items-center justify-center w-10 h-10 rounded-r-lg transition-colors ml-text-faint',
       this.disabled || this.loading
         ? 'cursor-not-allowed'
-        : 'hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer',
+        : 'cursor-pointer',
     ]
       .filter(Boolean)
       .join(' ');
@@ -402,9 +395,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
   private getCriteriaItemClasses(isMet: boolean): string {
     return [
       'flex items-center gap-2 text-xs',
-      isMet
-        ? 'text-green-600 dark:text-green-400'
-        : 'text-slate-500 dark:text-slate-400',
+      isMet ? 'ml-strength-strong-text' : 'ml-text-faint',
     ].join(' ');
   }
 
@@ -416,12 +407,12 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
 
     return html`
       <label
-        class="block mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300"
+        class="${cn('block mb-1.5 text-sm font-medium ml-label', this.getSlotClass('Label'))}"
         id="label-${this.name}"
       >
         ${unsafeHTML(this.getSlotContent('Label'))}
         ${this.required
-          ? html`<span class="text-red-500 dark:text-red-400 ml-0.5">*</span>`
+          ? html`<span class="ml-error-text ml-0.5">*</span>`
           : html``}
       </label>
     `;
@@ -431,7 +422,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('Prefix')) return html``;
 
     return html`
-      <span class="flex items-center pl-3 text-slate-500 dark:text-slate-400">
+      <span class="${cn('flex items-center pl-3 ml-text-faint', this.getSlotClass('Prefix'))}">
         ${unsafeHTML(this.getSlotContent('Prefix'))}
       </span>
     `;
@@ -441,7 +432,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('Suffix')) return html``;
 
     return html`
-      <span class="flex items-center pr-1 text-slate-500 dark:text-slate-400">
+      <span class="${cn('flex items-center pr-1 ml-text-faint', this.getSlotClass('Suffix'))}">
         ${unsafeHTML(this.getSlotContent('Suffix'))}
       </span>
     `;
@@ -524,7 +515,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
       <div class="mt-3 space-y-2">
         <div class="flex items-center gap-3">
           <div
-            class="flex-1 h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden"
+            class="flex-1 h-2 rounded-full ml-strength-track overflow-hidden"
           >
             <div class=${this.getStrengthBarClasses(level)}></div>
           </div>
@@ -579,7 +570,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('Helper')) return html``;
 
     return html`
-      <p class="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+      <p class="${cn('mt-1.5 text-xs ml-helper', this.getSlotClass('Helper'))}">
         ${unsafeHTML(this.getSlotContent('Helper'))}
       </p>
     `;
@@ -590,7 +581,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
 
     return html`
       <p
-        class="mt-1.5 text-xs text-red-600 dark:text-red-400"
+        class="mt-1.5 text-xs ml-error-text"
         id="error-${this.name}"
         role="alert"
       >
@@ -603,7 +594,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
     return html`
       <div class="flex items-center justify-center py-4">
         <svg
-          class="w-5 h-5 animate-spin text-slate-400 dark:text-slate-500"
+          class="w-5 h-5 animate-spin ml-spinner"
           fill="none"
           viewBox="0 0 24 24"
         >
@@ -621,7 +612,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
           ></path>
         </svg>
-        <span class="ml-2 text-sm text-slate-500 dark:text-slate-400">
+        <span class="ml-2 text-sm ml-text-muted">
           ${this.msg.loading}
         </span>
       </div>
@@ -636,7 +627,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
     return html`
       <div class="flex items-center gap-2">
         ${this.renderPrefix()}
-        <span class="text-sm text-slate-900 dark:text-slate-100">
+        <span class="text-sm ml-text">
           ${displayValue}
         </span>
         ${this.renderSuffix()}
@@ -653,7 +644,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
 
     if (!this.isEditing) {
       return html`
-        <div class=${this.getContainerClasses()}>
+        <div class=${cn(this.getContainerClasses(), this.cssClass)}>
           ${this.renderLabel()} ${this.renderViewMode()}
         </div>
       `;
@@ -661,14 +652,14 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
 
     if (this.loading) {
       return html`
-        <div class=${this.getContainerClasses()}>
+        <div class=${cn(this.getContainerClasses(), this.cssClass)}>
           ${this.renderLabel()} ${this.renderLoading()}
         </div>
       `;
     }
 
     return html`
-      <div class=${this.getContainerClasses()}>
+      <div class=${cn(this.getContainerClasses(), this.cssClass)}>
         ${this.renderLabel()} ${this.renderInput()}
         ${this.renderStrengthIndicator()}
         ${this.error ? this.renderError() : this.renderHelper()}

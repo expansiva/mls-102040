@@ -4,31 +4,32 @@
 // =============================================================================
 // Skill Group: groupViewChart
 // This molecule does NOT contain business logic.
-import { html, svg, TemplateResult } from 'lit';
-import { customElement, state, query } from 'lit/decorators.js';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
-import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { html, svg, TemplateResult } from'lit';
+import { customElement, state, query } from'lit/decorators.js';
+import { unsafeHTML } from'lit/directives/unsafe-html.js';
+import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
+import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
+import { cn } from'/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
-labelFallback: 'Scatter plot',
-loading: 'Loading chart...',
-empty: 'No data available',
-seriesHeader: 'Series',
-xHeader: 'X',
-yHeader: 'Y',
+labelFallback:'Scatter plot',
+loading:'Loading chart...',
+empty:'No data available',
+seriesHeader:'Series',
+xHeader:'X',
+yHeader:'Y',
 };
 type MessageType = typeof message_en;
 const messages: Record<string, MessageType> = {
 en: message_en,
 pt: {
-labelFallback: 'Gráfico de dispersão',
-loading: 'Carregando gráfico...',
-empty: 'Nenhum dado disponível',
-seriesHeader: 'Série',
-xHeader: 'X',
-yHeader: 'Y',
+labelFallback:'Gráfico de dispersão',
+loading:'Carregando gráfico...',
+empty:'Nenhum dado disponível',
+seriesHeader:'Série',
+xHeader:'X',
+yHeader:'Y',
 },
 };
 /// **collab_i18n_end**
@@ -63,14 +64,14 @@ private msg: MessageType = messages.en;
 // ===========================================================================
 // SLOT TAGS
 // ===========================================================================
-slotTags = ['Label', 'Series', 'Point', 'Empty'];
+slotTags = ['Label','Series','Point','Empty'];
 // ===========================================================================
 // PROPERTIES — From Contract
 // ===========================================================================
-@propertyDataSource({ type: Boolean, attribute: 'show-legend' })
+@propertyDataSource({ type: Boolean, attribute:'show-legend' })
 showLegend = true;
 
-@propertyDataSource({ type: Boolean, attribute: 'show-values' })
+@propertyDataSource({ type: Boolean, attribute:'show-values' })
 showValues = false;
 
 @propertyDataSource({ type: Boolean })
@@ -95,12 +96,12 @@ const labelText = this.getPlainText(labelContent) || this.msg.labelFallback;
 
 if (this.loading) {
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${labelContent
-? html`<div class="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">${unsafeHTML(labelContent)}</div>`
+? html`<div class="${cn('mb-2 text-sm font-semibold ml-text', this.getSlotClass('Label'))}">${unsafeHTML(labelContent)}</div>`
 : html``}
-<div class="h-64 w-full animate-pulse rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900"></div>
-<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>
+<div class="h-64 w-full animate-pulse rounded-lg border ml-border ml-surface-dim-bg"></div>
+<div class="mt-2 text-xs ml-text-muted">${this.msg.loading}</div>
 </div>
 `;
 }
@@ -111,12 +112,12 @@ const hasData = points.length > 0;
 if (!hasData) {
 const emptyContent = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${labelContent
-? html`<div class="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">${unsafeHTML(labelContent)}</div>`
+? html`<div class="${cn('mb-2 text-sm font-semibold ml-text', this.getSlotClass('Label'))}">${unsafeHTML(labelContent)}</div>`
 : html``}
-<div class="flex h-64 w-full items-center justify-center rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
-<div class="text-sm text-slate-500 dark:text-slate-400">${unsafeHTML(emptyContent)}</div>
+<div class="${cn('flex h-64 w-full items-center justify-center rounded-lg border ml-border ml-surface-bg', this.getSlotClass('Empty'))}">
+<div class="text-sm ml-text-muted">${unsafeHTML(emptyContent)}</div>
 </div>
 </div>
 `;
@@ -127,12 +128,12 @@ const xTicks = this.getTicks(minX, maxX, 5);
 const yTicks = this.getTicks(minY, maxY, 5);
 
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${labelContent
-? html`<div class="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">${unsafeHTML(labelContent)}</div>`
+? html`<div class="${cn('mb-2 text-sm font-semibold ml-text', this.getSlotClass('Label'))}">${unsafeHTML(labelContent)}</div>`
 : html``}
 <div
-class="chart-container relative w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800"
+class="chart-container relative w-full rounded-lg border ml-border ml-surface-bg"
 role="img"
 aria-label="${labelText}"
 >
@@ -164,11 +165,11 @@ const seriesMeta: SeriesMeta[] = [];
 
 const seriesElements = this.getSlots('Series');
 seriesElements.forEach(seriesEl => {
-const name = seriesEl.getAttribute('name') || '';
-const color = seriesEl.getAttribute('color') || '#38bdf8';
+const name = seriesEl.getAttribute('name') ||'';
+const color = seriesEl.getAttribute('color') ||'#38bdf8';
 const typeAttr = seriesEl.getAttribute('type');
 const trendAttr = seriesEl.getAttribute('trend');
-const isTrend = typeAttr === 'trend' || trendAttr === 'true';
+const isTrend = typeAttr ==='trend' || trendAttr ==='true';
 
 if (name) {
 seriesMeta.push({ name, color, isTrend });
@@ -176,7 +177,7 @@ seriesMeta.push({ name, color, isTrend });
 
 const pointEls = Array.from(seriesEl.querySelectorAll('Point'));
 pointEls.forEach(pointEl => {
-const label = pointEl.getAttribute('label') || '';
+const label = pointEl.getAttribute('label') ||'';
 const value = this.parseNumber(pointEl.getAttribute('value'));
 const x = this.parseNumber(label, points.length);
 const y = value;
@@ -195,11 +196,11 @@ isTrend,
 
 const rootPoints = this.getSlots('Point').filter(el => el.parentElement === this);
 rootPoints.forEach(pointEl => {
-const label = pointEl.getAttribute('label') || '';
+const label = pointEl.getAttribute('label') ||'';
 const value = this.parseNumber(pointEl.getAttribute('value'));
 const x = this.parseNumber(label, points.length);
 const y = value;
-const color = pointEl.getAttribute('color') || '#38bdf8';
+const color = pointEl.getAttribute('color') ||'#38bdf8';
 points.push({
 label,
 value: y,
@@ -267,8 +268,8 @@ padding: { left: number; right: number; top: number; bottom: number },
 xTicks: number[],
 yTicks: number[],
 ): TemplateResult {
-const axisColor = 'stroke-slate-200 dark:stroke-slate-700';
-const tickText = 'fill-slate-500 dark:fill-slate-400';
+const axisColor ='ml-chart-axis';
+const tickText ='ml-chart-axis';
 const xAxisY = height - padding.bottom;
 const yAxisX = padding.left;
 
@@ -306,7 +307,7 @@ maxY: number,
 ): TemplateResult {
 const cx = this.scaleX(point.x, width, padding, minX, maxX);
 const cy = this.scaleY(point.y, height, padding, minY, maxY);
-const color = point.color || '#38bdf8';
+const color = point.color ||'#38bdf8';
 const ariaLabel = point.series ? `${point.series}: ${point.label}, ${point.value}` : `${point.label}, ${point.value}`;
 
 return svg`
@@ -343,7 +344,7 @@ maxY: number,
 const x = this.scaleX(point.x, width, padding, minX, maxX);
 const y = this.scaleY(point.y, height, padding, minY, maxY) - 10;
 return svg`
-<text x="${x}" y="${y}" text-anchor="middle" font-size="10" class="fill-slate-600 dark:fill-slate-300">${this.formatNumber(point.value)}</text>
+<text x="${x}" y="${y}" text-anchor="middle" font-size="10" class="ml-chart-axis">${this.formatNumber(point.value)}</text>
 `;
 }
 
@@ -362,7 +363,7 @@ if (trendSeries.length === 0) return svg``;
 
 const grouped: Record<string, ParsedPoint[]> = {};
 trendSeries.forEach(point => {
-const key = point.series || 'trend';
+const key = point.series ||'trend';
 if (!grouped[key]) grouped[key] = [];
 grouped[key].push(point);
 });
@@ -373,9 +374,9 @@ const sorted = [...seriesPoints].sort((a, b) => a.x - b.x);
 const path = sorted.map((point, index) => {
 const x = this.scaleX(point.x, width, padding, minX, maxX);
 const y = this.scaleY(point.y, height, padding, minY, maxY);
-return `${index === 0 ? 'M' : 'L'} ${x} ${y}`;
-}).join(' ');
-const color = seriesPoints[0].color || '#38bdf8';
+return `${index === 0 ?'M' :'L'} ${x} ${y}`;
+}).join('');
+const color = seriesPoints[0].color ||'#38bdf8';
 return svg`<path d="${path}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" />`;
 })}
 `;
@@ -387,7 +388,7 @@ const visibleSeries = seriesMeta.filter(series => series.name);
 if (!visibleSeries.length) return html``;
 
 return html`
-<div class="mt-2 flex flex-wrap gap-3 text-xs text-slate-600 dark:text-slate-300">
+<div class="mt-2 flex flex-wrap gap-3 text-xs ml-text-muted">
 ${visibleSeries.map(series => html`
 <div class="flex items-center gap-2">
 <span class="h-2 w-2 rounded-full" style="background:${series.color}"></span>
@@ -401,9 +402,9 @@ ${visibleSeries.map(series => html`
 private renderTooltip(point: HoveredPoint): TemplateResult {
 const classes = [
 'pointer-events-none absolute z-10 rounded-md border px-2 py-1 text-xs shadow',
-'bg-white dark:bg-slate-800',
-'text-slate-900 dark:text-slate-100',
-'border-slate-200 dark:border-slate-700',
+'ml-surface-bg',
+'ml-text',
+'ml-border',
 ].join(' ');
 
 return html`
@@ -430,7 +431,7 @@ ${hasSeries ? html`<th>${this.msg.seriesHeader}</th>` : html``}
 <tbody>
 ${points.map(point => html`
 <tr>
-${hasSeries ? html`<td>${point.series || ''}</td>` : html``}
+${hasSeries ? html`<td>${point.series ||''}</td>` : html``}
 <td>${point.label}</td>
 <td>${this.formatNumber(point.value)}</td>
 </tr>
@@ -469,7 +470,7 @@ detail: { label: point.label, value: point.value, series: point.series },
 }
 
 private handlePointKeyDown(event: KeyboardEvent, point: ParsedPoint) {
-if (event.key === 'Enter' || event.key === ' ') {
+if (event.key ==='Enter' || event.key ==='') {
 event.preventDefault();
 this.handlePointClick(point);
 }
@@ -489,6 +490,6 @@ return value.toFixed(2);
 }
 
 private getPlainText(htmlContent: string): string {
-return htmlContent.replace(/<[^>]*>/g, '').trim();
+return htmlContent.replace(/<[^>]*>/g,'').trim();
 }
 }

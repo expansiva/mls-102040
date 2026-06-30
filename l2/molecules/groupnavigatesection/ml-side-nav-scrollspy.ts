@@ -10,6 +10,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -308,7 +309,7 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
   private getNavClasses(): string {
     return [
       'flex flex-col gap-1 w-full',
-      this.disabled ? 'opacity-50' : '',
+      this.disabled ? 'ml-disabled' : '',
     ].filter(Boolean).join(' ');
   }
 
@@ -316,23 +317,14 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
     return [
       'flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-all duration-200',
       'border-l-2 -ml-px',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400 focus:ring-offset-1',
-      isActive
-        ? 'border-l-sky-500 dark:border-l-sky-400 bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 font-medium'
-        : 'border-l-transparent text-slate-600 dark:text-slate-400',
-      !isActive && !tab.disabled && !this.disabled
-        ? 'hover:bg-slate-50 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-slate-100 hover:border-l-slate-300 dark:hover:border-l-slate-600'
-        : '',
-      tab.disabled || this.disabled
-        ? 'opacity-50 cursor-not-allowed'
-        : 'cursor-pointer',
+      'ml-scrollspy-item',
+      isActive ? 'ml-scrollspy-item-active font-medium' : '',
+      tab.disabled || this.disabled ? 'ml-disabled' : 'cursor-pointer',
     ].filter(Boolean).join(' ');
   }
 
   private getContainerClasses(): string {
-    return [
-      'flex gap-6 w-full',
-    ].join(' ');
+    return cn('flex gap-6 w-full', this.cssClass);
   }
 
   private getSidebarClasses(): string {
@@ -350,7 +342,7 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
   private getLabelClasses(): string {
     return [
       'text-xs font-semibold uppercase tracking-wider mb-3 px-3',
-      'text-slate-500 dark:text-slate-400',
+      'ml-label',
     ].join(' ');
   }
 
@@ -418,7 +410,7 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
         ${tab.icon ? html`<span class="flex-shrink-0">${tab.icon}</span>` : html``}
         <span class="truncate">${tab.title}</span>
         ${isActive ? html`
-          <span class="ml-auto w-1.5 h-1.5 rounded-full bg-sky-500 dark:bg-sky-400 flex-shrink-0"></span>
+          <span class="ml-auto w-1.5 h-1.5 rounded-full ml-scrollspy-dot flex-shrink-0"></span>
         ` : html``}
       </button>
     `;
@@ -430,20 +422,20 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
         <aside class=${this.getSidebarClasses()}>
           <nav class=${this.getNavClasses()}>
             <div class="animate-pulse space-y-2 px-3">
-              <div class="h-3 w-16 bg-slate-200 dark:bg-slate-700 rounded"></div>
-              <div class="h-8 w-full bg-slate-200 dark:bg-slate-700 rounded"></div>
-              <div class="h-8 w-full bg-slate-200 dark:bg-slate-700 rounded"></div>
-              <div class="h-8 w-full bg-slate-200 dark:bg-slate-700 rounded"></div>
-              <div class="h-8 w-3/4 bg-slate-200 dark:bg-slate-700 rounded"></div>
+              <div class="h-3 w-16 ml-skeleton rounded"></div>
+              <div class="h-8 w-full ml-skeleton rounded"></div>
+              <div class="h-8 w-full ml-skeleton rounded"></div>
+              <div class="h-8 w-full ml-skeleton rounded"></div>
+              <div class="h-8 w-3/4 ml-skeleton rounded"></div>
             </div>
           </nav>
         </aside>
         <div class=${this.getContentClasses()}>
           <div class="animate-pulse space-y-4">
-            <div class="h-6 w-1/3 bg-slate-200 dark:bg-slate-700 rounded"></div>
-            <div class="h-4 w-full bg-slate-200 dark:bg-slate-700 rounded"></div>
-            <div class="h-4 w-full bg-slate-200 dark:bg-slate-700 rounded"></div>
-            <div class="h-4 w-2/3 bg-slate-200 dark:bg-slate-700 rounded"></div>
+            <div class="h-6 w-1/3 ml-skeleton rounded"></div>
+            <div class="h-4 w-full ml-skeleton rounded"></div>
+            <div class="h-4 w-full ml-skeleton rounded"></div>
+            <div class="h-4 w-2/3 ml-skeleton rounded"></div>
           </div>
         </div>
       </div>
@@ -452,7 +444,7 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
 
   private renderError(): TemplateResult {
     return html`
-      <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+      <p class="mt-2 text-xs ml-error-text">
         ${unsafeHTML(this.error)}
       </p>
     `;

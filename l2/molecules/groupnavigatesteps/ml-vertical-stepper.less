@@ -1,9 +1,54 @@
-/// <mls fileReference="_102040_/l2/molecules/groupnavigatesteps/ml-vertical-stepper.less" enhancement="_blank"/>
+/// <mls fileReference="_102040_/l2/molecules/groupnavigatesteps/ml-vertical-stepper.less" enhancement="_102020_/l2/enhancementStyleAura"/>
 
-molecules--groupnavigatesteps--ml-vertical-stepper-102033 {
+groupnavigatesteps--ml-vertical-stepper {
 
-// Here your less
+  .ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
+  .ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
 
- }
+  .ml-step {
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
 
+  .ml-step-active {
+    background-color: color-mix(in srgb, var(--ml-primary, #3b82f6) 10%, transparent);
+  }
 
+  .ml-step-active-text {
+    color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-step-number {
+    background-color: var(--ml-surface, #ffffff);
+    color: var(--ml-on-surface, #1c1b1f);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-step-number-active {
+    background-color: color-mix(in srgb, var(--ml-primary, #3b82f6) 10%, transparent);
+    color: var(--ml-primary, #3b82f6);
+    border-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-step-completed {
+    background-color: var(--ml-primary, #3b82f6);
+    color: var(--ml-on-primary, #ffffff);
+    border-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-step-connector {
+    background-color: var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-step-connector-completed {
+    background-color: var(--ml-primary, #3b82f6);
+  }
+
+  .ml-step-container {
+    background-color: var(--ml-surface, #ffffff);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+  }
+
+}

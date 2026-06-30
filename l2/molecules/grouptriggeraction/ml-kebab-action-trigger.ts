@@ -9,6 +9,7 @@ import { customElement } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -69,14 +70,9 @@ export class MlKebabActionTriggerMolecule extends MoleculeAuraElement {
   private getButtonClasses(): string {
     const sizeClasses = this.getSizeClasses();
     return [
-      'inline-flex items-center justify-center gap-2 rounded-md border transition',
-      'bg-white dark:bg-slate-800',
-      'text-slate-700 dark:text-slate-200',
-      'border-slate-200 dark:border-slate-700',
-      'hover:bg-slate-50 dark:hover:bg-slate-700',
-      'active:bg-slate-100 dark:active:bg-slate-700',
-      'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-      this.disabled || this.loading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+      'inline-flex items-center justify-center gap-2',
+      'ml-kebab-trigger',
+      this.disabled || this.loading ? 'ml-disabled' : 'cursor-pointer',
       sizeClasses,
     ]
       .filter(Boolean)
@@ -123,7 +119,7 @@ export class MlKebabActionTriggerMolecule extends MoleculeAuraElement {
     const iconClasses = [
       'animate-spin',
       this.getIconSizeClasses(),
-      'text-slate-500 dark:text-slate-400',
+      'ml-text-muted',
     ].join(' ');
 
     return html`
@@ -134,7 +130,7 @@ export class MlKebabActionTriggerMolecule extends MoleculeAuraElement {
         </svg>
       </span>
       ${this.hasSlot('Label')
-        ? html`<span class="text-slate-600 dark:text-slate-300">${this.msg.loading}</span>`
+        ? html`<span class="ml-text-muted">${this.msg.loading}</span>`
         : html``}
     `;
   }
@@ -143,7 +139,7 @@ export class MlKebabActionTriggerMolecule extends MoleculeAuraElement {
     const iconClasses = [
       'inline-flex items-center justify-center',
       this.getIconSizeClasses(),
-      'text-slate-500 dark:text-slate-400',
+      'ml-text-muted',
     ].join(' ');
 
     return html`
@@ -160,7 +156,7 @@ export class MlKebabActionTriggerMolecule extends MoleculeAuraElement {
   private renderIcon(): TemplateResult {
     if (this.hasSlot('Icon')) {
       const content = this.getSlotContent('Icon');
-      return html`<span class="inline-flex ${this.getIconSizeClasses()}" aria-hidden="true">${unsafeHTML(content)}</span>`;
+      return html`<span class="${cn(`inline-flex ${this.getIconSizeClasses()}`, this.getSlotClass('Icon'))}" aria-hidden="true">${unsafeHTML(content)}</span>`;
     }
     return this.renderDefaultIcon();
   }
@@ -168,7 +164,7 @@ export class MlKebabActionTriggerMolecule extends MoleculeAuraElement {
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
     const content = this.getSlotContent('Label');
-    return html`<span class="text-slate-700 dark:text-slate-200">${unsafeHTML(content)}</span>`;
+    return html`<span class="${cn('ml-label', this.getSlotClass('Label'))}">${unsafeHTML(content)}</span>`;
   }
 
   private renderContent(): TemplateResult {
@@ -194,7 +190,7 @@ export class MlKebabActionTriggerMolecule extends MoleculeAuraElement {
 
     return html`
       <button
-        class="${this.getButtonClasses()}"
+        class="${cn(this.getButtonClasses(), this.cssClass)}"
         type="${this.type}"
         ?disabled=${this.disabled || this.loading}
         aria-label=${ariaLabel || ''}

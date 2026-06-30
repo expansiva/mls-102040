@@ -9,6 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
+import { cn } from '/_102033_/l2/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -291,27 +292,27 @@ private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
 const labelId = `${this.componentId}-label`;
 return html`
-<label id="${labelId}" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
+<label id="${labelId}" class="${cn('mb-1 block text-sm ml-label', this.getSlotClass('Label'))}">
 ${unsafeHTML(this.getSlotContent('Label'))}
-${this.required ? html`<span class="text-red-600 dark:text-red-400">*</span>` : ''}
+${this.required ? html`<span class="ml-error-text">*</span>` : ''}
 </label>
 `;
 }
 private renderHelperOrError(): TemplateResult {
 if (!this.isEditing) return html``;
 if (this.error) {
-return html`<p id="${this.componentId}-error" class="mt-1 text-xs text-red-600 dark:text-red-400">${unsafeHTML(String(this.error))}</p>`;
+return html`<p id="${this.componentId}-error" class="${cn('mt-1 text-xs ml-error-text', this.getSlotClass('Helper'))}">${unsafeHTML(String(this.error))}</p>`;
 }
 if (this.hasSlot('Helper')) {
-return html`<p id="${this.componentId}-helper" class="mt-1 text-xs text-slate-500 dark:text-slate-400">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
+return html`<p id="${this.componentId}-helper" class="${cn('mt-1 text-xs ml-helper', this.getSlotClass('Helper'))}">${unsafeHTML(this.getSlotContent('Helper'))}</p>`;
 }
 return html``;
 }
 private renderViewMode(): TemplateResult {
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
-<div class="text-sm text-slate-900 dark:text-slate-100">${this.formatDisplay(this.value)}</div>
+<div class="text-sm ml-text">${this.formatDisplay(this.value)}</div>
 </div>
 `;
 }
@@ -357,7 +358,7 @@ ${this.renderClockIcon()}
 }
 private renderClockIcon(): TemplateResult {
 return html`
-<svg viewBox="0 0 24 24" class="h-4 w-4 text-slate-500 dark:text-slate-400">
+<svg viewBox="0 0 24 24" class="h-4 w-4 ml-clock-icon">
 ${svg`<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"></circle>`}
 ${svg`<path d="M12 7v5l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>`}
 </svg>
@@ -367,7 +368,7 @@ private renderPicker(): TemplateResult {
 if (!this.isOpen || this.loading) return html``;
 return html`
 <div
-class="mt-2 grid grid-cols-${this.hour12 ? (this.showSeconds ? '4' : '3') : this.showSeconds ? '3' : '2'} gap-2 rounded-lg border border-slate-200 bg-white p-3 shadow-lg dark:border-slate-700 dark:bg-slate-800"
+class="${cn('mt-2 grid gap-2 p-3 ml-scroll-panel', `grid-cols-${this.hour12 ? (this.showSeconds ? '4' : '3') : this.showSeconds ? '3' : '2'}`)}"
 role="dialog"
 aria-modal="true"
 >
@@ -376,8 +377,8 @@ ${this.renderMinuteColumn()}
 ${this.showSeconds ? this.renderSecondColumn() : html``}
 ${this.hour12 ? this.renderPeriodColumn() : html``}
 <div class="col-span-full mt-2 flex items-center justify-end gap-2">
-<button class="${this.getActionButtonClasses()}" @click=${this.handleClear} ?disabled=${this.disabled || this.readonly || this.loading}>${this.msg.clear}</button>
-<button class="${this.getPrimaryButtonClasses()}" @click=${this.handleConfirm} ?disabled=${!this.isSelectedTimeValid() || this.disabled || this.readonly || this.loading}>${this.msg.confirm}</button>
+<button class="px-3 py-1.5 text-sm ml-scroll-action" @click=${this.handleClear} ?disabled=${this.disabled || this.readonly || this.loading}>${this.msg.clear}</button>
+<button class="px-3 py-1.5 text-sm ml-scroll-confirm" @click=${this.handleConfirm} ?disabled=${!this.isSelectedTimeValid() || this.disabled || this.readonly || this.loading}>${this.msg.confirm}</button>
 </div>
 </div>
 `;
@@ -386,8 +387,8 @@ private renderHourColumn(): TemplateResult {
 const hours = this.hour12 ? Array.from({ length: 12 }, (_, i) => i + 1) : Array.from({ length: 24 }, (_, i) => i);
 return html`
 <div class="flex flex-col">
-<span class="mb-1 text-xs text-slate-500 dark:text-slate-400">H</span>
-<div class="max-h-48 overflow-y-auto rounded-md border border-slate-200 p-1 dark:border-slate-700">
+<span class="mb-1 text-xs ml-text-muted">H</span>
+<div class="max-h-48 overflow-y-auto p-1 ml-time-column">
 ${hours.map((h) => {
 const hour24 = this.hour12 ? this.to24Hour(h, this.selectedPeriod) : h;
 const isSelected = this.selectedHour === hour24;
@@ -410,8 +411,8 @@ private renderMinuteColumn(): TemplateResult {
 const minutes = this.getMinutesList();
 return html`
 <div class="flex flex-col">
-<span class="mb-1 text-xs text-slate-500 dark:text-slate-400">M</span>
-<div class="max-h-48 overflow-y-auto rounded-md border border-slate-200 p-1 dark:border-slate-700">
+<span class="mb-1 text-xs ml-text-muted">M</span>
+<div class="max-h-48 overflow-y-auto p-1 ml-time-column">
 ${minutes.map((m) => {
 const isSelected = this.selectedMinute === m;
 const disabled = !this.isTimeAllowed(this.selectedHour, m, this.showSeconds ? this.selectedSecond : 0);
@@ -433,8 +434,8 @@ private renderSecondColumn(): TemplateResult {
 const seconds = Array.from({ length: 60 }, (_, i) => i);
 return html`
 <div class="flex flex-col">
-<span class="mb-1 text-xs text-slate-500 dark:text-slate-400">S</span>
-<div class="max-h-48 overflow-y-auto rounded-md border border-slate-200 p-1 dark:border-slate-700">
+<span class="mb-1 text-xs ml-text-muted">S</span>
+<div class="max-h-48 overflow-y-auto p-1 ml-time-column">
 ${seconds.map((s) => {
 const isSelected = this.selectedSecond === s;
 const disabled = !this.isTimeAllowed(this.selectedHour, this.selectedMinute, s);
@@ -456,8 +457,8 @@ private renderPeriodColumn(): TemplateResult {
 const periods: Array<'AM' | 'PM'> = ['AM', 'PM'];
 return html`
 <div class="flex flex-col">
-<span class="mb-1 text-xs text-slate-500 dark:text-slate-400">P</span>
-<div class="max-h-48 overflow-y-auto rounded-md border border-slate-200 p-1 dark:border-slate-700">
+<span class="mb-1 text-xs ml-text-muted">P</span>
+<div class="max-h-48 overflow-y-auto p-1 ml-time-column">
 ${periods.map((p) => {
 const isSelected = this.selectedPeriod === p;
 const disabled = !this.isPeriodAllowed(p);
@@ -485,51 +486,24 @@ return hours.some((h) => this.isTimeAllowed(h, minutes, seconds));
 // CLASSES
 // ===========================================================================
 private getInputClasses(): string {
-return [
-'w-full rounded-lg border px-3 py-2 pr-10 text-sm transition',
-'bg-white dark:bg-slate-900',
-'text-slate-900 dark:text-slate-100',
-'placeholder:text-slate-400 dark:placeholder:text-slate-500',
-this.error ? 'border-red-500 dark:border-red-400' : 'border-slate-200 dark:border-slate-700',
-'focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400',
-this.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-text',
-].filter(Boolean).join(' ');
+return cn(
+'w-full px-3 py-2 pr-10 text-sm ml-input ml-input-container',
+this.error ? 'ml-input-container-error' : '',
+this.disabled ? 'ml-disabled' : 'cursor-text',
+);
 }
 private getIconButtonClasses(): string {
-return [
-'absolute right-2 top-1/2 -translate-y-1/2 rounded-md p-1 transition',
-'bg-transparent',
-'text-slate-500 dark:text-slate-400',
-this.disabled || this.readonly || this.loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-50 dark:hover:bg-slate-700',
-].filter(Boolean).join(' ');
+return cn(
+'absolute right-2 top-1/2 -translate-y-1/2 p-1 ml-clock-icon',
+this.disabled || this.readonly || this.loading ? 'ml-disabled' : '',
+);
 }
 private getItemClasses(isSelected: boolean, disabled: boolean): string {
-return [
-'w-full rounded-md px-2 py-1 text-sm text-left transition',
-'isSelected' in Object ? '' : '',
-isSelected
-? 'bg-sky-50 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 border border-sky-500 dark:border-sky-400'
-: 'text-slate-900 dark:text-slate-100 border border-transparent',
-!disabled && !isSelected ? 'hover:bg-slate-50 dark:hover:bg-slate-700' : '',
-disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-].filter(Boolean).join(' ');
-}
-private getActionButtonClasses(): string {
-return [
-'rounded-md border px-3 py-1.5 text-sm transition',
-'border-slate-200 dark:border-slate-700',
-'text-slate-700 dark:text-slate-300',
-'hover:bg-slate-50 dark:hover:bg-slate-700',
-].filter(Boolean).join(' ');
-}
-private getPrimaryButtonClasses(): string {
-return [
-'rounded-md border px-3 py-1.5 text-sm transition',
-'border-sky-500 dark:border-sky-400',
-'bg-sky-50 dark:bg-sky-900/40',
-'text-sky-700 dark:text-sky-300',
-'hover:bg-sky-100 dark:hover:bg-sky-900/60',
-].filter(Boolean).join(' ');
+return cn(
+'w-full px-2 py-1 text-sm text-left ml-time-option',
+isSelected ? 'ml-time-option-selected' : '',
+disabled ? 'ml-disabled' : 'cursor-pointer',
+);
 }
 // ===========================================================================
 // RENDER
@@ -541,10 +515,10 @@ if (!this.isEditing) {
 return this.renderViewMode();
 }
 return html`
-<div class="w-full">
+<div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
 ${this.renderInput()}
-${this.loading ? html`<div class="mt-2 text-xs text-slate-500 dark:text-slate-400">${this.msg.loading}</div>` : ''}
+${this.loading ? html`<div class="mt-2 text-xs ml-text-muted">${this.msg.loading}</div>` : ''}
 ${this.renderPicker()}
 ${this.renderHelperOrError()}
 </div>
