@@ -3,6 +3,7 @@
 // NUMBER INPUT MOLECULE
 // =============================================================================
 // Skill Group: enter + number
+
 // This molecule does NOT contain business logic.
 import { html, TemplateResult, nothing } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
