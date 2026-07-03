@@ -115,6 +115,8 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
   // HELPERS – mask handling & CSS classes
   // ===========================================================================
   private updateRawDisplay(raw: string) {
+    // Bound props ({{...}}) resolve to undefined before the state is seeded.
+    raw = String(raw ?? '');
     if (this.mask) {
       this.rawDisplay = this.applyMask(raw);
     } else {
@@ -284,7 +286,7 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
   private renderCounter(): TemplateResult | typeof nothing {
     if (this.rows > 1 && this.maxLength !== null) {
       return html`<div class="mt-1 text-xs ml-text-muted" aria-live="polite">
-        ${this.value.length} / ${this.maxLength}
+        ${String(this.value ?? '').length} / ${this.maxLength}
       </div>`;
     }
     return nothing;

@@ -430,7 +430,7 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
     if (maxLength === null) return html``;
     return html`
       <p class="${this.getCounterClasses()}" aria-live="polite">
-        ${value.length} / ${maxLength}
+        ${String(value ?? '').length} / ${maxLength}
       </p>
     `;
   }

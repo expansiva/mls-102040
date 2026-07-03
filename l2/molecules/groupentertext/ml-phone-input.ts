@@ -115,7 +115,8 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
   // FORMATTING HELPERS
   // ===========================================================================
   private extractDigits(input: string): string {
-    return input.replace(/\D/g, '');
+    // Bound props ({{...}}) resolve to undefined before the state is seeded.
+    return String(input ?? '').replace(/\D/g, '');
   }
 
   private formatPhoneNumber(digits: string): string {

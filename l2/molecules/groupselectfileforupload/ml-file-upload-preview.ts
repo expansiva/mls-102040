@@ -149,6 +149,7 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
 
   private handleRemoveFile(index: number) {
     if (this.disabled || this.loading) return;
+    if (!Array.isArray(this.value)) return;
     const next = this.value.filter((_, i) => i !== index);
     this.value = next;
     this.syncPreviewUrls(next);

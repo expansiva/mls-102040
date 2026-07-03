@@ -141,7 +141,8 @@ const base = this.maxLength ?? 11;
 return Math.min(base, 11);
 }
 private formatCpf(raw: string): string {
-const digits = raw.replace(/\D/g, '').slice(0, 11);
+// Bound props ({{...}}) resolve to undefined before the state is seeded.
+const digits = String(raw ?? '').replace(/\D/g, '').slice(0, 11);
 let formatted = digits;
 if (digits.length > 3) {
 formatted = `${digits.slice(0, 3)}.${digits.slice(3)}`;
@@ -225,7 +226,7 @@ if (!this.isEditing) return html``;
 if (this.rows <= 1 || this.maxLength === null) return html``;
 return html`
 <p id="${this.getCounterId()}" class="mt-1 text-xs ml-text-muted" aria-live="polite">
-${this.value.length} / ${this.maxLength}
+${String(this.value ?? '').length} / ${this.maxLength}
 </p>
 `;
 }
