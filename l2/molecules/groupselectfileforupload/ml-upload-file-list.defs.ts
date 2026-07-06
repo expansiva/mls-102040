@@ -5,7 +5,9 @@
 export const group = 'groupSelectFileForUpload';
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
-  upload: "button"
+  upload: "button",
+  labelPlacement: "top",
+  validation: "inline-below"
 };
 
 export const skill = `# Metadata

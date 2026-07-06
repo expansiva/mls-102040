@@ -5,7 +5,9 @@
 export const group = 'groupEnterNumber';
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
-  numberInput: "stepper"
+  numberInput: "stepper",
+  labelPlacement: "top",
+  validation: "inline-below"
 };
 
 export const skill = `# Metadata

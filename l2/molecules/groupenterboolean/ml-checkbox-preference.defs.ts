@@ -7,7 +7,8 @@ export const group = 'groupEnterBoolean';
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
   boolean: "checkbox",
-  labelPlacement: "inline"
+  labelPlacement: "inline",
+  validation: "inline-below"
 };
 
 export const skill = `# Metadata

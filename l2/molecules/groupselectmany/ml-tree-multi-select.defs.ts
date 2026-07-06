@@ -6,7 +6,12 @@ export const group = 'groupSelectMany';
 
 // Hierarchical selection is driven by the (tree-shaped) data, not a DS preference,
 // so this molecule candidates for any design system.
-export const layoutConfig = {};
+export const layoutConfig = {
+  selectMany: "tree",
+  labelPlacement: "top",
+  validation: "inline-below",
+  requiredMark: "asterisk"
+};
 
 export const skill = `# Metadata
 - TagName: groupselectmany--ml-tree-multi-select

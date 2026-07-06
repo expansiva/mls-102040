@@ -6,7 +6,9 @@ export const group = 'groupSelectOne';
 
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
-  selectOne: "dropdown"
+  selectOne: "dropdown",
+  labelPlacement: "top",
+  validation: "inline-below"
 };
 
 export const skill = `# Metadata

@@ -5,7 +5,9 @@
 export const group = 'groupSelectMany';
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
-  selectMany: "popover"
+  selectMany: "popover",
+  labelPlacement: "top",
+  validation: "inline-below"
 };
 
 export const skill = `# Metadata

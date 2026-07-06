@@ -6,7 +6,8 @@ export const group = 'groupEnterMoney';
 
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
-  labelPlacement: "top"
+  labelPlacement: "top",
+  validation: "inline-below"
 };
 
 export const skill = `# Metadata

@@ -6,7 +6,9 @@ export const group = 'groupEnterDatetimeInterval';
 
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
-  intervalInput: "timeline"
+  intervalInput: "timeline",
+  labelPlacement: "top",
+  validation: "inline-below"
 };
 
 export const skill = `# Metadata

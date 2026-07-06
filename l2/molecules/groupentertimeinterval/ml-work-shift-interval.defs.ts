@@ -6,7 +6,10 @@ export const group = 'groupEnterTimeInterval';
 
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
-  intervalInput: "fields"
+  intervalInput: "fields",
+  labelPlacement: "top",
+  validation: "inline-below",
+  requiredMark: "asterisk"
 };
 
 export const skill = `# Metadata

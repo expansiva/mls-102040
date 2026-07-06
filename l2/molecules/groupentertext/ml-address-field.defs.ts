@@ -6,7 +6,9 @@ export const group = 'groupEnterText';
 
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
-  labelPlacement: "top"
+  labelPlacement: "top",
+  validation: "inline-below",
+  requiredMark: "asterisk"
 };
 
 export const skill = `# Metadata

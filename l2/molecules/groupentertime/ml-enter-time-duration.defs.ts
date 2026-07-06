@@ -6,7 +6,9 @@ export const group = 'groupEnterTime';
 
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
-  timeInput: "duration"
+  timeInput: "duration",
+  labelPlacement: "top",
+  validation: "inline-below"
 };
 
 export const skill = `# Metadata

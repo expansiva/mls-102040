@@ -7,7 +7,9 @@ export const group = 'groupEnterDatetime';
 // Design-system axes this molecule candidates for (matched by the DS agent).
 export const layoutConfig = {
   dateInput: "calendar-popover",
-  labelPlacement: "top"
+  labelPlacement: "top",
+  validation: "inline-below",
+  requiredMark: "asterisk"
 };
 
 export const skill = `# Metadata
