@@ -108,7 +108,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
   private lastValueSynced: string | null = undefined as any;
 
   protected portalContainer: HTMLDivElement | null = null;
-  protected portalClassName = 'groupselectone--ml-combobox';
+  protected portalWidgetName = 'groupselectone--ml-combobox';
   private boundUpdatePosition: () => void;
 
   // ===========================================================================
@@ -461,7 +461,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
   private createPortal() {
     if (this.portalContainer) return;
     this.portalContainer = document.createElement('div');
-    if (this.portalClassName) this.portalContainer.classList.add(this.portalClassName);
+    if (this.portalWidgetName) this.portalContainer.setAttribute('data-widget', this.portalWidgetName);
     document.body.appendChild(this.portalContainer);
     this.updatePanelPosition();
     this.renderPortalContent();

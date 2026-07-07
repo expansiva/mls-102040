@@ -100,7 +100,7 @@ private viewYear: number = new Date().getUTCFullYear();
 private fieldId: string = `date-${Math.random().toString(36).slice(2)}`;
 
 protected portalContainer: HTMLDivElement | null = null;
-protected portalClassName = 'groupenterdate--ml-date-picker';
+protected portalWidgetName = 'groupenterdate--ml-date-picker';
 private boundUpdatePosition: () => void = this.updatePanelPosition.bind(this);
 
 // ===========================================================================
@@ -429,7 +429,7 @@ return html``;
 private createPortal() {
 if (this.portalContainer) return;
 this.portalContainer = document.createElement('div');
-if (this.portalClassName) this.portalContainer.classList.add(this.portalClassName);
+if (this.portalWidgetName) this.portalContainer.setAttribute('data-widget', this.portalWidgetName);
 document.body.appendChild(this.portalContainer);
 this.updatePanelPosition();
 this.renderPortalContent();

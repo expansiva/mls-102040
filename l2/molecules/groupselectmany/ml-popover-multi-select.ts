@@ -89,7 +89,7 @@ private errorId = `ml-popover-multi-select-error-${Math.random().toString(36).sl
 private panelId = `ml-popover-multi-select-panel-${Math.random().toString(36).slice(2)}`;
 private hasFocus = false;
 protected portalContainer: HTMLDivElement | null = null;
-protected portalClassName = 'groupselectmany--ml-popover-multi-select';
+protected portalWidgetName = 'groupselectmany--ml-popover-multi-select';
 private boundUpdatePosition = () => this.updatePanelPosition();
 // ===========================================================================
 // LIFECYCLE
@@ -369,8 +369,8 @@ activeButton.focus();
 private createPortal() {
 if (this.portalContainer) return;
 this.portalContainer = document.createElement('div');
-if (this.portalClassName) {
-this.portalContainer.classList.add(this.portalClassName);
+if (this.portalWidgetName) {
+this.portalContainer.setAttribute('data-widget', this.portalWidgetName);
 }
 document.body.appendChild(this.portalContainer);
 this.updatePanelPosition();

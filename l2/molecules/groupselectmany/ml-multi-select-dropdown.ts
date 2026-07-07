@@ -93,7 +93,7 @@ private errorId = `${this.uid}-error`;
 private panelId = `${this.uid}-panel`;
 private hasFocus = false;
 protected portalContainer: HTMLDivElement | null = null;
-protected portalClassName = 'groupselectmany--ml-multi-select-dropdown';
+protected portalWidgetName = 'groupselectmany--ml-multi-select-dropdown';
 private boundUpdatePosition = () => this.updatePanelPosition();
 // ===========================================================================
 // LIFECYCLE
@@ -250,8 +250,8 @@ options[nextIndex]?.focus();
 private createPortal() {
 if (this.portalContainer) return;
 this.portalContainer = document.createElement('div');
-if (this.portalClassName) {
-this.portalContainer.classList.add(this.portalClassName);
+if (this.portalWidgetName) {
+this.portalContainer.setAttribute('data-widget', this.portalWidgetName);
 }
 document.body.appendChild(this.portalContainer);
 this.updatePanelPosition();

@@ -99,7 +99,7 @@ export class MlDatetimePickerMolecule extends MoleculeAuraElement {
     private errorId = `ml-dt-error-${Math.random().toString(36).slice(2)}`;
     private documentClickBound = false;
     protected portalContainer: HTMLDivElement | null = null;
-    protected portalClassName = 'groupenterdatetime--ml-datetime-picker';
+    protected portalWidgetName = 'groupenterdatetime--ml-datetime-picker';
     private boundUpdatePosition: () => void = this.updatePanelPosition.bind(this);
 
     createRenderRoot() {
@@ -570,7 +570,7 @@ ${this.pad(minute)}
     private createPortal() {
         if (this.portalContainer) return;
         this.portalContainer = document.createElement('div');
-        if (this.portalClassName) this.portalContainer.classList.add(this.portalClassName);
+        if (this.portalWidgetName) this.portalContainer.setAttribute('data-widget', this.portalWidgetName);
         document.body.appendChild(this.portalContainer);
         this.updatePanelPosition();
         this.renderPortalContent();

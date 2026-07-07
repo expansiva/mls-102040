@@ -111,7 +111,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
   private boundHandleOutsideClick: (e: MouseEvent) => void;
   private boundHandleKeydown: (e: KeyboardEvent) => void;
   protected portalContainer: HTMLDivElement | null = null;
-  protected portalClassName = 'groupselectone--ml-card-selector';
+  protected portalWidgetName = 'groupselectone--ml-card-selector';
   private boundUpdatePosition: () => void;
 
   // ===========================================================================
@@ -530,8 +530,8 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
   private createPortal() {
     if (this.portalContainer) return;
     this.portalContainer = document.createElement('div');
-    if (this.portalClassName) {
-      this.portalContainer.classList.add(this.portalClassName);
+    if (this.portalWidgetName) {
+      this.portalContainer.setAttribute('data-widget', this.portalWidgetName);
     }
     document.body.appendChild(this.portalContainer);
     this.updatePanelPosition();
