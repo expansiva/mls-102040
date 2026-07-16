@@ -5,7 +5,7 @@
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterMoney</span>
     </header>
 
-    <widget-playground-state-102020 state='{"playground":{"basic":{"value":null},"constraints":{"value":null,"error":""},"display":{"value":15000,"isEditing":false},"validation":{"value":-100,"error":"Valor não pode ser negativo","required":true},"status":{"value":750.5,"disabled":true,"loading":false},"format":{"value":1234567.89,"showSymbol":true,"decimals":2,"placeholder":"R$ 0,00"}}}'></widget-playground-state-102020>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":null},"constraints":{"value":null,"error":""},"display":{"value":15000,"isEditing":false},"validation":{"value":-100,"error":"Valor não pode ser negativo","required":true},"status":{"value":750.5,"disabled":true,"loading":false},"format":{"value":1234567.89,"showSymbol":true,"decimals":2,"placeholder":"R$ 0,00"}}}'></aura--molecules--playground--widget-playground-state-102020>
 
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 
@@ -20,20 +20,20 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-basic">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
                 <groupentermoney--ml-enter-money-br
                   value="{{playground.basic.value}}">
                   <Label>Valor</Label>
                 </groupentermoney--ml-enter-money-br>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -54,14 +54,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.constraints.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.constraints.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.constraints.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.constraints.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-constraints">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-constraints">
               <template>
                 <groupentermoney--ml-enter-money-br
                   value="{{playground.constraints.value}}"
@@ -73,7 +73,7 @@
                   <Helper>Informe um valor entre R$ 0 e R$ 999.999,99</Helper>
                 </groupentermoney--ml-enter-money-br>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -90,14 +90,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.display.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-boolean-102020 label="is-editing" value="{{playground.display.isEditing}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.display.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.display.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-display">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-display">
               <template>
                 <groupentermoney--ml-enter-money-br
                   value="{{playground.display.value}}"
@@ -105,7 +105,7 @@
                   <Label>Patrimônio Líquido</Label>
                 </groupentermoney--ml-enter-money-br>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -124,15 +124,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.validation.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.validation.error}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="required" value="{{playground.validation.required}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.validation.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.validation.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.validation.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-validation">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-validation">
               <template>
                 <groupentermoney--ml-enter-money-br
                   value="{{playground.validation.value}}"
@@ -142,7 +142,7 @@
                   <Label>Depósito Inicial</Label>
                 </groupentermoney--ml-enter-money-br>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -160,15 +160,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.status.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.status.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.status.loading}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.status.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.status.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.status.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-status">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-status">
               <template>
                 <groupentermoney--ml-enter-money-br
                   value="{{playground.status.value}}"
@@ -177,7 +177,7 @@
                   <Label>Reserva Financeira</Label>
                 </groupentermoney--ml-enter-money-br>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -201,16 +201,16 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.format.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-boolean-102020 label="show-symbol" value="{{playground.format.showSymbol}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-number-102020 label="decimals" value="{{playground.format.decimals}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.format.placeholder}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.format.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="show-symbol" value="{{playground.format.showSymbol}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="decimals" value="{{playground.format.decimals}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.format.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-format">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-format">
               <template>
                 <groupentermoney--ml-enter-money-br
                   value="{{playground.format.value}}"
@@ -225,7 +225,7 @@
                   <Helper>Exibe formatação avançada com símbolo</Helper>
                 </groupentermoney--ml-enter-money-br>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>

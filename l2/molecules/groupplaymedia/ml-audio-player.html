@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Audio Player Molecule</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupPlayMedia</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"autoplay":false,"loop":false,"muted":false,"preload":"metadata","disabled":false,"loading":false,"poster":""},"autoplayMuted":{"autoplay":true,"muted":true,"loop":false,"preload":"auto","disabled":false,"loading":false,"poster":""},"looping":{"loop":true,"autoplay":false,"muted":false,"preload":"metadata","disabled":false,"loading":false,"poster":""},"disabled":{"disabled":true,"autoplay":false,"loop":false,"muted":false,"preload":"metadata","loading":false,"poster":""},"loading":{"loading":true,"autoplay":false,"loop":false,"muted":false,"preload":"metadata","disabled":false,"poster":""},"sources":{"autoplay":false,"loop":false,"muted":false,"preload":"auto","disabled":false,"loading":false,"poster":""}}}'></widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"autoplay":false,"loop":false,"muted":false,"preload":"metadata","disabled":false,"loading":false,"poster":""},"autoplayMuted":{"autoplay":true,"muted":true,"loop":false,"preload":"auto","disabled":false,"loading":false,"poster":""},"looping":{"loop":true,"autoplay":false,"muted":false,"preload":"metadata","disabled":false,"loading":false,"poster":""},"disabled":{"disabled":true,"autoplay":false,"loop":false,"muted":false,"preload":"metadata","loading":false,"poster":""},"loading":{"loading":true,"autoplay":false,"loop":false,"muted":false,"preload":"metadata","disabled":false,"poster":""},"sources":{"autoplay":false,"loop":false,"muted":false,"preload":"auto","disabled":false,"loading":false,"poster":""}}}'></aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 
 <!-- Basic usage -->
@@ -27,19 +27,19 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="autoplay" value="{{playground.basic.autoplay}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loop" value="{{playground.basic.loop}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="muted" value="{{playground.basic.muted}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="preload" value="{{playground.basic.preload}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="poster" value="{{playground.basic.poster}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="autoplay" value="{{playground.basic.autoplay}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loop" value="{{playground.basic.loop}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="muted" value="{{playground.basic.muted}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.basic.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="poster" value="{{playground.basic.poster}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupplaymedia--ml-audio-player
   autoplay="{{playground.basic.autoplay}}"
@@ -54,7 +54,7 @@
   <Source src="/audio/sample.mp3" type="audio/mpeg" />
 </groupplaymedia--ml-audio-player>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -80,19 +80,19 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="autoplay" value="{{playground.autoplayMuted.autoplay}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="muted" value="{{playground.autoplayMuted.muted}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loop" value="{{playground.autoplayMuted.loop}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="preload" value="{{playground.autoplayMuted.preload}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.autoplayMuted.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.autoplayMuted.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="poster" value="{{playground.autoplayMuted.poster}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="autoplay" value="{{playground.autoplayMuted.autoplay}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="muted" value="{{playground.autoplayMuted.muted}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loop" value="{{playground.autoplayMuted.loop}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.autoplayMuted.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.autoplayMuted.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.autoplayMuted.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="poster" value="{{playground.autoplayMuted.poster}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-autoplay-muted">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-autoplay-muted">
 <template>
 <groupplaymedia--ml-audio-player
   autoplay="{{playground.autoplayMuted.autoplay}}"
@@ -108,7 +108,7 @@
   <Source src="/audio/intro.mp3" type="audio/mpeg" />
 </groupplaymedia--ml-audio-player>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -133,19 +133,19 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loop" value="{{playground.looping.loop}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="autoplay" value="{{playground.looping.autoplay}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="muted" value="{{playground.looping.muted}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="preload" value="{{playground.looping.preload}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.looping.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.looping.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="poster" value="{{playground.looping.poster}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loop" value="{{playground.looping.loop}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="autoplay" value="{{playground.looping.autoplay}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="muted" value="{{playground.looping.muted}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.looping.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.looping.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.looping.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="poster" value="{{playground.looping.poster}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-looping">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-looping">
 <template>
 <groupplaymedia--ml-audio-player
   autoplay="{{playground.looping.autoplay}}"
@@ -160,7 +160,7 @@
   <Source src="/audio/loop.mp3" type="audio/mpeg" />
 </groupplaymedia--ml-audio-player>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -185,19 +185,19 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="autoplay" value="{{playground.disabled.autoplay}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loop" value="{{playground.disabled.loop}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="muted" value="{{playground.disabled.muted}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="preload" value="{{playground.disabled.preload}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="poster" value="{{playground.disabled.poster}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="autoplay" value="{{playground.disabled.autoplay}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loop" value="{{playground.disabled.loop}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="muted" value="{{playground.disabled.muted}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.disabled.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="poster" value="{{playground.disabled.poster}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-disabled">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
 <template>
 <groupplaymedia--ml-audio-player
   autoplay="{{playground.disabled.autoplay}}"
@@ -212,7 +212,7 @@
   <Source src="/audio/sample.mp3" type="audio/mpeg" />
 </groupplaymedia--ml-audio-player>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -237,19 +237,19 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="autoplay" value="{{playground.loading.autoplay}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loop" value="{{playground.loading.loop}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="muted" value="{{playground.loading.muted}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="preload" value="{{playground.loading.preload}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="poster" value="{{playground.loading.poster}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="autoplay" value="{{playground.loading.autoplay}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loop" value="{{playground.loading.loop}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="muted" value="{{playground.loading.muted}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.loading.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="poster" value="{{playground.loading.poster}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-loading">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
 <template>
 <groupplaymedia--ml-audio-player
   autoplay="{{playground.loading.autoplay}}"
@@ -264,7 +264,7 @@
   <Source src="/audio/sample.mp3" type="audio/mpeg" />
 </groupplaymedia--ml-audio-player>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -292,19 +292,19 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="autoplay" value="{{playground.sources.autoplay}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loop" value="{{playground.sources.loop}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="muted" value="{{playground.sources.muted}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="preload" value="{{playground.sources.preload}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.sources.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.sources.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="poster" value="{{playground.sources.poster}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="autoplay" value="{{playground.sources.autoplay}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loop" value="{{playground.sources.loop}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="muted" value="{{playground.sources.muted}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.sources.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.sources.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.sources.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="poster" value="{{playground.sources.poster}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-sources">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-sources">
 <template>
 <groupplaymedia--ml-audio-player
   autoplay="{{playground.sources.autoplay}}"
@@ -322,7 +322,7 @@
   <Track src="/audio/podcast-pt.vtt" kind="subtitles" lang="pt" label="Português" />
 </groupplaymedia--ml-audio-player>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

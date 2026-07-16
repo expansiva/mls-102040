@@ -4,8 +4,8 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">View Hierarchy Mindmap</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewHierarchy</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"multiple":true,"expandAll":false,"disabled":false,"loading":false},"expandAll":{"expandAll":true,"multiple":true},"single":{"multiple":false,"expandAll":false},"disabled":{"disabled":true,"multiple":true},"loading":{"loading":true},"empty":{"loading":false}}}'>
-</widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"multiple":true,"expandAll":false,"disabled":false,"loading":false},"expandAll":{"expandAll":true,"multiple":true},"single":{"multiple":false,"expandAll":false},"disabled":{"disabled":true,"multiple":true},"loading":{"loading":true},"empty":{"loading":false}}}'>
+</aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
 <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
@@ -29,16 +29,16 @@ loading="{{playground.basic.loading}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="multiple" value="{{playground.basic.multiple}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="expandAll" value="{{playground.basic.expandAll}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="multiple" value="{{playground.basic.multiple}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="expandAll" value="{{playground.basic.expandAll}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupviewhierarchy--ml-view-hierarchy-mindmap
 multiple="{{playground.basic.multiple}}"
@@ -56,7 +56,7 @@ loading="{{playground.basic.loading}}">
 </Node>
 </groupviewhierarchy--ml-view-hierarchy-mindmap>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -85,14 +85,14 @@ multiple="{{playground.expandAll.multiple}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="expandAll" value="{{playground.expandAll.expandAll}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="multiple" value="{{playground.expandAll.multiple}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="expandAll" value="{{playground.expandAll.expandAll}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="multiple" value="{{playground.expandAll.multiple}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-expand-all">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-expand-all">
 <template>
 <groupviewhierarchy--ml-view-hierarchy-mindmap
 expand-all="{{playground.expandAll.expandAll}}"
@@ -112,7 +112,7 @@ multiple="{{playground.expandAll.multiple}}">
 </Node>
 </groupviewhierarchy--ml-view-hierarchy-mindmap>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -140,14 +140,14 @@ expand-all="{{playground.single.expandAll}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="multiple" value="{{playground.single.multiple}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="expandAll" value="{{playground.single.expandAll}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="multiple" value="{{playground.single.multiple}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="expandAll" value="{{playground.single.expandAll}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-single-open">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-single-open">
 <template>
 <groupviewhierarchy--ml-view-hierarchy-mindmap
 multiple="{{playground.single.multiple}}"
@@ -166,7 +166,7 @@ expand-all="{{playground.single.expandAll}}">
 </Node>
 </groupviewhierarchy--ml-view-hierarchy-mindmap>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -191,14 +191,14 @@ multiple="{{playground.disabled.multiple}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="multiple" value="{{playground.disabled.multiple}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="multiple" value="{{playground.disabled.multiple}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-disabled">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
 <template>
 <groupviewhierarchy--ml-view-hierarchy-mindmap
 disabled="{{playground.disabled.disabled}}"
@@ -214,7 +214,7 @@ multiple="{{playground.disabled.multiple}}">
 </Node>
 </groupviewhierarchy--ml-view-hierarchy-mindmap>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -229,19 +229,19 @@ loading="{{playground.loading.loading}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-loading">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
 <template>
 <groupviewhierarchy--ml-view-hierarchy-mindmap
 loading="{{playground.loading.loading}}">
 </groupviewhierarchy--ml-view-hierarchy-mindmap>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -260,13 +260,13 @@ loading="{{playground.empty.loading}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-empty">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
 <template>
 <groupviewhierarchy--ml-view-hierarchy-mindmap
 loading="{{playground.empty.loading}}">
@@ -276,7 +276,7 @@ loading="{{playground.empty.loading}}">
 </Empty>
 </groupviewhierarchy--ml-view-hierarchy-mindmap>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

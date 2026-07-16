@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Multi Select Dropdown</h1>
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupSelectMany</span>
     </header>
-    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"apple,banana","error":"","placeholder":"Select fruits"},"grouped":{"value":"react","searchable":true,"placeholder":"Search technologies..."},"validation":{"value":"read","error":"","required":true,"minSelection":2,"maxSelection":3},"viewmode":{"value":"gold,silver","isEditing":false},"disabled":{"value":"editor","disabled":true},"custom":{"value":"","placeholder":"Select technologies","searchable":true}}}'></widget-playground-state-102020>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":"apple,banana","error":"","placeholder":"Select fruits"},"grouped":{"value":"react","searchable":true,"placeholder":"Search technologies..."},"validation":{"value":"read","error":"","required":true,"minSelection":2,"maxSelection":3},"viewmode":{"value":"gold,silver","isEditing":false},"disabled":{"value":"editor","disabled":true},"custom":{"value":"","placeholder":"Select technologies","searchable":true}}}'></aura--molecules--playground--widget-playground-state-102020>
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
@@ -25,15 +25,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-basic">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
                 <groupselectmany--ml-multi-select-dropdown
                   value="{{playground.basic.value}}"
@@ -48,7 +48,7 @@
                   <Item value="grape">Grape</Item>
                 </groupselectmany--ml-multi-select-dropdown>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -76,15 +76,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.grouped.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="searchable" value="{{playground.grouped.searchable}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.grouped.placeholder}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.grouped.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="searchable" value="{{playground.grouped.searchable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.grouped.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-grouped">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-grouped">
               <template>
                 <groupselectmany--ml-multi-select-dropdown
                   value="{{playground.grouped.value}}"
@@ -104,7 +104,7 @@
                   </Group>
                 </groupselectmany--ml-multi-select-dropdown>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -129,17 +129,17 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.validation.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.validation.error}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="required" value="{{playground.validation.required}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-number-102020 label="min-selection" value="{{playground.validation.minSelection}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="max-selection" value="{{playground.validation.maxSelection}}"></widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.validation.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.validation.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.validation.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="min-selection" value="{{playground.validation.minSelection}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="max-selection" value="{{playground.validation.maxSelection}}"></aura--molecules--playground--widget-playground-state-number-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-validation">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-validation">
               <template>
                 <groupselectmany--ml-multi-select-dropdown
                   value="{{playground.validation.value}}"
@@ -156,7 +156,7 @@
                   <Item value="delete">Delete</Item>
                 </groupselectmany--ml-multi-select-dropdown>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -175,14 +175,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.viewmode.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="is-editing" value="{{playground.viewmode.isEditing}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.viewmode.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.viewmode.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-viewmode">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-viewmode">
               <template>
                 <groupselectmany--ml-multi-select-dropdown
                   value="{{playground.viewmode.value}}"
@@ -193,7 +193,7 @@
                   <Item value="bronze">Bronze</Item>
                 </groupselectmany--ml-multi-select-dropdown>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -212,14 +212,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-disabled">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
               <template>
                 <groupselectmany--ml-multi-select-dropdown
                   value="{{playground.disabled.value}}"
@@ -230,7 +230,7 @@
                   <Item value="admin">Admin</Item>
                 </groupselectmany--ml-multi-select-dropdown>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -254,15 +254,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.custom.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.custom.placeholder}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="searchable" value="{{playground.custom.searchable}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.custom.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.custom.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="searchable" value="{{playground.custom.searchable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-custom">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-custom">
               <template>
                 <groupselectmany--ml-multi-select-dropdown
                   value="{{playground.custom.value}}"
@@ -278,7 +278,7 @@
                   <Empty>No skills found. Try a different search.</Empty>
                 </groupselectmany--ml-multi-select-dropdown>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>

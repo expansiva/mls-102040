@@ -5,8 +5,8 @@
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupPlayMedia</span>
     </header>
 
-    <widget-playground-state-102020 state='{"playground":{"basic":{"preload":"metadata","poster":"","disabled":false,"loading":false},"autoplay":{"autoplay":true,"loop":true,"muted":true,"preload":"auto"},"loading":{"loading":true,"poster":"https://images.example.com/previews/report-thumb.jpg","preload":"metadata"},"disabled":{"disabled":true,"preload":"metadata"},"minimal":{"preload":"none"},"rich":{"poster":"https://images.example.com/previews/brochure-thumb.jpg","preload":"auto"}}}'>
-    </widget-playground-state-102020>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"preload":"metadata","poster":"","disabled":false,"loading":false},"autoplay":{"autoplay":true,"loop":true,"muted":true,"preload":"auto"},"loading":{"loading":true,"poster":"https://images.example.com/previews/report-thumb.jpg","preload":"metadata"},"disabled":{"disabled":true,"preload":"metadata"},"minimal":{"preload":"none"},"rich":{"poster":"https://images.example.com/previews/brochure-thumb.jpg","preload":"auto"}}}'>
+    </aura--molecules--playground--widget-playground-state-102020>
 
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
@@ -24,16 +24,16 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="preload" value="{{playground.basic.preload}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="poster" value="{{playground.basic.poster}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.basic.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="poster" value="{{playground.basic.poster}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-basic">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
                 <groupplaymedia--ml-pdf-viewer
                   preload="{{playground.basic.preload}}"
@@ -44,7 +44,7 @@
                   <Source src="https://cdn.example.com/docs/quarterly-report.pdf" type="application/pdf" />
                 </groupplaymedia--ml-pdf-viewer>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -64,16 +64,16 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="autoplay" value="{{playground.autoplay.autoplay}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="loop" value="{{playground.autoplay.loop}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="muted" value="{{playground.autoplay.muted}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="preload" value="{{playground.autoplay.preload}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="autoplay" value="{{playground.autoplay.autoplay}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loop" value="{{playground.autoplay.loop}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="muted" value="{{playground.autoplay.muted}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.autoplay.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-autoplay">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-autoplay">
               <template>
                 <groupplaymedia--ml-pdf-viewer
                   autoplay="{{playground.autoplay.autoplay}}"
@@ -84,7 +84,7 @@
                   <Source src="https://cdn.example.com/docs/sales-playbook.pdf" type="application/pdf" />
                 </groupplaymedia--ml-pdf-viewer>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -103,15 +103,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="poster" value="{{playground.loading.poster}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="preload" value="{{playground.loading.preload}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="poster" value="{{playground.loading.poster}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.loading.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-loading">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
               <template>
                 <groupplaymedia--ml-pdf-viewer
                   loading="{{playground.loading.loading}}"
@@ -121,7 +121,7 @@
                   <Source src="https://cdn.example.com/docs/annual-summary.pdf" type="application/pdf" />
                 </groupplaymedia--ml-pdf-viewer>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -141,14 +141,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="preload" value="{{playground.disabled.preload}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.disabled.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-disabled">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
               <template>
                 <groupplaymedia--ml-pdf-viewer
                   disabled="{{playground.disabled.disabled}}"
@@ -159,7 +159,7 @@
                   <Track src="https://cdn.example.com/tracks/policy-captions-en.vtt" kind="captions" lang="en" label="English" />
                 </groupplaymedia--ml-pdf-viewer>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -174,19 +174,19 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="preload" value="{{playground.minimal.preload}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.minimal.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-minimal">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-minimal">
               <template>
                 <groupplaymedia--ml-pdf-viewer preload="{{playground.minimal.preload}}">
                   <Source src="https://cdn.example.com/docs/quickstart.pdf" type="application/pdf" />
                 </groupplaymedia--ml-pdf-viewer>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -210,14 +210,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="poster" value="{{playground.rich.poster}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="preload" value="{{playground.rich.preload}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="poster" value="{{playground.rich.poster}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="preload" value="{{playground.rich.preload}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-rich">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-rich">
               <template>
                 <groupplaymedia--ml-pdf-viewer
                   poster="{{playground.rich.poster}}"
@@ -232,7 +232,7 @@
                   <Track src="https://cdn.example.com/tracks/brochure-notes-en.vtt" kind="subtitles" lang="en" label="Notes (EN)" />
                 </groupplaymedia--ml-pdf-viewer>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>

@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Image Gallery</h1>
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupPlayMedia</span>
     </header>
-    <widget-playground-state-102020 state='{"playground":{"basic":{"disabled":false,"loading":false,"error":""},"captions":{"disabled":false,"loading":false,"error":""},"loading":{"disabled":false,"loading":true,"error":""},"disabled":{"disabled":true,"loading":false,"error":""},"error":{"disabled":false,"loading":false,"error":"Unable to load images."},"empty":{"disabled":false,"loading":false,"error":""}}}'></widget-playground-state-102020>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"disabled":false,"loading":false,"error":""},"captions":{"disabled":false,"loading":false,"error":""},"loading":{"disabled":false,"loading":true,"error":""},"disabled":{"disabled":true,"loading":false,"error":""},"error":{"disabled":false,"loading":false,"error":"Unable to load images."},"empty":{"disabled":false,"loading":false,"error":""}}}'></aura--molecules--playground--widget-playground-state-102020>
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic gallery</h3>
@@ -25,15 +25,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-basic">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
                 <groupplaymedia--ml-image-gallery
                   disabled="{{playground.basic.disabled}}"
@@ -48,7 +48,7 @@
                   <Track src="https://example.com/captions/mountain.vtt" kind="captions" lang="en" label="Mountain peak"></Track>
                 </groupplaymedia--ml-image-gallery>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -74,15 +74,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.captions.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.captions.loading}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.captions.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.captions.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.captions.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.captions.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-captions">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-captions">
               <template>
                 <groupplaymedia--ml-image-gallery
                   disabled="{{playground.captions.disabled}}"
@@ -99,7 +99,7 @@
                   <Track src="https://example.com/captions/lifestyle.vtt" kind="captions" lang="en" label="Lifestyle shot"></Track>
                 </groupplaymedia--ml-image-gallery>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -121,15 +121,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-loading">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
               <template>
                 <groupplaymedia--ml-image-gallery
                   disabled="{{playground.loading.disabled}}"
@@ -142,7 +142,7 @@
                   <Track src="https://example.com/captions/collection-2.vtt" kind="captions" lang="en" label="Shelf detail"></Track>
                 </groupplaymedia--ml-image-gallery>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -164,15 +164,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-disabled">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
               <template>
                 <groupplaymedia--ml-image-gallery
                   disabled="{{playground.disabled.disabled}}"
@@ -185,7 +185,7 @@
                   <Track src="https://example.com/captions/archive-2.vtt" kind="captions" lang="en" label="Interior angle"></Track>
                 </groupplaymedia--ml-image-gallery>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -207,15 +207,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.error.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.error.loading}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.error.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.error.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-error">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-error">
               <template>
                 <groupplaymedia--ml-image-gallery
                   disabled="{{playground.error.disabled}}"
@@ -228,7 +228,7 @@
                   <Track src="https://example.com/captions/campaign-2.vtt" kind="captions" lang="en" label="Outdoor portrait"></Track>
                 </groupplaymedia--ml-image-gallery>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -246,15 +246,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-empty">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
               <template>
                 <groupplaymedia--ml-image-gallery
                   disabled="{{playground.empty.disabled}}"
@@ -263,7 +263,7 @@
                   <Label>No assets available yet</Label>
                 </groupplaymedia--ml-image-gallery>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>

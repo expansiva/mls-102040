@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Search History Molecule</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">search + content</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"suggestions":{"value":"","error":""},"disabled":{"value":"","error":""},"error":{"value":"","error":"Something went wrong"},"loading":{"value":"","error":""},"advanced":{"value":"","error":""}}}'></widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"suggestions":{"value":"","error":""},"disabled":{"value":"","error":""},"error":{"value":"","error":"Something went wrong"},"loading":{"value":"","error":""},"advanced":{"value":"","error":""}}}'></aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 
 <!-- Basic Usage -->
@@ -25,14 +25,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupsearchcontent--ml-search-history
   value="{{playground.basic.value}}"
@@ -45,7 +45,7 @@
   <Label>Search History</Label>
 </groupsearchcontent--ml-search-history>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -72,14 +72,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.suggestions.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.suggestions.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.suggestions.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.suggestions.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-suggestions">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-suggestions">
 <template>
 <groupsearchcontent--ml-search-history
   value="{{playground.suggestions.value}}"
@@ -96,7 +96,7 @@
   <Empty>No history found</Empty>
 </groupsearchcontent--ml-search-history>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -119,14 +119,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-disabled">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
 <template>
 <groupsearchcontent--ml-search-history
   value="{{playground.disabled.value}}"
@@ -139,7 +139,7 @@
   <Label>Disabled Search</Label>
 </groupsearchcontent--ml-search-history>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -163,14 +163,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-error">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-error">
 <template>
 <groupsearchcontent--ml-search-history
   value="{{playground.error.value}}"
@@ -184,7 +184,7 @@
   <Helper>Type at least 3 characters to search your history.</Helper>
 </groupsearchcontent--ml-search-history>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -207,14 +207,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-loading">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
 <template>
 <groupsearchcontent--ml-search-history
   value="{{playground.loading.value}}"
@@ -227,7 +227,7 @@
   <Label>Loading Search</Label>
 </groupsearchcontent--ml-search-history>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -254,14 +254,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.advanced.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.advanced.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.advanced.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.advanced.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-advanced">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-advanced">
 <template>
 <groupsearchcontent--ml-search-history
   value="{{playground.advanced.value}}"
@@ -278,7 +278,7 @@
   <Suggestion value="gamma">Gamma</Suggestion>
 </groupsearchcontent--ml-search-history>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

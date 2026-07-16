@@ -4,8 +4,8 @@
       <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Inline Edit Table</h1>
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">group view table</span>
     </header>
-    <widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"value":""},"selectable":{"selectable":true,"value":"0,2"},"inline":{"isEditing":true,"selectable":true,"value":1},"paginated":{"page":2,"pageSize":3,"totalItems":9},"loading":{"loading":true,"selectable":true},"empty":{"disabled":true,"error":"You don't have permission to view this table."}}}'>
-    </widget-playground-state-102020>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"value":""},"selectable":{"selectable":true,"value":"0,2"},"inline":{"isEditing":true,"selectable":true,"value":1},"paginated":{"page":2,"pageSize":3,"totalItems":9},"loading":{"loading":true,"selectable":true},"empty":{"disabled":true,"error":"You don't have permission to view this table."}}}'>
+    </aura--molecules--playground--widget-playground-state-102020>
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
@@ -43,14 +43,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-basic">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
                 <groupviewtable--ml-inline-edit-table
                   selectable="{{playground.basic.selectable}}"
@@ -82,7 +82,7 @@
                   </TableBody>
                 </groupviewtable--ml-inline-edit-table>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -126,14 +126,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-selectable">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-selectable">
               <template>
                 <groupviewtable--ml-inline-edit-table
                   selectable="{{playground.selectable.selectable}}"
@@ -169,7 +169,7 @@
                   </TableBody>
                 </groupviewtable--ml-inline-edit-table>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -210,15 +210,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="is-editing" value="{{playground.inline.isEditing}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.inline.selectable}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="value" value="{{playground.inline.value}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.inline.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.inline.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.inline.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-inline">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-inline">
               <template>
                 <groupviewtable--ml-inline-edit-table
                   is-editing="{{playground.inline.isEditing}}"
@@ -251,7 +251,7 @@
                   </TableBody>
                 </groupviewtable--ml-inline-edit-table>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -298,15 +298,15 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="page" value="{{playground.paginated.page}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="page-size" value="{{playground.paginated.pageSize}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="total-items" value="{{playground.paginated.totalItems}}"></widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.paginated.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.paginated.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.paginated.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-paginated">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-paginated">
               <template>
                 <groupviewtable--ml-inline-edit-table
                   page="{{playground.paginated.page}}"
@@ -345,7 +345,7 @@
                   </TableFooter>
                 </groupviewtable--ml-inline-edit-table>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -372,14 +372,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-loading">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
               <template>
                 <groupviewtable--ml-inline-edit-table
                   loading="{{playground.loading.loading}}"
@@ -398,7 +398,7 @@
                   </Loading>
                 </groupviewtable--ml-inline-edit-table>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -425,14 +425,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-empty">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
               <template>
                 <groupviewtable--ml-inline-edit-table
                   disabled="{{playground.empty.disabled}}"
@@ -451,7 +451,7 @@
                   </Empty>
                 </groupviewtable--ml-inline-edit-table>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>

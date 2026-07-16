@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML File Upload Preview</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">select + fileForUpload</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"value":[],"error":""},"labelHelper":{"value":[],"error":""},"multiple":{"value":[],"error":""},"trigger":{"value":[],"error":""},"disabled":{"value":[],"error":""},"loading":{"value":[],"error":"Uploading failed. Try again."}}}'></widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":[],"error":""},"labelHelper":{"value":[],"error":""},"multiple":{"value":[],"error":""},"trigger":{"value":[],"error":""},"disabled":{"value":[],"error":""},"loading":{"value":[],"error":"Uploading failed. Try again."}}}'></aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 
 <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
@@ -20,13 +20,13 @@ loading="false">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupselectfileforupload--ml-file-upload-preview
 value="{{playground.basic.value}}"
@@ -35,7 +35,7 @@ disabled="false"
 loading="false">
 </groupselectfileforupload--ml-file-upload-preview>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -55,13 +55,13 @@ loading="false">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="error" value="{{playground.labelHelper.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.labelHelper.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-label-helper">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-label-helper">
 <template>
 <groupselectfileforupload--ml-file-upload-preview
 value="{{playground.labelHelper.value}}"
@@ -72,7 +72,7 @@ loading="false">
 <Helper>PDF, PNG or JPG up to 2MB</Helper>
 </groupselectfileforupload--ml-file-upload-preview>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -95,13 +95,13 @@ loading="false">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="error" value="{{playground.multiple.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.multiple.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-multiple">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-multiple">
 <template>
 <groupselectfileforupload--ml-file-upload-preview
 value="{{playground.multiple.value}}"
@@ -115,7 +115,7 @@ loading="false">
 <Helper>Up to 3 images, max 1MB each</Helper>
 </groupselectfileforupload--ml-file-upload-preview>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -141,13 +141,13 @@ Choose a photo
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="error" value="{{playground.trigger.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.trigger.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-trigger">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-trigger">
 <template>
 <groupselectfileforupload--ml-file-upload-preview
 value="{{playground.trigger.value}}"
@@ -164,7 +164,7 @@ Choose a photo
 <Helper>JPG or PNG, up to 1MB</Helper>
 </groupselectfileforupload--ml-file-upload-preview>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -184,13 +184,13 @@ loading="false">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-disabled">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
 <template>
 <groupselectfileforupload--ml-file-upload-preview
 value="{{playground.disabled.value}}"
@@ -201,7 +201,7 @@ loading="false">
 <Helper>File selection is disabled</Helper>
 </groupselectfileforupload--ml-file-upload-preview>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -221,13 +221,13 @@ disabled="false">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-loading">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
 <template>
 <groupselectfileforupload--ml-file-upload-preview
 value="{{playground.loading.value}}"
@@ -238,7 +238,7 @@ disabled="false">
 <Helper>Please wait while files are uploaded</Helper>
 </groupselectfileforupload--ml-file-upload-preview>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

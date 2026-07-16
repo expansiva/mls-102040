@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">CPF Input</h1>
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterText</span>
     </header>
-    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"","placeholder":"000.000.000-00"},"error":{"value":1234567890,"error":"CPF inválido. Verifique os dígitos informados."},"helper":{"value":""},"affix":{"value":52998224725},"disabled":{"value":"529.982.247-25"},"viewmode":{"value":52998224725}}}'></widget-playground-state-102020>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":"","placeholder":"000.000.000-00"},"error":{"value":1234567890,"error":"CPF inválido. Verifique os dígitos informados."},"helper":{"value":""},"affix":{"value":52998224725},"disabled":{"value":"529.982.247-25"},"viewmode":{"value":52998224725}}}'></aura--molecules--playground--widget-playground-state-102020>
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
@@ -22,14 +22,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-basic">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
                 <groupentertext--ml-cpf-input
                   value="{{playground.basic.value}}"
@@ -41,7 +41,7 @@
                   <Label>CPF</Label>
                 </groupentertext--ml-cpf-input>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -58,14 +58,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-error">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-error">
               <template>
                 <groupentertext--ml-cpf-input
                   value="{{playground.error.value}}"
@@ -74,7 +74,7 @@
                   <Label>CPF</Label>
                 </groupentertext--ml-cpf-input>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -92,13 +92,13 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.helper.value}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.helper.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-helper">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-helper">
               <template>
                 <groupentertext--ml-cpf-input
                   value="{{playground.helper.value}}"
@@ -108,7 +108,7 @@
                   <Helper>Informe o CPF do titular da conta</Helper>
                 </groupentertext--ml-cpf-input>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -134,13 +134,13 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.affix.value}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.affix.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-affix">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-affix">
               <template>
                 <groupentertext--ml-cpf-input
                   value="{{playground.affix.value}}"
@@ -158,7 +158,7 @@
                   </Suffix>
                 </groupentertext--ml-cpf-input>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -174,13 +174,13 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-disabled">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
               <template>
                 <groupentertext--ml-cpf-input
                   value="{{playground.disabled.value}}"
@@ -188,7 +188,7 @@
                   <Label>CPF</Label>
                 </groupentertext--ml-cpf-input>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -204,13 +204,13 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.viewmode.value}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.viewmode.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-viewmode">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-viewmode">
               <template>
                 <groupentertext--ml-cpf-input
                   value="{{playground.viewmode.value}}"
@@ -218,7 +218,7 @@
                   <Label>CPF</Label>
                 </groupentertext--ml-cpf-input>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>

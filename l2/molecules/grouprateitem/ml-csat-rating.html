@@ -4,8 +4,8 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">CSAT Rating</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupRateItem</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"value":4,"error":"","name":"csatScore","min":1,"max":5,"step":1,"isEditing":true,"required":true},"emoji":{"value":3,"name":"csatEmoji","isEditing":true},"readonly":{"value":5,"name":"csatReadonly","isEditing":false},"disabled":{"value":2,"error":"Please select a score to continue.","name":"csatDisabled","isEditing":true,"disabled":true,"required":true},"scale10":{"value":6,"min":0,"max":10,"step":2,"name":"csatScale10","isEditing":true},"empty":{"value":0,"min":1,"max":5,"name":"csatEmpty","isEditing":true}}}'>
-</widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":4,"error":"","name":"csatScore","min":1,"max":5,"step":1,"isEditing":true,"required":true},"emoji":{"value":3,"name":"csatEmoji","isEditing":true},"readonly":{"value":5,"name":"csatReadonly","isEditing":false},"disabled":{"value":2,"error":"Please select a score to continue.","name":"csatDisabled","isEditing":true,"disabled":true,"required":true},"scale10":{"value":6,"min":0,"max":10,"step":2,"name":"csatScale10","isEditing":true},"empty":{"value":0,"min":1,"max":5,"name":"csatEmpty","isEditing":true}}}'>
+</aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
 <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic CSAT (auto-generated)</h3>
@@ -26,20 +26,20 @@ required="{{playground.basic.required}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
-<widget-playground-state-number-102020 label="min" value="{{playground.basic.min}}"></widget-playground-state-number-102020>
-<widget-playground-state-number-102020 label="max" value="{{playground.basic.max}}"></widget-playground-state-number-102020>
-<widget-playground-state-number-102020 label="step" value="{{playground.basic.step}}"></widget-playground-state-number-102020>
-<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.basic.isEditing}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.basic.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.basic.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.basic.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.basic.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <grouprateitem--ml-csat-rating
 value="{{playground.basic.value}}"
@@ -54,7 +54,7 @@ required="{{playground.basic.required}}">
 <Helper>1 is the lowest, 5 is the highest.</Helper>
 </grouprateitem--ml-csat-rating>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -78,15 +78,15 @@ is-editing="{{playground.emoji.isEditing}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.emoji.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="name" value="{{playground.emoji.name}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.emoji.isEditing}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.emoji.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.emoji.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.emoji.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-emoji">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-emoji">
 <template>
 <grouprateitem--ml-csat-rating
 value="{{playground.emoji.value}}"
@@ -101,7 +101,7 @@ is-editing="{{playground.emoji.isEditing}}">
 <Item value="5">😍</Item>
 </grouprateitem--ml-csat-rating>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -124,15 +124,15 @@ is-editing="{{playground.readonly.isEditing}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="name" value="{{playground.readonly.name}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.readonly.isEditing}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.readonly.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.readonly.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.readonly.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-readonly">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-readonly">
 <template>
 <grouprateitem--ml-csat-rating
 value="{{playground.readonly.value}}"
@@ -146,7 +146,7 @@ is-editing="{{playground.readonly.isEditing}}">
 <Item value="5">😍</Item>
 </grouprateitem--ml-csat-rating>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -168,18 +168,18 @@ required="{{playground.disabled.required}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="name" value="{{playground.disabled.name}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.disabled.isEditing}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="required" value="{{playground.disabled.required}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.disabled.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.disabled.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.disabled.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-disabled">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
 <template>
 <grouprateitem--ml-csat-rating
 value="{{playground.disabled.value}}"
@@ -192,7 +192,7 @@ required="{{playground.disabled.required}}">
 <Helper>This field is required.</Helper>
 </grouprateitem--ml-csat-rating>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -214,18 +214,18 @@ is-editing="{{playground.scale10.isEditing}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.scale10.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-number-102020 label="min" value="{{playground.scale10.min}}"></widget-playground-state-number-102020>
-<widget-playground-state-number-102020 label="max" value="{{playground.scale10.max}}"></widget-playground-state-number-102020>
-<widget-playground-state-number-102020 label="step" value="{{playground.scale10.step}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="name" value="{{playground.scale10.name}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.scale10.isEditing}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.scale10.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.scale10.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.scale10.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.scale10.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.scale10.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.scale10.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-scale10">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-scale10">
 <template>
 <grouprateitem--ml-csat-rating
 value="{{playground.scale10.value}}"
@@ -238,7 +238,7 @@ is-editing="{{playground.scale10.isEditing}}">
 <Helper>Choose an even number from 0 to 10.</Helper>
 </grouprateitem--ml-csat-rating>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -259,17 +259,17 @@ is-editing="{{playground.empty.isEditing}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.empty.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-number-102020 label="min" value="{{playground.empty.min}}"></widget-playground-state-number-102020>
-<widget-playground-state-number-102020 label="max" value="{{playground.empty.max}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="name" value="{{playground.empty.name}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.empty.isEditing}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.empty.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.empty.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.empty.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.empty.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.empty.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-empty">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
 <template>
 <grouprateitem--ml-csat-rating
 value="{{playground.empty.value}}"
@@ -281,7 +281,7 @@ is-editing="{{playground.empty.isEditing}}">
 <Helper>Select a rating to continue.</Helper>
 </grouprateitem--ml-csat-rating>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

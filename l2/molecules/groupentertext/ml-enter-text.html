@@ -4,8 +4,8 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Enter Text</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterText</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","placeholder":"Type your first name","name":"firstName","required":true},"email":{"value":"","error":"","autocomplete":"email","inputType":"email"},"textarea":{"value":"","placeholder":"Tell us about your project...","rows":4,"maxLength":200},"mask":{"value":"","mask":"(##) #####-####","placeholder":"(11) 91234-5678","maxLength":11},"view":{"value":"super-secret","isEditing":false,"inputType":"password"},"disabled":{"value":"short","error":"Minimum 8 characters required","disabled":true,"minLength":8}}}'>
-</widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":"","placeholder":"Type your first name","name":"firstName","required":true},"email":{"value":"","error":"","autocomplete":"email","inputType":"email"},"textarea":{"value":"","placeholder":"Tell us about your project...","rows":4,"maxLength":200},"mask":{"value":"","mask":"(##) #####-####","placeholder":"(11) 91234-5678","maxLength":11},"view":{"value":"super-secret","isEditing":false,"inputType":"password"},"disabled":{"value":"short","error":"Minimum 8 characters required","disabled":true,"minLength":8}}}'>
+</aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
 <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
@@ -21,16 +21,16 @@ required="{{playground.basic.required}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.basic.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupentertext--ml-enter-text
 value="{{playground.basic.value}}"
@@ -40,7 +40,7 @@ required="{{playground.basic.required}}">
 <Label>First name</Label>
 </groupentertext--ml-enter-text>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -61,16 +61,16 @@ inputType="{{playground.email.inputType}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.email.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.email.error}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="autocomplete" value="{{playground.email.autocomplete}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="inputType" value="{{playground.email.inputType}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.email.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.email.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="autocomplete" value="{{playground.email.autocomplete}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="inputType" value="{{playground.email.inputType}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-email">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-email">
 <template>
 <groupentertext--ml-enter-text
 value="{{playground.email.value}}"
@@ -83,7 +83,7 @@ inputType="{{playground.email.inputType}}">
 <Suffix><button type="button" class="text-xs text-sky-600 dark:text-sky-400">Verify</button></Suffix>
 </groupentertext--ml-enter-text>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -102,16 +102,16 @@ max-length="{{playground.textarea.maxLength}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.textarea.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="placeholder" value="{{playground.textarea.placeholder}}"></widget-playground-state-text-102020>
-<widget-playground-state-number-102020 label="rows" value="{{playground.textarea.rows}}"></widget-playground-state-number-102020>
-<widget-playground-state-number-102020 label="max-length" value="{{playground.textarea.maxLength}}"></widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.textarea.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.textarea.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="rows" value="{{playground.textarea.rows}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max-length" value="{{playground.textarea.maxLength}}"></aura--molecules--playground--widget-playground-state-number-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-textarea">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-textarea">
 <template>
 <groupentertext--ml-enter-text
 value="{{playground.textarea.value}}"
@@ -122,7 +122,7 @@ max-length="{{playground.textarea.maxLength}}">
 <Helper>Keep it under 200 characters.</Helper>
 </groupentertext--ml-enter-text>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -143,16 +143,16 @@ max-length="{{playground.mask.maxLength}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.mask.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="mask" value="{{playground.mask.mask}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="placeholder" value="{{playground.mask.placeholder}}"></widget-playground-state-text-102020>
-<widget-playground-state-number-102020 label="max-length" value="{{playground.mask.maxLength}}"></widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.mask.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="mask" value="{{playground.mask.mask}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.mask.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max-length" value="{{playground.mask.maxLength}}"></aura--molecules--playground--widget-playground-state-number-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-mask">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-mask">
 <template>
 <groupentertext--ml-enter-text
 value="{{playground.mask.value}}"
@@ -165,7 +165,7 @@ max-length="{{playground.mask.maxLength}}">
 <Prefix><span class="text-slate-500">+55</span></Prefix>
 </groupentertext--ml-enter-text>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -183,15 +183,15 @@ inputType="{{playground.view.inputType}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.view.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="is-editing" value="{{playground.view.isEditing}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-text-102020 label="inputType" value="{{playground.view.inputType}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.view.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.view.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="inputType" value="{{playground.view.inputType}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-view">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-view">
 <template>
 <groupentertext--ml-enter-text
 value="{{playground.view.value}}"
@@ -201,7 +201,7 @@ inputType="{{playground.view.inputType}}">
 <Suffix><button type="button" class="text-xs text-slate-600 dark:text-slate-300">Copy</button></Suffix>
 </groupentertext--ml-enter-text>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -219,16 +219,16 @@ min-length="{{playground.disabled.minLength}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-number-102020 label="min-length" value="{{playground.disabled.minLength}}"></widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min-length" value="{{playground.disabled.minLength}}"></aura--molecules--playground--widget-playground-state-number-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-disabled">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
 <template>
 <groupentertext--ml-enter-text
 value="{{playground.disabled.value}}"
@@ -238,7 +238,7 @@ min-length="{{playground.disabled.minLength}}">
 <Label>Password</Label>
 </groupentertext--ml-enter-text>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

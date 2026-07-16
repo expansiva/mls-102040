@@ -5,7 +5,7 @@
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterNumber</span>
     </header>
 
-    <widget-playground-state-102020 state='{"playground":{"basic":{"value":20,"valueHigh":80,"min":0,"max":100,"step":5,"placeholder":"Select a range"},"price":{"value":500,"valueHigh":2500,"min":0,"max":5000,"step":25,"decimals":2,"locale":"en-US","placeholder":"Choose price","required":true},"error":{"value":3,"valueHigh":15,"min":1,"max":20,"step":0.5,"decimals":1,"error":"Select between 1 and 20 kg","required":true},"readonly":{"value":10,"valueHigh":40,"min":0,"max":50,"step":2,"readonly":true},"view":{"value":1200,"valueHigh":3600,"decimals":0,"locale":"pt-BR","isEditing":false},"loading":{"value":15,"valueHigh":35,"min":0,"max":50,"step":1,"loading":true,"disabled":true}}}'></widget-playground-state-102020>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":20,"valueHigh":80,"min":0,"max":100,"step":5,"placeholder":"Select a range"},"price":{"value":500,"valueHigh":2500,"min":0,"max":5000,"step":25,"decimals":2,"locale":"en-US","placeholder":"Choose price","required":true},"error":{"value":3,"valueHigh":15,"min":1,"max":20,"step":0.5,"decimals":1,"error":"Select between 1 and 20 kg","required":true},"readonly":{"value":10,"valueHigh":40,"min":0,"max":50,"step":2,"readonly":true},"view":{"value":1200,"valueHigh":3600,"decimals":0,"locale":"pt-BR","isEditing":false},"loading":{"value":15,"valueHigh":35,"min":0,"max":50,"step":1,"loading":true,"disabled":true}}}'></aura--molecules--playground--widget-playground-state-102020>
 
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
@@ -25,18 +25,18 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="valueHigh" value="{{playground.basic.valueHigh}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="min" value="{{playground.basic.min}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="max" value="{{playground.basic.max}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="step" value="{{playground.basic.step}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="valueHigh" value="{{playground.basic.valueHigh}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.basic.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.basic.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.basic.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-basic">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
                 <groupenternumber--ml-range-slider
                   value="{{playground.basic.value}}"
@@ -49,7 +49,7 @@
                   <Helper>Select the expected delivery range in days.</Helper>
                 </groupenternumber--ml-range-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -76,21 +76,21 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.price.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="valueHigh" value="{{playground.price.valueHigh}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="min" value="{{playground.price.min}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="max" value="{{playground.price.max}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="step" value="{{playground.price.step}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="decimals" value="{{playground.price.decimals}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="locale" value="{{playground.price.locale}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.price.placeholder}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="required" value="{{playground.price.required}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.price.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="valueHigh" value="{{playground.price.valueHigh}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.price.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.price.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.price.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="decimals" value="{{playground.price.decimals}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="locale" value="{{playground.price.locale}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.price.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.price.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-price">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-price">
               <template>
                 <groupenternumber--ml-range-slider
                   value="{{playground.price.value}}"
@@ -108,7 +108,7 @@
                   <Helper>Use this to limit products by price.</Helper>
                 </groupenternumber--ml-range-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -132,20 +132,20 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="valueHigh" value="{{playground.error.valueHigh}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="min" value="{{playground.error.min}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="max" value="{{playground.error.max}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="step" value="{{playground.error.step}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="decimals" value="{{playground.error.decimals}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="required" value="{{playground.error.required}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.error.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="valueHigh" value="{{playground.error.valueHigh}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.error.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.error.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.error.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="decimals" value="{{playground.error.decimals}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.error.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-error">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-error">
               <template>
                 <groupenternumber--ml-range-slider
                   value="{{playground.error.value}}"
@@ -160,7 +160,7 @@
                   <Suffix>kg</Suffix>
                 </groupenternumber--ml-range-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -182,18 +182,18 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="valueHigh" value="{{playground.readonly.valueHigh}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="min" value="{{playground.readonly.min}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="max" value="{{playground.readonly.max}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="step" value="{{playground.readonly.step}}"></widget-playground-state-number-102020>
-            <widget-playground-state-boolean-102020 label="readonly" value="{{playground.readonly.readonly}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.readonly.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="valueHigh" value="{{playground.readonly.valueHigh}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.readonly.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.readonly.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.readonly.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="readonly" value="{{playground.readonly.readonly}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-readonly">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-readonly">
               <template>
                 <groupenternumber--ml-range-slider
                   value="{{playground.readonly.value}}"
@@ -206,7 +206,7 @@
                   <Suffix>pts</Suffix>
                 </groupenternumber--ml-range-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -228,17 +228,17 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.view.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="valueHigh" value="{{playground.view.valueHigh}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="decimals" value="{{playground.view.decimals}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="locale" value="{{playground.view.locale}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.view.isEditing}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.view.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="valueHigh" value="{{playground.view.valueHigh}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="decimals" value="{{playground.view.decimals}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="locale" value="{{playground.view.locale}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.view.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-view">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-view">
               <template>
                 <groupenternumber--ml-range-slider
                   value="{{playground.view.value}}"
@@ -251,7 +251,7 @@
                   <Suffix>BRL</Suffix>
                 </groupenternumber--ml-range-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -275,19 +275,19 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="valueHigh" value="{{playground.loading.valueHigh}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="min" value="{{playground.loading.min}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="max" value="{{playground.loading.max}}"></widget-playground-state-number-102020>
-            <widget-playground-state-number-102020 label="step" value="{{playground.loading.step}}"></widget-playground-state-number-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.loading.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="valueHigh" value="{{playground.loading.valueHigh}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.loading.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.loading.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.loading.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-loading">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
               <template>
                 <groupenternumber--ml-range-slider
                   value="{{playground.loading.value}}"
@@ -302,7 +302,7 @@
                   <Helper>Values are loading from the sensor.</Helper>
                 </groupenternumber--ml-range-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>

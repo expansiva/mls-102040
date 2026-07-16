@@ -4,8 +4,8 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Segmented Progress</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupShowProgress</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"value":45,"size":"md","label":"Loading dashboard","showValue":false},"withValue":{"value":72,"size":"md","label":"Syncing records","showValue":true},"indeterminate":{"value":null,"size":"md","label":"Preparing export","showValue":false},"xs":{"value":30,"size":"xs","label":"Uploading thumbnail","showValue":true},"large":{"value":80,"size":"lg","label":"Uploading video","showValue":true},"complete":{"value":100,"size":"sm","label":"Finalizing report","showValue":true}}}'>
-</widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":45,"size":"md","label":"Loading dashboard","showValue":false},"withValue":{"value":72,"size":"md","label":"Syncing records","showValue":true},"indeterminate":{"value":null,"size":"md","label":"Preparing export","showValue":false},"xs":{"value":30,"size":"xs","label":"Uploading thumbnail","showValue":true},"large":{"value":80,"size":"lg","label":"Uploading video","showValue":true},"complete":{"value":100,"size":"sm","label":"Finalizing report","showValue":true}}}'>
+</aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
 <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic determinate</h3>
@@ -20,16 +20,16 @@ show-value="{{playground.basic.showValue}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="size" value="{{playground.basic.size}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="label" value="{{playground.basic.label}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="showValue" value="{{playground.basic.showValue}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.basic.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="label" value="{{playground.basic.label}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="showValue" value="{{playground.basic.showValue}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupshowprogress--ml-segmented-progress
 value="{{playground.basic.value}}"
@@ -38,7 +38,7 @@ label="{{playground.basic.label}}"
 show-value="{{playground.basic.showValue}}">
 </groupshowprogress--ml-segmented-progress>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -55,16 +55,16 @@ show-value="{{playground.withValue.showValue}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.withValue.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="size" value="{{playground.withValue.size}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="label" value="{{playground.withValue.label}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="showValue" value="{{playground.withValue.showValue}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.withValue.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.withValue.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="label" value="{{playground.withValue.label}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="showValue" value="{{playground.withValue.showValue}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-with-value">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-with-value">
 <template>
 <groupshowprogress--ml-segmented-progress
 value="{{playground.withValue.value}}"
@@ -73,7 +73,7 @@ label="{{playground.withValue.label}}"
 show-value="{{playground.withValue.showValue}}">
 </groupshowprogress--ml-segmented-progress>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -90,16 +90,16 @@ show-value="{{playground.indeterminate.showValue}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.indeterminate.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="size" value="{{playground.indeterminate.size}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="label" value="{{playground.indeterminate.label}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="showValue" value="{{playground.indeterminate.showValue}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.indeterminate.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.indeterminate.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="label" value="{{playground.indeterminate.label}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="showValue" value="{{playground.indeterminate.showValue}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-indeterminate">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-indeterminate">
 <template>
 <groupshowprogress--ml-segmented-progress
 value="{{playground.indeterminate.value}}"
@@ -108,7 +108,7 @@ label="{{playground.indeterminate.label}}"
 show-value="{{playground.indeterminate.showValue}}">
 </groupshowprogress--ml-segmented-progress>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -125,16 +125,16 @@ show-value="{{playground.xs.showValue}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.xs.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="size" value="{{playground.xs.size}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="label" value="{{playground.xs.label}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="showValue" value="{{playground.xs.showValue}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.xs.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.xs.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="label" value="{{playground.xs.label}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="showValue" value="{{playground.xs.showValue}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-xs">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-xs">
 <template>
 <groupshowprogress--ml-segmented-progress
 value="{{playground.xs.value}}"
@@ -143,7 +143,7 @@ label="{{playground.xs.label}}"
 show-value="{{playground.xs.showValue}}">
 </groupshowprogress--ml-segmented-progress>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -160,16 +160,16 @@ show-value="{{playground.large.showValue}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.large.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="size" value="{{playground.large.size}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="label" value="{{playground.large.label}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="showValue" value="{{playground.large.showValue}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.large.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.large.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="label" value="{{playground.large.label}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="showValue" value="{{playground.large.showValue}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-lg">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-lg">
 <template>
 <groupshowprogress--ml-segmented-progress
 value="{{playground.large.value}}"
@@ -178,7 +178,7 @@ label="{{playground.large.label}}"
 show-value="{{playground.large.showValue}}">
 </groupshowprogress--ml-segmented-progress>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -195,16 +195,16 @@ show-value="{{playground.complete.showValue}}">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-number-102020 label="value" value="{{playground.complete.value}}"></widget-playground-state-number-102020>
-<widget-playground-state-text-102020 label="size" value="{{playground.complete.size}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="label" value="{{playground.complete.label}}"></widget-playground-state-text-102020>
-<widget-playground-state-boolean-102020 label="showValue" value="{{playground.complete.showValue}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.complete.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.complete.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="label" value="{{playground.complete.label}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="showValue" value="{{playground.complete.showValue}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-complete">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-complete">
 <template>
 <groupshowprogress--ml-segmented-progress
 value="{{playground.complete.value}}"
@@ -213,7 +213,7 @@ label="{{playground.complete.label}}"
 show-value="{{playground.complete.showValue}}">
 </groupshowprogress--ml-segmented-progress>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

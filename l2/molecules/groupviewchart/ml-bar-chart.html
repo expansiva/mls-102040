@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Bar Chart Molecule</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">view + chart</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"show-legend":true,"show-values":false,"loading":false},"showValues":{"show-legend":true,"show-values":true,"loading":false},"singleSeries":{"show-legend":true,"show-values":true,"loading":false},"standalone":{"show-legend":false,"show-values":true,"loading":false},"loading":{"show-legend":true,"show-values":false,"loading":true},"empty":{"show-legend":true,"show-values":false,"loading":false}}}'></widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"show-legend":true,"show-values":false,"loading":false},"showValues":{"show-legend":true,"show-values":true,"loading":false},"singleSeries":{"show-legend":true,"show-values":true,"loading":false},"standalone":{"show-legend":false,"show-values":true,"loading":false},"loading":{"show-legend":true,"show-values":false,"loading":true},"empty":{"show-legend":true,"show-values":false,"loading":false}}}'></aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 
 <!-- 1. Basic multi-series bar chart -->
@@ -31,15 +31,15 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="show-legend" value="{{playground.basic.show-legend}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="show-values" value="{{playground.basic.show-values}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-legend" value="{{playground.basic.show-legend}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-values" value="{{playground.basic.show-values}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupviewchart--ml-bar-chart
   show-legend="{{playground.basic.show-legend}}"
@@ -58,7 +58,7 @@
   </Series>
 </groupviewchart--ml-bar-chart>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -84,15 +84,15 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="show-legend" value="{{playground.showValues.show-legend}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="show-values" value="{{playground.showValues.show-values}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.showValues.loading}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-legend" value="{{playground.showValues.show-legend}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-values" value="{{playground.showValues.show-values}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.showValues.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-show-values">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-show-values">
 <template>
 <groupviewchart--ml-bar-chart
   show-legend="{{playground.showValues.show-legend}}"
@@ -108,7 +108,7 @@
   </Series>
 </groupviewchart--ml-bar-chart>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -133,15 +133,15 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="show-legend" value="{{playground.singleSeries.show-legend}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="show-values" value="{{playground.singleSeries.show-values}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.singleSeries.loading}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-legend" value="{{playground.singleSeries.show-legend}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-values" value="{{playground.singleSeries.show-values}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.singleSeries.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-single-series">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-single-series">
 <template>
 <groupviewchart--ml-bar-chart
   show-legend="{{playground.singleSeries.show-legend}}"
@@ -156,7 +156,7 @@
   </Series>
 </groupviewchart--ml-bar-chart>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -178,15 +178,15 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="show-legend" value="{{playground.standalone.show-legend}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="show-values" value="{{playground.standalone.show-values}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.standalone.loading}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-legend" value="{{playground.standalone.show-legend}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-values" value="{{playground.standalone.show-values}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.standalone.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-standalone">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-standalone">
 <template>
 <groupviewchart--ml-bar-chart
   show-legend="{{playground.standalone.show-legend}}"
@@ -198,7 +198,7 @@
   <Point label="Product C" value="380" color="#f59e42" />
 </groupviewchart--ml-bar-chart>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -221,15 +221,15 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="show-legend" value="{{playground.loading.show-legend}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="show-values" value="{{playground.loading.show-values}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-legend" value="{{playground.loading.show-legend}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-values" value="{{playground.loading.show-values}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-loading">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
 <template>
 <groupviewchart--ml-bar-chart
   show-legend="{{playground.loading.show-legend}}"
@@ -242,7 +242,7 @@
   </Series>
 </groupviewchart--ml-bar-chart>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -264,15 +264,15 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="show-legend" value="{{playground.empty.show-legend}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="show-values" value="{{playground.empty.show-values}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-legend" value="{{playground.empty.show-legend}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="show-values" value="{{playground.empty.show-values}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-empty">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
 <template>
 <groupviewchart--ml-bar-chart
   show-legend="{{playground.empty.show-legend}}"
@@ -284,7 +284,7 @@
   </Empty>
 </groupviewchart--ml-bar-chart>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

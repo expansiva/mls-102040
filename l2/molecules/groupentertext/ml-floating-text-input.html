@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Floating Text Input</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterText</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"placeholder":{"value":"","placeholder":"Type your email"},"prefixSuffix":{"value":""},"masked":{"value":""},"textarea":{"value":""},"disabled":{"value":"Waiting..."}}}'></widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":"","error":""},"placeholder":{"value":"","placeholder":"Type your email"},"prefixSuffix":{"value":""},"masked":{"value":""},"textarea":{"value":""},"disabled":{"value":"Waiting..."}}}'></aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 
 <!-- Basic usage -->
@@ -21,14 +21,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupentertext--ml-floating-text-input
   value="{{playground.basic.value}}"
@@ -37,7 +37,7 @@
   <Label>Full Name</Label>
 </groupentertext--ml-floating-text-input>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -57,14 +57,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.placeholder.value}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="placeholder" value="{{playground.placeholder.placeholder}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.placeholder.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.placeholder.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-placeholder">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-placeholder">
 <template>
 <groupentertext--ml-floating-text-input
   value="{{playground.placeholder.value}}"
@@ -74,7 +74,7 @@
   <Helper>We will never share your email.</Helper>
 </groupentertext--ml-floating-text-input>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -94,13 +94,13 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.prefixSuffix.value}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.prefixSuffix.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-prefix-suffix">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-prefix-suffix">
 <template>
 <groupentertext--ml-floating-text-input
   value="{{playground.prefixSuffix.value}}"
@@ -110,7 +110,7 @@
   <Suffix>.00</Suffix>
 </groupentertext--ml-floating-text-input>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -130,13 +130,13 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.masked.value}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.masked.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-masked">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-masked">
 <template>
 <groupentertext--ml-floating-text-input
   value="{{playground.masked.value}}"
@@ -146,7 +146,7 @@
   <Label>CPF</Label>
 </groupentertext--ml-floating-text-input>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -166,13 +166,13 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.textarea.value}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.textarea.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-textarea">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-textarea">
 <template>
 <groupentertext--ml-floating-text-input
   value="{{playground.textarea.value}}"
@@ -182,7 +182,7 @@
   <Label>Message</Label>
 </groupentertext--ml-floating-text-input>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -202,13 +202,13 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-disabled">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
 <template>
 <groupentertext--ml-floating-text-input
   value="{{playground.disabled.value}}"
@@ -218,7 +218,7 @@
   <Label>Processing</Label>
 </groupentertext--ml-floating-text-input>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

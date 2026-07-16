@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Calendar View</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewData</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"loading":false,"selectable":false,"hoverable":true},"selectable":{"loading":false,"selectable":true,"hoverable":true},"noHover":{"loading":false,"selectable":false,"hoverable":false},"loading":{"loading":true,"selectable":false,"hoverable":true},"empty":{"loading":false,"selectable":false,"hoverable":true},"week":{"loading":false,"selectable":true,"hoverable":true}}}'></widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"loading":false,"selectable":false,"hoverable":true},"selectable":{"loading":false,"selectable":true,"hoverable":true},"noHover":{"loading":false,"selectable":false,"hoverable":false},"loading":{"loading":true,"selectable":false,"hoverable":true},"empty":{"loading":false,"selectable":false,"hoverable":true},"week":{"loading":false,"selectable":true,"hoverable":true}}}'></aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
 <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic month view</h3>
@@ -36,15 +36,15 @@ name="Team calendar">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.basic.hoverable}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="hoverable" value="{{playground.basic.hoverable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupviewdata--ml-calendar-view
 loading="{{playground.basic.loading}}"
@@ -70,7 +70,7 @@ name="Team calendar">
 </Rows>
 </groupviewdata--ml-calendar-view>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -101,15 +101,15 @@ name="Sales milestones">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.selectable.hoverable}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="hoverable" value="{{playground.selectable.hoverable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-selectable">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-selectable">
 <template>
 <groupviewdata--ml-calendar-view
 loading="{{playground.selectable.loading}}"
@@ -132,7 +132,7 @@ name="Sales milestones">
 </Rows>
 </groupviewdata--ml-calendar-view>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -160,15 +160,15 @@ name="Quiet mode calendar">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.noHover.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="selectable" value="{{playground.noHover.selectable}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.noHover.hoverable}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.noHover.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.noHover.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="hoverable" value="{{playground.noHover.hoverable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-no-hover">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-no-hover">
 <template>
 <groupviewdata--ml-calendar-view
 loading="{{playground.noHover.loading}}"
@@ -188,7 +188,7 @@ name="Quiet mode calendar">
 </Rows>
 </groupviewdata--ml-calendar-view>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -216,15 +216,15 @@ name="Syncing agenda">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.loading.hoverable}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="hoverable" value="{{playground.loading.hoverable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-loading">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
 <template>
 <groupviewdata--ml-calendar-view
 loading="{{playground.loading.loading}}"
@@ -244,7 +244,7 @@ name="Syncing agenda">
 </Loading>
 </groupviewdata--ml-calendar-view>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -268,15 +268,15 @@ name="Company holidays">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="selectable" value="{{playground.empty.selectable}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.empty.hoverable}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.empty.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="hoverable" value="{{playground.empty.hoverable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-empty">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
 <template>
 <groupviewdata--ml-calendar-view
 loading="{{playground.empty.loading}}"
@@ -292,7 +292,7 @@ name="Company holidays">
 </Empty>
 </groupviewdata--ml-calendar-view>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -326,15 +326,15 @@ name="Operations schedule">
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-boolean-102020 label="loading" value="{{playground.week.loading}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="selectable" value="{{playground.week.selectable}}"></widget-playground-state-boolean-102020>
-<widget-playground-state-boolean-102020 label="hoverable" value="{{playground.week.hoverable}}"></widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.week.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.week.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="hoverable" value="{{playground.week.hoverable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-week">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-week">
 <template>
 <groupviewdata--ml-calendar-view
 loading="{{playground.week.loading}}"
@@ -360,7 +360,7 @@ name="Operations schedule">
 </Rows>
 </groupviewdata--ml-calendar-view>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

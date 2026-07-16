@@ -4,7 +4,7 @@
 <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Date Interval Drag Molecule</h1>
 <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">enter + date-interval</span>
 </header>
-<widget-playground-state-102020 state='{"playground":{"basic":{"startDate":"","endDate":"","error":""},"labels":{"startDate":"","endDate":""},"constraints":{"startDate":"","endDate":""},"disabled":{"startDate":"","endDate":""},"loading":{"startDate":"","endDate":""}}}'></widget-playground-state-102020>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"startDate":"","endDate":"","error":""},"labels":{"startDate":"","endDate":""},"constraints":{"startDate":"","endDate":""},"disabled":{"startDate":"","endDate":""},"loading":{"startDate":"","endDate":""}}}'></aura--molecules--playground--widget-playground-state-102020>
 <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
 
 <!-- Basic usage -->
@@ -22,15 +22,15 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="startDate" value="{{playground.basic.startDate}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="endDate" value="{{playground.basic.endDate}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="startDate" value="{{playground.basic.startDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="endDate" value="{{playground.basic.endDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-basic">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
 <template>
 <groupenterdateinterval--ml-date-interval-drag
   startDate="{{playground.basic.startDate}}"
@@ -40,7 +40,7 @@
   <Label>Date Range</Label>
 </groupenterdateinterval--ml-date-interval-drag>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -63,14 +63,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="startDate" value="{{playground.labels.startDate}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="endDate" value="{{playground.labels.endDate}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="startDate" value="{{playground.labels.startDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="endDate" value="{{playground.labels.endDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-labels">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-labels">
 <template>
 <groupenterdateinterval--ml-date-interval-drag
   startDate="{{playground.labels.startDate}}"
@@ -83,7 +83,7 @@
   <Helper>Select your stay period</Helper>
 </groupenterdateinterval--ml-date-interval-drag>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -107,14 +107,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="startDate" value="{{playground.constraints.startDate}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="endDate" value="{{playground.constraints.endDate}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="startDate" value="{{playground.constraints.startDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="endDate" value="{{playground.constraints.endDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-constraints">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-constraints">
 <template>
 <groupenterdateinterval--ml-date-interval-drag
   startDate="{{playground.constraints.startDate}}"
@@ -128,7 +128,7 @@
   <Helper>Choose a range between 2 and 10 days in May or June 2026</Helper>
 </groupenterdateinterval--ml-date-interval-drag>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -147,7 +147,7 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-readonly">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-readonly">
 <template>
 <groupenterdateinterval--ml-date-interval-drag
   startDate="2026-05-10"
@@ -156,7 +156,7 @@
   <Label>Selected Range</Label>
 </groupenterdateinterval--ml-date-interval-drag>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -176,14 +176,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="startDate" value="{{playground.disabled.startDate}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="endDate" value="{{playground.disabled.endDate}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="startDate" value="{{playground.disabled.startDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="endDate" value="{{playground.disabled.endDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-disabled">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
 <template>
 <groupenterdateinterval--ml-date-interval-drag
   startDate="{{playground.disabled.startDate}}"
@@ -193,7 +193,7 @@
   <Label>Unavailable</Label>
 </groupenterdateinterval--ml-date-interval-drag>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>
@@ -213,14 +213,14 @@
 <details class="mt-4">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
 <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-<widget-playground-state-text-102020 label="startDate" value="{{playground.loading.startDate}}"></widget-playground-state-text-102020>
-<widget-playground-state-text-102020 label="endDate" value="{{playground.loading.endDate}}"></widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="startDate" value="{{playground.loading.startDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="endDate" value="{{playground.loading.endDate}}"></aura--molecules--playground--widget-playground-state-text-102020>
 </div>
 </details>
 <details class="mt-2">
 <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
 <div class="mt-2">
-<widget-playground-state-preview-code-102020 target="demo-loading">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
 <template>
 <groupenterdateinterval--ml-date-interval-drag
   startDate="{{playground.loading.startDate}}"
@@ -230,7 +230,7 @@
   <Label>Loading Range</Label>
 </groupenterdateinterval--ml-date-interval-drag>
 </template>
-</widget-playground-state-preview-code-102020>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
 </div>
 </details>
 </article>

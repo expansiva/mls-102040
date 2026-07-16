@@ -4,8 +4,8 @@
       <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Enter Time Duration</h1>
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupEnterTime</span>
     </header>
-    <widget-playground-state-102020 state='{"playground":{"basic":{"value":"09:30","error":"","placeholder":"","required":true},"helper":{"value":"","placeholder":"e.g. 02:30","name":"shiftDuration","minuteStep":5,"locale":"en-US","hour12":true},"range":{"value":"18:45","error":"Select a time between 08:00 and 20:00","minTime":"08:00","maxTime":"20:00","minuteStep":15,"required":true},"seconds":{"value":"00:30:45","showSeconds":true,"minuteStep":10,"locale":"pt-BR","hour12":false,"placeholder":"HH:mm:ss"},"readonly":{"value":"07:15","isEditing":false,"hour12":true,"locale":"en-US"},"disabled":{"value":"12:00","disabled":true,"name":"breakTime","placeholder":"Lunch break time"},"loading":{"value":"09:00","loading":true}}}'>
-    </widget-playground-state-102020>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":"09:30","error":"","placeholder":"","required":true},"helper":{"value":"","placeholder":"e.g. 02:30","name":"shiftDuration","minuteStep":5,"locale":"en-US","hour12":true},"range":{"value":"18:45","error":"Select a time between 08:00 and 20:00","minTime":"08:00","maxTime":"20:00","minuteStep":15,"required":true},"seconds":{"value":"00:30:45","showSeconds":true,"minuteStep":10,"locale":"pt-BR","hour12":false,"placeholder":"HH:mm:ss"},"readonly":{"value":"07:15","isEditing":false,"hour12":true,"locale":"en-US"},"disabled":{"value":"12:00","disabled":true,"name":"breakTime","placeholder":"Lunch break time"},"loading":{"value":"09:00","loading":true}}}'>
+    </aura--molecules--playground--widget-playground-state-102020>
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic required duration</h3>
@@ -21,16 +21,16 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.basic.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.basic.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-basic">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
 <groupentertime--ml-enter-time-duration
   value="{{playground.basic.value}}"
@@ -40,7 +40,7 @@
   <Label>Duration</Label>
 </groupentertime--ml-enter-time-duration>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -61,18 +61,18 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.helper.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.helper.placeholder}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="name" value="{{playground.helper.name}}"></widget-playground-state-text-102020>
-            <widget-playground-state-number-102020 label="minuteStep" value="{{playground.helper.minuteStep}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="locale" value="{{playground.helper.locale}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="hour12" value="{{playground.helper.hour12}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.helper.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.helper.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.helper.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="minuteStep" value="{{playground.helper.minuteStep}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="locale" value="{{playground.helper.locale}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="hour12" value="{{playground.helper.hour12}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-helper">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-helper">
               <template>
 <groupentertime--ml-enter-time-duration
   value="{{playground.helper.value}}"
@@ -85,7 +85,7 @@
   <Helper>Use 5-minute increments with AM/PM display.</Helper>
 </groupentertime--ml-enter-time-duration>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -105,18 +105,18 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.range.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.range.error}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="minTime" value="{{playground.range.minTime}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="maxTime" value="{{playground.range.maxTime}}"></widget-playground-state-text-102020>
-            <widget-playground-state-number-102020 label="minuteStep" value="{{playground.range.minuteStep}}"></widget-playground-state-number-102020>
-            <widget-playground-state-boolean-102020 label="required" value="{{playground.range.required}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.range.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.range.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="minTime" value="{{playground.range.minTime}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="maxTime" value="{{playground.range.maxTime}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="minuteStep" value="{{playground.range.minuteStep}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.range.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-range">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-range">
               <template>
 <groupentertime--ml-enter-time-duration
   value="{{playground.range.value}}"
@@ -128,7 +128,7 @@
   <Label>Service Window</Label>
 </groupentertime--ml-enter-time-duration>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -149,18 +149,18 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.seconds.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="showSeconds" value="{{playground.seconds.showSeconds}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-number-102020 label="minuteStep" value="{{playground.seconds.minuteStep}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="locale" value="{{playground.seconds.locale}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="hour12" value="{{playground.seconds.hour12}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.seconds.placeholder}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.seconds.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="showSeconds" value="{{playground.seconds.showSeconds}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="minuteStep" value="{{playground.seconds.minuteStep}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="locale" value="{{playground.seconds.locale}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="hour12" value="{{playground.seconds.hour12}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.seconds.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-seconds">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-seconds">
               <template>
 <groupentertime--ml-enter-time-duration
   value="{{playground.seconds.value}}"
@@ -173,7 +173,7 @@
   <Helper>Include seconds for precise tracking.</Helper>
 </groupentertime--ml-enter-time-duration>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -191,16 +191,16 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.readonly.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="isEditing" value="{{playground.readonly.isEditing}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-boolean-102020 label="hour12" value="{{playground.readonly.hour12}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="locale" value="{{playground.readonly.locale}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.readonly.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.readonly.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="hour12" value="{{playground.readonly.hour12}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="locale" value="{{playground.readonly.locale}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-readonly">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-readonly">
               <template>
 <groupentertime--ml-enter-time-duration
   value="{{playground.readonly.value}}"
@@ -210,7 +210,7 @@
   <Label>Recorded Duration</Label>
 </groupentertime--ml-enter-time-duration>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -229,16 +229,16 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></widget-playground-state-boolean-102020>
-            <widget-playground-state-text-102020 label="name" value="{{playground.disabled.name}}"></widget-playground-state-text-102020>
-            <widget-playground-state-text-102020 label="placeholder" value="{{playground.disabled.placeholder}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.disabled.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.disabled.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-disabled">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
               <template>
 <groupentertime--ml-enter-time-duration
   value="{{playground.disabled.value}}"
@@ -249,7 +249,7 @@
   <Helper>Field disabled while schedule is locked.</Helper>
 </groupentertime--ml-enter-time-duration>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -265,14 +265,14 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></widget-playground-state-text-102020>
-            <widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-loading">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
               <template>
 <groupentertime--ml-enter-time-duration
   value="{{playground.loading.value}}"
@@ -280,7 +280,7 @@
   <Label>Loading Duration</Label>
 </groupentertime--ml-enter-time-duration>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>

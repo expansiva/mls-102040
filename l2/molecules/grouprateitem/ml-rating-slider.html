@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">ML Rating Slider</h1>
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupRateItem</span>
     </header>
-    <widget-playground-state-102020 state='{"playground":{"basic":{"value":3},"helper":{"value":0},"custom":{"value":0},"error":{"value":0,"error":"Please select a rating"},"disabled":{"value":4},"nps":{"value":0}}}'></widget-playground-state-102020>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"value":3},"helper":{"value":0},"custom":{"value":0},"error":{"value":0,"error":"Please select a rating"},"disabled":{"value":4},"nps":{"value":0}}}'></aura--molecules--playground--widget-playground-state-102020>
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic</h3>
@@ -16,19 +16,19 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-basic">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
                 <grouprateitem--ml-rating-slider value="{{playground.basic.value}}" min="1" max="5">
                   <Label>Rate your experience</Label>
                 </grouprateitem--ml-rating-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -43,20 +43,20 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.helper.value}}"></widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.helper.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-helper">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-helper">
               <template>
                 <grouprateitem--ml-rating-slider value="{{playground.helper.value}}">
                   <Label>Service quality</Label>
                   <Helper>Select a rating from 0 to 5</Helper>
                 </grouprateitem--ml-rating-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -73,13 +73,13 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.custom.value}}"></widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.custom.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-custom">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-custom">
               <template>
                 <grouprateitem--ml-rating-slider value="{{playground.custom.value}}">
                   <Label>Satisfaction level</Label>
@@ -88,7 +88,7 @@
                   <Item value="3">😊</Item>
                 </grouprateitem--ml-rating-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -102,20 +102,20 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.error.value}}"></widget-playground-state-number-102020>
-            <widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.error.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-error">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-error">
               <template>
                 <grouprateitem--ml-rating-slider value="{{playground.error.value}}" error="{{playground.error.error}}">
                   <Label>Product rating</Label>
                 </grouprateitem--ml-rating-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -129,19 +129,19 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.disabled.value}}"></widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-disabled">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
               <template>
                 <grouprateitem--ml-rating-slider value="{{playground.disabled.value}}" disabled="true">
                   <Label>Previous rating</Label>
                 </grouprateitem--ml-rating-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
@@ -156,20 +156,20 @@
         <details class="mt-4">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
           <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
-            <widget-playground-state-number-102020 label="value" value="{{playground.nps.value}}"></widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="value" value="{{playground.nps.value}}"></aura--molecules--playground--widget-playground-state-number-102020>
           </div>
         </details>
         <details class="mt-2">
           <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
           <div class="mt-2">
-            <widget-playground-state-preview-code-102020 target="demo-nps">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-nps">
               <template>
                 <grouprateitem--ml-rating-slider value="{{playground.nps.value}}" min="0" max="10" step="1" name="nps-score" required="true">
                   <Label>How likely are you to recommend us?</Label>
                   <Helper>0 = Not likely, 10 = Very likely</Helper>
                 </grouprateitem--ml-rating-slider>
               </template>
-            </widget-playground-state-preview-code-102020>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
           </div>
         </details>
       </article>
