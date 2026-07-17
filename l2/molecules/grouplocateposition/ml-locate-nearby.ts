@@ -183,6 +183,7 @@ isDisabled ?'ml-disabled' :'',
 // EVENT HANDLERS
 // ===========================================================================
 private handleInput(e: Event) {
+e.stopPropagation();
 if (this.disabled || this.readonly) return;
 const input = e.target as HTMLInputElement;
 this.searchQuery = input.value;
@@ -376,6 +377,8 @@ aria-required=${this.required ?'true' :'false'}
 @input=${this.handleInput}
 @focus=${this.handleFocus}
 @blur=${this.handleBlur}
+
+@change=${(e: Event) => e.stopPropagation()}
 />
 </div>
 ${this.allowGeolocation ? html`

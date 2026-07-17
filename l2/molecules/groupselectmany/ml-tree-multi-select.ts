@@ -346,6 +346,7 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
   }
 
   private handleSearchInput(e: Event) {
+    e.stopPropagation();
     const input = e.target as HTMLInputElement;
     this.searchQuery = input.value;
   }
@@ -442,7 +443,9 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
           .value=${this.searchQuery}
           @input=${this.handleSearchInput}
           ?disabled=${this.disabled || this.loading}
-        />
+        
+        @change=${(e: Event) => e.stopPropagation()}
+/>
       </div>
     `;
   }

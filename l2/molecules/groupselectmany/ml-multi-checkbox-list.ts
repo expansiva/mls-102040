@@ -119,6 +119,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
   }
 
   private handleSearchInput(e: Event) {
+    e.stopPropagation();
     const input = e.target as HTMLInputElement;
     this.searchQuery = input.value;
   }
@@ -459,7 +460,9 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
                         class="w-full rounded-md border ml-checkbox-search px-3 py-2 text-sm focus:outline-none focus:ring-2"
                         ?disabled=${this.disabled || this.readonly || this.loading}
                         @input=${this.handleSearchInput}
-                      />
+                      
+                      @change=${(e: Event) => e.stopPropagation()}
+/>
                     `
                   : html``}
 

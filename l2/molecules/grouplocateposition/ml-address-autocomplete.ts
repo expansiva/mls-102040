@@ -192,6 +192,7 @@ export class AddressAutocompleteMolecule extends MoleculeAuraElement {
  // HANDLERS
  // ==========================================================================
  private handleInput(e: Event) {
+ e.stopPropagation();
  if (this.disabled || this.readonly || this.loading) return;
  const input = e.target as HTMLInputElement;
  this.searchQuery = input.value;
@@ -422,7 +423,9 @@ export class AddressAutocompleteMolecule extends MoleculeAuraElement {
  @input=${this.handleInput}
  @focus=${this.handleInputFocus}
  @blur=${this.handleInputBlur}
- />
+ 
+ @change=${(e: Event) => e.stopPropagation()}
+/>
  ${this.renderGeolocationButton()}
  </div>
  ${this.renderSuggestionsPanel()}

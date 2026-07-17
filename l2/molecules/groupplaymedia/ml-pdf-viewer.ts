@@ -208,12 +208,14 @@ export class MlPdfViewerMolecule extends MoleculeAuraElement {
  }
 
  private handleSliderChange(e: Event) {
+ e.stopPropagation();
  const input = e.target as HTMLInputElement;
  const page = parseInt(input.value, 10);
  this.goToPage(page);
  }
 
  private handlePageInputChange(e: Event) {
+ e.stopPropagation();
  const input = e.target as HTMLInputElement;
  const page = parseInt(input.value, 10);
  if (!isNaN(page)) {
@@ -443,7 +445,9 @@ export class MlPdfViewerMolecule extends MoleculeAuraElement {
  ?disabled=${this.disabled || this.loading}
  @change=${this.handlePageInputChange}
  aria-label=${this.msg.goToPage}
- />
+ 
+ @input=${(e: Event) => e.stopPropagation()}
+/>
  <span>${this.msg.of} ${this.totalPages}</span>
  </div>
  `;
@@ -520,7 +524,9 @@ export class MlPdfViewerMolecule extends MoleculeAuraElement {
  aria-valuemin="1"
  aria-valuemax=${this.totalPages}
  aria-label="${this.msg.page} ${this.currentPage} ${this.msg.of} ${this.totalPages}"
- />
+ 
+ @change="${(e: Event) => e.stopPropagation()}"
+/>
  </div>
  `;
  }

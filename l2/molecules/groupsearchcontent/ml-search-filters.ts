@@ -138,6 +138,7 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ===========================================================================
   private handleInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled) return;
 
     const input = e.target as HTMLInputElement;
@@ -646,7 +647,9 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
               @keydown=${this.handleKeyDown}
               @focus=${this.handleFocus}
               @blur=${this.handleBlur}
-            />
+            
+            @change=${(e: Event) => e.stopPropagation()}
+/>
             ${this.renderClearButton()}
           </div>
           ${this.renderFilterButton()}

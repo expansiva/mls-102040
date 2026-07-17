@@ -279,6 +279,7 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ===========================================================================
   private handleInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.readonly || this.loading) return;
 
     const input = e.target as HTMLInputElement;
@@ -498,7 +499,9 @@ export class PasswordStrengthInputMolecule extends MoleculeAuraElement {
           @input=${this.handleInput}
           @focus=${this.handleFocus}
           @blur=${this.handleBlur}
-        />
+        
+        @change=${(e: Event) => e.stopPropagation()}
+/>
         ${this.renderSuffix()}
         ${this.renderToggleButton()}
       </div>

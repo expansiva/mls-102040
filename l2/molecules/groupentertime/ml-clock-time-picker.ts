@@ -571,7 +571,11 @@ export class ClockTimePickerMolecule extends MoleculeAuraElement {
             aria-describedby=${ariaDescribedBy || nothing}
             aria-labelledby=${this.hasSlot('Label') ? this.getLabelId() : nothing}
             aria-label=${displayValue || placeholder}
-          />
+          
+          @input="${(e: Event) => e.stopPropagation()}"
+
+          @change="${(e: Event) => e.stopPropagation()}"
+/>
           <button
             class="absolute right-2 top-1/2 -translate-y-1/2 ml-text-muted"
             @click=${this.onToggleOpen}

@@ -114,6 +114,7 @@ private activeField: 'start' | 'end' | null = null;
 // EVENT HANDLERS
 // ==========================================================================
 private handleStartInput(event: Event) {
+event.stopPropagation();
 if (this.disabled || this.readonly || this.loading) return;
 const input = event.target as HTMLInputElement;
 this.startTime = input.value ? input.value : null;
@@ -126,6 +127,7 @@ this.emitCombinedChangeIfValid();
 }
 
 private handleEndInput(event: Event) {
+event.stopPropagation();
 if (this.disabled || this.readonly || this.loading) return;
 const input = event.target as HTMLInputElement;
 this.endTime = input.value ? input.value : null;
@@ -343,6 +345,8 @@ aria-required=${this.required ? 'true' : 'false'}
 @input=${this.handleStartInput}
 @focus=${() => this.handleFocus('start')}
 @blur=${this.handleBlur}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 </div>
 
@@ -370,6 +374,8 @@ aria-required=${this.required ? 'true' : 'false'}
 @input=${this.handleEndInput}
 @focus=${() => this.handleFocus('end')}
 @blur=${this.handleBlur}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 ${overnight ? html`
 <p class="mt-1 text-xs ml-text-muted" aria-label="${this.msg.nextDayAria}">

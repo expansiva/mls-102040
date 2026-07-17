@@ -159,6 +159,7 @@ this.updateValue(nextValues);
 }
 
 private handleSearchInput(event: Event) {
+event.stopPropagation();
 const input = event.target as HTMLInputElement;
 this.searchQuery = input.value;
 }
@@ -340,6 +341,8 @@ placeholder="${this.msg.searchPlaceholder}"
 .value="${this.searchQuery}"
 @input="${this.handleSearchInput}"
 ?disabled="${this.isInteractionBlocked()}"
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 </div>
 `;

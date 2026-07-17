@@ -316,8 +316,10 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
  type="checkbox"
  ?disabled="${this.disabled}"
  aria-label="${this.msg.selectAll}"
- @change="${(e: Event) => this.handleSelectAllChange(e)}"
- />
+ @change="${(e: Event) => { e.stopPropagation(); this.handleSelectAllChange(e); }}"
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </th>`
  : nothing}
  ${heads.map(head => {
@@ -396,8 +398,10 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
  .checked="${isSelected}"
  aria-label="${this.msg.selectRow(globalIdx)}"
  @click="${(e: Event) => e.stopPropagation()}"
- @change="${() => this.handleRowRadioChange(globalIdx)}"
- />
+ @change="${(e: Event) => { e.stopPropagation(); this.handleRowRadioChange(globalIdx); }}"
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </td>`
  : html`<td class="${this.getCellClasses()}">
  <input
@@ -406,8 +410,10 @@ export class MlDataTableSelectMolecule extends MoleculeAuraElement {
  .checked="${isSelected}"
  aria-label="${this.msg.selectRow(globalIdx)}"
  @click="${(e: Event) => e.stopPropagation()}"
- @change="${(e: Event) => this.handleRowCheckboxChange(e, globalIdx)}"
- />
+ @change="${(e: Event) => { e.stopPropagation(); this.handleRowCheckboxChange(e, globalIdx); }}"
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </td>`
  : nothing}
  ${cells.map(cell => html`

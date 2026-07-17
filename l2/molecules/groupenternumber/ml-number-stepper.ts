@@ -122,6 +122,7 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // =========================================================================
   private handleInput(e: Event) {
+    e.stopPropagation();
     if (!this.isEditing || this.disabled || this.readonly || this.loading) return;
     const input = e.target as HTMLInputElement;
     this.rawValue = input.value;
@@ -320,7 +321,9 @@ export class NumberStepperMolecule extends MoleculeAuraElement {
             @input=${this.handleInput}
             @blur=${this.handleBlur}
             @focus=${this.handleFocus}
-          />
+          
+          @change="${(e: Event) => e.stopPropagation()}"
+/>
           ${this.renderSuffix()}
           <button
             type="button"

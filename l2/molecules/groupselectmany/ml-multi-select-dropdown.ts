@@ -296,8 +296,10 @@ class="w-full rounded-md border ml-select-search px-3 py-2 text-sm focus:outline
 type="text"
 placeholder="${this.msg.searchPlaceholder}"
 .value=${this.searchQuery}
-@input=${(e: Event) => this.handleSearchInput(e)}
+@input=${(e: Event) => { e.stopPropagation(); this.handleSearchInput(e); }}
 data-search
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 </div>
 ` : html``}

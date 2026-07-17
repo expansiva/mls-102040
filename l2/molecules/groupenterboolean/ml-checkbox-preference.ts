@@ -187,7 +187,9 @@ export class CheckboxPreferenceMolecule extends MoleculeAuraElement {
             @change=${this.handleToggle}
             @focus=${this.handleFocus}
             @blur=${this.handleBlur}
-          />
+          
+          @input=${(e: Event) => e.stopPropagation()}
+/>
           <div class="flex-1">
             ${this.renderLabel()}
             ${this.renderHelperOrError()}

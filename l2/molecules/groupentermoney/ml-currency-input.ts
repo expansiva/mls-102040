@@ -143,6 +143,7 @@ export class GroupEnterMoneyMlCurrencyInputMolecule extends MoleculeAuraElement 
     this.dispatchEvent(new CustomEvent('focus', { bubbles: true, composed: true }));
   };
   private onInput = (e: InputEvent) => {
+    e.stopPropagation();
     if (this.disabled || this.readonly) return;
     const input = e.target as HTMLInputElement;
     this.rawValue = input.value;
@@ -238,7 +239,9 @@ export class GroupEnterMoneyMlCurrencyInputMolecule extends MoleculeAuraElement 
           @focus="${this.onFocus}"
           @input="${this.onInput}"
           @blur="${this.onBlur}"
-        />
+        
+        @change="${(e: Event) => e.stopPropagation()}"
+/>
       </div>
     `;
   }

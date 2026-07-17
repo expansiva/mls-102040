@@ -194,6 +194,7 @@ export class MlGeolocationTriggerMolecule extends MoleculeAuraElement {
  // EVENT HANDLERS
  // ===========================================================================
  private handleInput(event: Event) {
+ event.stopPropagation();
  if (this.disabled || this.readonly) return;
  const input = event.target as HTMLInputElement;
  this.searchQuery = input.value;
@@ -424,7 +425,9 @@ export class MlGeolocationTriggerMolecule extends MoleculeAuraElement {
  @input=${this.handleInput}
  @focus=${this.handleFocus}
  @blur=${this.handleBlur}
- />
+ 
+ @change=${(e: Event) => e.stopPropagation()}
+/>
  <div class="flex items-center justify-between">
  ${this.renderTrigger(effectiveLoading)}
  </div>

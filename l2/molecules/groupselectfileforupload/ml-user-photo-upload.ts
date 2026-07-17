@@ -119,6 +119,7 @@ this.openFilePicker();
 }
 
 private handleInputChange(event: Event) {
+event.stopPropagation();
 if (this.isBusy()) return;
 const input = event.target as HTMLInputElement;
 this.processFiles(input.files);
@@ -340,6 +341,8 @@ accept="${acceptAttr}"
 ?disabled=${isBusy}
 @change=${this.handleInputChange}
 aria-hidden="true"
+
+@input="${(e: Event) => e.stopPropagation()}"
 />
 ${this.renderPreview(files)}
 ${this.renderFileList(files)}

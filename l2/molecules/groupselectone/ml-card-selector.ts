@@ -287,6 +287,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
   }
 
   private handleSearchInput(e: Event) {
+    e.stopPropagation();
     const input = e.target as HTMLInputElement;
     this.searchQuery = input.value;
     this.focusedIndex = 0;
@@ -438,7 +439,9 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
           placeholder="${this.msg.searchPlaceholder}"
           .value="${this.searchQuery}"
           @input="${this.handleSearchInput}"
-        />
+        
+        @change="${(e: Event) => e.stopPropagation()}"
+/>
       </div>
     `;
   }

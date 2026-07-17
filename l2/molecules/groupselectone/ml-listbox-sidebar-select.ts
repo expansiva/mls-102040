@@ -213,6 +213,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
   }
 
   private handleSearchInput(e: Event) {
+    e.stopPropagation();
     const input = e.target as HTMLInputElement;
     this.searchQuery = input.value;
     this.focusedIndex = -1;
@@ -395,7 +396,9 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
         @input=${this.handleSearchInput}
         ?disabled=${this.disabled || this.readonly}
         aria-label=${this.msg.searchPlaceholder}
-      />
+      
+      @change=${(e: Event) => e.stopPropagation()}
+/>
     `;
   }
 

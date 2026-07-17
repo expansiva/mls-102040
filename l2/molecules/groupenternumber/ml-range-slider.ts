@@ -223,6 +223,7 @@ export class RangeSliderMolecule extends MoleculeAuraElement {
   // HANDLERS
   // ===========================================================================
   private handleLowInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.loading) return;
     const input = e.target as HTMLInputElement;
     const next = Number(input.value);
@@ -241,6 +242,7 @@ export class RangeSliderMolecule extends MoleculeAuraElement {
   }
 
   private handleHighInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.loading) return;
     const input = e.target as HTMLInputElement;
     const next = Number(input.value);
@@ -258,12 +260,14 @@ export class RangeSliderMolecule extends MoleculeAuraElement {
     this.emitInput();
   }
 
-  private handleLowChange() {
+  private handleLowChange(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.loading || this.readonly) return;
     this.emitChange();
   }
 
-  private handleHighChange() {
+  private handleHighChange(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.loading || this.readonly) return;
     this.emitChange();
   }

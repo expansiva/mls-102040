@@ -223,7 +223,8 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  );
  }
 
- private handleSelectAll() {
+ private handleSelectAll(e: Event) {
+ e.stopPropagation();
  if (this.disabled) return;
 
  const selected = this.getSelectedIndices();
@@ -462,7 +463,9 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  @change=${this.handleSelectAll}
  aria-label="${this.msg.selectAll}"
  ?disabled=${this.disabled}
- />
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </th>
  `
  : html``}
@@ -547,7 +550,9 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  @click=${(e: Event) => e.stopPropagation()}
  aria-label="${this.msg.selectRow} ${originalIndex + 1}"
  ?disabled=${this.disabled}
- />
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </td>
  `
  : html``}

@@ -135,6 +135,7 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ===========================================================================
   private handleInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.readonly || this.loading) return;
 
     const input = e.target as HTMLInputElement;
@@ -170,7 +171,8 @@ export class PhoneInputMolecule extends MoleculeAuraElement {
     }));
   }
 
-  private handleChange() {
+  private handleChange(e: Event) {
+    e.stopPropagation();
     this.dispatchEvent(new CustomEvent('change', {
       bubbles: true,
       composed: true,

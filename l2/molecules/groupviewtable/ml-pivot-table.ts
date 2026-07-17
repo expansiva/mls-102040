@@ -243,7 +243,8 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  );
  }
 
- private handleSelectAll() {
+ private handleSelectAll(e: Event) {
+ e.stopPropagation();
  if (this.disabled) return;
  const selected = this.getSelectedIndices();
  const allSelected = this.parsedBodyRows.every((row) => selected.has(row.index));
@@ -518,7 +519,9 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  @change="${this.handleSelectAll}"
  aria-label="${this.msg.selectAll}"
  ?disabled="${this.disabled}"
- />
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </th>
  `
  : html``}
@@ -599,10 +602,12 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  type="checkbox"
  class="${this.getCheckboxClasses()}"
  .checked="${isSelected}"
- @change="${() => this.handleRowSelect(row.index)}"
+ @change="${(e: Event) => { e.stopPropagation(); this.handleRowSelect(row.index); }}"
  aria-label="${this.msg.selectRow} ${row.index + 1}"
  ?disabled="${this.disabled}"
- />
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </td>
  `
  : html``}

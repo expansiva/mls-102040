@@ -85,6 +85,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ===========================================================================
   private handleInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled) return;
     const input = e.target as HTMLInputElement;
     const next = input.value;
@@ -312,7 +313,9 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
             @keydown=${this.handleKeyDown}
             @focus=${this.handleFocus}
             @blur=${this.handleBlur}
-          />
+          
+          @change="${(e: Event) => e.stopPropagation()}"
+/>
 
           ${this.query.length > 0 && !this.disabled
             ? html`

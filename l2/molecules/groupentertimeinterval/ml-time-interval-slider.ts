@@ -160,18 +160,21 @@ export class TimeIntervalSliderMolecule extends MoleculeAuraElement {
   }
 
   private handleStartInput(e: Event) {
+    e.stopPropagation();
     if (!this.canInteract()) return;
     const value = Number((e.target as HTMLInputElement).value);
     this.draftStartSeconds = value;
   }
 
   private handleEndInput(e: Event) {
+    e.stopPropagation();
     if (!this.canInteract()) return;
     const value = Number((e.target as HTMLInputElement).value);
     this.draftEndSeconds = value;
   }
 
   private handleStartChange(e: Event) {
+    e.stopPropagation();
     if (!this.canInteract()) return;
     const value = Number((e.target as HTMLInputElement).value);
     if (!this.isValidStart(value)) {
@@ -196,6 +199,7 @@ export class TimeIntervalSliderMolecule extends MoleculeAuraElement {
   }
 
   private handleEndChange(e: Event) {
+    e.stopPropagation();
     if (!this.canInteract()) return;
     const value = Number((e.target as HTMLInputElement).value);
     if (!this.isValidEnd(value)) {

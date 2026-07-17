@@ -128,6 +128,7 @@ detail: { value: this.value },
 );
 }
 private handleSearchInput(e: Event) {
+e.stopPropagation();
 const input = e.target as HTMLInputElement;
 this.searchQuery = input.value;
 }
@@ -232,6 +233,8 @@ placeholder="Search..."
 @input=${this.handleSearchInput}
 @focus=${this.handleFocus}
 @blur=${this.handleBlur}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 `
 : nothing}
@@ -264,6 +267,10 @@ name="${this._uid}"
 .checked=${isSelected}
 ?disabled=${item.disabled || this.disabled || this.readonly}
 @click=${(e: Event) => e.stopPropagation()}
+
+@input="${(e: Event) => e.stopPropagation()}"
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 </td>
 ${item.cells.map(

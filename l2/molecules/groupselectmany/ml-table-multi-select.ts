@@ -156,6 +156,7 @@ selected.add(item.value);
 this.updateValueFromSet(selected);
 }
 private handleSelectAll(e: Event) {
+e.stopPropagation();
 if (this.disabled || this.readonly) return;
 const checked = (e.target as HTMLInputElement).checked;
 const items = this.getFilteredItems();
@@ -175,6 +176,7 @@ selected.delete(item.value);
 this.updateValueFromSet(selected);
 }
 private handleSearchInput(e: Event) {
+e.stopPropagation();
 const input = e.target as HTMLInputElement;
 this.searchQuery = input.value;
 }
@@ -273,6 +275,8 @@ placeholder="Search..."
 @input=${this.handleSearchInput}
 @focus=${this.handleFocus}
 @blur=${this.handleBlur}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 `
 : nothing}
@@ -288,6 +292,8 @@ type="checkbox"
 .indeterminate=${someSelected && !allSelected}
 ?disabled=${this.disabled || this.readonly}
 @change=${this.handleSelectAll}
+
+@input=${(e: Event) => e.stopPropagation()}
 />
 </th>
 ${headers.map(
@@ -313,7 +319,9 @@ type="checkbox"
 .checked=${isSelected}
 ?disabled=${isDisabled || this.disabled || this.readonly}
 @click=${(e: Event) => e.stopPropagation()}
-@change=${() => this.handleRowToggle(item)}
+@change=${(e: Event) => { e.stopPropagation(); this.handleRowToggle(item); }}
+
+@input=${(e: Event) => e.stopPropagation()}
 />
 </td>
 ${item.cells.map(

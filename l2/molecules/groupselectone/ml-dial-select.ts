@@ -187,6 +187,7 @@ event.preventDefault();
 }
 
 private handleSearchInput(event: Event) {
+event.stopPropagation();
 const input = event.target as HTMLInputElement;
 this.searchQuery = input.value;
 this.activeIndex = -1;
@@ -369,6 +370,8 @@ class="mb-3 w-full max-w-xs rounded-lg border ml-dial-search px-3 py-2 text-sm f
 placeholder=${this.msg.placeholder}
 .value=${this.searchQuery}
 @input=${this.handleSearchInput}
+
+@change=${(e: Event) => e.stopPropagation()}
 />
 `
 : nothing}

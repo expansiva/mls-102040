@@ -120,6 +120,7 @@ export class EnterMoneyBrMolecule extends MoleculeAuraElement {
   }
 
   private handleInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.readonly || this.loading || !this.isEditing) return;
     const input = e.target as HTMLInputElement;
     const digits = this.extractDigits(input.value);
@@ -311,7 +312,9 @@ export class EnterMoneyBrMolecule extends MoleculeAuraElement {
             @focus=${this.handleFocus}
             @input=${this.handleInput}
             @blur=${this.handleBlur}
-          />
+          
+          @change=${(e: Event) => e.stopPropagation()}
+/>
         </div>
         ${this.renderHelper(helperId)}
         ${this.renderLoading()}

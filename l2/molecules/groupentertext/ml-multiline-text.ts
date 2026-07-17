@@ -255,6 +255,7 @@ ${count} / ${this.maxLength}
     // EVENT HANDLERS
     // ==========================================================================
     private handleInput(e: Event): void {
+        e.stopPropagation();
         if (this.disabled || this.readonly || this.loading || !this.isEditing) return;
         const target = e.target as HTMLInputElement | HTMLTextAreaElement;
         const inputValue = target.value || '';
@@ -375,6 +376,8 @@ aria-required=${this.required ? 'true' : 'false'}
 @input=${this.handleInput}
 @blur=${this.handleBlur}
 @focus=${this.handleFocus}
+
+@change=${(e: Event) => e.stopPropagation()}
 ></textarea>`
                 : html`<input
 id=${this.inputId}
@@ -395,6 +398,8 @@ aria-required=${this.required ? 'true' : 'false'}
 @input=${this.handleInput}
 @blur=${this.handleBlur}
 @focus=${this.handleFocus}
+
+@change=${(e: Event) => e.stopPropagation()}
 />`}
 ${this.renderSuffix()}
 ${this.renderLoading()}

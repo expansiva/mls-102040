@@ -268,6 +268,7 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ===========================================================================
   private handlePostalCodeInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.readonly || this.loading) return;
     
     const input = e.target as HTMLInputElement;
@@ -473,10 +474,12 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
           aria-invalid="${hasError}"
           aria-describedby="${hasError ? errorId : ''}"
           maxlength="${maxLength !== null ? maxLength : ''}"
-          @input="${(e: Event) => this.handleFieldInput(field as keyof AddressData, maxLength, e)}"
+          @input="${(e: Event) => { e.stopPropagation(); this.handleFieldInput(field as keyof AddressData, maxLength, e); }}"
           @blur="${() => this.handleFieldBlur(field)}"
           @focus="${() => this.handleFieldFocus(field)}"
-        />
+        
+        @change="${(e: Event) => e.stopPropagation()}"
+/>
         ${this.renderError(error)}
       </div>
     `;
@@ -522,10 +525,12 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
           aria-invalid="${hasError}"
           aria-describedby="${hasError ? errorId : counterId}"
           maxlength="${maxLength !== null ? maxLength : ''}"
-          @input="${(e: Event) => this.handleFieldInput(field as keyof AddressData, maxLength, e)}"
+          @input="${(e: Event) => { e.stopPropagation(); this.handleFieldInput(field as keyof AddressData, maxLength, e); }}"
           @blur="${() => this.handleFieldBlur(field)}"
           @focus="${() => this.handleFieldFocus(field)}"
-        ></textarea>
+        
+          @change="${(e: Event) => e.stopPropagation()}"
+></textarea>
         ${this.renderCounter(value, maxLength)}
         ${this.renderError(error)}
       </div>
@@ -564,7 +569,9 @@ export class MlAddressFieldMolecule extends MoleculeAuraElement {
             @input="${this.handlePostalCodeInput}"
             @blur="${() => this.handleFieldBlur('postalCode')}"
             @focus="${() => this.handleFieldFocus('postalCode')}"
-          />
+          
+          @change="${(e: Event) => e.stopPropagation()}"
+/>
           ${this.isSearching ? html`
             <div class="absolute right-3 top-1/2 -translate-y-1/2">
               <svg class="animate-spin h-4 w-4 ml-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

@@ -218,11 +218,13 @@ detail: { message: this.errorMessage || this.msg.error },
 }
 
 private handleSeekInput(e: Event) {
+e.stopPropagation();
 const input = e.target as HTMLInputElement;
 this.seekTo(parseFloat(input.value));
 }
 
 private handleVolumeInput(e: Event) {
+e.stopPropagation();
 const input = e.target as HTMLInputElement;
 this.setVolume(parseFloat(input.value));
 }
@@ -404,6 +406,8 @@ aria-valuemin="0"
 aria-valuemax=${String(this.duration || 0)}
 aria-valuenow=${String(this.currentTime)}
 ?disabled=${this.disabled}
+
+@change=${(e: Event) => e.stopPropagation()}
 />
 </div>
 
@@ -428,6 +432,8 @@ aria-valuemin="0"
 aria-valuemax="1"
 aria-valuenow=${String(this.volume)}
 ?disabled=${this.disabled}
+
+@change=${(e: Event) => e.stopPropagation()}
 />
 </div>
 `}

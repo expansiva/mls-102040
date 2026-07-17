@@ -142,6 +142,7 @@ this.dispatchEvent(new CustomEvent('blur', { bubbles: true, composed: true }));
 }
 
 private handleStartInput(e: Event) {
+e.stopPropagation();
 if (this.disabled || this.readonly || this.loading) return;
 const input = e.target as HTMLInputElement;
 const iso = this.parseInputToIso(input.value);
@@ -159,6 +160,7 @@ this.emitChangeIfComplete();
 }
 
 private handleEndInput(e: Event) {
+e.stopPropagation();
 if (this.disabled || this.readonly || this.loading) return;
 const input = e.target as HTMLInputElement;
 const iso = this.parseInputToIso(input.value);
@@ -175,6 +177,7 @@ this.activeField = null;
 }
 
 private handleDurationValueInput(e: Event) {
+e.stopPropagation();
 if (this.disabled || this.readonly || this.loading) return;
 const input = e.target as HTMLInputElement;
 const value = input.value ? Number(input.value) : null;
@@ -183,6 +186,7 @@ this.applyDurationToEnd();
 }
 
 private handleDurationUnitChange(e: Event) {
+e.stopPropagation();
 if (this.disabled || this.readonly || this.loading) return;
 const select = e.target as HTMLSelectElement;
 this.durationUnit = select.value as 'minutes' | 'hours';
@@ -391,6 +395,8 @@ aria-describedby="${ariaDescribedBy}"
 @focus=${() => this.handleFocus('start')}
 @blur=${this.handleBlur}
 @input=${this.handleStartInput}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 </div>
 <div>
@@ -413,6 +419,8 @@ aria-describedby="${ariaDescribedBy}"
 @focus=${() => this.handleFocus('end')}
 @blur=${this.handleBlur}
 @input=${this.handleEndInput}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 </div>
 </div>
@@ -431,6 +439,8 @@ min="0"
 ?disabled=${this.disabled || this.loading || !this.startDatetime}
 ?readonly=${this.readonly}
 @input=${this.handleDurationValueInput}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 <select
 class="${this.getSelectClasses()}"
@@ -438,6 +448,8 @@ class="${this.getSelectClasses()}"
 ?disabled=${this.disabled || this.loading || !this.startDatetime}
 ?readonly=${this.readonly}
 @change=${this.handleDurationUnitChange}
+
+@input="${(e: Event) => e.stopPropagation()}"
 >
 <option value="minutes">${this.msg.minutes}</option>
 <option value="hours">${this.msg.hours}</option>

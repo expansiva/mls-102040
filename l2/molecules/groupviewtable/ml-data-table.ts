@@ -459,8 +459,10 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  .indeterminate=${someSelected}
  ?disabled=${this.disabled}
  aria-label=${this.msg.selectAll}
- @change=${(e: Event) => this.handleSelectAll(sortedRows, (e.target as HTMLInputElement).checked)}
- />
+ @change=${(e: Event) => { e.stopPropagation(); this.handleSelectAll(sortedRows, (e.target as HTMLInputElement).checked); }}
+ 
+ @input=${(e: Event) => e.stopPropagation()}
+/>
  </th>
  ` : nothing}
 
@@ -507,8 +509,10 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  .checked=${selected.has(String(row.index))}
  ?disabled=${this.disabled}
  aria-label="${this.msg.selectRow} ${row.index + 1}"
- @change=${(e: Event) => this.handleRowSelect(row.index, (e.target as HTMLInputElement).checked)}
- />
+ @change=${(e: Event) => { e.stopPropagation(); this.handleRowSelect(row.index, (e.target as HTMLInputElement).checked); }}
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </td>
  ` : nothing}
 

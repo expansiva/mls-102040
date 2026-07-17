@@ -272,6 +272,7 @@ export class DateShortcutPickerMolecule extends MoleculeAuraElement {
   }
 
   private handleInputChange(e: Event) {
+    e.stopPropagation();
     const input = e.target as HTMLInputElement;
     this.inputValue = input.value;
 
@@ -413,7 +414,9 @@ export class DateShortcutPickerMolecule extends MoleculeAuraElement {
         @input="${this.handleInputChange}"
         @focus="${this.handleInputFocus}"
         @blur="${this.handleInputBlur}"
-      />
+      
+      @change="${(e: Event) => e.stopPropagation()}"
+/>
     `;
   }
 

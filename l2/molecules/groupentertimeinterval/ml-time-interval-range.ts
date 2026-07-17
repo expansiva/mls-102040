@@ -121,6 +121,7 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ==========================================================================
   private handleStartInput(event: Event) {
+    event.stopPropagation();
     if (this.disabled || this.readonly) return;
     const input = event.target as HTMLInputElement;
     this.startTime = input.value ? input.value : null;
@@ -137,6 +138,7 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
   }
 
   private handleEndInput(event: Event) {
+    event.stopPropagation();
     if (this.disabled || this.readonly) return;
     const input = event.target as HTMLInputElement;
     this.endTime = input.value ? input.value : null;
@@ -301,7 +303,9 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
               @input=${this.handleStartInput}
               @focus=${() => this.handleFocus('start')}
               @blur=${this.handleBlur}
-            />
+            
+            @change="${(e: Event) => e.stopPropagation()}"
+/>
           </div>
           <div class="flex flex-col gap-2">
             <label id="${endLabelId}" class="${cn('text-xs font-medium ml-text-muted', this.getSlotClass('LabelEnd'))}">
@@ -324,7 +328,9 @@ export class TimeIntervalRangeMolecule extends MoleculeAuraElement {
               @input=${this.handleEndInput}
               @focus=${() => this.handleFocus('end')}
               @blur=${this.handleBlur}
-            />
+            
+            @change="${(e: Event) => e.stopPropagation()}"
+/>
           </div>
         </div>
         <div class="mt-3 flex items-center justify-between text-xs ml-text-muted">

@@ -93,6 +93,7 @@ this.displayValue = this.formatCpf(this.value);
 // EVENT HANDLERS
 // ==========================================================================
 private handleInputEvent(event: Event) {
+event.stopPropagation();
 if (this.disabled || this.readonly || this.loading) return;
 const target = event.target as HTMLInputElement | HTMLTextAreaElement;
 let raw = target.value;
@@ -279,6 +280,8 @@ aria-describedby=${ariaDescribedBy || ''}
 @input=${this.handleInputEvent}
 @blur=${this.handleBlurEvent}
 @focus=${this.handleFocusEvent}
+
+@change="${(e: Event) => e.stopPropagation()}"
 >${inputValue}</textarea>
 `
 : html`
@@ -299,6 +302,8 @@ aria-describedby=${ariaDescribedBy || ''}
 @input=${this.handleInputEvent}
 @blur=${this.handleBlurEvent}
 @focus=${this.handleFocusEvent}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 `}
 ${this.renderSuffix()}

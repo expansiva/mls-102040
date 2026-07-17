@@ -266,6 +266,7 @@ export class VideoPlayerMolecule extends MoleculeAuraElement {
  }
 
  private handleSeekInput(e: Event) {
+ e.stopPropagation();
  if (this.isBlocked()) return;
  const input = e.target as HTMLInputElement;
  const value = Number(input.value);
@@ -273,6 +274,7 @@ export class VideoPlayerMolecule extends MoleculeAuraElement {
  }
 
  private handleVolumeInput(e: Event) {
+ e.stopPropagation();
  if (this.isBlocked()) return;
  const input = e.target as HTMLInputElement;
  const value = Number(input.value);
@@ -423,7 +425,9 @@ export class VideoPlayerMolecule extends MoleculeAuraElement {
  aria-valuenow="${this.currentTime}"
  ?disabled=${isBlocked}
  @input=${this.handleSeekInput}
- />
+ 
+ @change="${(e: Event) => e.stopPropagation()}"
+/>
  <span class="text-xs ml-text-muted whitespace-nowrap">${timeLabel}</span>
  </div>
 
@@ -451,7 +455,9 @@ export class VideoPlayerMolecule extends MoleculeAuraElement {
  aria-valuenow="${this.volume}"
  ?disabled=${isBlocked}
  @input=${this.handleVolumeInput}
- />
+ 
+ @change="${(e: Event) => e.stopPropagation()}"
+/>
  </div>
 
  ${hasTracks

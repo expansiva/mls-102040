@@ -109,6 +109,7 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ==========================================================================
   private handleInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled) return;
     const input = e.target as HTMLInputElement;
     this.query = input.value;
@@ -387,7 +388,9 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
             @keydown="${this.handleKeyDown}"
             autocomplete="off"
             spellcheck="false"
-          />
+          
+          @change="${(e: Event) => e.stopPropagation()}"
+/>
           ${this.renderClearButton()}
         </div>
         ${this.renderSuggestions()}

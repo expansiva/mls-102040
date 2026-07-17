@@ -156,10 +156,12 @@ if (previous === null && field !== null) this.dispatchFocus();
 if (previous !== null && field === null) this.dispatchBlur();
 }
 private handleStartDraftInput(e: Event) {
+e.stopPropagation();
 const input = e.target as HTMLInputElement;
 this.startDraft = input.value;
 }
 private handleEndDraftInput(e: Event) {
+e.stopPropagation();
 const input = e.target as HTMLInputElement;
 this.endDraft = input.value;
 }
@@ -471,6 +473,8 @@ step=${step}
 min=${ifDefined(minValue)}
 max=${ifDefined(maxValue)}
 @input=${isStart ? this.handleStartDraftInput : this.handleEndDraftInput}
+
+@change=${(e: Event) => e.stopPropagation()}
 />
 <div class="flex items-center justify-end gap-2">
 <button

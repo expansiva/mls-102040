@@ -253,6 +253,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
     }
 
     private handleSearchInput(e: Event): void {
+        e.stopPropagation();
         const input = e.target as HTMLInputElement;
         this.searchQuery = input.value;
         this.focusedIndex = -1;
@@ -388,7 +389,9 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
                     .value="${this.searchQuery}"
                     @input="${this.handleSearchInput}"
                     @click="${(e: Event) => e.stopPropagation()}"
-                />
+                
+                @change="${(e: Event) => e.stopPropagation()}"
+/>
             </div>
         `;
     }

@@ -124,6 +124,7 @@ export class DatetimeIntervalTimelineMolecule extends MoleculeAuraElement {
     }
 
     private onStartInput(e: Event) {
+        e.stopPropagation();
         if (this.disabled || this.readonly || this.loading) return;
         const input = e.target as HTMLInputElement;
         const value = this.fromInputValue(input.value);
@@ -144,6 +145,7 @@ export class DatetimeIntervalTimelineMolecule extends MoleculeAuraElement {
     }
 
     private onEndInput(e: Event) {
+        e.stopPropagation();
         if (this.disabled || this.readonly || this.loading) return;
         const input = e.target as HTMLInputElement;
         const value = this.fromInputValue(input.value);
@@ -377,6 +379,8 @@ aria-required="${this.required ? 'true' : 'false'}"
 @focus=${this.onStartFocus}
 @blur=${this.onFieldBlur}
 @change=${this.onStartInput}
+
+@input="${(e: Event) => e.stopPropagation()}"
 />
 </div>
 <div>
@@ -397,6 +401,8 @@ aria-required="${this.required ? 'true' : 'false'}"
 @focus=${this.onEndFocus}
 @blur=${this.onFieldBlur}
 @change=${this.onEndInput}
+
+@input="${(e: Event) => e.stopPropagation()}"
 />
 </div>
 </div>

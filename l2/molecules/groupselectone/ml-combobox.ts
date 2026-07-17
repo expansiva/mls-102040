@@ -236,6 +236,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
   }
 
   private handleInputInput(event: Event) {
+    event.stopPropagation();
     if (!this.isEditing || this.disabled || this.readonly) return;
     this.inputText = (event.target as HTMLInputElement).value;
     this.isOpen = true;
@@ -581,7 +582,9 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
               @input=${this.handleInputInput}
               @blur=${this.handleInputBlur}
               @keydown=${this.handleKeyDown}
-            />
+            
+            @change=${(e: Event) => e.stopPropagation()}
+/>
 
             <!-- Trailing icons -->
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 gap-1">

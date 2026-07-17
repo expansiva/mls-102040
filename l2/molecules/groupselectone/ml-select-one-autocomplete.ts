@@ -171,6 +171,7 @@ export class SelectOneAutocompleteMolecule extends MoleculeAuraElement {
     }
 
     private handleInput(event: Event) {
+        event.stopPropagation();
         if (this.disabled || this.readonly || this.loading) return;
         if (!this.searchable) return;
         const input = event.target as HTMLInputElement;
@@ -387,6 +388,8 @@ aria-required=${this.required ? 'true' : 'false'}
 @keydown=${this.handleKeyDown}
 @mousedown=${this.handleMouseDown}
 autocomplete="off"
+
+@change=${(e: Event) => e.stopPropagation()}
 />
 <div class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 ml-text-muted">
 ${this.loading ? html`${this.msg.loading}` : html`

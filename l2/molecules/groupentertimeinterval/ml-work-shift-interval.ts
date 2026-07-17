@@ -115,6 +115,7 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ===========================================================================
   private handleStartInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.loading || this.readonly) return;
     const input = e.target as HTMLInputElement;
     const next = input.value ? this.normalizeValueForStorage(input.value) : null;
@@ -132,6 +133,7 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
   }
 
   private handleEndInput(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.loading || this.readonly) return;
     const input = e.target as HTMLInputElement;
     const next = input.value ? this.normalizeValueForStorage(input.value) : null;
@@ -390,7 +392,9 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
               @input=${this.handleStartInput}
               @focus=${() => this.handleFocus('start')}
               @blur=${this.handleBlur}
-            />
+            
+            @change="${(e: Event) => e.stopPropagation()}"
+/>
           </div>
           <div>
             ${this.hasSlot('LabelEnd')
@@ -417,7 +421,9 @@ export class WorkShiftIntervalMolecule extends MoleculeAuraElement {
                 @input=${this.handleEndInput}
                 @focus=${() => this.handleFocus('end')}
                 @blur=${this.handleBlur}
-              />
+              
+              @change="${(e: Event) => e.stopPropagation()}"
+/>
               ${overnight ? html`<span class="${this.getIndicatorClasses()}" aria-label="${this.msg.nextDay}">${this.msg.nextDay}</span>` : html``}
             </div>
           </div>

@@ -89,6 +89,7 @@ this.requestUpdate();
 // EVENT HANDLERS
 // ===========================================================================
 private handleInput(e: Event) {
+e.stopPropagation();
 if (this.disabled) return;
 const input = e.target as HTMLInputElement;
 this.query = input.value;
@@ -354,6 +355,8 @@ aria-invalid=${this.error ? 'true' : 'false'}
 @focus=${this.handleFocus}
 @blur=${this.handleBlur}
 @keydown=${this.handleKeyDown}
+
+@change=${(e: Event) => e.stopPropagation()}
 />
 ${showClear ? html`
 <button

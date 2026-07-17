@@ -350,9 +350,11 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  class="h-4 w-4 rounded ml-border ml-primary-text"
  aria-label="${this.msg.selectRow} ${index + 1}"
  .checked=${isSelected}
- @change=${() => this.handleRowSelection(index)}
+ @change=${(e: Event) => { e.stopPropagation(); this.handleRowSelection(index); }}
  ?disabled=${this.disabled}
- />
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </td>
  ` : html``}
  ${cells.map(cell => html`
@@ -535,9 +537,11 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  data-select-all="true"
  class="h-4 w-4 rounded ml-border ml-primary-text"
  aria-label="${this.msg.selectAll}"
- @change=${() => this.handleSelectAll(sortedRows.length)}
+ @change=${(e: Event) => { e.stopPropagation(); this.handleSelectAll(sortedRows.length); }}
  ?disabled=${this.disabled}
- />
+ 
+ @input="${(e: Event) => e.stopPropagation()}"
+/>
  </th>
  ` : html``}
  ${headerCells.map((cell, index) => this.renderHeaderCell(cell, index))}

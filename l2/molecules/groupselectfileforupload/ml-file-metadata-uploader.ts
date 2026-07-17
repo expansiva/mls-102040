@@ -195,6 +195,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
   }
 
   private handleFileInputChange(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.loading) return;
 
     const input = e.target as HTMLInputElement;
@@ -370,7 +371,9 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
         @change="${this.handleFileInputChange}"
         aria-hidden="true"
         tabindex="-1"
-      />
+      
+      @input="${(e: Event) => e.stopPropagation()}"
+/>
     `;
   }
 

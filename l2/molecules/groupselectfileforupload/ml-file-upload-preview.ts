@@ -122,6 +122,7 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
   }
 
   private handleInputChange(e: Event) {
+    e.stopPropagation();
     const input = e.target as HTMLInputElement;
     const files = input.files ? Array.from(input.files) : [];
     this.processFiles(files);
@@ -447,7 +448,9 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
             aria-describedby=${describedBy ?? nothing}
             aria-invalid="${hasError}"
             @change=${this.handleInputChange}
-          />
+          
+          @input="${(e: Event) => e.stopPropagation()}"
+/>
           ${this.renderLoadingIndicator()}
         </div>
 

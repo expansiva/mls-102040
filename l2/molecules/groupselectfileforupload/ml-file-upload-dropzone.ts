@@ -118,6 +118,7 @@ export class MlFileUploadDropzoneMolecule extends MoleculeAuraElement {
   }
 
   private handleInputChange(e: Event) {
+    e.stopPropagation();
     if (this.disabled || this.loading) return;
     const input = e.target as HTMLInputElement;
     const files = Array.from(input.files || []);
@@ -302,7 +303,9 @@ export class MlFileUploadDropzoneMolecule extends MoleculeAuraElement {
             ?multiple=${this.multiple}
             accept=${this.accept}
             @change=${this.handleInputChange}
-          />
+          
+          @input=${(e: Event) => e.stopPropagation()}
+/>
         </div>
 
         ${this.renderFileList()}

@@ -125,6 +125,7 @@ export class MlNumberInputMolecule extends MoleculeAuraElement {
     // EVENT HANDLERS
     // ==========================================================================
     private handleInput(e: Event) {
+        e.stopPropagation();
         if (this.disabled || this.readonly || this.loading) return;
         const input = e.target as HTMLInputElement;
         this.rawValue = input.value;
@@ -361,6 +362,8 @@ aria-required=${this.required ? 'true' : 'false'}
 @input=${this.handleInput}
 @blur=${this.handleBlur}
 @focus=${this.handleFocus}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 ${this.renderSuffix()}
 </div>

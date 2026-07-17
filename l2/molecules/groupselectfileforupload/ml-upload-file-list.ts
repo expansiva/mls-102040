@@ -93,6 +93,7 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
   }
 
   private handleInputChange(event: Event) {
+    event.stopPropagation();
     if (this.disabled || this.loading) return;
     const input = event.target as HTMLInputElement;
     const files = input.files ? Array.from(input.files) : [];
@@ -391,7 +392,9 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
             ?disabled=${this.disabled || this.loading}
             accept=${this.accept}
             @change=${this.handleInputChange}
-          />
+          
+          @input=${(e: Event) => e.stopPropagation()}
+/>
         </div>
 
         ${this.renderHelperOrError(helperId, hasError)}

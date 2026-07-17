@@ -83,6 +83,7 @@ this.rawDisplay = this.getMaskedDisplayValue(this.value, this.mask, this.inputTy
 // EVENT HANDLERS
 // ==========================================================================
 private handleInput(e: Event) {
+e.stopPropagation(); // native input must not leak past the molecule tag; the custom 'input' below is the contract
 if (this.disabled || this.readonly || this.loading || !this.isEditing) return;
 const input = e.target as HTMLInputElement;
 const incomingValue = input.value ?? '';
@@ -306,6 +307,7 @@ aria-describedby=${ifDefined(describedBy)}
 aria-invalid=${this.error ? 'true' : 'false'}
 aria-required=${this.required ? 'true' : 'false'}
 @input=${this.handleInput}
+@change=${(e: Event) => e.stopPropagation()}
 @blur=${this.handleBlur}
 @focus=${this.handleFocus}
 />

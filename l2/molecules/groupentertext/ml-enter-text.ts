@@ -195,6 +195,7 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ===========================================================================
   private handleInput(e: Event) {
+    e.stopPropagation();
     const target = e.target as HTMLInputElement | HTMLTextAreaElement;
     let displayValue = target.value;
     // Apply mask if needed
@@ -318,7 +319,9 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
             @blur="${this.handleBlur}"
             @focus="${this.handleFocus}"
             ...=${commonAttrs}
-          />
+          
+          @change="${(e: Event) => e.stopPropagation()}"
+/>
           ${this.renderSuffix()}
         </div>`;
     }
@@ -334,7 +337,9 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
           @blur="${this.handleBlur}"
           @focus="${this.handleFocus}"
           ...=${commonAttrs}
-        ></textarea>
+        
+          @change="${(e: Event) => e.stopPropagation()}"
+></textarea>
         ${this.renderSuffix()}
         ${this.renderCounter()}
       </div>`;

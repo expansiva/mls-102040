@@ -221,21 +221,25 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
   }
 
   private handleHourChange(e: Event) {
+    e.stopPropagation();
     const value = Number((e.target as HTMLSelectElement).value);
     this.tempHour = value;
   }
 
   private handleMinuteChange(e: Event) {
+    e.stopPropagation();
     const value = Number((e.target as HTMLSelectElement).value);
     this.tempMinute = value;
   }
 
   private handleSecondChange(e: Event) {
+    e.stopPropagation();
     const value = Number((e.target as HTMLSelectElement).value);
     this.tempSecond = value;
   }
 
   private handleAmPmChange(e: Event) {
+    e.stopPropagation();
     const value = (e.target as HTMLSelectElement).value as 'AM' | 'PM';
     this.tempAmPm = value;
   }
@@ -520,20 +524,20 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
         <div class="grid ${this.showSeconds ? 'grid-cols-3' : 'grid-cols-2'} gap-3">
           <div>
             <label class="mb-1 block text-xs ml-text-muted">${this.hour12 ? 'Hour' : 'Hour'}</label>
-            <select class="${this.getSelectClasses()}" @change="${this.handleHourChange}">
+            <select class="${this.getSelectClasses()}" @change="${this.handleHourChange}" @input="${(e: Event) => e.stopPropagation()}">
               ${this.renderHourOptions()}
             </select>
           </div>
           <div>
             <label class="mb-1 block text-xs ml-text-muted">Minute</label>
-            <select class="${this.getSelectClasses()}" @change="${this.handleMinuteChange}">
+            <select class="${this.getSelectClasses()}" @change="${this.handleMinuteChange}" @input="${(e: Event) => e.stopPropagation()}">
               ${this.renderMinuteOptions()}
             </select>
           </div>
           ${this.showSeconds
         ? html`<div>
                 <label class="mb-1 block text-xs ml-text-muted">Second</label>
-                <select class="${this.getSelectClasses()}" @change="${this.handleSecondChange}">
+                <select class="${this.getSelectClasses()}" @change="${this.handleSecondChange}" @input="${(e: Event) => e.stopPropagation()}">
                   ${this.renderSecondOptions()}
                 </select>
               </div>`
@@ -543,7 +547,7 @@ export class MlTimeIntervalSelectorMolecule extends MoleculeAuraElement {
         ${this.hour12
         ? html`<div class="mt-3">
               <label class="mb-1 block text-xs ml-text-muted">AM / PM</label>
-              <select class="${this.getSelectClasses()}" @change="${this.handleAmPmChange}">
+              <select class="${this.getSelectClasses()}" @change="${this.handleAmPmChange}" @input="${(e: Event) => e.stopPropagation()}">
                 <option value="AM" ?selected="${this.tempAmPm === 'AM'}">AM</option>
                 <option value="PM" ?selected="${this.tempAmPm === 'PM'}">PM</option>
               </select>

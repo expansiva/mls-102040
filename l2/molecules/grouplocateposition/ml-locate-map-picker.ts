@@ -205,6 +205,7 @@ return'';
 // EVENT HANDLERS
 // ===========================================================================
 private handleInput(e: Event) {
+e.stopPropagation();
 if (this.isInteractionBlocked()) return;
 const input = e.target as HTMLInputElement;
 this.searchQuery = input.value;
@@ -433,6 +434,8 @@ aria-describedby="${hasError ? `${this.uid}-error` :''}"
 @input=${this.handleInput}
 @focus=${this.handleFocus}
 @blur=${this.handleBlur}
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 ${this.allowGeolocation ? html`
 <button

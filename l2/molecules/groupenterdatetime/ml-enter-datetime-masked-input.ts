@@ -134,6 +134,7 @@ export class EnterDatetimeMaskedInputMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ==========================================================================
   private handleInput(event: Event) {
+    event.stopPropagation();
     if (this.disabled || this.readonly || this.loading) return;
     const input = event.target as HTMLInputElement;
     this.inputValue = this.applyMask(input.value);
@@ -198,7 +199,9 @@ export class EnterDatetimeMaskedInputMolecule extends MoleculeAuraElement {
             @focus=${this.handleFocus}
             @blur=${this.handleBlur}
             @keydown=${this.handleKeydown}
-          />
+          
+          @change=${(e: Event) => e.stopPropagation()}
+/>
           <div class="absolute right-3 top-1/2 -translate-y-1/2">
             ${this.loading ? this.renderLoading() : this.renderIcon()}
           </div>

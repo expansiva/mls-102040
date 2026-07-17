@@ -135,6 +135,7 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
   // EVENT HANDLERS
   // ===========================================================================
   private handleInput(e: Event) {
+    e.stopPropagation();
     const target = e.target as HTMLInputElement | HTMLTextAreaElement;
     
     if (this.isMultiLine) {
@@ -388,7 +389,9 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
         @keydown=${this.handleKeyDown}
         @focus=${this.handleFocus}
         @blur=${this.handleBlur}
-      />
+      
+      @change="${(e: Event) => e.stopPropagation()}"
+/>
     `;
   }
 
@@ -410,7 +413,9 @@ export class MlTagInputMolecule extends MoleculeAuraElement {
         @input=${this.handleInput}
         @focus=${this.handleFocus}
         @blur=${this.handleBlur}
-      ></textarea>
+      
+        @change="${(e: Event) => e.stopPropagation()}"
+></textarea>
       ${this.maxLength !== null ? html`
         <div class="text-xs ml-text-muted text-right mt-1" aria-live="polite">
           ${currentLength} / ${this.maxLength}

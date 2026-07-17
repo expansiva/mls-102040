@@ -135,6 +135,7 @@ export class EnterTimeDurationMolecule extends MoleculeAuraElement {
   }
 
   private handleInput(e: Event) {
+    e.stopPropagation();
     if (!this.isEditing || this.disabled || this.readonly) return;
     const input = e.target as HTMLInputElement;
     this.rawValue = input.value;
@@ -350,7 +351,9 @@ export class EnterTimeDurationMolecule extends MoleculeAuraElement {
           @focus=${this.handleFocus}
           @blur=${this.handleBlur}
           @keydown=${this.handleKeyDown}
-        />
+        
+        @change=${(e: Event) => e.stopPropagation()}
+/>
         ${this.renderFeedback(helperId)}
       </div>
     `;

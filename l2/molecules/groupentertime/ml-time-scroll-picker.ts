@@ -344,6 +344,10 @@ aria-required="${this.required ? 'true' : 'false'}"
 @focus=${this.handleFocus}
 @blur=${this.handleBlur}
 @click=${this.handleToggleOpen}
+
+@input="${(e: Event) => e.stopPropagation()}"
+
+@change="${(e: Event) => e.stopPropagation()}"
 />
 <button
 class="${this.getIconButtonClasses()}"
