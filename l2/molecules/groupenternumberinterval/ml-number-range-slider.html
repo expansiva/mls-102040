@@ -1,0 +1,467 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+<div class="mx-auto p-8 font-sans">
+<header class="text-center mb-12">
+<h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Number Range Slider</h1>
+<span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">enter + number-interval</span>
+</header>
+<aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"startValue":100,"endValue":500,"error":"","min":0,"max":1000,"step":50,"locale":"pt-BR","isEditing":true},"decimalsGap":{"startValue":10,"endValue":40,"error":"","min":0,"max":100,"step":0.5,"decimals":1,"minGap":5,"locale":"pt-BR","isEditing":true},"error":{"startValue":20,"endValue":80,"error":"Intervalo inválido para este filtro","min":0,"max":100,"step":1,"required":true,"isEditing":true},"disabled":{"startValue":25,"endValue":75,"error":"","min":0,"max":100,"disabled":true,"isEditing":true},"viewMode":{"startValue":1500,"endValue":4500,"min":0,"max":10000,"decimals":0,"locale":"en-US","isEditing":false},"loading":{"startValue":10,"endValue":90,"min":0,"max":100,"loading":true,"isEditing":true},"percentage":{"startValue":20,"endValue":60,"error":"","min":0,"max":100,"step":5,"minGap":10,"maxGap":50,"required":true,"name":"discountRange","placeholder":"Selecione a faixa de desconto","isEditing":true},"readonly":{"startValue":30,"endValue":70,"error":"","min":0,"max":100,"step":1,"readonly":true,"isEditing":true}}}'>
+</aura--molecules--playground--widget-playground-state-102020>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic — price band</h3>
+<demo id="demo-basic">
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.basic.startValue}}"
+end-value="{{playground.basic.endValue}}"
+error="{{playground.basic.error}}"
+min="{{playground.basic.min}}"
+max="{{playground.basic.max}}"
+step="{{playground.basic.step}}"
+locale="{{playground.basic.locale}}"
+is-editing="{{playground.basic.isEditing}}">
+<Label>Faixa de preço</Label>
+<LabelStart>De</LabelStart>
+<LabelEnd>Até</LabelEnd>
+<Prefix>R$</Prefix>
+<Helper>Arraste os controles para definir o intervalo</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<aura--molecules--playground--widget-playground-state-number-102020 label="startValue" value="{{playground.basic.startValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="endValue" value="{{playground.basic.endValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.basic.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.basic.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.basic.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="locale" value="{{playground.basic.locale}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.basic.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
+<template>
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.basic.startValue}}"
+end-value="{{playground.basic.endValue}}"
+error="{{playground.basic.error}}"
+min="{{playground.basic.min}}"
+max="{{playground.basic.max}}"
+step="{{playground.basic.step}}"
+locale="{{playground.basic.locale}}"
+is-editing="{{playground.basic.isEditing}}">
+<Label>Faixa de preço</Label>
+<LabelStart>De</LabelStart>
+<LabelEnd>Até</LabelEnd>
+<Prefix>R$</Prefix>
+<Helper>Arraste os controles para definir o intervalo</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</template>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Decimals + min gap</h3>
+<demo id="demo-decimals-gap">
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.decimalsGap.startValue}}"
+end-value="{{playground.decimalsGap.endValue}}"
+error="{{playground.decimalsGap.error}}"
+min="{{playground.decimalsGap.min}}"
+max="{{playground.decimalsGap.max}}"
+step="{{playground.decimalsGap.step}}"
+decimals="{{playground.decimalsGap.decimals}}"
+min-gap="{{playground.decimalsGap.minGap}}"
+locale="{{playground.decimalsGap.locale}}"
+is-editing="{{playground.decimalsGap.isEditing}}">
+<Label>Faixa de peso</Label>
+<LabelStart>Mínimo</LabelStart>
+<LabelEnd>Máximo</LabelEnd>
+<Suffix>kg</Suffix>
+<Helper>Diferença mínima de 5 kg entre os limites</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<aura--molecules--playground--widget-playground-state-number-102020 label="startValue" value="{{playground.decimalsGap.startValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="endValue" value="{{playground.decimalsGap.endValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.decimalsGap.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.decimalsGap.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.decimalsGap.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.decimalsGap.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="decimals" value="{{playground.decimalsGap.decimals}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="minGap" value="{{playground.decimalsGap.minGap}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="locale" value="{{playground.decimalsGap.locale}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.decimalsGap.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-decimals-gap">
+<template>
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.decimalsGap.startValue}}"
+end-value="{{playground.decimalsGap.endValue}}"
+error="{{playground.decimalsGap.error}}"
+min="{{playground.decimalsGap.min}}"
+max="{{playground.decimalsGap.max}}"
+step="{{playground.decimalsGap.step}}"
+decimals="{{playground.decimalsGap.decimals}}"
+min-gap="{{playground.decimalsGap.minGap}}"
+locale="{{playground.decimalsGap.locale}}"
+is-editing="{{playground.decimalsGap.isEditing}}">
+<Label>Faixa de peso</Label>
+<LabelStart>Mínimo</LabelStart>
+<LabelEnd>Máximo</LabelEnd>
+<Suffix>kg</Suffix>
+<Helper>Diferença mínima de 5 kg entre os limites</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</template>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Error state</h3>
+<demo id="demo-error">
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.error.startValue}}"
+end-value="{{playground.error.endValue}}"
+error="{{playground.error.error}}"
+min="{{playground.error.min}}"
+max="{{playground.error.max}}"
+step="{{playground.error.step}}"
+required="{{playground.error.required}}"
+is-editing="{{playground.error.isEditing}}">
+<Label>Faixa de idade</Label>
+<LabelStart>De</LabelStart>
+<LabelEnd>Até</LabelEnd>
+<Suffix>anos</Suffix>
+</groupenternumberinterval--ml-number-range-slider>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<aura--molecules--playground--widget-playground-state-number-102020 label="startValue" value="{{playground.error.startValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="endValue" value="{{playground.error.endValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.error.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.error.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.error.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.error.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.error.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-error">
+<template>
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.error.startValue}}"
+end-value="{{playground.error.endValue}}"
+error="{{playground.error.error}}"
+min="{{playground.error.min}}"
+max="{{playground.error.max}}"
+step="{{playground.error.step}}"
+required="{{playground.error.required}}"
+is-editing="{{playground.error.isEditing}}">
+<Label>Faixa de idade</Label>
+<LabelStart>De</LabelStart>
+<LabelEnd>Até</LabelEnd>
+<Suffix>anos</Suffix>
+</groupenternumberinterval--ml-number-range-slider>
+</template>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Disabled</h3>
+<demo id="demo-disabled">
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.disabled.startValue}}"
+end-value="{{playground.disabled.endValue}}"
+error="{{playground.disabled.error}}"
+min="{{playground.disabled.min}}"
+max="{{playground.disabled.max}}"
+disabled="{{playground.disabled.disabled}}"
+is-editing="{{playground.disabled.isEditing}}">
+<Label>Capacidade (bloqueada)</Label>
+<LabelStart>Mín</LabelStart>
+<LabelEnd>Máx</LabelEnd>
+<Suffix>%</Suffix>
+<Helper>Campo desabilitado pelo sistema</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<aura--molecules--playground--widget-playground-state-number-102020 label="startValue" value="{{playground.disabled.startValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="endValue" value="{{playground.disabled.endValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.disabled.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.disabled.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.disabled.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
+<template>
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.disabled.startValue}}"
+end-value="{{playground.disabled.endValue}}"
+error="{{playground.disabled.error}}"
+min="{{playground.disabled.min}}"
+max="{{playground.disabled.max}}"
+disabled="{{playground.disabled.disabled}}"
+is-editing="{{playground.disabled.isEditing}}">
+<Label>Capacidade (bloqueada)</Label>
+<LabelStart>Mín</LabelStart>
+<LabelEnd>Máx</LabelEnd>
+<Suffix>%</Suffix>
+<Helper>Campo desabilitado pelo sistema</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</template>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">View mode (read-only text)</h3>
+<demo id="demo-view-mode">
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.viewMode.startValue}}"
+end-value="{{playground.viewMode.endValue}}"
+min="{{playground.viewMode.min}}"
+max="{{playground.viewMode.max}}"
+decimals="{{playground.viewMode.decimals}}"
+locale="{{playground.viewMode.locale}}"
+is-editing="{{playground.viewMode.isEditing}}">
+<Label>Salary range</Label>
+<Prefix>$</Prefix>
+</groupenternumberinterval--ml-number-range-slider>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<aura--molecules--playground--widget-playground-state-number-102020 label="startValue" value="{{playground.viewMode.startValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="endValue" value="{{playground.viewMode.endValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.viewMode.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.viewMode.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="decimals" value="{{playground.viewMode.decimals}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="locale" value="{{playground.viewMode.locale}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.viewMode.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-view-mode">
+<template>
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.viewMode.startValue}}"
+end-value="{{playground.viewMode.endValue}}"
+min="{{playground.viewMode.min}}"
+max="{{playground.viewMode.max}}"
+decimals="{{playground.viewMode.decimals}}"
+locale="{{playground.viewMode.locale}}"
+is-editing="{{playground.viewMode.isEditing}}">
+<Label>Salary range</Label>
+<Prefix>$</Prefix>
+</groupenternumberinterval--ml-number-range-slider>
+</template>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading</h3>
+<demo id="demo-loading">
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.loading.startValue}}"
+end-value="{{playground.loading.endValue}}"
+min="{{playground.loading.min}}"
+max="{{playground.loading.max}}"
+loading="{{playground.loading.loading}}"
+is-editing="{{playground.loading.isEditing}}">
+<Label>Carregando intervalo</Label>
+</groupenternumberinterval--ml-number-range-slider>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<aura--molecules--playground--widget-playground-state-number-102020 label="startValue" value="{{playground.loading.startValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="endValue" value="{{playground.loading.endValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.loading.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.loading.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.loading.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
+<template>
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.loading.startValue}}"
+end-value="{{playground.loading.endValue}}"
+min="{{playground.loading.min}}"
+max="{{playground.loading.max}}"
+loading="{{playground.loading.loading}}"
+is-editing="{{playground.loading.isEditing}}">
+<Label>Carregando intervalo</Label>
+</groupenternumberinterval--ml-number-range-slider>
+</template>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Percentage — min/max gap</h3>
+<demo id="demo-percentage">
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.percentage.startValue}}"
+end-value="{{playground.percentage.endValue}}"
+error="{{playground.percentage.error}}"
+min="{{playground.percentage.min}}"
+max="{{playground.percentage.max}}"
+step="{{playground.percentage.step}}"
+min-gap="{{playground.percentage.minGap}}"
+max-gap="{{playground.percentage.maxGap}}"
+required="{{playground.percentage.required}}"
+name="{{playground.percentage.name}}"
+placeholder="{{playground.percentage.placeholder}}"
+is-editing="{{playground.percentage.isEditing}}">
+<Label>Faixa de desconto</Label>
+<LabelStart>De</LabelStart>
+<LabelEnd>Até</LabelEnd>
+<Suffix>%</Suffix>
+<Helper>Gap mínimo 10% e máximo 50% entre os valores</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<aura--molecules--playground--widget-playground-state-number-102020 label="startValue" value="{{playground.percentage.startValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="endValue" value="{{playground.percentage.endValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.percentage.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.percentage.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.percentage.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.percentage.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="minGap" value="{{playground.percentage.minGap}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="maxGap" value="{{playground.percentage.maxGap}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="required" value="{{playground.percentage.required}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="name" value="{{playground.percentage.name}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="placeholder" value="{{playground.percentage.placeholder}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.percentage.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-percentage">
+<template>
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.percentage.startValue}}"
+end-value="{{playground.percentage.endValue}}"
+error="{{playground.percentage.error}}"
+min="{{playground.percentage.min}}"
+max="{{playground.percentage.max}}"
+step="{{playground.percentage.step}}"
+min-gap="{{playground.percentage.minGap}}"
+max-gap="{{playground.percentage.maxGap}}"
+required="{{playground.percentage.required}}"
+name="{{playground.percentage.name}}"
+placeholder="{{playground.percentage.placeholder}}"
+is-editing="{{playground.percentage.isEditing}}">
+<Label>Faixa de desconto</Label>
+<LabelStart>De</LabelStart>
+<LabelEnd>Até</LabelEnd>
+<Suffix>%</Suffix>
+<Helper>Gap mínimo 10% e máximo 50% entre os valores</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</template>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+<article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+<h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Readonly (focusable)</h3>
+<demo id="demo-readonly">
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.readonly.startValue}}"
+end-value="{{playground.readonly.endValue}}"
+error="{{playground.readonly.error}}"
+min="{{playground.readonly.min}}"
+max="{{playground.readonly.max}}"
+step="{{playground.readonly.step}}"
+readonly="{{playground.readonly.readonly}}"
+is-editing="{{playground.readonly.isEditing}}">
+<Label>Temperatura operacional</Label>
+<LabelStart>Mín</LabelStart>
+<LabelEnd>Máx</LabelEnd>
+<Suffix>°C</Suffix>
+<Helper>Somente leitura — valor definido pelo equipamento</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</demo>
+<details class="mt-4">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+<div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+<aura--molecules--playground--widget-playground-state-number-102020 label="startValue" value="{{playground.readonly.startValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="endValue" value="{{playground.readonly.endValue}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.readonly.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="min" value="{{playground.readonly.min}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="max" value="{{playground.readonly.max}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-number-102020 label="step" value="{{playground.readonly.step}}"></aura--molecules--playground--widget-playground-state-number-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="readonly" value="{{playground.readonly.readonly}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+<aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.readonly.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+</div>
+</details>
+<details class="mt-2">
+<summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+<div class="mt-2">
+<aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-readonly">
+<template>
+<groupenternumberinterval--ml-number-range-slider
+start-value="{{playground.readonly.startValue}}"
+end-value="{{playground.readonly.endValue}}"
+error="{{playground.readonly.error}}"
+min="{{playground.readonly.min}}"
+max="{{playground.readonly.max}}"
+step="{{playground.readonly.step}}"
+readonly="{{playground.readonly.readonly}}"
+is-editing="{{playground.readonly.isEditing}}">
+<Label>Temperatura operacional</Label>
+<LabelStart>Mín</LabelStart>
+<LabelEnd>Máx</LabelEnd>
+<Suffix>°C</Suffix>
+<Helper>Somente leitura — valor definido pelo equipamento</Helper>
+</groupenternumberinterval--ml-number-range-slider>
+</template>
+</aura--molecules--playground--widget-playground-state-preview-code-102020>
+</div>
+</details>
+</article>
+
+</section>
+</div>
+</div>
