@@ -1,0 +1,120 @@
+/// <mls fileReference="_102040_/l2/molecules/groupenternumberinterval/ml-number-interval-inputs.less" enhancement="_102020_/l2/enhancementStyleAura"/>
+
+groupenternumberinterval--ml-number-interval-inputs {
+	display: block;
+	font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+
+	// -----------------------------------------------------------------------
+	// Shared semantic classes
+	// -----------------------------------------------------------------------
+	.ml-label {
+		font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+		font-weight: var(--ml-font-weight-medium, 500);
+		color: var(--ml-on-surface, #1c1b1f);
+	}
+
+	.ml-helper {
+		font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+		color: var(--ml-on-surface-muted, #49454f);
+	}
+
+	.ml-error-text {
+		font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+		color: var(--ml-error, #ef4444);
+	}
+
+	.ml-text {
+		font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+		color: var(--ml-on-surface, #1c1b1f);
+	}
+
+	.ml-text-muted {
+		color: var(--ml-on-surface-muted, #49454f);
+	}
+
+	.ml-disabled {
+		opacity: var(--ml-disabled-opacity, 0.5);
+		cursor: not-allowed;
+		pointer-events: none;
+	}
+
+	// -----------------------------------------------------------------------
+	// Interval field container (start / end)
+	// -----------------------------------------------------------------------
+	.ml-interval-input {
+		background: var(--ml-surface, #ffffff);
+		border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+		border-radius: var(--ml-radius-sm, 6px);
+		transition: border-color var(--ml-transition, 200ms ease), box-shadow var(--ml-transition, 200ms ease);
+
+		&:focus-within {
+			border-color: var(--ml-outline-focus, #3b82f6);
+			box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+		}
+	}
+
+	.ml-interval-input-active {
+		border-color: var(--ml-outline-focus, #3b82f6);
+	}
+
+	.ml-interval-input-error {
+		border-color: var(--ml-outline-error, #ef4444) !important;
+
+		&:focus-within {
+			border-color: var(--ml-outline-error, #ef4444);
+			box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+		}
+	}
+
+	.ml-interval-input-readonly {
+		background: var(--ml-surface-dim, #f5f5f5);
+	}
+
+	// -----------------------------------------------------------------------
+	// Native input inside the field container
+	// -----------------------------------------------------------------------
+	.ml-interval-native-input {
+		font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+		color: var(--ml-on-surface, #1c1b1f);
+		caret-color: var(--ml-primary, #3b82f6);
+
+		&::placeholder {
+			color: var(--ml-on-surface-faint, #79747e);
+		}
+
+		&:disabled {
+			cursor: not-allowed;
+		}
+	}
+
+	// -----------------------------------------------------------------------
+	// Connector between the two inputs
+	// -----------------------------------------------------------------------
+	.ml-interval-connector {
+		font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+		color: var(--ml-on-surface-muted, #49454f);
+		user-select: none;
+	}
+
+	// -----------------------------------------------------------------------
+	// View mode
+	// -----------------------------------------------------------------------
+	.ml-interval-view {
+		font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+		color: var(--ml-on-surface, #1c1b1f);
+	}
+
+	// -----------------------------------------------------------------------
+	// Loading state
+	// -----------------------------------------------------------------------
+	.ml-skeleton {
+		background: var(--ml-surface-dim, #f5f5f5);
+		border-radius: var(--ml-radius-sm, 6px);
+	}
+
+	.ml-spinner {
+		border: var(--ml-focus-ring-width, 2px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+		border-top-color: var(--ml-primary, #3b82f6);
+	}
+}
+
