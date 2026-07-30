@@ -1,0 +1,22 @@
+{
+  "//": "Grupos de molécula cuja skill de `usage` a rodada desta suíte recebe. Um arquivo por suíte.",
+  "//why": "O usage é escrito POR GRUPO (todas as variantes de um grupo compartilham o mesmo contrato de slot/prop/evento), então a lista é de grupos, não de moléculas. O harness junta essas skills num único documento por rodada.",
+  "//check": "O harness compara esta lista com as TagNames que o template atribui e avisa quando divergem — acrescentar molécula no template sem acrescentar o grupo aqui deixaria a rodada sem o contrato dela.",
+  "//generous": "Prefira incluir de sobra: mandar um usage que a fixture não exercita custa alguns milhares de tokens; omitir um que ela precisa custa a rodada inteira.",
+
+  "groups": [
+    "groupViewTable",
+    "groupTriggerAction",
+    "groupNotifyUser",
+    "groupEnterText",
+    "groupSearchContent",
+    "groupEnterNumber",
+    "groupEnterBoolean",
+    "groupSelectOne",
+    "groupSelectMany",
+    "groupEnterMoney",
+    "groupEnterDate",
+    "groupEnterNumberInterval",
+    "groupEnterDateInterval"
+  ]
+}
