@@ -150,9 +150,13 @@ export class NotifyBannerMolecule extends MoleculeAuraElement {
 
  private getContainerClasses(): string {
  const baseClasses = [
-'w-full max-w-xl flex items-start gap-3 rounded-lg border px-4 py-3 shadow-sm transition',
+'w-full flex items-start gap-3 rounded-lg border px-4 py-3 shadow-sm transition',
 'text-sm',
- this.position ?'' :'relative',
+ // O teto de largura serve ao banner FLUTUANTE, para ele não atravessar a tela. No fluxo ele
+ // só deixa espaço morto ao lado: um aviso de sistema em fluxo acompanha a largura do
+ // container. Não dava para o consumidor corrigir por data-class — Tailwind resolve por ordem
+ // no CSS, e `max-w-xl` sai depois de qualquer `max-w-*` que ele passasse.
+ this.position ?'max-w-xl' :'relative',
  ];
 
  const typeClasses = this.getTypeClasses();

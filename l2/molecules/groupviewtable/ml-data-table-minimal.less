@@ -2,6 +2,28 @@
 
 groupviewtable--ml-data-table-minimal {
 
+  /* Custom element é `display: inline` por padrão. Sem altura definida no HOST, o `h-full` do
+     container interno resolve percentual contra caixa `auto` e a contenção não acontece — a tabela
+     cresce com as linhas e empurra a paginação para fora da vista.
+     Só com `fit-height` ligado: sem a prop, nada muda para quem já usa a molécula. */
+  /* Os dois seletores de propósito: `.ml-fit-height` é espelhada pelo TS e cobre quem passa a prop
+     (`.fitHeight=${...}`); `[fit-height]` cobre quem escreve o atributo direto no HTML, inclusive
+     antes de a molécula atualizar pela primeira vez. Mesma especificidade, mesma declaração. */
+  &[fit-height],
+  &.ml-fit-height {
+    display: flex;
+    flex-direction: column;
+    /* obrigatório: sem isto o host se recusa a encolher abaixo do conteúdo dentro de um pai flex,
+       e a área rolável nunca fica menor que a tabela */
+    min-height: 0;
+    /* A prop promete "assumo a altura que me derem", então o host reivindica esse espaço sozinho —
+       o consumidor não precisa saber que classe pôr na tag. As duas declarações cobrem os dois
+       modelos de layout e não competem: em pai flex-column a base flex manda no eixo principal e o
+       `height` é ignorado; em pai bloco com altura definida, o `height` é o que funciona. */
+    flex: 1 1 0%;
+    height: 100%;
+  }
+
   .ml-text {
     color: var(--ml-on-surface, #1c1b1f);
     font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);

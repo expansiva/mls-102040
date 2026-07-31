@@ -27,6 +27,7 @@ Fornecer uma tabela de dados minimalista com ordenação, seleção opcional, es
 - Propagar o estado de edição para conteúdos dentro de células conforme o contrato.
 - Exibir mensagem de erro abaixo da tabela quando houver erro informado.
 - Renderizar o conteúdo fornecido pelos slots TableHead, TableCell, Empty e Loading conforme fornecido pelo usuário.
+- Quando fit-height estiver ativo, assumir a altura do contêiner em vez de crescer com as linhas: apenas o corpo rola, o cabeçalho de coluna permanece fixo no topo da área rolável e a paginação permanece visível no rodapé, sem depender de rolagem.
 
 # Constraints
 - Quando loading estiver ativo, o conteúdo da tabela não deve ser exibido.
@@ -35,6 +36,7 @@ Fornecer uma tabela de dados minimalista com ordenação, seleção opcional, es
 - Quando disabled estiver ativo, deve bloquear ordenação, seleção e paginação, mantendo o estado visual de desabilitado.
 - O valor de seleção deve refletir os índices das linhas selecionadas no formato esperado pelo contrato.
 - O estado de seleção não deve interferir no disparo do evento de clique em linha fora do controle de seleção.
+- fit-height é opt-in: desligado, a altura continua sendo a do conteúdo, como no comportamento anterior. Ligado, exige que o contêiner tenha altura definida — dentro de um pai que cresça pelo conteúdo, não há altura para assumir e o efeito não aparece.
 
 # Notes
 - O suporte a dark mode deve cobrir todos os estados visuais e de feedback (normal, selecionado, vazio, carregando, erro e desabilitado).`;

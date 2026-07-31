@@ -36,6 +36,11 @@ export class MlAlertModalMolecule extends MoleculeAuraElement {
  // =========================================================================
  slotTags = ['Title','Message','Action','Icon'];
 
+ // O slot Action carrega CONTROLES do consumidor (cancelar/confirmar), não conteúdo
+ // decorativo — então precisa de nó vivo, com handler e componente preservados. Title,
+ // Message e Icon continuam vindo pelo caminho de snapshot: são conteúdo.
+ protected usesLiveSlots = true;
+
  // =========================================================================
  // PROPERTIES — From Contract
  // =========================================================================
@@ -252,9 +257,16 @@ export class MlAlertModalMolecule extends MoleculeAuraElement {
 
  private renderActions(): TemplateResult {
  if (!this.hasSlot('Action')) return html``;
+ // Slot VIVO: o conteúdo é movido para a âncora, não serializado. É o que permite o
+ // consumidor pôr botões de verdade aqui — com os handlers dele e como componentes —
+ // que é o caso de uso de um modal de confirmação: cancelar e confirmar são ações do
+ // consumidor, e a molécula não tem como saber o que cada uma faz.
+ //
+ // O `action` do wrapper continua sendo emitido, para quem só quer saber que houve
+ // clique na área de ações; mas ele não é mais a única saída.
  return html`
  <div class="${cn('mt-6 flex items-center justify-end gap-3', this.getSlotClass('Action'))}" @click=${this.handleActionClick}>
- ${unsafeHTML(this.getSlotContent('Action'))}
+ ${this.renderLiveSlot('Action')}
  </div>
  `;
  }

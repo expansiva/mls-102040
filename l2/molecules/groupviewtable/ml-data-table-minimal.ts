@@ -43,6 +43,17 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  // ===========================================================================
  slotTags = ['Caption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
 
+ // Esta molécula TRANSFORMA os slots: lê TableBody > TableRow > TableCell, ordena, pagina e
+ // re-emite <tr>/<td> de verdade. No caminho antigo o conteúdo de célula passava por DUAS
+ // serializações (outerHTML para o snapshot, innerHTML para o unsafeHTML), o que matava handler
+ // e binding — então botão de ação por linha, o padrão mais comum de grid, era HTML morto.
+ //
+ // Com slot vivo o conteúdo é MOVIDO para a célula renderizada. Consequência importante: a
+ // estrutura passa a ser lida do DOM VIVO (getLiveSlot), não do snapshot, porque uma célula já
+ // projetada está vazia e um re-snapshot — disparado por qualquer inclusão/remoção de linha —
+ // leria vazio.
+ protected usesLiveSlots = true;
+
  // ===========================================================================
  // PROPERTIES — From Contract
  // ===========================================================================
@@ -73,6 +84,22 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  @propertyDataSource({ type: Boolean })
  loading = false;
 
+ /**
+  * Faz a tabela caber na altura que o pai der, em vez de crescer com as linhas.
+  *
+  * Desligada (padrão), a molécula ocupa a altura do próprio conteúdo — comportamento de sempre,
+  * bom para tabela curta dentro de página que rola.
+  *
+  * Ligada, a molécula assume a altura do contêiner: só o CORPO rola, o cabeçalho de coluna fica
+  * fixo no topo e a paginação fica presa no rodapé, sempre visível. É o que uma tabela precisa
+  * quando vive dentro de uma viewport limitada (split view, painel lateral) — sem isso a paginação
+  * é empurrada para fora da vista pelas linhas.
+  *
+  * Opt-in de propósito: ligar por padrão mudaria o layout de todo consumidor existente.
+  */
+ @propertyDataSource({ type: Boolean, attribute:'fit-height' })
+ fitHeight = false;
+
  // ===========================================================================
  // INTERNAL STATE
  // ===========================================================================
@@ -81,6 +108,34 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
 
  @state()
  private sortDirection:'asc' |'desc' ='asc';
+
+ // ===========================================================================
+ // LAYOUT (fit-height)
+ // ===========================================================================
+ /**
+  * Container: divide a altura do host em corpo rolante + rodapé fixo.
+  *
+  * `flex-1` e não `h-full`: o host recebe `display:flex; flex-direction:column` do `.less` quando
+  * `fit-height` está ligado, então o container cresce pelo eixo flex. Percentual (`h-full`) só
+  * funcionaria se o host tivesse altura definida — e custom element é `inline` por padrão, sem
+  * altura, o que fazia a contenção falhar em silêncio.
+  *
+  * `min-h-0` é obrigatório nos dois níveis: sem ele o filho flex se recusa a encolher abaixo do
+  * conteúdo e a área rolável nunca fica menor que a tabela.
+  */
+ private get fitHeightClasses(): string {
+ return this.fitHeight ?'flex min-h-0 flex-1 flex-col' :'';
+ }
+
+ /** Só o corpo rola. Fora do fit-height, string vazia = comportamento anterior intacto. */
+ private get scrollerClasses(): string {
+ return this.fitHeight ?'min-h-0 flex-1 overflow-y-auto' :'';
+ }
+
+ /** Cabeçalho fixo só faz sentido quando existe um scroller para ele grudar. */
+ private get theadClasses(): string {
+ return this.fitHeight ?'ml-surface-dim-bg sticky top-0 z-10' :'ml-surface-dim-bg';
+ }
 
  // ===========================================================================
  // LIFECYCLE
@@ -93,27 +148,36 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  if (changedProps.has('isEditing')) {
  this.propagateIsEditing();
  }
+ // O efeito de `fit-height` é metade em TS (as classes do container) e metade em CSS (a altura do
+ // HOST, no .less). Se a metade de CSS casar por atributo, quem escreve `.fitHeight=${true}` —
+ // property binding, que NÃO escreve atributo — liga só metade: o host continua `inline`, sem
+ // altura, o container não tem contra o que encolher, e a tabela fica sem scroll em silêncio.
+ // Espelhar numa classe aqui faz as duas grafias funcionarem. Classe e não atributo de propósito:
+ // o atributo é observado, e escrevê-lo daqui realimentaria o setter da própria prop.
+ this.classList.toggle('ml-fit-height', this.fitHeight);
  this.syncSelectAllState();
  }
 
  // ===========================================================================
  // HELPERS
  // ===========================================================================
+ // Estrutura vem do DOM VIVO: é sempre atual (o snapshot só se atualiza no debounce do
+ // observer) e sobrevive à projeção — mover filhos de célula não remove linha nem célula.
  private getHeaderCells(): HTMLElement[] {
- const header = this.getSlot('TableHeader');
+ const header = this.getLiveSlot('TableHeader');
  const row = header?.querySelector('TableRow');
  if (!row) return [];
  return Array.from(row.querySelectorAll('TableHead')) as HTMLElement[];
  }
 
  private getBodyRows(): HTMLElement[] {
- const body = this.getSlot('TableBody');
+ const body = this.getLiveSlot('TableBody');
  if (!body) return [];
  return Array.from(body.querySelectorAll('TableRow')) as HTMLElement[];
  }
 
  private getFooterRows(): HTMLElement[] {
- const footer = this.getSlot('TableFooter');
+ const footer = this.getLiveSlot('TableFooter');
  if (!footer) return [];
  return Array.from(footer.querySelectorAll('TableRow')) as HTMLElement[];
  }
@@ -126,8 +190,10 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  return [...rows].sort((a, b) => {
  const aCell = a.querySelectorAll('TableCell')[columnIndex] as HTMLElement | undefined;
  const bCell = b.querySelectorAll('TableCell')[columnIndex] as HTMLElement | undefined;
- const aText = (aCell?.textContent ||'').trim();
- const bText = (bCell?.textContent ||'').trim();
+ // getLiveText e não textContent: a célula já projetada está vazia (os filhos foram movidos
+ // para a âncora), e ler direto dela ordenaria por string vazia.
+ const aText = this.getLiveText(aCell);
+ const bText = this.getLiveText(bCell);
  const result = aText.localeCompare(bText, undefined, { numeric: true, sensitivity:'base' });
  return direction ==='asc' ? result : -result;
  });
@@ -275,7 +341,11 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  private handlePageChange(nextPage: number) {
  if (this.disabled) return;
  this.page = nextPage;
- this.dispatchEvent(new CustomEvent('page-change', {
+ // 'pageChange' (camelCase) é o nome do CONTRATO — skills creation.ts e usage.ts do
+ // GroupViewTable documentam assim, e é o padrão dos outros eventos desta molécula
+ // ('rowClick'). Estava disparando 'page-change', que nenhum consumidor escuta: clique na
+ // paginação atualizava só o estado interno e o pai nunca era avisado para trocar os dados.
+ this.dispatchEvent(new CustomEvent('pageChange', {
  bubbles: true,
  composed: true,
  detail: { page: nextPage }
@@ -287,7 +357,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  // ===========================================================================
  private renderCaption(): TemplateResult {
  if (!this.hasSlot('Caption')) return html``;
- return html`<caption class="${cn('text-left px-3 py-2 text-sm ml-text-muted', this.getSlotClass('Caption'))}">${unsafeHTML(this.getSlotContent('Caption'))}</caption>`;
+ return html`<caption class="${cn('text-left px-3 py-2 text-sm ml-text-muted', this.getSlotClass('Caption'))}">${this.renderLiveSlot('Caption')}</caption>`;
  }
 
  private renderHeaderCell(cell: HTMLElement, index: number): TemplateResult {
@@ -317,7 +387,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  @keydown=${(e: KeyboardEvent) => this.handleSortKeydown(e, key, sortable)}
  ?disabled=${this.disabled || !sortable}
  >
- <span>${unsafeHTML(cell.innerHTML)}</span>
+ <span>${this.renderLiveSlotFrom(cell)}</span>
  ${sortable ? html`<span class="${iconClasses}">${icon}</span>` : html``}
  </button>
  </th>
@@ -358,8 +428,8 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  </td>
  ` : html``}
  ${cells.map(cell => html`
- <td role="cell" class="px-3 py-2 text-sm">
- ${unsafeHTML(cell.innerHTML)}
+ <td role="cell" class="${cn('px-3 py-2 text-sm', cell.getAttribute('data-class') ||'')}">
+ ${this.renderLiveSlotFrom(cell)}
  </td>
  `)}
  </tr>
@@ -378,7 +448,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  ${this.selectable ? html`<td role="cell" class="px-3 py-2"></td>` : html``}
  ${cells.map(cell => html`
  <td role="cell" class="px-3 py-2 text-sm ml-text">
- ${unsafeHTML(cell.innerHTML)}
+ ${this.renderLiveSlotFrom(cell)}
  </td>
  `)}
  </tr>
@@ -445,7 +515,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
 
  private renderLoading(columnCount: number): TemplateResult {
  if (this.hasSlot('Loading')) {
- return html`<div class="w-full text-sm ml-text-muted">${unsafeHTML(this.getSlotContent('Loading'))}</div>`;
+ return html`<div class="w-full text-sm ml-text-muted">${this.renderLiveSlot('Loading')}</div>`;
  }
  const cols = Math.max(columnCount + (this.selectable ? 1 : 0), 3);
  const rows = 3;
@@ -470,12 +540,15 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  }
 
  private renderEmpty(headerCells: HTMLElement[]): TemplateResult {
- const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
+ // Slot vivo quando o consumidor deu um Empty; texto padrão da molécula quando não deu.
+ const content = this.hasSlot('Empty') ? this.renderLiveSlot('Empty') : html`${this.msg.empty}`;
+ // mesma divisão do estado preenchido: sem isso a moldura pularia ao trocar de estado
  return html`
- <div class="${cn('w-full', this.cssClass)}">
+ <div class="${cn('w-full', this.fitHeightClasses, this.cssClass)}">
+ <div class="${this.scrollerClasses}">
  <table class="min-w-full border ml-border">
  ${headerCells.length > 0 ? html`
- <thead class="ml-surface-dim-bg">
+ <thead class="${this.theadClasses}">
  <tr>
  ${this.selectable ? html`<th class="px-3 py-2"></th>` : html``}
  ${headerCells.map((cell, index) => this.renderHeaderCell(cell, index))}
@@ -484,7 +557,8 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  ` : html``}
  <tbody></tbody>
  </table>
- <div class="py-4 text-sm ml-text-muted">${unsafeHTML(content)}</div>
+ <div class="py-4 text-sm ml-text-muted">${content}</div>
+ </div>
  ${this.renderPagination(this.getTotalPages(0))}
  ${this.renderError()}
  </div>
@@ -502,7 +576,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  const bodyRows = this.getBodyRows();
 
  if (this.loading) {
- return html`<div class="${cn('w-full', this.cssClass)}">${this.renderLoading(headerCells.length)}</div>`;
+ return html`<div class="${cn('w-full', this.fitHeightClasses, this.cssClass)}">${this.renderLoading(headerCells.length)}</div>`;
  }
 
  if (bodyRows.length === 0) {
@@ -521,14 +595,16 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  const totalPages = this.getTotalPages(this.totalItems > 0 ? this.totalItems : bodyRows.length);
  const containerClasses = [
 'w-full',
+ this.fitHeightClasses,
  this.disabled ?'opacity-50 pointer-events-none' :'',
  ].filter(Boolean).join(' ');
 
  return html`
  <div class="${cn(containerClasses, this.cssClass)}">
+ <div class="${this.scrollerClasses}">
  <table class="min-w-full border ml-border ml-surface-bg" role="table">
  ${this.renderCaption()}
- <thead class="ml-surface-dim-bg" role="rowgroup">
+ <thead class="${this.theadClasses}" role="rowgroup">
  <tr role="row">
  ${this.selectable ? html`
  <th role="columnheader" class="px-3 py-2 border-b ml-border">
@@ -552,6 +628,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  </tbody>
  ${this.renderFooter(headerCells.length)}
  </table>
+ </div>
  ${this.renderPagination(totalPages)}
  ${this.renderError()}
  </div>
