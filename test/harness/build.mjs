@@ -189,16 +189,30 @@ const title = relative(TEST_ROOT, runDir).replace(/\\/g, '/');
 
 // chrome DO HARNESS — não faz parte da página sob teste
 const chromeCss = `
-  html, body { margin: 0; background: #6b7280; font-family: system-ui, sans-serif; }
+  /* altura da barra, num lugar só: a barra a IMPÕE e o quadro a desconta. Antes o desconto era um
+     número solto, que passava a mentir assim que a barra mudasse de padding ou de fonte. */
+  :root { --bar-h: 38px; }
+  /* height nos dois é obrigatório: sem altura definida no ancestral, o calc() do #frame resolve
+     percentual contra caixa 'auto' e vira altura de conteúdo — a página cresceria em vez de caber */
+  /* overflow: hidden no documento é o que torna a contenção VERIFICÁVEL: sem ele, região que
+     estoura ganha uma barra de rolagem no documento e o defeito passa por comportamento normal.
+     Com ele, quem estoura é cortado — e corte se vê. A rolagem legítima mora DENTRO da página,
+     na região que o layout mandar rolar, nunca aqui. */
+  html { overflow: hidden; }
+  html, body { height: 100%; margin: 0; background: #6b7280; font-family: system-ui, sans-serif; }
   #bar { position: fixed; inset: 0 0 auto 0; z-index: 9999; display: flex; gap: 6px;
-         align-items: center; padding: 6px 10px; background: #111827; color: #e5e7eb; font-size: 12px; }
+         align-items: center; height: var(--bar-h); box-sizing: border-box;
+         padding: 6px 10px; background: #111827; color: #e5e7eb; font-size: 12px; }
   #bar button { font: inherit; padding: 3px 8px; border: 1px solid #374151; border-radius: 4px;
                 background: #1f2937; color: #e5e7eb; cursor: pointer; }
   #bar button[aria-pressed="true"] { background: #2563eb; border-color: #2563eb; color: #fff; }
   #bar .sep { margin-left: auto; opacity: .7; }
-  /* o quadro da página: viewport fixa, a página NÃO rola (a moldura do template) */
-  #frame { width: 1440px; height: 900px; margin: 44px auto 24px; overflow: hidden;
-           box-shadow: 0 8px 32px rgba(0,0,0,.35); }
+  /* O quadro é a viewport da página: tela inteira menos a barra. A barra é 'fixed', então não
+     ocupa espaço — o margin-top é o que a compensa.
+     'overflow: hidden' fica: é ele que faz valer a contenção que o template exige (a página não
+     rola como um documento; quem rola são as regiões dela). */
+  #frame { width: 100%; margin-top: var(--bar-h); height: calc(100% - var(--bar-h));
+           overflow: hidden; }
   #frame > * { display: block; width: 100%; height: 100%; }`;
 
 const barHtml = `<div id="bar">

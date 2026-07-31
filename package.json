@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "buildCI": "node ../scripts/buildCI/buildCI.mjs 102040"
+    "buildCI": "node ../scripts/buildCI/buildCI.mjs 102040",
+    "test:template": "node test/harness/run.mjs --suite salesforceStyle/inventoryControl --fixture cafeFlowInventoryControl --layout gridThenEdit"
+
   },
   "author": "",
   "license": "ISC",

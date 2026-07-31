@@ -20,7 +20,10 @@ ensinaram, incluindo os erros que custaram rodada:
 | Skill | Para |
 | --- | --- |
 | `test/skills/fixtures.md` | escrever `fixtures/<fixtureId>.defs.ts` |
-| `test/skills/templates.md` | escrever `l4/templates/<style>/<template>/template.md` |
+| `test/skills/templates.md` | escrever os documentos de design: estilo, página e layout |
+
+E `test/RUN-VIA-CHAT.md` para **pedir uma rodada em conversa** em vez de pela linha de comando — os
+dois caminhos usam o mesmo prompt, então testam a mesma coisa.
 
 Nenhuma das duas vai para o subagente da rodada — são para quem **conduz**. A rodada continua
 recebendo só os cinco arquivos da tabela abaixo.
@@ -41,15 +44,49 @@ Quatro arquivos, nada mais — **cinco quando o template usa moléculas**:
 
 | Arquivo | Papel |
 | --- | --- |
-| `mls-102040/l4/templates/<style>/<template>/template.md` | a instrução |
+| `runs/<id>/template.md` | a instrução — **estilo + página + layout montados** |
 | `test/<style>/<template>/fixtures/<fixture>.defs.ts` | o domínio |
 | `test/designSystem.css` | os tokens (nomes e valores) — compartilhado |
 | `test/icons.ts` | o conjunto de ícones, fechado — compartilhado |
 | `runs/<id>/molecules-usage.md` | *(só com moléculas)* o contrato dos grupos que o template atribui |
 
-O `molecules-usage.md` é **gerado pelo harness na pasta da rodada** antes de ela começar, a partir do
-manifesto da suíte (`molecules.json` → `groups`). Um arquivo, não um por grupo: cada leitura extra é tool
-use, e tool use é o que faz a rodada demorar.
+**O documento de design tem até três níveis, e o harness os monta num arquivo só.**
+
+| Onde | O que carrega |
+| --- | --- |
+| `l4/templates/<style>/template.md` | regra **global do estilo**: uso de molécula, contenção, estados de região de coleção, convenções de formulário/ação, sobreposições, invariantes visuais |
+| `l4/templates/<style>/<template>/template.md` | o que a página **é**: o modelo que resolve, o significado de colunas e comandos, as moléculas estruturais |
+| `l4/templates/<style>/<template>/layouts/<layout>/template.md` | como ela é **arrumada**: patamares, quem rola, como se alcança um registro, onde vive o formulário dele |
+
+Precedência, escrita nos três: cada nível **estreita** o anterior e nunca o contradiz. Contradição é
+achado, não override.
+
+O layout entra por **argumento**, não por suíte:
+
+```
+node harness/prepareRun.mjs <style>/<template> runs/<id> --layout <layout>
+```
+
+**`fixtures/` e `molecules.json` NÃO se dividem por layout** — pertencem ao domínio, não à arrumação,
+e continuam em `test/<style>/<template>/`, compartilhados. É isso que permite comparar duas
+arrumações da mesma página contra os **mesmos dados**; fixture duplicada por layout tornaria a
+comparação sem valor. Ponha o layout no **id da rodada**
+(`2026-07-30-gridThenEdit-cafeFlowInventoryControl`), que é o que separa os artefatos.
+
+Sem `--layout` numa suíte que tem layouts, o `prepareRun` monta só estilo + página e **avisa** — a
+rodada receberia a página sem arrumação nenhuma.
+
+Montar em vez de mandar N arquivos tem três motivos: a rodada segue **uma** especificação
+(reconciliar documentos é onde ela erra), o orçamento de tool use não cresce, e a montagem é o único
+momento em que dá para conferir mecanicamente se os níveis se contradizem — hoje o `prepareRun` avisa
+quando um nível **repete um título** de outro, sinal de regra copiada. Cópia é divergência futura: as
+duas versões derivam e nada avisa.
+
+O `molecules-usage.md` também é **gerado pelo harness na pasta da rodada** antes de ela começar, a
+partir do manifesto da suíte (`molecules.json` → `groups`). Um arquivo, não um por grupo: cada
+leitura extra é tool use, e tool use é o que faz a rodada demorar. A verificação cruzada
+template ↔ manifesto roda contra o documento **montado**, porque o estilo atribui as moléculas de
+campo e a página as estruturais — só a soma tem a lista completa.
 
 **Não recebe**: `research.md` · o arquivo da task · outras rodadas · o histórico da conversa ·
 qualquer página já gerada. Se o gerador precisar de algo além desses quatro arquivos, isso é **um
@@ -87,7 +124,7 @@ precisar. O filtro é de **o que extrair**, não de o que ler:
 
 ## O que a rodada produz
 
-Em `test/<style>/<template>/runs/<AAAA-MM-DD>-<fixture>/`:
+Em `test/<style>/<template>/runs/<AAAA-MM-DD>[-<layout>]-<fixture>/`:
 
 | Arquivo | Conteúdo |
 | --- | --- |
@@ -100,9 +137,16 @@ autocontido, que abre com duplo clique.
 **A rodada não escreve arquivo de registro.** O que ela aprendeu — modelo resolvido, variações
 disparadas, ambiguidades do template, empregos de ícone que faltaram — sai na **resposta final** dela,
 não em arquivo. *Motivo: o registro custava alguns milhares de tokens de saída por rodada e quase todo
-o seu valor é consumido na hora, ao decidir o que muda no template.* Consequência a assumir: esse
-registro é **efêmero**. Achado que deva sobreviver à conversa tem de ser transcrito por quem conduz a
-rodada — para o `template.md`, quando virar regra, ou para um documento de estudo.
+o seu valor é consumido na hora, ao decidir o que muda no template.*
+
+**Quem guarda é o harness, não a rodada**: o `run.mjs` salva o `stdout` da geração em
+`runs/<id>/report.md`. A distinção não é sutil — o antigo `resolution.md` era um arquivo que a rodada
+*escrevia*, gastando tokens de saída; o `report.md` é o texto que ela já produziu, apenas não
+descartado. Foi criado depois de uma rodada morrer por limite de gasto **depois** de escrever o
+`page.ts`: o relatório se perdeu, e era o item mais valioso dela.
+
+Guardado não é transcrito. Achado que deva virar regra continua tendo de ser levado à mão para o
+documento do **nível certo** (estilo, página ou layout) — o `report.md` é matéria-prima, não destino.
 
 Fixture que deve ser **recusada**: se o `template.md` desta suíte descrever quando a página não se
 aplica (domínio não se encaixa, condição de exclusão, o que o template chamar de recusa), a rodada
@@ -221,6 +265,11 @@ A última seção é a mais valiosa: é por ali que o template aprende.
 **copiados inline** no prompt. Motivo: se o runner ler o RUN.md, ele vê os critérios de avaliação e
 passa a jogar para o teste em vez de seguir o template.
 
+O prompt vive em `harness/runPrompt.md`, com marcadores que o `run.mjs` substitui (caminhos, a tag em
+kebab-case, e a seção de moléculas, que sai inteira quando a suíte não usa nenhuma). **Mudou uma
+regra do `page.ts` aqui? Mude lá também** — são duas cópias do mesmo contrato, e a que a rodada
+obedece é a de lá.
+
 O prompt é, na ordem: (1) leia os quatro arquivos, nesta ordem, e nada mais — **com o que pular em
 cada um** (o `.dark` do CSS; o `seed` da fixture além de `total` e 3 linhas); (2) o idioma (a instrução
 está no idioma dela, a **UI sai no idioma que a fixture declara**); (3) a ordem de autoridade
@@ -242,8 +291,44 @@ Tudo local, sem CDN — `lit` 3.3.3, `tailwindcss` 4.3.0 e `typescript` já est�
 Os scripts moram em `test/harness/` (raiz de `test/`, compartilhado); os comandos abaixo rodam com o
 cwd em `test/`, com a suíte (`<style>/<template>`) como primeiro argumento:
 
+**O caminho normal é um comando só.** O `harness/run.mjs` faz os quatro passos na ordem, derivando
+todos os argumentos de dois nomes:
+
 ```
-node harness/prepareRun.mjs <style>/<template> runs/<id>                        # ANTES da rodada
+npm run test:template -- --suite salesforceStyle/inventoryControl \
+                         --fixture cafeFlowInventoryControl --layout gridThenEdit
+```
+
+ou, com o cwd em `test/`:
+
+```
+node harness/run.mjs --suite <style>/<template> --fixture <nome> [--layout <nome>]
+```
+
+O id da rodada sai de `<AAAA-MM-DD>[-<layout>]-<fixture>`; `--id` força outro.
+
+| Opção | Para |
+| --- | --- |
+| `--no-generate` | só prepara e escreve o `prompt.md`; a geração vem por outro caminho |
+| `--only-build` | refaz build + checks de uma rodada que já existe |
+| `--model` · `--max-turns` | passam ao passo de geração (padrão 20; rodada saudável usa ~6) |
+
+**A geração é o único passo que precisa de modelo.** O script chama o CLI `claude` em modo headless
+**com as ferramentas restritas a `Read` e `Write`** — e isso transforma a regra "escreva e pare, não
+verifique o próprio trabalho" de texto em impossibilidade: sem `Bash` a rodada não roda `tsc` nem
+fabrica um stub falso para compilar contra, que foi exatamente o que matou as duas rodadas mais
+lentas já medidas. Sem o CLI no PATH, o script para no passo 2, deixa o `prompt.md` pronto e diz como
+seguir — o preparo não se perde.
+
+O `stdout` da geração é salvo em `report.md` na pasta da rodada. Isso **não** é o antigo
+`resolution.md`: aquele era um arquivo que a rodada *escrevia*, gastando tokens de saída; este é o
+relatório que ela já produziu, apenas não jogado fora. Uma rodada morreu por limite de gasto depois
+de escrever o `page.ts` e o relatório se perdeu — era o item mais valioso dela.
+
+Os passos avulsos continuam existindo, para depurar um deles em isolamento:
+
+```
+node harness/prepareRun.mjs <style>/<template> runs/<id> [--layout <layout>]     # ANTES da rodada
 node harness/build.mjs     <style>/<template> runs/<id> fixtures/<fixture>.defs.ts   # depois
 node harness/checks.mjs    <style>/<template> runs/<id> fixtures/<fixture>.defs.ts
 ```
@@ -314,3 +399,15 @@ estudo) desaparece.
 
 Mudou o template, **toda rodada anterior deixou de valer** e tem de ser refeita do zero — inclusive as
 que passaram. O artefato que sobra em `runs/` de uma versão antiga do template não é evidência de nada.
+E página corrigida à mão deixa de ser evidência na hora: a prova de que uma regra funciona é uma
+rodada nova chegando sozinha ao resultado.
+
+**Raio de alcance depende do nível**, e cresce para cima:
+
+| Mudou | Invalida |
+| --- | --- |
+| `layouts/<layout>/template.md` | as rodadas daquele layout |
+| `<template>/template.md` | as rodadas de **todos os layouts** daquela suíte |
+| `<style>/template.md` | as rodadas de **todas as suítes** daquele estilo |
+
+Vale conferir o que existe abaixo antes de mexer num nível acima.
