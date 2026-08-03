@@ -1,0 +1,10 @@
+{
+  "savedAt": "2026-07-31T19:15:32.744Z",
+  "planId": "n2-plan",
+  "attempt": 1,
+  "ok": true,
+  "coercions": [
+    "name 'pagination-control' -> 'ml-pagination-control'"
+  ],
+  "proposed": "_102040_/l2/molecules/grouptriggeraction/ml-pagination-control.ts"
+}

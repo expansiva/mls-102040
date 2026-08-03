@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "confirmedAt": "2026-07-31T20:29:17.493Z",
+  "fileReference": "_102040_/l2/molecules/groupviewtable/ml-advanced-data-table.ts",
+  "shortName": "ml-advanced-data-table",
+  "tag": "groupviewtable--ml-advanced-data-table",
+  "group": "groupviewtable",
+  "groupCanonical": "groupViewTable",
+  "description": "Tabela de dados interativa que permite ordenação por colunas, redimensionamento e reordenação de colunas, paginação, coluna de total por linha e somatória por coluna no rodapé.",
+  "prompt": "Crie um componente de tabela de dados interativa pertencente ao grupo groupViewTable. O componente deve suportar ordenação crescente/decrescente ao clicar nos cabeçalhos das colunas, redimensionamento de largura das colunas via arrasto das bordas dos cabeçalhos, reordenação de colunas via arrastar e soltar dos cabeçalhos, paginação dos dados quando pageSize > 0, uma coluna final opcional que mostra o total de cada linha, e uma linha de rodapé opcional que mostra a somatória de cada coluna. O componente segue o contrato do grupo groupViewTable, utilizando os slot tags TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, Empty e Loading. As propriedades do contrato (selectable, isEditing, page, pageSize, totalItems, value, error, disabled, loading) devem ser respeitadas. A ordenação emite o evento 'sort' com { key, direction }. A paginação emite 'pageChange' com { page }. O redimensionamento e a reordenação são interações puramente visuais internas que não emitem eventos adicionais além dos definidos no contrato. A coluna de total por linha e a somatória por coluna devem ser ativadas por propriedades booleanas adicionais (showRowTotal e showColumnTotal).",
+  "functionalRequirements": [
+    "Permite ordenar colunas em ordem crescente no primeiro clique do cabeçalho e decrescente no segundo clique, emitindo o evento 'sort' com a chave da coluna e a direção.",
+    "Permite redimensionar a largura das colunas arrastando a borda dos cabeçalhos das colunas.",
+    "Permite reordenar as colunas arrastando e soltando os cabeçalhos das colunas para uma nova posição.",
+    "Permite paginar os dados quando pageSize é maior que zero, emitindo o evento 'pageChange' ao navegar entre páginas.",
+    "Permite exibir uma coluna final opcional com o total de cada linha quando a propriedade showRowTotal é verdadeira.",
+    "Permite exibir uma linha de rodapé opcional com a somatória de cada coluna quando a propriedade showColumnTotal é verdadeira.",
+    "Respeita todas as propriedades e eventos definidos no contrato do grupo groupViewTable, incluindo selectable, isEditing, disabled, loading e error.",
+    "Exibe o conteúdo do slot Loading durante o estado de carregamento e o slot Empty quando não há linhas no TableBody."
+  ],
+  "visualRequirements": [
+    "Os cabeçalhos das colunas têm a maior hierarquia visual, com indicadores de ordenação visíveis apenas na coluna ativa.",
+    "As bordas dos cabeçalhos de coluna indicam visualmente a capacidade de redimensionamento ao passar o cursor.",
+    "As colunas em processo de reordenação recebem destaque visual para indicar a posição de destino.",
+    "A coluna de total por linha, quando presente, tem peso visual distinto das colunas de dados regulares.",
+    "A linha de somatória por coluna, quando presente, é visualmente diferenciada das linhas de dados, com destaque para os valores totais.",
+    "Os controles de paginação são visualmente subordinados à tabela, posicionados abaixo dela.",
+    "O estado de carregamento exibe placeholders visuais em vez de dados.",
+    "O estado vazio exibe uma mensagem centralizada ou conteúdo do slot Empty.",
+    "O estado desabilitado reduz a opacidade e bloqueia interações."
+  ],
+  "layoutConfig": {
+    "recordsView": "table",
+    "listOverflow": "pagination"
+  }
+}

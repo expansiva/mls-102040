@@ -1,0 +1,15 @@
+{
+  "savedAt": "2026-07-31T18:34:49.026Z",
+  "planId": "n7-index",
+  "attempt": 1,
+  "ok": true,
+  "groupMolecules": [
+    "ml-data-grid-teste",
+    "ml-data-table",
+    "ml-data-table-minimal",
+    "ml-data-table-select",
+    "ml-inline-edit-table",
+    "ml-pivot-table",
+    "ml-view-table"
+  ]
+}

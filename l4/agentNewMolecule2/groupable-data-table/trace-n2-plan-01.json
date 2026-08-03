@@ -1,0 +1,10 @@
+{
+  "savedAt": "2026-07-31T20:35:36.232Z",
+  "planId": "n2-plan",
+  "attempt": 1,
+  "ok": true,
+  "coercions": [
+    "name 'grouping-table' -> 'ml-grouping-table'"
+  ],
+  "proposed": "_102040_/l2/molecules/groupviewtable/ml-grouping-table.ts"
+}

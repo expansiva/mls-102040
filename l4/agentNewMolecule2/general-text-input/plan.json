@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "confirmedAt": "2026-07-31T16:53:33.883Z",
+  "fileReference": "_102040_/l2/molecules/groupentertext/ml-general-text-input-teste.ts",
+  "shortName": "ml-general-text-input-teste",
+  "tag": "groupentertext--ml-general-text-input-teste",
+  "group": "groupentertext",
+  "groupCanonical": "groupEnterText",
+  "description": "Campo de texto de linha única para captura de textos gerais como nome, endereço e descrição curta, com suporte a limite máximo de caracteres. É a variante base do grupo groupEnterText — sem máscara, sem contador de linhas, apenas texto livre.",
+  "prompt": "Crie uma molécula do grupo groupEnterText que funcione como um campo de texto de linha única para captura de textos gerais (nome, CPF, endereço, descrição curta). A molécula deve suportar a propriedade maxLength para restringir a quantidade máxima de caracteres digitados, bloqueando a entrada além do limite. Deve renderizar um elemento <input> com type text, suportar placeholder, label (slot Label), helper (slot Helper), prefix e suffix (slots Prefix e Suffix). Deve emitir os eventos change e input com { value: string } e blur/focus. Deve suportar os estados disabled, readonly, required, loading e error conforme o contrato do grupo. Em modo view (isEditing=false), exibe o valor como texto estático, mostrando '—' quando vazio. Não implementa lógica de máscara nem textarea (rows fixo em 1).",
+  "functionalRequirements": [
+    "Renderiza um campo de entrada de texto de linha única (input type text) para captura de texto livre",
+    "Permite restringir a quantidade máxima de caracteres através da propriedade maxLength, bloqueando a digitação além do limite",
+    "Armazena e emite o valor como string simples, onde string vazia significa nenhum valor inserido",
+    "Emite o evento input com { value: string } a cada tecla digitada",
+    "Emite o evento change com { value: string } quando o campo perde o foco",
+    "Emite os eventos focus e blur quando o campo recebe ou perde foco",
+    "Exibe o texto do slot Label acima do campo quando fornecido",
+    "Exibe o texto do slot Helper abaixo do campo quando fornecido e não há erro",
+    "Exibe a mensagem de erro abaixo do campo quando a propriedade error não está vazia, aplicando estado visual de erro",
+    "Renderiza o conteúdo do slot Prefix antes do campo de entrada quando fornecido",
+    "Renderiza o conteúdo do slot Suffix após o campo de entrada quando fornecido",
+    "Em modo view (isEditing=false), exibe o valor como texto estático, mostrando '—' quando o valor está vazio",
+    "No estado disabled, o campo não aceita interação e tem aparência reduzida",
+    "No estado readonly, o campo não aceita edição mas o texto permanece selecionável",
+    "No estado loading, exibe um indicador de carregamento e bloqueia a entrada",
+    "No estado required, marca o campo como obrigatório para tecnologias assistivas",
+    "Associa o label ao campo via aria-labelledby e a mensagem de erro via aria-describedby",
+    "Marca o campo como aria-invalid quando há erro e aria-required quando é obrigatório"
+  ],
+  "visualRequirements": [
+    "O campo de entrada tem a maior ênfase visual na área de conteúdo, com borda clara e fundo de superfície",
+    "O label tem peso visual médio, posicionado acima do campo",
+    "O texto de ajuda tem o menor peso visual, posicionado abaixo do campo",
+    "A mensagem de erro tem destaque visual com cor de erro, substituindo o texto de ajuda quando presente",
+    "O prefix e suffix têm peso visual secundário, integrados à borda do campo",
+    "O estado focado destaca a borda do campo com cor de foco",
+    "O estado de erro destaca a borda do campo com cor de erro",
+    "O estado disabled reduz a opacidade do campo inteiro",
+    "O estado loading exibe um spinner sobreposto ou adjacente ao campo",
+    "Em modo view, o texto estático tem peso visual normal, sem borda de campo"
+  ],
+  "layoutConfig": {
+    "labelPlacement": "top",
+    "validation": "inline-below",
+    "requiredMark": "asterisk"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-07-31T16:52:33.616Z",
+  "runKey": "general-text-input",
+  "userPrompt": "crie uma molécula para captura de textos gerais, como:\nNome, cpf, endereço, descrição curta\nO campo deve permitir restringir a qtde máxima de caracteres",
+  "userLanguage": "pt",
+  "destination": {
+    "project": 102040,
+    "groupFolder": "groupentertext",
+    "groupCanonical": "groupEnterText"
+  },
+  "groupSkill": {
+    "description": "Allows the user to input free-form text. Ideal for names, descriptions, comments, emails, passwords, and any textual data. Implementations include input, textarea, password input, masked input, input OTP, search input, and tag input.",
+    "reference": "/_102020_/l2/aura/molecules/skills/groupEnterText/creation",
+    "usageReference": "/_102020_/l2/aura/molecules/skills/groupEnterText/usage"
+  },
+  "base": {
+    "reference": "_102033_/l2/moleculeBase.ts",
+    "className": "MoleculeAuraElement",
+    "importPath": "/_102033_/l2/moleculeBase.js"
+  },
+  "theme": {
+    "present": false,
+    "reference": null,
+    "info": null
+  }
+}

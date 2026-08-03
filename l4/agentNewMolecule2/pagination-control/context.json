@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-07-31T19:14:43.901Z",
+  "runKey": "pagination-control",
+  "userPrompt": "crei um componente de paginação. Este componente será usado para mostrar as páginas e permitir trocar de página.\nDeve mostrar uma lista com os numeros das páginas. Ao clicar em um número deve acionar o evento PageChange, passando a referência da página clicada. \nExemplo de visualização:\n\n<< < 1, 2, 3, 4 > >>",
+  "userLanguage": "pt",
+  "destination": {
+    "project": 102040,
+    "groupFolder": "grouptriggeraction",
+    "groupCanonical": "groupTriggerAction"
+  },
+  "groupSkill": {
+    "description": "Allows the user to execute an action or command. Supports Label and Icon slot tags with flexible composition (text only, icon only, or both). Configurable variant (primary, secondary, danger, ghost, link), size, loading state, and icon position. Implementations include button, icon button, FAB, split button, and button group.",
+    "reference": "/_102020_/l2/aura/molecules/skills/groupTriggerAction/creation",
+    "usageReference": "/_102020_/l2/aura/molecules/skills/groupTriggerAction/usage"
+  },
+  "base": {
+    "reference": "_102033_/l2/moleculeBase.ts",
+    "className": "MoleculeAuraElement",
+    "importPath": "/_102033_/l2/moleculeBase.js"
+  },
+  "theme": {
+    "present": false,
+    "reference": null,
+    "info": null
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "savedAt": "2026-07-31T16:56:05.494Z",
+  "planId": "n5-less",
+  "attempt": 1,
+  "ok": false,
+  "chars": 4151,
+  "themed": false,
+  "error": "color_literal: these colours are hardcoded outside a token: rgba(239, 68, 68, 0.2) — in a project with no theme every appearance value must be written as var(--ml-<token>, <literal>), so a theme can override it later"
+}

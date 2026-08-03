@@ -1,0 +1,410 @@
+/// <mls fileReference="_102040_/l2/molecules/groupviewtable/ml-advanced-data-table.less" enhancement="_102020_/l2/enhancementStyleAura"/>
+groupviewtable--ml-advanced-data-table {
+  // ---- layout & base ----
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  color: var(--ml-on-surface, #1c1b1f);
+
+  // ---- root container ----
+  .ml-table-root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  // ---- disabled state ----
+  .ml-disabled {
+    opacity: var(--ml-disabled-opacity, 0.5);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  // ---- scroll wrapper ----
+  .ml-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--ml-radius-sm, 6px);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    box-shadow: var(--ml-shadow-1, 0 1px 3px rgba(0,0,0,0.1));
+    background: var(--ml-surface, #ffffff);
+  }
+
+  // ---- table element ----
+  .ml-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+  }
+
+  // ============================================================
+  // THEAD
+  // ============================================================
+  .ml-table-thead {
+    background: var(--ml-surface-dim, #f5f5f5);
+    border-bottom: calc(var(--ml-border-width, 1px) * 2) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-table-header-row {
+    // inherits thead bg — no extra treatment
+  }
+
+  // ---- header cell ----
+  .ml-table-head {
+    // render sets position: relative via Tailwind — do NOT re-declare position
+    text-align: left;
+    font-size: 0.8125rem;
+    font-weight: var(--ml-font-weight-medium, 500);
+    color: var(--ml-on-surface-muted, #49454f);
+    background: var(--ml-surface-dim, #f5f5f5);
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    white-space: nowrap;
+    transition: background var(--ml-transition, 200ms ease),
+                color var(--ml-transition, 200ms ease);
+
+    &:hover:not(.ml-table-head-dragging) {
+      background: var(--ml-outline-variant, #e2e8f0);
+      color: var(--ml-on-surface, #1c1b1f);
+    }
+  }
+
+  // active sorted column header
+  .ml-table-head-sorted {
+    color: var(--ml-primary, #3b82f6) !important;
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  // header label text
+  .ml-table-head-label {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  // row-total header — distinct weight
+  .ml-table-row-total-head {
+    color: var(--ml-primary, #3b82f6);
+    background: var(--ml-surface-dim, #f5f5f5);
+    border-left: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+  }
+
+  // ============================================================
+  // SORT INDICATORS
+  // ============================================================
+  .ml-sort-indicator {
+    font-size: 0.75rem;
+    line-height: 1;
+    transition: opacity var(--ml-transition, 200ms ease),
+                color var(--ml-transition, 200ms ease);
+  }
+
+  .ml-sort-inactive {
+    opacity: 0.35;
+    color: var(--ml-on-surface-faint, #79747e);
+  }
+
+  .ml-sort-active {
+    opacity: 1;
+    color: var(--ml-primary, #3b82f6);
+  }
+
+  // ============================================================
+  // RESIZE HANDLE
+  // The render places this element with position:absolute via Tailwind.
+  // Do NOT set position/overflow here — only color/cursor/opacity.
+  // ============================================================
+  .ml-resize-handle {
+    cursor: col-resize;
+    background: transparent;
+    transition: background var(--ml-transition, 200ms ease);
+    z-index: 1;
+
+    &:hover {
+      background: var(--ml-primary, #3b82f6);
+      opacity: 0.5;
+    }
+
+    &:active {
+      background: var(--ml-primary, #3b82f6);
+      opacity: 1;
+    }
+  }
+
+  // ============================================================
+  // DRAG & DROP REORDER
+  // ============================================================
+  .ml-table-head-dragging {
+    opacity: 0.45;
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  .ml-table-head-drop-target {
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  // drop-before: accent on left edge via inset box-shadow
+  .ml-drop-before {
+    box-shadow: inset 3px 0 0 var(--ml-primary, #3b82f6);
+  }
+
+  // drop-after: accent on right edge via inset box-shadow
+  .ml-drop-after {
+    box-shadow: inset -3px 0 0 var(--ml-primary, #3b82f6);
+  }
+
+  // ============================================================
+  // TBODY
+  // ============================================================
+  .ml-table-tbody {
+    background: var(--ml-surface, #ffffff);
+  }
+
+  // ---- data rows ----
+  .ml-table-row {
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    transition: background var(--ml-transition, 200ms ease);
+    outline: none;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover:not(.ml-table-row-selected):not(.ml-table-header-row):not(.ml-table-footer-row) {
+      background: var(--ml-surface-dim, #f5f5f5);
+    }
+
+    &:focus-visible {
+      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline-offset: -2px;
+    }
+  }
+
+  // selected row
+  .ml-table-row-selected {
+    background: var(--ml-primary-container, #dbeafe) !important;
+    color: var(--ml-on-primary-container, #1e3a5f);
+  }
+
+  // keyboard-focused row
+  .ml-table-row-focused {
+    outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+    outline-offset: -2px;
+  }
+
+  // ---- data cells ----
+  .ml-table-cell {
+    vertical-align: middle;
+    border-right: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  // ---- text helpers ----
+  .ml-text {
+    color: var(--ml-on-surface, #1c1b1f);
+  }
+
+  .ml-text-muted {
+    color: var(--ml-on-surface-muted, #49454f);
+  }
+
+  .ml-text-faint {
+    color: var(--ml-on-surface-faint, #79747e);
+  }
+
+  // ---- label (caption) ----
+  .ml-label {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-weight: var(--ml-font-weight-medium, 500);
+    letter-spacing: 0.01em;
+  }
+
+  // ---- select cell (checkbox column) ----
+  .ml-table-select-cell {
+    width: 2.5rem;
+    min-width: 2.5rem;
+    text-align: center;
+    border-right: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+  }
+
+  // ---- checkbox ----
+  .ml-table-checkbox {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    accent-color: var(--ml-primary, #3b82f6);
+    border-radius: var(--ml-radius-sm, 6px);
+    transition: opacity var(--ml-transition, 200ms ease);
+
+    &:disabled {
+      opacity: var(--ml-disabled-opacity, 0.5);
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline-offset: 2px;
+    }
+  }
+
+  // ============================================================
+  // ROW TOTAL COLUMN
+  // ============================================================
+  .ml-table-row-total {
+    color: var(--ml-primary, #3b82f6);
+    font-weight: var(--ml-font-weight-medium, 500);
+    border-left: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    background: var(--ml-surface-dim, #f5f5f5);
+    white-space: nowrap;
+  }
+
+  // ============================================================
+  // TFOOT — column totals
+  // ============================================================
+  .ml-table-tfoot {
+    border-top: calc(var(--ml-border-width, 1px) * 2) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  .ml-table-col-total-row {
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  .ml-table-col-total {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-weight: var(--ml-font-weight-medium, 500);
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  .ml-table-footer-row {
+    border-top: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-table-footer-cell {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-style: italic;
+  }
+
+  // ============================================================
+  // EMPTY STATE
+  // ============================================================
+  .ml-table-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 2rem 1rem;
+    color: var(--ml-on-surface-muted, #49454f);
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  // ============================================================
+  // LOADING STATE
+  // ============================================================
+  .ml-table-loading {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  // skeleton shimmer
+  .ml-skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--ml-surface-dim, #f5f5f5) 25%,
+      var(--ml-outline-variant, #e2e8f0) 50%,
+      var(--ml-surface-dim, #f5f5f5) 75%
+    );
+    background-size: 200% 100%;
+    animation: ml-skeleton-shimmer 1.4s ease-in-out infinite;
+    border-radius: var(--ml-radius-sm, 6px);
+  }
+
+  @keyframes ml-skeleton-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  // ============================================================
+  // PAGINATION
+  // ============================================================
+  .ml-table-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding-top: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .ml-pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8125rem;
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--ml-on-surface-muted, #49454f);
+    background: var(--ml-surface, #ffffff);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-radius: var(--ml-radius-sm, 6px);
+    cursor: pointer;
+    transition: background var(--ml-transition, 200ms ease),
+                color var(--ml-transition, 200ms ease),
+                border-color var(--ml-transition, 200ms ease);
+    outline: none;
+
+    &:hover:not(:disabled):not(.ml-pagination-btn-active) {
+      background: var(--ml-surface-dim, #f5f5f5);
+      border-color: var(--ml-outline-focus, #3b82f6);
+      color: var(--ml-on-surface, #1c1b1f);
+    }
+
+    &:focus-visible {
+      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: var(--ml-disabled-opacity, 0.5);
+      cursor: not-allowed;
+    }
+  }
+
+  .ml-pagination-btn-active {
+    background: var(--ml-primary, #3b82f6) !important;
+    color: var(--ml-on-primary, #ffffff) !important;
+    border-color: var(--ml-primary, #3b82f6) !important;
+    font-weight: var(--ml-font-weight-medium, 500);
+    cursor: default;
+  }
+
+  // ============================================================
+  // ERROR TEXT
+  // ============================================================
+  .ml-error-text {
+    color: var(--ml-error, #ef4444);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  // ============================================================
+  // UTILITY MARGIN HELPERS (ml-1, ml-2 used inline by render)
+  // ============================================================
+  .ml-1 {
+    margin-left: 0.25rem;
+  }
+
+  .ml-2 {
+    margin-left: 0.5rem;
+  }
+}
+
+
