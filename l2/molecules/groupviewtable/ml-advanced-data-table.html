@@ -1,0 +1,843 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Tabela de Dados Avançada</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewTable</span>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Tabela interativa com ordenação, redimensionamento e reordenação de colunas, paginação, totais por linha e somatórias por coluna.</p>
+    </header>
+
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"loading":false,"disabled":false,"error":"","value":""},"selectable":{"selectable":true,"value":"0,2","disabled":false},"loading":{"loading":true},"empty":{"selectable":false,"error":""},"pagination":{"page":1,"pageSize":5,"totalItems":48,"disabled":false},"withTotals":{"showRowTotal":true,"showColumnTotal":true,"selectable":false},"disabled":{"disabled":true,"selectable":true,"value":"1","page":1,"pageSize":10,"totalItems":30},"withError":{"error":"Falha ao sincronizar: timeout na API externa.","selectable":false,"value":""},"editing":{"isEditing":true,"selectable":true,"value":"0,1","showRowTotal":true,"showColumnTotal":true,"page":1,"pageSize":10,"totalItems":4,"disabled":false,"error":""}}}'>
+    </aura--molecules--playground--widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+      <!-- Basic sortable table -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Básico com ordenação</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Tabela padrão com colunas ordenáveis. Clique no cabeçalho para ordenar.</p>
+        <demo id="demo-basic">
+          <groupviewtable--ml-advanced-data-table
+            selectable="{{playground.basic.selectable}}"
+            loading="{{playground.basic.loading}}"
+            disabled="{{playground.basic.disabled}}"
+            error="{{playground.basic.error}}"
+            value="{{playground.basic.value}}">
+            <Caption>Lista de Pedidos</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="customer" sortable>Cliente</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+                <TableHead key="status">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>#001</TableCell>
+                <TableCell>Ana Silva</TableCell>
+                <TableCell>150.00</TableCell>
+                <TableCell>Concluído</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#002</TableCell>
+                <TableCell>Bruno Costa</TableCell>
+                <TableCell>89.50</TableCell>
+                <TableCell>Pendente</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#003</TableCell>
+                <TableCell>Carla Mendes</TableCell>
+                <TableCell>320.75</TableCell>
+                <TableCell>Concluído</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#004</TableCell>
+                <TableCell>Diego Alves</TableCell>
+                <TableCell>45.00</TableCell>
+                <TableCell>Cancelado</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>Nenhum pedido encontrado</Empty>
+          </groupviewtable--ml-advanced-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewtable--ml-advanced-data-table
+                  selectable="{{playground.basic.selectable}}"
+                  loading="{{playground.basic.loading}}"
+                  disabled="{{playground.basic.disabled}}"
+                  error="{{playground.basic.error}}"
+                  value="{{playground.basic.value}}">
+                  <Caption>Lista de Pedidos</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="customer" sortable>Cliente</TableHead>
+                      <TableHead key="total" sortable>Total</TableHead>
+                      <TableHead key="status">Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>#001</TableCell>
+                      <TableCell>Ana Silva</TableCell>
+                      <TableCell>150.00</TableCell>
+                      <TableCell>Concluído</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#002</TableCell>
+                      <TableCell>Bruno Costa</TableCell>
+                      <TableCell>89.50</TableCell>
+                      <TableCell>Pendente</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#003</TableCell>
+                      <TableCell>Carla Mendes</TableCell>
+                      <TableCell>320.75</TableCell>
+                      <TableCell>Concluído</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#004</TableCell>
+                      <TableCell>Diego Alves</TableCell>
+                      <TableCell>45.00</TableCell>
+                      <TableCell>Cancelado</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>Nenhum pedido encontrado</Empty>
+                </groupviewtable--ml-advanced-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Selectable rows -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Seleção de linhas</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Checkboxes por linha e seleção em massa. value controla os índices selecionados.</p>
+        <demo id="demo-selectable">
+          <groupviewtable--ml-advanced-data-table
+            selectable="{{playground.selectable.selectable}}"
+            value="{{playground.selectable.value}}"
+            disabled="{{playground.selectable.disabled}}">
+            <Caption>Funcionários</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="name" sortable>Nome</TableHead>
+                <TableHead key="role" sortable>Cargo</TableHead>
+                <TableHead key="dept">Departamento</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Elena Rocha</TableCell>
+                <TableCell>Analista</TableCell>
+                <TableCell>TI</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Felipe Nunes</TableCell>
+                <TableCell>Gerente</TableCell>
+                <TableCell>Vendas</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Gabriela Lima</TableCell>
+                <TableCell>Designer</TableCell>
+                <TableCell>Produto</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Hugo Martins</TableCell>
+                <TableCell>Desenvolvedor</TableCell>
+                <TableCell>TI</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-advanced-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.selectable.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+                <groupviewtable--ml-advanced-data-table
+                  selectable="{{playground.selectable.selectable}}"
+                  value="{{playground.selectable.value}}"
+                  disabled="{{playground.selectable.disabled}}">
+                  <Caption>Funcionários</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="name" sortable>Nome</TableHead>
+                      <TableHead key="role" sortable>Cargo</TableHead>
+                      <TableHead key="dept">Departamento</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Elena Rocha</TableCell>
+                      <TableCell>Analista</TableCell>
+                      <TableCell>TI</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Felipe Nunes</TableCell>
+                      <TableCell>Gerente</TableCell>
+                      <TableCell>Vendas</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Gabriela Lima</TableCell>
+                      <TableCell>Designer</TableCell>
+                      <TableCell>Produto</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Hugo Martins</TableCell>
+                      <TableCell>Desenvolvedor</TableCell>
+                      <TableCell>TI</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-advanced-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Estado de carregamento</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Skeleton padrão enquanto loading=true. Slot Loading permite conteúdo customizado.</p>
+        <demo id="demo-loading">
+          <groupviewtable--ml-advanced-data-table
+            loading="{{playground.loading.loading}}">
+            <Caption>Carregando dados</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="a">Coluna A</TableHead>
+                <TableHead key="b">Coluna B</TableHead>
+                <TableHead key="c">Coluna C</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody></TableBody>
+            <Loading>Aguarde, buscando registros…</Loading>
+          </groupviewtable--ml-advanced-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewtable--ml-advanced-data-table
+                  loading="{{playground.loading.loading}}">
+                  <Caption>Carregando dados</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="a">Coluna A</TableHead>
+                      <TableHead key="b">Coluna B</TableHead>
+                      <TableHead key="c">Coluna C</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody></TableBody>
+                  <Loading>Aguarde, buscando registros…</Loading>
+                </groupviewtable--ml-advanced-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Empty state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Sem dados (vazio)</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Corpo sem linhas exibe o slot Empty ou a mensagem padrão.</p>
+        <demo id="demo-empty">
+          <groupviewtable--ml-advanced-data-table
+            selectable="{{playground.empty.selectable}}"
+            error="{{playground.empty.error}}">
+            <Caption>Resultados da busca</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="sku" sortable>SKU</TableHead>
+                <TableHead key="product" sortable>Produto</TableHead>
+                <TableHead key="stock" sortable>Estoque</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody></TableBody>
+            <Empty>Nenhum produto corresponde aos filtros aplicados.</Empty>
+          </groupviewtable--ml-advanced-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.empty.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+                <groupviewtable--ml-advanced-data-table
+                  selectable="{{playground.empty.selectable}}"
+                  error="{{playground.empty.error}}">
+                  <Caption>Resultados da busca</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="sku" sortable>SKU</TableHead>
+                      <TableHead key="product" sortable>Produto</TableHead>
+                      <TableHead key="stock" sortable>Estoque</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody></TableBody>
+                  <Empty>Nenhum produto corresponde aos filtros aplicados.</Empty>
+                </groupviewtable--ml-advanced-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Pagination -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com paginação</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">page, page-size e total-items controlam a navegação. page-size &gt; 0 ativa a barra.</p>
+        <demo id="demo-pagination">
+          <groupviewtable--ml-advanced-data-table
+            page="{{playground.pagination.page}}"
+            page-size="{{playground.pagination.pageSize}}"
+            total-items="{{playground.pagination.totalItems}}"
+            disabled="{{playground.pagination.disabled}}">
+            <Caption>Histórico de Vendas</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="date" sortable>Data</TableHead>
+                <TableHead key="order" sortable>Pedido</TableHead>
+                <TableHead key="amount" sortable>Valor</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>01/03/2026</TableCell>
+                <TableCell>#1001</TableCell>
+                <TableCell>210.00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>02/03/2026</TableCell>
+                <TableCell>#1002</TableCell>
+                <TableCell>95.40</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>03/03/2026</TableCell>
+                <TableCell>#1003</TableCell>
+                <TableCell>480.00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>04/03/2026</TableCell>
+                <TableCell>#1004</TableCell>
+                <TableCell>33.25</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>05/03/2026</TableCell>
+                <TableCell>#1005</TableCell>
+                <TableCell>150.00</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-advanced-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.pagination.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="pageSize" value="{{playground.pagination.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalItems" value="{{playground.pagination.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.pagination.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-pagination">
+              <template>
+                <groupviewtable--ml-advanced-data-table
+                  page="{{playground.pagination.page}}"
+                  page-size="{{playground.pagination.pageSize}}"
+                  total-items="{{playground.pagination.totalItems}}"
+                  disabled="{{playground.pagination.disabled}}">
+                  <Caption>Histórico de Vendas</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="date" sortable>Data</TableHead>
+                      <TableHead key="order" sortable>Pedido</TableHead>
+                      <TableHead key="amount" sortable>Valor</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>01/03/2026</TableCell>
+                      <TableCell>#1001</TableCell>
+                      <TableCell>210.00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>02/03/2026</TableCell>
+                      <TableCell>#1002</TableCell>
+                      <TableCell>95.40</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>03/03/2026</TableCell>
+                      <TableCell>#1003</TableCell>
+                      <TableCell>480.00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>04/03/2026</TableCell>
+                      <TableCell>#1004</TableCell>
+                      <TableCell>33.25</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>05/03/2026</TableCell>
+                      <TableCell>#1005</TableCell>
+                      <TableCell>150.00</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-advanced-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Row and column totals -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Totais por linha e coluna</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">show-row-total soma valores numéricos da linha; show-column-total exibe o rodapé com somatórias.</p>
+        <demo id="demo-withTotals">
+          <groupviewtable--ml-advanced-data-table
+            show-row-total="{{playground.withTotals.showRowTotal}}"
+            show-column-total="{{playground.withTotals.showColumnTotal}}"
+            selectable="{{playground.withTotals.selectable}}">
+            <Caption>Receita por Região</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="region" sortable>Região</TableHead>
+                <TableHead key="q1" sortable>Q1</TableHead>
+                <TableHead key="q2" sortable>Q2</TableHead>
+                <TableHead key="q3" sortable>Q3</TableHead>
+                <TableHead key="q4" sortable>Q4</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Norte</TableCell>
+                <TableCell>1200</TableCell>
+                <TableCell>1350</TableCell>
+                <TableCell>1100</TableCell>
+                <TableCell>1480</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Sul</TableCell>
+                <TableCell>980</TableCell>
+                <TableCell>1020</TableCell>
+                <TableCell>1150</TableCell>
+                <TableCell>1300</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Sudeste</TableCell>
+                <TableCell>2500</TableCell>
+                <TableCell>2700</TableCell>
+                <TableCell>2600</TableCell>
+                <TableCell>2900</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Nordeste</TableCell>
+                <TableCell>800</TableCell>
+                <TableCell>850</TableCell>
+                <TableCell>900</TableCell>
+                <TableCell>950</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-advanced-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="showRowTotal" value="{{playground.withTotals.showRowTotal}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="showColumnTotal" value="{{playground.withTotals.showColumnTotal}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.withTotals.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-withTotals">
+              <template>
+                <groupviewtable--ml-advanced-data-table
+                  show-row-total="{{playground.withTotals.showRowTotal}}"
+                  show-column-total="{{playground.withTotals.showColumnTotal}}"
+                  selectable="{{playground.withTotals.selectable}}">
+                  <Caption>Receita por Região</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="region" sortable>Região</TableHead>
+                      <TableHead key="q1" sortable>Q1</TableHead>
+                      <TableHead key="q2" sortable>Q2</TableHead>
+                      <TableHead key="q3" sortable>Q3</TableHead>
+                      <TableHead key="q4" sortable>Q4</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Norte</TableCell>
+                      <TableCell>1200</TableCell>
+                      <TableCell>1350</TableCell>
+                      <TableCell>1100</TableCell>
+                      <TableCell>1480</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Sul</TableCell>
+                      <TableCell>980</TableCell>
+                      <TableCell>1020</TableCell>
+                      <TableCell>1150</TableCell>
+                      <TableCell>1300</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Sudeste</TableCell>
+                      <TableCell>2500</TableCell>
+                      <TableCell>2700</TableCell>
+                      <TableCell>2600</TableCell>
+                      <TableCell>2900</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Nordeste</TableCell>
+                      <TableCell>800</TableCell>
+                      <TableCell>850</TableCell>
+                      <TableCell>900</TableCell>
+                      <TableCell>950</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-advanced-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Disabled -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Desabilitada</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">disabled=true bloqueia ordenação, seleção, redimensionamento e paginação.</p>
+        <demo id="demo-disabled">
+          <groupviewtable--ml-advanced-data-table
+            disabled="{{playground.disabled.disabled}}"
+            selectable="{{playground.disabled.selectable}}"
+            value="{{playground.disabled.value}}"
+            page="{{playground.disabled.page}}"
+            page-size="{{playground.disabled.pageSize}}"
+            total-items="{{playground.disabled.totalItems}}">
+            <Caption>Inventário (somente leitura)</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="item" sortable>Item</TableHead>
+                <TableHead key="qty" sortable>Qtd</TableHead>
+                <TableHead key="loc">Local</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Parafuso M6</TableCell>
+                <TableCell>500</TableCell>
+                <TableCell>A-12</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Porca M6</TableCell>
+                <TableCell>480</TableCell>
+                <TableCell>A-13</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Arruela</TableCell>
+                <TableCell>1000</TableCell>
+                <TableCell>B-01</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-advanced-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.disabled.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.disabled.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="pageSize" value="{{playground.disabled.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalItems" value="{{playground.disabled.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupviewtable--ml-advanced-data-table
+                  disabled="{{playground.disabled.disabled}}"
+                  selectable="{{playground.disabled.selectable}}"
+                  value="{{playground.disabled.value}}"
+                  page="{{playground.disabled.page}}"
+                  page-size="{{playground.disabled.pageSize}}"
+                  total-items="{{playground.disabled.totalItems}}">
+                  <Caption>Inventário (somente leitura)</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="item" sortable>Item</TableHead>
+                      <TableHead key="qty" sortable>Qtd</TableHead>
+                      <TableHead key="loc">Local</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Parafuso M6</TableCell>
+                      <TableCell>500</TableCell>
+                      <TableCell>A-12</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Porca M6</TableCell>
+                      <TableCell>480</TableCell>
+                      <TableCell>A-13</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Arruela</TableCell>
+                      <TableCell>1000</TableCell>
+                      <TableCell>B-01</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-advanced-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Error state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com erro</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Mensagem de erro exibida abaixo da tabela via propriedade error.</p>
+        <demo id="demo-withError">
+          <groupviewtable--ml-advanced-data-table
+            error="{{playground.withError.error}}"
+            selectable="{{playground.withError.selectable}}"
+            value="{{playground.withError.value}}">
+            <Caption>Sincronização de pedidos</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="source">Origem</TableHead>
+                <TableHead key="status" sortable>Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>#501</TableCell>
+                <TableCell>API externa</TableCell>
+                <TableCell>Falha</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#502</TableCell>
+                <TableCell>Importação CSV</TableCell>
+                <TableCell>Parcial</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-advanced-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.withError.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.withError.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.withError.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-withError">
+              <template>
+                <groupviewtable--ml-advanced-data-table
+                  error="{{playground.withError.error}}"
+                  selectable="{{playground.withError.selectable}}"
+                  value="{{playground.withError.value}}">
+                  <Caption>Sincronização de pedidos</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="source">Origem</TableHead>
+                      <TableHead key="status" sortable>Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>#501</TableCell>
+                      <TableCell>API externa</TableCell>
+                      <TableCell>Falha</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#502</TableCell>
+                      <TableCell>Importação CSV</TableCell>
+                      <TableCell>Parcial</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-advanced-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Editing mode + full features -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6 md:col-span-2">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Modo edição com recursos completos</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">is-editing propaga o atributo às células; combina seleção, totais e paginação. Arraste cabeçalhos para reordenar e use a alça para redimensionar.</p>
+        <demo id="demo-editing">
+          <groupviewtable--ml-advanced-data-table
+            is-editing="{{playground.editing.isEditing}}"
+            selectable="{{playground.editing.selectable}}"
+            value="{{playground.editing.value}}"
+            show-row-total="{{playground.editing.showRowTotal}}"
+            show-column-total="{{playground.editing.showColumnTotal}}"
+            page="{{playground.editing.page}}"
+            page-size="{{playground.editing.pageSize}}"
+            total-items="{{playground.editing.totalItems}}"
+            disabled="{{playground.editing.disabled}}"
+            error="{{playground.editing.error}}">
+            <Caption>Orçamento Mensal</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="category" sortable>Categoria</TableHead>
+                <TableHead key="budget" sortable>Orçado</TableHead>
+                <TableHead key="spent" sortable>Gasto</TableHead>
+                <TableHead key="remaining" sortable>Saldo</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Marketing</TableCell>
+                <TableCell>5000</TableCell>
+                <TableCell>3200</TableCell>
+                <TableCell>1800</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Operações</TableCell>
+                <TableCell>8000</TableCell>
+                <TableCell>7500</TableCell>
+                <TableCell>500</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Pessoal</TableCell>
+                <TableCell>12000</TableCell>
+                <TableCell>12000</TableCell>
+                <TableCell>0</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Infraestrutura</TableCell>
+                <TableCell>3500</TableCell>
+                <TableCell>2100</TableCell>
+                <TableCell>1400</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-advanced-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.editing.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.editing.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.editing.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="showRowTotal" value="{{playground.editing.showRowTotal}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="showColumnTotal" value="{{playground.editing.showColumnTotal}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.editing.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="pageSize" value="{{playground.editing.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalItems" value="{{playground.editing.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.editing.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.editing.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-editing">
+              <template>
+                <groupviewtable--ml-advanced-data-table
+                  is-editing="{{playground.editing.isEditing}}"
+                  selectable="{{playground.editing.selectable}}"
+                  value="{{playground.editing.value}}"
+                  show-row-total="{{playground.editing.showRowTotal}}"
+                  show-column-total="{{playground.editing.showColumnTotal}}"
+                  page="{{playground.editing.page}}"
+                  page-size="{{playground.editing.pageSize}}"
+                  total-items="{{playground.editing.totalItems}}"
+                  disabled="{{playground.editing.disabled}}"
+                  error="{{playground.editing.error}}">
+                  <Caption>Orçamento Mensal</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="category" sortable>Categoria</TableHead>
+                      <TableHead key="budget" sortable>Orçado</TableHead>
+                      <TableHead key="spent" sortable>Gasto</TableHead>
+                      <TableHead key="remaining" sortable>Saldo</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Marketing</TableCell>
+                      <TableCell>5000</TableCell>
+                      <TableCell>3200</TableCell>
+                      <TableCell>1800</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Operações</TableCell>
+                      <TableCell>8000</TableCell>
+                      <TableCell>7500</TableCell>
+                      <TableCell>500</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Pessoal</TableCell>
+                      <TableCell>12000</TableCell>
+                      <TableCell>12000</TableCell>
+                      <TableCell>0</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Infraestrutura</TableCell>
+                      <TableCell>3500</TableCell>
+                      <TableCell>2100</TableCell>
+                      <TableCell>1400</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-advanced-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>

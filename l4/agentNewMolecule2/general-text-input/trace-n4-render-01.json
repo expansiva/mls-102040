@@ -1,0 +1,21 @@
+{
+  "savedAt": "2026-07-31T16:54:42.517Z",
+  "planId": "n4-render",
+  "attempt": 1,
+  "ok": false,
+  "chars": 12604,
+  "mlClasses": [
+    "ml-disabled",
+    "ml-error-text",
+    "ml-helper",
+    "ml-input",
+    "ml-input-container",
+    "ml-input-container-error",
+    "ml-input-container-focus",
+    "ml-label",
+    "ml-spinner",
+    "ml-text",
+    "ml-text-muted"
+  ],
+  "error": "compile: {\"file\":{\"fileName\":\"file://server/_102040_/l2/molecules/groupentertext/ml-general-text-input-teste.ts\"},\"start\":12544,\"length\":7,\"messageText\":\"Cannot find name 'require'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.\",\"category\":1,\"code\":2580}\ncompile: {\"file\":{\"fileName\":\"file://server/_102040_/l2/molecules/groupentertext/ml-general-text-input-teste.ts\"},\"start\":12586,\"length\":15,\"code\":2322,\"category\":1,\"messageText\":\"Type 'symbol' is not assignable to type 'unique symbol'.\"}"
+}
