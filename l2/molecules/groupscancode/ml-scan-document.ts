@@ -44,6 +44,10 @@ private msg: MessageType = messages.en;
 // SLOT TAGS
 // ===========================================================================
 slotTags = ['Label','Helper','Trigger','Result'];
+// O slot Trigger carrega CONTROLES do consumidor, não conteúdo
+// decorativo — precisa de nó vivo, com handler e componente preservados.
+// Os demais slots continuam vindo pelo caminho de snapshot: são conteúdo.
+protected usesLiveSlots = true;
 // ===========================================================================
 // PROPERTIES — From Contract
 // ===========================================================================
@@ -392,7 +396,7 @@ ${unsafeHTML(String(this.error))}
 }
 
 private renderTrigger(): TemplateResult {
-const content = this.hasSlot('Trigger') ? unsafeHTML(this.getSlotContent('Trigger')) : this.msg.openCamera;
+const content = this.hasSlot('Trigger') ? this.renderLiveSlot('Trigger') : this.msg.openCamera;
 return html`
 <button
 class="${this.getTriggerClasses()}"

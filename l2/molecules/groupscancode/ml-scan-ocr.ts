@@ -36,6 +36,10 @@ export class MlScanOcrMolecule extends MoleculeAuraElement {
  // SLOT TAGS
  // ===========================================================================
  slotTags = ['Label','Helper','Trigger','Result'];
+ // O slot Trigger carrega CONTROLES do consumidor, não conteúdo
+ // decorativo — precisa de nó vivo, com handler e componente preservados.
+ // Os demais slots continuam vindo pelo caminho de snapshot: são conteúdo.
+ protected usesLiveSlots = true;
 
  // ===========================================================================
  // PROPERTIES — From Contract
@@ -315,7 +319,7 @@ export class MlScanOcrMolecule extends MoleculeAuraElement {
  @keydown=${this.handleTriggerKey}
  >
  ${hasCustom
- ? unsafeHTML(this.getSlotContent('Trigger'))
+ ? this.renderLiveSlot('Trigger')
  : html`<span>${this.msg.openCamera}</span>`}
  </div>
  `;

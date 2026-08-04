@@ -32,6 +32,10 @@ private msg: MessageType = messages.en;
 // SLOT TAGS
 // ===========================================================================
 slotTags = ['Label','Helper','Trigger','Result'];
+// O slot Trigger carrega CONTROLES do consumidor, não conteúdo
+// decorativo — precisa de nó vivo, com handler e componente preservados.
+// Os demais slots continuam vindo pelo caminho de snapshot: são conteúdo.
+protected usesLiveSlots = true;
 // ===========================================================================
 // PROPERTIES — From Contract
 // ===========================================================================
@@ -297,7 +301,7 @@ ${this.value}
 }
 private renderTriggerContent(): TemplateResult {
 if (this.hasSlot('Trigger')) {
-return html`${unsafeHTML(this.getSlotContent('Trigger'))}`;
+return html`${this.renderLiveSlot('Trigger')}`;
 }
 return html`<span>${this.isOpen ? this.msg.close : this.msg.open}</span>`;
 }

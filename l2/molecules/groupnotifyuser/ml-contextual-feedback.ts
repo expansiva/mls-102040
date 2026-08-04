@@ -36,6 +36,11 @@ export class ContextualFeedbackMolecule extends MoleculeAuraElement {
  // ===========================================================================
  slotTags = ['Title','Message','Action','Icon'];
 
+ // O slot Action carrega CONTROLES do consumidor, não conteúdo decorativo — então precisa
+ // de nó vivo, com handler e componente preservados. Title, Message e Icon continuam vindo
+ // pelo caminho de snapshot: são conteúdo.
+ protected usesLiveSlots = true;
+
  // ===========================================================================
  // PROPERTIES — From Contract
  // ===========================================================================
@@ -359,7 +364,7 @@ export class ContextualFeedbackMolecule extends MoleculeAuraElement {
  class="${cn(`mt-2 ${typeStyles.title} font-medium cursor-pointer hover:underline`, this.getSlotClass('Action'))}"
  @click="${this.handleActionClick}"
  >
- ${unsafeHTML(this.getSlotContent('Action'))}
+ ${this.renderLiveSlot('Action')}
  </div>
  `;
  }

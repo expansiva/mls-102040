@@ -17,6 +17,10 @@ export class MlProfileCardMolecule extends MoleculeAuraElement {
 // SLOT TAGS
 // ==========================================================================
 slotTags = ['CardHeader', 'CardTitle', 'CardDescription', 'CardContent', 'CardFooter', 'CardAction'];
+// O slot CardFooter e o CardAction carregam CONTROLES do consumidor, não conteúdo
+// decorativo — precisam de nó vivo, com handler e componente preservados.
+// Os demais slots continuam vindo pelo caminho de snapshot: são conteúdo.
+protected usesLiveSlots = true;
 // ==========================================================================
 // PROPERTIES — From Contract
 // ==========================================================================
@@ -140,7 +144,7 @@ private renderFooter() {
 if (!this.hasSlot('CardFooter')) return nothing;
 return html`
 <div class="${cn('card-footer ml-text-muted', this.getSlotClass('CardFooter'))}">
-${unsafeHTML(this.getSlotContent('CardFooter'))}
+${this.renderLiveSlot('CardFooter')}
 </div>
 `;
 }
@@ -149,7 +153,7 @@ private renderAction() {
 if (!this.hasSlot('CardAction')) return nothing;
 return html`
 <div class="card-action flex flex-wrap items-center gap-2">
-${unsafeHTML(this.getSlotContent('CardAction'))}
+${this.renderLiveSlot('CardAction')}
 </div>
 `;
 }
