@@ -11,21 +11,24 @@ import '/_102040_/l2/molecules/groupviewtable/ml-inline-edit-table';
 import '/_102040_/l2/molecules/groupviewtable/ml-pivot-table';
 import '/_102040_/l2/molecules/groupviewtable/ml-view-table';
 import '/_102040_/l2/molecules/groupviewtable/ml-responsive-data-table';
+import '/_102040_/l2/molecules/groupviewtable/ml-lazy-record-detail-table';
 
 @customElement('molecules--groupviewtable--index-102040')
 export class GroupViewTableIndex extends StateLitElement {
   // ── Showcase card states ─────────────────────────────────────
-  @state() private cardAdvanced = '0';
-  @state() private cardMinimal = '';
-  @state() private cardSelect = '0,2';
-  @state() private cardDataTable = '';
-  @state() private cardGrouping = '';
-  @state() private cardInlineEdit = '';
-  @state() private cardPivot = '';
-  @state() private cardView = '';
-  @state() private cardResponsive = '1';
+  @state() private card1 = '';
+  @state() private card2 = '';
+  @state() private card3 = '0,2';
+  @state() private card4 = '';
+  @state() private card5 = '';
+  @state() private card6 = '';
+  @state() private card7 = '';
+  @state() private card8 = '';
+  @state() private card9 = '';
+  @state() private card10 = '1';
 
-  render(): TemplateResult {
+  // =========================================================================== RENDER
+  render() {
     return html`
       <div class="font-sans min-h-screen">
         ${this.renderHero()}
@@ -46,63 +49,65 @@ export class GroupViewTableIndex extends StateLitElement {
           View Table
         </h1>
         <p class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-          Displays structured data in tabular format with support for column sorting, row selection, pagination, and isEditing propagation. Pick from data tables, editable grids, grouping, pivot, and responsive implementations.
+          Displays structured data in tabular format with shared slot tags for headers, rows, and cells.
+          Choose among data, minimal, selectable, grouping, inline-edit, pivot, responsive, and lazy-detail implementations.
         </p>
       </header>
     `;
   }
 
-  // =========================================================================== RENDER SHOWCASE CARDS
+  // =========================================================================== SHOWCASE CARDS
   private renderShowcaseCards(): TemplateResult {
     return html`
       <section class="bg-slate-50 dark:bg-slate-950 px-8 py-12 border-b border-slate-200 dark:border-slate-700">
         <div class="max-w-2xl mx-auto flex flex-col gap-5">
 
+          <!-- Advanced Data Table -->
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-violet-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Advanced Data Table</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-advanced-data-table</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-advanced-data-table</code>
               </div>
               <p class="text-xs text-slate-400 mb-5">Full-featured table with sorting, selection, and pagination</p>
               <groupviewtable--ml-advanced-data-table
-                name="card-advanced"
-                value="${this.cardAdvanced}"
+                name="card-1"
+                value="${this.card1}"
+                .isEditing=${true}
                 .selectable=${true}
                 .page=${1}
                 .pageSize=${5}
                 .totalItems=${12}
-                .isEditing=${true}
-                @change=${(e: CustomEvent) => { this.cardAdvanced = e.detail.value; }}
+                @change=${(e: CustomEvent) => { this.card1 = e.detail.value; }}
               >
                 <Caption>Employee Directory</Caption>
                 <TableHeader>
                   <TableRow>
+                    <TableHead key="id" sortable>ID</TableHead>
                     <TableHead key="name" sortable>Name</TableHead>
                     <TableHead key="role" sortable>Role</TableHead>
                     <TableHead key="dept">Department</TableHead>
-                    <TableHead key="status">Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Alice Chen</TableCell>
+                    <TableCell>E-101</TableCell>
+                    <TableCell>Ava Chen</TableCell>
                     <TableCell>Engineer</TableCell>
                     <TableCell>Platform</TableCell>
-                    <TableCell>Active</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Bob Martinez</TableCell>
+                    <TableCell>E-102</TableCell>
+                    <TableCell>Marcus Lee</TableCell>
                     <TableCell>Designer</TableCell>
                     <TableCell>Product</TableCell>
-                    <TableCell>Active</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Carol Nguyen</TableCell>
-                    <TableCell>Manager</TableCell>
-                    <TableCell>Operations</TableCell>
-                    <TableCell>Away</TableCell>
+                    <TableCell>E-103</TableCell>
+                    <TableCell>Sofia Ruiz</TableCell>
+                    <TableCell>PM</TableCell>
+                    <TableCell>Growth</TableCell>
                   </TableRow>
                 </TableBody>
                 <Empty>No employees found</Empty>
@@ -111,262 +116,264 @@ export class GroupViewTableIndex extends StateLitElement {
             </div>
           </div>
 
+          <!-- Data Table Minimal -->
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-emerald-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Data Table Minimal</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-data-table-minimal</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-data-table-minimal</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Lightweight read-only table for simple structured lists</p>
+              <p class="text-xs text-slate-400 mb-5">Lightweight read-only table with minimal chrome</p>
               <groupviewtable--ml-data-table-minimal
-                name="card-minimal"
-                value="${this.cardMinimal}"
+                name="card-2"
+                value="${this.card2}"
                 .isEditing=${true}
-                @change=${(e: CustomEvent) => { this.cardMinimal = e.detail.value; }}
+                @change=${(e: CustomEvent) => { this.card2 = e.detail.value; }}
               >
-                <Caption>Recent Orders</Caption>
+                <Caption>Status Codes</Caption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead key="id">Order</TableHead>
-                    <TableHead key="customer">Customer</TableHead>
-                    <TableHead key="total">Total</TableHead>
+                    <TableHead key="code">Code</TableHead>
+                    <TableHead key="label">Label</TableHead>
+                    <TableHead key="severity">Severity</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>#1042</TableCell>
-                    <TableCell>Acme Corp</TableCell>
-                    <TableCell>$320.00</TableCell>
+                    <TableCell>200</TableCell>
+                    <TableCell>OK</TableCell>
+                    <TableCell>Info</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>#1043</TableCell>
-                    <TableCell>Globex Inc</TableCell>
-                    <TableCell>$89.50</TableCell>
+                    <TableCell>404</TableCell>
+                    <TableCell>Not Found</TableCell>
+                    <TableCell>Warning</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>#1044</TableCell>
-                    <TableCell>Initech</TableCell>
-                    <TableCell>$1,240.00</TableCell>
+                    <TableCell>500</TableCell>
+                    <TableCell>Server Error</TableCell>
+                    <TableCell>Critical</TableCell>
                   </TableRow>
                 </TableBody>
-                <Empty>No orders yet</Empty>
+                <Empty>No codes available</Empty>
               </groupviewtable--ml-data-table-minimal>
             </div>
           </div>
 
+          <!-- Data Table Select -->
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-amber-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Data Table Select</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-data-table-select</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-data-table-select</code>
               </div>
               <p class="text-xs text-slate-400 mb-5">Row selection with checkboxes for bulk actions</p>
               <groupviewtable--ml-data-table-select
-                name="card-select"
-                value="${this.cardSelect}"
-                .selectable=${true}
+                name="card-3"
+                value="${this.card3}"
                 .isEditing=${true}
-                @change=${(e: CustomEvent) => { this.cardSelect = e.detail.value; }}
+                .selectable=${true}
+                @change=${(e: CustomEvent) => { this.card3 = e.detail.value; }}
               >
-                <Caption>Selectable Tasks</Caption>
+                <Caption>Invoice Batch</Caption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead key="task" sortable>Task</TableHead>
-                    <TableHead key="assignee" sortable>Assignee</TableHead>
-                    <TableHead key="priority">Priority</TableHead>
+                    <TableHead key="invoice" sortable>Invoice</TableHead>
+                    <TableHead key="client" sortable>Client</TableHead>
+                    <TableHead key="amount" sortable>Amount</TableHead>
+                    <TableHead key="due">Due</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Update billing copy</TableCell>
-                    <TableCell>Dana</TableCell>
-                    <TableCell>High</TableCell>
+                    <TableCell>INV-2401</TableCell>
+                    <TableCell>Acme Corp</TableCell>
+                    <TableCell>$1,250.00</TableCell>
+                    <TableCell>2026-08-15</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Fix nav overflow</TableCell>
-                    <TableCell>Eli</TableCell>
-                    <TableCell>Medium</TableCell>
+                    <TableCell>INV-2402</TableCell>
+                    <TableCell>Globex Inc</TableCell>
+                    <TableCell>$890.50</TableCell>
+                    <TableCell>2026-08-20</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Ship release notes</TableCell>
-                    <TableCell>Fay</TableCell>
-                    <TableCell>Low</TableCell>
+                    <TableCell>INV-2403</TableCell>
+                    <TableCell>Initech</TableCell>
+                    <TableCell>$2,100.00</TableCell>
+                    <TableCell>2026-08-12</TableCell>
                   </TableRow>
                 </TableBody>
-                <Empty>No tasks available</Empty>
+                <Empty>No invoices selected</Empty>
               </groupviewtable--ml-data-table-select>
             </div>
           </div>
 
+          <!-- Data Table -->
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-rose-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Data Table</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-data-table</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-data-table</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Standard data table with sortable columns</p>
+              <p class="text-xs text-slate-400 mb-5">Standard sortable data table for everyday lists</p>
               <groupviewtable--ml-data-table
-                name="card-data-table"
-                value="${this.cardDataTable}"
+                name="card-4"
+                value="${this.card4}"
                 .isEditing=${true}
-                @change=${(e: CustomEvent) => { this.cardDataTable = e.detail.value; }}
-                @sort=${(_e: CustomEvent) => {}}
+                @change=${(e: CustomEvent) => { this.card4 = e.detail.value; }}
               >
-                <Caption>Product Catalog</Caption>
+                <Caption>Order List</Caption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead key="sku" sortable>SKU</TableHead>
-                    <TableHead key="product" sortable>Product</TableHead>
-                    <TableHead key="price" sortable>Price</TableHead>
-                    <TableHead key="stock">Stock</TableHead>
+                    <TableHead key="id" sortable>ID</TableHead>
+                    <TableHead key="customer" sortable>Customer</TableHead>
+                    <TableHead key="total" sortable>Total</TableHead>
+                    <TableHead key="status">Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>SKU-100</TableCell>
-                    <TableCell>Wireless Mouse</TableCell>
-                    <TableCell>$29.99</TableCell>
-                    <TableCell>142</TableCell>
+                    <TableCell>#001</TableCell>
+                    <TableCell>John Doe</TableCell>
+                    <TableCell>$150.00</TableCell>
+                    <TableCell>Completed</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>SKU-220</TableCell>
-                    <TableCell>USB-C Hub</TableCell>
-                    <TableCell>$49.00</TableCell>
-                    <TableCell>67</TableCell>
+                    <TableCell>#002</TableCell>
+                    <TableCell>Jane Smith</TableCell>
+                    <TableCell>$89.50</TableCell>
+                    <TableCell>Pending</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>SKU-310</TableCell>
-                    <TableCell>Laptop Stand</TableCell>
-                    <TableCell>$79.50</TableCell>
-                    <TableCell>23</TableCell>
+                    <TableCell>#003</TableCell>
+                    <TableCell>Sam Patel</TableCell>
+                    <TableCell>$320.00</TableCell>
+                    <TableCell>Shipped</TableCell>
                   </TableRow>
                 </TableBody>
-                <TableFooter>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell>3 products</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
-                </TableFooter>
-                <Empty>No products found</Empty>
+                <Empty>No orders found</Empty>
+                <Loading>Loading orders…</Loading>
               </groupviewtable--ml-data-table>
             </div>
           </div>
 
+          <!-- Grouping Table -->
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-sky-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Grouping Table</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-grouping-table</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-grouping-table</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Hierarchical rows grouped by category or parent key</p>
+              <p class="text-xs text-slate-400 mb-5">Rows organized under collapsible group headers</p>
               <groupviewtable--ml-grouping-table
-                name="card-grouping"
-                value="${this.cardGrouping}"
+                name="card-5"
+                value="${this.card5}"
                 .isEditing=${true}
-                @change=${(e: CustomEvent) => { this.cardGrouping = e.detail.value; }}
+                @change=${(e: CustomEvent) => { this.card5 = e.detail.value; }}
               >
-                <Caption>Spend by Department</Caption>
+                <Caption>Tasks by Project</Caption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead key="category" sortable>Category</TableHead>
-                    <TableHead key="item">Item</TableHead>
-                    <TableHead key="amount" sortable>Amount</TableHead>
+                    <TableHead key="task" sortable>Task</TableHead>
+                    <TableHead key="assignee" sortable>Assignee</TableHead>
+                    <TableHead key="priority">Priority</TableHead>
+                    <TableHead key="eta">ETA</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Engineering</TableCell>
-                    <TableCell>Cloud hosting</TableCell>
-                    <TableCell>$4,200</TableCell>
+                    <TableCell>Design system tokens</TableCell>
+                    <TableCell>Ava Chen</TableCell>
+                    <TableCell>High</TableCell>
+                    <TableCell>Aug 10</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Engineering</TableCell>
-                    <TableCell>CI minutes</TableCell>
-                    <TableCell>$890</TableCell>
+                    <TableCell>API rate limits</TableCell>
+                    <TableCell>Marcus Lee</TableCell>
+                    <TableCell>Medium</TableCell>
+                    <TableCell>Aug 18</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Marketing</TableCell>
-                    <TableCell>Ad campaigns</TableCell>
-                    <TableCell>$2,150</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Marketing</TableCell>
-                    <TableCell>Events</TableCell>
-                    <TableCell>$1,600</TableCell>
+                    <TableCell>Onboarding checklist</TableCell>
+                    <TableCell>Sofia Ruiz</TableCell>
+                    <TableCell>Low</TableCell>
+                    <TableCell>Aug 25</TableCell>
                   </TableRow>
                 </TableBody>
-                <Empty>No grouped data</Empty>
+                <Empty>No grouped tasks</Empty>
               </groupviewtable--ml-grouping-table>
             </div>
           </div>
 
+          <!-- Inline Edit Table -->
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-indigo-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Inline Edit Table</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-inline-edit-table</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-inline-edit-table</code>
               </div>
               <p class="text-xs text-slate-400 mb-5">Editable grid that propagates isEditing into cell components</p>
               <groupviewtable--ml-inline-edit-table
-                name="card-inline-edit"
-                value="${this.cardInlineEdit}"
+                name="card-6"
+                value="${this.card6}"
                 .isEditing=${true}
-                @change=${(e: CustomEvent) => { this.cardInlineEdit = e.detail.value; }}
+                @change=${(e: CustomEvent) => { this.card6 = e.detail.value; }}
               >
                 <Caption>Inventory Adjustments</Caption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead key="item">Item</TableHead>
+                    <TableHead key="sku" sortable>SKU</TableHead>
+                    <TableHead key="product" sortable>Product</TableHead>
                     <TableHead key="qty" sortable>Qty</TableHead>
                     <TableHead key="location">Location</TableHead>
-                    <TableHead key="notes">Notes</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Widget A</TableCell>
+                    <TableCell>SKU-4410</TableCell>
+                    <TableCell>Wireless Mouse</TableCell>
                     <TableCell>48</TableCell>
-                    <TableCell>Warehouse N</TableCell>
-                    <TableCell>Restock pending</TableCell>
+                    <TableCell>Aisle B2</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Widget B</TableCell>
-                    <TableCell>12</TableCell>
-                    <TableCell>Warehouse S</TableCell>
-                    <TableCell>Damaged lot</TableCell>
+                    <TableCell>SKU-4411</TableCell>
+                    <TableCell>USB-C Hub</TableCell>
+                    <TableCell>22</TableCell>
+                    <TableCell>Aisle C1</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Gadget C</TableCell>
-                    <TableCell>200</TableCell>
-                    <TableCell>Warehouse N</TableCell>
-                    <TableCell>—</TableCell>
+                    <TableCell>SKU-4412</TableCell>
+                    <TableCell>Laptop Stand</TableCell>
+                    <TableCell>15</TableCell>
+                    <TableCell>Aisle A4</TableCell>
                   </TableRow>
                 </TableBody>
                 <Empty>No inventory rows</Empty>
+                <Loading>Syncing inventory…</Loading>
               </groupviewtable--ml-inline-edit-table>
             </div>
           </div>
 
+          <!-- Pivot Table -->
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-purple-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Pivot Table</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-pivot-table</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-pivot-table</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Cross-tab layout for summarizing metrics across dimensions</p>
+              <p class="text-xs text-slate-400 mb-5">Cross-tab summary for multi-dimensional analysis</p>
               <groupviewtable--ml-pivot-table
-                name="card-pivot"
-                value="${this.cardPivot}"
+                name="card-7"
+                value="${this.card7}"
                 .isEditing=${true}
-                @change=${(e: CustomEvent) => { this.cardPivot = e.detail.value; }}
+                @change=${(e: CustomEvent) => { this.card7 = e.detail.value; }}
               >
                 <Caption>Revenue by Region × Quarter</Caption>
                 <TableHeader>
@@ -375,128 +382,193 @@ export class GroupViewTableIndex extends StateLitElement {
                     <TableHead key="q1" sortable>Q1</TableHead>
                     <TableHead key="q2" sortable>Q2</TableHead>
                     <TableHead key="q3" sortable>Q3</TableHead>
-                    <TableHead key="q4" sortable>Q4</TableHead>
+                    <TableHead key="total">Total</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>North</TableCell>
-                    <TableCell>$120k</TableCell>
-                    <TableCell>$135k</TableCell>
-                    <TableCell>$142k</TableCell>
-                    <TableCell>$158k</TableCell>
+                    <TableCell>North America</TableCell>
+                    <TableCell>$420K</TableCell>
+                    <TableCell>$510K</TableCell>
+                    <TableCell>$480K</TableCell>
+                    <TableCell>$1.41M</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>South</TableCell>
-                    <TableCell>$98k</TableCell>
-                    <TableCell>$110k</TableCell>
-                    <TableCell>$105k</TableCell>
-                    <TableCell>$121k</TableCell>
+                    <TableCell>Europe</TableCell>
+                    <TableCell>$310K</TableCell>
+                    <TableCell>$355K</TableCell>
+                    <TableCell>$390K</TableCell>
+                    <TableCell>$1.06M</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>EMEA</TableCell>
-                    <TableCell>$210k</TableCell>
-                    <TableCell>$225k</TableCell>
-                    <TableCell>$240k</TableCell>
-                    <TableCell>$255k</TableCell>
+                    <TableCell>APAC</TableCell>
+                    <TableCell>$275K</TableCell>
+                    <TableCell>$300K</TableCell>
+                    <TableCell>$340K</TableCell>
+                    <TableCell>$915K</TableCell>
                   </TableRow>
                 </TableBody>
+                <TableFooter>
+                  <TableRow>
+                    <TableCell>All regions</TableCell>
+                    <TableCell>$1.01M</TableCell>
+                    <TableCell>$1.17M</TableCell>
+                    <TableCell>$1.21M</TableCell>
+                    <TableCell>$3.38M</TableCell>
+                  </TableRow>
+                </TableFooter>
                 <Empty>No pivot data</Empty>
               </groupviewtable--ml-pivot-table>
             </div>
           </div>
 
+          <!-- View Table -->
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-teal-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">View Table</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-view-table</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-view-table</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Presentation-focused table for read-only dashboards</p>
+              <p class="text-xs text-slate-400 mb-5">Presentation-focused table for dashboards and reports</p>
               <groupviewtable--ml-view-table
-                name="card-view"
-                value="${this.cardView}"
+                name="card-8"
+                value="${this.card8}"
                 .isEditing=${true}
-                @change=${(e: CustomEvent) => { this.cardView = e.detail.value; }}
+                @change=${(e: CustomEvent) => { this.card8 = e.detail.value; }}
               >
-                <Caption>System Health</Caption>
+                <Caption>KPI Snapshot</Caption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead key="service">Service</TableHead>
-                    <TableHead key="uptime">Uptime</TableHead>
-                    <TableHead key="latency">Latency</TableHead>
-                    <TableHead key="status">Status</TableHead>
+                    <TableHead key="metric">Metric</TableHead>
+                    <TableHead key="current" sortable>Current</TableHead>
+                    <TableHead key="target">Target</TableHead>
+                    <TableHead key="delta">Δ</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>API Gateway</TableCell>
-                    <TableCell>99.98%</TableCell>
-                    <TableCell>42ms</TableCell>
-                    <TableCell>Healthy</TableCell>
+                    <TableCell>MRR</TableCell>
+                    <TableCell>$84.2K</TableCell>
+                    <TableCell>$80K</TableCell>
+                    <TableCell>+5.3%</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Auth Service</TableCell>
-                    <TableCell>99.95%</TableCell>
-                    <TableCell>61ms</TableCell>
-                    <TableCell>Healthy</TableCell>
+                    <TableCell>Churn</TableCell>
+                    <TableCell>2.1%</TableCell>
+                    <TableCell>2.5%</TableCell>
+                    <TableCell>-0.4pp</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Billing Worker</TableCell>
-                    <TableCell>99.40%</TableCell>
-                    <TableCell>180ms</TableCell>
-                    <TableCell>Degraded</TableCell>
+                    <TableCell>NPS</TableCell>
+                    <TableCell>62</TableCell>
+                    <TableCell>60</TableCell>
+                    <TableCell>+2</TableCell>
                   </TableRow>
                 </TableBody>
-                <Empty>No services reported</Empty>
-                <Loading>Checking health…</Loading>
+                <Empty>No metrics to display</Empty>
               </groupviewtable--ml-view-table>
             </div>
           </div>
 
+          <!-- Responsive Data Table -->
           <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <div class="h-1 bg-orange-500 rounded-t-2xl"></div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-1">
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Responsive Data Table</p>
-                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">ml-responsive-data-table</code>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-responsive-data-table</code>
               </div>
-              <p class="text-xs text-slate-400 mb-5">Adapts columns and density for narrow and mobile viewports</p>
+              <p class="text-xs text-slate-400 mb-5">Adapts columns and layout for narrow viewports</p>
               <groupviewtable--ml-responsive-data-table
-                name="card-responsive"
-                value="${this.cardResponsive}"
-                .selectable=${true}
+                name="card-9"
+                value="${this.card9}"
                 .isEditing=${true}
-                @change=${(e: CustomEvent) => { this.cardResponsive = e.detail.value; }}
+                @change=${(e: CustomEvent) => { this.card9 = e.detail.value; }}
               >
-                <Caption>Team Members</Caption>
+                <Caption>Support Tickets</Caption>
                 <TableHeader>
                   <TableRow>
-                    <TableHead key="name" sortable>Name</TableHead>
-                    <TableHead key="email">Email</TableHead>
-                    <TableHead key="role">Role</TableHead>
+                    <TableHead key="ticket" sortable>Ticket</TableHead>
+                    <TableHead key="subject" sortable>Subject</TableHead>
+                    <TableHead key="priority">Priority</TableHead>
+                    <TableHead key="owner">Owner</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell>Grace Lee</TableCell>
-                    <TableCell>grace@example.com</TableCell>
-                    <TableCell>Admin</TableCell>
+                    <TableCell>T-9081</TableCell>
+                    <TableCell>Login timeout on mobile</TableCell>
+                    <TableCell>High</TableCell>
+                    <TableCell>Support L2</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Hugo Berg</TableCell>
-                    <TableCell>hugo@example.com</TableCell>
-                    <TableCell>Editor</TableCell>
+                    <TableCell>T-9082</TableCell>
+                    <TableCell>Export CSV truncated</TableCell>
+                    <TableCell>Medium</TableCell>
+                    <TableCell>Support L1</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>Ivy Santos</TableCell>
-                    <TableCell>ivy@example.com</TableCell>
-                    <TableCell>Viewer</TableCell>
+                    <TableCell>T-9083</TableCell>
+                    <TableCell>Dark mode contrast</TableCell>
+                    <TableCell>Low</TableCell>
+                    <TableCell>Design</TableCell>
                   </TableRow>
                 </TableBody>
-                <Empty>No team members</Empty>
+                <Empty>No open tickets</Empty>
+                <Loading>Fetching tickets…</Loading>
               </groupviewtable--ml-responsive-data-table>
+            </div>
+          </div>
+
+          <!-- Lazy Record Detail Table -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="h-1 bg-pink-500 rounded-t-2xl"></div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">Lazy Record Detail Table</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-lazy-record-detail-table</code>
+              </div>
+              <p class="text-xs text-slate-400 mb-5">Expands rows on demand to load nested record details</p>
+              <groupviewtable--ml-lazy-record-detail-table
+                name="card-10"
+                value="${this.card10}"
+                .isEditing=${true}
+                .selectable=${true}
+                @change=${(e: CustomEvent) => { this.card10 = e.detail.value; }}
+              >
+                <Caption>Customer Accounts</Caption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead key="account" sortable>Account</TableHead>
+                    <TableHead key="plan" sortable>Plan</TableHead>
+                    <TableHead key="seats">Seats</TableHead>
+                    <TableHead key="renewal">Renewal</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Northwind Traders</TableCell>
+                    <TableCell>Business</TableCell>
+                    <TableCell>25</TableCell>
+                    <TableCell>2026-11-01</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Contoso Ltd</TableCell>
+                    <TableCell>Enterprise</TableCell>
+                    <TableCell>120</TableCell>
+                    <TableCell>2027-01-15</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Fabrikam Co</TableCell>
+                    <TableCell>Starter</TableCell>
+                    <TableCell>5</TableCell>
+                    <TableCell>2026-09-30</TableCell>
+                  </TableRow>
+                </TableBody>
+                <Empty>No accounts loaded</Empty>
+                <Loading>Loading account details…</Loading>
+              </groupviewtable--ml-lazy-record-detail-table>
             </div>
           </div>
 
@@ -505,7 +577,7 @@ export class GroupViewTableIndex extends StateLitElement {
     `;
   }
 
-  // =========================================================================== RENDER REFERENCE TABLE
+  // =========================================================================== REFERENCE TABLE
   private renderReferenceTable(): TemplateResult {
     const rows: Array<{
       scenario: string;
@@ -518,17 +590,20 @@ export class GroupViewTableIndex extends StateLitElement {
       pivot: boolean;
       view: boolean;
       responsive: boolean;
+      lazyDetail: boolean;
     }> = [
-      { scenario: 'Simple read-only list of records', advanced: true, minimal: true, select: true, dataTable: true, grouping: false, inlineEdit: false, pivot: false, view: true, responsive: true },
-      { scenario: 'Multi-row selection with checkboxes', advanced: true, minimal: false, select: true, dataTable: false, grouping: false, inlineEdit: false, pivot: false, view: false, responsive: true },
-      { scenario: 'Sortable column headers', advanced: true, minimal: false, select: true, dataTable: true, grouping: true, inlineEdit: true, pivot: true, view: false, responsive: true },
-      { scenario: 'Paginated large datasets', advanced: true, minimal: false, select: false, dataTable: true, grouping: false, inlineEdit: false, pivot: false, view: false, responsive: false },
-      { scenario: 'Inline cell editing (isEditing propagation)', advanced: false, minimal: false, select: false, dataTable: false, grouping: false, inlineEdit: true, pivot: false, view: false, responsive: false },
-      { scenario: 'Hierarchical or grouped rows', advanced: false, minimal: false, select: false, dataTable: false, grouping: true, inlineEdit: false, pivot: false, view: false, responsive: false },
-      { scenario: 'Cross-tab / pivot analysis', advanced: false, minimal: false, select: false, dataTable: false, grouping: false, inlineEdit: false, pivot: true, view: false, responsive: false },
-      { scenario: 'Mobile-friendly responsive layout', advanced: false, minimal: false, select: false, dataTable: false, grouping: false, inlineEdit: false, pivot: false, view: false, responsive: true },
-      { scenario: 'Dashboard presentation / status boards', advanced: true, minimal: true, select: false, dataTable: true, grouping: false, inlineEdit: false, pivot: false, view: true, responsive: true },
-      { scenario: 'Bounded viewport with sticky header (fit-height)', advanced: true, minimal: false, select: false, dataTable: true, grouping: false, inlineEdit: true, pivot: false, view: false, responsive: false },
+      { scenario: 'Everyday sortable list with caption and empty state', advanced: true, minimal: true, select: true, dataTable: true, grouping: false, inlineEdit: false, pivot: false, view: true, responsive: true, lazyDetail: false },
+      { scenario: 'Bulk actions via checkbox row selection', advanced: true, minimal: false, select: true, dataTable: false, grouping: false, inlineEdit: false, pivot: false, view: false, responsive: false, lazyDetail: true },
+      { scenario: 'Paginated server-driven result sets', advanced: true, minimal: false, select: false, dataTable: true, grouping: false, inlineEdit: false, pivot: false, view: false, responsive: true, lazyDetail: false },
+      { scenario: 'Minimal chrome for dense secondary panels', advanced: false, minimal: true, select: false, dataTable: false, grouping: false, inlineEdit: false, pivot: false, view: true, responsive: false, lazyDetail: false },
+      { scenario: 'Rows organized under collapsible groups', advanced: false, minimal: false, select: false, dataTable: false, grouping: true, inlineEdit: false, pivot: false, view: false, responsive: false, lazyDetail: false },
+      { scenario: 'Inline cell editing with isEditing propagation', advanced: false, minimal: false, select: false, dataTable: false, grouping: false, inlineEdit: true, pivot: false, view: false, responsive: false, lazyDetail: false },
+      { scenario: 'Cross-tab / pivot summaries with footer totals', advanced: false, minimal: false, select: false, dataTable: false, grouping: false, inlineEdit: false, pivot: true, view: false, responsive: false, lazyDetail: false },
+      { scenario: 'Dashboard KPI presentation without interaction chrome', advanced: false, minimal: false, select: false, dataTable: false, grouping: false, inlineEdit: false, pivot: false, view: true, responsive: false, lazyDetail: false },
+      { scenario: 'Narrow viewports that must reflow columns', advanced: false, minimal: false, select: false, dataTable: false, grouping: false, inlineEdit: false, pivot: false, view: false, responsive: true, lazyDetail: false },
+      { scenario: 'Expandable rows that lazy-load nested record detail', advanced: false, minimal: false, select: false, dataTable: false, grouping: false, inlineEdit: false, pivot: false, view: false, responsive: false, lazyDetail: true },
+      { scenario: 'Combined sort + select + pagination in one surface', advanced: true, minimal: false, select: true, dataTable: true, grouping: false, inlineEdit: false, pivot: false, view: false, responsive: false, lazyDetail: false },
+      { scenario: 'Bounded viewport with sticky header and visible pagination (fit-height)', advanced: true, minimal: false, select: false, dataTable: true, grouping: false, inlineEdit: false, pivot: false, view: false, responsive: true, lazyDetail: false },
     ];
 
     const headers = [
@@ -541,15 +616,16 @@ export class GroupViewTableIndex extends StateLitElement {
       { label: 'Pivot', cls: 'text-purple-600 dark:text-purple-400' },
       { label: 'View', cls: 'text-teal-600 dark:text-teal-400' },
       { label: 'Responsive', cls: 'text-orange-600 dark:text-orange-400' },
+      { label: 'Lazy Detail', cls: 'text-pink-600 dark:text-pink-400' },
     ];
 
     return html`
       <section class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700">
         <div class="max-w-5xl mx-auto">
           <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">Match your data interaction needs — selection, editing, grouping, pivot, or responsive layout — to the right table implementation.</p>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
-            <table class="w-full text-sm">
+          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">Pick a table implementation by interaction model — selection, grouping, inline edit, pivot, responsive reflow, or lazy row detail — while keeping the same slot-tag contract.</p>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm overflow-x-auto">
+            <table class="w-full text-sm min-w-[64rem]">
               <thead>
                 <tr class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
                   <th class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4">Scenario</th>
@@ -562,7 +638,7 @@ export class GroupViewTableIndex extends StateLitElement {
                 ${rows.map((row, i) => html`
                   <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
                     <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-                    ${([row.advanced, row.minimal, row.select, row.dataTable, row.grouping, row.inlineEdit, row.pivot, row.view, row.responsive] as boolean[]).map(ok => html`
+                    ${([row.advanced, row.minimal, row.select, row.dataTable, row.grouping, row.inlineEdit, row.pivot, row.view, row.responsive, row.lazyDetail] as boolean[]).map(ok => html`
                       <td class="px-4 py-3.5 text-center">
                         ${ok
                           ? html`<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>`

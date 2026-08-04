@@ -1,0 +1,917 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Tabela com Detalhe Lazy</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewTable</span>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Tabela ordenável e paginável com linhas expansíveis. Ao expandir, emite o índice do registro para carregamento sob demanda dos detalhes.</p>
+    </header>
+
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"isEditing":false,"page":1,"pageSize":0,"totalItems":0,"value":"","error":"","disabled":false,"loading":false},"loading":{"loading":true,"disabled":false,"error":""},"empty":{"loading":false,"disabled":false,"error":""},"selectable":{"selectable":true,"value":"0,2","disabled":false,"loading":false,"error":""},"pagination":{"page":2,"pageSize":5,"totalItems":23,"selectable":false,"value":"","disabled":false,"loading":false,"error":""},"disabled":{"disabled":true,"selectable":true,"value":"1","page":1,"pageSize":10,"totalItems":2,"loading":false,"error":""},"withError":{"error":"Falha ao carregar os detalhes do registro. Tente novamente.","selectable":false,"value":"","disabled":false,"loading":false},"isEditing":{"isEditing":true,"selectable":false,"value":"","disabled":false,"loading":false,"error":""},"longLabels":{"selectable":false,"value":"","page":1,"pageSize":0,"totalItems":0,"disabled":false,"loading":false,"error":""}}}'>
+    </aura--molecules--playground--widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+      <!-- Basic expandable table -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Básica com expansão</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Tabela simples com colunas ordenáveis e linhas expansíveis para detalhe lazy.</p>
+        <demo id="demo-basic">
+          <groupviewtable--ml-lazy-record-detail-table
+            selectable="{{playground.basic.selectable}}"
+            is-editing="{{playground.basic.isEditing}}"
+            page="{{playground.basic.page}}"
+            page-size="{{playground.basic.pageSize}}"
+            total-items="{{playground.basic.totalItems}}"
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            disabled="{{playground.basic.disabled}}"
+            loading="{{playground.basic.loading}}">
+            <Caption>Lista de pedidos</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="customer" sortable>Cliente</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+                <TableHead key="status">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>#1001</TableCell>
+                <TableCell>Ana Silva</TableCell>
+                <TableCell>R$ 320,00</TableCell>
+                <TableCell>Concluído</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1002</TableCell>
+                <TableCell>Bruno Costa</TableCell>
+                <TableCell>R$ 89,50</TableCell>
+                <TableCell>Pendente</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1003</TableCell>
+                <TableCell>Carla Mendes</TableCell>
+                <TableCell>R$ 1.240,00</TableCell>
+                <TableCell>Em trânsito</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>Nenhum pedido encontrado</Empty>
+          </groupviewtable--ml-lazy-record-detail-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.basic.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.basic.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.basic.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.basic.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewtable--ml-lazy-record-detail-table
+                  selectable="{{playground.basic.selectable}}"
+                  is-editing="{{playground.basic.isEditing}}"
+                  page="{{playground.basic.page}}"
+                  page-size="{{playground.basic.pageSize}}"
+                  total-items="{{playground.basic.totalItems}}"
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  disabled="{{playground.basic.disabled}}"
+                  loading="{{playground.basic.loading}}">
+                  <Caption>Lista de pedidos</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="customer" sortable>Cliente</TableHead>
+                      <TableHead key="total" sortable>Total</TableHead>
+                      <TableHead key="status">Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>#1001</TableCell>
+                      <TableCell>Ana Silva</TableCell>
+                      <TableCell>R$ 320,00</TableCell>
+                      <TableCell>Concluído</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1002</TableCell>
+                      <TableCell>Bruno Costa</TableCell>
+                      <TableCell>R$ 89,50</TableCell>
+                      <TableCell>Pendente</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1003</TableCell>
+                      <TableCell>Carla Mendes</TableCell>
+                      <TableCell>R$ 1.240,00</TableCell>
+                      <TableCell>Em trânsito</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>Nenhum pedido encontrado</Empty>
+                </groupviewtable--ml-lazy-record-detail-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Carregando</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Exibe o estado de loading (skeleton padrão ou slot Loading customizado).</p>
+        <demo id="demo-loading">
+          <groupviewtable--ml-lazy-record-detail-table
+            loading="{{playground.loading.loading}}"
+            disabled="{{playground.loading.disabled}}"
+            error="{{playground.loading.error}}">
+            <Caption>Pedidos</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="customer" sortable>Cliente</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>#2001</TableCell>
+                <TableCell>Diego Alves</TableCell>
+                <TableCell>R$ 450,00</TableCell>
+              </TableRow>
+            </TableBody>
+            <Loading>Carregando pedidos...</Loading>
+          </groupviewtable--ml-lazy-record-detail-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewtable--ml-lazy-record-detail-table
+                  loading="{{playground.loading.loading}}"
+                  disabled="{{playground.loading.disabled}}"
+                  error="{{playground.loading.error}}">
+                  <Caption>Pedidos</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="customer" sortable>Cliente</TableHead>
+                      <TableHead key="total" sortable>Total</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>#2001</TableCell>
+                      <TableCell>Diego Alves</TableCell>
+                      <TableCell>R$ 450,00</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Loading>Carregando pedidos...</Loading>
+                </groupviewtable--ml-lazy-record-detail-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Empty state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Sem registros</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Tabela sem linhas no corpo — exibe o slot Empty ou a mensagem padrão.</p>
+        <demo id="demo-empty">
+          <groupviewtable--ml-lazy-record-detail-table
+            loading="{{playground.empty.loading}}"
+            disabled="{{playground.empty.disabled}}"
+            error="{{playground.empty.error}}">
+            <Caption>Resultados da busca</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="name" sortable>Nome</TableHead>
+                <TableHead key="email">E-mail</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody></TableBody>
+            <Empty>Nenhum registro encontrado para os filtros aplicados</Empty>
+          </groupviewtable--ml-lazy-record-detail-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+                <groupviewtable--ml-lazy-record-detail-table
+                  loading="{{playground.empty.loading}}"
+                  disabled="{{playground.empty.disabled}}"
+                  error="{{playground.empty.error}}">
+                  <Caption>Resultados da busca</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="name" sortable>Nome</TableHead>
+                      <TableHead key="email">E-mail</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody></TableBody>
+                  <Empty>Nenhum registro encontrado para os filtros aplicados</Empty>
+                </groupviewtable--ml-lazy-record-detail-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Selectable rows -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com seleção</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Coluna de checkboxes e valor pré-selecionado (índices separados por vírgula).</p>
+        <demo id="demo-selectable">
+          <groupviewtable--ml-lazy-record-detail-table
+            selectable="{{playground.selectable.selectable}}"
+            value="{{playground.selectable.value}}"
+            disabled="{{playground.selectable.disabled}}"
+            loading="{{playground.selectable.loading}}"
+            error="{{playground.selectable.error}}">
+            <Caption>Itens selecionáveis</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="sku" sortable>SKU</TableHead>
+                <TableHead key="product" sortable>Produto</TableHead>
+                <TableHead key="qty" sortable>Qtd</TableHead>
+                <TableHead key="price" sortable>Preço</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>SKU-01</TableCell>
+                <TableCell>Teclado mecânico</TableCell>
+                <TableCell>2</TableCell>
+                <TableCell>R$ 299,90</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-02</TableCell>
+                <TableCell>Mouse sem fio</TableCell>
+                <TableCell>5</TableCell>
+                <TableCell>R$ 129,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-03</TableCell>
+                <TableCell>Monitor 27&quot;</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell>R$ 1.899,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-04</TableCell>
+                <TableCell>Headset USB</TableCell>
+                <TableCell>3</TableCell>
+                <TableCell>R$ 249,00</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-lazy-record-detail-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.selectable.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.selectable.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+                <groupviewtable--ml-lazy-record-detail-table
+                  selectable="{{playground.selectable.selectable}}"
+                  value="{{playground.selectable.value}}"
+                  disabled="{{playground.selectable.disabled}}"
+                  loading="{{playground.selectable.loading}}"
+                  error="{{playground.selectable.error}}">
+                  <Caption>Itens selecionáveis</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="sku" sortable>SKU</TableHead>
+                      <TableHead key="product" sortable>Produto</TableHead>
+                      <TableHead key="qty" sortable>Qtd</TableHead>
+                      <TableHead key="price" sortable>Preço</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>SKU-01</TableCell>
+                      <TableCell>Teclado mecânico</TableCell>
+                      <TableCell>2</TableCell>
+                      <TableCell>R$ 299,90</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-02</TableCell>
+                      <TableCell>Mouse sem fio</TableCell>
+                      <TableCell>5</TableCell>
+                      <TableCell>R$ 129,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-03</TableCell>
+                      <TableCell>Monitor 27&quot;</TableCell>
+                      <TableCell>1</TableCell>
+                      <TableCell>R$ 1.899,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-04</TableCell>
+                      <TableCell>Headset USB</TableCell>
+                      <TableCell>3</TableCell>
+                      <TableCell>R$ 249,00</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-lazy-record-detail-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Pagination -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com paginação</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Controles de página com page-size e total-items definidos (dados da página atual no corpo).</p>
+        <demo id="demo-pagination">
+          <groupviewtable--ml-lazy-record-detail-table
+            page="{{playground.pagination.page}}"
+            page-size="{{playground.pagination.pageSize}}"
+            total-items="{{playground.pagination.totalItems}}"
+            selectable="{{playground.pagination.selectable}}"
+            value="{{playground.pagination.value}}"
+            disabled="{{playground.pagination.disabled}}"
+            loading="{{playground.pagination.loading}}"
+            error="{{playground.pagination.error}}">
+            <Caption>Clientes (paginado)</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="code" sortable>Código</TableHead>
+                <TableHead key="name" sortable>Nome</TableHead>
+                <TableHead key="city" sortable>Cidade</TableHead>
+                <TableHead key="segment">Segmento</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>C-101</TableCell>
+                <TableCell>Empresa Alpha</TableCell>
+                <TableCell>São Paulo</TableCell>
+                <TableCell>Varejo</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>C-102</TableCell>
+                <TableCell>Beta Ltda</TableCell>
+                <TableCell>Curitiba</TableCell>
+                <TableCell>Indústria</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>C-103</TableCell>
+                <TableCell>Gamma SA</TableCell>
+                <TableCell>Belo Horizonte</TableCell>
+                <TableCell>Serviços</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>C-104</TableCell>
+                <TableCell>Delta Comércio</TableCell>
+                <TableCell>Porto Alegre</TableCell>
+                <TableCell>Varejo</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>C-105</TableCell>
+                <TableCell>Epsilon Tech</TableCell>
+                <TableCell>Recife</TableCell>
+                <TableCell>Tecnologia</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-lazy-record-detail-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.pagination.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.pagination.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.pagination.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.pagination.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.pagination.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.pagination.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.pagination.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.pagination.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-pagination">
+              <template>
+                <groupviewtable--ml-lazy-record-detail-table
+                  page="{{playground.pagination.page}}"
+                  page-size="{{playground.pagination.pageSize}}"
+                  total-items="{{playground.pagination.totalItems}}"
+                  selectable="{{playground.pagination.selectable}}"
+                  value="{{playground.pagination.value}}"
+                  disabled="{{playground.pagination.disabled}}"
+                  loading="{{playground.pagination.loading}}"
+                  error="{{playground.pagination.error}}">
+                  <Caption>Clientes (paginado)</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="code" sortable>Código</TableHead>
+                      <TableHead key="name" sortable>Nome</TableHead>
+                      <TableHead key="city" sortable>Cidade</TableHead>
+                      <TableHead key="segment">Segmento</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>C-101</TableCell>
+                      <TableCell>Empresa Alpha</TableCell>
+                      <TableCell>São Paulo</TableCell>
+                      <TableCell>Varejo</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>C-102</TableCell>
+                      <TableCell>Beta Ltda</TableCell>
+                      <TableCell>Curitiba</TableCell>
+                      <TableCell>Indústria</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>C-103</TableCell>
+                      <TableCell>Gamma SA</TableCell>
+                      <TableCell>Belo Horizonte</TableCell>
+                      <TableCell>Serviços</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>C-104</TableCell>
+                      <TableCell>Delta Comércio</TableCell>
+                      <TableCell>Porto Alegre</TableCell>
+                      <TableCell>Varejo</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>C-105</TableCell>
+                      <TableCell>Epsilon Tech</TableCell>
+                      <TableCell>Recife</TableCell>
+                      <TableCell>Tecnologia</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-lazy-record-detail-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Disabled -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Desabilitada</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Interações (ordenar, expandir, selecionar, paginar) bloqueadas.</p>
+        <demo id="demo-disabled">
+          <groupviewtable--ml-lazy-record-detail-table
+            disabled="{{playground.disabled.disabled}}"
+            selectable="{{playground.disabled.selectable}}"
+            value="{{playground.disabled.value}}"
+            page="{{playground.disabled.page}}"
+            page-size="{{playground.disabled.pageSize}}"
+            total-items="{{playground.disabled.totalItems}}"
+            loading="{{playground.disabled.loading}}"
+            error="{{playground.disabled.error}}">
+            <Caption>Registros bloqueados</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="title" sortable>Título</TableHead>
+                <TableHead key="owner">Responsável</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>T-01</TableCell>
+                <TableCell>Revisão de contrato</TableCell>
+                <TableCell>Mariana</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>T-02</TableCell>
+                <TableCell>Onboarding cliente</TableCell>
+                <TableCell>Rafael</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-lazy-record-detail-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.disabled.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.disabled.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.disabled.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.disabled.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupviewtable--ml-lazy-record-detail-table
+                  disabled="{{playground.disabled.disabled}}"
+                  selectable="{{playground.disabled.selectable}}"
+                  value="{{playground.disabled.value}}"
+                  page="{{playground.disabled.page}}"
+                  page-size="{{playground.disabled.pageSize}}"
+                  total-items="{{playground.disabled.totalItems}}"
+                  loading="{{playground.disabled.loading}}"
+                  error="{{playground.disabled.error}}">
+                  <Caption>Registros bloqueados</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="title" sortable>Título</TableHead>
+                      <TableHead key="owner">Responsável</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>T-01</TableCell>
+                      <TableCell>Revisão de contrato</TableCell>
+                      <TableCell>Mariana</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>T-02</TableCell>
+                      <TableCell>Onboarding cliente</TableCell>
+                      <TableCell>Rafael</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-lazy-record-detail-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Error message -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com erro</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Exibe mensagem de erro abaixo da tabela (ex.: falha ao carregar detalhes).</p>
+        <demo id="demo-withError">
+          <groupviewtable--ml-lazy-record-detail-table
+            error="{{playground.withError.error}}"
+            selectable="{{playground.withError.selectable}}"
+            value="{{playground.withError.value}}"
+            disabled="{{playground.withError.disabled}}"
+            loading="{{playground.withError.loading}}">
+            <Caption>Faturas</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="invoice" sortable>Fatura</TableHead>
+                <TableHead key="due" sortable>Vencimento</TableHead>
+                <TableHead key="amount" sortable>Valor</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>NF-4401</TableCell>
+                <TableCell>15/03/2026</TableCell>
+                <TableCell>R$ 2.150,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>NF-4402</TableCell>
+                <TableCell>22/03/2026</TableCell>
+                <TableCell>R$ 780,40</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-lazy-record-detail-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.withError.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.withError.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.withError.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.withError.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.withError.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-withError">
+              <template>
+                <groupviewtable--ml-lazy-record-detail-table
+                  error="{{playground.withError.error}}"
+                  selectable="{{playground.withError.selectable}}"
+                  value="{{playground.withError.value}}"
+                  disabled="{{playground.withError.disabled}}"
+                  loading="{{playground.withError.loading}}">
+                  <Caption>Faturas</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="invoice" sortable>Fatura</TableHead>
+                      <TableHead key="due" sortable>Vencimento</TableHead>
+                      <TableHead key="amount" sortable>Valor</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>NF-4401</TableCell>
+                      <TableCell>15/03/2026</TableCell>
+                      <TableCell>R$ 2.150,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>NF-4402</TableCell>
+                      <TableCell>22/03/2026</TableCell>
+                      <TableCell>R$ 780,40</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-lazy-record-detail-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Editing mode with footer -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Modo edição e rodapé</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Propaga is-editing para componentes nas células e exibe TableFooter com totais.</p>
+        <demo id="demo-isEditing">
+          <groupviewtable--ml-lazy-record-detail-table
+            is-editing="{{playground.isEditing.isEditing}}"
+            selectable="{{playground.isEditing.selectable}}"
+            value="{{playground.isEditing.value}}"
+            disabled="{{playground.isEditing.disabled}}"
+            loading="{{playground.isEditing.loading}}"
+            error="{{playground.isEditing.error}}">
+            <Caption>Itens do orçamento</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="item" sortable>Item</TableHead>
+                <TableHead key="qty" sortable>Qtd</TableHead>
+                <TableHead key="unit" sortable>Unitário</TableHead>
+                <TableHead key="subtotal" sortable>Subtotal</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Consultoria</TableCell>
+                <TableCell>10</TableCell>
+                <TableCell>R$ 250,00</TableCell>
+                <TableCell>R$ 2.500,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Licenças</TableCell>
+                <TableCell>4</TableCell>
+                <TableCell>R$ 480,00</TableCell>
+                <TableCell>R$ 1.920,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Suporte anual</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell>R$ 1.200,00</TableCell>
+                <TableCell>R$ 1.200,00</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell>Total</TableCell>
+                <TableCell>15</TableCell>
+                <TableCell></TableCell>
+                <TableCell>R$ 5.620,00</TableCell>
+              </TableRow>
+            </TableFooter>
+          </groupviewtable--ml-lazy-record-detail-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.isEditing.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.isEditing.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.isEditing.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.isEditing.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.isEditing.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.isEditing.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-isEditing">
+              <template>
+                <groupviewtable--ml-lazy-record-detail-table
+                  is-editing="{{playground.isEditing.isEditing}}"
+                  selectable="{{playground.isEditing.selectable}}"
+                  value="{{playground.isEditing.value}}"
+                  disabled="{{playground.isEditing.disabled}}"
+                  loading="{{playground.isEditing.loading}}"
+                  error="{{playground.isEditing.error}}">
+                  <Caption>Itens do orçamento</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="item" sortable>Item</TableHead>
+                      <TableHead key="qty" sortable>Qtd</TableHead>
+                      <TableHead key="unit" sortable>Unitário</TableHead>
+                      <TableHead key="subtotal" sortable>Subtotal</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Consultoria</TableCell>
+                      <TableCell>10</TableCell>
+                      <TableCell>R$ 250,00</TableCell>
+                      <TableCell>R$ 2.500,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Licenças</TableCell>
+                      <TableCell>4</TableCell>
+                      <TableCell>R$ 480,00</TableCell>
+                      <TableCell>R$ 1.920,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Suporte anual</TableCell>
+                      <TableCell>1</TableCell>
+                      <TableCell>R$ 1.200,00</TableCell>
+                      <TableCell>R$ 1.200,00</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
+                      <TableCell>Total</TableCell>
+                      <TableCell>15</TableCell>
+                      <TableCell></TableCell>
+                      <TableCell>R$ 5.620,00</TableCell>
+                    </TableRow>
+                  </TableFooter>
+                </groupviewtable--ml-lazy-record-detail-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Long labels / many columns -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6 md:col-span-2">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Muitas colunas e rótulos longos</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Verifica overflow horizontal e ordenação com cabeçalhos extensos.</p>
+        <demo id="demo-longLabels">
+          <groupviewtable--ml-lazy-record-detail-table
+            selectable="{{playground.longLabels.selectable}}"
+            value="{{playground.longLabels.value}}"
+            page="{{playground.longLabels.page}}"
+            page-size="{{playground.longLabels.pageSize}}"
+            total-items="{{playground.longLabels.totalItems}}"
+            disabled="{{playground.longLabels.disabled}}"
+            loading="{{playground.longLabels.loading}}"
+            error="{{playground.longLabels.error}}">
+            <Caption>Relatório consolidado de operações logísticas internacionais</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="ref" sortable>Referência do embarque</TableHead>
+                <TableHead key="origin" sortable>Porto de origem</TableHead>
+                <TableHead key="destination" sortable>Porto de destino final</TableHead>
+                <TableHead key="carrier" sortable>Transportadora contratada</TableHead>
+                <TableHead key="etd" sortable>Data estimada de saída</TableHead>
+                <TableHead key="eta" sortable>Data estimada de chegada</TableHead>
+                <TableHead key="status">Status operacional atual</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>SHP-2026-00087</TableCell>
+                <TableCell>Santos / BR</TableCell>
+                <TableCell>Rotterdam / NL</TableCell>
+                <TableCell>Oceanic Freight Partners</TableCell>
+                <TableCell>02/04/2026</TableCell>
+                <TableCell>28/04/2026</TableCell>
+                <TableCell>Em trânsito oceânico</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SHP-2026-00091</TableCell>
+                <TableCell>Paranaguá / BR</TableCell>
+                <TableCell>Hamburgo / DE</TableCell>
+                <TableCell>Atlantic Cargo Alliance</TableCell>
+                <TableCell>05/04/2026</TableCell>
+                <TableCell>03/05/2026</TableCell>
+                <TableCell>Aguardando documentação</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SHP-2026-00102</TableCell>
+                <TableCell>Itajaí / BR</TableCell>
+                <TableCell>Valência / ES</TableCell>
+                <TableCell>Iberia Maritime Group</TableCell>
+                <TableCell>10/04/2026</TableCell>
+                <TableCell>02/05/2026</TableCell>
+                <TableCell>Confirmado</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>Nenhum embarque no período</Empty>
+          </groupviewtable--ml-lazy-record-detail-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.longLabels.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.longLabels.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.longLabels.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.longLabels.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.longLabels.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.longLabels.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.longLabels.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.longLabels.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-longLabels">
+              <template>
+                <groupviewtable--ml-lazy-record-detail-table
+                  selectable="{{playground.longLabels.selectable}}"
+                  value="{{playground.longLabels.value}}"
+                  page="{{playground.longLabels.page}}"
+                  page-size="{{playground.longLabels.pageSize}}"
+                  total-items="{{playground.longLabels.totalItems}}"
+                  disabled="{{playground.longLabels.disabled}}"
+                  loading="{{playground.longLabels.loading}}"
+                  error="{{playground.longLabels.error}}">
+                  <Caption>Relatório consolidado de operações logísticas internacionais</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="ref" sortable>Referência do embarque</TableHead>
+                      <TableHead key="origin" sortable>Porto de origem</TableHead>
+                      <TableHead key="destination" sortable>Porto de destino final</TableHead>
+                      <TableHead key="carrier" sortable>Transportadora contratada</TableHead>
+                      <TableHead key="etd" sortable>Data estimada de saída</TableHead>
+                      <TableHead key="eta" sortable>Data estimada de chegada</TableHead>
+                      <TableHead key="status">Status operacional atual</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>SHP-2026-00087</TableCell>
+                      <TableCell>Santos / BR</TableCell>
+                      <TableCell>Rotterdam / NL</TableCell>
+                      <TableCell>Oceanic Freight Partners</TableCell>
+                      <TableCell>02/04/2026</TableCell>
+                      <TableCell>28/04/2026</TableCell>
+                      <TableCell>Em trânsito oceânico</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SHP-2026-00091</TableCell>
+                      <TableCell>Paranaguá / BR</TableCell>
+                      <TableCell>Hamburgo / DE</TableCell>
+                      <TableCell>Atlantic Cargo Alliance</TableCell>
+                      <TableCell>05/04/2026</TableCell>
+                      <TableCell>03/05/2026</TableCell>
+                      <TableCell>Aguardando documentação</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SHP-2026-00102</TableCell>
+                      <TableCell>Itajaí / BR</TableCell>
+                      <TableCell>Valência / ES</TableCell>
+                      <TableCell>Iberia Maritime Group</TableCell>
+                      <TableCell>10/04/2026</TableCell>
+                      <TableCell>02/05/2026</TableCell>
+                      <TableCell>Confirmado</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>Nenhum embarque no período</Empty>
+                </groupviewtable--ml-lazy-record-detail-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>
