@@ -1,16 +1,12 @@
 Você vai gerar uma página web a partir de um documento de design de página. Trabalho de implementação, com contexto limpo: não procure nada além do que está listado aqui.
 
-## 1. Leia estes arquivos, nesta ordem, e nada mais
+## 1. Leia uma única entrada, e nada mais
 
-Todos os caminhos são absolutos.
+Leia inteiro: `{{INPUT_PATH}}`.
 
-1. `{{TEMPLATE_PATH}}` — a instrução. Leia inteiro. Chega em partes: regra do estilo, depois o que a página é, depois como ela é arrumada. Cada parte **estreita** a anterior e nunca a contradiz — se encontrar contradição, siga a parte mais específica e relate no fim.
-2. `{{FIXTURE_PATH}}` — o domínio. **Pule quase todo o `seed`**: leia apenas o `total` e **3 linhas** de `rows`. Essas 3 linhas não são decoração — é onde moram os casos-limite plantados de propósito (texto longo que obriga truncamento, valor zero, campo nulo que vira travessão); escolha 3 que carreguem esses casos. O `total` importa: é ele que diz se a coleção é maior que uma página. O resto do `seed` é dado de execução, consumido por outro script, e a página nunca o referencia — ela lê `<consulta>Data` da classe base.
-3. `{{DS_PATH}}` — os tokens (nomes e valores). **Pule o bloco `.dark` inteiro** (~40% do arquivo): a página nunca cita valor de modo noturno, o `.dark` troca os valores sozinho, e o fallback dentro do `var()` é sempre o valor claro do `:root`. O `:root` é superconjunto — tem cor, espaço, raio e tipografia.
-4. `{{ICONS_PATH}}` — o conjunto de ícones, fechado.
-{{USAGE_ITEM}}
-Não leia mais nada. Não procure outras páginas geradas, outras rodadas, nem documento de task.
-{{USAGE_SECTION}}
+Ele contém, em seções separadas: documento de design, fixture, tokens do design system, conjunto de ícones e, quando aplicável, contratos de moléculas. A seção de maior autoridade vence dentro do seu escopo; se houver contradição, siga a mais específica e registre-a no metadata, se necessário.
+
+Não leia nenhum outro arquivo de referência, não procure outras rodadas nem documento de task. O `generation-input.md` já contém tudo que a implementação pode consultar.
 ## 2. Idioma
 
 A instrução está em inglês. A **UI sai no idioma que a fixture declara**.
@@ -28,11 +24,13 @@ A instrução está em inglês. A **UI sai no idioma que a fixture declara**.
 
 E, opcionalmente, `page.less` na mesma pasta — só para `@keyframes` e o que utilitário não faz.
 
+Não escreva relatório em texto e não use a resposta final para narrar a implementação. O harness mede build, checks, artefatos e imports depois da geração.
+
 ## 5. Regras do `page.ts`
 
 - **Lit**: `import { html } from 'lit'` · `import { customElement, state } from 'lit/decorators.js'` · `@customElement('{{TAG}}')` — o `fixtureId` em **kebab-case**; nome de custom element não pode ter letra maiúscula, `customElements.define()` recusa e a página não sobe. Uma classe que estende a classe base da fixture.
 - **A classe base vem do stub local**: `import { <baseClass> } from './stub.js';` — o `<baseClass>` está declarado na `binding` da fixture.
-- **Ícone só do conjunto compartilhado**: `import { icons } from './icons.js';`. É um conjunto **fechado**. Faltando um emprego que o documento pede, isso é **achado sobre o conjunto** e vai na resposta final — não desenhe SVG à mão nem use glifo de texto (`▲` `▼` `‹` `›` `✕`) no lugar de ícone.
+- **Ícone só do conjunto compartilhado**: `import { icons } from './icons.js';`. É um conjunto **fechado**. Faltando um emprego que o documento pede, registre o achado no metadata — não desenhe SVG à mão nem use glifo de texto (`▲` `▼` `‹` `›` `✕`) no lugar de ícone.
 - **Molécula, quando o documento atribui**: registre cada uma com **um import de efeito colateral** — `import '/_102040_/l2/molecules/<grupo>/<ml-nome>.js';`, sem import nomeado. A molécula registra o próprio custom element; **escrever a tag sem importar o módulo dá elemento desconhecido que não renderiza nada, e sem erro** — e o harness usa exatamente esse import para descobrir qual `.less` compilar, então sem ele a molécula também sai sem estilo. Use a TagName exata que o documento atribui, e só props/eventos/slots que o contrato dela declara.
 - **O `<grupo>` do caminho é minúsculo**, igual ao prefixo da TagName (`groupviewtable`), mesmo quando o documento fala do grupo em camelCase (`groupViewTable`). Caixa errada resolve em Windows/macOS e **quebra em Linux/CI**.
 - **Estado de vista é da página**: o que não tem significado de negócio (registro selecionado, modo/cena, diálogo aberto, ordenação, rascunho da busca) é declarado como `@state()` na própria página, com os métodos privados que ela precisar. O que tem significado de negócio vem **só** da amarração. É proibido esconder estado de vista dentro de campo de comando.
@@ -48,22 +46,22 @@ E, opcionalmente, `page.less` na mesma pasta — só para `@keyframes` e o que u
 
 ## 6. Recusa
 
-Se o documento descrever quando a página **não se aplica** (domínio que não se encaixa, condição de exclusão, o que ele chamar de recusa) e esta fixture cair nisso, **não escreva `page.ts` nenhum** e explique a recusa e o motivo na resposta final.
+Se o documento descrever quando a página **não se aplica** (domínio que não se encaixa, condição de exclusão, o que ele chamar de recusa) e esta fixture cair nisso, **não escreva `page.ts` nenhum**. Escreva `{{META_PATH}}` com `{ "refusal": { "reason": "..." } }`.
 
-## 7. Ambiguidade
+## 7. Metadata opcional
 
-Onde o documento for ambíguo, **decida, siga, e relate no fim — não pergunte nada**.
+Onde o documento for ambíguo, **decida e siga, sem perguntar**. Escreva `{{META_PATH}}` somente se houver decisão relevante, ambiguidade, lacuna de contrato/molécula/design system/ícone, ou valor fixado que o harness não consiga deduzir. O arquivo deve ser JSON válido e conciso:
 
-## 8. O que relatar na resposta final
+```json
+{
+  "fixedValues": { "pageSize": 25 },
+  "ambiguities": [
+    { "owner": "page", "subject": "movement direction", "decision": "used entrada/saida", "impact": "contract does not define wire values" }
+  ],
+  "contractGaps": [
+    { "kind": "icon", "subject": "edit", "impact": "action uses text only" }
+  ]
+}
+```
 
-Sua resposta final é o relatório (não escreva arquivo de registro). Nesta ordem:
-
-1. **o modelo resolvido** em forma compacta: consulta, comandos, campos-chave, filtros;
-2. **o que não resolveu** e o que a página perdeu com isso;
-3. **as variações disparadas** (a matriz do documento) e a consequência de cada uma;
-4. **as colunas por largura**, e quais ordenam;
-5. **os valores fixados** que o documento manda calcular ou escolher (tamanho de página, breakpoint calculado com a conta, altura de linha, proporção das regiões);
-6. **rolagem e contenção**: quem rola em cada patamar e como a paginação é alcançável;
-7. **recusa**, se houver, com o motivo;
-8. **as ambiguidades do documento** — onde ele não decidiu e o que você escolheu, e em **qual nível** (estilo, página ou layout) a decisão deveria morar. **É o item mais valioso**: é por ele que o documento aprende;
-9. **empregos de ícone que faltaram** no conjunto.
+Não duplique no metadata fatos que o código ou o harness consegue medir. Escreva os arquivos e pare; resposta final vazia ou apenas uma confirmação curta.

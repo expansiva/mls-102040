@@ -181,7 +181,8 @@ if (!tag) {
   process.exit(1);
 }
 
-// os cenários saem da fixture
+// os cenários saem da fixture — e uma fixture sem consulta não tem nenhum, porque cenário é
+// estado de coleção. A barra então não mostra botão, e isso é dito em vez de parecer defeito.
 const fxSrc = readFileSync(fixturePath, 'utf8');
 const scenarios = [...fxSrc.matchAll(/^\s{6}(\w+): \{ queryState:/gm)].map((m) => m[1]);
 
@@ -217,7 +218,11 @@ const chromeCss = `
 
 const barHtml = `<div id="bar">
   <strong>cenário</strong>
-  ${scenarios.map((s, i) => `<button data-s="${s}" aria-pressed="${i === 0}">${s}</button>`).join('\n  ')}
+  ${
+    scenarios.length
+      ? scenarios.map((s, i) => `<button data-s="${s}" aria-pressed="${i === 0}">${s}</button>`).join('\n  ')
+      : `<span style="opacity:.7">nenhum — fixture sem consulta</span>`
+  }
   <span class="sep">tema</span>
   <button id="theme">claro</button>
 </div>
@@ -323,7 +328,10 @@ ${barHtml}
 );
 
 const kb = (p) => Math.round(readFileSync(p).length / 1024);
-console.log(`\n${tscFailed ? 'RODADA COM FALHA DE TIPO' : 'ok'} — tag <${tag}>, cenários: ${scenarios.join(', ')}`);
+console.log(
+  `\n${tscFailed ? 'RODADA COM FALHA DE TIPO' : 'ok'} — tag <${tag}>, cenários: ` +
+    `${scenarios.length ? scenarios.join(', ') : 'nenhum (fixture sem consulta)'}`
+);
 console.log(`autocontido (duplo clique): ${join(runDir, 'page.html')}  (${kb(join(runDir, 'page.html'))} KB)`);
 if (tscFailed) {
   console.log('\n⚠️  o page.html acima foi gerado, mas o tsc FALHOU: a rodada não passa a camada');

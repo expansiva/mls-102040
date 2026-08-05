@@ -5,6 +5,17 @@
 //   node harness/makeStub.mjs fixtures/<fixture>.defs.ts runs/<id>/stub.ts
 //
 // Quem troca de cenário é o harness, chamando applyScenario(nome) no elemento.
+//
+// A CONSULTA É OPCIONAL, e a forma da saída decide o que a página recebe:
+//
+//   sem `query`          só comandos — página de formulário sobre um registro
+//                        (entityRecordManagement, fieldDataCapture: 2 dos 3 casos reais do 102045
+//                        não declaram consulta nenhuma)
+//   kind: 'paginated'    coleção fatiada por página: { <array>: Row[]; <total>: number }
+//   kind: 'list'         coleção inteira, sem paginação: Row[]
+//   kind: 'object'       UM registro: Row (a primeira linha do seed) — é o que dá à página de
+//                        registro os valores salvos, e com eles o modo de edição, o esqueleto de
+//                        carregamento e a falha de carga
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -26,14 +37,32 @@ const { fixture: fx } = await import(pathToFileURL(tmp).href);
 const j = (v) => JSON.stringify(v, null, 2).replace(/\n/g, '\n  ');
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
+// ── consulta: opcional ─────────────────────────────────────────────────────────
+// Página que é só formulário não tem consulta. Antes isto estourava aqui mesmo
+// (`fx.query.output.item` de undefined), o que obrigava a inventar uma consulta só para o stub
+// existir — e consulta inventada é dado que a página não deveria ter, então o teste passava a
+// medir outra coisa. Sem consulta o stub sai só com os comandos, e a página não recebe nada para
+// listar.
+const q = fx.query ?? null;
+const qb = q ? fx.binding?.queries?.[q.id] : null;
+if (q && !qb) {
+  console.error(`  ✗ a fixture declara a consulta "${q.id}" mas binding.queries não a amarra`);
+  process.exit(1);
+}
+const cmdBindings = Object.keys(fx.binding?.commands ?? {}).length;
+if (!q && cmdBindings === 0) {
+  console.error('  ✗ fixture sem consulta E sem comando amarrado: não há superfície nenhuma para a página');
+  process.exit(1);
+}
+
 // ── tipos ──────────────────────────────────────────────────────────────────────
 const tsType = (t) => (t === 'number' ? 'number' : t === 'boolean' ? 'boolean' : 'string');
-const itemType = `${cap(fx.entity)}Row`;
-const itemFields = fx.query.output.item.map((f) => `  ${f.name}: ${tsType(f.type)} | null;`).join('\n');
+const itemType = q ? `${cap(fx.entity)}Row` : null;
+const itemFields = q ? q.output.item.map((f) => `  ${f.name}: ${tsType(f.type)} | null;`).join('\n') : '';
 
-const q = fx.query;
-const qb = fx.binding.queries[q.id];
-const isPaginated = q.output.kind === 'paginated';
+const isPaginated = q?.output?.kind === 'paginated';
+// UM registro, não uma coleção de um: a página lê `Row | null` e não tem lista para percorrer.
+const isSingle = q?.output?.kind === 'object';
 
 // ── paginação ──────────────────────────────────────────────────────────────────
 // O seed traz uma amostra de linhas e o cenário declara um `total` maior — sem sintetizar o
@@ -44,11 +73,11 @@ const isPaginated = q.output.kind === 'paginated';
 // `<entity>Id`, senão o primeiro string terminado em "id", senão o primeiro string. O sufixo por
 // linha é funcional, não decorativo — a página resolve seleção por id (`rows.find(...)`), e id
 // repetido entre páginas faria a linha 1 da página 2 casar com a seleção da página 1.
-const pageState = qb.inputs?.page?.state;
-const pageSizeState = qb.inputs?.pageSize?.state;
+const pageState = qb?.inputs?.page?.state;
+const pageSizeState = qb?.inputs?.pageSize?.state;
 const canPaginate = isPaginated && !!pageState && !!pageSizeState;
 
-const items = q.output.item;
+const items = q?.output?.item ?? [];
 const idField =
   items.find((f) => f.name.toLowerCase() === `${String(fx.entity).toLowerCase()}id`)?.name ??
   items.find((f) => /id$/i.test(f.name) && f.type === 'string')?.name ??
@@ -124,21 +153,27 @@ const paginationMembers = canPaginate
   }
 `
   : '';
-const dataType = isPaginated
-  ? `{ ${q.output.arrayField}: ${itemType}[]; ${q.output.totalField}: number }`
-  : `${itemType}[]`;
+const dataType = !q
+  ? null
+  : isPaginated
+    ? `{ ${q.output.arrayField}: ${itemType}[]; ${q.output.totalField}: number }`
+    : isSingle
+      ? `${itemType}`
+      : `${itemType}[]`;
 
 // ── propriedades ───────────────────────────────────────────────────────────────
 const lines = [];
 const decl = (name, type, init) => lines.push(`  @property({ attribute: false }) ${name}: ${type} = ${init};`);
 
-lines.push('  // consulta');
-decl(qb.data, `${dataType} | null`, 'null');
-decl(qb.state, `'' | 'loading' | 'success' | 'error'`, `''`);
-decl(qb.error, 'string', `''`);
-for (const [input, b] of Object.entries(qb.inputs)) {
-  const t = tsType(q.inputs.find((i) => i.name === input)?.type ?? 'string');
-  decl(b.state, t, t === 'number' ? '0' : t === 'boolean' ? 'false' : `''`);
+if (qb) {
+  lines.push('  // consulta');
+  decl(qb.data, `${dataType} | null`, 'null');
+  decl(qb.state, `'' | 'loading' | 'success' | 'error'`, `''`);
+  decl(qb.error, 'string', `''`);
+  for (const [input, b] of Object.entries(qb.inputs)) {
+    const t = tsType(q.inputs.find((i) => i.name === input)?.type ?? 'string');
+    decl(b.state, t, t === 'number' ? '0' : t === 'boolean' ? 'false' : `''`);
+  }
 }
 
 const cmdEntries = Object.entries(fx.binding.commands ?? {});
@@ -158,8 +193,10 @@ for (const [cmdId, cb] of cmdEntries) {
 const setters = [];
 const mkSetter = (b, type) =>
   setters.push(`  ${b.setter}(value: ${type}): void { this.${b.state} = value; }`);
-for (const [input, b] of Object.entries(qb.inputs)) {
-  mkSetter(b, tsType(q.inputs.find((i) => i.name === input)?.type ?? 'string'));
+if (qb) {
+  for (const [input, b] of Object.entries(qb.inputs)) {
+    mkSetter(b, tsType(q.inputs.find((i) => i.name === input)?.type ?? 'string'));
+  }
 }
 for (const [cmdId, cb] of cmdEntries) {
   const spec = fx.commands.find((c) => c.id === cmdId);
@@ -170,10 +207,12 @@ for (const [cmdId, cb] of cmdEntries) {
 
 // ── handlers ───────────────────────────────────────────────────────────────────
 const handlers = [];
-handlers.push(`  ${qb.handler}(): void {
+if (qb) {
+  handlers.push(`  ${qb.handler}(): void {
     // reconsulta: reaplica o cenário corrente${canPaginate ? ' — refatia pela página pedida' : ''}
     this.applyScenario(this.__scenario);
   }`);
+}
 for (const [cmdId, cb] of cmdEntries) {
   const spec = fx.commands.find((c) => c.id === cmdId);
   const canned = Object.fromEntries((spec?.output ?? []).map((f) => [f.name, f.type === 'number' ? 1 : f.type === 'boolean' ? true : `${f.name}-stub`]));
@@ -188,7 +227,7 @@ for (const [cmdId, cb] of cmdEntries) {
 }
 
 // ── cenários ───────────────────────────────────────────────────────────────────
-const filterInputs = Object.entries(qb.inputs).filter(([n]) => !['page', 'pageSize'].includes(n));
+const filterInputs = Object.entries(qb?.inputs ?? {}).filter(([n]) => !['page', 'pageSize'].includes(n));
 const applyFilters = filterInputs
   .map(([input, b]) => {
     const t = tsType(q.inputs.find((i) => i.name === input)?.type ?? 'string');
@@ -200,15 +239,39 @@ const applyFilters = filterInputs
 
 // `all.length` e não `s.total`: o total tem de descrever o dataset que o stub realmente serve,
 // senão a molécula desenha 3 páginas para uma amostra de 1 (era exatamente o sintoma).
+// Com `kind: 'object'` a página recebe UM registro, e o cenário vazio o deixa nulo — é o que
+// permite distinguir "registro carregado" de "registro que não existe".
 const dataExpr = isPaginated
   ? `{ ${q.output.arrayField}: rows, ${q.output.totalField}: all.length }`
-  : `rows`;
+  : isSingle
+    ? `(rows[0] ?? null)`
+    : `rows`;
 
 const rowsExpr = canPaginate
   ? `    const all = s.useSeedRows ? this.__dataset() : [];
       const rows = this.__pageSlice(all);`
   : `    const all = (s.useSeedRows ? SEED.rows : []) as unknown as ${itemType}[];
-      const rows = all;`;
+      const rows = ${isSingle ? 'all.slice(0, 1)' : 'all'};`;
+
+// Sem consulta não há estado de coleção para aplicar. O cenário continua registrado, para o
+// harness poder trocá-lo sem quebrar, mas nada na página observa isso: o que ela tem para mostrar
+// vem dos comandos e do que o leitor digita.
+const scenarioBody = qb
+  ? `    const s = (SEED.scenarios as Record<string, any>)[name];
+    if (!s) return;
+    const filtered = Boolean(s.filtersApplied);
+${applyFilters}
+    this.${qb.state} = s.queryState;
+    this.${qb.error} = s.queryState === 'error' ? String(s.message ?? '') : '';
+    if (s.queryState === 'success') {
+  ${rowsExpr}
+      this.${qb.data} = ${dataExpr};
+    } else {
+      this.${qb.data} = null;
+    }
+    this.requestUpdate();`
+  : `    // fixture sem consulta: não há dado de coleção para aplicar
+    this.requestUpdate();`;
 
 const stub = `// STUB gerado por harness/makeStub.mjs a partir de ${fixturePath.replace(/\\/g, '/')}
 // NÃO editar à mão. Mesma superfície do shared de produção, alimentada pelo seed.
@@ -216,11 +279,8 @@ const stub = `// STUB gerado por harness/makeStub.mjs a partir de ${fixturePath.
 import { LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
-export interface ${itemType} {
-${itemFields}
-}
-
-const SEED = ${j(fx.seed)} as const;
+${q ? `export interface ${itemType} {\n${itemFields}\n}\n` : '// sem consulta declarada: a página não recebe linha nenhuma, então não há tipo de linha\n'}
+const SEED = ${j(fx.seed ?? {})} as const;
 
 const I18N: Record<string, string> = ${j(fx.binding.i18n ?? {})};
 
@@ -240,19 +300,7 @@ ${handlers.join('\n\n')}
 ${paginationMembers}
   applyScenario(name: string): void {
     this.__scenario = name;
-    const s = (SEED.scenarios as Record<string, any>)[name];
-    if (!s) return;
-    const filtered = Boolean(s.filtersApplied);
-${applyFilters}
-    this.${qb.state} = s.queryState;
-    this.${qb.error} = s.queryState === 'error' ? String(s.message ?? '') : '';
-    if (s.queryState === 'success') {
-  ${rowsExpr}
-      this.${qb.data} = ${dataExpr};
-    } else {
-      this.${qb.data} = null;
-    }
-    this.requestUpdate();
+${scenarioBody}
   }
 
   connectedCallback(): void {

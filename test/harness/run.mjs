@@ -22,7 +22,7 @@
 //
 // Opções:
 //   --layout <nome>   escolhe a arrumação (obrigatório quando a suíte tem layouts)
-//   --id <nome>       força o id da rodada (padrão: <AAAA-MM-DD>[-<layout>]-<fixture>)
+//   --id <nome>       força o id da rodada (padrão: <AAAAMMDDHHMMSS>[-<layout>]-<fixture>)
 //   --no-generate     só prepara; útil para gerar o page.ts por outro caminho
 //   --only-build      pula preparo e geração; refaz build + checks de uma rodada existente
 //   --model <nome>    modelo do passo 2 (padrão: o do CLI)
@@ -50,6 +50,7 @@ const fixture = flag('fixture');
 const layout = flag('layout');
 const model = flag('model');
 const maxTurns = flag('max-turns', '20');
+let generationMs = null;
 
 // ── descoberta ──────────────────────────────────────────────────────────────────
 // Chamada sem argumentos não tem padrão nenhum — nem suíte, nem layout. Escolher um por conta
@@ -123,9 +124,47 @@ if (layout && !available.includes(layout)) {
   process.exit(1);
 }
 
-// data fixa no id para a pasta dizer quando a rodada foi feita
-const today = new Date().toISOString().slice(0, 10);
-const runId = flag('id') ?? [today, layout, fixture].filter(Boolean).join('-');
+// Timestamp completo (hora local) no id: a pasta diz QUANDO a rodada foi feita, ao segundo. Só a
+// data não bastava — refazer a mesma combinação no mesmo dia caía na mesma pasta e sobrescrevia o
+// artefato anterior, que é justamente o que se quer comparar quando se mexe num documento.
+const stamp = (() => {
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, '0');
+  return (
+    `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}` +
+    `${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`
+  );
+})();
+const runId = flag('id') ?? resolveRunId();
+
+/**
+ * O id de uma rodada NOVA é `<AAAAMMDDHHMMSS>[-<layout>]-<fixture>`.
+ *
+ * Com `--only-build` é diferente: não há rodada nova, e um timestamp novo apontaria para uma pasta
+ * que não existe. Então retoma a MAIS RECENTE da mesma combinação — que é o que "refaz o build
+ * daquela rodada" quer dizer. A ordem alfabética serve de cronológica porque o timestamp é
+ * zero-padded (e ids do formato antigo, `AAAA-MM-DD-…`, ordenam antes de qualquer timestamp novo).
+ */
+function resolveRunId() {
+  const suffix = [layout, fixture].filter(Boolean).join('-');
+  if (!has('only-build')) return [stamp, suffix].join('-');
+
+  const runsDir = resolve(SUITE_ROOT, 'runs');
+  const found = existsSync(runsDir)
+    ? readdirSync(runsDir, { withFileTypes: true })
+        .filter((e) => e.isDirectory() && e.name.endsWith(`-${suffix}`))
+        .map((e) => e.name)
+        .sort()
+        .reverse()
+    : [];
+  if (found.length === 0) {
+    console.error(`--only-build sem --id: nenhuma rodada de "${suffix}" em ${suite}/runs`);
+    console.error('rode sem --only-build para criar uma, ou aponte a pasta com --id <nome>');
+    process.exit(1);
+  }
+  if (found.length > 1) console.log(`--only-build: retomando a mais recente de ${found.length} rodadas de ${suffix}`);
+  return found[0];
+}
 const runRel = `runs/${runId}`;
 const runDir = resolve(SUITE_ROOT, runRel);
 
@@ -161,29 +200,42 @@ const pageOut = join(runDir, 'page.ts');
 const kebab = fixture.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 const usagePath = join(runDir, 'molecules-usage.md');
 const hasUsage = existsSync(usagePath);
+const inputPath = join(runDir, 'generation-input.md');
+
+// Uma única leitura dá ao agente o mesmo material que antes vinha em cinco arquivos. Os separadores
+// preservam a autoridade de cada fonte e tornam explícito o que é contrato versus dado de execução.
+const buildGenerationInput = () => {
+  const sources = [
+    ['DOCUMENTO DE DESIGN', join(runDir, 'template.md')],
+    ['FIXTURE — DOMÍNIO E CONTRATO', fixturePath],
+    ['DESIGN SYSTEM — TOKENS', join(TEST_ROOT, 'designSystem.css')],
+    ['ÍCONE — CONJUNTO FECHADO', join(TEST_ROOT, 'icons.ts')],
+    ...(hasUsage ? [['MOLÉCULAS — CONTRATOS DE USAGE', usagePath]] : []),
+  ];
+  return [
+    '# Generation input',
+    '',
+    'Este arquivo é a única entrada de implementação. As seções mantêm a mesma ordem de autoridade:',
+    'design document > fixture > design system > icons > molecule contracts.',
+    'Na fixture, use o contrato inteiro; quando ela tiver seed, dele extraia somente total e três rows representativas.',
+    'No design system, ignore o bloco `.dark`; no usage, extraia API e ignore sintaxe de exemplos.',
+    '',
+    ...sources.flatMap(([label, path]) => [`---`, '', `## ${label}`, '', readFileSync(path, 'utf8').trim(), '']),
+  ].join('\n');
+};
+
+if (!has('only-build')) {
+  const input = buildGenerationInput();
+  writeFileSync(inputPath, input, 'utf8');
+  console.log(`entrada de geração: ${rel(inputPath)} (${Math.round(input.length / 1024)} KB)`);
+}
 
 const buildPrompt = () => {
   const tpl = readFileSync(resolve(HERE, 'runPrompt.md'), 'utf8');
-  const usageItem = hasUsage
-    ? `5. \`${usagePath}\` — o contrato dos grupos de molécula que o documento atribui.\n`
-    : '';
-  const usageSection = hasUsage
-    ? `
-**Leia o \`molecules-usage.md\` inteiro, mas com um filtro na cabeça.** É o maior arquivo da entrada, e não dá para podar porque você não sabe de antemão qual prop vai precisar. O filtro é de **o que extrair**:
-
-- tire dele **nomes de prop, nomes de evento, forma do \`detail\`, slot tags e a lista de tokens** — é o contrato, e é a única coisa que vale;
-- **ignore a sintaxe dos exemplos.** Esses documentos foram escritos para um motor declarativo, então mostram binding em moustache (\`value="{{…}}"\`) e grafias de tag legadas. Copiar a sintaxe produz uma página que não funciona;
-- a **TagName** nunca vem daí: vem da atribuição do documento de design.
-`
-    : '';
   return tpl
-    .replace('{{TEMPLATE_PATH}}', join(runDir, 'template.md'))
-    .replace('{{FIXTURE_PATH}}', fixturePath)
-    .replace('{{DS_PATH}}', join(TEST_ROOT, 'designSystem.css'))
-    .replace('{{ICONS_PATH}}', join(TEST_ROOT, 'icons.ts'))
-    .replace('{{USAGE_ITEM}}', usageItem)
-    .replace('{{USAGE_SECTION}}', usageSection)
+    .replace('{{INPUT_PATH}}', inputPath)
     .replace('{{OUT_PATH}}', pageOut)
+    .replace('{{META_PATH}}', join(runDir, 'generation-meta.json'))
     .replace('{{TAG}}', `test--${kebab}-page`);
 };
 
@@ -222,6 +274,7 @@ if (has('no-generate')) {
   step(2, 'geração — pulada (--only-build)');
 } else {
   step(2, 'geração — subagente de contexto limpo');
+  const generationStartedAt = Date.now();
   const prompt = buildPrompt();
   const promptPath = join(runDir, 'prompt.md');
   mkdirSync(runDir, { recursive: true });
@@ -254,7 +307,7 @@ if (has('no-generate')) {
   const promptArg = inlinePrompt
     ? prompt
     : `Leia o arquivo \`${promptPath}\` e execute exatamente as instruções que ele contém. ` +
-      `Ele é o seu prompt: siga-o inteiro, incluindo a lista de arquivos a ler e o que relatar no fim.`;
+      `Ele é o seu prompt: siga-o inteiro, incluindo a única entrada a ler e os artefatos a escrever.`;
 
   // Ferramentas restritas a Read e Write de propósito: é o que transforma "escreva e pare, não
   // verifique o próprio trabalho" de regra escrita em impossibilidade. Sem Bash a rodada não roda
@@ -293,15 +346,11 @@ if (has('no-generate')) {
     maxBuffer: 64 * 1024 * 1024,
   });
 
-  // O relatório é o produto mais valioso da rodada e é EFÊMERO — uma rodada já morreu por limite de
-  // gasto depois de escrever o page.ts, e o relatório se perdeu. Guardar o stdout não custa token
-  // nenhum: o texto já foi produzido; só não se joga fora.
-  const report = (r.stdout ?? '').trim();
-  if (report) {
-    writeFileSync(join(runDir, 'report.md'), `${report}\n`, 'utf8');
-    console.log(report);
-    console.log(`\nrelatório salvo: ${rel(join(runDir, 'report.md'))}`);
-  }
+  // O stdout não é mais relatório: a geração produz só os artefatos. `report.mjs`, depois de
+  // build/checks, junta fatos mecânicos e o generation-meta.json opcional em um report.md.
+  const stdout = (r.stdout ?? '').trim();
+  if (stdout) console.log(stdout);
+  generationMs = Date.now() - generationStartedAt;
   if (r.status !== 0) {
     console.error(`\ngeração falhou (status ${r.status}) — o preparo está feito, dá para retomar`);
     if (!existsSync(pageOut)) process.exit(1);
@@ -320,7 +369,23 @@ const buildStatus = node('build.mjs', [suite, runRel, `fixtures/${fixture}.defs.
 
 // ── 4. checks ───────────────────────────────────────────────────────────────────
 step(4, 'checks');
-node('checks.mjs', [suite, runRel, `fixtures/${fixture}.defs.ts`]);
+const checksStatus = node('checks.mjs', [suite, runRel, `fixtures/${fixture}.defs.ts`]);
+
+// O relatório é do harness: dados de arquivos, build, checks e imports são observáveis; somente
+// decisões/gaps que não dá para inferir chegam no generation-meta.json opcional.
+node('report.mjs', [
+  suite,
+  runRel,
+  `fixtures/${fixture}.defs.ts`,
+  '--layout',
+  layout ?? '',
+  '--build-status',
+  String(buildStatus),
+  '--checks-status',
+  String(checksStatus),
+  '--generation-ms',
+  generationMs === null ? '' : String(generationMs),
+]);
 
 console.log(`\n${'═'.repeat(72)}`);
 console.log(`rodada: ${rel(runDir)}`);

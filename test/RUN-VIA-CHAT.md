@@ -28,8 +28,9 @@ conta produziria uma página sem arrumação com aparência de rodada válida.
 
 1. **Preparo** — monta o documento de design (estilo + página + layout) e o contrato das moléculas na
    pasta da rodada.
-2. **Geração** — um subagente de **contexto limpo** escreve o `page.ts`. Ele recebe apenas os cinco
-   arquivos de entrada: nada da nossa conversa, nenhuma rodada anterior, nenhuma página já gerada.
+2. **Geração** — um subagente de **contexto limpo** escreve o `page.ts` e, apenas se necessário,
+   `generation-meta.json`. Ele lê somente o `generation-input.md` preparado pelo harness: nada da nossa
+   conversa, nenhuma rodada anterior, nenhuma página já gerada.
    *É o que torna a rodada um teste:* o que ele acertar veio do documento, não do que discutimos.
 3. **Build** — stub → `tsc` → Tailwind → CSS das moléculas → `page.html` autocontido.
 4. **Checks** — conferência mecânica.
@@ -41,8 +42,8 @@ outras duas.
 
 ## O que volta
 
-O caminho do `page.html` (abre com duplo clique), o resultado dos `checks`, e o resumo do que a
-rodada relatou — com atenção ao item que mais importa, **as ambiguidades do documento**: onde ele não
+O caminho do `page.html` (abre com duplo clique), o resultado dos `checks`, e o `report.md` montado
+pelo harness — com atenção às ambiguidades e lacunas do `generation-meta.json`: onde o documento não
 decidiu, o que a rodada escolheu, e em **qual dos três níveis** (estilo, página ou layout) a decisão
 deveria morar.
 

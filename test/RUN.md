@@ -40,15 +40,17 @@ para desenhar contra.
 
 ## O que a rodada recebe
 
-Quatro arquivos, nada mais — **cinco quando o template usa moléculas**:
+Um arquivo, nada mais: `runs/<id>/generation-input.md`. Ele é criado pelo harness antes da geração e
+reúne as fontes abaixo em seções nomeadas; o agente faz uma única leitura antes de escrever.
 
 | Arquivo | Papel |
 | --- | --- |
-| `runs/<id>/template.md` | a instrução — **estilo + página + layout montados** |
-| `test/<style>/<template>/fixtures/<fixture>.defs.ts` | o domínio |
-| `test/designSystem.css` | os tokens (nomes e valores) — compartilhado |
-| `test/icons.ts` | o conjunto de ícones, fechado — compartilhado |
-| `runs/<id>/molecules-usage.md` | *(só com moléculas)* o contrato dos grupos que o template atribui |
+| seção do `generation-input.md` | fonte |
+| design document | `runs/<id>/template.md` — estilo + página + layout montados |
+| fixture | `test/<style>/<template>/fixtures/<fixture>.defs.ts` |
+| design-system tokens | `test/designSystem.css` |
+| icons | `test/icons.ts` |
+| molecule contracts | `runs/<id>/molecules-usage.md`, quando há moléculas |
 
 **O documento de design tem até três níveis, e o harness os monta num arquivo só.**
 
@@ -71,7 +73,7 @@ node harness/prepareRun.mjs <style>/<template> runs/<id> --layout <layout>
 e continuam em `test/<style>/<template>/`, compartilhados. É isso que permite comparar duas
 arrumações da mesma página contra os **mesmos dados**; fixture duplicada por layout tornaria a
 comparação sem valor. Ponha o layout no **id da rodada**
-(`2026-07-30-gridThenEdit-cafeFlowInventoryControl`), que é o que separa os artefatos.
+(`20260730142355-gridThenEdit-cafeFlowInventoryControl`), que é o que separa os artefatos.
 
 Sem `--layout` numa suíte que tem layouts, o `prepareRun` monta só estilo + página e **avisa** — a
 rodada receberia a página sem arrumação nenhuma.
@@ -89,8 +91,8 @@ template ↔ manifesto roda contra o documento **montado**, porque o estilo atri
 campo e a página as estruturais — só a soma tem a lista completa.
 
 **Não recebe**: `research.md` · o arquivo da task · outras rodadas · o histórico da conversa ·
-qualquer página já gerada. Se o gerador precisar de algo além desses quatro arquivos, isso é **um
-achado sobre o template**, e vai na resposta final da rodada.
+qualquer página já gerada. Se o gerador precisar de algo além do `generation-input.md`, isso é um
+achado sobre o template e deve entrar no `generation-meta.json`.
 
 A rodada é um **subagente com contexto limpo**.
 
@@ -124,7 +126,7 @@ precisar. O filtro é de **o que extrair**, não de o que ler:
 
 ## O que a rodada produz
 
-Em `test/<style>/<template>/runs/<AAAA-MM-DD>[-<layout>]-<fixture>/`:
+Em `test/<style>/<template>/runs/<AAAAMMDDHHMMSS>[-<layout>]-<fixture>/`:
 
 | Arquivo | Conteúdo |
 | --- | --- |
@@ -134,23 +136,18 @@ Em `test/<style>/<template>/runs/<AAAA-MM-DD>[-<layout>]-<fixture>/`:
 O harness acrescenta depois: `stub.ts`, `icons.ts`, `dist/`, `tailwind.css` e **`page.html`** —
 autocontido, que abre com duplo clique.
 
-**A rodada não escreve arquivo de registro.** O que ela aprendeu — modelo resolvido, variações
-disparadas, ambiguidades do template, empregos de ícone que faltaram — sai na **resposta final** dela,
-não em arquivo. *Motivo: o registro custava alguns milhares de tokens de saída por rodada e quase todo
-o seu valor é consumido na hora, ao decidir o que muda no template.*
+**A rodada não escreve relatório narrativo.** Ela produz `page.ts` e, somente quando necessário,
+`generation-meta.json` com ambiguidades, lacunas de contrato e valores que o harness não consegue
+inferir. Isso evita gastar tokens repetindo fatos que o próprio harness mede.
 
-**Quem guarda é o harness, não a rodada**: o `run.mjs` salva o `stdout` da geração em
-`runs/<id>/report.md`. A distinção não é sutil — o antigo `resolution.md` era um arquivo que a rodada
-*escrevia*, gastando tokens de saída; o `report.md` é o texto que ela já produziu, apenas não
-descartado. Foi criado depois de uma rodada morrer por limite de gasto **depois** de escrever o
-`page.ts`: o relatório se perdeu, e era o item mais valioso dela.
-
-Guardado não é transcrito. Achado que deva virar regra continua tendo de ser levado à mão para o
-documento do **nível certo** (estilo, página ou layout) — o `report.md` é matéria-prima, não destino.
+**Quem compõe o relatório é o harness**: após build e checks, `report.mjs` grava
+`runs/<id>/report.md` com status, duração da geração, artefatos, moléculas importadas e o metadata
+opcional. Achado que deva virar regra continua tendo de ser levado ao documento do **nível certo**
+(estilo, página ou layout); o `report.md` é matéria-prima, não destino.
 
 Fixture que deve ser **recusada**: se o `template.md` desta suíte descrever quando a página não se
 aplica (domínio não se encaixa, condição de exclusão, o que o template chamar de recusa), a rodada
-**não escreve `page.ts` nenhum** e explica a recusa e o motivo na resposta final.
+**não escreve `page.ts` nenhum** e registra o motivo em `generation-meta.json`.
 
 ### Regras do `page.ts`
 
@@ -234,28 +231,12 @@ só custo:
 4. **Pode piorar a página.** Quem compila contra um stub inventado tende a ajustar a página para casar
    com o stub **imaginado** em vez do real. Não é verificação: é introduzir erro com confiança.
 
-### O que a rodada relata na resposta final
+### O que a rodada registra quando necessário
 
-Não é arquivo — é a resposta que a rodada devolve ao terminar. Peça sempre, e nesta ordem, porque é
-daqui que sai a decisão sobre o que muda no template:
-
-1. **o modelo resolvido** em forma compacta: consulta, comandos, campos-chave, filtros;
-2. **o que não resolveu** e o que a página perdeu com isso;
-3. **as variações disparadas** (a matriz do template) e a consequência de cada uma;
-4. **as colunas por largura**, e quais ordenam;
-5. **os valores fixados** que o template manda calcular ou escolher (tamanho de página, breakpoint
-   calculado com a conta, altura de linha, proporção do painel);
-6. **rolagem e contenção**: quem rola em cada patamar e como a paginação é alcançável;
-7. **recusa**, se houver, com o motivo;
-8. **as ambiguidades do template** — onde ele não decidiu e o que a rodada escolheu. **É o item mais
-   valioso**: é por ele que o template aprende, e foi ele que revelou a contradição da direção do
-   movimento, o `PropertyValues<this>` e os empregos de ícone que faltavam;
-9. **empregos de ícone que faltaram** no conjunto do projeto.
-
-Adapte o vocabulário ao template da suíte — se ele não estrutura a página como lista+painel, troque
-"colunas por largura" pelo que fizer sentido. A forma importa menos que a cobertura.
-
-A última seção é a mais valiosa: é por ali que o template aprende.
+O agente não devolve relatório narrativo. Se houver algo que código e harness não podem inferir, ele
+escreve `generation-meta.json`: valores fixados, ambiguidades e lacunas de contrato, molécula, design
+system ou ícone. O harness incorpora isso no `report.md`. Ambiguidades continuam sendo a parte mais
+valiosa: devem nomear a decisão, o impacto e o nível responsável pelo ajuste (estilo, página ou layout).
 
 ---
 
@@ -265,22 +246,21 @@ A última seção é a mais valiosa: é por ali que o template aprende.
 **copiados inline** no prompt. Motivo: se o runner ler o RUN.md, ele vê os critérios de avaliação e
 passa a jogar para o teste em vez de seguir o template.
 
-O prompt vive em `harness/runPrompt.md`, com marcadores que o `run.mjs` substitui (caminhos, a tag em
-kebab-case, e a seção de moléculas, que sai inteira quando a suíte não usa nenhuma). **Mudou uma
+O prompt vive em `harness/runPrompt.md`, com marcadores que o `run.mjs` substitui (caminho da entrada
+única, saídas e a tag em kebab-case). **Mudou uma
 regra do `page.ts` aqui? Mude lá também** — são duas cópias do mesmo contrato, e a que a rodada
 obedece é a de lá.
 
-O prompt é, na ordem: (1) leia os quatro arquivos, nesta ordem, e nada mais — **com o que pular em
-cada um** (o `.dark` do CSS; o `seed` da fixture além de `total` e 3 linhas); (2) o idioma (a instrução
+O prompt é, na ordem: (1) leia o `generation-input.md` e nada mais — ele traz as seções e o que pular
+(o `.dark` do CSS; o `seed` da fixture além de `total` e 3 linhas); (2) o idioma (a instrução
 está no idioma dela, a **UI sai no idioma que a fixture declara**); (3) a ordem de autoridade
 (template = estrutura/aparência/comportamento · fixture = dados/comandos/amarração/idioma · design
 system = cor · `icons.ts` = única fonte de ícone); (4) o arquivo a produzir, com caminho exato; (5) as
 Regras do `page.ts` **copiadas**, inclusive a de escrever e parar; (6) a regra de recusa; (7) "onde o
-template for ambíguo, decida, siga, e relate no fim — não pergunte nada"; (8) a lista do que relatar
-na resposta final.
+template for ambíguo, decida e registre no metadata quando necessário — não pergunte nada".
 
 **Orçamento de uma rodada saudável.** Serve para reconhecer rodada que descarrilhou: ~6 tool uses
-(ler 4 arquivos, escrever 1 ou 2) e 10–15 min. Rodada passando de ~12 tool uses quase sempre é uma que
+(ler 1 arquivo, escrever 1 ou 2) e 10–15 min. Rodada passando de ~8 tool uses quase sempre é uma que
 começou a se auto-verificar — e vale interromper em vez de esperar, porque nada de útil sai daí.
 
 ---
@@ -305,7 +285,11 @@ ou, com o cwd em `test/`:
 node harness/run.mjs --suite <style>/<template> --fixture <nome> [--layout <nome>]
 ```
 
-O id da rodada sai de `<AAAA-MM-DD>[-<layout>]-<fixture>`; `--id` força outro.
+O id da rodada sai de `<AAAAMMDDHHMMSS>[-<layout>]-<fixture>`, com a hora local ao segundo; `--id`
+força outro. O timestamp completo — e não só a data — existe para que **refazer a mesma combinação
+não sobrescreva a rodada anterior**: quando se mexe num documento, o artefato antigo é justamente o
+que se quer ter ao lado para comparar. Com `--only-build` e sem `--id`, o harness retoma a rodada
+mais recente daquela combinação, porque um timestamp novo apontaria para uma pasta que não existe.
 
 | Opção | Para |
 | --- | --- |
@@ -320,10 +304,8 @@ fabrica um stub falso para compilar contra, que foi exatamente o que matou as du
 lentas já medidas. Sem o CLI no PATH, o script para no passo 2, deixa o `prompt.md` pronto e diz como
 seguir — o preparo não se perde.
 
-O `stdout` da geração é salvo em `report.md` na pasta da rodada. Isso **não** é o antigo
-`resolution.md`: aquele era um arquivo que a rodada *escrevia*, gastando tokens de saída; este é o
-relatório que ela já produziu, apenas não jogado fora. Uma rodada morreu por limite de gasto depois
-de escrever o `page.ts` e o relatório se perdeu — era o item mais valioso dela.
+O `stdout` da geração não é relatório. O agente escreve os artefatos e o harness cria `report.md`
+após build/checks, combinando fatos medidos com o `generation-meta.json` opcional.
 
 Os passos avulsos continuam existindo, para depurar um deles em isolamento:
 
@@ -331,6 +313,7 @@ Os passos avulsos continuam existindo, para depurar um deles em isolamento:
 node harness/prepareRun.mjs <style>/<template> runs/<id> [--layout <layout>]     # ANTES da rodada
 node harness/build.mjs     <style>/<template> runs/<id> fixtures/<fixture>.defs.ts   # depois
 node harness/checks.mjs    <style>/<template> runs/<id> fixtures/<fixture>.defs.ts
+node harness/report.mjs    <style>/<template> runs/<id> fixtures/<fixture>.defs.ts   # relatório mecânico
 ```
 
 Depois, abrir `<style>/<template>/runs/<id>/page.html` com duplo clique — autocontido, sem servidor e
