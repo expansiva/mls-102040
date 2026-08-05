@@ -1,0 +1,906 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Tabela com Agrupamento</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewTable</span>
+    </header>
+
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"isEditing":false,"page":1,"pageSize":0,"totalItems":0,"value":"","error":"","disabled":false,"loading":false},"loading":{"selectable":false,"loading":true,"disabled":false,"error":"","value":""},"empty":{"loading":false,"disabled":false,"error":"","value":""},"selectable":{"selectable":true,"value":"0,2","disabled":false,"loading":false,"error":""},"pagination":{"page":2,"pageSize":5,"totalItems":28,"selectable":false,"value":"","disabled":false,"loading":false,"error":""},"disabled":{"disabled":true,"selectable":true,"value":"1","loading":false,"error":""},"withError":{"error":"Falha ao sincronizar com o servidor. Tente novamente.","selectable":false,"value":"","disabled":false,"loading":false},"withFooter":{"isEditing":true,"selectable":false,"value":"","disabled":false,"loading":false,"error":""}}}'>
+    </aura--molecules--playground--widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+      <!-- Basic: groupable columns, sorting, caption -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Básico com colunas agrupáveis</h3>
+        <demo id="demo-basic">
+          <groupviewtable--ml-grouping-table
+            selectable="{{playground.basic.selectable}}"
+            is-editing="{{playground.basic.isEditing}}"
+            page="{{playground.basic.page}}"
+            page-size="{{playground.basic.pageSize}}"
+            total-items="{{playground.basic.totalItems}}"
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            disabled="{{playground.basic.disabled}}"
+            loading="{{playground.basic.loading}}">
+            <Caption>Pedidos por região</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="customer" sortable>Cliente</TableHead>
+                <TableHead key="region" sortable groupable>Região</TableHead>
+                <TableHead key="status" sortable groupable>Status</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>#1001</TableCell>
+                <TableCell>Ana Silva</TableCell>
+                <TableCell>Sul</TableCell>
+                <TableCell>Concluído</TableCell>
+                <TableCell>R$ 1.250,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1002</TableCell>
+                <TableCell>Bruno Costa</TableCell>
+                <TableCell>Norte</TableCell>
+                <TableCell>Pendente</TableCell>
+                <TableCell>R$ 890,50</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1003</TableCell>
+                <TableCell>Carla Mendes</TableCell>
+                <TableCell>Sul</TableCell>
+                <TableCell>Pendente</TableCell>
+                <TableCell>R$ 2.100,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1004</TableCell>
+                <TableCell>Diego Alves</TableCell>
+                <TableCell>Sudeste</TableCell>
+                <TableCell>Concluído</TableCell>
+                <TableCell>R$ 450,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1005</TableCell>
+                <TableCell>Elena Rocha</TableCell>
+                <TableCell>Norte</TableCell>
+                <TableCell>Concluído</TableCell>
+                <TableCell>R$ 3.200,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#1006</TableCell>
+                <TableCell>Fábio Lima</TableCell>
+                <TableCell>Sudeste</TableCell>
+                <TableCell>Cancelado</TableCell>
+                <TableCell>R$ 175,00</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>Nenhum pedido encontrado</Empty>
+          </groupviewtable--ml-grouping-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.basic.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.basic.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="pageSize" value="{{playground.basic.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalItems" value="{{playground.basic.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewtable--ml-grouping-table
+                  selectable="{{playground.basic.selectable}}"
+                  is-editing="{{playground.basic.isEditing}}"
+                  page="{{playground.basic.page}}"
+                  page-size="{{playground.basic.pageSize}}"
+                  total-items="{{playground.basic.totalItems}}"
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  disabled="{{playground.basic.disabled}}"
+                  loading="{{playground.basic.loading}}">
+                  <Caption>Pedidos por região</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="customer" sortable>Cliente</TableHead>
+                      <TableHead key="region" sortable groupable>Região</TableHead>
+                      <TableHead key="status" sortable groupable>Status</TableHead>
+                      <TableHead key="total" sortable>Total</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>#1001</TableCell>
+                      <TableCell>Ana Silva</TableCell>
+                      <TableCell>Sul</TableCell>
+                      <TableCell>Concluído</TableCell>
+                      <TableCell>R$ 1.250,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1002</TableCell>
+                      <TableCell>Bruno Costa</TableCell>
+                      <TableCell>Norte</TableCell>
+                      <TableCell>Pendente</TableCell>
+                      <TableCell>R$ 890,50</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1003</TableCell>
+                      <TableCell>Carla Mendes</TableCell>
+                      <TableCell>Sul</TableCell>
+                      <TableCell>Pendente</TableCell>
+                      <TableCell>R$ 2.100,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1004</TableCell>
+                      <TableCell>Diego Alves</TableCell>
+                      <TableCell>Sudeste</TableCell>
+                      <TableCell>Concluído</TableCell>
+                      <TableCell>R$ 450,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1005</TableCell>
+                      <TableCell>Elena Rocha</TableCell>
+                      <TableCell>Norte</TableCell>
+                      <TableCell>Concluído</TableCell>
+                      <TableCell>R$ 3.200,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#1006</TableCell>
+                      <TableCell>Fábio Lima</TableCell>
+                      <TableCell>Sudeste</TableCell>
+                      <TableCell>Cancelado</TableCell>
+                      <TableCell>R$ 175,00</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>Nenhum pedido encontrado</Empty>
+                </groupviewtable--ml-grouping-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Estado de carregamento</h3>
+        <demo id="demo-loading">
+          <groupviewtable--ml-grouping-table
+            selectable="{{playground.loading.selectable}}"
+            loading="{{playground.loading.loading}}"
+            disabled="{{playground.loading.disabled}}"
+            error="{{playground.loading.error}}"
+            value="{{playground.loading.value}}">
+            <Caption>Carregando pedidos</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="customer" sortable>Cliente</TableHead>
+                <TableHead key="region" groupable>Região</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>#2001</TableCell>
+                <TableCell>Gustavo Nunes</TableCell>
+                <TableCell>Centro-Oeste</TableCell>
+                <TableCell>R$ 980,00</TableCell>
+              </TableRow>
+            </TableBody>
+            <Loading>Aguarde, carregando dados…</Loading>
+          </groupviewtable--ml-grouping-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewtable--ml-grouping-table
+                  selectable="{{playground.loading.selectable}}"
+                  loading="{{playground.loading.loading}}"
+                  disabled="{{playground.loading.disabled}}"
+                  error="{{playground.loading.error}}"
+                  value="{{playground.loading.value}}">
+                  <Caption>Carregando pedidos</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="customer" sortable>Cliente</TableHead>
+                      <TableHead key="region" groupable>Região</TableHead>
+                      <TableHead key="total" sortable>Total</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>#2001</TableCell>
+                      <TableCell>Gustavo Nunes</TableCell>
+                      <TableCell>Centro-Oeste</TableCell>
+                      <TableCell>R$ 980,00</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Loading>Aguarde, carregando dados…</Loading>
+                </groupviewtable--ml-grouping-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Empty state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Sem dados (vazio)</h3>
+        <demo id="demo-empty">
+          <groupviewtable--ml-grouping-table
+            loading="{{playground.empty.loading}}"
+            disabled="{{playground.empty.disabled}}"
+            error="{{playground.empty.error}}"
+            value="{{playground.empty.value}}">
+            <Caption>Resultado da busca</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="sku" sortable>SKU</TableHead>
+                <TableHead key="product" sortable>Produto</TableHead>
+                <TableHead key="category" groupable>Categoria</TableHead>
+                <TableHead key="stock" sortable>Estoque</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody></TableBody>
+            <Empty>Nenhum produto corresponde aos filtros aplicados</Empty>
+          </groupviewtable--ml-grouping-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.empty.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+                <groupviewtable--ml-grouping-table
+                  loading="{{playground.empty.loading}}"
+                  disabled="{{playground.empty.disabled}}"
+                  error="{{playground.empty.error}}"
+                  value="{{playground.empty.value}}">
+                  <Caption>Resultado da busca</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="sku" sortable>SKU</TableHead>
+                      <TableHead key="product" sortable>Produto</TableHead>
+                      <TableHead key="category" groupable>Categoria</TableHead>
+                      <TableHead key="stock" sortable>Estoque</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody></TableBody>
+                  <Empty>Nenhum produto corresponde aos filtros aplicados</Empty>
+                </groupviewtable--ml-grouping-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Selectable rows -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com seleção de linhas</h3>
+        <demo id="demo-selectable">
+          <groupviewtable--ml-grouping-table
+            selectable="{{playground.selectable.selectable}}"
+            value="{{playground.selectable.value}}"
+            disabled="{{playground.selectable.disabled}}"
+            loading="{{playground.selectable.loading}}"
+            error="{{playground.selectable.error}}">
+            <Caption>Equipe por departamento</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="name" sortable>Nome</TableHead>
+                <TableHead key="role">Cargo</TableHead>
+                <TableHead key="dept" sortable groupable>Departamento</TableHead>
+                <TableHead key="city" groupable>Cidade</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Helena Dias</TableCell>
+                <TableCell>Analista</TableCell>
+                <TableCell>Financeiro</TableCell>
+                <TableCell>São Paulo</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Igor Santos</TableCell>
+                <TableCell>Desenvolvedor</TableCell>
+                <TableCell>Tecnologia</TableCell>
+                <TableCell>Curitiba</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Julia Prado</TableCell>
+                <TableCell>Gerente</TableCell>
+                <TableCell>Financeiro</TableCell>
+                <TableCell>São Paulo</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Kevin Borges</TableCell>
+                <TableCell>Designer</TableCell>
+                <TableCell>Tecnologia</TableCell>
+                <TableCell>Rio de Janeiro</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Lara Souza</TableCell>
+                <TableCell>Analista</TableCell>
+                <TableCell>RH</TableCell>
+                <TableCell>Belo Horizonte</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>Nenhum colaborador listado</Empty>
+          </groupviewtable--ml-grouping-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.selectable.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.selectable.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+                <groupviewtable--ml-grouping-table
+                  selectable="{{playground.selectable.selectable}}"
+                  value="{{playground.selectable.value}}"
+                  disabled="{{playground.selectable.disabled}}"
+                  loading="{{playground.selectable.loading}}"
+                  error="{{playground.selectable.error}}">
+                  <Caption>Equipe por departamento</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="name" sortable>Nome</TableHead>
+                      <TableHead key="role">Cargo</TableHead>
+                      <TableHead key="dept" sortable groupable>Departamento</TableHead>
+                      <TableHead key="city" groupable>Cidade</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Helena Dias</TableCell>
+                      <TableCell>Analista</TableCell>
+                      <TableCell>Financeiro</TableCell>
+                      <TableCell>São Paulo</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Igor Santos</TableCell>
+                      <TableCell>Desenvolvedor</TableCell>
+                      <TableCell>Tecnologia</TableCell>
+                      <TableCell>Curitiba</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Julia Prado</TableCell>
+                      <TableCell>Gerente</TableCell>
+                      <TableCell>Financeiro</TableCell>
+                      <TableCell>São Paulo</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Kevin Borges</TableCell>
+                      <TableCell>Designer</TableCell>
+                      <TableCell>Tecnologia</TableCell>
+                      <TableCell>Rio de Janeiro</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Lara Souza</TableCell>
+                      <TableCell>Analista</TableCell>
+                      <TableCell>RH</TableCell>
+                      <TableCell>Belo Horizonte</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>Nenhum colaborador listado</Empty>
+                </groupviewtable--ml-grouping-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Pagination -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com paginação</h3>
+        <demo id="demo-pagination">
+          <groupviewtable--ml-grouping-table
+            page="{{playground.pagination.page}}"
+            page-size="{{playground.pagination.pageSize}}"
+            total-items="{{playground.pagination.totalItems}}"
+            selectable="{{playground.pagination.selectable}}"
+            value="{{playground.pagination.value}}"
+            disabled="{{playground.pagination.disabled}}"
+            loading="{{playground.pagination.loading}}"
+            error="{{playground.pagination.error}}">
+            <Caption>Vendas do trimestre</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="order" sortable>Pedido</TableHead>
+                <TableHead key="seller" sortable>Vendedor</TableHead>
+                <TableHead key="channel" groupable>Canal</TableHead>
+                <TableHead key="amount" sortable>Valor</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>PV-301</TableCell>
+                <TableCell>Marina Lopes</TableCell>
+                <TableCell>Online</TableCell>
+                <TableCell>R$ 4.500,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>PV-302</TableCell>
+                <TableCell>Otávio Reis</TableCell>
+                <TableCell>Loja</TableCell>
+                <TableCell>R$ 1.200,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>PV-303</TableCell>
+                <TableCell>Paula Vieira</TableCell>
+                <TableCell>Online</TableCell>
+                <TableCell>R$ 780,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>PV-304</TableCell>
+                <TableCell>Rafael Mota</TableCell>
+                <TableCell>Parceiro</TableCell>
+                <TableCell>R$ 9.100,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>PV-305</TableCell>
+                <TableCell>Sofia Campos</TableCell>
+                <TableCell>Loja</TableCell>
+                <TableCell>R$ 320,00</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>Nenhuma venda neste período</Empty>
+          </groupviewtable--ml-grouping-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.pagination.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="pageSize" value="{{playground.pagination.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalItems" value="{{playground.pagination.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.pagination.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.pagination.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.pagination.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.pagination.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.pagination.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-pagination">
+              <template>
+                <groupviewtable--ml-grouping-table
+                  page="{{playground.pagination.page}}"
+                  page-size="{{playground.pagination.pageSize}}"
+                  total-items="{{playground.pagination.totalItems}}"
+                  selectable="{{playground.pagination.selectable}}"
+                  value="{{playground.pagination.value}}"
+                  disabled="{{playground.pagination.disabled}}"
+                  loading="{{playground.pagination.loading}}"
+                  error="{{playground.pagination.error}}">
+                  <Caption>Vendas do trimestre</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="order" sortable>Pedido</TableHead>
+                      <TableHead key="seller" sortable>Vendedor</TableHead>
+                      <TableHead key="channel" groupable>Canal</TableHead>
+                      <TableHead key="amount" sortable>Valor</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>PV-301</TableCell>
+                      <TableCell>Marina Lopes</TableCell>
+                      <TableCell>Online</TableCell>
+                      <TableCell>R$ 4.500,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>PV-302</TableCell>
+                      <TableCell>Otávio Reis</TableCell>
+                      <TableCell>Loja</TableCell>
+                      <TableCell>R$ 1.200,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>PV-303</TableCell>
+                      <TableCell>Paula Vieira</TableCell>
+                      <TableCell>Online</TableCell>
+                      <TableCell>R$ 780,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>PV-304</TableCell>
+                      <TableCell>Rafael Mota</TableCell>
+                      <TableCell>Parceiro</TableCell>
+                      <TableCell>R$ 9.100,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>PV-305</TableCell>
+                      <TableCell>Sofia Campos</TableCell>
+                      <TableCell>Loja</TableCell>
+                      <TableCell>R$ 320,00</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>Nenhuma venda neste período</Empty>
+                </groupviewtable--ml-grouping-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Disabled -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Desabilitada</h3>
+        <demo id="demo-disabled">
+          <groupviewtable--ml-grouping-table
+            disabled="{{playground.disabled.disabled}}"
+            selectable="{{playground.disabled.selectable}}"
+            value="{{playground.disabled.value}}"
+            loading="{{playground.disabled.loading}}"
+            error="{{playground.disabled.error}}">
+            <Caption>Inventário (somente leitura)</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="item" sortable>Item</TableHead>
+                <TableHead key="warehouse" groupable>Depósito</TableHead>
+                <TableHead key="qty" sortable>Qtd</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Parafuso M6</TableCell>
+                <TableCell>SP-01</TableCell>
+                <TableCell>1.200</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Porca M6</TableCell>
+                <TableCell>SP-01</TableCell>
+                <TableCell>980</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Arruela 12mm</TableCell>
+                <TableCell>RJ-02</TableCell>
+                <TableCell>450</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Chave Allen</TableCell>
+                <TableCell>RJ-02</TableCell>
+                <TableCell>75</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>Inventário vazio</Empty>
+          </groupviewtable--ml-grouping-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.disabled.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupviewtable--ml-grouping-table
+                  disabled="{{playground.disabled.disabled}}"
+                  selectable="{{playground.disabled.selectable}}"
+                  value="{{playground.disabled.value}}"
+                  loading="{{playground.disabled.loading}}"
+                  error="{{playground.disabled.error}}">
+                  <Caption>Inventário (somente leitura)</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="item" sortable>Item</TableHead>
+                      <TableHead key="warehouse" groupable>Depósito</TableHead>
+                      <TableHead key="qty" sortable>Qtd</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Parafuso M6</TableCell>
+                      <TableCell>SP-01</TableCell>
+                      <TableCell>1.200</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Porca M6</TableCell>
+                      <TableCell>SP-01</TableCell>
+                      <TableCell>980</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Arruela 12mm</TableCell>
+                      <TableCell>RJ-02</TableCell>
+                      <TableCell>450</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Chave Allen</TableCell>
+                      <TableCell>RJ-02</TableCell>
+                      <TableCell>75</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>Inventário vazio</Empty>
+                </groupviewtable--ml-grouping-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Error state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com mensagem de erro</h3>
+        <demo id="demo-withError">
+          <groupviewtable--ml-grouping-table
+            error="{{playground.withError.error}}"
+            selectable="{{playground.withError.selectable}}"
+            value="{{playground.withError.value}}"
+            disabled="{{playground.withError.disabled}}"
+            loading="{{playground.withError.loading}}">
+            <Caption>Sincronização de pedidos</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="ref" sortable>Referência</TableHead>
+                <TableHead key="source" groupable>Origem</TableHead>
+                <TableHead key="sync" groupable>Status sync</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>ORD-88</TableCell>
+                <TableCell>ERP</TableCell>
+                <TableCell>Falha</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>ORD-89</TableCell>
+                <TableCell>Marketplace</TableCell>
+                <TableCell>Falha</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>ORD-90</TableCell>
+                <TableCell>ERP</TableCell>
+                <TableCell>Pendente</TableCell>
+              </TableRow>
+            </TableBody>
+            <Empty>Sem registros de sincronização</Empty>
+          </groupviewtable--ml-grouping-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.withError.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.withError.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.withError.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.withError.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.withError.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-withError">
+              <template>
+                <groupviewtable--ml-grouping-table
+                  error="{{playground.withError.error}}"
+                  selectable="{{playground.withError.selectable}}"
+                  value="{{playground.withError.value}}"
+                  disabled="{{playground.withError.disabled}}"
+                  loading="{{playground.withError.loading}}">
+                  <Caption>Sincronização de pedidos</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="ref" sortable>Referência</TableHead>
+                      <TableHead key="source" groupable>Origem</TableHead>
+                      <TableHead key="sync" groupable>Status sync</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>ORD-88</TableCell>
+                      <TableCell>ERP</TableCell>
+                      <TableCell>Falha</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>ORD-89</TableCell>
+                      <TableCell>Marketplace</TableCell>
+                      <TableCell>Falha</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>ORD-90</TableCell>
+                      <TableCell>ERP</TableCell>
+                      <TableCell>Pendente</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>Sem registros de sincronização</Empty>
+                </groupviewtable--ml-grouping-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Footer + editing mode -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com rodapé e modo edição</h3>
+        <demo id="demo-withFooter">
+          <groupviewtable--ml-grouping-table
+            is-editing="{{playground.withFooter.isEditing}}"
+            selectable="{{playground.withFooter.selectable}}"
+            value="{{playground.withFooter.value}}"
+            disabled="{{playground.withFooter.disabled}}"
+            loading="{{playground.withFooter.loading}}"
+            error="{{playground.withFooter.error}}">
+            <Caption>Receita por categoria</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="category" sortable groupable>Categoria</TableHead>
+                <TableHead key="product" sortable>Produto</TableHead>
+                <TableHead key="units" sortable>Unidades</TableHead>
+                <TableHead key="revenue" sortable>Receita</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Eletrônicos</TableCell>
+                <TableCell>Fone Bluetooth</TableCell>
+                <TableCell>120</TableCell>
+                <TableCell>R$ 18.000,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Eletrônicos</TableCell>
+                <TableCell>Carregador USB-C</TableCell>
+                <TableCell>340</TableCell>
+                <TableCell>R$ 10.200,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Casa</TableCell>
+                <TableCell>Luminária LED</TableCell>
+                <TableCell>85</TableCell>
+                <TableCell>R$ 6.375,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Casa</TableCell>
+                <TableCell>Organizador</TableCell>
+                <TableCell>210</TableCell>
+                <TableCell>R$ 4.200,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Esporte</TableCell>
+                <TableCell>Garrafa térmica</TableCell>
+                <TableCell>150</TableCell>
+                <TableCell>R$ 7.500,00</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell>Total</TableCell>
+                <TableCell>905</TableCell>
+                <TableCell>R$ 46.275,00</TableCell>
+              </TableRow>
+            </TableFooter>
+            <Empty>Sem receita no período</Empty>
+          </groupviewtable--ml-grouping-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="isEditing" value="{{playground.withFooter.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.withFooter.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.withFooter.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.withFooter.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.withFooter.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.withFooter.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-withFooter">
+              <template>
+                <groupviewtable--ml-grouping-table
+                  is-editing="{{playground.withFooter.isEditing}}"
+                  selectable="{{playground.withFooter.selectable}}"
+                  value="{{playground.withFooter.value}}"
+                  disabled="{{playground.withFooter.disabled}}"
+                  loading="{{playground.withFooter.loading}}"
+                  error="{{playground.withFooter.error}}">
+                  <Caption>Receita por categoria</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="category" sortable groupable>Categoria</TableHead>
+                      <TableHead key="product" sortable>Produto</TableHead>
+                      <TableHead key="units" sortable>Unidades</TableHead>
+                      <TableHead key="revenue" sortable>Receita</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Eletrônicos</TableCell>
+                      <TableCell>Fone Bluetooth</TableCell>
+                      <TableCell>120</TableCell>
+                      <TableCell>R$ 18.000,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Eletrônicos</TableCell>
+                      <TableCell>Carregador USB-C</TableCell>
+                      <TableCell>340</TableCell>
+                      <TableCell>R$ 10.200,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Casa</TableCell>
+                      <TableCell>Luminária LED</TableCell>
+                      <TableCell>85</TableCell>
+                      <TableCell>R$ 6.375,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Casa</TableCell>
+                      <TableCell>Organizador</TableCell>
+                      <TableCell>210</TableCell>
+                      <TableCell>R$ 4.200,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Esporte</TableCell>
+                      <TableCell>Garrafa térmica</TableCell>
+                      <TableCell>150</TableCell>
+                      <TableCell>R$ 7.500,00</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell>Total</TableCell>
+                      <TableCell>905</TableCell>
+                      <TableCell>R$ 46.275,00</TableCell>
+                    </TableRow>
+                  </TableFooter>
+                  <Empty>Sem receita no período</Empty>
+                </groupviewtable--ml-grouping-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>

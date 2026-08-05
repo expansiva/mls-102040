@@ -39,6 +39,11 @@ export class ToastNotificationMolecule extends MoleculeAuraElement {
  // ===========================================================================
  slotTags = ['Title','Message','Action','Icon'];
 
+ // O slot Action carrega CONTROLES do consumidor, não conteúdo decorativo — então precisa
+ // de nó vivo, com handler e componente preservados. Title, Message e Icon continuam vindo
+ // pelo caminho de snapshot: são conteúdo.
+ protected usesLiveSlots = true;
+
  // ===========================================================================
  // PROPERTIES — From Contract
  // ===========================================================================
@@ -390,7 +395,7 @@ export class ToastNotificationMolecule extends MoleculeAuraElement {
  class="${cn(this.getActionClasses(), this.getSlotClass('Action'))}"
  @click=${this.handleActionClick}
  >
- ${unsafeHTML(this.getSlotContent('Action'))}
+ ${this.renderLiveSlot('Action')}
  </div>
  `;
  }

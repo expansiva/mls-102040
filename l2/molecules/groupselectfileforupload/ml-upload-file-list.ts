@@ -37,6 +37,10 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
   // SLOT TAGS
   // ===========================================================================
   slotTags = ['Label', 'Helper', 'Trigger'];
+  // O slot Trigger carrega CONTROLES do consumidor, não conteúdo
+  // decorativo — precisa de nó vivo, com handler e componente preservados.
+  // Os demais slots continuam vindo pelo caminho de snapshot: são conteúdo.
+  protected usesLiveSlots = true;
 
   // ===========================================================================
   // PROPERTIES — From Contract
@@ -298,7 +302,7 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
 
   private renderTriggerContent(): TemplateResult {
     if (this.hasSlot('Trigger')) {
-      return html`${unsafeHTML(this.getSlotContent('Trigger'))}`;
+      return html`${this.renderLiveSlot('Trigger')}`;
     }
     return html`
       <div class="text-sm font-medium ml-label">${this.msg.addFiles}</div>

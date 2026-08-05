@@ -36,6 +36,11 @@ export class NotifyBannerMolecule extends MoleculeAuraElement {
  // ===========================================================================
  slotTags = ['Title','Message','Action','Icon'];
 
+ // O slot Action carrega CONTROLES do consumidor, não conteúdo decorativo — então precisa
+ // de nó vivo, com handler e componente preservados. Title, Message e Icon continuam vindo
+ // pelo caminho de snapshot: são conteúdo.
+ protected usesLiveSlots = true;
+
  // ===========================================================================
  // PROPERTIES — From Contract
  // ===========================================================================
@@ -309,7 +314,7 @@ export class NotifyBannerMolecule extends MoleculeAuraElement {
  class="${cn('mt-3 inline-flex items-center text-sm font-medium ml-primary-text cursor-pointer', this.getSlotClass('Action'))}"
  @click=${this.handleActionClick}
  >
- ${unsafeHTML(this.getSlotContent('Action'))}
+ ${this.renderLiveSlot('Action')}
  </div>
  `;
  }

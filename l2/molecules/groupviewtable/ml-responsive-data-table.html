@@ -1,0 +1,987 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Tabela de Dados Responsiva</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupViewTable</span>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Apresenta dados em formato tabular com ordenação, seleção, paginação e adaptação responsiva que oculta colunas secundárias mantendo as três primeiras visíveis.</p>
+    </header>
+
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"isEditing":false,"page":1,"pageSize":0,"totalItems":0,"value":"","error":"","disabled":false,"loading":false},"selectable":{"selectable":true,"isEditing":false,"page":1,"pageSize":0,"totalItems":0,"value":"0,2","error":"","disabled":false,"loading":false},"loading":{"selectable":false,"isEditing":false,"page":1,"pageSize":0,"totalItems":0,"value":"","error":"","disabled":false,"loading":true},"empty":{"selectable":false,"isEditing":false,"page":1,"pageSize":0,"totalItems":0,"value":"","error":"","disabled":false,"loading":false},"pagination":{"selectable":false,"isEditing":false,"page":3,"pageSize":5,"totalItems":48,"value":"","error":"","disabled":false,"loading":false},"disabled":{"selectable":true,"isEditing":false,"page":1,"pageSize":10,"totalItems":2,"value":"0","error":"","disabled":true,"loading":false},"error":{"selectable":false,"isEditing":false,"page":1,"pageSize":0,"totalItems":0,"value":"","error":"Falha ao sincronizar com o ERP. Tente novamente.","disabled":false,"loading":false},"withFooter":{"selectable":false,"isEditing":false,"page":1,"pageSize":0,"totalItems":0,"value":"","error":"","disabled":false,"loading":false},"editing":{"selectable":false,"isEditing":true,"page":1,"pageSize":0,"totalItems":0,"value":"","error":"","disabled":false,"loading":false}}}'>
+    </aura--molecules--playground--widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+      <!-- Basic sortable table -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Básica com ordenação</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Tabela simples com colunas ordenáveis e legenda.</p>
+        <demo id="demo-basic">
+          <groupviewtable--ml-responsive-data-table
+            selectable="{{playground.basic.selectable}}"
+            is-editing="{{playground.basic.isEditing}}"
+            page="{{playground.basic.page}}"
+            page-size="{{playground.basic.pageSize}}"
+            total-items="{{playground.basic.totalItems}}"
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            disabled="{{playground.basic.disabled}}"
+            loading="{{playground.basic.loading}}">
+            <Caption>Lista de pedidos</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="customer" sortable>Cliente</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+                <TableHead key="status">Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>#001</TableCell>
+                <TableCell>Ana Souza</TableCell>
+                <TableCell>R$ 150,00</TableCell>
+                <TableCell>Concluído</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#002</TableCell>
+                <TableCell>Bruno Lima</TableCell>
+                <TableCell>R$ 89,50</TableCell>
+                <TableCell>Pendente</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>#003</TableCell>
+                <TableCell>Carla Mendes</TableCell>
+                <TableCell>R$ 320,00</TableCell>
+                <TableCell>Em trânsito</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-responsive-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.basic.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.basic.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.basic.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.basic.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewtable--ml-responsive-data-table
+                  selectable="{{playground.basic.selectable}}"
+                  is-editing="{{playground.basic.isEditing}}"
+                  page="{{playground.basic.page}}"
+                  page-size="{{playground.basic.pageSize}}"
+                  total-items="{{playground.basic.totalItems}}"
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  disabled="{{playground.basic.disabled}}"
+                  loading="{{playground.basic.loading}}">
+                  <Caption>Lista de pedidos</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="customer" sortable>Cliente</TableHead>
+                      <TableHead key="total" sortable>Total</TableHead>
+                      <TableHead key="status">Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>#001</TableCell>
+                      <TableCell>Ana Souza</TableCell>
+                      <TableCell>R$ 150,00</TableCell>
+                      <TableCell>Concluído</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#002</TableCell>
+                      <TableCell>Bruno Lima</TableCell>
+                      <TableCell>R$ 89,50</TableCell>
+                      <TableCell>Pendente</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>#003</TableCell>
+                      <TableCell>Carla Mendes</TableCell>
+                      <TableCell>R$ 320,00</TableCell>
+                      <TableCell>Em trânsito</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-responsive-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Selectable rows -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com seleção de linhas</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Coluna de checkboxes e linhas pré-selecionadas via value.</p>
+        <demo id="demo-selectable">
+          <groupviewtable--ml-responsive-data-table
+            selectable="{{playground.selectable.selectable}}"
+            is-editing="{{playground.selectable.isEditing}}"
+            page="{{playground.selectable.page}}"
+            page-size="{{playground.selectable.pageSize}}"
+            total-items="{{playground.selectable.totalItems}}"
+            value="{{playground.selectable.value}}"
+            error="{{playground.selectable.error}}"
+            disabled="{{playground.selectable.disabled}}"
+            loading="{{playground.selectable.loading}}">
+            <Caption>Produtos selecionáveis</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="sku" sortable>SKU</TableHead>
+                <TableHead key="name" sortable>Produto</TableHead>
+                <TableHead key="stock" sortable>Estoque</TableHead>
+                <TableHead key="price">Preço</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>SKU-100</TableCell>
+                <TableCell>Teclado mecânico</TableCell>
+                <TableCell>42</TableCell>
+                <TableCell>R$ 349,90</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-200</TableCell>
+                <TableCell>Mouse sem fio</TableCell>
+                <TableCell>18</TableCell>
+                <TableCell>R$ 129,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-300</TableCell>
+                <TableCell>Monitor 27&quot;</TableCell>
+                <TableCell>7</TableCell>
+                <TableCell>R$ 1.299,00</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-400</TableCell>
+                <TableCell>Headset USB</TableCell>
+                <TableCell>25</TableCell>
+                <TableCell>R$ 199,90</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-responsive-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.selectable.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.selectable.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.selectable.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.selectable.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.selectable.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.selectable.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+                <groupviewtable--ml-responsive-data-table
+                  selectable="{{playground.selectable.selectable}}"
+                  is-editing="{{playground.selectable.isEditing}}"
+                  page="{{playground.selectable.page}}"
+                  page-size="{{playground.selectable.pageSize}}"
+                  total-items="{{playground.selectable.totalItems}}"
+                  value="{{playground.selectable.value}}"
+                  error="{{playground.selectable.error}}"
+                  disabled="{{playground.selectable.disabled}}"
+                  loading="{{playground.selectable.loading}}">
+                  <Caption>Produtos selecionáveis</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="sku" sortable>SKU</TableHead>
+                      <TableHead key="name" sortable>Produto</TableHead>
+                      <TableHead key="stock" sortable>Estoque</TableHead>
+                      <TableHead key="price">Preço</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>SKU-100</TableCell>
+                      <TableCell>Teclado mecânico</TableCell>
+                      <TableCell>42</TableCell>
+                      <TableCell>R$ 349,90</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-200</TableCell>
+                      <TableCell>Mouse sem fio</TableCell>
+                      <TableCell>18</TableCell>
+                      <TableCell>R$ 129,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-300</TableCell>
+                      <TableCell>Monitor 27&quot;</TableCell>
+                      <TableCell>7</TableCell>
+                      <TableCell>R$ 1.299,00</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>SKU-400</TableCell>
+                      <TableCell>Headset USB</TableCell>
+                      <TableCell>25</TableCell>
+                      <TableCell>R$ 199,90</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-responsive-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Estado de carregamento</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Exibe skeleton padrão enquanto loading é verdadeiro.</p>
+        <demo id="demo-loading">
+          <groupviewtable--ml-responsive-data-table
+            selectable="{{playground.loading.selectable}}"
+            is-editing="{{playground.loading.isEditing}}"
+            page="{{playground.loading.page}}"
+            page-size="{{playground.loading.pageSize}}"
+            total-items="{{playground.loading.totalItems}}"
+            value="{{playground.loading.value}}"
+            error="{{playground.loading.error}}"
+            disabled="{{playground.loading.disabled}}"
+            loading="{{playground.loading.loading}}">
+            <Caption>Carregando registros</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="name">Nome</TableHead>
+                <TableHead key="email">E-mail</TableHead>
+                <TableHead key="role">Função</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Placeholder</TableCell>
+                <TableCell>a@b.com</TableCell>
+                <TableCell>Admin</TableCell>
+              </TableRow>
+            </TableBody>
+            <Loading>Buscando dados no servidor…</Loading>
+          </groupviewtable--ml-responsive-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.loading.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.loading.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.loading.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.loading.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.loading.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.loading.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <groupviewtable--ml-responsive-data-table
+                  selectable="{{playground.loading.selectable}}"
+                  is-editing="{{playground.loading.isEditing}}"
+                  page="{{playground.loading.page}}"
+                  page-size="{{playground.loading.pageSize}}"
+                  total-items="{{playground.loading.totalItems}}"
+                  value="{{playground.loading.value}}"
+                  error="{{playground.loading.error}}"
+                  disabled="{{playground.loading.disabled}}"
+                  loading="{{playground.loading.loading}}">
+                  <Caption>Carregando registros</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="name">Nome</TableHead>
+                      <TableHead key="email">E-mail</TableHead>
+                      <TableHead key="role">Função</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Placeholder</TableCell>
+                      <TableCell>a@b.com</TableCell>
+                      <TableCell>Admin</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <Loading>Buscando dados no servidor…</Loading>
+                </groupviewtable--ml-responsive-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Empty state -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Sem registros</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Estado vazio com mensagem personalizada no slot Empty.</p>
+        <demo id="demo-empty">
+          <groupviewtable--ml-responsive-data-table
+            selectable="{{playground.empty.selectable}}"
+            is-editing="{{playground.empty.isEditing}}"
+            page="{{playground.empty.page}}"
+            page-size="{{playground.empty.pageSize}}"
+            total-items="{{playground.empty.totalItems}}"
+            value="{{playground.empty.value}}"
+            error="{{playground.empty.error}}"
+            disabled="{{playground.empty.disabled}}"
+            loading="{{playground.empty.loading}}">
+            <Caption>Resultado da busca</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="code" sortable>Código</TableHead>
+                <TableHead key="desc" sortable>Descrição</TableHead>
+                <TableHead key="qty">Qtd.</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody></TableBody>
+            <Empty>Nenhum pedido corresponde aos filtros aplicados.</Empty>
+          </groupviewtable--ml-responsive-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.empty.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.empty.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.empty.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.empty.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.empty.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.empty.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.empty.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
+              <template>
+                <groupviewtable--ml-responsive-data-table
+                  selectable="{{playground.empty.selectable}}"
+                  is-editing="{{playground.empty.isEditing}}"
+                  page="{{playground.empty.page}}"
+                  page-size="{{playground.empty.pageSize}}"
+                  total-items="{{playground.empty.totalItems}}"
+                  value="{{playground.empty.value}}"
+                  error="{{playground.empty.error}}"
+                  disabled="{{playground.empty.disabled}}"
+                  loading="{{playground.empty.loading}}">
+                  <Caption>Resultado da busca</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="code" sortable>Código</TableHead>
+                      <TableHead key="desc" sortable>Descrição</TableHead>
+                      <TableHead key="qty">Qtd.</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody></TableBody>
+                  <Empty>Nenhum pedido corresponde aos filtros aplicados.</Empty>
+                </groupviewtable--ml-responsive-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Pagination -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com paginação</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Navegação por páginas com page-size e total-items definidos.</p>
+        <demo id="demo-pagination">
+          <groupviewtable--ml-responsive-data-table
+            selectable="{{playground.pagination.selectable}}"
+            is-editing="{{playground.pagination.isEditing}}"
+            page="{{playground.pagination.page}}"
+            page-size="{{playground.pagination.pageSize}}"
+            total-items="{{playground.pagination.totalItems}}"
+            value="{{playground.pagination.value}}"
+            error="{{playground.pagination.error}}"
+            disabled="{{playground.pagination.disabled}}"
+            loading="{{playground.pagination.loading}}">
+            <Caption>Clientes — página atual</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="name" sortable>Nome</TableHead>
+                <TableHead key="city" sortable>Cidade</TableHead>
+                <TableHead key="plan">Plano</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>11</TableCell>
+                <TableCell>Diego Alves</TableCell>
+                <TableCell>Curitiba</TableCell>
+                <TableCell>Pro</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>12</TableCell>
+                <TableCell>Elena Costa</TableCell>
+                <TableCell>Recife</TableCell>
+                <TableCell>Basic</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>13</TableCell>
+                <TableCell>Fábio Nunes</TableCell>
+                <TableCell>Belém</TableCell>
+                <TableCell>Enterprise</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>14</TableCell>
+                <TableCell>Gisele Rocha</TableCell>
+                <TableCell>Manaus</TableCell>
+                <TableCell>Pro</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>15</TableCell>
+                <TableCell>Hugo Martins</TableCell>
+                <TableCell>Fortaleza</TableCell>
+                <TableCell>Basic</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-responsive-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.pagination.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.pagination.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.pagination.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.pagination.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.pagination.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.pagination.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.pagination.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.pagination.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.pagination.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-pagination">
+              <template>
+                <groupviewtable--ml-responsive-data-table
+                  selectable="{{playground.pagination.selectable}}"
+                  is-editing="{{playground.pagination.isEditing}}"
+                  page="{{playground.pagination.page}}"
+                  page-size="{{playground.pagination.pageSize}}"
+                  total-items="{{playground.pagination.totalItems}}"
+                  value="{{playground.pagination.value}}"
+                  error="{{playground.pagination.error}}"
+                  disabled="{{playground.pagination.disabled}}"
+                  loading="{{playground.pagination.loading}}">
+                  <Caption>Clientes — página atual</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="name" sortable>Nome</TableHead>
+                      <TableHead key="city" sortable>Cidade</TableHead>
+                      <TableHead key="plan">Plano</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>11</TableCell>
+                      <TableCell>Diego Alves</TableCell>
+                      <TableCell>Curitiba</TableCell>
+                      <TableCell>Pro</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>12</TableCell>
+                      <TableCell>Elena Costa</TableCell>
+                      <TableCell>Recife</TableCell>
+                      <TableCell>Basic</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>13</TableCell>
+                      <TableCell>Fábio Nunes</TableCell>
+                      <TableCell>Belém</TableCell>
+                      <TableCell>Enterprise</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>14</TableCell>
+                      <TableCell>Gisele Rocha</TableCell>
+                      <TableCell>Manaus</TableCell>
+                      <TableCell>Pro</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>15</TableCell>
+                      <TableCell>Hugo Martins</TableCell>
+                      <TableCell>Fortaleza</TableCell>
+                      <TableCell>Basic</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-responsive-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Disabled -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Desabilitada</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Interações (ordenação, seleção, paginação) bloqueadas.</p>
+        <demo id="demo-disabled">
+          <groupviewtable--ml-responsive-data-table
+            selectable="{{playground.disabled.selectable}}"
+            is-editing="{{playground.disabled.isEditing}}"
+            page="{{playground.disabled.page}}"
+            page-size="{{playground.disabled.pageSize}}"
+            total-items="{{playground.disabled.totalItems}}"
+            value="{{playground.disabled.value}}"
+            error="{{playground.disabled.error}}"
+            disabled="{{playground.disabled.disabled}}"
+            loading="{{playground.disabled.loading}}">
+            <Caption>Registros somente leitura</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="ticket" sortable>Ticket</TableHead>
+                <TableHead key="subject" sortable>Assunto</TableHead>
+                <TableHead key="priority">Prioridade</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>T-901</TableCell>
+                <TableCell>Falha no login</TableCell>
+                <TableCell>Alta</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>T-902</TableCell>
+                <TableCell>Atualizar fatura</TableCell>
+                <TableCell>Média</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-responsive-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.disabled.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.disabled.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.disabled.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.disabled.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.disabled.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.disabled.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <groupviewtable--ml-responsive-data-table
+                  selectable="{{playground.disabled.selectable}}"
+                  is-editing="{{playground.disabled.isEditing}}"
+                  page="{{playground.disabled.page}}"
+                  page-size="{{playground.disabled.pageSize}}"
+                  total-items="{{playground.disabled.totalItems}}"
+                  value="{{playground.disabled.value}}"
+                  error="{{playground.disabled.error}}"
+                  disabled="{{playground.disabled.disabled}}"
+                  loading="{{playground.disabled.loading}}">
+                  <Caption>Registros somente leitura</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="ticket" sortable>Ticket</TableHead>
+                      <TableHead key="subject" sortable>Assunto</TableHead>
+                      <TableHead key="priority">Prioridade</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>T-901</TableCell>
+                      <TableCell>Falha no login</TableCell>
+                      <TableCell>Alta</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>T-902</TableCell>
+                      <TableCell>Atualizar fatura</TableCell>
+                      <TableCell>Média</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-responsive-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Error message -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com mensagem de erro</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Exibe alerta de erro abaixo da tabela quando error está preenchido.</p>
+        <demo id="demo-error">
+          <groupviewtable--ml-responsive-data-table
+            selectable="{{playground.error.selectable}}"
+            is-editing="{{playground.error.isEditing}}"
+            page="{{playground.error.page}}"
+            page-size="{{playground.error.pageSize}}"
+            total-items="{{playground.error.totalItems}}"
+            value="{{playground.error.value}}"
+            error="{{playground.error.error}}"
+            disabled="{{playground.error.disabled}}"
+            loading="{{playground.error.loading}}">
+            <Caption>Sincronização de estoque</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="item" sortable>Item</TableHead>
+                <TableHead key="warehouse">Depósito</TableHead>
+                <TableHead key="qty" sortable>Quantidade</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Parafuso M6</TableCell>
+                <TableCell>SP-01</TableCell>
+                <TableCell>1.200</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Porca M6</TableCell>
+                <TableCell>SP-01</TableCell>
+                <TableCell>980</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-responsive-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.error.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.error.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.error.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.error.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.error.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.error.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.error.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.error.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.error.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-error">
+              <template>
+                <groupviewtable--ml-responsive-data-table
+                  selectable="{{playground.error.selectable}}"
+                  is-editing="{{playground.error.isEditing}}"
+                  page="{{playground.error.page}}"
+                  page-size="{{playground.error.pageSize}}"
+                  total-items="{{playground.error.totalItems}}"
+                  value="{{playground.error.value}}"
+                  error="{{playground.error.error}}"
+                  disabled="{{playground.error.disabled}}"
+                  loading="{{playground.error.loading}}">
+                  <Caption>Sincronização de estoque</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="item" sortable>Item</TableHead>
+                      <TableHead key="warehouse">Depósito</TableHead>
+                      <TableHead key="qty" sortable>Quantidade</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Parafuso M6</TableCell>
+                      <TableCell>SP-01</TableCell>
+                      <TableCell>1.200</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Porca M6</TableCell>
+                      <TableCell>SP-01</TableCell>
+                      <TableCell>980</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-responsive-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- With footer totals -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com rodapé de totais</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">TableFooter com linha de soma e várias colunas para testar responsividade.</p>
+        <demo id="demo-withFooter">
+          <groupviewtable--ml-responsive-data-table
+            selectable="{{playground.withFooter.selectable}}"
+            is-editing="{{playground.withFooter.isEditing}}"
+            page="{{playground.withFooter.page}}"
+            page-size="{{playground.withFooter.pageSize}}"
+            total-items="{{playground.withFooter.totalItems}}"
+            value="{{playground.withFooter.value}}"
+            error="{{playground.withFooter.error}}"
+            disabled="{{playground.withFooter.disabled}}"
+            loading="{{playground.withFooter.loading}}">
+            <Caption>Receita por região</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="region" sortable>Região</TableHead>
+                <TableHead key="q1" sortable>Q1</TableHead>
+                <TableHead key="q2" sortable>Q2</TableHead>
+                <TableHead key="q3" sortable>Q3</TableHead>
+                <TableHead key="q4" sortable>Q4</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Sudeste</TableCell>
+                <TableCell>R$ 120k</TableCell>
+                <TableCell>R$ 135k</TableCell>
+                <TableCell>R$ 142k</TableCell>
+                <TableCell>R$ 158k</TableCell>
+                <TableCell>R$ 555k</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Sul</TableCell>
+                <TableCell>R$ 80k</TableCell>
+                <TableCell>R$ 88k</TableCell>
+                <TableCell>R$ 91k</TableCell>
+                <TableCell>R$ 97k</TableCell>
+                <TableCell>R$ 356k</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Nordeste</TableCell>
+                <TableCell>R$ 60k</TableCell>
+                <TableCell>R$ 72k</TableCell>
+                <TableCell>R$ 75k</TableCell>
+                <TableCell>R$ 81k</TableCell>
+                <TableCell>R$ 288k</TableCell>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell>Total</TableCell>
+                <TableCell>R$ 260k</TableCell>
+                <TableCell>R$ 295k</TableCell>
+                <TableCell>R$ 308k</TableCell>
+                <TableCell>R$ 336k</TableCell>
+                <TableCell>R$ 1.199k</TableCell>
+              </TableRow>
+            </TableFooter>
+          </groupviewtable--ml-responsive-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.withFooter.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.withFooter.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.withFooter.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.withFooter.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.withFooter.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.withFooter.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.withFooter.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.withFooter.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.withFooter.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-withFooter">
+              <template>
+                <groupviewtable--ml-responsive-data-table
+                  selectable="{{playground.withFooter.selectable}}"
+                  is-editing="{{playground.withFooter.isEditing}}"
+                  page="{{playground.withFooter.page}}"
+                  page-size="{{playground.withFooter.pageSize}}"
+                  total-items="{{playground.withFooter.totalItems}}"
+                  value="{{playground.withFooter.value}}"
+                  error="{{playground.withFooter.error}}"
+                  disabled="{{playground.withFooter.disabled}}"
+                  loading="{{playground.withFooter.loading}}">
+                  <Caption>Receita por região</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="region" sortable>Região</TableHead>
+                      <TableHead key="q1" sortable>Q1</TableHead>
+                      <TableHead key="q2" sortable>Q2</TableHead>
+                      <TableHead key="q3" sortable>Q3</TableHead>
+                      <TableHead key="q4" sortable>Q4</TableHead>
+                      <TableHead key="total" sortable>Total</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Sudeste</TableCell>
+                      <TableCell>R$ 120k</TableCell>
+                      <TableCell>R$ 135k</TableCell>
+                      <TableCell>R$ 142k</TableCell>
+                      <TableCell>R$ 158k</TableCell>
+                      <TableCell>R$ 555k</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Sul</TableCell>
+                      <TableCell>R$ 80k</TableCell>
+                      <TableCell>R$ 88k</TableCell>
+                      <TableCell>R$ 91k</TableCell>
+                      <TableCell>R$ 97k</TableCell>
+                      <TableCell>R$ 356k</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Nordeste</TableCell>
+                      <TableCell>R$ 60k</TableCell>
+                      <TableCell>R$ 72k</TableCell>
+                      <TableCell>R$ 75k</TableCell>
+                      <TableCell>R$ 81k</TableCell>
+                      <TableCell>R$ 288k</TableCell>
+                    </TableRow>
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
+                      <TableCell>Total</TableCell>
+                      <TableCell>R$ 260k</TableCell>
+                      <TableCell>R$ 295k</TableCell>
+                      <TableCell>R$ 308k</TableCell>
+                      <TableCell>R$ 336k</TableCell>
+                      <TableCell>R$ 1.199k</TableCell>
+                    </TableRow>
+                  </TableFooter>
+                </groupviewtable--ml-responsive-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Editing mode -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Modo edição</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Propaga is-editing para componentes dentro das células.</p>
+        <demo id="demo-editing">
+          <groupviewtable--ml-responsive-data-table
+            selectable="{{playground.editing.selectable}}"
+            is-editing="{{playground.editing.isEditing}}"
+            page="{{playground.editing.page}}"
+            page-size="{{playground.editing.pageSize}}"
+            total-items="{{playground.editing.totalItems}}"
+            value="{{playground.editing.value}}"
+            error="{{playground.editing.error}}"
+            disabled="{{playground.editing.disabled}}"
+            loading="{{playground.editing.loading}}">
+            <Caption>Edição inline de metas</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="team" sortable>Equipe</TableHead>
+                <TableHead key="goal" sortable>Meta</TableHead>
+                <TableHead key="actual" sortable>Realizado</TableHead>
+                <TableHead key="notes">Observações</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Vendas SP</TableCell>
+                <TableCell>R$ 50.000</TableCell>
+                <TableCell>R$ 47.200</TableCell>
+                <TableCell>Ajuste de comissão pendente</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Vendas RJ</TableCell>
+                <TableCell>R$ 40.000</TableCell>
+                <TableCell>R$ 41.800</TableCell>
+                <TableCell>Meta superada</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Vendas MG</TableCell>
+                <TableCell>R$ 35.000</TableCell>
+                <TableCell>R$ 29.100</TableCell>
+                <TableCell>Campanha em andamento</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-responsive-data-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.editing.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.editing.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.editing.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.editing.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.editing.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.editing.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.editing.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.editing.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.editing.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-editing">
+              <template>
+                <groupviewtable--ml-responsive-data-table
+                  selectable="{{playground.editing.selectable}}"
+                  is-editing="{{playground.editing.isEditing}}"
+                  page="{{playground.editing.page}}"
+                  page-size="{{playground.editing.pageSize}}"
+                  total-items="{{playground.editing.totalItems}}"
+                  value="{{playground.editing.value}}"
+                  error="{{playground.editing.error}}"
+                  disabled="{{playground.editing.disabled}}"
+                  loading="{{playground.editing.loading}}">
+                  <Caption>Edição inline de metas</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="team" sortable>Equipe</TableHead>
+                      <TableHead key="goal" sortable>Meta</TableHead>
+                      <TableHead key="actual" sortable>Realizado</TableHead>
+                      <TableHead key="notes">Observações</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Vendas SP</TableCell>
+                      <TableCell>R$ 50.000</TableCell>
+                      <TableCell>R$ 47.200</TableCell>
+                      <TableCell>Ajuste de comissão pendente</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Vendas RJ</TableCell>
+                      <TableCell>R$ 40.000</TableCell>
+                      <TableCell>R$ 41.800</TableCell>
+                      <TableCell>Meta superada</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Vendas MG</TableCell>
+                      <TableCell>R$ 35.000</TableCell>
+                      <TableCell>R$ 29.100</TableCell>
+                      <TableCell>Campanha em andamento</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-responsive-data-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>

@@ -17,6 +17,10 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
   // SLOT TAGS
   // ===========================================================================
   slotTags = ['CardHeader', 'CardTitle', 'CardDescription', 'CardContent', 'CardFooter', 'CardAction'];
+  // O slot CardFooter e o CardAction carregam CONTROLES do consumidor, não conteúdo
+  // decorativo — precisam de nó vivo, com handler e componente preservados.
+  // Os demais slots continuam vindo pelo caminho de snapshot: são conteúdo.
+  protected usesLiveSlots = true;
 
   // ===========================================================================
   // PROPERTIES — From Contract
@@ -129,7 +133,7 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('CardFooter')) return html``;
     return html`
       <div class="${cn('mt-2 text-xs ml-text-muted', this.getSlotClass('CardFooter'))}">
-        ${unsafeHTML(this.getSlotContent('CardFooter'))}
+        ${this.renderLiveSlot('CardFooter')}
       </div>
     `;
   }
@@ -138,7 +142,7 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('CardAction')) return html``;
     return html`
       <div class="mt-3">
-        ${unsafeHTML(this.getSlotContent('CardAction'))}
+        ${this.renderLiveSlot('CardAction')}
       </div>
     `;
   }

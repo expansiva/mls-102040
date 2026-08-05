@@ -1,0 +1,418 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Controle de Paginação</h1>
+      <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">groupTriggerAction</span>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Navegação entre páginas com botões de primeira, anterior, próxima e última, além da janela de números com reticências quando necessário.</p>
+    </header>
+
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"size":"md","type":"button","iconPosition":"start","disabled":false,"loading":false,"currentPage":3,"totalPages":8,"visiblePages":5},"loading":{"size":"md","disabled":false,"loading":true,"currentPage":2,"totalPages":10,"visiblePages":5},"disabled":{"size":"md","disabled":true,"loading":false,"currentPage":4,"totalPages":12,"visiblePages":5},"manyPages":{"size":"md","disabled":false,"loading":false,"currentPage":12,"totalPages":40,"visiblePages":5},"firstPage":{"size":"md","disabled":false,"loading":false,"currentPage":1,"totalPages":15,"visiblePages":5},"lastPage":{"size":"md","disabled":false,"loading":false,"currentPage":20,"totalPages":20,"visiblePages":5},"singlePage":{"size":"md","disabled":false,"loading":false,"currentPage":1,"totalPages":1,"visiblePages":5},"compactVisible":{"size":"md","disabled":false,"loading":false,"currentPage":7,"totalPages":25,"visiblePages":3},"smallSize":{"size":"sm","disabled":false,"loading":false,"currentPage":2,"totalPages":6,"visiblePages":5}}}'>
+    </aura--molecules--playground--widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+      <!-- Basic: middle page, default window -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Uso padrão</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Página atual no meio de um conjunto moderado de páginas.</p>
+        <demo id="demo-basic">
+          <grouptriggeraction--ml-pagination-control
+            size="{{playground.basic.size}}"
+            type="{{playground.basic.type}}"
+            icon-position="{{playground.basic.iconPosition}}"
+            disabled="{{playground.basic.disabled}}"
+            loading="{{playground.basic.loading}}"
+            current-page="{{playground.basic.currentPage}}"
+            total-pages="{{playground.basic.totalPages}}"
+            visible-pages="{{playground.basic.visiblePages}}">
+          </grouptriggeraction--ml-pagination-control>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.basic.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="type" value="{{playground.basic.type}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="iconPosition" value="{{playground.basic.iconPosition}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="currentPage" value="{{playground.basic.currentPage}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalPages" value="{{playground.basic.totalPages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="visiblePages" value="{{playground.basic.visiblePages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <grouptriggeraction--ml-pagination-control
+                  size="{{playground.basic.size}}"
+                  type="{{playground.basic.type}}"
+                  icon-position="{{playground.basic.iconPosition}}"
+                  disabled="{{playground.basic.disabled}}"
+                  loading="{{playground.basic.loading}}"
+                  current-page="{{playground.basic.currentPage}}"
+                  total-pages="{{playground.basic.totalPages}}"
+                  visible-pages="{{playground.basic.visiblePages}}">
+                </grouptriggeraction--ml-pagination-control>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Carregando</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Indicador de loading no lugar dos controles enquanto os dados chegam.</p>
+        <demo id="demo-loading">
+          <grouptriggeraction--ml-pagination-control
+            size="{{playground.loading.size}}"
+            disabled="{{playground.loading.disabled}}"
+            loading="{{playground.loading.loading}}"
+            current-page="{{playground.loading.currentPage}}"
+            total-pages="{{playground.loading.totalPages}}"
+            visible-pages="{{playground.loading.visiblePages}}">
+          </grouptriggeraction--ml-pagination-control>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.loading.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="currentPage" value="{{playground.loading.currentPage}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalPages" value="{{playground.loading.totalPages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="visiblePages" value="{{playground.loading.visiblePages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
+              <template>
+                <grouptriggeraction--ml-pagination-control
+                  size="{{playground.loading.size}}"
+                  disabled="{{playground.loading.disabled}}"
+                  loading="{{playground.loading.loading}}"
+                  current-page="{{playground.loading.currentPage}}"
+                  total-pages="{{playground.loading.totalPages}}"
+                  visible-pages="{{playground.loading.visiblePages}}">
+                </grouptriggeraction--ml-pagination-control>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Disabled -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Desabilitado</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Todos os botões ficam inativos e não disparam o evento action.</p>
+        <demo id="demo-disabled">
+          <grouptriggeraction--ml-pagination-control
+            size="{{playground.disabled.size}}"
+            disabled="{{playground.disabled.disabled}}"
+            loading="{{playground.disabled.loading}}"
+            current-page="{{playground.disabled.currentPage}}"
+            total-pages="{{playground.disabled.totalPages}}"
+            visible-pages="{{playground.disabled.visiblePages}}">
+          </grouptriggeraction--ml-pagination-control>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.disabled.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.disabled.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="currentPage" value="{{playground.disabled.currentPage}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalPages" value="{{playground.disabled.totalPages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="visiblePages" value="{{playground.disabled.visiblePages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-disabled">
+              <template>
+                <grouptriggeraction--ml-pagination-control
+                  size="{{playground.disabled.size}}"
+                  disabled="{{playground.disabled.disabled}}"
+                  loading="{{playground.disabled.loading}}"
+                  current-page="{{playground.disabled.currentPage}}"
+                  total-pages="{{playground.disabled.totalPages}}"
+                  visible-pages="{{playground.disabled.visiblePages}}">
+                </grouptriggeraction--ml-pagination-control>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Many pages with ellipsis -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Muitas páginas</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Janela deslizante com reticências quando o total excede as páginas visíveis.</p>
+        <demo id="demo-manyPages">
+          <grouptriggeraction--ml-pagination-control
+            size="{{playground.manyPages.size}}"
+            disabled="{{playground.manyPages.disabled}}"
+            loading="{{playground.manyPages.loading}}"
+            current-page="{{playground.manyPages.currentPage}}"
+            total-pages="{{playground.manyPages.totalPages}}"
+            visible-pages="{{playground.manyPages.visiblePages}}">
+          </grouptriggeraction--ml-pagination-control>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.manyPages.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.manyPages.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.manyPages.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="currentPage" value="{{playground.manyPages.currentPage}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalPages" value="{{playground.manyPages.totalPages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="visiblePages" value="{{playground.manyPages.visiblePages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-manyPages">
+              <template>
+                <grouptriggeraction--ml-pagination-control
+                  size="{{playground.manyPages.size}}"
+                  disabled="{{playground.manyPages.disabled}}"
+                  loading="{{playground.manyPages.loading}}"
+                  current-page="{{playground.manyPages.currentPage}}"
+                  total-pages="{{playground.manyPages.totalPages}}"
+                  visible-pages="{{playground.manyPages.visiblePages}}">
+                </grouptriggeraction--ml-pagination-control>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- First page -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Primeira página</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Botões de primeira e anterior desabilitados no início da lista.</p>
+        <demo id="demo-firstPage">
+          <grouptriggeraction--ml-pagination-control
+            size="{{playground.firstPage.size}}"
+            disabled="{{playground.firstPage.disabled}}"
+            loading="{{playground.firstPage.loading}}"
+            current-page="{{playground.firstPage.currentPage}}"
+            total-pages="{{playground.firstPage.totalPages}}"
+            visible-pages="{{playground.firstPage.visiblePages}}">
+          </grouptriggeraction--ml-pagination-control>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.firstPage.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.firstPage.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.firstPage.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="currentPage" value="{{playground.firstPage.currentPage}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalPages" value="{{playground.firstPage.totalPages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="visiblePages" value="{{playground.firstPage.visiblePages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-firstPage">
+              <template>
+                <grouptriggeraction--ml-pagination-control
+                  size="{{playground.firstPage.size}}"
+                  disabled="{{playground.firstPage.disabled}}"
+                  loading="{{playground.firstPage.loading}}"
+                  current-page="{{playground.firstPage.currentPage}}"
+                  total-pages="{{playground.firstPage.totalPages}}"
+                  visible-pages="{{playground.firstPage.visiblePages}}">
+                </grouptriggeraction--ml-pagination-control>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Last page -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Última página</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Botões de próxima e última desabilitados no fim da lista.</p>
+        <demo id="demo-lastPage">
+          <grouptriggeraction--ml-pagination-control
+            size="{{playground.lastPage.size}}"
+            disabled="{{playground.lastPage.disabled}}"
+            loading="{{playground.lastPage.loading}}"
+            current-page="{{playground.lastPage.currentPage}}"
+            total-pages="{{playground.lastPage.totalPages}}"
+            visible-pages="{{playground.lastPage.visiblePages}}">
+          </grouptriggeraction--ml-pagination-control>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.lastPage.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.lastPage.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.lastPage.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="currentPage" value="{{playground.lastPage.currentPage}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalPages" value="{{playground.lastPage.totalPages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="visiblePages" value="{{playground.lastPage.visiblePages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-lastPage">
+              <template>
+                <grouptriggeraction--ml-pagination-control
+                  size="{{playground.lastPage.size}}"
+                  disabled="{{playground.lastPage.disabled}}"
+                  loading="{{playground.lastPage.loading}}"
+                  current-page="{{playground.lastPage.currentPage}}"
+                  total-pages="{{playground.lastPage.totalPages}}"
+                  visible-pages="{{playground.lastPage.visiblePages}}">
+                </grouptriggeraction--ml-pagination-control>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Single page -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Página única</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Apenas uma página disponível — navegação lateral desabilitada.</p>
+        <demo id="demo-singlePage">
+          <grouptriggeraction--ml-pagination-control
+            size="{{playground.singlePage.size}}"
+            disabled="{{playground.singlePage.disabled}}"
+            loading="{{playground.singlePage.loading}}"
+            current-page="{{playground.singlePage.currentPage}}"
+            total-pages="{{playground.singlePage.totalPages}}"
+            visible-pages="{{playground.singlePage.visiblePages}}">
+          </grouptriggeraction--ml-pagination-control>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.singlePage.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.singlePage.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.singlePage.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="currentPage" value="{{playground.singlePage.currentPage}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalPages" value="{{playground.singlePage.totalPages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="visiblePages" value="{{playground.singlePage.visiblePages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-singlePage">
+              <template>
+                <grouptriggeraction--ml-pagination-control
+                  size="{{playground.singlePage.size}}"
+                  disabled="{{playground.singlePage.disabled}}"
+                  loading="{{playground.singlePage.loading}}"
+                  current-page="{{playground.singlePage.currentPage}}"
+                  total-pages="{{playground.singlePage.totalPages}}"
+                  visible-pages="{{playground.singlePage.visiblePages}}">
+                </grouptriggeraction--ml-pagination-control>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Compact visible window -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Janela compacta</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Poucas páginas visíveis (visible-pages=3) em um total grande.</p>
+        <demo id="demo-compactVisible">
+          <grouptriggeraction--ml-pagination-control
+            size="{{playground.compactVisible.size}}"
+            disabled="{{playground.compactVisible.disabled}}"
+            loading="{{playground.compactVisible.loading}}"
+            current-page="{{playground.compactVisible.currentPage}}"
+            total-pages="{{playground.compactVisible.totalPages}}"
+            visible-pages="{{playground.compactVisible.visiblePages}}">
+          </grouptriggeraction--ml-pagination-control>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.compactVisible.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.compactVisible.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.compactVisible.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="currentPage" value="{{playground.compactVisible.currentPage}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalPages" value="{{playground.compactVisible.totalPages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="visiblePages" value="{{playground.compactVisible.visiblePages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-compactVisible">
+              <template>
+                <grouptriggeraction--ml-pagination-control
+                  size="{{playground.compactVisible.size}}"
+                  disabled="{{playground.compactVisible.disabled}}"
+                  loading="{{playground.compactVisible.loading}}"
+                  current-page="{{playground.compactVisible.currentPage}}"
+                  total-pages="{{playground.compactVisible.totalPages}}"
+                  visible-pages="{{playground.compactVisible.visiblePages}}">
+                </grouptriggeraction--ml-pagination-control>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Small size -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Tamanho pequeno</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Variante size=sm para layouts densos ou toolbars.</p>
+        <demo id="demo-smallSize">
+          <grouptriggeraction--ml-pagination-control
+            size="{{playground.smallSize.size}}"
+            disabled="{{playground.smallSize.disabled}}"
+            loading="{{playground.smallSize.loading}}"
+            current-page="{{playground.smallSize.currentPage}}"
+            total-pages="{{playground.smallSize.totalPages}}"
+            visible-pages="{{playground.smallSize.visiblePages}}">
+          </grouptriggeraction--ml-pagination-control>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-text-102020 label="size" value="{{playground.smallSize.size}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.smallSize.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.smallSize.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="currentPage" value="{{playground.smallSize.currentPage}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="totalPages" value="{{playground.smallSize.totalPages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="visiblePages" value="{{playground.smallSize.visiblePages}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-smallSize">
+              <template>
+                <grouptriggeraction--ml-pagination-control
+                  size="{{playground.smallSize.size}}"
+                  disabled="{{playground.smallSize.disabled}}"
+                  loading="{{playground.smallSize.loading}}"
+                  current-page="{{playground.smallSize.currentPage}}"
+                  total-pages="{{playground.smallSize.totalPages}}"
+                  visible-pages="{{playground.smallSize.visiblePages}}">
+                </grouptriggeraction--ml-pagination-control>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>

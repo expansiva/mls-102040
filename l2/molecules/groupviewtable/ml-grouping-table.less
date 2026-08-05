@@ -1,0 +1,398 @@
+/// <mls fileReference="_102040_/l2/molecules/groupviewtable/ml-grouping-table.less" enhancement="_102020_/l2/enhancementStyleAura"/>
+groupviewtable--ml-grouping-table {
+  // ---- layout & base ----
+  font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  color: var(--ml-on-surface, #1c1b1f);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  // ====================================================================
+  // ROOT STATES — emitted on the inner .ml-grouping-table div, not the tag
+  // ====================================================================
+  .ml-disabled {
+    opacity: var(--ml-disabled-opacity, 0.5);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .ml-loading {
+    // subtle visual cue that content is in-flight
+    opacity: 0.85;
+  }
+
+  .ml-has-error {
+    // error state — border handled by .ml-error-text below
+  }
+
+  // ====================================================================
+  // GROUPING CONTROL — top bar
+  // ====================================================================
+  .ml-group-control {
+    background: var(--ml-surface-dim, #f5f5f5);
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-radius: var(--ml-radius-sm, 6px) var(--ml-radius-sm, 6px) 0 0;
+  }
+
+  .ml-label {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-weight: var(--ml-font-weight-medium, 500);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+
+  .ml-group-select {
+    background: var(--ml-surface, #ffffff);
+    color: var(--ml-on-surface, #1c1b1f);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-radius: var(--ml-radius-sm, 6px);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    font-size: 0.875rem;
+    transition: border-color var(--ml-transition, 200ms ease),
+                box-shadow var(--ml-transition, 200ms ease);
+    outline: none;
+    cursor: pointer;
+
+    &:focus {
+      border-color: var(--ml-outline-focus, #3b82f6);
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  // ====================================================================
+  // TABLE WRAPPER — horizontal scroll container
+  // ====================================================================
+  .ml-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-top: none; // group-control already has a bottom border
+    border-radius: 0 0 var(--ml-radius-sm, 6px) var(--ml-radius-sm, 6px);
+    background: var(--ml-surface, #ffffff);
+    box-shadow: var(--ml-shadow-1, 0 1px 3px rgba(0,0,0,0.1));
+  }
+
+  // ====================================================================
+  // TABLE
+  // ====================================================================
+  .ml-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+  }
+
+  // ====================================================================
+  // CAPTION
+  // ====================================================================
+  .ml-caption {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-weight: var(--ml-font-weight-medium, 500);
+    background: var(--ml-surface, #ffffff);
+    caption-side: top;
+  }
+
+  // ====================================================================
+  // THEAD
+  // ====================================================================
+  .ml-table-thead {
+    background: var(--ml-surface-dim, #f5f5f5);
+    border-bottom: calc(var(--ml-border-width, 1px) * 2) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-table-header-row {
+    // no extra treatment — thead bg covers it
+  }
+
+  .ml-table-head {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-weight: var(--ml-font-weight-medium, 500);
+    font-size: 0.8125rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    white-space: nowrap;
+    transition: color var(--ml-transition, 200ms ease),
+                background var(--ml-transition, 200ms ease);
+
+    &[tabindex="0"]:hover {
+      color: var(--ml-on-surface, #1c1b1f);
+      background: var(--ml-surface-variant, #ede8f5);
+    }
+
+    &:focus-visible {
+      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline-offset: -2px;
+    }
+  }
+
+  .ml-table-head-sorted {
+    color: var(--ml-primary, #3b82f6) !important;
+    background: var(--ml-surface-variant, #ede8f5);
+  }
+
+  // ====================================================================
+  // SORT INDICATOR
+  // ====================================================================
+  .ml-sort-indicator {
+    opacity: 0.45;
+    transition: opacity var(--ml-transition, 200ms ease);
+  }
+
+  .ml-sort-active {
+    opacity: 1;
+    color: var(--ml-primary, #3b82f6);
+  }
+
+  // .ml-sort-asc / .ml-sort-desc — SVG paths already use opacity;
+  // no extra rule needed beyond the parent active state.
+
+  // ====================================================================
+  // TBODY
+  // ====================================================================
+  .ml-table-tbody {
+    background: var(--ml-surface, #ffffff);
+  }
+
+  // ====================================================================
+  // GROUP HEADER ROW
+  // ====================================================================
+  .ml-group-header-row {
+    background: var(--ml-surface-dim, #f5f5f5);
+    border-top: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-group-header {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-weight: var(--ml-font-weight-medium, 500);
+    font-size: 0.875rem;
+    transition: background var(--ml-transition, 200ms ease);
+
+    &.cursor-pointer:hover {
+      background: var(--ml-surface-variant, #ede8f5);
+    }
+
+    &:focus-visible {
+      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline-offset: -2px;
+    }
+  }
+
+  .ml-group-label {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-weight: var(--ml-font-weight-medium, 500);
+  }
+
+  .ml-group-count {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-size: 0.75rem;
+  }
+
+  // Chevron — inherits currentColor from .ml-group-header
+  .ml-group-chevron {
+    color: var(--ml-on-surface-muted, #49454f);
+    flex-shrink: 0;
+  }
+
+  // ====================================================================
+  // DATA ROWS
+  // ====================================================================
+  .ml-table-row {
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    transition: background var(--ml-transition, 200ms ease);
+    outline: none;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover:not(.ml-table-row-selected) {
+      background: var(--ml-surface-dim, #f5f5f5);
+    }
+
+    &:focus-visible {
+      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline-offset: -2px;
+    }
+  }
+
+  .ml-table-row-selected {
+    background: var(--ml-primary-container, #dbeafe) !important;
+
+    &:hover {
+      background: var(--ml-primary-container, #dbeafe) !important;
+      filter: brightness(0.97);
+    }
+  }
+
+  // ====================================================================
+  // CELLS
+  // ====================================================================
+  .ml-table-cell {
+    color: var(--ml-on-surface, #1c1b1f);
+    font-size: 0.875rem;
+    vertical-align: middle;
+  }
+
+  .ml-table-checkbox-cell {
+    width: 2.5rem;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  // First data cell indented when grouping is active
+  .ml-grouped-cell {
+    padding-left: 2rem !important;
+  }
+
+  // ====================================================================
+  // CHECKBOX
+  // ====================================================================
+  .ml-checkbox {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--ml-primary, #3b82f6);
+    cursor: pointer;
+    border-radius: var(--ml-radius-sm, 6px);
+    transition: box-shadow var(--ml-transition, 200ms ease);
+
+    &:focus-visible {
+      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  // ====================================================================
+  // TFOOT
+  // ====================================================================
+  .ml-table-tfoot {
+    background: var(--ml-surface-dim, #f5f5f5);
+    border-top: calc(var(--ml-border-width, 1px) * 2) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-table-footer-row {
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .ml-table-footer-cell {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-size: 0.8125rem;
+    font-weight: var(--ml-font-weight-medium, 500);
+  }
+
+  // ====================================================================
+  // EMPTY STATE
+  // ====================================================================
+  .ml-table-empty-row {
+    background: var(--ml-surface, #ffffff);
+  }
+
+  .ml-table-empty {
+    color: var(--ml-on-surface-muted, #49454f);
+    font-size: 0.875rem;
+  }
+
+  // ====================================================================
+  // LOADING SKELETON
+  // ====================================================================
+  .ml-loading-slot {
+    background: var(--ml-surface, #ffffff);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-radius: 0 0 var(--ml-radius-sm, 6px) var(--ml-radius-sm, 6px);
+  }
+
+  .ml-skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--ml-surface-dim, #f5f5f5) 25%,
+      var(--ml-surface-variant, #ede8f5) 50%,
+      var(--ml-surface-dim, #f5f5f5) 75%
+    );
+    background-size: 200% 100%;
+    animation: ml-skeleton-shimmer 1.4s ease-in-out infinite;
+    border-radius: var(--ml-radius-sm, 6px);
+    display: block;
+  }
+
+  @keyframes ml-skeleton-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  // ====================================================================
+  // PAGINATION
+  // ====================================================================
+  .ml-pagination {
+    border-top: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    background: var(--ml-surface-dim, #f5f5f5);
+    border-radius: 0 0 var(--ml-radius-sm, 6px) var(--ml-radius-sm, 6px);
+  }
+
+  .ml-pagination-btn {
+    background: var(--ml-surface, #ffffff);
+    color: var(--ml-on-surface, #1c1b1f);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-radius: var(--ml-radius-sm, 6px);
+    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: background var(--ml-transition, 200ms ease),
+                border-color var(--ml-transition, 200ms ease),
+                box-shadow var(--ml-transition, 200ms ease);
+    line-height: 1;
+
+    &:hover:not(:disabled):not(.ml-pagination-btn-active) {
+      background: var(--ml-surface-dim, #f5f5f5);
+      border-color: var(--ml-on-surface-faint, #79747e);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+    }
+
+    &:disabled {
+      opacity: var(--ml-disabled-opacity, 0.5);
+      cursor: not-allowed;
+    }
+  }
+
+  .ml-pagination-btn-active {
+    background: var(--ml-primary, #3b82f6) !important;
+    color: var(--ml-on-primary, #ffffff) !important;
+    border-color: var(--ml-primary, #3b82f6) !important;
+    font-weight: var(--ml-font-weight-medium, 500);
+    cursor: default;
+  }
+
+  // ====================================================================
+  // SEMANTIC TEXT HELPERS
+  // ====================================================================
+  .ml-text-muted {
+    color: var(--ml-on-surface-muted, #49454f);
+  }
+
+  .ml-text-faint {
+    color: var(--ml-on-surface-faint, #79747e);
+  }
+
+  .ml-error-text {
+    color: var(--ml-error, #ef4444);
+    font-size: 0.75rem;
+  }
+}
+
+
