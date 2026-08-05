@@ -55,7 +55,24 @@ tratá-lo como JS. Não use outra sintaxe de tipo no arquivo — ele precisa ser
 
 ### `query`
 
-A consulta que alimenta a coleção.
+A consulta que alimenta a coleção. **Opcional**, e a forma da saída decide o que a página recebe:
+
+| `output.kind` | A página recebe | Para |
+| --- | --- | --- |
+| `'paginated'` | `{ <array>: Row[]; <total>: number }`, fatiado por página | coleção que não cabe numa página |
+| `'list'` | `Row[]`, inteira | coleção pequena, sem paginação |
+| `'object'` | `Row \| null` — a primeira linha do seed | página de UM registro: é isso que dá a ela os valores salvos, e com eles o modo de edição, o esqueleto de carregamento e a falha de carga |
+| campo ausente | nada: sem propriedade de dado, sem estado de consulta, sem cenário | página que é só formulário |
+
+**Fixture sem `query` é legítima e comum.** Categoria de página que só escreve — `entityRecordManagement`,
+`fieldDataCapture` — não tem consulta nenhuma: 2 dos 3 casos reais do 102045 declaram só comandos.
+Nesse caso o stub sai só com os comandos, `applyScenario` não tem estado de coleção para aplicar, e a
+barra do `page.html` mostra "nenhum — fixture sem consulta" em vez de botões. Não invente uma consulta
+para o stub existir: consulta inventada é dado que a página não deveria ter, e o teste passa a medir
+outra coisa.
+
+O que **não** dispensa: pelo menos um comando amarrado em `binding.commands`. Sem consulta e sem
+comando não há superfície nenhuma, e o `makeStub` recusa.
 
 ```ts
 query: {
@@ -233,6 +250,8 @@ harness, não do template ainda:
 - [ ] `page` e `pageSize` declarados se a suíte testa paginação.
 - [ ] `seed.total` == `rows.length`, e maior que o tamanho de página.
 - [ ] Nenhum cenário com `useSeedRows: true` declara `total`.
+- [ ] Sem `query`: nenhum `seed` de linha nem cenário inventado, e ao menos um comando amarrado.
+- [ ] `kind: 'object'`: uma linha no seed, e um cenário sem linhas para o registro inexistente.
 - [ ] As 3 primeiras `rows` carregam os casos-limite; alertas espalhados por todas as páginas.
 - [ ] `declaredOptionSets` só com conjunto realmente declarado — prosa não conta.
 - [ ] `binding.contract` completo.
