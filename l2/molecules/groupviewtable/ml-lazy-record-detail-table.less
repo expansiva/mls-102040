@@ -201,9 +201,19 @@ groupviewtable--ml-lazy-record-detail-table {
     color: var(--ml-error, #ef4444);
   }
 
+  // Esmaece o que ESTÁ desabilitado: a raiz inteira quando a tabela está (`ml-disabled` vem do
+  // getRootClasses), e cada botão pelo seu próprio `:disabled`.
+  //
+  // Aqui havia `.ml-table-root:has(:disabled) .ml-table-page-btn` (e o mesmo para a seta de
+  // expandir), que pergunta "existe ALGUM desabilitado dentro?" em vez de "este está
+  // desabilitado?". Como "anterior" nasce desabilitado na página 1 e "próxima" na última, com 2
+  // páginas havia sempre um — e a paginação inteira, mais as setas de TODAS as linhas, ficavam a
+  // 50% parecendo desativadas embora clicáveis. Medido em 2026-08-05 na demotable--pedidosdetalhe.
+  //
+  // O `:disabled` também cobre o estado `loading`, em que os botões recebem `?disabled` de fato.
   .ml-disabled,
-  .ml-table-root:has(:disabled) .ml-table-expand-btn,
-  .ml-table-root:has(:disabled) .ml-table-page-btn {
+  .ml-table-expand-btn:disabled,
+  .ml-table-page-btn:disabled {
     opacity: var(--ml-disabled-opacity, 0.5);
   }
 

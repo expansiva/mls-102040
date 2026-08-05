@@ -357,10 +357,21 @@ export class MlLazyRecordDetailTableMolecule extends MoleculeAuraElement {
   // PAGINATION
   // ===========================================================================
 
+  /**
+   * Total pages, counting the rows in INTERNAL mode.
+   *
+   * `total-items` unset means the consumer wrote the WHOLE set in `<TableBody>`, so the row count
+   * is the total — §9.1 of the group contract. Returning 1 here (the previous behaviour) made the
+   * two halves of pagination disagree: `render()` still sliced to `pageSize`, but the control was
+   * born with "next" disabled, and `handlePageChange` clamped every page to 1. With 8 rows and
+   * `page-size="5"`, the last 3 were rendered nowhere and unreachable. Measured on 2026-08-05 with
+   * `demotable--pedidosdetalhe`.
+   */
   private getTotalPages(): number {
     const size = Number(this.pageSize) || 0;
     if (size <= 0) return 1;
-    const total = Number(this.totalItems) || 0;
+    const declared = Number(this.totalItems) || 0;
+    const total = declared > 0 ? declared : this.parseBodyRows().length;
     if (total <= 0) return 1;
     return Math.max(1, Math.ceil(total / size));
   }
