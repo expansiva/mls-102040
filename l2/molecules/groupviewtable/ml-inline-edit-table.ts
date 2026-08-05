@@ -7,10 +7,9 @@
 
 import { html, svg, TemplateResult, nothing } from'lit';
 import { customElement, property, state } from'lit/decorators.js';
-import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
-import { cn } from'/_102033_/l2/cn.js';
+import { cn } from'/_102033_/l2/shared/molecules/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -45,15 +44,19 @@ const messages: Record<string, MessageType> = {
 };
 /// **collab_i18n_end**
 
+// O modelo guarda ELEMENTOS, não strings. Antes eram `content: string` e `cells: string[]`, com
+// o innerHTML de cada célula — o que matava handler e binding do consumidor e, nesta molécula em
+// particular, esvaziava o recurso principal: a edição inline depende de a molécula dentro da
+// célula estar viva para receber `is-editing`.
 interface ParsedColumn {
  key: string;
  sortable: boolean;
- content: string;
+ headEl: Element;
 }
 
 interface ParsedRow {
  element: Element;
- cells: string[];
+ cellEls: Element[];
  index: number;
 }
 
@@ -66,6 +69,15 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  slotTags = ['Caption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
 
+ // Migrada por INTEIRO para slots vivos, sem sobrar serialização de slot. Numa tabela a célula
+ // é onde o consumidor põe controle, e aqui isso é o recurso central: `propagateEditingState`
+ // marca `is-editing` nos componentes de dentro da célula, e num clone de string aquilo era
+ // apenas um atributo num elemento sem ligação com a página.
+ //
+ // Migrar por inteiro também evita a segunda pintura: molécula que deixa algum slot serializado
+ // e recebe componente nele acaba com o markup já renderizado dentro do próprio snapshot.
+ protected usesLiveSlots = true;
+
  // ===========================================================================
  // PROPERTIES — From Contract
  // ===========================================================================
@@ -74,6 +86,18 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
 
  @propertyDataSource({ type: Boolean, attribute:'is-editing' })
  isEditing: boolean = false;
+
+ /**
+  * Chaves das linhas em edição, separadas por vírgula — o modo POR LINHA, que é o caso de uso
+  * real de uma tabela de edição inline: edita-se um registro por vez, com salvar e cancelar.
+  *
+  * A linha se identifica por `<TableRow key="...">`, do mesmo jeito que a coluna já usa `key`
+  * no `<TableHead>`. Chave e não índice: índice é posição, e posição muda ao ordenar.
+  *
+  * Vazio e sem `is-editing` = a molécula NÃO mexe em `is-editing` de ninguém. Ver `ownsEditing`.
+  */
+ @propertyDataSource({ type: String, attribute:'editing-rows' })
+ editingRows: string ='';
 
  @propertyDataSource({ type: Number })
  page: number = 1;
@@ -121,14 +145,22 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  // LIFECYCLE
  // ===========================================================================
  firstUpdated() {
- this.parseTableStructure();
+ // A estrutura já foi lida no `willUpdate` desta mesma passada.
  this.propagateEditingState();
  }
 
- updated(changedProperties: Map<string, unknown>) {
- if (changedProperties.has('isEditing')) {
+ /**
+  * Propaga em TODO update, sem consultar `changedProperties`.
+  *
+  * Não é por desconfiança do mapa de mudanças — ele funciona. É porque a propagação também
+  * precisa alcançar a célula que ACABOU de ser projetada (linha que entrou pela paginação, por
+  * exemplo): ela precisa receber o atributo mesmo sem `isEditing` ou `editingRows` ter mudado.
+  *
+  * Quem evita o efeito colateral é o `ownsEditing()`: sem `is-editing` nem `editing-rows`, a
+  * molécula não toca em nada.
+  */
+ updated() {
  this.propagateEditingState();
- }
  }
 
  // ===========================================================================
@@ -145,14 +177,25 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // PARSING
  // ===========================================================================
+ /**
+  * Relê a estrutura e PRESERVA a ordenação vigente.
+  *
+  * Antes terminava sempre em `initializeSortedIndices()`, que devolve a ordem original — e como
+  * era chamada de dentro do `render()`, toda re-renderização apagava a ordenação recém-calculada.
+  * O clique no cabeçalho computava a ordem certa e a tela nunca mudava. Medido em 2026-08-04 com
+  * a página demotable--funcionariosedicao: `ordemFinal=2,5,6,3,7,0,4,1` e a tela intacta.
+  */
  private parseTableStructure() {
  this.parseColumns();
  this.parseRows();
- this.initializeSortedIndices();
+ if (this.sortKey) this.applySorting();
+ else this.initializeSortedIndices();
  }
 
  private parseColumns() {
- const headerSlot = this.getSlot('TableHeader');
+ // getLiveSlot e não getSlot: molécula que projeta não pode ler do snapshot, porque a origem
+ // fica vazia depois da projeção e um re-snapshot leria vazio.
+ const headerSlot = this.getLiveSlot('TableHeader');
  if (!headerSlot) {
  this.parsedColumns = [];
  return;
@@ -168,26 +211,23 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  this.parsedColumns = heads.map((head) => ({
  key: head.getAttribute('key') ||'',
  sortable: head.hasAttribute('sortable'),
- content: head.innerHTML,
+ headEl: head,
  }));
  }
 
  private parseRows() {
- const bodySlot = this.getSlot('TableBody');
+ const bodySlot = this.getLiveSlot('TableBody');
  if (!bodySlot) {
  this.parsedRows = [];
  return;
  }
 
  const rows = Array.from(bodySlot.querySelectorAll('TableRow'));
- this.parsedRows = rows.map((row, index) => {
- const cells = Array.from(row.querySelectorAll('TableCell'));
- return {
+ this.parsedRows = rows.map((row, index) => ({
  element: row,
- cells: cells.map((cell) => cell.innerHTML),
+ cellEls: Array.from(row.querySelectorAll('TableCell')),
  index,
- };
- });
+ }));
  }
 
  private initializeSortedIndices() {
@@ -197,19 +237,82 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // EDITING PROPAGATION
  // ===========================================================================
- private propagateEditingState() {
- const bodySlot = this.getSlot('TableBody');
- if (!bodySlot) return;
-
- const cells = bodySlot.querySelectorAll('TableCell');
- cells.forEach((cell) => {
- const children = cell.querySelectorAll('*');
- children.forEach((child) => {
- if (child.tagName.includes('-')) {
- child.setAttribute('is-editing', String(this.isEditing));
+ /**
+  * Marca `is-editing` nos componentes que o consumidor pôs dentro das células.
+  *
+  * Precisa varrer DOIS lugares. Com slots vivos os filhos da célula são MOVIDOS para a âncora
+  * dentro do `<td>` renderizado, então a origem (`<TableCell>`) fica vazia — varrer só ela, como
+  * era antes, não marcaria ninguém. A origem continua na lista porque uma célula ainda não
+  * projetada (linha fora da página corrente, por exemplo) guarda os filhos dela.
+  */
+ /**
+  * A molécula só carimba `is-editing` quando o consumidor entregou o controle a ela.
+  *
+  * Antes ela carimbava SEMPRE — inclusive `is-editing="false"` em tudo, a cada render. Isso
+  * atropelava silenciosamente qualquer consumidor que ligasse o modo de edição célula a célula:
+  * o binding da página era desfeito no `updated()` da tabela, que roda depois. Medido em
+  * 2026-08-04 com a página demotable--funcionariosedicao.
+  */
+ private ownsEditing(): boolean {
+ // PRESENÇA do atributo, não conteúdo. `editing-rows=""` significa "nenhuma linha em edição",
+ // e é aí que a molécula mais precisa agir: é o estado inicial da tela e o estado logo depois
+ // de salvar ou cancelar. Exigir conteúdo não-vazio, como estava, deixava os campos abertos ao
+ // entrar e a linha editada aberta depois de fechar.
+ return (
+ this.hasAttribute('is-editing') ||
+ this.isEditing === true ||
+ this.hasAttribute('editing-rows') ||
+ this.rowsInEdit().size > 0
+ );
  }
+
+ private rowsInEdit(): Set<string> {
+ return new Set(
+ String(this.editingRows ||'')
+ .split(',')
+ .map((s) => s.trim())
+ .filter(Boolean)
+ );
+ }
+
+ /**
+  * Marca `is-editing` e FORÇA o update do componente marcado.
+  *
+  * O `requestUpdate()` explícito não é zelo: sem ele a transição `"false"` → `"true"` não
+  * re-renderiza. O conversor Boolean do Lit é `v => v !== null`, então qualquer atributo
+  * presente — inclusive `is-editing="false"` — chega ao setter do `@propertyDataSource` como
+  * `true` e fica guardado assim no interno `_is-editing`. O getter, por sua vez, lê o TEXTO do
+  * atributo e devolve o valor real. Como a detecção de mudança do Lit compara o getter com o
+  * `oldValue` tirado do interno, `false → true` fica invisível e a tela não muda.
+  *
+  * Medido em 2026-08-04 com a página demotable--funcionariosedicao: `attr="true" prop=true` e
+  * nenhum `<input>` na linha. O defeito é do decorador (mls-102029/l2/collabDecorators.ts) e
+  * está registrado para correção própria; aqui só se garante o efeito.
+  */
+ private marcar(raiz: Element, editando: boolean) {
+ raiz.querySelectorAll('*').forEach((child) => {
+ if (!child.tagName.includes('-')) return;
+ child.setAttribute('is-editing', String(editando));
+ (child as any).requestUpdate?.();
  });
- });
+ }
+
+ private propagateEditingState() {
+ if (!this.ownsEditing()) return;
+
+ const chaves = this.rowsInEdit();
+ const porLinha = chaves.size > 0;
+
+ for (const row of this.parsedRows) {
+ const chave = row.element.getAttribute('key') ||'';
+ const editando = porLinha ? chaves.has(chave) : this.isEditing;
+
+ // A origem, para célula ainda não projetada, e a linha já renderizada, onde vivem os nós
+ // projetados. `data-row-key` no <tr> é o que liga uma coisa na outra.
+ row.cellEls.forEach((cell) => this.marcar(cell, editando));
+ const tr = this.querySelector(`tr[data-row-key="${CSS.escape(chave)}"]`);
+ if (tr) this.marcar(tr, editando);
+ }
  }
 
  // ===========================================================================
@@ -276,7 +379,9 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  this.sortDirection ='asc';
  }
 
- this.applySorting();
+ // Não chama `applySorting()` aqui: mudar `sortKey`/`sortDirection` já agenda o update, e o
+ // `willUpdate` reaplica a ordenação antes de desenhar. Chamar nos dois lugares ordenava duas
+ // vezes por clique.
 
  this.dispatchEvent(
  new CustomEvent('sort', {
@@ -299,11 +404,13 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  return;
  }
 
- const rowsWithValues = this.parsedRows.map((row) => {
- const cellContent = row.cells[columnIndex] ||'';
- const textContent = this.extractTextContent(cellContent);
- return { index: row.index, value: textContent };
- });
+ // getLiveText: a célula projetada está vazia (os filhos foram movidos para a âncora), e a
+ // base sabe recuperar o texto corrente dos nós movidos. Ele ignora os comentários de
+ // marcação do Lit — incluí-los fazia a chave de ordenação virar `?lit$...$70`.
+ const rowsWithValues = this.parsedRows.map((row) => ({
+ index: row.index,
+ value: this.getLiveText(row.cellEls[columnIndex]),
+ }));
 
  rowsWithValues.sort((a, b) => {
  const comparison = a.value.localeCompare(b.value, undefined, { numeric: true, sensitivity:'base' });
@@ -311,12 +418,6 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  });
 
  this.sortedRowIndices = rowsWithValues.map((r) => r.index);
- }
-
- private extractTextContent(html: string): string {
- const div = document.createElement('div');
- div.innerHTML = html;
- return div.textContent ||'';
  }
 
  // ===========================================================================
@@ -467,10 +568,9 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  private renderCaption(): TemplateResult | typeof nothing {
  if (!this.hasSlot('Caption')) return nothing;
- const content = this.getSlotContent('Caption');
  return html`
  <caption class="${cn('px-4 py-3 text-left text-lg font-semibold ml-text ml-surface-bg', this.getSlotClass('Caption'))}">
- ${unsafeHTML(content)}
+ ${this.renderLiveSlot('Caption')}
  </caption>
  `;
  }
@@ -520,7 +620,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  @keydown=${col.sortable ? (e: KeyboardEvent) => this.handleHeaderKeyDown(e, col.key, col.sortable) : nothing}
  >
  <span class="flex items-center gap-2">
- ${unsafeHTML(col.content)}
+ ${this.renderLiveSlotFrom(col.headEl)}
  ${col.sortable ? this.renderSortIcon(isSorted) : nothing}
  </span>
  </th>
@@ -572,6 +672,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  <tr
  class="${this.getRowClasses(row.index, isSelected)}"
  role="row"
+ data-row-key=${row.element.getAttribute('key') ||''}
  tabindex="0"
  @click=${(e: Event) => this.handleRowClick(row.index, e)}
  @focus=${() => (this.focusedRowIndex = row.index)}
@@ -592,24 +693,24 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  </td>
  `
  : nothing}
- ${row.cells.map((cell) => this.renderCell(cell))}
+ ${row.cellEls.map((cell) => this.renderCell(cell))}
  </tr>
  `;
  }
 
- private renderCell(content: string): TemplateResult {
- return html` <td class="${this.getCellClasses()}" role="cell">${unsafeHTML(content)}</td> `;
+ private renderCell(cell: Element): TemplateResult {
+ return html` <td class="${this.getCellClasses()}" role="cell">${this.renderLiveSlotFrom(cell)}</td> `;
  }
 
  private renderEmpty(): TemplateResult {
  const colSpan = this.parsedColumns.length + (this.selectable ? 1 : 0);
- const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
+ const content = this.hasSlot('Empty') ? this.renderLiveSlot('Empty') : html`${this.msg.empty}`;
 
  return html`
  <tbody role="rowgroup">
  <tr role="row">
  <td colspan="${colSpan}" class="px-4 py-12 text-center ml-text-muted" role="cell">
- ${unsafeHTML(content)}
+ ${content}
  </td>
  </tr>
  </tbody>
@@ -623,7 +724,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  return html`
  <tbody role="rowgroup">
  <tr role="row">
- <td colspan="${colSpan}" class="px-4 py-8" role="cell">${unsafeHTML(this.getSlotContent('Loading'))}</td>
+ <td colspan="${colSpan}" class="px-4 py-8" role="cell">${this.renderLiveSlot('Loading')}</td>
  </tr>
  </tbody>
  `;
@@ -670,7 +771,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  return html`
  <tr role="row" class="border-t ml-border">
  ${this.selectable ? html`<td class="px-4 py-3" role="cell"></td>` : nothing}
- ${cells.map((cell) => html` <td class="${this.getCellClasses()}" role="cell">${unsafeHTML(cell.innerHTML)}</td> `)}
+ ${cells.map((cell) => html` <td class="${this.getCellClasses()}" role="cell">${this.renderLiveSlotFrom(cell)}</td> `)}
  </tr>
  `;
  })}
@@ -799,11 +900,18 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // RENDER
  // ===========================================================================
+ /**
+  * A leitura da estrutura sai daqui e vai para o `willUpdate`, que é o lugar do Lit para derivar
+  * estado antes do render: escrever propriedade reativa dentro do `render()` agenda outro ciclo,
+  * e `parsedRows`/`sortedRowIndices` são reativas.
+  */
+ willUpdate() {
+ this.parseTableStructure();
+ }
+
  render() {
  const lang = this.getMessageKey(messages);
  this.msg = messages[lang];
-
- this.parseTableStructure();
 
  return html`
  <div

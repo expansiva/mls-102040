@@ -10,7 +10,7 @@ import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { customElement, state } from'lit/decorators.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
-import { cn } from'/_102033_/l2/cn.js';
+import { cn } from'/_102033_/l2/shared/molecules/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {

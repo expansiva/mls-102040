@@ -4,7 +4,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
-import { cn } from '/_102033_/l2/cn.js';
+import { cn } from '/_102033_/l2/shared/molecules/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -546,10 +546,39 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
   // ===========================================================================
   // ROW / COLUMN TOTALS
   // ===========================================================================
+  /**
+   * Lê o número de uma célula que pode vir formatada.
+   *
+   * A versão anterior trocava só a PRIMEIRA vírgula por ponto e mantinha os pontos, então todo
+   * separador de milhar brasileiro dividia o valor por mil: `R$ 1.234,50` virava `1.234` e
+   * `R$ 12.400` virava `12.4`. Num relatório em reais os totais saíam mil vezes menores.
+   * Medido em 2026-08-04, ao montar a página de vendas.
+   *
+   * Regra: quando há os dois separadores, o ÚLTIMO é o decimal e o outro é agrupador — isso
+   * cobre `1.234,50` (pt-BR) e `1,234.50` (en-US) sem precisar saber o locale.
+   */
   private parseNumeric(text: string): number | null {
-    const cleaned = text.replace(/[^0-9.,\-]/g, '').replace(',', '.');
-    if (!cleaned || cleaned === '-' || cleaned === '.') return null;
-    const num = parseFloat(cleaned);
+    let s = text.replace(/[^0-9.,\-]/g, '').trim();
+    if (!s || s === '-' || s === '.' || s === ',') return null;
+
+    const temPonto = s.includes('.');
+    const temVirgula = s.includes(',');
+
+    if (temPonto && temVirgula) {
+      const decimal = s.lastIndexOf('.') > s.lastIndexOf(',') ? '.' : ',';
+      const agrupador = decimal === '.' ? ',' : '.';
+      s = s.split(agrupador).join('');
+      if (decimal === ',') s = s.replace(',', '.');
+    } else if (temVirgula) {
+      s = s.replace(',', '.');
+    } else if (temPonto) {
+      // Só ponto é ambíguo: `1.234` pode ser mil e duzentos (pt-BR) ou um vírgula dois (en-US).
+      // Grupos de exatamente 3 dígitos são tratados como agrupador, que é o formato usado no
+      // projeto; `1234.50` não casa com o padrão e segue como decimal.
+      if (/^-?\d{1,3}(\.\d{3})+$/.test(s)) s = s.split('.').join('');
+    }
+
+    const num = parseFloat(s);
     return isNaN(num) ? null : num;
   }
 
@@ -581,8 +610,12 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
     return hasNum ? sum : 0;
   }
 
+  /**
+   * Inteiro também passa pelo `toLocaleString`: sem isso o total de uma coluna em reais saía
+   * `146900` embaixo de células escritas `R$ 12.400,00`. Continua sem símbolo de moeda — a
+   * molécula não tem como saber a máscara da célula —, mas ao menos agrupa o milhar.
+   */
   private formatTotal(n: number): string {
-    if (Number.isInteger(n)) return String(n);
     return n.toLocaleString(undefined, { maximumFractionDigits: 2 });
   }
 

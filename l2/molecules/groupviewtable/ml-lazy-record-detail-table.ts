@@ -4,7 +4,8 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
-import { cn } from '/_102033_/l2/cn.js';
+import { cn } from '/_102033_/l2/shared/molecules/cn.js';
+import { cellSortKey, compareSortKeys } from '/_102033_/l2/shared/molecules/tableSort.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -63,6 +64,16 @@ interface BodyRow {
   index: number;
   cells: Element[];
   element: Element;
+  /**
+   * O `<Detail>` da linha, quando o consumidor declarou um. É o conteúdo que aparece ao expandir
+   * — texto, uma div ou outra tabela.
+   *
+   * Antes a linha de detalhe reprojetava as MESMAS `<TableCell>` da linha principal. Com slots
+   * vivos um nó só existe num lugar: as duas âncoras dividiam a mesma chave e cada render movia
+   * os nós de uma para a outra, esvaziando a linha de cima ao expandir. E, de fundo, não havia
+   * onde o consumidor pôr o conteúdo do detalhe.
+   */
+  detailEl: Element | null;
 }
 
 @customElement('groupviewtable--ml-lazy-record-detail-table')
@@ -82,6 +93,9 @@ export class MlLazyRecordDetailTableMolecule extends MoleculeAuraElement {
     'TableFooter',
     'Empty',
     'Loading',
+    // Conteúdo que aparece ao expandir a linha. Vai DENTRO da <TableRow>, ao lado das
+    // <TableCell>, e é preenchido pelo consumidor depois do `rowClick` — o fluxo lazy.
+    'Detail',
   ];
 
   /** Live slots preserve nested interactive components inside cells and details. */
@@ -164,7 +178,7 @@ export class MlLazyRecordDetailTableMolecule extends MoleculeAuraElement {
 
   private propagateEditing() {
     const flag = this.isEditing ? 'true' : 'false';
-    const body = this.getLiveSlot('TableBody') || this.getSlot('TableBody');
+    const body = this.getLiveSlot('TableBody');
     if (!body) return;
     const cells = body.querySelectorAll('TableCell');
     cells.forEach((cell) => {
@@ -181,7 +195,7 @@ export class MlLazyRecordDetailTableMolecule extends MoleculeAuraElement {
   // ===========================================================================
 
   private parseHeaders(): HeaderCell[] {
-    const header = this.getLiveSlot('TableHeader') || this.getSlot('TableHeader');
+    const header = this.getLiveSlot('TableHeader');
     if (!header) return [];
     const row = header.querySelector('TableRow');
     if (!row) return [];
@@ -193,23 +207,27 @@ export class MlLazyRecordDetailTableMolecule extends MoleculeAuraElement {
     }));
   }
 
+  // Sem o fallback `|| this.getSlot(...)`: o `getSlot` lê do SNAPSHOT, e molécula que projeta não
+  // pode ler de lá — a origem fica vazia depois da projeção e um re-snapshot leria vazio.
   private parseBodyRows(): BodyRow[] {
-    const body = this.getLiveSlot('TableBody') || this.getSlot('TableBody');
+    const body = this.getLiveSlot('TableBody');
     if (!body) return [];
     return Array.from(body.querySelectorAll(':scope > TableRow')).map((row, index) => ({
       index,
       cells: Array.from(row.querySelectorAll(':scope > TableCell')),
       element: row,
+      detailEl: row.querySelector(':scope > Detail'),
     }));
   }
 
   private parseFooterRows(): BodyRow[] {
-    const footer = this.getLiveSlot('TableFooter') || this.getSlot('TableFooter');
+    const footer = this.getLiveSlot('TableFooter');
     if (!footer) return [];
     return Array.from(footer.querySelectorAll(':scope > TableRow')).map((row, index) => ({
       index,
       cells: Array.from(row.querySelectorAll(':scope > TableCell')),
       element: row,
+      detailEl: null,
     }));
   }
 
@@ -228,27 +246,22 @@ export class MlLazyRecordDetailTableMolecule extends MoleculeAuraElement {
   // SORTING
   // ===========================================================================
 
+  /** Cell key, with the text taken from the projected nodes — the source is empty once projected. */
+  private sortValueOf(cell: Element | undefined): string {
+    return cellSortKey(cell, this.getLiveText(cell));
+  }
+
   private getSortedRows(rows: BodyRow[], headers: HeaderCell[]): BodyRow[] {
     if (!this.sortKey) return rows;
     const colIndex = headers.findIndex((h) => h.key === this.sortKey);
     if (colIndex < 0) return rows;
 
-    const sorted = [...rows].sort((a, b) => {
-      const cellA = a.cells[colIndex];
-      const cellB = b.cells[colIndex];
-      const textA = this.getLiveText(cellA) || (cellA?.textContent || '').trim();
-      const textB = this.getLiveText(cellB) || (cellB?.textContent || '').trim();
-      const numA = parseFloat(textA);
-      const numB = parseFloat(textB);
-      let cmp: number;
-      if (!isNaN(numA) && !isNaN(numB) && textA !== '' && textB !== '') {
-        cmp = numA - numB;
-      } else {
-        cmp = textA.localeCompare(textB, undefined, { sensitivity: 'base' });
-      }
-      return this.sortDirection === 'asc' ? cmp : -cmp;
-    });
-    return sorted;
+    const dir = this.sortDirection === 'asc' ? 1 : -1;
+    return [...rows].sort(
+      (a, b) =>
+        compareSortKeys(this.sortValueOf(a.cells[colIndex]), this.sortValueOf(b.cells[colIndex])) *
+        dir
+    );
   }
 
   private handleSort(key: string) {
@@ -551,7 +564,7 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
     if (!this.hasSlot('Caption')) return html``;
     return html`
       <caption class=${cn('text-left px-3 py-2 text-sm font-semibold ml-label', this.getSlotClass('Caption'))}>
-        ${unsafeHTML(this.getSlotContent('Caption'))}
+        ${this.renderLiveSlot('Caption')}
       </caption>
     `;
   }
@@ -679,8 +692,13 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
   }
 
   /**
-   * Detail row: projects the same TableCell live nodes as complementary content.
-   * Consumer updates cell content after rowClick (lazy load); live slots pick it up.
+   * Linha de detalhe: projeta o `<Detail>` que o consumidor declarou dentro da `<TableRow>`.
+   *
+   * O fluxo lazy é este: ao expandir, a molécula emite `rowClick` com o índice; o consumidor
+   * carrega o que precisar e escreve dentro do `<Detail>` daquela linha. Como o slot é vivo, o
+   * conteúdo entra com handler e binding — pode ser outra tabela, com botões que funcionam.
+   *
+   * Sem `<Detail>` a área fica vazia, o que é o certo enquanto o consumidor ainda está buscando.
    */
   private renderDetailRow(
     row: BodyRow,
@@ -694,14 +712,8 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
         data-detail-for=${row.index}
       >
         <td class=${this.getDetailCellClasses()} role="cell" colspan=${colSpan}>
-          <div class="flex flex-col gap-2 ml-table-detail-content">
-            ${row.cells.map(
-              (cell) => html`
-                <div class="ml-table-detail-block">
-                  ${this.renderLiveSlotFrom(cell)}
-                </div>
-              `
-            )}
+          <div class="ml-table-detail-content">
+            ${row.detailEl ? this.renderLiveSlotFrom(row.detailEl) : nothing}
           </div>
         </td>
       </tr>
@@ -808,7 +820,7 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
     if (this.hasSlot('Empty')) {
       return html`
         <div class=${cn('ml-table-empty', this.getSlotClass('Empty'))}>
-          ${unsafeHTML(this.getSlotContent('Empty'))}
+          ${this.renderLiveSlot('Empty')}
         </div>
       `;
     }
@@ -819,7 +831,7 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
     if (this.hasSlot('Loading')) {
       return html`
         <div class=${cn('w-full p-4 ml-table-loading', this.getSlotClass('Loading'))}>
-          ${unsafeHTML(this.getSlotContent('Loading'))}
+          ${this.renderLiveSlot('Loading')}
         </div>
       `;
     }
@@ -923,7 +935,12 @@ svg`<path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6
 
     const headers = this.parseHeaders();
     const allRows = this.parseBodyRows();
-    const sortedRows = this.getSortedRows(allRows, headers);
+
+    // Em modo EXTERNO a molécula não reordena: ela recebeu só a página corrente, e ordenar aqui
+    // ordenaria 10 linhas de 60. O evento `sort` continua saindo para o consumidor reconsultar.
+    // Mesma regra da ml-data-table-minimal e da ml-responsive-data-table.
+    const externo = Number(this.totalItems) > allRows.length;
+    const sortedRows = externo ? allRows : this.getSortedRows(allRows, headers);
     const selected = this.getSelectedSet();
 
     // When pageSize > 0 and totalItems is managed externally, body already holds
