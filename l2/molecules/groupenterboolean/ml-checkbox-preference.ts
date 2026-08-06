@@ -110,7 +110,7 @@ export class CheckboxPreferenceMolecule extends MoleculeAuraElement {
       <label
         id=${this.labelId}
         for=${this.inputId}
-        class="${cn('text-sm ml-label', this.getSlotClass('Label'))}"
+        class="${cn('block text-sm leading-5 ml-label', this.getSlotClass('Label'))}"
       >
         ${unsafeHTML(this.getSlotContent('Label'))}
       </label>
@@ -138,7 +138,7 @@ export class CheckboxPreferenceMolecule extends MoleculeAuraElement {
 
   private getCheckboxClasses(): string {
     return [
-      'h-4 w-4 ml-checkbox',
+      'h-4 w-4 shrink-0 ml-checkbox',
       this.error ? 'ml-checkbox-error' : '',
       this.disabled ? 'ml-disabled' : '',
     ].filter(Boolean).join(' ');
@@ -187,10 +187,9 @@ export class CheckboxPreferenceMolecule extends MoleculeAuraElement {
             @change=${this.handleToggle}
             @focus=${this.handleFocus}
             @blur=${this.handleBlur}
-          
-          @input=${(e: Event) => e.stopPropagation()}
-/>
-          <div class="flex-1">
+            @input=${(e: Event) => e.stopPropagation()}
+          />
+          <div class="min-w-0 flex-1">
             ${this.renderLabel()}
             ${this.renderHelperOrError()}
           </div>

@@ -24,6 +24,12 @@ groupenterboolean--ml-checkbox-preference {
   }
 
   .ml-checkbox {
+    /* zera a margem do user-agent (Chrome/Safari aplicam 3px 3px 3px 4px) e
+       desloca 2px para centrar a caixa de 16px na primeira linha do label
+       (text-sm / line-height 20px) */
+    flex: 0 0 auto;
+    margin: 0.125rem 0 0 0;
+    box-sizing: border-box;
     border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
     border-radius: var(--ml-radius-sm, 0.25rem);
     background: var(--ml-surface, #ffffff);
