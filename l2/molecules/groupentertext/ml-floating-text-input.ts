@@ -10,7 +10,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { customElement, property, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
-import { cn } from '/_102033_/l2/cn.js';
+import { cn } from '/_102033_/l2/shared/molecules/cn.js';
 @customElement('groupentertext--ml-floating-text-input')
 export class MlFloatingTextInputMolecule extends MoleculeAuraElement {
 // ===========================================================================

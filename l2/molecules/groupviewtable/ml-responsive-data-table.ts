@@ -4,7 +4,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
-import { cn } from '/_102033_/l2/cn.js';
+import { cn } from '/_102033_/l2/shared/molecules/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -145,10 +145,14 @@ export class MlResponsiveDataTableMolecule extends MoleculeAuraElement {
     this._propagateEditing();
   }
 
-  updated(changedProps: Map<string, unknown>) {
-    if (changedProps.has('isEditing')) {
-      this._propagateEditing();
-    }
+  updated() {
+    // Sem gate por `changedProps`: o setter do `@propertyDataSource` chama `requestUpdate()` sem
+    // o nome da propriedade, então propriedade do decorador nunca entra no mapa de mudanças e o
+    // gate antigo (`changedProps.has('isEditing')`) nunca era verdadeiro. Medido em 2026-08-04.
+    //
+    // Só carimba quando o consumidor entregou o controle: carimbar sempre — inclusive `false` —
+    // atropela quem liga o modo de edição célula a célula.
+    if (this.hasAttribute('is-editing') || this.isEditing === true) this._propagateEditing();
     // Re-measure after render when columns/rows may have changed
     this._scheduleColumnMeasure();
   }
@@ -476,10 +480,18 @@ export class MlResponsiveDataTableMolecule extends MoleculeAuraElement {
   // PAGINATION
   // ===========================================================================
 
+  /**
+   * Quantas linhas o consumidor entregou no último render. No modo INTERNO é isso que define o
+   * número de páginas — sem esta contagem, `total-items` ausente dava 1 página só e a paginação
+   * nunca aparecia, mesmo com `page-size` preenchido.
+   */
+  private _rowCount = 0;
+
   private _totalPages(): number {
     const size = Number(this.pageSize) || 0;
     if (size <= 0) return 0;
-    const total = Number(this.totalItems) || 0;
+    const total = Number(this.totalItems) || this._rowCount;
+    if (total <= 0) return 0;
     return Math.max(1, Math.ceil(total / size));
   }
 
@@ -572,6 +584,10 @@ export class MlResponsiveDataTableMolecule extends MoleculeAuraElement {
       customs.forEach((el) => {
         if (el.tagName.includes('-')) {
           el.setAttribute('is-editing', editing ? 'true' : 'false');
+          // Sem este empurrão a transição "false" -> "true" não re-renderiza: o conversor Boolean
+          // do Lit faz qualquer atributo presente virar `true` no interno do decorador, e a
+          // detecção de mudança compara com esse interno. Ver ml-inline-edit-table.marcar().
+          (el as any).requestUpdate?.();
         }
       });
     }
@@ -780,7 +796,12 @@ export class MlResponsiveDataTableMolecule extends MoleculeAuraElement {
                 const hidden = this._isColumnHidden(col.index, columns.length);
                 return html`
                   <td
-                    class="px-3 py-2 text-sm ml-table-cell ml-text"
+                    class=${cn(
+                      'px-3 py-2 text-sm ml-table-cell ml-text',
+                      // `data-class` da <TableCell> é contrato do grupo e estava sendo ignorado
+                      // aqui — é o que alinha coluna numérica à direita.
+                      cell?.getAttribute('data-class') || ''
+                    )}
                     role="cell"
                     data-col-index=${col.index}
                     style=${hidden ? 'display:none' : nothing}
@@ -962,10 +983,40 @@ export class MlResponsiveDataTableMolecule extends MoleculeAuraElement {
     `;
   }
 
+  /**
+   * Externo = o consumidor já fatiou o conjunto e mandou só a página corrente. O sinal é o mesmo
+   * que a ml-data-table-minimal usa: `total-items` maior do que o número de linhas recebidas.
+   */
+  private _isExternal(rowCount: number): boolean {
+    return Number(this.totalItems) > rowCount;
+  }
+
   private _renderTable(): TemplateResult {
     const columns = this._parseColumns();
     const rawRows = this._parseRows();
-    const rows = this._sortedRows(rawRows, columns);
+    this._rowCount = rawRows.length;
+    const externo = this._isExternal(rawRows.length);
+
+    // Em modo EXTERNO a molécula não reordena. Duas razões, as duas medidas:
+    //
+    // 1. Ela só enxerga a página corrente, então reordenar aqui reordena 10 linhas de 60 — a
+    //    ordenação de verdade só pode ser feita por quem tem o conjunto inteiro.
+    // 2. Mesmo que enxergasse tudo, ela leria um passo atrasado: quem clica no cabeçalho faz a
+    //    molécula agendar o próprio render ANTES de emitir `sort`, então o render dela roda com
+    //    o texto anterior e o consumidor atualiza os nós projetados logo depois — ordem de uma
+    //    coisa, conteúdo de outra. Foi assim que a P4b pegou isto em 2026-08-04.
+    //
+    // O evento `sort` continua saindo: é por ele que o consumidor reconsulta.
+    const ordenadas = externo ? rawRows : this._sortedRows(rawRows, columns);
+
+    // Modo INTERNO: todas as linhas estão no DOM, então a molécula fatia para a página corrente.
+    // Sem isto ela desenhava a paginação e mostrava tudo.
+    const size = Number(this.pageSize) || 0;
+    const rows =
+      size > 0 && !externo
+        ? ordenadas.slice((Number(this.page) - 1) * size, Number(this.page) * size)
+        : ordenadas;
+
     const isEmpty = rawRows.length === 0;
 
     if (isEmpty) {

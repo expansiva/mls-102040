@@ -9,7 +9,7 @@ import { customElement, state } from'lit/decorators.js';
 import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
-import { cn } from'/_102033_/l2/cn.js';
+import { cn } from'/_102033_/l2/shared/molecules/cn.js';
 /// **collab_i18n_start**
 const message_en = {
  empty:'No data available',
@@ -583,11 +583,17 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  return this.renderEmpty(headerCells);
  }
 
- const sortedRows = this.getSortedRows(bodyRows, headerCells);
  // External pagination: totalItems > bodyRows.length means the parent already
  // sliced the dataset — render all received rows as-is.
  // Internal pagination: all rows are in the DOM — slice to the current page.
  const isExternalPagination = this.totalItems > bodyRows.length;
+
+ // Em modo EXTERNO a molécula NÃO reordena. Ela só recebeu a página corrente, então ordenar
+ // aqui ordenaria 10 linhas de 60 — e, pior, leria um passo atrasado: o clique no cabeçalho
+ // agenda o render DELA antes de emitir `sort`, então ela lê o texto anterior e o consumidor
+ // atualiza os nós projetados logo depois, deixando a ordem de uma coisa com o conteúdo de
+ // outra. Medido na P4b em 2026-08-04. O evento `sort` continua saindo.
+ const sortedRows = isExternalPagination ? bodyRows : this.getSortedRows(bodyRows, headerCells);
  const visibleRows = (this.pageSize > 0 && !isExternalPagination)
  ? sortedRows.slice((this.page - 1) * this.pageSize, this.page * this.pageSize)
  : sortedRows;

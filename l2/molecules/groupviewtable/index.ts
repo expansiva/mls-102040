@@ -12,6 +12,21 @@ import '/_102040_/l2/molecules/groupviewtable/ml-pivot-table';
 import '/_102040_/l2/molecules/groupviewtable/ml-view-table';
 import '/_102040_/l2/molecules/groupviewtable/ml-responsive-data-table';
 import '/_102040_/l2/molecules/groupviewtable/ml-lazy-record-detail-table';
+import '/_102040_/l2/molecules/groupviewtable/ml-lcrud-detail-grid';
+
+// Records of the lcrud-detail-grid card. The scene shows one of them at a time.
+const CARD11_MEMBERS = [
+  { name: 'Ana Silva', role: 'Product Designer', squad: 'Discovery', since: '2024-03-11', email: 'ana.silva@collab.codes' },
+  { name: 'Bruno Costa', role: 'Frontend Engineer', squad: 'Platform', since: '2023-08-02', email: 'bruno.costa@collab.codes' },
+  { name: 'Carla Mendes', role: 'Data Analyst', squad: 'Insights', since: '2025-01-20', email: 'carla.mendes@collab.codes' },
+];
+
+// Seats loaded on demand by the lazy-detail card, keyed by the row index that `rowClick` carries.
+const CARD10_SEATS: Record<number, string[]> = {
+  0: ['ana.silva@northwind.com — Admin', 'bruno.costa@northwind.com — Editor', '+23 other seats'],
+  1: ['carla.mendes@contoso.com — Admin', 'diego.rocha@contoso.com — Billing', '+118 other seats'],
+  2: ['eduardo.lima@fabrikam.com — Admin', '+4 other seats'],
+};
 
 @customElement('molecules--groupviewtable--index-102040')
 export class GroupViewTableIndex extends StateLitElement {
@@ -26,6 +41,73 @@ export class GroupViewTableIndex extends StateLitElement {
   @state() private card8 = '';
   @state() private card9 = '';
   @state() private card10 = '1';
+
+  // ── Lazy detail of the card-10 table ─────────────────────────
+  // The molecule emits `rowClick` with the row index when a record is expanded; this page loads
+  // what it needs and writes inside that row's <Detail>. The delay is SIMULATED on purpose: it is
+  // how a real BFF behaves, and it makes the "loading" state visible, which the screen has to have.
+  @state() private card10Seats: Record<number, string[]> = {};
+  @state() private card10Loading: number | null = null;
+
+  private loadCard10Seats(index: number) {
+    if (this.card10Seats[index] || this.card10Loading === index) return;
+    this.card10Loading = index;
+    setTimeout(() => {
+      this.card10Seats = { ...this.card10Seats, [index]: CARD10_SEATS[index] ?? [] };
+      this.card10Loading = null;
+    }, 700);
+  }
+
+  // ── Lazy detail of the card-11 scene ─────────────────────────
+  @state() private card11Loaded: Record<number, boolean> = {};
+  @state() private card11Loading: number | null = null;
+
+  private loadCard11Detail(index: number) {
+    if (this.card11Loaded[index] || this.card11Loading === index) return;
+    this.card11Loading = index;
+    setTimeout(() => {
+      this.card11Loaded = { ...this.card11Loaded, [index]: true };
+      this.card11Loading = null;
+    }, 500);
+  }
+
+  /**
+   * The scene's content. Empty before `rowClick`, then loading, then the record — the same live
+   * slot the accordion sibling uses, only presented as a scene.
+   */
+  private renderCard11Detail(index: number): TemplateResult {
+    const member = CARD11_MEMBERS[index];
+    if (!this.card11Loaded[index]) {
+      return this.card11Loading === index
+        ? html`<p class="text-xs text-slate-400">Loading record…</p>`
+        : html``;
+    }
+    return html`
+      <dl class="grid grid-cols-2 gap-3 text-xs">
+        <div><dt class="text-slate-400">Role</dt><dd class="text-slate-700 dark:text-slate-200">${member.role}</dd></div>
+        <div><dt class="text-slate-400">Squad</dt><dd class="text-slate-700 dark:text-slate-200">${member.squad}</dd></div>
+        <div><dt class="text-slate-400">E-mail</dt><dd class="text-slate-700 dark:text-slate-200">${member.email}</dd></div>
+        <div><dt class="text-slate-400">Member since</dt><dd class="text-slate-700 dark:text-slate-200">${member.since}</dd></div>
+      </dl>
+    `;
+  }
+
+  /** Empty until `rowClick`, then loading, then the seats — all inside the row's live <Detail>. */
+  private renderCard10Seats(index: number): TemplateResult {
+    const seats = this.card10Seats[index];
+    if (!seats) {
+      return this.card10Loading === index
+        ? html`<p class="text-xs text-slate-400">Loading seats…</p>`
+        : html``;
+    }
+    return html`
+      <div class="flex flex-col gap-1">
+        ${seats.map(
+          (seat) => html`<p class="text-xs text-slate-600 dark:text-slate-300">${seat}</p>`
+        )}
+      </div>
+    `;
+  }
 
   // =========================================================================== RENDER
   render() {
@@ -536,6 +618,7 @@ export class GroupViewTableIndex extends StateLitElement {
                 .isEditing=${true}
                 .selectable=${true}
                 @change=${(e: CustomEvent) => { this.card10 = e.detail.value; }}
+                @rowClick=${(e: CustomEvent) => this.loadCard10Seats(e.detail.index)}
               >
                 <Caption>Customer Accounts</Caption>
                 <TableHeader>
@@ -552,23 +635,65 @@ export class GroupViewTableIndex extends StateLitElement {
                     <TableCell>Business</TableCell>
                     <TableCell>25</TableCell>
                     <TableCell>2026-11-01</TableCell>
+                    <Detail>${this.renderCard10Seats(0)}</Detail>
                   </TableRow>
                   <TableRow>
                     <TableCell>Contoso Ltd</TableCell>
                     <TableCell>Enterprise</TableCell>
                     <TableCell>120</TableCell>
                     <TableCell>2027-01-15</TableCell>
+                    <Detail>${this.renderCard10Seats(1)}</Detail>
                   </TableRow>
                   <TableRow>
                     <TableCell>Fabrikam Co</TableCell>
                     <TableCell>Starter</TableCell>
                     <TableCell>5</TableCell>
                     <TableCell>2026-09-30</TableCell>
+                    <Detail>${this.renderCard10Seats(2)}</Detail>
                   </TableRow>
                 </TableBody>
                 <Empty>No accounts loaded</Empty>
                 <Loading>Loading account details…</Loading>
               </groupviewtable--ml-lazy-record-detail-table>
+            </div>
+          </div>
+
+          <!-- LCRUD Detail Grid -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="h-1 bg-teal-500 rounded-t-2xl"></div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-1">
+                <p class="text-sm font-bold text-slate-900 dark:text-slate-50">LCRUD Detail Grid</p>
+                <code class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded">groupviewtable--ml-lcrud-detail-grid</code>
+              </div>
+              <p class="text-xs text-slate-400 mb-5">Opens each record in a scene of its own, replacing the list — going back keeps the list as it was</p>
+              <groupviewtable--ml-lcrud-detail-grid
+                name="card-11"
+                .isEditing=${true}
+                @rowClick=${(e: CustomEvent) => this.loadCard11Detail(e.detail.index)}
+              >
+                <Caption>Team members</Caption>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead key="member" sortable>Member</TableHead>
+                    <TableHead key="role" sortable>Role</TableHead>
+                    <TableHead key="squad">Squad</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  ${CARD11_MEMBERS.map(
+                    (m, i) => html`
+                      <TableRow>
+                        <TableCell>${m.name}</TableCell>
+                        <TableCell>${m.role}</TableCell>
+                        <TableCell>${m.squad}</TableCell>
+                        <Detail label=${m.name}>${this.renderCard11Detail(i)}</Detail>
+                      </TableRow>
+                    `
+                  )}
+                </TableBody>
+                <Empty>No members loaded</Empty>
+              </groupviewtable--ml-lcrud-detail-grid>
             </div>
           </div>
 

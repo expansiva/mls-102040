@@ -9,7 +9,7 @@ import { customElement } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
-import { cn } from '/_102033_/l2/cn.js';
+import { cn } from '/_102033_/l2/shared/molecules/cn.js';
 
 @customElement('groupviewcard--ml-view-card-horizontal')
 export class ViewCardHorizontalMolecule extends MoleculeAuraElement {

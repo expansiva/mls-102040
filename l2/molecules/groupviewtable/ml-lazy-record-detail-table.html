@@ -14,7 +14,7 @@
       <!-- Basic expandable table -->
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Básica com expansão</h3>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Tabela simples com colunas ordenáveis e linhas expansíveis para detalhe lazy.</p>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Tabela simples com colunas ordenáveis e linhas expansíveis para detalhe lazy. O conteúdo de cada <code>&lt;Detail&gt;</code> está declarado direto na página só para mostrar a projeção; na aplicação real ele é escrito depois que a molécula emite <code>rowClick</code>.</p>
         <demo id="demo-basic">
           <groupviewtable--ml-lazy-record-detail-table
             selectable="{{playground.basic.selectable}}"
@@ -41,18 +41,39 @@
                 <TableCell>Ana Silva</TableCell>
                 <TableCell>R$ 320,00</TableCell>
                 <TableCell>Concluído</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">2 itens · entrega em 12/08/2026</p>
+                    <p class="text-slate-700 dark:text-slate-200">Teclado mecânico — R$ 240,00</p>
+                    <p class="text-slate-700 dark:text-slate-200">Mousepad — R$ 80,00</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>#1002</TableCell>
                 <TableCell>Bruno Costa</TableCell>
                 <TableCell>R$ 89,50</TableCell>
                 <TableCell>Pendente</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">1 item · aguardando pagamento</p>
+                    <p class="text-slate-700 dark:text-slate-200">Cabo USB-C — R$ 89,50</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>#1003</TableCell>
                 <TableCell>Carla Mendes</TableCell>
                 <TableCell>R$ 1.240,00</TableCell>
                 <TableCell>Em trânsito</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">3 itens · código de rastreio BR9928471</p>
+                    <p class="text-slate-700 dark:text-slate-200">Monitor 27" — R$ 980,00</p>
+                    <p class="text-slate-700 dark:text-slate-200">Suporte de monitor — R$ 180,00</p>
+                    <p class="text-slate-700 dark:text-slate-200">Cabo HDMI — R$ 80,00</p>
+                  </div>
+                </Detail>
               </TableRow>
             </TableBody>
             <Empty>Nenhum pedido encontrado</Empty>
@@ -102,18 +123,39 @@
                       <TableCell>Ana Silva</TableCell>
                       <TableCell>R$ 320,00</TableCell>
                       <TableCell>Concluído</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">2 itens · entrega em 12/08/2026</p>
+                          <p class="text-slate-700 dark:text-slate-200">Teclado mecânico — R$ 240,00</p>
+                          <p class="text-slate-700 dark:text-slate-200">Mousepad — R$ 80,00</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>#1002</TableCell>
                       <TableCell>Bruno Costa</TableCell>
                       <TableCell>R$ 89,50</TableCell>
                       <TableCell>Pendente</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">1 item · aguardando pagamento</p>
+                          <p class="text-slate-700 dark:text-slate-200">Cabo USB-C — R$ 89,50</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>#1003</TableCell>
                       <TableCell>Carla Mendes</TableCell>
                       <TableCell>R$ 1.240,00</TableCell>
                       <TableCell>Em trânsito</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">3 itens · código de rastreio BR9928471</p>
+                          <p class="text-slate-700 dark:text-slate-200">Monitor 27" — R$ 980,00</p>
+                          <p class="text-slate-700 dark:text-slate-200">Suporte de monitor — R$ 180,00</p>
+                          <p class="text-slate-700 dark:text-slate-200">Cabo HDMI — R$ 80,00</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                   </TableBody>
                   <Empty>Nenhum pedido encontrado</Empty>
@@ -272,24 +314,48 @@
                 <TableCell>Teclado mecânico</TableCell>
                 <TableCell>2</TableCell>
                 <TableCell>R$ 299,90</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Estoque: 12 un. · 3 depósitos</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última entrada: 28/07/2026 — NF 88211</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>SKU-02</TableCell>
                 <TableCell>Mouse sem fio</TableCell>
                 <TableCell>5</TableCell>
                 <TableCell>R$ 129,00</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Estoque: 40 un. · 2 depósitos</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última entrada: 02/08/2026 — NF 88240</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>SKU-03</TableCell>
                 <TableCell>Monitor 27&quot;</TableCell>
                 <TableCell>1</TableCell>
                 <TableCell>R$ 1.899,00</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Estoque: 3 un. · 1 depósito</p>
+                    <p class="text-slate-700 dark:text-slate-200">Reposição prevista para 19/08/2026</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>SKU-04</TableCell>
                 <TableCell>Headset USB</TableCell>
                 <TableCell>3</TableCell>
                 <TableCell>R$ 249,00</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Estoque: 21 un. · 2 depósitos</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última entrada: 30/07/2026 — NF 88226</p>
+                  </div>
+                </Detail>
               </TableRow>
             </TableBody>
           </groupviewtable--ml-lazy-record-detail-table>
@@ -330,24 +396,48 @@
                       <TableCell>Teclado mecânico</TableCell>
                       <TableCell>2</TableCell>
                       <TableCell>R$ 299,90</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Estoque: 12 un. · 3 depósitos</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última entrada: 28/07/2026 — NF 88211</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>SKU-02</TableCell>
                       <TableCell>Mouse sem fio</TableCell>
                       <TableCell>5</TableCell>
                       <TableCell>R$ 129,00</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Estoque: 40 un. · 2 depósitos</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última entrada: 02/08/2026 — NF 88240</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>SKU-03</TableCell>
                       <TableCell>Monitor 27&quot;</TableCell>
                       <TableCell>1</TableCell>
                       <TableCell>R$ 1.899,00</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Estoque: 3 un. · 1 depósito</p>
+                          <p class="text-slate-700 dark:text-slate-200">Reposição prevista para 19/08/2026</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>SKU-04</TableCell>
                       <TableCell>Headset USB</TableCell>
                       <TableCell>3</TableCell>
                       <TableCell>R$ 249,00</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Estoque: 21 un. · 2 depósitos</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última entrada: 30/07/2026 — NF 88226</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                   </TableBody>
                 </groupviewtable--ml-lazy-record-detail-table>
@@ -386,30 +476,60 @@
                 <TableCell>Empresa Alpha</TableCell>
                 <TableCell>São Paulo</TableCell>
                 <TableCell>Varejo</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Contato: compras@empresaalpha.com.br</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última compra: 21/07/2026 — R$ 4.320,00</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>C-102</TableCell>
                 <TableCell>Beta Ltda</TableCell>
                 <TableCell>Curitiba</TableCell>
                 <TableCell>Indústria</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Contato: financeiro@betaltda.com.br</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última compra: 02/08/2026 — R$ 1.180,00</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>C-103</TableCell>
                 <TableCell>Gamma SA</TableCell>
                 <TableCell>Belo Horizonte</TableCell>
                 <TableCell>Serviços</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Contato: suprimentos@gammasa.com.br</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última compra: 15/06/2026 — R$ 9.750,00</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>C-104</TableCell>
                 <TableCell>Delta Comércio</TableCell>
                 <TableCell>Porto Alegre</TableCell>
                 <TableCell>Varejo</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Contato: comercial@deltacom.com.br</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última compra: 28/07/2026 — R$ 2.640,00</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>C-105</TableCell>
                 <TableCell>Epsilon Tech</TableCell>
                 <TableCell>Recife</TableCell>
                 <TableCell>Tecnologia</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Contato: ti@epsilontech.com.br</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última compra: 04/08/2026 — R$ 15.900,00</p>
+                  </div>
+                </Detail>
               </TableRow>
             </TableBody>
           </groupviewtable--ml-lazy-record-detail-table>
@@ -456,30 +576,60 @@
                       <TableCell>Empresa Alpha</TableCell>
                       <TableCell>São Paulo</TableCell>
                       <TableCell>Varejo</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Contato: compras@empresaalpha.com.br</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última compra: 21/07/2026 — R$ 4.320,00</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>C-102</TableCell>
                       <TableCell>Beta Ltda</TableCell>
                       <TableCell>Curitiba</TableCell>
                       <TableCell>Indústria</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Contato: financeiro@betaltda.com.br</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última compra: 02/08/2026 — R$ 1.180,00</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>C-103</TableCell>
                       <TableCell>Gamma SA</TableCell>
                       <TableCell>Belo Horizonte</TableCell>
                       <TableCell>Serviços</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Contato: suprimentos@gammasa.com.br</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última compra: 15/06/2026 — R$ 9.750,00</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>C-104</TableCell>
                       <TableCell>Delta Comércio</TableCell>
                       <TableCell>Porto Alegre</TableCell>
                       <TableCell>Varejo</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Contato: comercial@deltacom.com.br</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última compra: 28/07/2026 — R$ 2.640,00</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>C-105</TableCell>
                       <TableCell>Epsilon Tech</TableCell>
                       <TableCell>Recife</TableCell>
                       <TableCell>Tecnologia</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Contato: ti@epsilontech.com.br</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última compra: 04/08/2026 — R$ 15.900,00</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                   </TableBody>
                 </groupviewtable--ml-lazy-record-detail-table>
@@ -603,11 +753,23 @@
                 <TableCell>NF-4401</TableCell>
                 <TableCell>15/03/2026</TableCell>
                 <TableCell>R$ 2.150,00</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">3 itens · vencimento em 14/04/2026</p>
+                    <p class="text-slate-700 dark:text-slate-200">Emitida por Matriz — CNPJ 12.345.678/0001-90</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>NF-4402</TableCell>
                 <TableCell>22/03/2026</TableCell>
                 <TableCell>R$ 780,40</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">1 item · vencimento em 21/04/2026</p>
+                    <p class="text-slate-700 dark:text-slate-200">Emitida por Filial Sul — CNPJ 12.345.678/0004-33</p>
+                  </div>
+                </Detail>
               </TableRow>
             </TableBody>
           </groupviewtable--ml-lazy-record-detail-table>
@@ -646,11 +808,23 @@
                       <TableCell>NF-4401</TableCell>
                       <TableCell>15/03/2026</TableCell>
                       <TableCell>R$ 2.150,00</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">3 itens · vencimento em 14/04/2026</p>
+                          <p class="text-slate-700 dark:text-slate-200">Emitida por Matriz — CNPJ 12.345.678/0001-90</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>NF-4402</TableCell>
                       <TableCell>22/03/2026</TableCell>
                       <TableCell>R$ 780,40</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">1 item · vencimento em 21/04/2026</p>
+                          <p class="text-slate-700 dark:text-slate-200">Emitida por Filial Sul — CNPJ 12.345.678/0004-33</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                   </TableBody>
                 </groupviewtable--ml-lazy-record-detail-table>
@@ -687,18 +861,36 @@
                 <TableCell>10</TableCell>
                 <TableCell>R$ 250,00</TableCell>
                 <TableCell>R$ 2.500,00</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">40 h estimadas · 2 consultores</p>
+                    <p class="text-slate-700 dark:text-slate-200">Escopo: descoberta, desenho e acompanhamento</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>Licenças</TableCell>
                 <TableCell>4</TableCell>
                 <TableCell>R$ 480,00</TableCell>
                 <TableCell>R$ 1.920,00</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">4 assentos · renovação anual</p>
+                    <p class="text-slate-700 dark:text-slate-200">Vigência: 01/09/2026 a 31/08/2027</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>Suporte anual</TableCell>
                 <TableCell>1</TableCell>
                 <TableCell>R$ 1.200,00</TableCell>
                 <TableCell>R$ 1.200,00</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">SLA 8x5 · resposta em até 4 h</p>
+                    <p class="text-slate-700 dark:text-slate-200">Inclui atualizações de versão</p>
+                  </div>
+                </Detail>
               </TableRow>
             </TableBody>
             <TableFooter>
@@ -749,18 +941,36 @@
                       <TableCell>10</TableCell>
                       <TableCell>R$ 250,00</TableCell>
                       <TableCell>R$ 2.500,00</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">40 h estimadas · 2 consultores</p>
+                          <p class="text-slate-700 dark:text-slate-200">Escopo: descoberta, desenho e acompanhamento</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>Licenças</TableCell>
                       <TableCell>4</TableCell>
                       <TableCell>R$ 480,00</TableCell>
                       <TableCell>R$ 1.920,00</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">4 assentos · renovação anual</p>
+                          <p class="text-slate-700 dark:text-slate-200">Vigência: 01/09/2026 a 31/08/2027</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>Suporte anual</TableCell>
                       <TableCell>1</TableCell>
                       <TableCell>R$ 1.200,00</TableCell>
                       <TableCell>R$ 1.200,00</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">SLA 8x5 · resposta em até 4 h</p>
+                          <p class="text-slate-700 dark:text-slate-200">Inclui atualizações de versão</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                   </TableBody>
                   <TableFooter>
@@ -813,6 +1023,12 @@
                 <TableCell>02/04/2026</TableCell>
                 <TableCell>28/04/2026</TableCell>
                 <TableCell>Em trânsito oceânico</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Contêiner MSCU-7741203 · 24 t</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última posição: 12/04/2026, Canal do Panamá</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>SHP-2026-00091</TableCell>
@@ -822,6 +1038,12 @@
                 <TableCell>05/04/2026</TableCell>
                 <TableCell>03/05/2026</TableCell>
                 <TableCell>Aguardando documentação</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Contêiner HLXU-3390118 · 18 t</p>
+                    <p class="text-slate-700 dark:text-slate-200">Pendência: certificado fitossanitário</p>
+                  </div>
+                </Detail>
               </TableRow>
               <TableRow>
                 <TableCell>SHP-2026-00102</TableCell>
@@ -831,6 +1053,12 @@
                 <TableCell>10/04/2026</TableCell>
                 <TableCell>02/05/2026</TableCell>
                 <TableCell>Confirmado</TableCell>
+                <Detail>
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Contêiner IBMU-5520477 · 31 t</p>
+                    <p class="text-slate-700 dark:text-slate-200">Embarque confirmado para 12/04/2026</p>
+                  </div>
+                </Detail>
               </TableRow>
             </TableBody>
             <Empty>Nenhum embarque no período</Empty>
@@ -884,6 +1112,12 @@
                       <TableCell>02/04/2026</TableCell>
                       <TableCell>28/04/2026</TableCell>
                       <TableCell>Em trânsito oceânico</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Contêiner MSCU-7741203 · 24 t</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última posição: 12/04/2026, Canal do Panamá</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>SHP-2026-00091</TableCell>
@@ -893,6 +1127,12 @@
                       <TableCell>05/04/2026</TableCell>
                       <TableCell>03/05/2026</TableCell>
                       <TableCell>Aguardando documentação</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Contêiner HLXU-3390118 · 18 t</p>
+                          <p class="text-slate-700 dark:text-slate-200">Pendência: certificado fitossanitário</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                     <TableRow>
                       <TableCell>SHP-2026-00102</TableCell>
@@ -902,6 +1142,12 @@
                       <TableCell>10/04/2026</TableCell>
                       <TableCell>02/05/2026</TableCell>
                       <TableCell>Confirmado</TableCell>
+                      <Detail>
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Contêiner IBMU-5520477 · 31 t</p>
+                          <p class="text-slate-700 dark:text-slate-200">Embarque confirmado para 12/04/2026</p>
+                        </div>
+                      </Detail>
                     </TableRow>
                   </TableBody>
                   <Empty>Nenhum embarque no período</Empty>

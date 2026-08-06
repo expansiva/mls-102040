@@ -1,0 +1,540 @@
+<div class="bg-white dark:bg-slate-900 min-h-screen">
+  <div class="mx-auto p-8 font-sans">
+    <header class="text-center mb-12">
+      <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Grid com Detalhe em Cenário</h1>
+      <span class="inline-block px-3 py-1 bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium">groupViewTable</span>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Lista ordenável e paginável em que o detalhe do registro abre em um <strong>cenário próprio</strong>, no lugar da lista, em vez de uma linha de accordion. Pensada para edição de um registro por vez.</p>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-sm">O controle fica no <strong>fim da linha</strong> e aponta para a direita, porque navega. Ao voltar, a lista reaparece <strong>como estava</strong> — mesma página, mesma ordenação, mesma seleção: ela é escondida, nunca desmontada.</p>
+    </header>
+
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"isEditing":false,"page":1,"pageSize":0,"totalItems":0,"value":"","error":"","disabled":false,"loading":false},"selectable":{"selectable":true,"value":"0,2","isEditing":false,"page":1,"pageSize":0,"totalItems":0,"disabled":false,"loading":false},"pagination":{"page":1,"pageSize":3,"totalItems":0,"selectable":false,"value":"","isEditing":false,"disabled":false,"loading":false},"isEditing":{"isEditing":true,"selectable":false,"value":"","page":1,"pageSize":0,"totalItems":0,"disabled":false,"loading":false},"loading":{"loading":true,"disabled":false,"error":"","selectable":false,"value":"","page":1,"pageSize":0,"totalItems":0,"isEditing":false},"empty":{"loading":false,"disabled":false,"error":"","selectable":false,"value":"","page":1,"pageSize":0,"totalItems":0,"isEditing":false},"disabled":{"disabled":true,"selectable":true,"value":"1","loading":false,"error":"","page":1,"pageSize":0,"totalItems":0,"isEditing":false}}}'>
+    </aura--molecules--playground--widget-playground-state-102020>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+      <!-- Basic -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Básica</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Clique na seta ao fim da linha para abrir o cenário do registro. O conteúdo de cada <code>&lt;Detail&gt;</code> está declarado na página só para mostrar a projeção; na aplicação real ele é escrito depois que a molécula emite <code>rowClick</code>. O <code>label</code> vira o título do cenário.</p>
+        <demo id="demo-basic">
+          <groupviewtable--ml-lcrud-detail-grid
+            selectable="{{playground.basic.selectable}}"
+            is-editing="{{playground.basic.isEditing}}"
+            page="{{playground.basic.page}}"
+            page-size="{{playground.basic.pageSize}}"
+            total-items="{{playground.basic.totalItems}}"
+            value="{{playground.basic.value}}"
+            error="{{playground.basic.error}}"
+            disabled="{{playground.basic.disabled}}"
+            loading="{{playground.basic.loading}}">
+            <Caption>Equipe</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="nome" sortable>Nome</TableHead>
+                <TableHead key="cargo" sortable>Cargo</TableHead>
+                <TableHead key="squad">Squad</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Ana Silva</TableCell>
+                <TableCell>Product Designer</TableCell>
+                <TableCell>Discovery</TableCell>
+                <Detail label="Ana Silva">
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">ana.silva@collab.codes · na equipe desde 11/03/2024</p>
+                    <p class="text-slate-700 dark:text-slate-200">Responsável pela descoberta de produto e pelos testes com usuários.</p>
+                  </div>
+                </Detail>
+              </TableRow>
+              <TableRow>
+                <TableCell>Bruno Costa</TableCell>
+                <TableCell>Frontend Engineer</TableCell>
+                <TableCell>Platform</TableCell>
+                <Detail label="Bruno Costa">
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">bruno.costa@collab.codes · na equipe desde 02/08/2023</p>
+                    <p class="text-slate-700 dark:text-slate-200">Mantém a biblioteca de componentes e o pipeline de build.</p>
+                  </div>
+                </Detail>
+              </TableRow>
+              <TableRow>
+                <TableCell>Carla Mendes</TableCell>
+                <TableCell>Data Analyst</TableCell>
+                <TableCell>Insights</TableCell>
+                <Detail label="Carla Mendes">
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">carla.mendes@collab.codes · na equipe desde 20/01/2025</p>
+                    <p class="text-slate-700 dark:text-slate-200">Cuida dos painéis de acompanhamento e da qualidade dos dados.</p>
+                  </div>
+                </Detail>
+              </TableRow>
+            </TableBody>
+            <Empty>Nenhum registro encontrado</Empty>
+          </groupviewtable--ml-lcrud-detail-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.basic.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.basic.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.basic.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.basic.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.basic.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.basic.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.basic.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.basic.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.basic.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
+              <template>
+                <groupviewtable--ml-lcrud-detail-grid
+                  selectable="{{playground.basic.selectable}}"
+                  is-editing="{{playground.basic.isEditing}}"
+                  page="{{playground.basic.page}}"
+                  page-size="{{playground.basic.pageSize}}"
+                  total-items="{{playground.basic.totalItems}}"
+                  value="{{playground.basic.value}}"
+                  error="{{playground.basic.error}}"
+                  disabled="{{playground.basic.disabled}}"
+                  loading="{{playground.basic.loading}}">
+                  <Caption>Equipe</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="nome" sortable>Nome</TableHead>
+                      <TableHead key="cargo" sortable>Cargo</TableHead>
+                      <TableHead key="squad">Squad</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Ana Silva</TableCell>
+                      <TableCell>Product Designer</TableCell>
+                      <TableCell>Discovery</TableCell>
+                      <Detail label="Ana Silva">
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">ana.silva@collab.codes · na equipe desde 11/03/2024</p>
+                          <p class="text-slate-700 dark:text-slate-200">Responsável pela descoberta de produto e pelos testes com usuários.</p>
+                        </div>
+                      </Detail>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Bruno Costa</TableCell>
+                      <TableCell>Frontend Engineer</TableCell>
+                      <TableCell>Platform</TableCell>
+                      <Detail label="Bruno Costa">
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">bruno.costa@collab.codes · na equipe desde 02/08/2023</p>
+                          <p class="text-slate-700 dark:text-slate-200">Mantém a biblioteca de componentes e o pipeline de build.</p>
+                        </div>
+                      </Detail>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Carla Mendes</TableCell>
+                      <TableCell>Data Analyst</TableCell>
+                      <TableCell>Insights</TableCell>
+                      <Detail label="Carla Mendes">
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">carla.mendes@collab.codes · na equipe desde 20/01/2025</p>
+                          <p class="text-slate-700 dark:text-slate-200">Cuida dos painéis de acompanhamento e da qualidade dos dados.</p>
+                        </div>
+                      </Detail>
+                    </TableRow>
+                  </TableBody>
+                  <Empty>Nenhum registro encontrado</Empty>
+                </groupviewtable--ml-lcrud-detail-grid>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Selectable -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com seleção</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">A caixa de seleção fica na primeira coluna e o controle de abrir na última. Abrir o cenário e voltar <strong>não</strong> altera a seleção.</p>
+        <demo id="demo-selectable">
+          <groupviewtable--ml-lcrud-detail-grid
+            selectable="{{playground.selectable.selectable}}"
+            is-editing="{{playground.selectable.isEditing}}"
+            value="{{playground.selectable.value}}"
+            disabled="{{playground.selectable.disabled}}"
+            loading="{{playground.selectable.loading}}">
+            <Caption>Itens do inventário</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="sku" sortable>SKU</TableHead>
+                <TableHead key="produto" sortable>Produto</TableHead>
+                <TableHead key="preco" sortable>Preço</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>SKU-01</TableCell>
+                <TableCell>Teclado mecânico</TableCell>
+                <TableCell sort-value="299.90">R$ 299,90</TableCell>
+                <Detail label="SKU-01 · Teclado mecânico">
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Estoque: 12 un. · 3 depósitos</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última entrada: 28/07/2026 — NF 88211</p>
+                  </div>
+                </Detail>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-02</TableCell>
+                <TableCell>Mouse sem fio</TableCell>
+                <TableCell sort-value="129">R$ 129,00</TableCell>
+                <Detail label="SKU-02 · Mouse sem fio">
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Estoque: 40 un. · 2 depósitos</p>
+                    <p class="text-slate-700 dark:text-slate-200">Última entrada: 02/08/2026 — NF 88240</p>
+                  </div>
+                </Detail>
+              </TableRow>
+              <TableRow>
+                <TableCell>SKU-03</TableCell>
+                <TableCell>Monitor 27&quot;</TableCell>
+                <TableCell sort-value="1899">R$ 1.899,00</TableCell>
+                <Detail label="SKU-03 · Monitor 27&quot;">
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">Estoque: 3 un. · 1 depósito</p>
+                    <p class="text-slate-700 dark:text-slate-200">Reposição prevista para 19/08/2026</p>
+                  </div>
+                </Detail>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-lcrud-detail-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.selectable.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.selectable.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.selectable.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.selectable.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.selectable.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-selectable">
+              <template>
+                <groupviewtable--ml-lcrud-detail-grid
+                  selectable="{{playground.selectable.selectable}}"
+                  value="{{playground.selectable.value}}">
+                  <Caption>Itens do inventário</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="sku" sortable>SKU</TableHead>
+                      <TableHead key="produto" sortable>Produto</TableHead>
+                      <TableHead key="preco" sortable>Preço</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>SKU-01</TableCell>
+                      <TableCell>Teclado mecânico</TableCell>
+                      <TableCell sort-value="299.90">R$ 299,90</TableCell>
+                      <Detail label="SKU-01 · Teclado mecânico">
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">Estoque: 12 un. · 3 depósitos</p>
+                          <p class="text-slate-700 dark:text-slate-200">Última entrada: 28/07/2026 — NF 88211</p>
+                        </div>
+                      </Detail>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-lcrud-detail-grid>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Pagination -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Com paginação</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Modo INTERNAL: todas as linhas estão escritas na página e <code>total-items</code> fica em 0, então quem pagina é a molécula. Abra um registro na página 2 e volte — a lista retorna na página 2.</p>
+        <demo id="demo-pagination">
+          <groupviewtable--ml-lcrud-detail-grid
+            page="{{playground.pagination.page}}"
+            page-size="{{playground.pagination.pageSize}}"
+            total-items="{{playground.pagination.totalItems}}">
+            <Caption>Clientes</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="codigo" sortable>Código</TableHead>
+                <TableHead key="nome" sortable>Nome</TableHead>
+                <TableHead key="cidade">Cidade</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>C-101</TableCell>
+                <TableCell>Empresa Alpha</TableCell>
+                <TableCell>São Paulo</TableCell>
+                <Detail label="C-101 · Empresa Alpha"><p class="text-sm text-slate-700 dark:text-slate-200">Última compra: 21/07/2026 — R$ 4.320,00</p></Detail>
+              </TableRow>
+              <TableRow>
+                <TableCell>C-102</TableCell>
+                <TableCell>Beta Ltda</TableCell>
+                <TableCell>Curitiba</TableCell>
+                <Detail label="C-102 · Beta Ltda"><p class="text-sm text-slate-700 dark:text-slate-200">Última compra: 02/08/2026 — R$ 1.180,00</p></Detail>
+              </TableRow>
+              <TableRow>
+                <TableCell>C-103</TableCell>
+                <TableCell>Gamma SA</TableCell>
+                <TableCell>Belo Horizonte</TableCell>
+                <Detail label="C-103 · Gamma SA"><p class="text-sm text-slate-700 dark:text-slate-200">Última compra: 15/06/2026 — R$ 9.750,00</p></Detail>
+              </TableRow>
+              <TableRow>
+                <TableCell>C-104</TableCell>
+                <TableCell>Delta Comércio</TableCell>
+                <TableCell>Porto Alegre</TableCell>
+                <Detail label="C-104 · Delta Comércio"><p class="text-sm text-slate-700 dark:text-slate-200">Última compra: 28/07/2026 — R$ 2.640,00</p></Detail>
+              </TableRow>
+              <TableRow>
+                <TableCell>C-105</TableCell>
+                <TableCell>Epsilon Tech</TableCell>
+                <TableCell>Recife</TableCell>
+                <Detail label="C-105 · Epsilon Tech"><p class="text-sm text-slate-700 dark:text-slate-200">Última compra: 04/08/2026 — R$ 15.900,00</p></Detail>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-lcrud-detail-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.pagination.page}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page-size" value="{{playground.pagination.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+            <aura--molecules--playground--widget-playground-state-number-102020 label="total-items" value="{{playground.pagination.totalItems}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-pagination">
+              <template>
+                <groupviewtable--ml-lcrud-detail-grid
+                  page="{{playground.pagination.page}}"
+                  page-size="{{playground.pagination.pageSize}}"
+                  total-items="{{playground.pagination.totalItems}}">
+                  <Caption>Clientes</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="codigo" sortable>Código</TableHead>
+                      <TableHead key="nome" sortable>Nome</TableHead>
+                      <TableHead key="cidade">Cidade</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>C-101</TableCell>
+                      <TableCell>Empresa Alpha</TableCell>
+                      <TableCell>São Paulo</TableCell>
+                      <Detail label="C-101 · Empresa Alpha"><p class="text-sm text-slate-700 dark:text-slate-200">Última compra: 21/07/2026 — R$ 4.320,00</p></Detail>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-lcrud-detail-grid>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Editing -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Modo edição</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Com <code>is-editing</code>, o atributo é propagado para os componentes das células <strong>e para os do cenário</strong>. É o caso de uso principal: editar um registro por vez, com a tela inteira.</p>
+        <demo id="demo-isEditing">
+          <groupviewtable--ml-lcrud-detail-grid
+            is-editing="{{playground.isEditing.isEditing}}">
+            <Caption>Itens do orçamento</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="item" sortable>Item</TableHead>
+                <TableHead key="qtd">Qtd</TableHead>
+                <TableHead key="total" sortable>Total</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Consultoria</TableCell>
+                <TableCell>10</TableCell>
+                <TableCell sort-value="2500">R$ 2.500,00</TableCell>
+                <Detail label="Consultoria">
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">40 h estimadas · 2 consultores</p>
+                    <p class="text-slate-700 dark:text-slate-200">Escopo: descoberta, desenho e acompanhamento</p>
+                  </div>
+                </Detail>
+              </TableRow>
+              <TableRow>
+                <TableCell>Licenças</TableCell>
+                <TableCell>4</TableCell>
+                <TableCell sort-value="1920">R$ 1.920,00</TableCell>
+                <Detail label="Licenças">
+                  <div class="flex flex-col gap-1 text-sm">
+                    <p class="text-slate-500 dark:text-slate-400">4 assentos · renovação anual</p>
+                    <p class="text-slate-700 dark:text-slate-200">Vigência: 01/09/2026 a 31/08/2027</p>
+                  </div>
+                </Detail>
+              </TableRow>
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TableCell>Total</TableCell>
+                <TableCell>14</TableCell>
+                <TableCell>R$ 4.420,00</TableCell>
+              </TableRow>
+            </TableFooter>
+          </groupviewtable--ml-lcrud-detail-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="is-editing" value="{{playground.isEditing.isEditing}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-isEditing">
+              <template>
+                <groupviewtable--ml-lcrud-detail-grid is-editing="{{playground.isEditing.isEditing}}">
+                  <Caption>Itens do orçamento</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="item" sortable>Item</TableHead>
+                      <TableHead key="qtd">Qtd</TableHead>
+                      <TableHead key="total" sortable>Total</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Consultoria</TableCell>
+                      <TableCell>10</TableCell>
+                      <TableCell sort-value="2500">R$ 2.500,00</TableCell>
+                      <Detail label="Consultoria">
+                        <div class="flex flex-col gap-1 text-sm">
+                          <p class="text-slate-500 dark:text-slate-400">40 h estimadas · 2 consultores</p>
+                          <p class="text-slate-700 dark:text-slate-200">Escopo: descoberta, desenho e acompanhamento</p>
+                        </div>
+                      </Detail>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-lcrud-detail-grid>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Loading -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Carregando</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Com <code>loading</code>, o corpo dá lugar ao esqueleto e nenhum registro abre.</p>
+        <demo id="demo-loading">
+          <groupviewtable--ml-lcrud-detail-grid
+            loading="{{playground.loading.loading}}"
+            disabled="{{playground.loading.disabled}}"
+            error="{{playground.loading.error}}">
+            <Caption>Equipe</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="nome" sortable>Nome</TableHead>
+                <TableHead key="cargo">Cargo</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Ana Silva</TableCell>
+                <TableCell>Product Designer</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-lcrud-detail-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.loading.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.loading.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="error" value="{{playground.loading.error}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Empty -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Sem registros</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Sem linhas no <code>TableBody</code>, o conteúdo do slot <code>Empty</code> ocupa o corpo.</p>
+        <demo id="demo-empty">
+          <groupviewtable--ml-lcrud-detail-grid
+            loading="{{playground.empty.loading}}"
+            disabled="{{playground.empty.disabled}}">
+            <Caption>Equipe</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="nome" sortable>Nome</TableHead>
+                <TableHead key="cargo">Cargo</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+            </TableBody>
+            <Empty>Nenhum registro para exibir</Empty>
+          </groupviewtable--ml-lcrud-detail-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="loading" value="{{playground.empty.loading}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.empty.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+      </article>
+
+      <!-- Disabled -->
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Desabilitada</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Com <code>disabled</code>, nenhum registro abre, a ordenação não responde e os controles ficam esmaecidos.</p>
+        <demo id="demo-disabled">
+          <groupviewtable--ml-lcrud-detail-grid
+            disabled="{{playground.disabled.disabled}}"
+            selectable="{{playground.disabled.selectable}}"
+            value="{{playground.disabled.value}}">
+            <Caption>Equipe</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="nome" sortable>Nome</TableHead>
+                <TableHead key="cargo">Cargo</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Ana Silva</TableCell>
+                <TableCell>Product Designer</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Bruno Costa</TableCell>
+                <TableCell>Frontend Engineer</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-lcrud-detail-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Propriedades</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.disabled.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="selectable" value="{{playground.disabled.selectable}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+            <aura--molecules--playground--widget-playground-state-text-102020 label="value" value="{{playground.disabled.value}}"></aura--molecules--playground--widget-playground-state-text-102020>
+          </div>
+        </details>
+      </article>
+
+    </section>
+  </div>
+</div>

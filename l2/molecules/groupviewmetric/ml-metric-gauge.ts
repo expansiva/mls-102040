@@ -11,7 +11,7 @@ import { ifDefined } from'lit/directives/if-defined.js';
 import { customElement } from'lit/decorators.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
-import { cn } from'/_102033_/l2/cn.js';
+import { cn } from'/_102033_/l2/shared/molecules/cn.js';
 
 @customElement('groupviewmetric--ml-metric-gauge')
 export class MetricGaugeMolecule extends MoleculeAuraElement {

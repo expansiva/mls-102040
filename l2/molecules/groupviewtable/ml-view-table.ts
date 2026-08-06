@@ -10,7 +10,7 @@ import { customElement, property, state } from'lit/decorators.js';
 import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
-import { cn } from'/_102033_/l2/cn.js';
+import { cn } from'/_102033_/l2/shared/molecules/cn.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -53,6 +53,8 @@ interface ParsedHeader {
 
 interface ParsedRow {
  cells: string[];
+ /** `data-class` de cada célula, na mesma ordem de `cells`. */
+ cellClasses: string[];
  element: Element;
 }
 
@@ -168,7 +170,10 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  this.parsedRows = Array.from(rows).map((row) => {
  const cells = row.querySelectorAll('TableCell');
  return {
+ // O modelo guarda o HTML e, ao lado, o `data-class` da célula — que é contrato do grupo
+ // e estava se perdendo aqui, porque só o innerHTML era capturado.
  cells: Array.from(cells).map((cell) => cell.innerHTML.trim()),
+ cellClasses: Array.from(cells).map((cell) => cell.getAttribute('data-class') ||''),
  element: row,
  };
  });
@@ -557,8 +562,8 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  `
  : html``}
  ${row.cells.map(
- (cell) => html`
- <td role="cell" class="${this.getCellClasses()}">
+ (cell, ci) => html`
+ <td role="cell" class="${cn(this.getCellClasses(), row.cellClasses?.[ci] ||'')}">
  ${unsafeHTML(cell)}
  </td>
  `

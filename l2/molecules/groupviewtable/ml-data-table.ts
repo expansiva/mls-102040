@@ -11,7 +11,8 @@ import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { customElement, state } from'lit/decorators.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
-import { cn } from'/_102033_/l2/cn.js';
+import { cn } from'/_102033_/l2/shared/molecules/cn.js';
+import { cellSortKey, compareSortKeys } from'/_102033_/l2/shared/molecules/tableSort.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -48,13 +49,19 @@ const messages: Record<string, MessageType> = {
 // TYPES
 // =============================================================================
 type SortDirection ='asc' |'desc';
-type Align ='left' |'center' |'right';
 
 interface ColumnDef {
  key: string;
  label: string;
  sortable: boolean;
- align: Align;
+ /**
+  * `data-class` do `<TableHead>`, aplicado ao `<th>`.
+  *
+  * Substitui o atributo `align` que esta molécula lia. O `align` era um mecanismo SÓ dela — não
+  * estava no contrato do grupo e nenhuma irmã o entendia, então quem descobrisse quebraria ao
+  * trocar de tabela. Alinhamento passa a ser `data-class`, que é o padrão dos outros slots.
+  */
+ headClass: string;
  width: string | null;
 }
 
@@ -146,7 +153,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  key: el.getAttribute('key') ||'',
  label: el.innerHTML,
  sortable: el.hasAttribute('sortable'),
- align: (el.getAttribute('align') ||'left') as Align,
+ headClass: el.getAttribute('data-class') ||'',
  width: el.getAttribute('width'),
  })).filter(c => c.key);
  }
@@ -179,19 +186,17 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  if (!this.sortKey) return rows;
  const colIndex = columns.findIndex(c => c.key === this.sortKey);
  if (colIndex < 0) return rows;
+ // `cellSortKey` honors the cell's `sort-value` and `compareSortKeys` understands formatted
+ // numbers. The previous path did `parseFloat(text.replace(/[^\d.-]/g,''))`, which read
+ // `R$ 1.234,50` as 1.2345 — the comma vanished and the thousands dot became the decimal.
+ const dir = this.sortDirection ==='asc' ? 1 : -1;
  return [...rows].sort((a, b) => {
- const aText = a.cells[colIndex]?.textContent?.trim() ??'';
- const bText = b.cells[colIndex]?.textContent?.trim() ??'';
- const aNum = parseFloat(aText.replace(/[^\d.-]/g,''));
- const bNum = parseFloat(bText.replace(/[^\d.-]/g,''));
- if (!isNaN(aNum) && !isNaN(bNum)) {
- return this.sortDirection ==='asc' ? aNum - bNum : bNum - aNum;
- }
- return this.sortDirection ==='asc'
- ? aText.localeCompare(bText, undefined, { sensitivity:'base' })
- : bText.localeCompare(aText, undefined, { sensitivity:'base' });
+ const keyA = cellSortKey(a.cells[colIndex]);
+ const keyB = cellSortKey(b.cells[colIndex]);
+ return compareSortKeys(keyA, keyB) * dir;
  });
  }
+
 
  // ===========================================================================
  // EVENT HANDLERS
@@ -256,7 +261,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  const isActive = this.sortKey === col.key;
  return [
 'px-4 py-3 text-xs font-semibold uppercase tracking-wide whitespace-nowrap transition',
- col.align ==='center' ?'text-center' : col.align ==='right' ?'text-right' :'text-left',
+ col.headClass,
  isActive ?'ml-primary-text' :'ml-text-muted',
  col.sortable && !this.disabled
  ?'cursor-pointer select-none hover:ml-text'
@@ -264,11 +269,19 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  ].filter(Boolean).join(' ');
  }
 
- private getTdClasses(align: Align, bold = false): string {
+ /**
+  * `extra` é o `data-class` que o consumidor pôs na `<TableCell>` — parte do contrato do grupo
+  * (skills/groupViewTable, §data-class), que esta molécula ignorava.
+  *
+  * O `text-left` deixou de ser emitido no caso padrão: ele não muda nada (célula de tabela já
+  * alinha à esquerda em LTR) e BRIGAVA com o `data-class` do consumidor — duas utilitárias de
+  * alinhamento na mesma célula resolvem pela ordem na folha de estilo, não pela ordem aqui.
+  */
+ private getTdClasses(dataClass = '', bold = false): string {
  return [
 'px-4 py-3 text-sm ml-text',
- align ==='center' ?'text-center' : align ==='right' ?'text-right' :'text-left',
  bold ?'font-medium' :'',
+ dataClass,
  ].filter(Boolean).join(' ');
  }
 
@@ -517,7 +530,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  ` : nothing}
 
  ${columns.map((col, ci) => html`
- <td class=${this.getTdClasses(col.align)} role="cell">
+ <td class=${this.getTdClasses(row.cells[ci]?.getAttribute('data-class') ??'')} role="cell">
  ${unsafeHTML(row.cells[ci]?.innerHTML ??'')}
  </td>
  `)}
@@ -533,7 +546,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  <tr role="row">
  ${this.selectable ? html`<td class="w-10 px-4 py-3" role="cell"></td>` : nothing}
  ${columns.map((col, ci) => html`
- <td class=${this.getTdClasses(col.align, true)} role="cell">
+ <td class=${this.getTdClasses(cells[ci]?.getAttribute('data-class') ??'', true)} role="cell">
  ${unsafeHTML(cells[ci]?.innerHTML ??'')}
  </td>
  `)}

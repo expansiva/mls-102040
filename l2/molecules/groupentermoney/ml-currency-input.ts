@@ -9,7 +9,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { customElement, state } from 'lit/decorators.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
-import { cn } from '/_102033_/l2/cn.js';
+import { cn } from '/_102033_/l2/shared/molecules/cn.js';
 /// **collab_i18n_start**
 const message_en = {
   loading: 'Loading...',
@@ -66,6 +66,30 @@ export class GroupEnterMoneyMlCurrencyInputMolecule extends MoleculeAuraElement 
   // ===========================================================================
   @state()
   private rawValue: string = '';
+
+  /** Último `value` já refletido em `rawValue` — evita reescrever o que o usuário está digitando. */
+  private lastSyncedValue: number | null = null;
+
+  /**
+   * Espelha `value` em `rawValue` quando ele muda POR FORA.
+   *
+   * `rawValue` é o que o input mostra, e até 2026-08-05 só era preenchido ao digitar ou pelo
+   * binding de estado (`handleIcaStateChange`). Um consumidor que ligasse `.value` por propriedade
+   * — o caminho normal de um formulário que carrega um registro — via o campo **vazio em modo de
+   * edição**, enquanto o modo de leitura mostrava o número certo. Mesmo defeito medido na
+   * `ml-enter-money-br` com `demotable--funcionariosdetalhe`, e corrigido junto.
+   *
+   * A digitação continua mandando: enquanto o input tem foco, `rawValue` é do usuário.
+   */
+  willUpdate(changed: Map<string, unknown>) {
+    if (!changed.has('value')) return;
+    if (this.value === this.lastSyncedValue) return;
+    const input = this.querySelector('input');
+    if (input && document.activeElement === input) return;
+    this.lastSyncedValue = this.value;
+    this.rawValue = this.formatToRaw(this.value);
+  }
+
   // ===========================================================================
   // STATE CHANGE HANDLER – keep rawValue in sync when external state changes
   // ===========================================================================

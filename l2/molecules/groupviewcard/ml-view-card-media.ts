@@ -10,7 +10,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
-import { cn } from '/_102033_/l2/cn.js';
+import { cn } from '/_102033_/l2/shared/molecules/cn.js';
 
 @customElement('groupviewcard--ml-view-card-media')
 export class MlViewCardMediaMolecule extends MoleculeAuraElement {
@@ -18,6 +18,16 @@ export class MlViewCardMediaMolecule extends MoleculeAuraElement {
 // SLOT TAGS
 // ===========================================================================
 slotTags = ['CardHeader', 'CardTitle', 'CardDescription', 'CardContent', 'CardFooter', 'CardAction'];
+
+/**
+ * Onda 3 — mista: `CardFooter` e `CardAction` são CONTROLE e viraram vivos; os demais são
+ * conteúdo/dado e seguem no snapshot. Sem migração total: a Etapa 0 tirou o atalho de inércia do
+ * `_checkIfInert`, e a projeção dá precisão por slot sozinha, então os dois caminhos convivem na
+ * mesma molécula (verificado em 2026-08-06 na `ml-scan-code`, que tem `Trigger` vivo e `Result`
+ * serializado sem duplicar nada).
+ */
+protected usesLiveSlots = true;
+
 // ===========================================================================
 // PROPERTIES — From Contract
 // ===========================================================================
@@ -139,7 +149,11 @@ ${showPlaceholder
 private renderBodySection(): TemplateResult {
 const hasHeader = this.hasSlotContent('CardTitle') || this.hasSlotContent('CardDescription');
 const hasContent = this.hasSlotContent('CardContent');
-const hasFooter = this.hasSlotContent('CardFooter') || this.hasSlotContent('CardAction');
+// `hasSlot`, e não `hasSlotContent`: estes dois são VIVOS, a origem esvazia depois da projeção e
+// o `hasSlotContent` passaria a devolver falso — a seção inteira do corpo sumiria da tela a
+// partir do segundo render, levando junto a âncora do rodapé. Os de cima continuam por conteúdo
+// porque seguem serializados.
+const hasFooter = this.hasSlot('CardFooter') || this.hasSlot('CardAction');
 
 if (!hasHeader && !hasContent && !hasFooter) {
 return html``;
@@ -179,20 +193,32 @@ return html`
 `;
 }
 
+/**
+ * Rodapé e ação: os DOIS slots de controle desta molécula, agora VIVOS (Onda 3).
+ *
+ * ⚠️ A presença passou a ser lida por `hasSlot`, e a troca é obrigatória, não estilo: com slot
+ * vivo os nós são MOVIDOS para a âncora e a origem fica VAZIA, então `getSlotContent('CardFooter')`
+ * devolve string vazia a partir do segundo render — o ternário deixaria de emitir a âncora e o
+ * conteúdo do consumidor sumiria da tela. `hasSlot` olha se o slot TAG existe, não o conteúdo
+ * dele, e por isso continua verdadeiro depois da projeção.
+ *
+ * Os slots de DADO (`CardHeader` com o `ratio`, `CardTitle`, `CardDescription`, `CardContent`)
+ * seguem no snapshot de propósito — é a régua DADO × CONTROLE da TASK.
+ */
 private renderFooterSection(): TemplateResult {
-const footer = this.getSlotContent('CardFooter').trim();
-const action = this.getSlotContent('CardAction').trim();
-if (!footer && !action) return html``;
+const hasFooter = this.hasSlot('CardFooter');
+const hasAction = this.hasSlot('CardAction');
+if (!hasFooter && !hasAction) return html``;
 
 const containerClasses = [
 'flex flex-wrap items-center gap-3',
-footer ? 'justify-between' : 'justify-end',
+hasFooter ? 'justify-between' : 'justify-end',
 ].join(' ');
 
 return html`
 <div class="${containerClasses}">
-${footer ? html`<div class="${cn('text-sm ml-text-muted', this.getSlotClass('CardFooter'))}">${unsafeHTML(footer)}</div>` : html``}
-${action ? html`<div class="shrink-0">${unsafeHTML(action)}</div>` : html``}
+${hasFooter ? html`<div class="${cn('text-sm ml-text-muted', this.getSlotClass('CardFooter'))}">${this.renderLiveSlot('CardFooter')}</div>` : html``}
+${hasAction ? html`<div class="shrink-0">${this.renderLiveSlot('CardAction')}</div>` : html``}
 </div>
 `;
 }

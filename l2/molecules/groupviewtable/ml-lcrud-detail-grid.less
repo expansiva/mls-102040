@@ -1,5 +1,5 @@
-/// <mls fileReference="_102040_/l2/molecules/groupviewtable/ml-lazy-record-detail-table.less" enhancement="_102020_/l2/enhancementStyleAura"/>
-groupviewtable--ml-lazy-record-detail-table {
+/// <mls fileReference="_102040_/l2/molecules/groupviewtable/ml-lcrud-detail-grid.less" enhancement="_102020_/l2/enhancementStyleAura"/>
+groupviewtable--ml-lcrud-detail-grid {
   font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
   color: var(--ml-on-surface, #1c1b1f);
   background: var(--ml-surface, #ffffff);
@@ -76,10 +76,6 @@ groupviewtable--ml-lazy-record-detail-table {
     background: var(--ml-primary-container, #e8f0fe);
   }
 
-  .ml-table-row-expanded {
-    border-bottom-color: var(--ml-outline-variant, #e2e8f0);
-  }
-
   .ml-table-row-focused {
     background: var(--ml-surface-dim, #f5f5f5);
     outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
@@ -92,48 +88,70 @@ groupviewtable--ml-lazy-record-detail-table {
   }
 
   .ml-table-select-cell,
-  .ml-table-expand-cell {
+  .ml-grid-open-cell {
     color: var(--ml-on-surface-muted, #49454f);
   }
 
-  .ml-table-expand-btn {
+  .ml-grid-open-btn {
     color: var(--ml-on-surface-muted, #49454f);
     background: transparent;
     border: var(--ml-border-width, 1px) var(--ml-border-style, solid) transparent;
     transition: var(--ml-transition, 200ms ease);
   }
 
-  .ml-table-expand-btn:hover:not(:disabled) {
+  .ml-grid-open-btn:hover:not(:disabled) {
     color: var(--ml-primary, #3b82f6);
     background: var(--ml-surface-dim, #f5f5f5);
     border-color: var(--ml-outline-variant, #e2e8f0);
-  }
-
-  .ml-table-expand-btn-open {
-    color: var(--ml-primary, #3b82f6);
   }
 
   .ml-table-checkbox {
     accent-color: var(--ml-primary, #3b82f6);
   }
 
-  .ml-table-detail-row {
-    color: var(--ml-on-surface-muted, #49454f);
-    background: var(--ml-surface-dim, #f5f5f5);
+  // ===========================================================================
+  // CENÁRIO — o detalhe do registro ocupando o lugar da lista
+  // ===========================================================================
+
+  // Respiro do quadro, e só isso. Cor, sombra e raio são do tema — a molécula não compete com ele
+  // nem finge ser um card. Sem estas duas regras o conteúdo do consumidor nasce colado na borda do
+  // cabeçalho, que foi como a primeira versão saiu.
+  .ml-grid-scene {
+    padding: 0.25rem 0 0.5rem;
+  }
+
+  .ml-grid-scene-head {
+    padding-bottom: 0.75rem;
     border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
   }
 
-  .ml-table-detail-cell {
-    color: var(--ml-on-surface-muted, #49454f);
-    border-bottom-color: var(--ml-outline-variant, #e2e8f0);
+  // Largura de leitura: um formulário esticado na largura de um monitor fica ilegível, e o
+  // consumidor não tem como corrigir isso sem saber a estrutura interna do cenário.
+  .ml-grid-scene-body {
+    padding-top: 0.75rem;
+    max-width: 60rem;
   }
 
-  .ml-table-detail-content {
-    border-left: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+  .ml-grid-scene-title {
+    color: var(--ml-on-surface, #1c1b1f);
   }
 
-  .ml-table-detail-block {
+  .ml-grid-back-btn {
     color: var(--ml-on-surface-muted, #49454f);
+    background: transparent;
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) transparent;
+    transition: var(--ml-transition, 200ms ease);
+  }
+
+  .ml-grid-back-btn:hover:not(:disabled) {
+    color: var(--ml-primary, #3b82f6);
+    background: var(--ml-surface-dim, #f5f5f5);
+    border-color: var(--ml-outline-variant, #e2e8f0);
+  }
+
+  .ml-grid-back-btn:focus-visible {
+    outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+    outline-offset: 2px;
   }
 
   .ml-table-tfoot {
@@ -212,12 +230,12 @@ groupviewtable--ml-lazy-record-detail-table {
   //
   // O `:disabled` também cobre o estado `loading`, em que os botões recebem `?disabled` de fato.
   .ml-disabled,
-  .ml-table-expand-btn:disabled,
+  .ml-grid-open-btn:disabled,
   .ml-table-page-btn:disabled {
     opacity: var(--ml-disabled-opacity, 0.5);
   }
 
-  .ml-table-expand-btn:focus-visible,
+  .ml-grid-open-btn:focus-visible,
   .ml-table-head-sortable:focus-visible,
   .ml-table-checkbox:focus-visible,
   .ml-table-page-btn:focus-visible,
@@ -226,7 +244,7 @@ groupviewtable--ml-lazy-record-detail-table {
     outline-offset: 2px;
   }
 
-  .ml-table-expand-btn:focus-visible,
+  .ml-grid-open-btn:focus-visible,
   .ml-table-page-btn:focus-visible {
     border-color: var(--ml-outline-focus, #3b82f6);
   }
