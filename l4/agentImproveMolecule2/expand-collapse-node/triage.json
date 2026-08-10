@@ -1,0 +1,9 @@
+{
+  "route": "B",
+  "rationale": "O contrato já prevê que nós com filhos possam expandir e retrair; o comportamento relatado indica um defeito na interação existente, sem alteração da superfície pública.",
+  "expectedArtifacts": [
+    "ts"
+  ],
+  "definitionElements": [],
+  "decidedAt": "2026-08-10T13:36:55.853Z"
+}

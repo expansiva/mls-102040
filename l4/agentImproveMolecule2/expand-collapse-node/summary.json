@@ -1,0 +1,10 @@
+{
+  "savedAt": "2026-08-10T13:37:36.227Z",
+  "summary": "Corrigido o `ml-hierarchy-tree` (groupViewHierarchy) no componente (`.ts`).\n\n- Removido o parse/initialize do render para o estado de expansão não ser resetado a cada clique.\n- Clique no conteúdo do nó passa a expandir/retrair o nível, em vez de só disparar `nodeClick`.\n\nO playground **não foi alterado** — a superfície pública da molecule não mudou, então o demo já estava correto.",
+  "findings": [],
+  "findingsFound": 0,
+  "touched": [
+    "ts"
+  ],
+  "route": "B"
+}
