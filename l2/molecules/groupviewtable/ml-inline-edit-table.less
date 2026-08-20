@@ -85,4 +85,106 @@ groupviewtable--ml-inline-edit-table {
     pointer-events: none;
   }
 
+  // O cabeçalho ancora a alça de redimensionar, que se posiciona na borda direita da coluna.
+  thead th {
+    position: relative;
+  }
+
+  .ml-column-resize {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--ml-table-resize-width, 5px);
+    cursor: col-resize;
+    background: var(--ml-outline-variant, #e2e8f0);
+    opacity: 0;
+    transition: var(--ml-transition, 200ms ease);
+    touch-action: none;
+  }
+
+  // Perceptível ao interagir, discreta em repouso: em repouso a alça competiria com o texto do
+  // cabeçalho, que é quem tem de dominar a leitura.
+  thead th:hover .ml-column-resize,
+  thead th:focus-visible .ml-column-resize,
+  .ml-column-resize:hover {
+    opacity: 1;
+    background: var(--ml-outline-focus, #3b82f6);
+  }
+
+  // Enquanto se arrasta, a alça fica visível em TODAS as colunas e a seleção de texto sai do
+  // caminho — arrastar sobre o cabeçalho selecionava o texto dele.
+  &.ml-table-resizing,
+  .ml-table-resizing {
+    user-select: none;
+
+    .ml-column-resize {
+      opacity: 1;
+    }
+  }
+
+  thead th[draggable='true'] {
+    cursor: grab;
+  }
+
+  thead th[draggable='true']:active {
+    cursor: grabbing;
+  }
+
+  // A área de ações da linha: os controles ficam lado a lado e não quebram a altura da linha.
+  .ml-table-actions {
+    white-space: nowrap;
+
+    // O espaçamento vem de `gap` no invólucro, e não de `margin-left` entre irmãos: irmão com
+    // `display: none` continua sendo irmão, então o seletor de adjacência deixava uma margem
+    // órfã antes da primeira ação visível.
+    .ml-table-action-group {
+      display: flex;
+      align-items: center;
+      gap: var(--ml-table-action-gap, 0.5rem);
+    }
+
+    .ml-table-action {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    // Ação fora do modo dela. `display: none` e não `visibility`/`opacity`: além de esconder, tira
+    // o controle da ordem de tabulação e da árvore de acessibilidade, que é o que "mostrar somente
+    // Salvar e Cancelar" quer dizer. O nó do consumidor permanece na âncora — não volta para a
+    // origem, não é destruído.
+    //
+    // Os DOIS seletores de classe são de propósito. Solto, `.ml-row-action-hidden` perdia para
+    // `.ml-table-actions .ml-table-action`, que é mais específico e declara `display: inline-flex`
+    // — e o resultado era TODAS as ações visíveis, em qualquer modo.
+    .ml-table-action.ml-row-action-hidden {
+      display: none;
+    }
+  }
+
+  // A linha RASCUNHO: é formulário, não registro. O destaque à esquerda diz que ela não faz parte
+  // do conjunto listado — não é ordenada nem paginada, e fica fixa no fim do corpo.
+  .ml-table-draft-row {
+    background: var(--ml-surface-dim, #f5f5f5);
+    box-shadow: inset var(--ml-table-draft-marker, 3px) 0 0 0 var(--ml-primary, #3b82f6);
+  }
+
+  .ml-table-draft-row:hover {
+    background: var(--ml-surface-dim, #f5f5f5);
+  }
+
+  // A faixa do gatilho de novo registro, no rodapé: atravessa a linha inteira.
+  .ml-table-new-record {
+    .ml-table-action {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .ml-table-action + .ml-table-action {
+      margin-left: var(--ml-table-action-gap, 0.5rem);
+    }
+  }
+
 }
+
+

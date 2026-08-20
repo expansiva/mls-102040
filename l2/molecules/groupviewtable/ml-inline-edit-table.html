@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-semibold text-slate-800 dark:text-slate-100 mb-2">Inline Edit Table</h1>
       <span class="inline-block px-3 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-full text-sm font-medium">group view table</span>
     </header>
-    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"value":""},"selectable":{"selectable":true,"value":"0,2"},"inline":{"isEditing":true,"selectable":true,"value":1},"paginated":{"page":2,"pageSize":3,"totalItems":9},"loading":{"loading":true,"selectable":true},"empty":{"disabled":true,"error":"You don't have permission to view this table."}}}'>
+    <aura--molecules--playground--widget-playground-state-102020 state='{"playground":{"basic":{"selectable":false,"value":""},"selectable":{"selectable":true,"value":"0,2"},"inline":{"isEditing":true,"selectable":true,"value":1},"paginated":{"page":2,"pageSize":3,"totalItems":9},"loading":{"loading":true,"selectable":true},"empty":{"disabled":true,"error":"You do not have permission to view this table."},"rowactions":{"disabled":false},"newrecord":{"disabled":false},"internalpage":{"page":1,"pageSize":3},"columns":{"disabled":false}}}'>
     </aura--molecules--playground--widget-playground-state-102020>
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
       <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
@@ -449,6 +449,387 @@
                   <Empty>
                     <div class="text-slate-500 dark:text-slate-400">No tasks assigned yet.</div>
                   </Empty>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Row actions</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Edit and Delete show in viewing; Save and Cancel show in editing. No editing-rows here, so the table owns the mode and Edit opens its own row.</p>
+        <demo id="demo-rowactions">
+          <groupviewtable--ml-inline-edit-table disabled="{{playground.rowactions.disabled}}">
+            <Caption>Row actions own the editing mode</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="name" sortable>Name</TableHead>
+                <TableHead key="role">Role</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow key="r1">
+                <TableCell><groupentertext--ml-enter-text value="Ana Ruiz"></groupentertext--ml-enter-text></TableCell>
+                <TableCell><groupentertext--ml-enter-text value="Product Designer"></groupentertext--ml-enter-text></TableCell>
+                <RowActions><RowAction action="edit"><grouptriggeraction--ml-button-standard size="xs" data-variant="secondary"><Label>Edit</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="delete"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Delete</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="save"><grouptriggeraction--ml-button-standard size="xs" data-variant="primary"><Label>Save</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="cancel"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Cancel</Label></grouptriggeraction--ml-button-standard></RowAction></RowActions>
+              </TableRow>
+              <TableRow key="r2">
+                <TableCell><groupentertext--ml-enter-text value="Marcos Lima"></groupentertext--ml-enter-text></TableCell>
+                <TableCell><groupentertext--ml-enter-text value="Frontend Engineer"></groupentertext--ml-enter-text></TableCell>
+                <RowActions><RowAction action="edit"><grouptriggeraction--ml-button-standard size="xs" data-variant="secondary"><Label>Edit</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="delete"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Delete</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="save"><grouptriggeraction--ml-button-standard size="xs" data-variant="primary"><Label>Save</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="cancel"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Cancel</Label></grouptriggeraction--ml-button-standard></RowAction></RowActions>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.rowactions.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-rowactions">
+              <template>
+                <groupviewtable--ml-inline-edit-table disabled="{{playground.rowactions.disabled}}">
+                  <Caption>Row actions own the editing mode</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="name" sortable>Name</TableHead>
+                      <TableHead key="role">Role</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow key="r1">
+                      <TableCell><groupentertext--ml-enter-text value="Ana Ruiz"></groupentertext--ml-enter-text></TableCell>
+                      <TableCell><groupentertext--ml-enter-text value="Product Designer"></groupentertext--ml-enter-text></TableCell>
+                      <RowActions><RowAction action="edit"><grouptriggeraction--ml-button-standard size="xs" data-variant="secondary"><Label>Edit</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="delete"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Delete</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="save"><grouptriggeraction--ml-button-standard size="xs" data-variant="primary"><Label>Save</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="cancel"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Cancel</Label></grouptriggeraction--ml-button-standard></RowAction></RowActions>
+                    </TableRow>
+                    <TableRow key="r2">
+                      <TableCell><groupentertext--ml-enter-text value="Marcos Lima"></groupentertext--ml-enter-text></TableCell>
+                      <TableCell><groupentertext--ml-enter-text value="Frontend Engineer"></groupentertext--ml-enter-text></TableCell>
+                      <RowActions><RowAction action="edit"><grouptriggeraction--ml-button-standard size="xs" data-variant="secondary"><Label>Edit</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="delete"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Delete</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="save"><grouptriggeraction--ml-button-standard size="xs" data-variant="primary"><Label>Save</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="cancel"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Cancel</Label></grouptriggeraction--ml-button-standard></RowAction></RowActions>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">New record</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">The footer trigger opens the draft row at the end of the body. One draft at a time, and the page writes the real row on save.</p>
+        <demo id="demo-newrecord">
+          <groupviewtable--ml-inline-edit-table disabled="{{playground.newrecord.disabled}}">
+            <Caption>New record opens a draft row</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="name" sortable>Name</TableHead>
+                <TableHead key="role">Role</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow key="r1">
+                <TableCell><groupentertext--ml-enter-text value="Ana Ruiz"></groupentertext--ml-enter-text></TableCell>
+                <TableCell><groupentertext--ml-enter-text value="Product Designer"></groupentertext--ml-enter-text></TableCell>
+                <RowActions><RowAction action="edit"><grouptriggeraction--ml-button-standard size="xs" data-variant="secondary"><Label>Edit</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="delete"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Delete</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="save"><grouptriggeraction--ml-button-standard size="xs" data-variant="primary"><Label>Save</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="cancel"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Cancel</Label></grouptriggeraction--ml-button-standard></RowAction></RowActions>
+              </TableRow>
+            </TableBody>
+            <NewRecordRow key="draft">
+              <TableCell><groupentertext--ml-enter-text value=""></groupentertext--ml-enter-text></TableCell>
+              <TableCell><groupentertext--ml-enter-text value=""></groupentertext--ml-enter-text></TableCell>
+              <RowActions><RowAction action="save"><grouptriggeraction--ml-button-standard size="xs" data-variant="primary"><Label>Save</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="cancel"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Cancel</Label></grouptriggeraction--ml-button-standard></RowAction></RowActions>
+            </NewRecordRow>
+            <TableFooter>
+              <RowAction action="new"><grouptriggeraction--ml-button-standard size="xs" data-variant="secondary"><Label>New record</Label></grouptriggeraction--ml-button-standard></RowAction>
+            </TableFooter>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.newrecord.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-newrecord">
+              <template>
+                <groupviewtable--ml-inline-edit-table disabled="{{playground.newrecord.disabled}}">
+                  <Caption>New record opens a draft row</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="name" sortable>Name</TableHead>
+                      <TableHead key="role">Role</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow key="r1">
+                      <TableCell><groupentertext--ml-enter-text value="Ana Ruiz"></groupentertext--ml-enter-text></TableCell>
+                      <TableCell><groupentertext--ml-enter-text value="Product Designer"></groupentertext--ml-enter-text></TableCell>
+                      <RowActions><RowAction action="edit"><grouptriggeraction--ml-button-standard size="xs" data-variant="secondary"><Label>Edit</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="delete"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Delete</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="save"><grouptriggeraction--ml-button-standard size="xs" data-variant="primary"><Label>Save</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="cancel"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Cancel</Label></grouptriggeraction--ml-button-standard></RowAction></RowActions>
+                    </TableRow>
+                  </TableBody>
+                  <NewRecordRow key="draft">
+                    <TableCell><groupentertext--ml-enter-text value=""></groupentertext--ml-enter-text></TableCell>
+                    <TableCell><groupentertext--ml-enter-text value=""></groupentertext--ml-enter-text></TableCell>
+                    <RowActions><RowAction action="save"><grouptriggeraction--ml-button-standard size="xs" data-variant="primary"><Label>Save</Label></grouptriggeraction--ml-button-standard></RowAction><RowAction action="cancel"><grouptriggeraction--ml-button-standard size="xs" data-variant="ghost"><Label>Cancel</Label></grouptriggeraction--ml-button-standard></RowAction></RowActions>
+                  </NewRecordRow>
+                  <TableFooter>
+                    <RowAction action="new"><grouptriggeraction--ml-button-standard size="xs" data-variant="secondary"><Label>New record</Label></grouptriggeraction--ml-button-standard></RowAction>
+                  </TableFooter>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Sort by declared value</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Price and date sort by sort-value, not by the masked text. Sorting by text would place 01/12/2025 after 02/01/2026.</p>
+        <demo id="demo-sortvalue">
+          <groupviewtable--ml-inline-edit-table>
+            <Caption>Sorting by declared value</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="product" sortable>Product</TableHead>
+                <TableHead key="price" sortable>Price</TableHead>
+                <TableHead key="due" sortable>Due date</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow key="p1">
+                <TableCell>Keyboard</TableCell>
+                <TableCell sort-value="1234.5">R$ 1.234,50</TableCell>
+                <TableCell sort-value="2026-01-02">02/01/2026</TableCell>
+              </TableRow>
+              <TableRow key="p2">
+                <TableCell>Monitor</TableCell>
+                <TableCell sort-value="987">R$ 987,00</TableCell>
+                <TableCell sort-value="2025-12-01">01/12/2025</TableCell>
+              </TableRow>
+              <TableRow key="p3">
+                <TableCell>Webcam</TableCell>
+                <TableCell sort-value="89.9">R$ 89,90</TableCell>
+                <TableCell sort-value="2026-03-15">15/03/2026</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <p class="text-sm text-slate-600 dark:text-slate-300">No dynamic properties in this scenario.</p>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-sortvalue">
+              <template>
+                <groupviewtable--ml-inline-edit-table>
+                  <Caption>Sorting by declared value</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="product" sortable>Product</TableHead>
+                      <TableHead key="price" sortable>Price</TableHead>
+                      <TableHead key="due" sortable>Due date</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow key="p1">
+                      <TableCell>Keyboard</TableCell>
+                      <TableCell sort-value="1234.5">R$ 1.234,50</TableCell>
+                      <TableCell sort-value="2026-01-02">02/01/2026</TableCell>
+                    </TableRow>
+                    <TableRow key="p2">
+                      <TableCell>Monitor</TableCell>
+                      <TableCell sort-value="987">R$ 987,00</TableCell>
+                      <TableCell sort-value="2025-12-01">01/12/2025</TableCell>
+                    </TableRow>
+                    <TableRow key="p3">
+                      <TableCell>Webcam</TableCell>
+                      <TableCell sort-value="89.9">R$ 89,90</TableCell>
+                      <TableCell sort-value="2026-03-15">15/03/2026</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Internal pagination</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Seven rows, three per page and no total-items: the table holds the whole set, so it sorts it and slices it.</p>
+        <demo id="demo-internalpage">
+          <groupviewtable--ml-inline-edit-table
+            page="{{playground.internalpage.page}}"
+            page-size="{{playground.internalpage.pageSize}}">
+            <Caption>Internal pagination slices the received set</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="name" sortable>Name</TableHead>
+                <TableHead key="team">Team</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow key="e1">
+                <TableCell>Ana Ruiz</TableCell>
+                <TableCell>Design</TableCell>
+              </TableRow>
+              <TableRow key="e2">
+                <TableCell>Marcos Lima</TableCell>
+                <TableCell>Engineering</TableCell>
+              </TableRow>
+              <TableRow key="e3">
+                <TableCell>Julia Costa</TableCell>
+                <TableCell>Quality</TableCell>
+              </TableRow>
+              <TableRow key="e4">
+                <TableCell>Bruno Dias</TableCell>
+                <TableCell>Support</TableCell>
+              </TableRow>
+              <TableRow key="e5">
+                <TableCell>Carla Nunes</TableCell>
+                <TableCell>Design</TableCell>
+              </TableRow>
+              <TableRow key="e6">
+                <TableCell>Diego Alves</TableCell>
+                <TableCell>Engineering</TableCell>
+              </TableRow>
+              <TableRow key="e7">
+                <TableCell>Elisa Prado</TableCell>
+                <TableCell>Marketing</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-number-102020 label="page" value="{{playground.internalpage.page}}"></aura--molecules--playground--widget-playground-state-number-102020><aura--molecules--playground--widget-playground-state-number-102020 label="pageSize" value="{{playground.internalpage.pageSize}}"></aura--molecules--playground--widget-playground-state-number-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-internalpage">
+              <template>
+                <groupviewtable--ml-inline-edit-table
+                  page="{{playground.internalpage.page}}"
+                  page-size="{{playground.internalpage.pageSize}}">
+                  <Caption>Internal pagination slices the received set</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="name" sortable>Name</TableHead>
+                      <TableHead key="team">Team</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow key="e1">
+                      <TableCell>Ana Ruiz</TableCell>
+                      <TableCell>Design</TableCell>
+                    </TableRow>
+                    <TableRow key="e2">
+                      <TableCell>Marcos Lima</TableCell>
+                      <TableCell>Engineering</TableCell>
+                    </TableRow>
+                    <TableRow key="e3">
+                      <TableCell>Julia Costa</TableCell>
+                      <TableCell>Quality</TableCell>
+                    </TableRow>
+                    <TableRow key="e4">
+                      <TableCell>Bruno Dias</TableCell>
+                      <TableCell>Support</TableCell>
+                    </TableRow>
+                    <TableRow key="e5">
+                      <TableCell>Carla Nunes</TableCell>
+                      <TableCell>Design</TableCell>
+                    </TableRow>
+                    <TableRow key="e6">
+                      <TableCell>Diego Alves</TableCell>
+                      <TableCell>Engineering</TableCell>
+                    </TableRow>
+                    <TableRow key="e7">
+                      <TableCell>Elisa Prado</TableCell>
+                      <TableCell>Marketing</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </groupviewtable--ml-inline-edit-table>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Column order and width</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Drag a header to move the column, drag the right edge of a header to resize it. Both last for the session only.</p>
+        <demo id="demo-columns">
+          <groupviewtable--ml-inline-edit-table disabled="{{playground.columns.disabled}}">
+            <Caption>Drag a header to reorder, drag its right edge to resize</Caption>
+            <TableHeader>
+              <TableRow>
+                <TableHead key="id" sortable>ID</TableHead>
+                <TableHead key="name" sortable>Name</TableHead>
+                <TableHead key="role">Role</TableHead>
+                <TableHead key="location">Location</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow key="c1">
+                <TableCell>1</TableCell>
+                <TableCell>Ana Ruiz</TableCell>
+                <TableCell>Product Designer</TableCell>
+                <TableCell>Lisbon</TableCell>
+              </TableRow>
+              <TableRow key="c2">
+                <TableCell>2</TableCell>
+                <TableCell>Marcos Lima</TableCell>
+                <TableCell>Frontend Engineer</TableCell>
+                <TableCell>Recife</TableCell>
+              </TableRow>
+            </TableBody>
+          </groupviewtable--ml-inline-edit-table>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <aura--molecules--playground--widget-playground-state-boolean-102020 label="disabled" value="{{playground.columns.disabled}}"></aura--molecules--playground--widget-playground-state-boolean-102020>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-columns">
+              <template>
+                <groupviewtable--ml-inline-edit-table disabled="{{playground.columns.disabled}}">
+                  <Caption>Drag a header to reorder, drag its right edge to resize</Caption>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead key="id" sortable>ID</TableHead>
+                      <TableHead key="name" sortable>Name</TableHead>
+                      <TableHead key="role">Role</TableHead>
+                      <TableHead key="location">Location</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow key="c1">
+                      <TableCell>1</TableCell>
+                      <TableCell>Ana Ruiz</TableCell>
+                      <TableCell>Product Designer</TableCell>
+                      <TableCell>Lisbon</TableCell>
+                    </TableRow>
+                    <TableRow key="c2">
+                      <TableCell>2</TableCell>
+                      <TableCell>Marcos Lima</TableCell>
+                      <TableCell>Frontend Engineer</TableCell>
+                      <TableCell>Recife</TableCell>
+                    </TableRow>
+                  </TableBody>
                 </groupviewtable--ml-inline-edit-table>
               </template>
             </aura--molecules--playground--widget-playground-state-preview-code-102020>
