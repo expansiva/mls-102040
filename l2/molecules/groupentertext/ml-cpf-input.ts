@@ -239,11 +239,11 @@ const viewValue = this.inputType === 'password'
 return html`
 <div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
-<div class="flex items-stretch ml-input-container">
+<div class="flex items-center gap-2">
 ${this.renderPrefix()}
-<div class="flex-1 px-3 py-2 text-sm ml-text">
+<span class="text-sm ml-text">
 ${viewValue}
-</div>
+</span>
 ${this.renderSuffix()}
 </div>
 </div>

@@ -352,9 +352,9 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
       return this.mask ? this.applyMask(this.value) : this.value;
     })();
     return html`
-      <div class="flex items-center">
+      <div class="flex items-center gap-2">
         ${this.renderPrefix()}
-        <span class="${this.getInputClasses()}" aria-labelledby="${this.hasSlot('Label') ? this.getLabelId() : ''}">
+        <span class="text-sm ml-text" aria-labelledby="${this.hasSlot('Label') ? this.getLabelId() : ''}">
           ${unsafeHTML(displayText)}
         </span>
         ${this.renderSuffix()}
