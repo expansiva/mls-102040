@@ -8,6 +8,8 @@ import '/_102040_/l2/molecules/grouptriggeraction/ml-icon-button';
 import '/_102040_/l2/molecules/grouptriggeraction/ml-kebab-action-trigger';
 import '/_102040_/l2/molecules/grouptriggeraction/ml-pagination-control';
 import '/_102040_/l2/molecules/grouptriggeraction/ml-split-button';
+import { molecules, scenarios } from '/_102040_/l2/molecules/grouptriggeraction/index.defs.js';
+import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
 @customElement('molecules--grouptriggeraction--index-102040')
 export class GroupTriggerActionIndex extends StateLitElement {
@@ -216,133 +218,6 @@ export class GroupTriggerActionIndex extends StateLitElement {
   // REFERENCE TABLE
   // ===========================================================================
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{
-      scenario: string;
-      buttonStandard: boolean;
-      iconButton: boolean;
-      buttonGroup: boolean;
-      splitButton: boolean;
-      kebabActionTrigger: boolean;
-      paginationControl: boolean;
-    }> = [
-      {
-        scenario: 'Ação primária única com rótulo visível (Salvar, Enviar, Confirmar)',
-        buttonStandard: true,
-        iconButton: false,
-        buttonGroup: false,
-        splitButton: false,
-        kebabActionTrigger: false,
-        paginationControl: false,
-      },
-      {
-        scenario: 'Ação compacta só com ícone (toolbar, cards densos)',
-        buttonStandard: false,
-        iconButton: true,
-        buttonGroup: false,
-        splitButton: false,
-        kebabActionTrigger: false,
-        paginationControl: false,
-      },
-      {
-        scenario: 'Várias ações relacionadas exibidas juntas (alinhamento, filtros)',
-        buttonStandard: false,
-        iconButton: false,
-        buttonGroup: true,
-        splitButton: false,
-        kebabActionTrigger: false,
-        paginationControl: false,
-      },
-      {
-        scenario: 'Ação principal + alternativas no mesmo controle (Publicar / Agendar)',
-        buttonStandard: false,
-        iconButton: false,
-        buttonGroup: false,
-        splitButton: true,
-        kebabActionTrigger: false,
-        paginationControl: false,
-      },
-      {
-        scenario: 'Menu de overflow para ações secundárias ou contextuais (⋮)',
-        buttonStandard: false,
-        iconButton: false,
-        buttonGroup: false,
-        splitButton: false,
-        kebabActionTrigger: true,
-        paginationControl: false,
-      },
-      {
-        scenario: 'Navegar entre páginas de um conjunto de dados (listas, tabelas)',
-        buttonStandard: false,
-        iconButton: false,
-        buttonGroup: false,
-        splitButton: false,
-        kebabActionTrigger: false,
-        paginationControl: true,
-      },
-      {
-        scenario: 'Disparar comando imediato com feedback de loading/disabled',
-        buttonStandard: true,
-        iconButton: true,
-        buttonGroup: true,
-        splitButton: true,
-        kebabActionTrigger: true,
-        paginationControl: false,
-      },
-      {
-        scenario: 'Trocar de página emitindo evento com a página selecionada',
-        buttonStandard: false,
-        iconButton: false,
-        buttonGroup: false,
-        splitButton: false,
-        kebabActionTrigger: false,
-        paginationControl: true,
-      },
-    ];
-
-    const headers = [
-      { label: 'Standard', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'Icon', cls: 'text-emerald-600 dark:text-emerald-400' },
-      { label: 'Group', cls: 'text-amber-600 dark:text-amber-400' },
-      { label: 'Split', cls: 'text-rose-600 dark:text-rose-400' },
-      { label: 'Kebab', cls: 'text-sky-600 dark:text-sky-400' },
-      { label: 'Pagination', cls: 'text-indigo-600 dark:text-indigo-400' },
-    ];
-
-    return html`
-      <section class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700">
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Referência rápida</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Quando usar cada trigger: ação simples, ícone, grupo, split, menu kebab ou navegação por páginas.
-          </p>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm overflow-x-auto">
-            <table class="w-full text-sm min-w-[48rem]">
-              <thead>
-                <tr class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
-                  <th class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-2/5">Cenário</th>
-                  ${headers.map(h => html`
-                    <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">${h.label}</th>
-                  `)}
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map((row, i) => html`
-                  <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
-                    <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-                    ${([row.buttonStandard, row.iconButton, row.buttonGroup, row.splitButton, row.kebabActionTrigger, row.paginationControl] as boolean[]).map(ok => html`
-                      <td class="px-4 py-3.5 text-center">
-                        ${ok
-                          ? html`<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>`
-                          : html`<span class="text-slate-200 dark:text-slate-700 text-sm">—</span>`}
-                      </td>
-                    `)}
-                  </tr>
-                `)}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    `;
+    return renderCatalogReferenceTable(molecules, scenarios);
   }
 }

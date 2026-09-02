@@ -7,6 +7,8 @@ import '/_102040_/l2/molecules/groupexpandcontent/ml-readmore-expand';
 import '/_102040_/l2/molecules/groupexpandcontent/ml-single-expand-content';
 import '/_102040_/l2/molecules/groupexpandcontent/ml-collapsible-panel';
 import '/_102040_/l2/molecules/groupexpandcontent/ml-reveal-overlay';
+import { molecules, scenarios } from '/_102040_/l2/molecules/groupexpandcontent/index.defs.js';
+import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
 @customElement('molecules--groupexpandcontent--index-102040')
 export class GroupExpandContentIndex extends StateLitElement {
@@ -233,136 +235,7 @@ export class GroupExpandContentIndex extends StateLitElement {
   // ===========================================================================
   // REFERENCE TABLE
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{
-      scenario: string;
-      accordion: boolean;
-      readmoreExpand: boolean;
-      singleExpandContent: boolean;
-      collapsiblePanel: boolean;
-      revealOverlay: boolean;
-    }> = [
-      {
-        scenario: 'Only one section should stay open at a time (classic accordion behavior).',
-        accordion: true,
-        readmoreExpand: false,
-        singleExpandContent: false,
-        collapsiblePanel: false,
-        revealOverlay: false,
-      },
-      {
-        scenario: 'Show a teaser with an optional longer explanation.',
-        accordion: false,
-        readmoreExpand: true,
-        singleExpandContent: false,
-        collapsiblePanel: false,
-        revealOverlay: false,
-      },
-      {
-        scenario: 'Highlight a single expandable detail with optional disabled items.',
-        accordion: false,
-        readmoreExpand: false,
-        singleExpandContent: true,
-        collapsiblePanel: false,
-        revealOverlay: false,
-      },
-      {
-        scenario: 'Let users open several configuration panels at once.',
-        accordion: false,
-        readmoreExpand: false,
-        singleExpandContent: false,
-        collapsiblePanel: true,
-        revealOverlay: false,
-      },
-      {
-        scenario: 'Hide sensitive content behind a deliberate reveal action.',
-        accordion: false,
-        readmoreExpand: false,
-        singleExpandContent: false,
-        collapsiblePanel: false,
-        revealOverlay: true,
-      },
-    ];
-
-    const headers = [
-      { label: 'Accordion', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'Read more', cls: 'text-emerald-600 dark:text-emerald-400' },
-      { label: 'Single expand', cls: 'text-amber-600 dark:text-amber-400' },
-      { label: 'Collapsible panel', cls: 'text-rose-600 dark:text-rose-400' },
-      { label: 'Reveal overlay', cls: 'text-sky-600 dark:text-sky-400' },
-    ];
-
-    return html`
-      <section
-        class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700"
-      >
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Supports accordion mode (single open) or multiple open simultaneously, so choose the
-            layout that best matches your content density and disclosure needs.
-          </p>
-          <div
-            class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm"
-          >
-            <table class="w-full text-sm">
-              <thead>
-                <tr
-                  class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700"
-                >
-                  <th
-                    class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4"
-                  >
-                    Scenario
-                  </th>
-                  ${headers.map(
-                    (h) => html`
-                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">
-                        ${h.label}
-                      </th>
-                    `
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map(
-                  (row, i) => html`
-                    <tr
-                      class="${i % 2 !== 0
-                        ? 'bg-slate-50/60 dark:bg-slate-900/40'
-                        : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0"
-                    >
-                      <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">
-                        ${row.scenario}
-                      </td>
-                      ${([
-                        row.accordion,
-                        row.readmoreExpand,
-                        row.singleExpandContent,
-                        row.collapsiblePanel,
-                        row.revealOverlay,
-                      ] as boolean[]).map(
-                        (ok) => html`
-                          <td class="px-4 py-3.5 text-center">
-                            ${ok
-                              ? html`
-                                  <span
-                                    class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold"
-                                    >✓</span
-                                  >
-                                `
-                              : html`<span class="text-slate-200 dark:text-slate-700 text-sm">—</span>`}
-                          </td>
-                        `
-                      )}
-                    </tr>
-                  `
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    `;
+    return renderCatalogReferenceTable(molecules, scenarios);
   }
 
   // ===========================================================================
