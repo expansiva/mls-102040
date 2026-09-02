@@ -5,6 +5,8 @@ import { StateLitElement } from '/_102029_/l2/stateLitElement.js';
 import '/_102040_/l2/molecules/groupentertime/ml-clock-time-picker';
 import '/_102040_/l2/molecules/groupentertime/ml-time-scroll-picker';
 import '/_102040_/l2/molecules/groupentertime/ml-enter-time-duration';
+import { molecules, scenarios } from '/_102040_/l2/molecules/groupentertime/index.defs.js';
+import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
 @customElement('molecules--groupentertime--index-102040')
 export class GroupEnterTimeIndex extends StateLitElement {
@@ -121,85 +123,7 @@ export class GroupEnterTimeIndex extends StateLitElement {
   // ===========================================================================
   // REFERENCE TABLE
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{
-      scenario: string;
-      clockTimePicker: boolean;
-      timeScrollPicker: boolean;
-      enterTimeDuration: boolean;
-    }> = [
-      {
-        scenario: 'Users want an analog-style clock for quick selection.',
-        clockTimePicker: true,
-        timeScrollPicker: false,
-        enterTimeDuration: false,
-      },
-      {
-        scenario: 'Kiosk or mobile UI where time columns spin quickly.',
-        clockTimePicker: false,
-        timeScrollPicker: true,
-        enterTimeDuration: false,
-      },
-      {
-        scenario: 'Capturing elapsed time or shift length with seconds.',
-        clockTimePicker: false,
-        timeScrollPicker: false,
-        enterTimeDuration: true,
-      },
-      {
-        scenario: 'Choosing opening/closing hours in 15-minute steps.',
-        clockTimePicker: false,
-        timeScrollPicker: true,
-        enterTimeDuration: false,
-      },
-    ];
-    const headers = [
-      { label: 'Clock picker', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'Scroll picker', cls: 'text-emerald-600 dark:text-emerald-400' },
-      { label: 'Duration input', cls: 'text-amber-600 dark:text-amber-400' },
-    ];
-
-    return html`
-      <section class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700">
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Use this guide to pick the best time-only input for business hours, daily schedules, alarms, and shift configuration workflows.
-          </p>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
-                  <th class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4">Scenario</th>
-                  ${headers.map(
-                    (h) => html`
-                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">${h.label}</th>
-                    `
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map(
-                  (row, i) => html`
-                    <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
-                      <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-                      ${([row.clockTimePicker, row.timeScrollPicker, row.enterTimeDuration] as boolean[]).map(
-                        (ok) => html`
-                          <td class="px-4 py-3.5 text-center">
-                            ${ok
-                              ? html`<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>`
-                              : html`<span class="text-slate-200 dark:text-slate-700 text-sm">—</span>`}
-                          </td>
-                        `
-                      )}
-                    </tr>
-                  `
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    `;
+    return renderCatalogReferenceTable(molecules, scenarios);
   }
 
   // ===========================================================================

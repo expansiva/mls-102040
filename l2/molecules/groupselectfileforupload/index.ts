@@ -7,6 +7,8 @@ import '/_102040_/l2/molecules/groupselectfileforupload/ml-file-upload-preview';
 import '/_102040_/l2/molecules/groupselectfileforupload/ml-user-photo-upload';
 import '/_102040_/l2/molecules/groupselectfileforupload/ml-upload-file-list';
 import '/_102040_/l2/molecules/groupselectfileforupload/ml-file-metadata-uploader';
+import { molecules, scenarios } from '/_102040_/l2/molecules/groupselectfileforupload/index.defs.js';
+import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
 @customElement('molecules--groupselectfileforupload--index-102040')
 export class GroupSelectFileForUploadIndex extends StateLitElement {
@@ -226,135 +228,7 @@ export class GroupSelectFileForUploadIndex extends StateLitElement {
   // ===========================================================================
   // REFERENCE TABLE
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{
-      scenario: string;
-      dropzone: boolean;
-      preview: boolean;
-      userPhoto: boolean;
-      fileList: boolean;
-      metadataUploader: boolean;
-    }> = [
-      {
-        scenario: 'Need drag-and-drop and bulk validation for many files.',
-        dropzone: true,
-        preview: false,
-        userPhoto: false,
-        fileList: true,
-        metadataUploader: false
-      },
-      {
-        scenario: 'Single document upload with an inline preview.',
-        dropzone: false,
-        preview: true,
-        userPhoto: false,
-        fileList: false,
-        metadataUploader: false
-      },
-      {
-        scenario: 'Capture a headshot directly from the camera.',
-        dropzone: false,
-        preview: false,
-        userPhoto: true,
-        fileList: false,
-        metadataUploader: false
-      },
-      {
-        scenario: 'Collect many spreadsheet files and manage a list.',
-        dropzone: false,
-        preview: false,
-        userPhoto: false,
-        fileList: true,
-        metadataUploader: false
-      },
-      {
-        scenario: 'Upload CSVs that must include metadata constraints.',
-        dropzone: false,
-        preview: false,
-        userPhoto: false,
-        fileList: false,
-        metadataUploader: true
-      }
-    ];
-    const headers = [
-      { label: 'Dropzone', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'Preview', cls: 'text-emerald-600 dark:text-emerald-400' },
-      { label: 'User Photo', cls: 'text-amber-600 dark:text-amber-400' },
-      { label: 'File List', cls: 'text-rose-600 dark:text-rose-400' },
-      { label: 'Metadata Uploader', cls: 'text-sky-600 dark:text-sky-400' }
-    ];
-
-    return html`
-      <section
-        class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700"
-      >
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Use this guide to match the right file selection pattern to your upload flow,
-            validation requirements, and metadata needs.
-          </p>
-          <div
-            class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm"
-          >
-            <table class="w-full text-sm">
-              <thead>
-                <tr
-                  class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700"
-                >
-                  <th
-                    class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4"
-                  >
-                    Scenario
-                  </th>
-                  ${headers.map(
-                    (h) => html`
-                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">
-                        ${h.label}
-                      </th>
-                    `
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map(
-                  (row, i) => html`
-                    <tr
-                      class="${i % 2 !== 0
-                        ? 'bg-slate-50/60 dark:bg-slate-900/40'
-                        : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0"
-                    >
-                      <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">
-                        ${row.scenario}
-                      </td>
-                      ${([
-                        row.dropzone,
-                        row.preview,
-                        row.userPhoto,
-                        row.fileList,
-                        row.metadataUploader
-                      ] as boolean[]).map(
-                        (ok) => html`
-                          <td class="px-4 py-3.5 text-center">
-                            ${ok
-                              ? html`<span
-                                  class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold"
-                                  >✓</span
-                                >`
-                              : html`<span class="text-slate-200 dark:text-slate-700 text-sm"
-                                  >—</span
-                                >`}
-                          </td>
-                        `
-                      )}
-                    </tr>
-                  `
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    `;
+    return renderCatalogReferenceTable(molecules, scenarios);
   }
 
   public render(): TemplateResult {

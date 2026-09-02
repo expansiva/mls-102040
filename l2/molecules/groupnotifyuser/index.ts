@@ -6,6 +6,8 @@ import '/_102040_/l2/molecules/groupnotifyuser/ml-notify-banner';
 import '/_102040_/l2/molecules/groupnotifyuser/ml-toast-notification';
 import '/_102040_/l2/molecules/groupnotifyuser/ml-alert-modal';
 import '/_102040_/l2/molecules/groupnotifyuser/ml-contextual-feedback';
+import { molecules, scenarios } from '/_102040_/l2/molecules/groupnotifyuser/index.defs.js';
+import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
 @customElement('molecules--groupnotifyuser--index-102040')
 export class GroupNotifyUserIndex extends StateLitElement {
@@ -167,96 +169,7 @@ export class GroupNotifyUserIndex extends StateLitElement {
   // ===========================================================================
   // REFERENCE TABLE
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{
-      scenario: string;
-      notifyBanner: boolean;
-      toastNotification: boolean;
-      alertModal: boolean;
-      contextualFeedback: boolean;
-    }> = [
-      {
-        scenario: 'Persistent update at the top of the page with a clear action.',
-        notifyBanner: true,
-        toastNotification: false,
-        alertModal: false,
-        contextualFeedback: false,
-      },
-      {
-        scenario: 'Quick success confirmation that should disappear automatically.',
-        notifyBanner: false,
-        toastNotification: true,
-        alertModal: false,
-        contextualFeedback: false,
-      },
-      {
-        scenario: 'Critical failure that must be acknowledged before continuing.',
-        notifyBanner: false,
-        toastNotification: false,
-        alertModal: true,
-        contextualFeedback: false,
-      },
-      {
-        scenario: 'Inline guidance tied to a specific form field or action.',
-        notifyBanner: false,
-        toastNotification: false,
-        alertModal: false,
-        contextualFeedback: true,
-      },
-    ];
-    const headers = [
-      { label: 'Banner', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'Toast', cls: 'text-emerald-600 dark:text-emerald-400' },
-      { label: 'Alert Modal', cls: 'text-amber-600 dark:text-amber-400' },
-      { label: 'Contextual', cls: 'text-rose-600 dark:text-rose-400' },
-    ];
-
-    return html`
-      <section class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700">
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Use this matrix to pick the notification surface that matches urgency, visibility, and placement needs.
-          </p>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
-                  <th class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4">Scenario</th>
-                  ${headers.map(
-                    (h) => html`
-                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">${h.label}</th>
-                    `
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map(
-                  (row, i) => html`
-                    <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
-                      <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-                      ${([
-                        row.notifyBanner,
-                        row.toastNotification,
-                        row.alertModal,
-                        row.contextualFeedback,
-                      ] as boolean[]).map(
-                        (ok) => html`
-                          <td class="px-4 py-3.5 text-center">
-                            ${ok
-                              ? html`<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>`
-                              : html`<span class="text-slate-200 dark:text-slate-700 text-sm">—</span>`}
-                          </td>
-                        `
-                      )}
-                    </tr>
-                  `
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    `;
+    return renderCatalogReferenceTable(molecules, scenarios);
   }
 
   render(): TemplateResult {

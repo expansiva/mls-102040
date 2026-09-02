@@ -6,6 +6,8 @@ import '/_102040_/l2/molecules/grouplocateposition/ml-address-autocomplete';
 import '/_102040_/l2/molecules/grouplocateposition/ml-geolocation-trigger';
 import '/_102040_/l2/molecules/grouplocateposition/ml-locate-map-picker';
 import '/_102040_/l2/molecules/grouplocateposition/ml-locate-nearby';
+import { molecules, scenarios } from '/_102040_/l2/molecules/grouplocateposition/index.defs.js';
+import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
 @customElement('molecules--grouplocateposition--index-102040')
 export class GroupLocatePositionIndex extends StateLitElement {
@@ -177,96 +179,7 @@ export class GroupLocatePositionIndex extends StateLitElement {
   // ===========================================================================
   // REFERENCE TABLE
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{
-      scenario: string;
-      addressAutocomplete: boolean;
-      geolocationTrigger: boolean;
-      locateMapPicker: boolean;
-      locateNearby: boolean;
-    }> = [
-      {
-        scenario: 'User types an address and expects search suggestions from your backend.',
-        addressAutocomplete: true,
-        geolocationTrigger: false,
-        locateMapPicker: false,
-        locateNearby: false,
-      },
-      {
-        scenario: 'Only need a single action to capture the current coordinates.',
-        addressAutocomplete: false,
-        geolocationTrigger: true,
-        locateMapPicker: false,
-        locateNearby: false,
-      },
-      {
-        scenario: 'User should select a precise pin with an embedded map preview.',
-        addressAutocomplete: false,
-        geolocationTrigger: false,
-        locateMapPicker: true,
-        locateNearby: false,
-      },
-      {
-        scenario: 'Choose a nearby area once a base location is known.',
-        addressAutocomplete: false,
-        geolocationTrigger: false,
-        locateMapPicker: false,
-        locateNearby: true,
-      },
-    ];
-    const headers = [
-      { label: 'Address autocomplete', cls: 'text-sky-600 dark:text-sky-400' },
-      { label: 'Geolocation trigger', cls: 'text-emerald-600 dark:text-emerald-400' },
-      { label: 'Map picker', cls: 'text-amber-600 dark:text-amber-400' },
-      { label: 'Nearby area', cls: 'text-rose-600 dark:text-rose-400' },
-    ];
-
-    return html`
-      <section class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700">
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Use this matrix to decide which locate + position implementation best matches the way users need to inform or visualize a geographic location.
-          </p>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
-                  <th class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4">Scenario</th>
-                  ${headers.map(
-                    (h) => html`
-                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">${h.label}</th>
-                    `
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map(
-                  (row, i) => html`
-                    <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
-                      <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-                      ${([
-                        row.addressAutocomplete,
-                        row.geolocationTrigger,
-                        row.locateMapPicker,
-                        row.locateNearby,
-                      ] as boolean[]).map(
-                        (ok) => html`
-                          <td class="px-4 py-3.5 text-center">
-                            ${ok
-                              ? html`<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>`
-                              : html`<span class="text-slate-200 dark:text-slate-700 text-sm">—</span>`}
-                          </td>
-                        `
-                      )}
-                    </tr>
-                  `
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    `;
+    return renderCatalogReferenceTable(molecules, scenarios);
   }
 
   // ===========================================================================

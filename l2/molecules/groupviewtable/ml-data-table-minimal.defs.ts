@@ -40,4 +40,3 @@ Fornecer uma tabela de dados minimalista com ordenação, seleção opcional, es
 
 # Notes
 - O suporte a dark mode deve cobrir todos os estados visuais e de feedback (normal, selecionado, vazio, carregando, erro e desabilitado).`;
-

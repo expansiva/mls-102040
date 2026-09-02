@@ -6,6 +6,8 @@ import '/_102040_/l2/molecules/groupenterdateinterval/ml-date-interval-drag';
 import '/_102040_/l2/molecules/groupenterdateinterval/ml-date-range-dual-calendar';
 import '/_102040_/l2/molecules/groupenterdateinterval/ml-month-year-range';
 import '/_102040_/l2/molecules/groupenterdateinterval/ml-date-interval-presets';
+import { molecules, scenarios } from '/_102040_/l2/molecules/groupenterdateinterval/index.defs.js';
+import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
 @customElement('molecules--groupenterdateinterval--index-102040')
 export class GroupEnterDateIntervalIndex extends StateLitElement {
@@ -169,94 +171,7 @@ export class GroupEnterDateIntervalIndex extends StateLitElement {
   // REFERENCE TABLE
   // ===========================================================================
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{
-      scenario: string;
-      mlDateIntervalDrag: boolean;
-      mlDateRangeDualCalendar: boolean;
-      mlMonthYearRange: boolean;
-      mlDateIntervalPresets: boolean;
-    }> = [
-      {
-        scenario: 'Users should drag across a single calendar for quick selection.',
-        mlDateIntervalDrag: true,
-        mlDateRangeDualCalendar: false,
-        mlMonthYearRange: false,
-        mlDateIntervalPresets: false,
-      },
-      {
-        scenario: 'Longer ranges need two months visible at once.',
-        mlDateIntervalDrag: false,
-        mlDateRangeDualCalendar: true,
-        mlMonthYearRange: false,
-        mlDateIntervalPresets: false,
-      },
-      {
-        scenario: 'Reporting requires full months or year spans rather than exact days.',
-        mlDateIntervalDrag: false,
-        mlDateRangeDualCalendar: false,
-        mlMonthYearRange: true,
-        mlDateIntervalPresets: false,
-      },
-      {
-        scenario: 'Fast selection from predefined ranges like last 7 or 30 days.',
-        mlDateIntervalDrag: false,
-        mlDateRangeDualCalendar: false,
-        mlMonthYearRange: false,
-        mlDateIntervalPresets: true,
-      },
-    ];
-    const headers = [
-      { label: 'Drag interval', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'Dual calendar', cls: 'text-emerald-600 dark:text-emerald-400' },
-      { label: 'Month/Year', cls: 'text-amber-600 dark:text-amber-400' },
-      { label: 'Presets', cls: 'text-rose-600 dark:text-rose-400' },
-    ];
-
-    return html`
-      <section class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700">
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">Compare the date range experiences to decide whether you need drag selection, dual calendars, month/year granularity, or quick presets for common ranges.</p>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
-                  <th class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4">Scenario</th>
-                  ${headers.map(
-                    (h) => html`
-                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">${h.label}</th>
-                    `
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map(
-                  (row, i) => html`
-                    <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
-                      <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-                      ${([
-                        row.mlDateIntervalDrag,
-                        row.mlDateRangeDualCalendar,
-                        row.mlMonthYearRange,
-                        row.mlDateIntervalPresets,
-                      ] as boolean[]).map(
-                        (ok) => html`
-                          <td class="px-4 py-3.5 text-center">
-                            ${ok
-                              ? html`<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>`
-                              : html`<span class="text-slate-200 dark:text-slate-700 text-sm">—</span>`}
-                          </td>
-                        `
-                      )}
-                    </tr>
-                  `
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    `;
+    return renderCatalogReferenceTable(molecules, scenarios);
   }
 
   // ===========================================================================

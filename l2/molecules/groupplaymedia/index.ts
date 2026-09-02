@@ -6,6 +6,8 @@ import '/_102040_/l2/molecules/groupplaymedia/ml-audio-player';
 import '/_102040_/l2/molecules/groupplaymedia/ml-video-player';
 import '/_102040_/l2/molecules/groupplaymedia/ml-pdf-viewer';
 import '/_102040_/l2/molecules/groupplaymedia/ml-image-gallery';
+import { molecules, scenarios } from '/_102040_/l2/molecules/groupplaymedia/index.defs.js';
+import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
 @customElement('molecules--groupplaymedia--index-102040')
 export class GroupPlayMediaIndex extends StateLitElement {
@@ -155,62 +157,7 @@ export class GroupPlayMediaIndex extends StateLitElement {
   // ===========================================================================
   // REFERENCE TABLE
   private renderReferenceTable(): TemplateResult {
-    const rows: Array<{ scenario: string; audioPlayer: boolean; videoPlayer: boolean; pdfViewer: boolean; imageGallery: boolean }> = [
-      { scenario: 'Need a compact audio-only playback bar for podcasts or voice notes.', audioPlayer: true, videoPlayer: false, pdfViewer: false, imageGallery: false },
-      { scenario: 'Need full video playback with poster art and subtitle tracks.', audioPlayer: false, videoPlayer: true, pdfViewer: false, imageGallery: false },
-      { scenario: 'Need inline document preview for PDFs inside a workflow.', audioPlayer: false, videoPlayer: false, pdfViewer: true, imageGallery: false },
-      { scenario: 'Need a gallery-style browsing experience for multiple images.', audioPlayer: false, videoPlayer: false, pdfViewer: false, imageGallery: true },
-      { scenario: 'Need media playback with a shared slot contract across assets.', audioPlayer: true, videoPlayer: true, pdfViewer: true, imageGallery: true },
-    ];
-    const headers = [
-      { label: 'Audio player', cls: 'text-emerald-600 dark:text-emerald-400' },
-      { label: 'Video player', cls: 'text-violet-600 dark:text-violet-400' },
-      { label: 'PDF viewer', cls: 'text-amber-600 dark:text-amber-400' },
-      { label: 'Image gallery', cls: 'text-rose-600 dark:text-rose-400' },
-    ];
-
-    return html`
-      <section class="bg-slate-100 dark:bg-slate-950 px-8 py-20 border-t border-slate-200 dark:border-slate-700">
-        <div class="max-w-5xl mx-auto">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-slate-50 mb-2">Quick reference</h2>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-8">
-            Plays audio or video content. Media sources provided via Source slot tags with fallback format support. Shared contract for both audio and video — swap the component tag to change the player style. Supports autoplay, loop, mute, poster thumbnail, and subtitle tracks. Implementations include video player, audio player, mini player, and media controls.
-          </p>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
-                  <th class="text-left px-5 py-3.5 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide w-3/4">Scenario</th>
-                  ${headers.map(
-                    (h) => html`
-                      <th class="px-4 py-3.5 text-xs font-semibold uppercase tracking-wide ${h.cls}">${h.label}</th>
-                    `,
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                ${rows.map(
-                  (row, i) => html`
-                    <tr class="${i % 2 !== 0 ? 'bg-slate-50/60 dark:bg-slate-900/40' : ''} border-b border-slate-100 dark:border-slate-700/60 last:border-0">
-                      <td class="px-5 py-3.5 text-slate-700 dark:text-slate-300">${row.scenario}</td>
-                      ${([row.audioPlayer, row.videoPlayer, row.pdfViewer, row.imageGallery] as boolean[]).map(
-                        (ok) => html`
-                          <td class="px-4 py-3.5 text-center">
-                            ${ok
-                              ? html`<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 text-xs font-bold">✓</span>`
-                              : html`<span class="text-slate-200 dark:text-slate-700 text-sm">—</span>`}
-                          </td>
-                        `,
-                      )}
-                    </tr>
-                  `,
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    `;
+    return renderCatalogReferenceTable(molecules, scenarios);
   }
 
   // ===========================================================================
