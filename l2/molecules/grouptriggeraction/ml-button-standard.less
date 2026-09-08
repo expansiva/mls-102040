@@ -3,58 +3,71 @@
 grouptriggeraction--ml-button-standard {
 
   .ml-button {
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
-    font-weight: var(--ml-font-weight-medium, 500);
-    border-radius: var(--ml-radius-sm, 6px);
-    transition: background var(--ml-transition, 200ms ease),
-                box-shadow var(--ml-transition, 200ms ease),
-                border-color var(--ml-transition, 200ms ease);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
+    font-weight: var(--font-weight-bold, 500);
+    border-radius: var(--radius-small, 6px);
+    transition: background var(--transition-fast, 200ms ease),
+                box-shadow var(--transition-fast, 200ms ease),
+                border-color var(--transition-fast, 200ms ease);
     cursor: pointer;
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--focus-ring, rgba(59, 130, 246, 0.4));
     }
   }
 
   .ml-button-primary {
-    background: var(--ml-primary, #3b82f6);
-    color: var(--ml-on-primary, #ffffff);
-    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-primary, #3b82f6);
-    box-shadow: var(--ml-shadow-1, 0 1px 3px rgba(0, 0, 0, 0.1));
-    &:hover { filter: brightness(1.1); box-shadow: var(--ml-shadow-2, 0 4px 6px rgba(0, 0, 0, 0.1)); }
-    &:active { filter: brightness(0.9); box-shadow: var(--ml-shadow-0, none); }
+    background: var(--button-primary-bg, #3b82f6);
+    color: var(--button-primary-text, #ffffff);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--button-primary-bg, #3b82f6);
+    box-shadow: var(--shadow-small, 0 1px 3px rgba(0, 0, 0, 0.1));
+    &:hover {
+      background: var(--button-primary-bg-hover, #408fff);
+      border-color: var(--button-primary-bg-hover, #408fff);
+      box-shadow: var(--shadow-medium, 0 4px 6px rgba(0, 0, 0, 0.1));
+    }
+    // :active stays on filter — the design system has no "pressed" role
+    &:active { filter: brightness(0.9); box-shadow: none; }
   }
 
   .ml-button-secondary {
-    background: var(--ml-surface, #ffffff);
-    color: var(--ml-on-surface, #1c1b1f);
-    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
-    &:hover { background: var(--ml-surface-dim, #f5f5f5); }
+    background: var(--button-secondary-bg, #ffffff);
+    color: var(--button-secondary-text, #1c1b1f);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--button-secondary-border, #e2e8f0);
+    &:hover {
+      background: var(--button-secondary-bg-hover, #f5f5f5);
+      border-color: var(--button-secondary-border-hover, #e2e8f0);
+    }
     &:active { filter: brightness(0.95); }
   }
 
   .ml-button-danger {
-    background: var(--ml-error, #ef4444);
-    color: var(--ml-on-error, #ffffff);
-    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-error, #ef4444);
-    box-shadow: var(--ml-shadow-1, 0 1px 3px rgba(0, 0, 0, 0.1));
-    &:hover { filter: brightness(1.1); box-shadow: var(--ml-shadow-2, 0 4px 6px rgba(0, 0, 0, 0.1)); }
-    &:active { filter: brightness(0.9); box-shadow: var(--ml-shadow-0, none); }
+    background: var(--button-danger-bg, #ef4444);
+    color: var(--button-danger-text, #ffffff);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--button-danger-bg, #ef4444);
+    box-shadow: var(--shadow-small, 0 1px 3px rgba(0, 0, 0, 0.1));
+    &:hover {
+      background: var(--button-danger-bg-hover, #ff4a4a);
+      border-color: var(--button-danger-bg-hover, #ff4a4a);
+      box-shadow: var(--shadow-medium, 0 4px 6px rgba(0, 0, 0, 0.1));
+    }
+    &:active { filter: brightness(0.9); box-shadow: none; }
   }
 
+  // ghost is a quieter secondary: same label role, no background and no border
   .ml-button-ghost {
     background: transparent;
-    color: var(--ml-on-surface, #1c1b1f);
+    color: var(--button-secondary-text, #1c1b1f);
     border: var(--ml-border-width, 1px) var(--ml-border-style, solid) transparent;
-    &:hover { background: var(--ml-surface-dim, #f5f5f5); }
+    &:hover { background: var(--button-secondary-bg-hover, #f5f5f5); }
     &:active { filter: brightness(0.95); }
   }
 
   .ml-button-link {
     background: transparent;
-    color: var(--ml-primary, #3b82f6);
+    color: var(--link-text, #3b82f6);
     border: var(--ml-border-width, 1px) var(--ml-border-style, solid) transparent;
-    &:hover { text-decoration: underline; }
+    &:hover { color: var(--link-text-hover, #3b82f6); text-decoration: underline; }
     &:active { filter: brightness(0.9); }
   }
 

@@ -3,68 +3,68 @@
 groupnotifyuser--ml-contextual-feedback {
 
   .ml-text {
-    color: var(--ml-on-surface, #1c1b1f);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--text-strong, #1c1b1f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-text-muted {
-    color: var(--ml-on-surface-muted, #49454f);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--text-muted, #49454f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-text-faint {
-    color: var(--ml-on-surface-faint, #79747e);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--text-muted-disabled, #79747e);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-label {
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
-    font-weight: var(--ml-font-weight-medium, 500);
-    color: var(--ml-on-surface, #1c1b1f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
+    font-weight: var(--font-weight-bold, 500);
+    color: var(--text-strong, #1c1b1f);
   }
 
   .ml-helper {
-    color: var(--ml-on-surface-muted, #49454f);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--text-muted, #49454f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-error-text {
-    color: var(--ml-error, #ef4444);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--status-error-text, #ef4444);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-primary-text {
-    color: var(--ml-primary, #3b82f6);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--link-text, #3b82f6);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-surface-bg {
-    background: var(--ml-surface, #ffffff);
+    background: var(--surface-bg, #ffffff);
   }
 
   .ml-surface-dim-bg {
-    background: var(--ml-surface-dim, #f5f5f5);
+    background: var(--surface-alt-bg, #f5f5f5);
   }
 
   .ml-primary-bg {
-    background: var(--ml-primary, #3b82f6);
-    color: var(--ml-on-primary, #ffffff);
+    background: var(--button-primary-bg, #3b82f6);
+    color: var(--button-primary-text, #ffffff);
   }
 
   .ml-primary-dim-bg {
-    background: var(--ml-surface-dim, #f5f5f5);
+    background: var(--selected-bg, #f5f5f5);
   }
 
   .ml-error-dim-bg {
-    background: var(--ml-surface-dim, #f5f5f5);
+    background: var(--status-error-bg, #f5f5f5);
   }
 
   .ml-border {
-    border-color: var(--ml-outline-variant, #e2e8f0);
+    border-color: var(--border-default, #e2e8f0);
   }
 
   .ml-border-focus {
-    border-color: var(--ml-outline-focus, #3b82f6);
+    border-color: var(--selected-border, #3b82f6);
   }
 
   .ml-border-error {
@@ -84,27 +84,27 @@ groupnotifyuser--ml-contextual-feedback {
   }
 
   .ml-success-text {
-    color: var(--ml-success, #16a34a);
+    color: var(--status-success-text, #16a34a);
   }
 
   .ml-success-dim-bg {
-    background: var(--ml-success-dim, #ecfdf5);
+    background: var(--status-success-bg, #ecfdf5);
   }
 
   .ml-warning-text {
-    color: var(--ml-warning, #d97706);
+    color: var(--status-warning-text, #d97706);
   }
 
   .ml-warning-dim-bg {
-    background: var(--ml-warning-dim, #fffbeb);
+    background: var(--status-warning-bg, #fffbeb);
   }
 
   .ml-hover-bg {
-    background: var(--ml-surface-dim, #f5f5f5);
+    background: var(--surface-alt-bg, #f5f5f5);
   }
 
   .ml-focus-ring {
-    box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+    box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--focus-ring, rgba(59, 130, 246, 0.4));
   }
 
   .ml-disabled {
@@ -114,11 +114,11 @@ groupnotifyuser--ml-contextual-feedback {
   }
 
   .hover\:ml-text-muted:hover {
-    color: var(--ml-on-surface-muted, #49454f);
+    color: var(--text-muted, #49454f);
   }
 
   .hover\:ml-surface-dim-bg:hover {
-    background: var(--ml-surface-dim, #f5f5f5);
+    background: var(--surface-alt-bg, #f5f5f5);
   }
 
 }
