@@ -4,8 +4,8 @@ groupviewtable--ml-advanced-data-table {
   display: flex;
   flex-direction: column;
   width: 100%;
-  font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
-  color: var(--ml-on-surface, #1c1b1f);
+  font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
+  color: var(--text-strong, #1c1b1f);
 
   // ---- root container ----
   .ml-table-root {
@@ -26,10 +26,10 @@ groupviewtable--ml-advanced-data-table {
   .ml-table-wrapper {
     width: 100%;
     overflow-x: auto;
-    border-radius: var(--ml-radius-sm, 6px);
-    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
-    box-shadow: var(--ml-shadow-1, 0 1px 3px rgba(0,0,0,0.1));
-    background: var(--ml-surface, #ffffff);
+    border-radius: var(--radius-small, 6px);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
+    box-shadow: var(--shadow-small, 0 1px 3px rgba(0,0,0,0.1));
+    background: var(--surface-bg, #ffffff);
   }
 
   // ---- table element ----
@@ -43,8 +43,8 @@ groupviewtable--ml-advanced-data-table {
   // THEAD
   // ============================================================
   .ml-table-thead {
-    background: var(--ml-surface-dim, #f5f5f5);
-    border-bottom: calc(var(--ml-border-width, 1px) * 2) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    background: var(--surface-alt-bg, #f5f5f5);
+    border-bottom: calc(var(--ml-border-width, 1px) * 2) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
   }
 
   .ml-table-header-row {
@@ -56,24 +56,24 @@ groupviewtable--ml-advanced-data-table {
     // render sets position: relative via Tailwind — do NOT re-declare position
     text-align: left;
     font-size: 0.8125rem;
-    font-weight: var(--ml-font-weight-medium, 500);
-    color: var(--ml-on-surface-muted, #49454f);
-    background: var(--ml-surface-dim, #f5f5f5);
-    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    font-weight: var(--font-weight-bold, 500);
+    color: var(--text-muted, #49454f);
+    background: var(--surface-alt-bg, #f5f5f5);
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
     white-space: nowrap;
-    transition: background var(--ml-transition, 200ms ease),
-                color var(--ml-transition, 200ms ease);
+    transition: background var(--transition-fast, 200ms ease),
+                color var(--transition-fast, 200ms ease);
 
     &:hover:not(.ml-table-head-dragging) {
       background: var(--ml-outline-variant, #e2e8f0);
-      color: var(--ml-on-surface, #1c1b1f);
+      color: var(--text-strong, #1c1b1f);
     }
   }
 
   // active sorted column header
   .ml-table-head-sorted {
-    color: var(--ml-primary, #3b82f6) !important;
-    background: var(--ml-surface-dim, #f5f5f5);
+    color: var(--selected-text, #3b82f6) !important;
+    background: var(--surface-alt-bg, #f5f5f5);
   }
 
   // header label text
@@ -87,9 +87,9 @@ groupviewtable--ml-advanced-data-table {
 
   // row-total header — distinct weight
   .ml-table-row-total-head {
-    color: var(--ml-primary, #3b82f6);
-    background: var(--ml-surface-dim, #f5f5f5);
-    border-left: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    color: var(--link-text, #3b82f6);
+    background: var(--surface-alt-bg, #f5f5f5);
+    border-left: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
   }
 
   // ============================================================
@@ -98,18 +98,18 @@ groupviewtable--ml-advanced-data-table {
   .ml-sort-indicator {
     font-size: 0.75rem;
     line-height: 1;
-    transition: opacity var(--ml-transition, 200ms ease),
-                color var(--ml-transition, 200ms ease);
+    transition: opacity var(--transition-fast, 200ms ease),
+                color var(--transition-fast, 200ms ease);
   }
 
   .ml-sort-inactive {
     opacity: 0.35;
-    color: var(--ml-on-surface-faint, #79747e);
+    color: var(--text-muted-disabled, #79747e);
   }
 
   .ml-sort-active {
     opacity: 1;
-    color: var(--ml-primary, #3b82f6);
+    color: var(--selected-text, #3b82f6);
   }
 
   // ============================================================
@@ -120,16 +120,16 @@ groupviewtable--ml-advanced-data-table {
   .ml-resize-handle {
     cursor: col-resize;
     background: transparent;
-    transition: background var(--ml-transition, 200ms ease);
+    transition: background var(--transition-fast, 200ms ease);
     z-index: 1;
 
     &:hover {
-      background: var(--ml-primary, #3b82f6);
+      background: var(--button-primary-bg, #3b82f6);
       opacity: 0.5;
     }
 
     &:active {
-      background: var(--ml-primary, #3b82f6);
+      background: var(--button-primary-bg, #3b82f6);
       opacity: 1;
     }
   }
@@ -139,34 +139,34 @@ groupviewtable--ml-advanced-data-table {
   // ============================================================
   .ml-table-head-dragging {
     opacity: 0.45;
-    background: var(--ml-surface-dim, #f5f5f5);
+    background: var(--surface-alt-bg, #f5f5f5);
   }
 
   .ml-table-head-drop-target {
-    background: var(--ml-surface-dim, #f5f5f5);
+    background: var(--surface-alt-bg, #f5f5f5);
   }
 
   // drop-before: accent on left edge via inset box-shadow
   .ml-drop-before {
-    box-shadow: inset 3px 0 0 var(--ml-primary, #3b82f6);
+    box-shadow: inset 3px 0 0 var(--button-primary-bg, #3b82f6);
   }
 
   // drop-after: accent on right edge via inset box-shadow
   .ml-drop-after {
-    box-shadow: inset -3px 0 0 var(--ml-primary, #3b82f6);
+    box-shadow: inset -3px 0 0 var(--button-primary-bg, #3b82f6);
   }
 
   // ============================================================
   // TBODY
   // ============================================================
   .ml-table-tbody {
-    background: var(--ml-surface, #ffffff);
+    background: var(--surface-bg, #ffffff);
   }
 
   // ---- data rows ----
   .ml-table-row {
-    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
-    transition: background var(--ml-transition, 200ms ease);
+    border-bottom: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
+    transition: background var(--transition-fast, 200ms ease);
     outline: none;
 
     &:last-child {
@@ -174,11 +174,11 @@ groupviewtable--ml-advanced-data-table {
     }
 
     &:hover:not(.ml-table-row-selected):not(.ml-table-header-row):not(.ml-table-footer-row) {
-      background: var(--ml-surface-dim, #f5f5f5);
+      background: var(--surface-alt-bg, #f5f5f5);
     }
 
     &:focus-visible {
-      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline: var(--ml-focus-ring-width, 2px) solid var(--focus-ring, rgba(59,130,246,0.4));
       outline-offset: -2px;
     }
   }
@@ -191,14 +191,14 @@ groupviewtable--ml-advanced-data-table {
 
   // keyboard-focused row
   .ml-table-row-focused {
-    outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+    outline: var(--ml-focus-ring-width, 2px) solid var(--focus-ring, rgba(59,130,246,0.4));
     outline-offset: -2px;
   }
 
   // ---- data cells ----
   .ml-table-cell {
     vertical-align: middle;
-    border-right: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-right: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
 
     &:last-child {
       border-right: none;
@@ -207,21 +207,21 @@ groupviewtable--ml-advanced-data-table {
 
   // ---- text helpers ----
   .ml-text {
-    color: var(--ml-on-surface, #1c1b1f);
+    color: var(--text-strong, #1c1b1f);
   }
 
   .ml-text-muted {
-    color: var(--ml-on-surface-muted, #49454f);
+    color: var(--text-muted, #49454f);
   }
 
   .ml-text-faint {
-    color: var(--ml-on-surface-faint, #79747e);
+    color: var(--text-muted-disabled, #79747e);
   }
 
   // ---- label (caption) ----
   .ml-label {
-    color: var(--ml-on-surface, #1c1b1f);
-    font-weight: var(--ml-font-weight-medium, 500);
+    color: var(--text-strong, #1c1b1f);
+    font-weight: var(--font-weight-bold, 500);
     letter-spacing: 0.01em;
   }
 
@@ -230,7 +230,7 @@ groupviewtable--ml-advanced-data-table {
     width: 2.5rem;
     min-width: 2.5rem;
     text-align: center;
-    border-right: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-right: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
   }
 
   // ---- checkbox ----
@@ -238,9 +238,9 @@ groupviewtable--ml-advanced-data-table {
     width: 1rem;
     height: 1rem;
     cursor: pointer;
-    accent-color: var(--ml-primary, #3b82f6);
-    border-radius: var(--ml-radius-sm, 6px);
-    transition: opacity var(--ml-transition, 200ms ease);
+    accent-color: var(--button-primary-bg, #3b82f6);
+    border-radius: var(--radius-small, 6px);
+    transition: opacity var(--transition-fast, 200ms ease);
 
     &:disabled {
       opacity: var(--ml-disabled-opacity, 0.5);
@@ -248,7 +248,7 @@ groupviewtable--ml-advanced-data-table {
     }
 
     &:focus-visible {
-      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline: var(--ml-focus-ring-width, 2px) solid var(--focus-ring, rgba(59,130,246,0.4));
       outline-offset: 2px;
     }
   }
@@ -257,10 +257,10 @@ groupviewtable--ml-advanced-data-table {
   // ROW TOTAL COLUMN
   // ============================================================
   .ml-table-row-total {
-    color: var(--ml-primary, #3b82f6);
-    font-weight: var(--ml-font-weight-medium, 500);
-    border-left: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
-    background: var(--ml-surface-dim, #f5f5f5);
+    color: var(--link-text, #3b82f6);
+    font-weight: var(--font-weight-bold, 500);
+    border-left: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
+    background: var(--surface-alt-bg, #f5f5f5);
     white-space: nowrap;
   }
 
@@ -268,26 +268,26 @@ groupviewtable--ml-advanced-data-table {
   // TFOOT — column totals
   // ============================================================
   .ml-table-tfoot {
-    border-top: calc(var(--ml-border-width, 1px) * 2) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
-    background: var(--ml-surface-dim, #f5f5f5);
+    border-top: calc(var(--ml-border-width, 1px) * 2) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
+    background: var(--surface-alt-bg, #f5f5f5);
   }
 
   .ml-table-col-total-row {
-    background: var(--ml-surface-dim, #f5f5f5);
+    background: var(--surface-alt-bg, #f5f5f5);
   }
 
   .ml-table-col-total {
-    color: var(--ml-on-surface, #1c1b1f);
-    font-weight: var(--ml-font-weight-medium, 500);
-    background: var(--ml-surface-dim, #f5f5f5);
+    color: var(--text-strong, #1c1b1f);
+    font-weight: var(--font-weight-bold, 500);
+    background: var(--surface-alt-bg, #f5f5f5);
   }
 
   .ml-table-footer-row {
-    border-top: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
+    border-top: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
   }
 
   .ml-table-footer-cell {
-    color: var(--ml-on-surface-muted, #49454f);
+    color: var(--text-muted, #49454f);
     font-style: italic;
   }
 
@@ -300,7 +300,7 @@ groupviewtable--ml-advanced-data-table {
     justify-content: center;
     width: 100%;
     padding: 2rem 1rem;
-    color: var(--ml-on-surface-muted, #49454f);
+    color: var(--text-muted, #49454f);
     font-size: 0.875rem;
     text-align: center;
   }
@@ -317,13 +317,13 @@ groupviewtable--ml-advanced-data-table {
   .ml-skeleton {
     background: linear-gradient(
       90deg,
-      var(--ml-surface-dim, #f5f5f5) 25%,
+      var(--surface-alt-bg, #f5f5f5) 25%,
       var(--ml-outline-variant, #e2e8f0) 50%,
-      var(--ml-surface-dim, #f5f5f5) 75%
+      var(--surface-alt-bg, #f5f5f5) 75%
     );
     background-size: 200% 100%;
     animation: ml-skeleton-shimmer 1.4s ease-in-out infinite;
-    border-radius: var(--ml-radius-sm, 6px);
+    border-radius: var(--radius-small, 6px);
   }
 
   @keyframes ml-skeleton-shimmer {
@@ -350,25 +350,25 @@ groupviewtable--ml-advanced-data-table {
     min-width: 2rem;
     padding: 0.25rem 0.5rem;
     font-size: 0.8125rem;
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
-    color: var(--ml-on-surface-muted, #49454f);
-    background: var(--ml-surface, #ffffff);
-    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
-    border-radius: var(--ml-radius-sm, 6px);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
+    color: var(--text-muted, #49454f);
+    background: var(--surface-bg, #ffffff);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
+    border-radius: var(--radius-small, 6px);
     cursor: pointer;
-    transition: background var(--ml-transition, 200ms ease),
-                color var(--ml-transition, 200ms ease),
-                border-color var(--ml-transition, 200ms ease);
+    transition: background var(--transition-fast, 200ms ease),
+                color var(--transition-fast, 200ms ease),
+                border-color var(--transition-fast, 200ms ease);
     outline: none;
 
     &:hover:not(:disabled):not(.ml-pagination-btn-active) {
-      background: var(--ml-surface-dim, #f5f5f5);
+      background: var(--surface-alt-bg, #f5f5f5);
       border-color: var(--ml-outline-focus, #3b82f6);
-      color: var(--ml-on-surface, #1c1b1f);
+      color: var(--text-strong, #1c1b1f);
     }
 
     &:focus-visible {
-      outline: var(--ml-focus-ring-width, 2px) solid var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      outline: var(--ml-focus-ring-width, 2px) solid var(--focus-ring, rgba(59,130,246,0.4));
       outline-offset: 2px;
     }
 
@@ -379,10 +379,10 @@ groupviewtable--ml-advanced-data-table {
   }
 
   .ml-pagination-btn-active {
-    background: var(--ml-primary, #3b82f6) !important;
-    color: var(--ml-on-primary, #ffffff) !important;
-    border-color: var(--ml-primary, #3b82f6) !important;
-    font-weight: var(--ml-font-weight-medium, 500);
+    background: var(--button-primary-bg, #3b82f6) !important;
+    color: var(--button-primary-text, #ffffff) !important;
+    border-color: var(--selected-border, #3b82f6) !important;
+    font-weight: var(--font-weight-bold, 500);
     cursor: default;
   }
 
@@ -390,7 +390,7 @@ groupviewtable--ml-advanced-data-table {
   // ERROR TEXT
   // ============================================================
   .ml-error-text {
-    color: var(--ml-error, #ef4444);
+    color: var(--status-error-text, #ef4444);
     font-size: 0.75rem;
     margin-top: 0.25rem;
   }
@@ -406,5 +406,4 @@ groupviewtable--ml-advanced-data-table {
     margin-left: 0.5rem;
   }
 }
-
 

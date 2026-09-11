@@ -3,36 +3,36 @@
 groupenterboolean--ml-toggle-icon {
 
   .ml-text {
-    color: var(--ml-on-surface, #1c1b1f);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--text-strong, #1c1b1f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-label {
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
-    font-weight: var(--ml-font-weight-medium, 500);
-    color: var(--ml-on-surface, #1c1b1f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
+    font-weight: var(--font-weight-bold, 500);
+    color: var(--text-strong, #1c1b1f);
   }
 
   .ml-helper {
-    color: var(--ml-on-surface-muted, #49454f);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--text-muted, #49454f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-error-text {
-    color: var(--ml-error, #ef4444);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--status-error-text, #ef4444);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-toggle-icon-track {
-    background: var(--ml-outline-variant, #e2e8f0);
-    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
-    border-radius: var(--ml-radius-full, 9999px);
-    transition: background var(--ml-transition, 200ms ease), border-color var(--ml-transition, 200ms ease);
+    background: var(--border-default, #e2e8f0);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
+    border-radius: var(--radius-pill, 9999px);
+    transition: background var(--transition-fast, 200ms ease), border-color var(--transition-fast, 200ms ease);
   }
 
   .ml-toggle-icon-track-on {
-    background: var(--ml-primary, #3b82f6);
-    border-color: var(--ml-primary, #3b82f6);
+    background: var(--button-primary-bg, #3b82f6);
+    border-color: var(--selected-border, #3b82f6);
   }
 
   .ml-toggle-icon-track-error {
@@ -40,11 +40,11 @@ groupenterboolean--ml-toggle-icon {
   }
 
   .ml-toggle-icon-thumb {
-    background: var(--ml-surface, #ffffff);
-    border-radius: var(--ml-radius-full, 9999px);
-    color: var(--ml-on-surface, #1c1b1f);
-    transition: transform var(--ml-transition, 200ms ease);
-    box-shadow: var(--ml-shadow-1, 0 1px 3px rgba(0, 0, 0, 0.1));
+    background: var(--surface-bg, #ffffff);
+    border-radius: var(--radius-pill, 9999px);
+    color: var(--text-strong, #1c1b1f);
+    transition: transform var(--transition-fast, 200ms ease);
+    box-shadow: var(--shadow-small, 0 1px 3px rgba(0, 0, 0, 0.1));
   }
 
   .ml-disabled {

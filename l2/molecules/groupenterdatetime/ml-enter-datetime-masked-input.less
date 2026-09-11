@@ -2,28 +2,28 @@
 
 groupenterdatetime--ml-enter-datetime-masked-input {
 
-  .ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
-  .ml-helper { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
-  .ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
-  .ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
-  .ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-label { font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); font-weight: var(--font-weight-bold, 500); color: var(--text-strong, #1c1b1f); }
+  .ml-helper { color: var(--text-muted, #49454f); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
+  .ml-error-text { color: var(--status-error-text, #ef4444); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
+  .ml-text { color: var(--text-strong, #1c1b1f); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
+  .ml-text-muted { color: var(--text-muted, #49454f); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
   .ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
 
   .ml-input {
-    background-color: var(--ml-surface, #ffffff);
-    color: var(--ml-on-surface, #1c1b1f);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    background-color: var(--surface-bg, #ffffff);
+    color: var(--text-strong, #1c1b1f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
 
     &::placeholder {
-      color: var(--ml-on-surface-faint, #79747e);
+      color: var(--text-muted-disabled, #79747e);
     }
   }
 
   .ml-input-container {
-    border-color: var(--ml-outline-variant, #e2e8f0);
+    border-color: var(--border-default, #e2e8f0);
 
     &-focused {
-      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--focus-ring, rgba(59,130,246,0.4));
     }
 
     &-error {
@@ -32,8 +32,8 @@ groupenterdatetime--ml-enter-datetime-masked-input {
   }
 
   .ml-spinner {
-    border-color: var(--ml-outline-variant, #e2e8f0);
-    border-top-color: var(--ml-on-surface, #1c1b1f);
+    border-color: var(--border-default, #e2e8f0);
+    border-top-color: var(--text-strong, #1c1b1f);
   }
 
 }
