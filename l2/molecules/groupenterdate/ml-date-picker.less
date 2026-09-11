@@ -3,21 +3,21 @@
 groupenterdate--ml-date-picker,
 div[data-widget="groupenterdate--ml-date-picker"] {
 
-  .ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
-  .ml-helper { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
-  .ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
-  .ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
-  .ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-label { font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); font-weight: var(--font-weight-bold, 500); color: var(--text-strong, #1c1b1f); }
+  .ml-helper { color: var(--text-muted, #49454f); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
+  .ml-error-text { color: var(--status-error-text, #ef4444); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
+  .ml-text { color: var(--text-strong, #1c1b1f); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
+  .ml-text-muted { color: var(--text-muted, #49454f); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
   .ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
 
   .ml-date-picker-trigger {
-    background-color: var(--ml-surface, #ffffff);
-    border-color: var(--ml-outline-variant, #e2e8f0);
-    color: var(--ml-on-surface, #1c1b1f);
+    background-color: var(--surface-bg, #ffffff);
+    border-color: var(--border-default, #e2e8f0);
+    color: var(--text-strong, #1c1b1f);
 
     &:focus {
       border-color: var(--ml-outline-focus, #3b82f6);
-      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59,130,246,0.4));
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--focus-ring, rgba(59,130,246,0.4));
     }
 
     &--error {
@@ -31,28 +31,28 @@ div[data-widget="groupenterdate--ml-date-picker"] {
 
   .ml-date-picker-clear {
     &:hover {
-      color: var(--ml-on-surface, #1c1b1f);
+      color: var(--text-strong, #1c1b1f);
     }
   }
 
   .ml-calendar-container {
-    background-color: var(--ml-surface, #ffffff);
-    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
-    box-shadow: var(--ml-shadow-2, 0 4px 6px rgba(0,0,0,0.1));
+    background-color: var(--surface-bg, #ffffff);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
+    box-shadow: var(--shadow-medium, 0 4px 6px rgba(0,0,0,0.1));
   }
 
   .ml-date-picker-trigger {
-    background-color: var(--ml-surface, #ffffff);
-    color: var(--ml-on-surface, #1c1b1f);
-    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--ml-outline-variant, #e2e8f0);
-    border-radius: var(--ml-radius-md, 8px);
-    transition: border-color var(--ml-transition, 200ms ease), box-shadow var(--ml-transition, 200ms ease);
+    background-color: var(--surface-bg, #ffffff);
+    color: var(--text-strong, #1c1b1f);
+    border: var(--ml-border-width, 1px) var(--ml-border-style, solid) var(--border-default, #e2e8f0);
+    border-radius: var(--radius-medium, 8px);
+    transition: border-color var(--transition-fast, 200ms ease), box-shadow var(--transition-fast, 200ms ease);
 
     &:focus-within,
     &:focus {
       outline: none;
       border-color: var(--ml-outline-focus, #3b82f6);
-      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--focus-ring, rgba(59, 130, 246, 0.4));
     }
   }
 
@@ -61,32 +61,32 @@ div[data-widget="groupenterdate--ml-date-picker"] {
   }
 
   .ml-calendar-nav-btn {
-    background-color: var(--ml-surface, #ffffff);
-    border-color: var(--ml-outline-variant, #e2e8f0);
-    color: var(--ml-on-surface-muted, #49454f);
+    background-color: var(--surface-bg, #ffffff);
+    border-color: var(--border-default, #e2e8f0);
+    color: var(--text-muted, #49454f);
 
     &--enabled:hover {
-      background-color: var(--ml-surface-dim, #f5f5f5);
+      background-color: var(--surface-alt-bg, #f5f5f5);
     }
   }
 
   .ml-calendar-day {
-    background-color: var(--ml-surface, #ffffff);
-    color: var(--ml-on-surface, #1c1b1f);
+    background-color: var(--surface-bg, #ffffff);
+    color: var(--text-strong, #1c1b1f);
 
     &--hoverable:hover {
-      background-color: var(--ml-surface-dim, #f5f5f5);
+      background-color: var(--surface-alt-bg, #f5f5f5);
     }
   }
 
   .ml-calendar-day-selected {
-    background-color: var(--ml-primary, #3b82f6);
-    color: var(--ml-on-primary, #ffffff);
-    border-color: var(--ml-primary, #3b82f6);
+    background-color: var(--button-primary-bg, #3b82f6);
+    color: var(--button-primary-text, #ffffff);
+    border-color: var(--selected-border, #3b82f6);
   }
 
   .ml-calendar-day-today {
-    border-color: var(--ml-primary, #3b82f6);
+    border-color: var(--selected-border, #3b82f6);
   }
 
   .ml-calendar-day-disabled {

@@ -3,32 +3,32 @@
 grouprateitem--ml-star-rating {
 
   .ml-label {
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
-    font-weight: var(--ml-font-weight-medium, 500);
-    color: var(--ml-on-surface, #1c1b1f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
+    font-weight: var(--font-weight-bold, 500);
+    color: var(--text-strong, #1c1b1f);
   }
 
   .ml-helper {
-    color: var(--ml-on-surface-muted, #49454f);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--text-muted, #49454f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-error-text {
-    color: var(--ml-error, #ef4444);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--status-error-text, #ef4444);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-text-muted {
-    color: var(--ml-on-surface-muted, #49454f);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--text-muted, #49454f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-surface {
-    background: var(--ml-surface, #ffffff);
+    background: var(--surface-bg, #ffffff);
   }
 
   .ml-border {
-    border-color: var(--ml-outline-variant, #e2e8f0);
+    border-color: var(--border-default, #e2e8f0);
   }
 
   .ml-border-error {
@@ -37,7 +37,7 @@ grouprateitem--ml-star-rating {
 
   .ml-focus-within {
     &:focus-within {
-      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--focus-ring, rgba(59, 130, 246, 0.4));
     }
   }
 
@@ -46,13 +46,13 @@ grouprateitem--ml-star-rating {
   }
 
   .ml-rating-star-filled {
-    color: var(--ml-primary, #3b82f6);
+    color: var(--selected-text, #3b82f6);
   }
 
   .ml-rating-star-hover {
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--ml-focus-ring-color, rgba(59, 130, 246, 0.4));
+      box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--focus-ring, rgba(59, 130, 246, 0.4));
     }
   }
 

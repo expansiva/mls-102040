@@ -2,24 +2,24 @@
 
 groupnavigatesection--ml-navigate-tabs {
 
-  .ml-label { font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); font-weight: var(--ml-font-weight-medium, 500); color: var(--ml-on-surface, #1c1b1f); }
-  .ml-text { color: var(--ml-on-surface, #1c1b1f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
-  .ml-text-muted { color: var(--ml-on-surface-muted, #49454f); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
-  .ml-error-text { color: var(--ml-error, #ef4444); font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif); }
+  .ml-label { font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); font-weight: var(--font-weight-bold, 500); color: var(--text-strong, #1c1b1f); }
+  .ml-text { color: var(--text-strong, #1c1b1f); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
+  .ml-text-muted { color: var(--text-muted, #49454f); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
+  .ml-error-text { color: var(--status-error-text, #ef4444); font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif); }
   .ml-disabled { opacity: var(--ml-disabled-opacity, 0.5); cursor: not-allowed; pointer-events: none; }
 
   .ml-tab-list {
-    background-color: var(--ml-surface, #ffffff);
-    border-color: var(--ml-outline-variant, #e2e8f0);
+    background-color: var(--surface-bg, #ffffff);
+    border-color: var(--border-default, #e2e8f0);
   }
 
   .ml-tab {
-    color: var(--ml-on-surface-muted, #49454f);
-    font-family: var(--ml-font-family, system-ui, -apple-system, sans-serif);
+    color: var(--text-muted, #49454f);
+    font-family: var(--font-family-primary, system-ui, -apple-system, sans-serif);
   }
 
   .ml-tab-active {
-    color: var(--ml-primary, #3b82f6);
+    color: var(--selected-text, #3b82f6);
   }
 
   .ml-tab-indicator {
@@ -27,7 +27,7 @@ groupnavigatesection--ml-navigate-tabs {
   }
 
   .ml-tab-panel {
-    color: var(--ml-on-surface, #1c1b1f);
+    color: var(--text-strong, #1c1b1f);
   }
 
 }
