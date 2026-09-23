@@ -30,9 +30,9 @@ export const molecules = [
 // The "Quick reference" table (scenario -> recommended). EDITORIAL: written, not derived —
 // the one field here that no extraction produces. Edit it HERE; the group page renders it.
 export const scenarios = [
-    { scenario: 'Precisa de ordenação, seleção e recursos completos', recommended: ['groupviewtable--ml-advanced-data-table', 'groupviewtable--ml-data-table', 'groupviewtable--ml-data-table-select'] },
+    { scenario: 'Precisa de ordenação, seleção e recursos completos', recommended: ['groupviewtable--ml-advanced-data-table', 'groupviewtable--ml-data-table'] },
     { scenario: 'Leitura simples e com o mínimo de elementos visuais', recommended: ['groupviewtable--ml-data-table', 'groupviewtable--ml-data-table-minimal', 'groupviewtable--ml-responsive-table', 'groupviewtable--ml-view-table'] },
-    { scenario: 'Seleção de várias linhas para ações em lote', recommended: ['groupviewtable--ml-advanced-data-table', 'groupviewtable--ml-data-table-select', 'groupviewtable--ml-lcrud-detail-grid'] },
+    { scenario: 'Seleção de várias linhas para ações em lote', recommended: ['groupviewtable--ml-advanced-data-table', 'groupviewtable--ml-lcrud-detail-grid'] },
     { scenario: 'Agrupar registros por uma dimensão', recommended: ['groupviewtable--ml-advanced-data-table', 'groupviewtable--ml-grouping-table', 'groupviewtable--ml-pivot-table'] },
     { scenario: 'Editar valores diretamente na tabela', recommended: ['groupviewtable--ml-inline-edit-table', 'groupviewtable--ml-lcrud-detail-grid'] },
     { scenario: 'Colunas móveis, redimensionáveis e ações de linha', recommended: ['groupviewtable--ml-lcrud-detail-grid'] },
@@ -57,9 +57,9 @@ Group objective: Displays structured data in tabular format. Data provided via T
 
 | scenario | recommended |
 |---|---|
-| Precisa de ordenação, seleção e recursos completos | ml-advanced-data-table, ml-data-table, ml-data-table-select |
+| Precisa de ordenação, seleção e recursos completos | ml-advanced-data-table, ml-data-table |
 | Leitura simples e com o mínimo de elementos visuais | ml-data-table, ml-data-table-minimal, ml-responsive-table, ml-view-table |
-| Seleção de várias linhas para ações em lote | ml-advanced-data-table, ml-data-table-select, ml-lcrud-detail-grid |
+| Seleção de várias linhas para ações em lote | ml-advanced-data-table, ml-lcrud-detail-grid |
 | Agrupar registros por uma dimensão | ml-advanced-data-table, ml-grouping-table, ml-pivot-table |
 | Editar valores diretamente na tabela | ml-inline-edit-table, ml-lcrud-detail-grid |
 | Colunas móveis, redimensionáveis e ações de linha | ml-lcrud-detail-grid |
