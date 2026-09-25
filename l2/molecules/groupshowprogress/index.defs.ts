@@ -12,11 +12,11 @@ export const usageContract = '/_102020_/l2/aura/molecules/skills/groupShowProgre
 // Structured list, for deterministic consumers (gates, lints).
 // layout = the layoutConfig axes that VARY among this group's siblings.
 export const molecules = [
-    { tag: 'groupshowprogress--ml-circular-progress', layout: { progress: 'circular' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-circular-progress.defs' },
-    { tag: 'groupshowprogress--ml-indeterminate-spinner', layout: { progress: 'spinner' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-indeterminate-spinner.defs' },
-    { tag: 'groupshowprogress--ml-linear-progress', layout: { progress: 'linear' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-linear-progress.defs' },
-    { tag: 'groupshowprogress--ml-segmented-progress', layout: { progress: 'segmented' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-segmented-progress.defs' },
-    { tag: 'groupshowprogress--ml-upload-progress-indicator', layout: { progress: 'linear' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-upload-progress-indicator.defs' },
+    { tag: 'groupshowprogress--ml-circular-progress', layout: { progress: 'circular' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-circular-progress.defs', module: '/_102040_/l2/molecules/groupshowprogress/ml-circular-progress.js' },
+    { tag: 'groupshowprogress--ml-indeterminate-spinner', layout: { progress: 'spinner' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-indeterminate-spinner.defs', module: '/_102040_/l2/molecules/groupshowprogress/ml-indeterminate-spinner.js' },
+    { tag: 'groupshowprogress--ml-linear-progress', layout: { progress: 'linear' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-linear-progress.defs', module: '/_102040_/l2/molecules/groupshowprogress/ml-linear-progress.js' },
+    { tag: 'groupshowprogress--ml-segmented-progress', layout: { progress: 'segmented' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-segmented-progress.defs', module: '/_102040_/l2/molecules/groupshowprogress/ml-segmented-progress.js' },
+    { tag: 'groupshowprogress--ml-upload-progress-indicator', layout: { progress: 'linear' }, defs: '/_102040_/l2/molecules/groupshowprogress/ml-upload-progress-indicator.defs', module: '/_102040_/l2/molecules/groupshowprogress/ml-upload-progress-indicator.js' },
 ];
 
 // The "Quick reference" table (scenario -> recommended). EDITORIAL: written, not derived —
@@ -39,6 +39,8 @@ Group objective: Indicates the progress of an operation or process. Visual primi
 2. Break the tie by the layout axes and by each molecule's full description.
 3. Before writing markup, read the group usage contract (usageContract).
    Copy the tag EXACTLY as it appears here.
+4. Every molecule you render needs its side-effect import at the top of the page file, exactly as listed
+   under each molecule below. Without it the tag is an unknown element and renders nothing.
 
 ## Scenarios (quick reference)
 
@@ -53,8 +55,13 @@ Group objective: Indicates the progress of an operation or process. Visual primi
 ## Molecules (5)
 
 - **groupshowprogress--ml-circular-progress** · progress: circular — Provide a circular progress indicator that displays completion percentage or ongoing activity status. It communicates progress through a circular ring that fills proportionally to a numeric value or signals indeterminate activity when no value is available.
+  Import: \`import '/_102040_/l2/molecules/groupshowprogress/ml-circular-progress.js';\`
 - **groupshowprogress--ml-indeterminate-spinner** · progress: spinner — Provide a purely visual loading indicator for ongoing processes that lack a measurable completion percentage. It communicates activity through continuous motion and optional accompanying text, functioning either inline or as a container overlay.
+  Import: \`import '/_102040_/l2/molecules/groupshowprogress/ml-indeterminate-spinner.js';\`
 - **groupshowprogress--ml-linear-progress** · progress: linear — A linear progress indicator for the groupShowProgress group that visually communicates completion status or ongoing activity. It supports determinate mode to show exact percentage completion and indeterminate mode to indicate that an operation is in progress without a known duration. The component is purely visual and does not emit events.
+  Import: \`import '/_102040_/l2/molecules/groupshowprogress/ml-linear-progress.js';\`
 - **groupshowprogress--ml-segmented-progress** · progress: segmented — Provide visual feedback of progress to the user. It indicates how much of an operation or process has been completed, or that activity is occurring when no specific completion percentage is known.
+  Import: \`import '/_102040_/l2/molecules/groupshowprogress/ml-segmented-progress.js';\`
 - **groupshowprogress--ml-upload-progress-indicator** · progress: linear — Provide a visual indicator that communicates the progress of an upload operation. The component reflects whether the progress is known, unknown, or finished, and optionally presents the percentage completed.
+  Import: \`import '/_102040_/l2/molecules/groupshowprogress/ml-upload-progress-indicator.js';\`
 `;

@@ -12,10 +12,10 @@ export const usageContract = '/_102020_/l2/aura/molecules/skills/groupNotifyUser
 // Structured list, for deterministic consumers (gates, lints).
 // layout = the layoutConfig axes that VARY among this group's siblings.
 export const molecules = [
-    { tag: 'groupnotifyuser--ml-alert-modal', layout: { feedback: 'modal' }, defs: '/_102040_/l2/molecules/groupnotifyuser/ml-alert-modal.defs' },
-    { tag: 'groupnotifyuser--ml-contextual-feedback', layout: { feedback: 'inline' }, defs: '/_102040_/l2/molecules/groupnotifyuser/ml-contextual-feedback.defs' },
-    { tag: 'groupnotifyuser--ml-notify-banner', layout: { feedback: 'banner' }, defs: '/_102040_/l2/molecules/groupnotifyuser/ml-notify-banner.defs' },
-    { tag: 'groupnotifyuser--ml-toast-notification', layout: { feedback: 'toast' }, defs: '/_102040_/l2/molecules/groupnotifyuser/ml-toast-notification.defs' },
+    { tag: 'groupnotifyuser--ml-alert-modal', layout: { feedback: 'modal' }, defs: '/_102040_/l2/molecules/groupnotifyuser/ml-alert-modal.defs', module: '/_102040_/l2/molecules/groupnotifyuser/ml-alert-modal.js' },
+    { tag: 'groupnotifyuser--ml-contextual-feedback', layout: { feedback: 'inline' }, defs: '/_102040_/l2/molecules/groupnotifyuser/ml-contextual-feedback.defs', module: '/_102040_/l2/molecules/groupnotifyuser/ml-contextual-feedback.js' },
+    { tag: 'groupnotifyuser--ml-notify-banner', layout: { feedback: 'banner' }, defs: '/_102040_/l2/molecules/groupnotifyuser/ml-notify-banner.defs', module: '/_102040_/l2/molecules/groupnotifyuser/ml-notify-banner.js' },
+    { tag: 'groupnotifyuser--ml-toast-notification', layout: { feedback: 'toast' }, defs: '/_102040_/l2/molecules/groupnotifyuser/ml-toast-notification.defs', module: '/_102040_/l2/molecules/groupnotifyuser/ml-toast-notification.js' },
 ];
 
 // The "Quick reference" table (scenario -> recommended). EDITORIAL: written, not derived —
@@ -37,6 +37,8 @@ Group objective: Informs the user about events, status changes, or action result
 2. Break the tie by the layout axes and by each molecule's full description.
 3. Before writing markup, read the group usage contract (usageContract).
    Copy the tag EXACTLY as it appears here.
+4. Every molecule you render needs its side-effect import at the top of the page file, exactly as listed
+   under each molecule below. Without it the tag is an unknown element and renders nothing.
 
 ## Scenarios (quick reference)
 
@@ -50,7 +52,11 @@ Group objective: Informs the user about events, status changes, or action result
 ## Molecules (4)
 
 - **groupnotifyuser--ml-alert-modal** · feedback: modal — Present a blocking modal alert for critical or destructive actions that demands user attention and an explicit choice before proceeding. Communicate severity through visual cues and provide clear options to confirm or cancel the action.
+  Import: \`import '/_102040_/l2/molecules/groupnotifyuser/ml-alert-modal.js';\`
 - **groupnotifyuser--ml-contextual-feedback** · feedback: inline — Provide contextual feedback messages inside forms, positioned near related fields or sections. Communicates success, error, warning, or info states through text, optional icon, and optional action. Supports dismissible and persistent modes, automatic dismissal timing, and accessibility announcements.
+  Import: \`import '/_102040_/l2/molecules/groupnotifyuser/ml-contextual-feedback.js';\`
 - **groupnotifyuser--ml-notify-banner** · feedback: banner — Display a contextual inline or floating notification banner that communicates a status message to the user. The banner supports four semantic types (info, success, warning, error), an optional title, an optional action link, an optional custom icon, a dismiss button, automatic timed dismissal, and configurable screen positioning.
+  Import: \`import '/_102040_/l2/molecules/groupnotifyuser/ml-notify-banner.js';\`
 - **groupnotifyuser--ml-toast-notification** · feedback: toast — Provide ephemeral floating notifications that appear in a screen corner, slide in and out smoothly, indicate different severity levels through color and icon, dismiss automatically after a set time or manually via a close control, optionally offer a secondary action, and stack vertically when multiple instances are active.
+  Import: \`import '/_102040_/l2/molecules/groupnotifyuser/ml-toast-notification.js';\`
 `;

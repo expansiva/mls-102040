@@ -12,11 +12,11 @@ export const usageContract = '/_102020_/l2/aura/molecules/skills/groupViewData/u
 // Structured list, for deterministic consumers (gates, lints).
 // layout = the layoutConfig axes that VARY among this group's siblings.
 export const molecules = [
-    { tag: 'groupviewdata--ml-calendar-view', layout: { recordsView: 'calendar' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-calendar-view.defs' },
-    { tag: 'groupviewdata--ml-card-grid', layout: { recordsView: 'grid' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-card-grid.defs' },
-    { tag: 'groupviewdata--ml-kanban-board', layout: { recordsView: 'kanban' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-kanban-board.defs' },
-    { tag: 'groupviewdata--ml-timeline-view', layout: { recordsView: 'timeline' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-timeline-view.defs' },
-    { tag: 'groupviewdata--ml-vertical-record-list', layout: { recordsView: 'list' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-vertical-record-list.defs' },
+    { tag: 'groupviewdata--ml-calendar-view', layout: { recordsView: 'calendar' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-calendar-view.defs', module: '/_102040_/l2/molecules/groupviewdata/ml-calendar-view.js' },
+    { tag: 'groupviewdata--ml-card-grid', layout: { recordsView: 'grid' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-card-grid.defs', module: '/_102040_/l2/molecules/groupviewdata/ml-card-grid.js' },
+    { tag: 'groupviewdata--ml-kanban-board', layout: { recordsView: 'kanban' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-kanban-board.defs', module: '/_102040_/l2/molecules/groupviewdata/ml-kanban-board.js' },
+    { tag: 'groupviewdata--ml-timeline-view', layout: { recordsView: 'timeline' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-timeline-view.defs', module: '/_102040_/l2/molecules/groupviewdata/ml-timeline-view.js' },
+    { tag: 'groupviewdata--ml-vertical-record-list', layout: { recordsView: 'list' }, defs: '/_102040_/l2/molecules/groupviewdata/ml-vertical-record-list.defs', module: '/_102040_/l2/molecules/groupviewdata/ml-vertical-record-list.js' },
 ];
 
 // The "Quick reference" table (scenario -> recommended). EDITORIAL: written, not derived —
@@ -38,6 +38,8 @@ Group objective: Display a collection of data with adaptive layout. The componen
 2. Break the tie by the layout axes and by each molecule's full description.
 3. Before writing markup, read the group usage contract (usageContract).
    Copy the tag EXACTLY as it appears here.
+4. Every molecule you render needs its side-effect import at the top of the page file, exactly as listed
+   under each molecule below. Without it the tag is an unknown element and renders nothing.
 
 ## Scenarios (quick reference)
 
@@ -51,8 +53,13 @@ Group objective: Display a collection of data with adaptive layout. The componen
 ## Molecules (5)
 
 - **groupviewdata--ml-calendar-view** · recordsView: calendar — A calendar visualization that allows users to browse events in monthly or weekly layouts. It organizes time into columns, rows, and cells, enabling users to view event details or initiate new events by selecting time slots.
+  Import: \`import '/_102040_/l2/molecules/groupviewdata/ml-calendar-view.js';\`
 - **groupviewdata--ml-card-grid** · recordsView: grid — Display records as individual cards arranged in a responsive multi-column grid. Each card combines visual content, title, description, metadata, and actions, offering a spacious, visual alternative to tabular presentation. Suitable for product catalogs, employee directories, project listings, document galleries, and customer panels.
+  Import: \`import '/_102040_/l2/molecules/groupviewdata/ml-card-grid.js';\`
 - **groupviewdata--ml-kanban-board** · recordsView: kanban — Display a Kanban board with configurable columns and vertically stacked cards. Enable moving cards between columns, adding new cards per column, and handling loading, empty, and selection states. Notify consumers of card movements and additions.
+  Import: \`import '/_102040_/l2/molecules/groupviewdata/ml-kanban-board.js';\`
 - **groupviewdata--ml-timeline-view** · recordsView: timeline — Present events in chronological order along a timeline. The molecule must support vertical and horizontal reading flows, group events by date, handle item selection and hover, manage disabled items, and switch between loading, empty, and populated states using designated content regions.
+  Import: \`import '/_102040_/l2/molecules/groupviewdata/ml-timeline-view.js';\`
 - **groupviewdata--ml-vertical-record-list** · recordsView: list — Display a vertical list of records within the groupViewData context. Each record supports multiple content regions such as visual identifiers, titles, descriptions, metadata, and actions. The molecule manages loading states, empty collections, item selection, and user interaction events.
+  Import: \`import '/_102040_/l2/molecules/groupviewdata/ml-vertical-record-list.js';\`
 `;

@@ -12,14 +12,14 @@ export const usageContract = '/_102020_/l2/aura/molecules/skills/groupEnterText/
 // Structured list, for deterministic consumers (gates, lints).
 // layout = the layoutConfig axes that VARY among this group's siblings.
 export const molecules = [
-    { tag: 'groupentertext--ml-address-field', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-address-field.defs' },
-    { tag: 'groupentertext--ml-cpf-input', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-cpf-input.defs' },
-    { tag: 'groupentertext--ml-enter-text', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-enter-text.defs' },
-    { tag: 'groupentertext--ml-floating-text-input', layout: { labelPlacement: 'floating' }, defs: '/_102040_/l2/molecules/groupentertext/ml-floating-text-input.defs' },
-    { tag: 'groupentertext--ml-multiline-text', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-multiline-text.defs' },
-    { tag: 'groupentertext--ml-password-strength-input', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-password-strength-input.defs' },
-    { tag: 'groupentertext--ml-phone-input', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-phone-input.defs' },
-    { tag: 'groupentertext--ml-tag-input', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-tag-input.defs' },
+    { tag: 'groupentertext--ml-address-field', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-address-field.defs', module: '/_102040_/l2/molecules/groupentertext/ml-address-field.js' },
+    { tag: 'groupentertext--ml-cpf-input', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-cpf-input.defs', module: '/_102040_/l2/molecules/groupentertext/ml-cpf-input.js' },
+    { tag: 'groupentertext--ml-enter-text', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-enter-text.defs', module: '/_102040_/l2/molecules/groupentertext/ml-enter-text.js' },
+    { tag: 'groupentertext--ml-floating-text-input', layout: { labelPlacement: 'floating' }, defs: '/_102040_/l2/molecules/groupentertext/ml-floating-text-input.defs', module: '/_102040_/l2/molecules/groupentertext/ml-floating-text-input.js' },
+    { tag: 'groupentertext--ml-multiline-text', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-multiline-text.defs', module: '/_102040_/l2/molecules/groupentertext/ml-multiline-text.js' },
+    { tag: 'groupentertext--ml-password-strength-input', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-password-strength-input.defs', module: '/_102040_/l2/molecules/groupentertext/ml-password-strength-input.js' },
+    { tag: 'groupentertext--ml-phone-input', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-phone-input.defs', module: '/_102040_/l2/molecules/groupentertext/ml-phone-input.js' },
+    { tag: 'groupentertext--ml-tag-input', layout: { labelPlacement: 'top' }, defs: '/_102040_/l2/molecules/groupentertext/ml-tag-input.defs', module: '/_102040_/l2/molecules/groupentertext/ml-tag-input.js' },
 ];
 
 // The "Quick reference" table (scenario -> recommended). EDITORIAL: written, not derived —
@@ -45,6 +45,8 @@ Group objective: Allows the user to input free-form text. Ideal for names, descr
 2. Break the tie by the layout axes and by each molecule's full description.
 3. Before writing markup, read the group usage contract (usageContract).
    Copy the tag EXACTLY as it appears here.
+4. Every molecule you render needs its side-effect import at the top of the page file, exactly as listed
+   under each molecule below. Without it the tag is an unknown element and renders nothing.
 
 ## Scenarios (quick reference)
 
@@ -62,11 +64,19 @@ Group objective: Allows the user to input free-form text. Ideal for names, descr
 ## Molecules (8)
 
 - **groupentertext--ml-address-field** · labelPlacement: top — Provide a complete address entry interface that allows users to input a postal code and automatically retrieves corresponding address details from an external service. The molecule populates street, neighborhood, city, and state fields automatically while keeping them manually editable afterward. It includes fields for number and complement, validates the postal code before searching, and notifies the system when a complete address is confirmed.
+  Import: \`import '/_102040_/l2/molecules/groupentertext/ml-address-field.js';\`
 - **groupentertext--ml-cpf-input** · labelPlacement: top — Permitir a entrada e exibição de CPF com formatação padrão, mantendo o valor armazenado como apenas números.
+  Import: \`import '/_102040_/l2/molecules/groupentertext/ml-cpf-input.js';\`
 - **groupentertext--ml-enter-text** · labelPlacement: top — Provide a general-purpose text input that supports minimum and maximum character limits, with clear modes for editing and viewing, and accessible interaction states.
+  Import: \`import '/_102040_/l2/molecules/groupentertext/ml-enter-text.js';\`
 - **groupentertext--ml-floating-text-input** · labelPlacement: floating — Allow the user to enter a single line of text through an input field that features a floating label — the label starts in the placeholder position and animates upward when the field is focused or has a value. The component supports optional input masking, prefix and suffix slots, character length limits, multiple input types, and disabled, readonly, error, loading, and view-only states.
+  Import: \`import '/_102040_/l2/molecules/groupentertext/ml-floating-text-input.js';\`
 - **groupentertext--ml-multiline-text** · labelPlacement: top — Allow the user to enter either a single line of text or a multiline paragraph, switching automatically between an <input> and a <textarea> based on the rows property. The component supports optional input masking for single-line mode, character length limits, prefix and suffix slots, a live character counter for multiline mode, and disabled, readonly, error, loading, and view-only states.
+  Import: \`import '/_102040_/l2/molecules/groupentertext/ml-multiline-text.js';\`
 - **groupentertext--ml-password-strength-input** · labelPlacement: top — Provide a password entry field that allows switching between hidden and visible text, combined with a real-time strength indicator based on configurable validation criteria. It operates within the groupEnterText contract.
+  Import: \`import '/_102040_/l2/molecules/groupentertext/ml-password-strength-input.js';\`
 - **groupentertext--ml-phone-input** · labelPlacement: top — Provide a Brazilian phone number entry field that formats numbers as they are entered, accepts supplementary content before and after the input area, and participates in standard form workflows.
+  Import: \`import '/_102040_/l2/molecules/groupentertext/ml-phone-input.js';\`
 - **groupentertext--ml-tag-input** · labelPlacement: top — Provide a tag entry field that allows users to create multiple tags from typed text, display each tag as a removable chip, and manage the collection as a single comma-separated value. It must support constraints on tag count and length, prevent duplicates, offer suggestion areas, and adapt behavior between single-line tag entry and standard multi-line text entry.
+  Import: \`import '/_102040_/l2/molecules/groupentertext/ml-tag-input.js';\`
 `;

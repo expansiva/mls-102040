@@ -12,10 +12,10 @@ export const usageContract = '/_102020_/l2/aura/molecules/skills/groupViewCard/u
 // Structured list, for deterministic consumers (gates, lints).
 // layout = the layoutConfig axes that VARY among this group's siblings.
 export const molecules = [
-    { tag: 'groupviewcard--ml-profile-card', layout: { cardLayout: 'profile' }, defs: '/_102040_/l2/molecules/groupviewcard/ml-profile-card.defs' },
-    { tag: 'groupviewcard--ml-vertical-card', layout: { cardLayout: 'vertical' }, defs: '/_102040_/l2/molecules/groupviewcard/ml-vertical-card.defs' },
-    { tag: 'groupviewcard--ml-view-card-horizontal', layout: { cardLayout: 'horizontal' }, defs: '/_102040_/l2/molecules/groupviewcard/ml-view-card-horizontal.defs' },
-    { tag: 'groupviewcard--ml-view-card-media', layout: { cardLayout: 'media' }, defs: '/_102040_/l2/molecules/groupviewcard/ml-view-card-media.defs' },
+    { tag: 'groupviewcard--ml-profile-card', layout: { cardLayout: 'profile' }, defs: '/_102040_/l2/molecules/groupviewcard/ml-profile-card.defs', module: '/_102040_/l2/molecules/groupviewcard/ml-profile-card.js' },
+    { tag: 'groupviewcard--ml-vertical-card', layout: { cardLayout: 'vertical' }, defs: '/_102040_/l2/molecules/groupviewcard/ml-vertical-card.defs', module: '/_102040_/l2/molecules/groupviewcard/ml-vertical-card.js' },
+    { tag: 'groupviewcard--ml-view-card-horizontal', layout: { cardLayout: 'horizontal' }, defs: '/_102040_/l2/molecules/groupviewcard/ml-view-card-horizontal.defs', module: '/_102040_/l2/molecules/groupviewcard/ml-view-card-horizontal.js' },
+    { tag: 'groupviewcard--ml-view-card-media', layout: { cardLayout: 'media' }, defs: '/_102040_/l2/molecules/groupviewcard/ml-view-card-media.defs', module: '/_102040_/l2/molecules/groupviewcard/ml-view-card-media.js' },
 ];
 
 // The "Quick reference" table (scenario -> recommended). EDITORIAL: written, not derived —
@@ -37,6 +37,8 @@ Group objective: Displays an item as an independent visual unit. Composition pri
 2. Break the tie by the layout axes and by each molecule's full description.
 3. Before writing markup, read the group usage contract (usageContract).
    Copy the tag EXACTLY as it appears here.
+4. Every molecule you render needs its side-effect import at the top of the page file, exactly as listed
+   under each molecule below. Without it the tag is an unknown element and renders nothing.
 
 ## Scenarios (quick reference)
 
@@ -50,7 +52,11 @@ Group objective: Displays an item as an independent visual unit. Composition pri
 ## Molecules (4)
 
 - **groupviewcard--ml-profile-card** · cardLayout: profile — A profile and contact card that presents identity, contact details, status, and quick actions for a user or entity. It supports interactive, selected, disabled, loading, and editing states, and allows consumers to compose either vertical or horizontal layouts through its content areas.
+  Import: \`import '/_102040_/l2/molecules/groupviewcard/ml-profile-card.js';\`
 - **groupviewcard--ml-vertical-card** · cardLayout: vertical — A vertical card for the groupViewCard group that organizes information into optional sections: header with title and description, body, footer metadata, and actions. It adapts to interactive, loading, disabled, selected, and editing states while staying neutral for use across corporate contexts such as sales pipelines, project boards, recruitment funnels, supplier lists, and executive dashboards.
+  Import: \`import '/_102040_/l2/molecules/groupviewcard/ml-vertical-card.js';\`
 - **groupviewcard--ml-view-card-horizontal** · cardLayout: horizontal — Provide a compact horizontal card for list items with left media content and right text content, supporting interactive and stateful behaviors.
+  Import: \`import '/_102040_/l2/molecules/groupviewcard/ml-view-card-horizontal.js';\`
 - **groupviewcard--ml-view-card-media** · cardLayout: media — Display a card with featured media at the top, followed by a structured header, content, footer, and actions. It serves corporate scenarios such as courses, products, properties, job postings, and news through composable content sections.
+  Import: \`import '/_102040_/l2/molecules/groupviewcard/ml-view-card-media.js';\`
 `;
