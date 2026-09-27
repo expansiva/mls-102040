@@ -4,13 +4,15 @@ This is the compact, normative generation brief for Salesforce-style pages. The 
 
 ## Controls
 
-- Build every interactive and structural control in the page itself, from the design system. No component library, no third-party widget, no copied markup.
-- Render a control only when the page actually needs it. If a required behavior cannot be expressed with the design system, leave the slot explicit and report the gap; do not substitute a different interaction.
+- Compose interactive and structural controls using the project's available molecule catalog and design system. Resolve real molecule tags, imports, properties, slots and events from their published contracts and usage guidance; reuse their behavior instead of rebuilding controls inside the page. No third-party widget or copied markup.
+- Render a control only when the page actually needs it. If the available molecules and design system cannot express a required behavior, leave the slot explicit and report the gap; do not invent a molecule API or substitute a different interaction.
 - One resolved role, one control (table below). Bind every control to real state or handlers, give it a label and keep it keyboard reachable with the design-system focus ring.
 - A feature belongs to exactly one owner. When a region already supplies pagination, empty state or sticky header, implement it there once and do not repeat it elsewhere. Every control lives in the layout-assigned region and obeys that region's containment/scroll rule.
 - External utility classes control only placement, size and alignment; appearance comes from the design-system scales.
 
 ### Field control mapping
+
+The mapping below describes interaction roles, not a requirement to write native controls directly. Select compatible catalog molecules for each role and bind them to the page's shared contract.
 
 | Resolved role | Control |
 | --- | --- |
