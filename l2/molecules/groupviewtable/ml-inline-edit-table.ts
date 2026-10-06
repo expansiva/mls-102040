@@ -85,7 +85,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // SLOT TAGS
  // ===========================================================================
- slotTags = ['Caption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading','RowActions','RowAction','NewRecordRow'];
+ slotTags = ['TableCaption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading','RowActions','RowAction','NewRecordRow'];
 
  // Migrated ENTIRELY to live slots, with no serialized slot left over. In a table the cell is
  // where the consumer puts controls, and here that IS the central feature: `propagateEditingState`
@@ -1082,10 +1082,10 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  // RENDER SECTIONS
  // ===========================================================================
  private renderCaption(): TemplateResult | typeof nothing {
- if (!this.hasSlot('Caption')) return nothing;
+ if (!this.hasSlot('TableCaption')) return nothing;
  return html`
- <caption class="${cn('px-4 py-3 text-left text-lg font-semibold ml-text ml-surface-bg', this.getSlotClass('Caption'))}">
- ${this.renderLiveSlot('Caption')}
+ <caption class="${cn('px-4 py-3 text-left text-lg font-semibold ml-text ml-surface-bg', this.getSlotClass('TableCaption'))}">
+ ${this.renderLiveSlot('TableCaption')}
  </caption>
  `;
  }

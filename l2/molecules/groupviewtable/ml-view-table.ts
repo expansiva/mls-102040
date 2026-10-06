@@ -65,7 +65,10 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // SLOT TAGS
  // ===========================================================================
- slotTags = ['Caption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
+ slotTags = ['TableCaption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
+
+ /** Only TableCaption is projected live; the other slots still go through the snapshot. */
+ protected usesLiveSlots = true;
 
  // ===========================================================================
  // PROPERTIES — From Contract
@@ -405,12 +408,11 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  // RENDER SECTIONS
  // ===========================================================================
  private renderCaption(): TemplateResult {
- const captionContent = this.getSlotContent('Caption');
- if (!captionContent) return html``;
+ if (!this.hasSlot('TableCaption')) return html``;
 
  return html`
- <caption class="${cn('px-4 py-3 text-left text-base font-semibold ml-text ml-surface-bg', this.getSlotClass('Caption'))}">
- ${unsafeHTML(captionContent)}
+ <caption class="${cn('px-4 py-3 text-left text-base font-semibold ml-text ml-surface-bg', this.getSlotClass('TableCaption'))}">
+ ${this.renderLiveSlot('TableCaption')}
  </caption>
  `;
  }

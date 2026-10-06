@@ -84,7 +84,7 @@ export class MlLazyRecordDetailTableMolecule extends MoleculeAuraElement {
   // SLOT TAGS
   // ===========================================================================
   slotTags = [
-    'Caption',
+    'TableCaption',
     'TableHeader',
     'TableBody',
     'TableRow',
@@ -572,10 +572,10 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
   // ===========================================================================
 
   private renderCaption(): TemplateResult {
-    if (!this.hasSlot('Caption')) return html``;
+    if (!this.hasSlot('TableCaption')) return html``;
     return html`
-      <caption class=${cn('text-left px-3 py-2 text-sm font-semibold ml-label', this.getSlotClass('Caption'))}>
-        ${this.renderLiveSlot('Caption')}
+      <caption class=${cn('text-left px-3 py-2 text-sm font-semibold ml-label', this.getSlotClass('TableCaption'))}>
+        ${this.renderLiveSlot('TableCaption')}
       </caption>
     `;
   }

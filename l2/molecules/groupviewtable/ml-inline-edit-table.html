@@ -13,7 +13,7 @@
           <groupviewtable--ml-inline-edit-table
             selectable="{{playground.basic.selectable}}"
             value="{{playground.basic.value}}">
-            <Caption>Team Members</Caption>
+            <TableCaption>Team Members</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="name">Name</TableHead>
@@ -55,7 +55,7 @@
                 <groupviewtable--ml-inline-edit-table
                   selectable="{{playground.basic.selectable}}"
                   value="{{playground.basic.value}}">
-                  <Caption>Team Members</Caption>
+                  <TableCaption>Team Members</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="name">Name</TableHead>
@@ -92,7 +92,7 @@
           <groupviewtable--ml-inline-edit-table
             selectable="{{playground.selectable.selectable}}"
             value="{{playground.selectable.value}}">
-            <Caption>Orders</Caption>
+            <TableCaption>Orders</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="id" sortable>ID</TableHead>
@@ -138,7 +138,7 @@
                 <groupviewtable--ml-inline-edit-table
                   selectable="{{playground.selectable.selectable}}"
                   value="{{playground.selectable.value}}">
-                  <Caption>Orders</Caption>
+                  <TableCaption>Orders</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="id" sortable>ID</TableHead>
@@ -180,7 +180,7 @@
             is-editing="{{playground.inline.isEditing}}"
             selectable="{{playground.inline.selectable}}"
             value="{{playground.inline.value}}">
-            <Caption>Content Plan</Caption>
+            <TableCaption>Content Plan</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="title">Title</TableHead>
@@ -224,7 +224,7 @@
                   is-editing="{{playground.inline.isEditing}}"
                   selectable="{{playground.inline.selectable}}"
                   value="{{playground.inline.value}}">
-                  <Caption>Content Plan</Caption>
+                  <TableCaption>Content Plan</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="title">Title</TableHead>
@@ -262,7 +262,7 @@
             page="{{playground.paginated.page}}"
             page-size="{{playground.paginated.pageSize}}"
             total-items="{{playground.paginated.totalItems}}">
-            <Caption>Monthly Expenses</Caption>
+            <TableCaption>Monthly Expenses</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="category">Category</TableHead>
@@ -312,7 +312,7 @@
                   page="{{playground.paginated.page}}"
                   page-size="{{playground.paginated.pageSize}}"
                   total-items="{{playground.paginated.totalItems}}">
-                  <Caption>Monthly Expenses</Caption>
+                  <TableCaption>Monthly Expenses</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="category">Category</TableHead>
@@ -355,7 +355,7 @@
           <groupviewtable--ml-inline-edit-table
             loading="{{playground.loading.loading}}"
             selectable="{{playground.loading.selectable}}">
-            <Caption>Activity Log</Caption>
+            <TableCaption>Activity Log</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="event">Event</TableHead>
@@ -384,7 +384,7 @@
                 <groupviewtable--ml-inline-edit-table
                   loading="{{playground.loading.loading}}"
                   selectable="{{playground.loading.selectable}}">
-                  <Caption>Activity Log</Caption>
+                  <TableCaption>Activity Log</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="event">Event</TableHead>
@@ -408,7 +408,7 @@
           <groupviewtable--ml-inline-edit-table
             disabled="{{playground.empty.disabled}}"
             error="{{playground.empty.error}}">
-            <Caption>Compliance Tasks</Caption>
+            <TableCaption>Compliance Tasks</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="task">Task</TableHead>
@@ -437,7 +437,7 @@
                 <groupviewtable--ml-inline-edit-table
                   disabled="{{playground.empty.disabled}}"
                   error="{{playground.empty.error}}">
-                  <Caption>Compliance Tasks</Caption>
+                  <TableCaption>Compliance Tasks</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="task">Task</TableHead>
@@ -460,7 +460,7 @@
         <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Edit and Delete show in viewing; Save and Cancel show in editing. No editing-rows here, so the table owns the mode and Edit opens its own row.</p>
         <demo id="demo-rowactions">
           <groupviewtable--ml-inline-edit-table disabled="{{playground.rowactions.disabled}}">
-            <Caption>Row actions own the editing mode</Caption>
+            <TableCaption>Row actions own the editing mode</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="name" sortable>Name</TableHead>
@@ -493,7 +493,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-rowactions">
               <template>
                 <groupviewtable--ml-inline-edit-table disabled="{{playground.rowactions.disabled}}">
-                  <Caption>Row actions own the editing mode</Caption>
+                  <TableCaption>Row actions own the editing mode</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="name" sortable>Name</TableHead>
@@ -523,7 +523,7 @@
         <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">The footer trigger opens the draft row at the end of the body. One draft at a time, and the page writes the real row on save.</p>
         <demo id="demo-newrecord">
           <groupviewtable--ml-inline-edit-table disabled="{{playground.newrecord.disabled}}">
-            <Caption>New record opens a draft row</Caption>
+            <TableCaption>New record opens a draft row</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="name" sortable>Name</TableHead>
@@ -559,7 +559,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-newrecord">
               <template>
                 <groupviewtable--ml-inline-edit-table disabled="{{playground.newrecord.disabled}}">
-                  <Caption>New record opens a draft row</Caption>
+                  <TableCaption>New record opens a draft row</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="name" sortable>Name</TableHead>
@@ -592,7 +592,7 @@
         <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Price and date sort by sort-value, not by the masked text. Sorting by text would place 01/12/2025 after 02/01/2026.</p>
         <demo id="demo-sortvalue">
           <groupviewtable--ml-inline-edit-table>
-            <Caption>Sorting by declared value</Caption>
+            <TableCaption>Sorting by declared value</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="product" sortable>Product</TableHead>
@@ -631,7 +631,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-sortvalue">
               <template>
                 <groupviewtable--ml-inline-edit-table>
-                  <Caption>Sorting by declared value</Caption>
+                  <TableCaption>Sorting by declared value</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="product" sortable>Product</TableHead>
@@ -669,7 +669,7 @@
           <groupviewtable--ml-inline-edit-table
             page="{{playground.internalpage.page}}"
             page-size="{{playground.internalpage.pageSize}}">
-            <Caption>Internal pagination slices the received set</Caption>
+            <TableCaption>Internal pagination slices the received set</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="name" sortable>Name</TableHead>
@@ -722,7 +722,7 @@
                 <groupviewtable--ml-inline-edit-table
                   page="{{playground.internalpage.page}}"
                   page-size="{{playground.internalpage.pageSize}}">
-                  <Caption>Internal pagination slices the received set</Caption>
+                  <TableCaption>Internal pagination slices the received set</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="name" sortable>Name</TableHead>
@@ -770,7 +770,7 @@
         <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Drag a header to move the column, drag the right edge of a header to resize it. Both last for the session only.</p>
         <demo id="demo-columns">
           <groupviewtable--ml-inline-edit-table disabled="{{playground.columns.disabled}}">
-            <Caption>Drag a header to reorder, drag its right edge to resize</Caption>
+            <TableCaption>Drag a header to reorder, drag its right edge to resize</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="id" sortable>ID</TableHead>
@@ -807,7 +807,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-columns">
               <template>
                 <groupviewtable--ml-inline-edit-table disabled="{{playground.columns.disabled}}">
-                  <Caption>Drag a header to reorder, drag its right edge to resize</Caption>
+                  <TableCaption>Drag a header to reorder, drag its right edge to resize</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="id" sortable>ID</TableHead>

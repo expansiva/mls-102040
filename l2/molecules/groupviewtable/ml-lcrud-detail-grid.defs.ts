@@ -33,7 +33,7 @@ Presents records in a sortable, pageable table whose record detail opens as a sc
 - Blocks opening, sorting, selection, and pagination while disabled, and visually distinguishes disabled controls.
 # Constraints
 - Preserves all groupViewTable slots, properties, selection-value rules, events, and accessibility requirements.
-- Supports only the groupViewTable content areas: Caption, TableHeader, TableBody, TableFooter, Empty, Loading, and Detail, with rows and cells in their defined table sections and at most one Detail per body record, as its direct child.
+- Supports only the groupViewTable content areas: TableCaption, TableHeader, TableBody, TableFooter, Empty, Loading, and Detail, with rows and cells in their defined table sections and at most one Detail per body record, as its direct child.
 - Requires TableHeader and TableBody content and uses the group-defined row, header-cell, and data-cell structure.
 - Presents at most one record detail at a time, and presents it instead of the list rather than alongside it.
 - Keeps the list present while the detail is open, so that returning does not rebuild the list or lose its state.

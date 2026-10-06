@@ -13,7 +13,7 @@ export const skill = `# Metadata
 # Objective
 Presents structured data through the groupViewTable contract, showing records as a conventional table in wide spaces and as semantically labeled record cards in constrained spaces while retaining the group’s selection, sorting, pagination, data-state, and event behaviors.
 # Responsibilities
-- Renders the Caption, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, Empty, and Loading content areas according to the group hierarchy.
+- Renders the TableCaption, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, Empty, and Loading content areas according to the group hierarchy.
 - Presents column headers and aligned record rows in wide spaces, with headers structuring the reading of each column.
 - Presents each TableBody record as an independent card in constrained spaces.
 - Associates every card field value with its corresponding TableHead label, with the cell content carrying stronger visual weight than its informative label.
@@ -36,7 +36,7 @@ Presents structured data through the groupViewTable contract, showing records as
 - Makes focus, interaction, and unavailable states perceptible for records and controls.
 # Constraints
 - The component follows the groupViewTable slot hierarchy and requires TableHeader, TableBody, TableRow, TableHead, and TableCell content areas.
-- The component accepts Caption, TableFooter, Empty, and Loading as optional content areas.
+- The component accepts TableCaption, TableFooter, Empty, and Loading as optional content areas.
 - The component does not declare, render, or support the Detail content area or row expansion.
 - Each TableHead has a column identifier, and only TableHead entries marked sortable can trigger sorting.
 - Card presentation applies only to TableRow entries in TableBody; header and footer content retain their group-defined roles.

@@ -10,7 +10,7 @@
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Basic Table</h3>
         <demo id="demo-basic">
           <groupviewtable--ml-view-table>
-            <Caption>Employee Directory</Caption>
+            <TableCaption>Employee Directory</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="name">Name</TableHead>
@@ -44,7 +44,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-basic">
               <template>
                 <groupviewtable--ml-view-table>
-                  <Caption>Employee Directory</Caption>
+                  <TableCaption>Employee Directory</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="name">Name</TableHead>
@@ -80,7 +80,7 @@
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Selectable Rows</h3>
         <demo id="demo-selectable">
           <groupviewtable--ml-view-table selectable="true" value="{{playground.selectable.value}}">
-            <Caption>Task List</Caption>
+            <TableCaption>Task List</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="task">Task</TableHead>
@@ -120,7 +120,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-selectable">
               <template>
                 <groupviewtable--ml-view-table selectable="true" value="{{playground.selectable.value}}">
-                  <Caption>Task List</Caption>
+                  <TableCaption>Task List</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="task">Task</TableHead>
@@ -156,7 +156,7 @@
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Sortable Columns</h3>
         <demo id="demo-sortable">
           <groupviewtable--ml-view-table>
-            <Caption>Sales Orders</Caption>
+            <TableCaption>Sales Orders</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="orderId" sortable>Order ID</TableHead>
@@ -194,7 +194,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-sortable">
               <template>
                 <groupviewtable--ml-view-table>
-                  <Caption>Sales Orders</Caption>
+                  <TableCaption>Sales Orders</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="orderId" sortable>Order ID</TableHead>
@@ -234,7 +234,7 @@
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Pagination</h3>
         <demo id="demo-pagination">
           <groupviewtable--ml-view-table page="{{playground.pagination.page}}" page-size="5" total-items="24">
-            <Caption>Product Inventory</Caption>
+            <TableCaption>Product Inventory</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="sku">SKU</TableHead>
@@ -284,7 +284,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-pagination">
               <template>
                 <groupviewtable--ml-view-table page="{{playground.pagination.page}}" page-size="5" total-items="24">
-                  <Caption>Product Inventory</Caption>
+                  <TableCaption>Product Inventory</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="sku">SKU</TableHead>
@@ -330,7 +330,7 @@
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Empty State</h3>
         <demo id="demo-empty">
           <groupviewtable--ml-view-table>
-            <Caption>Recent Transactions</Caption>
+            <TableCaption>Recent Transactions</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="id">ID</TableHead>
@@ -352,7 +352,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-empty">
               <template>
                 <groupviewtable--ml-view-table>
-                  <Caption>Recent Transactions</Caption>
+                  <TableCaption>Recent Transactions</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="id">ID</TableHead>
@@ -376,7 +376,7 @@
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Loading State</h3>
         <demo id="demo-loading">
           <groupviewtable--ml-view-table loading="{{playground.loading.loading}}">
-            <Caption>Server Logs</Caption>
+            <TableCaption>Server Logs</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="timestamp">Timestamp</TableHead>
@@ -415,7 +415,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-loading">
               <template>
                 <groupviewtable--ml-view-table loading="{{playground.loading.loading}}">
-                  <Caption>Server Logs</Caption>
+                  <TableCaption>Server Logs</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="timestamp">Timestamp</TableHead>
@@ -450,7 +450,7 @@
         <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Advanced Configuration</h3>
         <demo id="demo-advanced">
           <groupviewtable--ml-view-table is-editing="{{playground.advanced.isEditing}}" disabled="{{playground.advanced.disabled}}" error="{{playground.advanced.error}}">
-            <Caption>Budget Overview</Caption>
+            <TableCaption>Budget Overview</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead key="category">Category</TableHead>
@@ -504,7 +504,7 @@
             <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-advanced">
               <template>
                 <groupviewtable--ml-view-table is-editing="{{playground.advanced.isEditing}}" disabled="{{playground.advanced.disabled}}" error="{{playground.advanced.error}}">
-                  <Caption>Budget Overview</Caption>
+                  <TableCaption>Budget Overview</TableCaption>
                   <TableHeader>
                     <TableRow>
                       <TableHead key="category">Category</TableHead>

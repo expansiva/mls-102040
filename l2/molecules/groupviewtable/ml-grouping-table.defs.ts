@@ -46,7 +46,7 @@ A table that groups rows according to a user-selected column, displaying collaps
 - The \`groupChange\` event detail must be \`{ key: string }\` where key is the selected grouping column key or empty string when grouping is cleared.
 - Group headers must be collapsible and expandable; collapsed groups must not display their rows.
 - All interaction must be blocked when \`disabled=true\`.
-- Content areas: a grouping control area above the table headers, the standard table structure (Caption, TableHeader, TableBody, TableFooter), and slots for Empty and Loading.
+- Content areas: a grouping control area above the table headers, the standard table structure (TableCaption, TableHeader, TableBody, TableFooter), and slots for Empty and Loading.
 
 # Notes
 - The component reads TableHead elements to discover which columns are groupable and reads TableRow elements from TableBody to perform grouping by cell text content at the matching column index.

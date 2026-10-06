@@ -27,7 +27,7 @@ Render a full-featured data table that supports column-based sorting, row select
 - Dispatch a rowClick CustomEvent (bubbles, composed) with the row index when a data row is clicked outside of its checkbox.
 - Render a page number bar with previous/next buttons and ellipsis markers when pageSize is greater than zero and totalPages is greater than one; dispatch a pageChange CustomEvent (bubbles, composed) with the new page number.
 - Propagate the is-editing attribute with its current boolean value to all custom elements (tags containing a hyphen) found inside TableCell slots after every render update.
-- Show an optional caption above the table and as a visually hidden table caption element when the Caption slot is provided.
+- Show an optional caption above the table and as a visually hidden table caption element when the TableCaption slot is provided.
 - Display a selection count badge when selectable is true and at least one row is selected.
 - Render an animated skeleton loading state when loading is true; use the Loading slot content if provided, otherwise use the built-in skeleton.
 - Render an empty state row spanning all columns when no body rows are present; use the Empty slot content if provided, otherwise use the localized default message.

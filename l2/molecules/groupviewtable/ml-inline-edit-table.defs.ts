@@ -15,8 +15,8 @@ export const skill = `# Metadata
 Presents tabular records with per-row inline editing and a complete record workflow — edit, save, cancel, delete and create — driven by controls the page supplies. It owns the editing MODE and the placement and visibility of those controls; the page owns the VALUES. It also sorts, paginates, selects rows, and lets a user reorder and resize columns for the session.
 
 # Responsibilities
-- Presents the supplied \`Caption\`, \`TableHeader\`, \`TableBody\` and \`TableFooter\` in that order, with \`TableRow\` inside each section, \`TableHead\` as header cells and \`TableCell\` as data cells; displays a supplied \`error\` message below the table.
-- Requires \`TableHeader\` and \`TableBody\`; \`Caption\`, \`TableFooter\`, \`Empty\`, \`Loading\`, \`RowActions\` and \`NewRecordRow\` are optional.
+- Presents the supplied \`TableCaption\`, \`TableHeader\`, \`TableBody\` and \`TableFooter\` in that order, with \`TableRow\` inside each section, \`TableHead\` as header cells and \`TableCell\` as data cells; displays a supplied \`error\` message below the table.
+- Requires \`TableHeader\` and \`TableBody\`; \`TableCaption\`, \`TableFooter\`, \`Empty\`, \`Loading\`, \`RowActions\` and \`NewRecordRow\` are optional.
 - Marks the current editing state on the components the page placed inside the cells of a row, so those components switch between viewing and editing by themselves.
 - Edits ONE ROW AT A TIME. A row identifies itself with \`key\` on its \`TableRow\`; a row without \`key\` falls back to its position, which is enough to keep rows distinct but changes when the table is sorted.
 - Lets the PAGE own the editing mode when \`editing-rows\` is present, as a comma-separated list of row keys — present but empty means no row is open. Owns the mode itself when \`editing-rows\` is absent, so a supplied edit control opens its own row with no round trip through the page.

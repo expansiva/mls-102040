@@ -41,7 +41,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // SLOT TAGS
  // ===========================================================================
- slotTags = ['Caption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
+ slotTags = ['TableCaption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
 
  // Esta molécula TRANSFORMA os slots: lê TableBody > TableRow > TableCell, ordena, pagina e
  // re-emite <tr>/<td> de verdade. No caminho antigo o conteúdo de célula passava por DUAS
@@ -356,8 +356,8 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  // RENDER HELPERS
  // ===========================================================================
  private renderCaption(): TemplateResult {
- if (!this.hasSlot('Caption')) return html``;
- return html`<caption class="${cn('text-left px-3 py-2 text-sm ml-text-muted', this.getSlotClass('Caption'))}">${this.renderLiveSlot('Caption')}</caption>`;
+ if (!this.hasSlot('TableCaption')) return html``;
+ return html`<caption class="${cn('text-left px-3 py-2 text-sm ml-text-muted', this.getSlotClass('TableCaption'))}">${this.renderLiveSlot('TableCaption')}</caption>`;
  }
 
  private renderHeaderCell(cell: HTMLElement, index: number): TemplateResult {

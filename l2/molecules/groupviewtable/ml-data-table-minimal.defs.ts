@@ -16,7 +16,7 @@ export const skill = `# Metadata
 Fornecer uma tabela de dados minimalista com ordenação, seleção opcional, estados de vazio e carregamento, paginação e suporte completo a dark mode.
 
 # Responsibilities
-- Renderizar a hierarquia de slots do grupo (Caption, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, Empty, Loading) conforme o contrato.
+- Renderizar a hierarquia de slots do grupo (TableCaption, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, Empty, Loading) conforme o contrato.
 - Exibir o estado de carregamento quando solicitado, substituindo o conteúdo da tabela pelo conteúdo de Loading ou pelo padrão do contrato.
 - Exibir o estado vazio quando não houver linhas no corpo, usando Empty ou o padrão do contrato.
 - Permitir ordenação nas colunas marcadas como ordenáveis, alternando a direção e emitindo o evento de ordenação com a chave e direção.

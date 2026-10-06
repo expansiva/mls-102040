@@ -39,7 +39,7 @@ Presents records in a sortable, paginated table with optional selection and reco
 - Blocks selection, sorting, pagination, detail opening, and lifecycle actions while disabled.
 # Constraints
 - Uses only the groupViewTable slots, properties, value semantics, and events.
-- Requires TableHeader, TableBody, TableRow, TableHead, and TableCell content supplied by the consuming page; Caption, TableFooter, Empty, Loading, Detail, RowActions, RowAction, and NewRecordRow are optional content areas.
+- Requires TableHeader, TableBody, TableRow, TableHead, and TableCell content supplied by the consuming page; TableCaption, TableFooter, Empty, Loading, Detail, RowActions, RowAction, and NewRecordRow are optional content areas.
 - Accepts Detail only as direct content of a body row and never as header or footer content.
 - Adds no action column unless a row or NewRecordRow supplies RowActions, and never accepts an action column declared as a data column.
 - Supports at most one NewRecordRow draft at a time.

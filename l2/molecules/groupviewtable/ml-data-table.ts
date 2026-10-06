@@ -80,7 +80,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // SLOT TAGS
  // ===========================================================================
- slotTags = ['Caption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
+ slotTags = ['TableCaption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
 
  // Esta molécula TRANSFORMA os slots: lê TableBody > TableRow > TableCell, ordena e re-emite
  // <tr>/<td> de verdade. No caminho antigo o conteúdo de célula passava por DUAS serializações
@@ -448,16 +448,16 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  const lang = this.getMessageKey(messages);
  this.msg = messages[lang];
 
- // O Caption aparece duas vezes (visível e no <caption> sr-only). Um nó só pode estar num lugar,
+ // O TableCaption aparece duas vezes (visível e no <caption> sr-only). Um nó só pode estar num lugar,
  // então a cópia visível recebe o conteúdo projetado e a sr-only, o texto atual dele.
- const hasCaption = this.hasSlot('Caption');
- const captionText = hasCaption ? this.getLiveText(this.getLiveSlot('Caption')) :'';
+ const hasCaption = this.hasSlot('TableCaption');
+ const captionText = hasCaption ? this.getLiveText(this.getLiveSlot('TableCaption')) :'';
 
  // Loading state
  if (this.loading) {
  return html`
  <div class="${cn('w-full', this.cssClass)}">
- ${hasCaption ? html`<div class="${cn('mb-3 text-sm font-semibold ml-text', this.getSlotClass('Caption'))}">${this.renderLiveSlot('Caption')}</div>` : nothing}
+ ${hasCaption ? html`<div class="${cn('mb-3 text-sm font-semibold ml-text', this.getSlotClass('TableCaption'))}">${this.renderLiveSlot('TableCaption')}</div>` : nothing}
  ${this.hasSlot('Loading')
  ? this.renderLiveSlot('Loading')
  : this.renderSkeleton()}
@@ -477,7 +477,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  return html`
  <div class="${cn('w-full', this.disabled ?'opacity-60 pointer-events-none' :'', this.cssClass)}">
 
- ${hasCaption ? html`<div class="${cn('mb-3 text-sm font-semibold ml-text', this.getSlotClass('Caption'))}">${this.renderLiveSlot('Caption')}</div>` : nothing}
+ ${hasCaption ? html`<div class="${cn('mb-3 text-sm font-semibold ml-text', this.getSlotClass('TableCaption'))}">${this.renderLiveSlot('TableCaption')}</div>` : nothing}
 
  ${this.selectable && selected.size > 0 ? html`
  <div class="mb-2 flex items-center gap-2">

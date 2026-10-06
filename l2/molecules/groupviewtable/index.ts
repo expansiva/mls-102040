@@ -205,22 +205,22 @@ export class GroupGroupViewTableIndex extends StateLitElement {
         ${bloco('Tabela de dados', 'ml-data-table', 'Completa: seleção, paginação, rodapé.',
           html`<groupviewtable--ml-data-table selectable value=${this.selecao['a-data'] ?? ''}
             @change=${this.sel('a-data')} @sort=${this.reg('a-data')} @rowClick=${this.reg('a-data')}>
-            <Caption>Pedidos recentes</Caption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
+            <TableCaption>Pedidos recentes</TableCaption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
           </groupviewtable--ml-data-table>`, 'a-data')}
         ${bloco('Tabela mínima', 'ml-data-table-minimal', 'O mesmo, sem cromo.',
           html`<groupviewtable--ml-data-table-minimal value=${this.selecao['a-min'] ?? ''}
             @change=${this.sel('a-min')} @sort=${this.reg('a-min')} @rowClick=${this.reg('a-min')}>
-            <Caption>Pedidos recentes</Caption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
+            <TableCaption>Pedidos recentes</TableCaption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
           </groupviewtable--ml-data-table-minimal>`, 'a-min')}
         ${bloco('Tabela de visualização', 'ml-view-table', 'Leitura limpa, foco no conteúdo.',
           html`<groupviewtable--ml-view-table value=${this.selecao['a-view'] ?? ''}
             @change=${this.sel('a-view')} @sort=${this.reg('a-view')} @rowClick=${this.reg('a-view')}>
-            <Caption>Pedidos recentes</Caption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
+            <TableCaption>Pedidos recentes</TableCaption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
           </groupviewtable--ml-view-table>`, 'a-view')}
         ${bloco('Tabela responsiva (dados)', 'ml-responsive-data-table', 'Acessível, com data-class na host.',
           html`<groupviewtable--ml-responsive-data-table data-class="w-full" value=${this.selecao['a-resp'] ?? ''}
             @change=${this.sel('a-resp')} @sort=${this.reg('a-resp')} @rowClick=${this.reg('a-resp')}>
-            <Caption>Pedidos recentes</Caption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
+            <TableCaption>Pedidos recentes</TableCaption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
           </groupviewtable--ml-responsive-data-table>`, 'a-resp')}
       </div>`);
   }
@@ -236,7 +236,7 @@ export class GroupGroupViewTableIndex extends StateLitElement {
         ${this.painel('Tabela responsiva', 'ml-responsive-table', 'Mesmo markup das outras; a forma muda com a largura da janela.',
           html`<groupviewtable--ml-responsive-table value=${this.selecao['b'] ?? ''}
             @change=${this.sel('b')} @sort=${this.reg('b')} @rowClick=${this.reg('b')}>
-            <Caption>Pedidos recentes</Caption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
+            <TableCaption>Pedidos recentes</TableCaption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
           </groupviewtable--ml-responsive-table>${this.renderEventos('b')}`)}
       </div>`);
   }
@@ -252,17 +252,17 @@ export class GroupGroupViewTableIndex extends StateLitElement {
         ${this.painel('Tabela agrupada', 'ml-grouping-table', 'Região e Status são groupable — escolha por qual agrupar.',
           html`<groupviewtable--ml-grouping-table value=${this.selecao['c-grp'] ?? ''}
             @change=${this.sel('c-grp')} @groupChange=${this.reg('c-grp')} @sort=${this.reg('c-grp')}>
-            <Caption>Pedidos por dimensão</Caption>${this.cabecalho({ agrupavel: true })}${this.linhas(PEDIDOS)}${this.estados()}
+            <TableCaption>Pedidos por dimensão</TableCaption>${this.cabecalho({ agrupavel: true })}${this.linhas(PEDIDOS)}${this.estados()}
           </groupviewtable--ml-grouping-table>${this.renderEventos('c-grp')}`)}
         ${this.painel('Tabela de dados avançada', 'ml-advanced-data-table', 'Total por linha e somatório por coluna ligados.',
           html`<groupviewtable--ml-advanced-data-table .showRowTotal=${true} .showColumnTotal=${true}
             value=${this.selecao['c-adv'] ?? ''} @change=${this.sel('c-adv')} @sort=${this.reg('c-adv')}>
-            <Caption>Pedidos com totais</Caption>${this.cabecalho({ numerico: true })}${this.linhas(PEDIDOS, { numerico: true })}${this.estados()}
+            <TableCaption>Pedidos com totais</TableCaption>${this.cabecalho({ numerico: true })}${this.linhas(PEDIDOS, { numerico: true })}${this.estados()}
           </groupviewtable--ml-advanced-data-table>${this.renderEventos('c-adv')}`)}
         ${this.painel('Tabela dinâmica', 'ml-pivot-table', 'Dimensão × trimestre, com linhas de subtotal e total marcadas.',
           html`<groupviewtable--ml-pivot-table value=${this.selecao['c-piv'] ?? ''}
             @change=${this.sel('c-piv')} @sort=${this.reg('c-piv')}>
-            <Caption>Faturamento por região e trimestre</Caption>
+            <TableCaption>Faturamento por região e trimestre</TableCaption>
             <TableHeader><TableRow>
               <TableHead key="dimensao" sortable>Região</TableHead>
               ${PIVO.colunas.map(c => html`<TableHead key=${c} sortable>${c}</TableHead>`)}
@@ -295,17 +295,17 @@ export class GroupGroupViewTableIndex extends StateLitElement {
         ${this.painel('Detalhe sob demanda', 'ml-lazy-record-detail-table', 'Gesto: o chevron da linha. O detalhe abre ABAIXO dela.',
           html`<groupviewtable--ml-lazy-record-detail-table value=${this.selecao['d-lazy'] ?? ''}
             @change=${this.sel('d-lazy')} @rowClick=${this.lazy('d-lazy')} @sort=${this.reg('d-lazy')}>
-            <Caption>Pedidos</Caption>${this.cabecalho()}${fichaVazia('d-lazy')}${this.estados()}
+            <TableCaption>Pedidos</TableCaption>${this.cabecalho()}${fichaVazia('d-lazy')}${this.estados()}
           </groupviewtable--ml-lazy-record-detail-table>${this.renderEventos('d-lazy')}`)}
         ${this.painel('Grade com cena de detalhe', 'ml-lcrud-detail-grid', 'Gesto: o botão da linha. O detalhe SUBSTITUI a lista.',
           html`<groupviewtable--ml-lcrud-detail-grid value=${this.selecao['d-lcrud'] ?? ''}
             @change=${this.sel('d-lcrud')} @rowClick=${this.lazy('d-lcrud')} @sort=${this.reg('d-lcrud')}>
-            <Caption>Pedidos</Caption>${this.cabecalho()}${fichaVazia('d-lcrud')}${this.estados()}
+            <TableCaption>Pedidos</TableCaption>${this.cabecalho()}${fichaVazia('d-lcrud')}${this.estados()}
           </groupviewtable--ml-lcrud-detail-grid>${this.renderEventos('d-lcrud')}`)}
         ${this.painel('Tabela com painel lateral', 'ml-side-detail-table', 'Gesto: clicar na linha. O detalhe abre AO LADO, com a lista visível.',
           html`<groupviewtable--ml-side-detail-table value=${this.selecao['d-side'] ?? ''}
             @change=${this.sel('d-side')} @rowClick=${this.reg('d-side')} @sort=${this.reg('d-side')}>
-            <Caption>Pedidos</Caption>${this.cabecalho()}
+            <TableCaption>Pedidos</TableCaption>${this.cabecalho()}
             <TableBody>${PEDIDOS.slice(0, 4).map(p => html`<TableRow key=${p.id}>
               <TableCell sort-value=${p.id}>#${p.id}</TableCell><TableCell>${p.cliente}</TableCell>
               <TableCell>${p.regiao}</TableCell><TableCell>${p.status}</TableCell>
@@ -317,7 +317,7 @@ export class GroupGroupViewTableIndex extends StateLitElement {
           html`<groupviewtable--ml-record-form-table value=${this.selecao['d-form'] ?? ''}
             @change=${this.sel('d-form')} @rowAction=${this.reg('d-form')} @delete=${this.reg('d-form')}
             @rowClick=${this.reg('d-form')} @sort=${this.reg('d-form')}>
-            <Caption>Pedidos</Caption>${this.cabecalho()}
+            <TableCaption>Pedidos</TableCaption>${this.cabecalho()}
             <TableBody>${PEDIDOS.slice(0, 4).map(p => html`<TableRow key=${p.id}>
               <TableCell sort-value=${p.id}>#${p.id}</TableCell><TableCell>${p.cliente}</TableCell>
               <TableCell>${p.regiao}</TableCell><TableCell>${p.status}</TableCell>
@@ -348,7 +348,7 @@ export class GroupGroupViewTableIndex extends StateLitElement {
             @change=${this.sel('e-inline')} @edit=${this.reg('e-inline')} @save=${this.reg('e-inline')}
             @cancel=${this.reg('e-inline')} @delete=${this.reg('e-inline')} @newRecord=${this.reg('e-inline')}
             @rowAction=${this.reg('e-inline')} @sort=${this.reg('e-inline')}>
-            <Caption>Pedidos editáveis</Caption>
+            <TableCaption>Pedidos editáveis</TableCaption>
             <TableHeader><TableRow>
               <TableHead key="id" sortable>Pedido</TableHead>
               <TableHead key="cliente">Cliente</TableHead>

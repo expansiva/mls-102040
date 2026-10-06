@@ -93,7 +93,7 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
   // ===========================================================================
 
   slotTags = [
-    'Caption',
+    'TableCaption',
     'TableHeader',
     'TableBody',
     'TableRow',
@@ -103,6 +103,9 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
     'Empty',
     'Loading',
   ];
+
+  /** Only TableCaption is projected live; the other slots still go through the snapshot. */
+  protected usesLiveSlots = true;
 
   // ===========================================================================
   // PROPERTIES — From Contract
@@ -693,10 +696,10 @@ svg`
   // ===========================================================================
 
   private renderCaption(): TemplateResult {
-    if (!this.hasSlot('Caption')) return html``;
+    if (!this.hasSlot('TableCaption')) return html``;
     return html`
-      <caption class=${cn('text-sm font-semibold text-left px-3 py-2 ml-caption', this.getSlotClass('Caption'))}>
-        ${unsafeHTML(this.getSlotContent('Caption'))}
+      <caption class=${cn('text-sm font-semibold text-left px-3 py-2 ml-caption', this.getSlotClass('TableCaption'))}>
+        ${this.renderLiveSlot('TableCaption')}
       </caption>
     `;
   }

@@ -34,7 +34,7 @@ Presents records in a sortable, pageable table with on-demand expandable detail 
 - Blocks expansion, collapse, sorting, selection, and pagination while disabled, and visually distinguishes disabled controls.
 # Constraints
 - Preserves all groupViewTable slots, properties, selection-value rules, events, and accessibility requirements.
-- Supports only the groupViewTable content areas: Caption, TableHeader, TableBody, TableFooter, Empty, Loading, and Detail, with rows and cells in their defined table sections and at most one Detail per body record, as its direct child.
+- Supports only the groupViewTable content areas: TableCaption, TableHeader, TableBody, TableFooter, Empty, Loading, and Detail, with rows and cells in their defined table sections and at most one Detail per body record, as its direct child.
 - Requires TableHeader and TableBody content and uses the group-defined row, header-cell, and data-cell structure.
 - Accepts sorting only for header cells identified as sortable and uses their required column key in \`sort\`.
 - Uses \`value\` as a comma-separated list of selected record indices only when selection is enabled; an empty string represents no selection.

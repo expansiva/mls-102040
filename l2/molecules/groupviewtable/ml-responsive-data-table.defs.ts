@@ -15,7 +15,7 @@ export const skill = `# Metadata
 Presents data in an accessible, responsive tabular listing using the groupViewTable contract, with optional captions, sorting, row selection, pagination, loading, empty, editing, disabled, and error states.
 # Responsibilities
 - Presents the content supplied by TableHeader, TableBody, and TableFooter in an accessible table structure.
-- Presents Caption as the table's secondary title or accessible description when supplied.
+- Presents TableCaption as the table's secondary title or accessible description when supplied.
 - Preserves the order of columns and rows when no sorting is active.
 - Progressively hides columns from right to left as available width decreases.
 - Keeps at least three columns visible at every width; when those three columns do not fit, preserves them and provides horizontal scrolling.
@@ -46,8 +46,8 @@ Presents data in an accessible, responsive tabular listing using the groupViewTa
 - Keeps molecule-specific events distinguishable from native events emitted by internal controls.
 - Preserves perceptible focus and interaction states on sortable headers, selection controls, and pagination controls.
 # Constraints
-- Uses only the Caption, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, Empty, and Loading slot areas.
-- Caption is optional; TableHeader, TableBody, TableRow, TableHead, and TableCell are required according to the group hierarchy; TableFooter, Empty, and Loading are optional.
+- Uses only the TableCaption, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, Empty, and Loading slot areas.
+- TableCaption is optional; TableHeader, TableBody, TableRow, TableHead, and TableCell are required according to the group hierarchy; TableFooter, Empty, and Loading are optional.
 - TableHead requires a key identifying its column, and sortable is supported by attribute presence.
 - The table must not hide any of the first three columns as a responsive adaptation.
 - When fewer than three columns can fit, the table must use horizontal scrolling rather than hiding any of those columns.

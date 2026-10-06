@@ -71,7 +71,7 @@ export class MlResponsiveDataTableMolecule extends MoleculeAuraElement {
   // SLOT TAGS
   // ===========================================================================
   slotTags = [
-    'Caption',
+    'TableCaption',
     'TableHeader',
     'TableBody',
     'TableRow',
@@ -654,11 +654,10 @@ export class MlResponsiveDataTableMolecule extends MoleculeAuraElement {
   }
 
   private _renderCaption(): TemplateResult {
-    if (!this.hasSlot('Caption') && !this.getLiveSlot('Caption')) return html``;
-    const live = this.getLiveSlot('Caption');
+    if (!this.hasSlot('TableCaption')) return html``;
     return html`
-      <caption class="${cn('caption-bottom text-sm mt-2 ml-text-muted ml-table-caption', this.getSlotClass('Caption'))}">
-        ${live ? this.renderLiveSlotFrom(live) : unsafeHTML(this.getSlotContent('Caption'))}
+      <caption class="${cn('caption-bottom text-sm mt-2 ml-text-muted ml-table-caption', this.getSlotClass('TableCaption'))}">
+        ${this.renderLiveSlot('TableCaption')}
       </caption>
     `;
   }

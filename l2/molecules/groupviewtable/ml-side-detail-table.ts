@@ -12,7 +12,7 @@ export class DetailPanelTableMolecule extends MoleculeAuraElement {
   // SLOT TAGS
   // ===========================================================================
   slotTags = [
-    'Caption', 'TableHeader', 'TableBody', 'TableRow', 'TableHead', 'TableCell',
+    'TableCaption', 'TableHeader', 'TableBody', 'TableRow', 'TableHead', 'TableCell',
     'TableFooter', 'Empty', 'Loading', 'Detail', 'RowActions', 'RowAction', 'NewRecordRow',
   ];
   usesLiveSlots = true;
@@ -292,7 +292,7 @@ export class DetailPanelTableMolecule extends MoleculeAuraElement {
         </table></div>${this.renderPagination(this.totalPages(rows.length))}`;
 
     return html`<div class="${layout}"><section class="ml-table-region min-w-0 flex-1" aria-label="Group table">
-      ${this.hasSlot('Caption') ? html`<div class="ml-caption p-3 text-sm ml-label">${this.renderLiveSlot('Caption')}</div>` : nothing}
+      ${this.hasSlot('TableCaption') ? html`<div class="ml-caption p-3 text-sm ml-label">${this.renderLiveSlot('TableCaption')}</div>` : nothing}
       ${this.error ? html`<div role="alert" class="ml-error-text p-3 text-sm">${unsafeHTML(String(this.error))}</div>` : nothing}
       ${tableContent}
     </section>${this.renderDetail()}</div>`;
