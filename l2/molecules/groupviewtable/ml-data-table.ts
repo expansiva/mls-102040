@@ -7,7 +7,6 @@
 // This molecule does NOT contain business logic.
 
 import { html, TemplateResult, nothing } from'lit';
-import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { customElement, state } from'lit/decorators.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
@@ -52,7 +51,8 @@ type SortDirection ='asc' |'desc';
 
 interface ColumnDef {
  key: string;
- label: string;
+ /** The LIVE `<TableHead>` — its children are projected into the `<th>`, never serialized. */
+ element: Element;
  sortable: boolean;
  /**
   * `data-class` do `<TableHead>`, aplicado ao `<th>`.
@@ -81,6 +81,16 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  // SLOT TAGS
  // ===========================================================================
  slotTags = ['Caption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
+
+ // Esta molécula TRANSFORMA os slots: lê TableBody > TableRow > TableCell, ordena e re-emite
+ // <tr>/<td> de verdade. No caminho antigo o conteúdo de célula passava por DUAS serializações
+ // (outerHTML para o snapshot, innerHTML para o unsafeHTML), o que matava handler e binding — o
+ // botão de ação por linha (ex.: "Cancelar item" em comandaRestaurante/atendimento) era HTML morto.
+ //
+ // Com slot vivo o conteúdo é MOVIDO para a célula renderizada. A estrutura passa a ser lida do
+ // DOM VIVO (getLiveSlot), não do snapshot: uma célula já projetada está vazia, e um re-snapshot
+ // leria vazio.
+ protected usesLiveSlots = true;
 
  // ===========================================================================
  // PROPERTIES — From Contract
@@ -133,11 +143,21 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // IS-EDITING PROPAGATION
  // ===========================================================================
+ // O conteúdo das células é projetado para os <td> renderizados; uma célula ainda não desenhada
+ // guarda os próprios filhos. Os dois lugares são cobertos.
+ //
+ // Só grava quando o valor muda: setAttribute com o MESMO valor ainda gera um MutationRecord, e
+ // dentro de um slot tag isso agenda outro render, que chama esta função de novo — um laço.
  private propagateIsEditing() {
- this.querySelectorAll('TableCell, tablecell').forEach(cell => {
- cell.querySelectorAll('*').forEach(el => {
- if (el.tagName.toLowerCase().includes('-')) {
- el.setAttribute('is-editing', this.isEditing ?'true' :'false');
+ const value = this.isEditing ?'true' :'false';
+ const roots = [
+ ...Array.from(this.querySelectorAll('td > [data-ml-live-ref]')),
+ ...Array.from(this.querySelectorAll('TableCell')),
+ ];
+ roots.forEach(root => {
+ root.querySelectorAll('*').forEach(el => {
+ if (el.tagName.includes('-') && el.getAttribute('is-editing') !== value) {
+ el.setAttribute('is-editing', value);
  }
  });
  });
@@ -146,12 +166,14 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // PARSERS
  // ===========================================================================
+ // Estrutura vem do DOM VIVO e só dos filhos DIRETOS: uma tabela aninhada dentro de uma célula
+ // tem TableRow/TableCell próprios, que um querySelectorAll de descendentes também pegaria.
  private parseColumns(): ColumnDef[] {
- const header = this.getSlot('TableHeader');
+ const header = this.getLiveSlot('TableHeader');
  if (!header) return [];
- return Array.from(header.querySelectorAll('TableHead')).map(el => ({
+ return Array.from(header.querySelectorAll(':scope > TableRow > TableHead')).map(el => ({
  key: el.getAttribute('key') ||'',
- label: el.innerHTML,
+ element: el,
  sortable: el.hasAttribute('sortable'),
  headClass: el.getAttribute('data-class') ||'',
  width: el.getAttribute('width'),
@@ -159,19 +181,19 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  }
 
  private parseBodyRows(): RowData[] {
- const body = this.getSlot('TableBody');
+ const body = this.getLiveSlot('TableBody');
  if (!body) return [];
- return Array.from(body.querySelectorAll('TableRow')).map((row, index) => ({
- cells: Array.from(row.querySelectorAll('TableCell')),
+ return Array.from(body.querySelectorAll(':scope > TableRow')).map((row, index) => ({
+ cells: Array.from(row.querySelectorAll(':scope > TableCell')),
  index,
  }));
  }
 
  private parseFooterRows(): Element[][] {
- const footer = this.getSlot('TableFooter');
+ const footer = this.getLiveSlot('TableFooter');
  if (!footer) return [];
- return Array.from(footer.querySelectorAll('TableRow')).map(row =>
- Array.from(row.querySelectorAll('TableCell')));
+ return Array.from(footer.querySelectorAll(':scope > TableRow')).map(row =>
+ Array.from(row.querySelectorAll(':scope > TableCell')));
  }
 
  private getSelectedSet(): Set<string> {
@@ -191,8 +213,10 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  // `R$ 1.234,50` as 1.2345 — the comma vanished and the thousands dot became the decimal.
  const dir = this.sortDirection ==='asc' ? 1 : -1;
  return [...rows].sort((a, b) => {
- const keyA = cellSortKey(a.cells[colIndex]);
- const keyB = cellSortKey(b.cells[colIndex]);
+ // getLiveText: a célula projetada está vazia (os filhos foram movidos), então textContent
+ // leria ''. O `sort-value` declarado continua tendo prioridade.
+ const keyA = cellSortKey(a.cells[colIndex], this.getLiveText(a.cells[colIndex]));
+ const keyB = cellSortKey(b.cells[colIndex], this.getLiveText(b.cells[colIndex]));
  return compareSortKeys(keyA, keyB) * dir;
  });
  }
@@ -218,6 +242,11 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  private handleRowClick(index: number, event: Event) {
  if (this.disabled) return;
  if ((event.target as Element).closest('input[type="checkbox"]')) return;
+ // Conteúdo projetado pode ser interativo (o botão de ação da linha); o clique dele sobe até o
+ // <tr> e não deve virar também um rowClick.
+ const tr = event.currentTarget as Element;
+ const interactive = (event.target as Element).closest?.('button, a[href], input, select, textarea, label, [role="button"], [contenteditable="true"]');
+ if (interactive && interactive !== tr && tr.contains(interactive)) return;
  this.dispatchEvent(new CustomEvent('rowClick', {
  bubbles: true, composed: true,
  detail: { index },
@@ -335,7 +364,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  }
 
  private renderEmpty(): TemplateResult {
- const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
+ const content = this.hasSlot('Empty') ? this.renderLiveSlot('Empty') : html`${this.msg.empty}`;
  return html`
  <tr>
  <td colspan="999">
@@ -345,7 +374,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375z"
  />
  </svg>
- <p class="text-sm">${unsafeHTML(content)}</p>
+ <p class="text-sm">${content}</p>
  </div>
  </td>
  </tr>
@@ -419,15 +448,18 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  const lang = this.getMessageKey(messages);
  this.msg = messages[lang];
 
- const caption = this.hasSlot('Caption') ? this.getSlotContent('Caption') :'';
+ // O Caption aparece duas vezes (visível e no <caption> sr-only). Um nó só pode estar num lugar,
+ // então a cópia visível recebe o conteúdo projetado e a sr-only, o texto atual dele.
+ const hasCaption = this.hasSlot('Caption');
+ const captionText = hasCaption ? this.getLiveText(this.getLiveSlot('Caption')) :'';
 
  // Loading state
  if (this.loading) {
  return html`
  <div class="${cn('w-full', this.cssClass)}">
- ${caption ? html`<div class="${cn('mb-3 text-sm font-semibold ml-text', this.getSlotClass('Caption'))}">${unsafeHTML(caption)}</div>` : nothing}
+ ${hasCaption ? html`<div class="${cn('mb-3 text-sm font-semibold ml-text', this.getSlotClass('Caption'))}">${this.renderLiveSlot('Caption')}</div>` : nothing}
  ${this.hasSlot('Loading')
- ? unsafeHTML(this.getSlotContent('Loading'))
+ ? this.renderLiveSlot('Loading')
  : this.renderSkeleton()}
  </div>
  `;
@@ -445,7 +477,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  return html`
  <div class="${cn('w-full', this.disabled ?'opacity-60 pointer-events-none' :'', this.cssClass)}">
 
- ${caption ? html`<div class="${cn('mb-3 text-sm font-semibold ml-text', this.getSlotClass('Caption'))}">${unsafeHTML(caption)}</div>` : nothing}
+ ${hasCaption ? html`<div class="${cn('mb-3 text-sm font-semibold ml-text', this.getSlotClass('Caption'))}">${this.renderLiveSlot('Caption')}</div>` : nothing}
 
  ${this.selectable && selected.size > 0 ? html`
  <div class="mb-2 flex items-center gap-2">
@@ -458,7 +490,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  <div class="w-full overflow-x-auto rounded-xl border ml-border">
  <table class="w-full border-collapse text-sm" role="table">
 
- ${caption ? html`<caption class="sr-only">${unsafeHTML(caption)}</caption>` : nothing}
+ ${captionText ? html`<caption class="sr-only">${captionText}</caption>` : nothing}
 
  <!-- HEAD -->
  <thead class="${cn('border-b ml-border ml-surface-dim-bg', this.getSlotClass('TableHeader'))}" role="rowgroup">
@@ -491,11 +523,11 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  : nothing}
  @click=${() => this.handleSort(col)}
  @keydown=${(e: KeyboardEvent) => {
- if (e.key ==='Enter' || e.key ==='') { e.preventDefault(); this.handleSort(col); }
+ if (e.key ==='Enter' || e.key ===' ') { e.preventDefault(); this.handleSort(col); }
  }}
  >
  <span class="inline-flex items-center">
- ${unsafeHTML(col.label)}
+ ${this.renderLiveSlotFrom(col.element)}
  ${this.renderSortIcon(col)}
  </span>
  </th>
@@ -531,7 +563,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
 
  ${columns.map((col, ci) => html`
  <td class=${this.getTdClasses(row.cells[ci]?.getAttribute('data-class') ??'')} role="cell">
- ${unsafeHTML(row.cells[ci]?.innerHTML ??'')}
+ ${this.renderLiveSlotFrom(row.cells[ci])}
  </td>
  `)}
  </tr>
@@ -547,7 +579,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  ${this.selectable ? html`<td class="w-10 px-4 py-3" role="cell"></td>` : nothing}
  ${columns.map((col, ci) => html`
  <td class=${this.getTdClasses(cells[ci]?.getAttribute('data-class') ??'', true)} role="cell">
- ${unsafeHTML(cells[ci]?.innerHTML ??'')}
+ ${this.renderLiveSlotFrom(cells[ci])}
  </td>
  `)}
  </tr>
