@@ -6,7 +6,6 @@
 // This molecule does NOT contain business logic.
 import { html, TemplateResult } from'lit';
 import { customElement, state } from'lit/decorators.js';
-import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
 import { cn } from'/_102033_/l2/shared/molecules/cn.js';
@@ -53,6 +52,13 @@ private msg: MessageType = messages.en;
 // ===========================================================================
 slotTags = ['Columns','Column','Rows','Row','Cell','Empty','Loading'];
 
+// This molecule TRANSFORMS its slots: it reads Rows > Row > Cell and re-emits each Row as a
+// list item. Re-emitting cell content through innerHTML + unsafeHTML killed handlers and
+// bindings, so a button inside a row was dead HTML. With live slots the content is MOVED into
+// the row. Structure is therefore read from the LIVE DOM (getLiveSlot): a projected cell is
+// empty, and a re-snapshot would read it as empty.
+protected usesLiveSlots = true;
+
 // ===========================================================================
 // PROPERTIES — From Contract
 // ===========================================================================
@@ -81,7 +87,7 @@ private lastRowCount = 0;
 // LIFECYCLE
 // ===========================================================================
 updated() {
-const rows = this.getSlots('Row');
+const rows = this.getLiveRows();
 if (!this.selectionInitialized && rows.length > 0) {
 this.initializeSelection(rows);
 }
@@ -125,8 +131,17 @@ detail: { selected },
 }));
 }
 
-private handleRowClick(index: number, rowEl: Element, isDisabled: boolean) {
-if (isDisabled) return;
+// Projected cell content can be interactive (buttons, links, inputs). Their clicks bubble to
+// the row, and must not also toggle selection or fire row-click.
+private isFromInteractiveContent(e: Event): boolean {
+const rowEl = e.currentTarget as Element;
+const target = e.target as Element | null;
+const interactive = target?.closest?.('button, a[href], input, select, textarea, label, [role="button"], [contenteditable="true"]');
+return !!interactive && interactive !== rowEl && rowEl.contains(interactive);
+}
+
+private handleRowClick(e: MouseEvent, index: number, rowEl: Element, isDisabled: boolean) {
+if (isDisabled || this.isFromInteractiveContent(e)) return;
 this.dispatchEvent(new CustomEvent('row-click', {
 bubbles: true,
 composed: true,
@@ -146,8 +161,16 @@ this.emitSelectionChange();
 // ===========================================================================
 // PARSING
 // ===========================================================================
+// Structure comes from the LIVE DOM: always current, and it survives projection — moving a
+// cell's children removes neither the row nor the cell.
+private getLiveRows(): Element[] {
+const rowsEl = this.getLiveSlot('Rows');
+return rowsEl ? Array.from(rowsEl.querySelectorAll('Row')) : [];
+}
+
 private parseColumns(): ColumnDef[] {
-const columnEls = this.getSlots('Column');
+const columnsEl = this.getLiveSlot('Columns');
+const columnEls = columnsEl ? Array.from(columnsEl.querySelectorAll('Column')) : [];
 return columnEls.map((col) => {
 const alignAttr = (col.getAttribute('align') ||'left') as'left' |'center' |'right';
 const align = ['left','center','right'].includes(alignAttr) ? alignAttr :'left';
@@ -199,7 +222,7 @@ private renderLoading(): TemplateResult {
 if (this.hasSlot('Loading')) {
 return html`
 <div class="w-full py-8">
-${unsafeHTML(this.getSlotContent('Loading'))}
+${this.renderLiveSlot('Loading')}
 </div>
 `;
 }
@@ -214,7 +237,7 @@ private renderEmpty(): TemplateResult {
 if (this.hasSlot('Empty')) {
 return html`
 <div class="w-full py-10 flex items-center justify-center">
-${unsafeHTML(this.getSlotContent('Empty'))}
+${this.renderLiveSlot('Empty')}
 </div>
 `;
 }
@@ -244,7 +267,7 @@ role="listitem"
 class="${classes}"
 aria-selected="${isSelected ?'true' :'false'}"
 aria-disabled="${isDisabled ?'true' :'false'}"
-@click=${() => this.handleRowClick(index, row, isDisabled)}
+@click=${(e: MouseEvent) => this.handleRowClick(e, index, row, isDisabled)}
 >
 ${this.renderCells(cells, columns)}
 </div>
@@ -261,7 +284,7 @@ const style = this.getCellStyle(col, colspan);
 const classes = this.getCellClasses(col, colspan);
 return html`
 <div class="${classes}" style="${style}">
-${unsafeHTML(cell.innerHTML)}
+${this.renderLiveSlotFrom(cell)}
 </div>
 `;
 })}
@@ -307,10 +330,10 @@ isSelected ?'ml-primary-dim-bg border-l-4 ml-border-focus' :'border-l-4 border-t
 render() {
 const lang = this.getMessageKey(messages);
 this.msg = messages[lang];
-const columnsEl = this.getSlot('Columns');
-const rowsEl = this.getSlot('Rows');
+const columnsEl = this.getLiveSlot('Columns');
+const rowsEl = this.getLiveSlot('Rows');
 const columns = this.parseColumns();
-const rows = this.getSlots('Row');
+const rows = this.getLiveRows();
 const validationErrors = this.getValidationErrors(columnsEl, rowsEl, columns);
 
 return html`

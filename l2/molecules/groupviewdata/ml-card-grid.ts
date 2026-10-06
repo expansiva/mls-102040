@@ -6,7 +6,6 @@
 // This molecule does NOT contain business logic.
 import { html, TemplateResult } from'lit';
 import { customElement, state } from'lit/decorators.js';
-import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
 import { cn } from'/_102033_/l2/shared/molecules/cn.js';
@@ -43,6 +42,13 @@ export class MlCardGridMolecule extends MoleculeAuraElement {
  // SLOT TAGS
  // ===========================================================================
  slotTags = ['Columns','Column','Rows','Row','Cell','Empty','Loading'];
+
+ // This molecule TRANSFORMS its slots: it reads Rows > Row > Cell and re-emits each Row as a
+ // card. Re-emitting cell content through innerHTML + unsafeHTML killed handlers and bindings,
+ // so a button inside a card was dead HTML. With live slots the content is MOVED into the card.
+ // Structure is therefore read from the LIVE DOM (getLiveSlot): a projected cell is empty, and a
+ // re-snapshot would read it as empty.
+ protected usesLiveSlots = true;
  // ===========================================================================
  // PROPERTIES — From Contract
  // ===========================================================================
@@ -100,8 +106,23 @@ export class MlCardGridMolecule extends MoleculeAuraElement {
  }));
  }
 
+ // Projected cell content can be interactive (buttons, links, inputs). Their clicks bubble to
+ // the card, and must not also toggle selection or fire row-click.
+ private isFromInteractiveContent(e: Event): boolean {
+ const card = e.currentTarget as Element;
+ const target = e.target as Element | null;
+ const interactive = target?.closest?.('button, a[href], input, select, textarea, label, [role="button"], [contenteditable="true"]');
+ return !!interactive && interactive !== card && card.contains(interactive);
+ }
+
+ private handleRowClick(e: MouseEvent, rowIndex: number, rowElement: Element, isDisabled: boolean) {
+ if (this.isFromInteractiveContent(e)) return;
+ this.handleRowActivation(rowIndex, rowElement, isDisabled);
+ }
+
  private handleRowKeydown(e: KeyboardEvent, rowIndex: number, rowElement: Element, isDisabled: boolean) {
- if (e.key ==='Enter' || e.key ==='') {
+ if (e.target !== e.currentTarget) return;
+ if (e.key ==='Enter' || e.key ===' ') {
  e.preventDefault();
  this.handleRowActivation(rowIndex, rowElement, isDisabled);
  }
@@ -138,24 +159,24 @@ ${this.renderGrid(rows, columns)}
 
  private renderLoading(): TemplateResult {
  const loadingContent = this.hasSlot('Loading')
- ? this.getSlotContent('Loading')
- : this.msg.loading;
+ ? this.renderLiveSlot('Loading')
+ : html`${this.msg.loading}`;
 
  return html`
 <div class="${cn('w-full rounded-xl border ml-border ml-surface-bg p-6 text-sm ml-text-muted', this.cssClass)}">
-${unsafeHTML(loadingContent)}
+${loadingContent}
 </div>
 `;
  }
 
  private renderEmpty(): TemplateResult {
  const emptyContent = this.hasSlot('Empty')
- ? this.getSlotContent('Empty')
- : this.msg.empty;
+ ? this.renderLiveSlot('Empty')
+ : html`${this.msg.empty}`;
 
  return html`
 <div class="${cn('w-full rounded-xl border ml-border ml-surface-bg p-6 text-sm ml-text-muted', this.cssClass)}">
-${unsafeHTML(emptyContent)}
+${emptyContent}
 </div>
 `;
  }
@@ -182,7 +203,7 @@ role="button"
 aria-selected="${isSelected ?'true' :'false'}"
 aria-disabled="${isDisabled ?'true' :'false'}"
 tabindex="${tabindex}"
-@click=${() => this.handleRowActivation(rowIndex, rowElement, isDisabled)}
+@click=${(e: MouseEvent) => this.handleRowClick(e, rowIndex, rowElement, isDisabled)}
 @keydown=${(e: KeyboardEvent) => this.handleRowKeydown(e, rowIndex, rowElement, isDisabled)}
 >
 <div class="grid grid-cols-12 gap-2">
@@ -220,15 +241,17 @@ ${cells.map((cell, cellIndex) => this.renderCell(cell, cellIndex, columns))}
 
  return html`
 <div class="${cellClasses}" style="${style}">
-${unsafeHTML(cellElement.innerHTML)}
+${this.renderLiveSlotFrom(cellElement)}
 </div>
 `;
  }
  // ===========================================================================
  // HELPERS
  // ===========================================================================
+ // Structure comes from the LIVE DOM: always current, and it survives projection — moving a
+ // cell's children removes neither the row nor the cell.
  private getColumnDefs(): ColumnDef[] {
- const columnsSlot = this.getSlot('Columns');
+ const columnsSlot = this.getLiveSlot('Columns');
  if (!columnsSlot) return [];
 
  const columnElements = this.getDirectChildrenByTag(columnsSlot,'Column');
@@ -244,7 +267,7 @@ ${unsafeHTML(cellElement.innerHTML)}
  }
 
  private getRowElements(): Element[] {
- const rowsSlot = this.getSlot('Rows');
+ const rowsSlot = this.getLiveSlot('Rows');
  if (!rowsSlot) return [];
  return this.getDirectChildrenByTag(rowsSlot,'Row');
  }
@@ -296,8 +319,8 @@ ${unsafeHTML(cellElement.innerHTML)}
  // VALIDATION
  // ===========================================================================
  private validateStructure() {
- const columnsSlot = this.getSlot('Columns');
- const rowsSlot = this.getSlot('Rows');
+ const columnsSlot = this.getLiveSlot('Columns');
+ const rowsSlot = this.getLiveSlot('Rows');
 
  if (!columnsSlot) {
  console.error('Missing required slot <Columns>');

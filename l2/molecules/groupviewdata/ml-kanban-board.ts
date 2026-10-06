@@ -8,7 +8,6 @@
 import { html, TemplateResult } from'lit';
 import { ifDefined } from'lit/directives/if-defined.js';
 import { customElement, property, state } from'lit/decorators.js';
-import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
 import { cn } from'/_102033_/l2/shared/molecules/cn.js';
@@ -40,7 +39,9 @@ interface ParsedColumn {
  width: string;
  align:'left' |'center' |'right';
  hidden: boolean;
- content: string;
+ // The LIVE source element — its children are projected, never serialized.
+ element: Element;
+ hasContent: boolean;
 }
 
 interface ParsedRow {
@@ -53,7 +54,7 @@ interface ParsedRow {
 
 interface ParsedCell {
  element: Element;
- content: string;
+ hasContent: boolean;
  colspan: number;
  isAddAction: boolean;
 }
@@ -66,6 +67,17 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  // SLOT TAGS
  // ===========================================================================
  slotTags = ['Columns','Column','Rows','Row','Cell','Empty','Loading'];
+
+ // This molecule TRANSFORMS its slots: it reads Columns > Column and Rows > Row > Cell and
+ // re-emits them as board columns and cards. Re-emitting content through innerHTML + unsafeHTML
+ // killed handlers and bindings, so a button inside a card was dead HTML. With live slots the
+ // content is MOVED into the card. Structure is therefore read from the LIVE DOM (getLiveSlot):
+ // a projected cell is empty, and a re-snapshot would read it as empty.
+ protected usesLiveSlots = true;
+
+ // Whether a source element has content, remembered from before projection — afterwards its
+ // innerHTML is empty and can no longer answer.
+ private contentPresence = new WeakMap<Element, boolean>();
 
  // ===========================================================================
  // PROPERTIES — From Contract
@@ -113,13 +125,22 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // PARSING
  // ===========================================================================
+ private hasSourceContent(el: Element): boolean {
+ if ((el as HTMLElement).dataset.mlLiveSource) {
+ return this.contentPresence.get(el) ?? true;
+ }
+ const has = el.innerHTML.trim() !=='';
+ this.contentPresence.set(el, has);
+ return has;
+ }
+
  private parseSlotContent() {
  this.parsedColumns = this.parseColumns();
  this.parsedRows = this.parseRows();
  }
 
  private parseColumns(): ParsedColumn[] {
- const columnsSlot = this.getSlot('Columns');
+ const columnsSlot = this.getLiveSlot('Columns');
  if (!columnsSlot) return [];
 
  const columnElements = Array.from(columnsSlot.querySelectorAll('Column'));
@@ -132,15 +153,15 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  const align:'left' |'center' |'right' =
  alignAttr ==='center' || alignAttr ==='right' ? alignAttr :'left';
  const hidden = col.hasAttribute('hidden');
- const content = col.innerHTML.trim();
+ const hasContent = this.hasSourceContent(col);
 
- return { field, header, width, align, hidden, content };
+ return { field, header, width, align, hidden, element: col, hasContent };
  })
  .filter((col) => !col.hidden);
  }
 
  private parseRows(): ParsedRow[] {
- const rowsSlot = this.getSlot('Rows');
+ const rowsSlot = this.getLiveSlot('Rows');
  if (!rowsSlot) return [];
 
  const rowElements = Array.from(rowsSlot.querySelectorAll('Row'));
@@ -153,9 +174,9 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  const colspanAttr = cell.getAttribute('colspan');
  const colspan = colspanAttr ? parseInt(colspanAttr, 10) : 1;
  const isAddAction = cell.hasAttribute('add-action');
- const content = cell.innerHTML.trim();
+ const hasContent = this.hasSourceContent(cell);
 
- return { element: cell, content, colspan, isAddAction };
+ return { element: cell, hasContent, colspan, isAddAction };
  });
 
  return { element: row, index, selected, disabled, cells };
@@ -165,7 +186,17 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // EVENT HANDLERS
  // ===========================================================================
- private handleRowClick(rowIndex: number, cellElement: Element) {
+ // Projected cell content can be interactive (buttons, links, inputs). Their clicks bubble to
+ // the card, and must not also toggle selection or fire row-click.
+ private isFromInteractiveContent(e: Event): boolean {
+ const cardEl = e.currentTarget as Element;
+ const target = e.target as Element | null;
+ const interactive = target?.closest?.('button, a[href], input, select, textarea, label, [role="button"], [contenteditable="true"]');
+ return !!interactive && interactive !== cardEl && cardEl.contains(interactive);
+ }
+
+ private handleRowClick(e: MouseEvent, rowIndex: number, cellElement: Element) {
+ if (this.isFromInteractiveContent(e)) return;
  const row = this.parsedRows[rowIndex];
  if (!row || row.disabled) return;
 
@@ -264,7 +295,8 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  this.dropTargetRowIndex = null;
  }
 
- private handleAddCardClick(rowIndex: number, cell: ParsedCell) {
+ private handleAddCardClick(e: MouseEvent, rowIndex: number, cell: ParsedCell) {
+ if (this.isFromInteractiveContent(e)) return;
  const row = this.parsedRows[rowIndex];
  if (row.disabled) return;
 
@@ -359,8 +391,9 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  }
 
  private renderLoading(): TemplateResult {
- const loadingContent = this.getSlotContent('Loading');
- const content = loadingContent || this.msg.loading;
+ const content = this.hasSlot('Loading')
+ ? this.renderLiveSlot('Loading')
+ : html`${this.msg.loading}`;
 
  return html`
  <div
@@ -369,22 +402,23 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  >
  <div class="flex flex-col items-center gap-3 ml-text-muted">
  <div class="w-8 h-8 border-4 ml-border ml-spinner-border rounded-full animate-spin"></div>
- <span class="text-sm">${unsafeHTML(content)}</span>
+ <span class="text-sm">${content}</span>
  </div>
  </div>
  `;
  }
 
  private renderEmpty(): TemplateResult {
- const emptyContent = this.getSlotContent('Empty');
- const content = emptyContent || this.msg.empty;
+ const content = this.hasSlot('Empty')
+ ? this.renderLiveSlot('Empty')
+ : html`${this.msg.empty}`;
 
  return html`
  <div
  class="${cn('flex items-center justify-center min-h-96 ml-surface-dim-bg rounded-lg border ml-border', this.cssClass)}"
  >
  <div class="ml-text-muted text-sm">
- ${unsafeHTML(content)}
+ ${content}
  </div>
  </div>
  `;
@@ -430,8 +464,8 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  <h3 class="font-semibold ml-text text-sm">
  ${column.header}
  </h3>
- ${column.content
- ? html`<div class="text-xs ml-text-muted">${unsafeHTML(column.content)}</div>`
+ ${column.hasContent
+ ? html`<div class="text-xs ml-text-muted">${this.renderLiveSlotFrom(column.element)}</div>`
  : html``}
  </div>
  </div>
@@ -474,10 +508,10 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  draggable=${row.disabled ?'false' :'true'}
  @dragstart=${(e: DragEvent) => this.handleDragStart(e, rowIndex, cellIndex, cell)}
  @dragend=${this.handleDragEnd}
- @click=${() => this.handleRowClick(rowIndex, cell.element)}
+ @click=${(e: MouseEvent) => this.handleRowClick(e, rowIndex, cell.element)}
  >
  <div class="ml-text text-sm">
- ${unsafeHTML(cell.content)}
+ ${this.renderLiveSlotFrom(cell.element)}
  </div>
  </div>
  `;
@@ -489,7 +523,7 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  return html`
  <div
  class=${addCardClasses}
- @click=${() => this.handleAddCardClick(rowIndex, cell)}
+ @click=${(e: MouseEvent) => this.handleAddCardClick(e, rowIndex, cell)}
  >
  <svg
  class="w-4 h-4"
@@ -506,7 +540,7 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  ></path>
  </svg>
  <span class="text-sm font-medium">
- ${cell.content ? unsafeHTML(cell.content) : this.msg.addCard}
+ ${cell.hasContent ? this.renderLiveSlotFrom(cell.element) : this.msg.addCard}
  </span>
  </div>
  `;

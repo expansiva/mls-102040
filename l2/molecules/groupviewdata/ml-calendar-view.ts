@@ -7,7 +7,6 @@
 
 import { html, svg, TemplateResult } from'lit';
 import { customElement, property, state } from'lit/decorators.js';
-import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
 import { cn } from'/_102033_/l2/shared/molecules/cn.js';
@@ -94,6 +93,11 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  // SLOT TAGS
  // ===========================================================================
  slotTags = ['Columns','Column','Rows','Row','Cell','Empty','Loading'];
+
+ // Live slots only for Loading/Empty, which carry CONTENT and used to go through unsafeHTML —
+ // killing any handler the consumer put there. Rows > Row > Cell stay on the snapshot path on
+ // purpose: their content is parsed as DATA (dates, title, hour) and never re-emitted.
+ protected usesLiveSlots = true;
 
  // ===========================================================================
  // PROPERTIES — From Contract
@@ -731,11 +735,10 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  }
 
  private renderLoading(): TemplateResult {
- const loadingContent = this.getSlotContent('Loading');
- if (loadingContent) {
+ if (this.hasSlot('Loading')) {
  return html`
  <div class="flex items-center justify-center p-8">
- ${unsafeHTML(loadingContent)}
+ ${this.renderLiveSlot('Loading')}
  </div>
  `;
  }
@@ -756,11 +759,10 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  }
 
  private renderEmpty(): TemplateResult {
- const emptyContent = this.getSlotContent('Empty');
- if (emptyContent) {
+ if (this.hasSlot('Empty')) {
  return html`
  <div class="flex items-center justify-center p-8 ml-text-muted">
- ${unsafeHTML(emptyContent)}
+ ${this.renderLiveSlot('Empty')}
  </div>
  `;
  }

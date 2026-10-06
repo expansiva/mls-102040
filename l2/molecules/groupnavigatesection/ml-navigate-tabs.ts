@@ -32,7 +32,7 @@ interface ParsedTab {
   title: string;
   icon: string;
   disabled: boolean;
-  content: string;
+  // The LIVE <Tab> element — its children are projected into the panel, never serialized.
   element: Element;
 }
 
@@ -44,6 +44,13 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
   // SLOT TAGS
   // ===========================================================================
   slotTags = ['Label', 'Tab'];
+
+  // Tab carries CONTENT and CONTROLS — usually whole sections with their own molecules. Re-emitting
+  // it through innerHTML + unsafeHTML handed the panel a COPY: every binding the consumer set inside
+  // (@click, @change, .value…) was lost, and the real molecules stayed inert in the hidden Tab.
+  // With live slots the active Tab's children are MOVED into the panel; switching tabs parks the
+  // previous ones (listeners intact) until they come back.
+  protected usesLiveSlots = true;
 
   // ===========================================================================
   // PROPERTIES — From Contract
@@ -63,7 +70,8 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
   // ===========================================================================
   // INTERNAL STATE
   // ===========================================================================
-  @state()
+  // Not @state: re-read from the live children on every render, and assigning it there must not
+  // schedule another update.
   private parsedTabs: ParsedTab[] = [];
 
   @state()
@@ -106,14 +114,15 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
   // ===========================================================================
   // TAB PARSING
   // ===========================================================================
+  // Read from the LIVE children, not the snapshot: a projected Tab is empty and a re-snapshot would
+  // read it so. Direct children only — a nested tabs molecule inside a panel has Tabs of its own.
   private parseTabs() {
-    const tabElements = this.getSlots('Tab');
+    const tabElements = Array.from(this.children).filter(el => el.tagName === 'TAB');
     this.parsedTabs = tabElements.map((el, index) => ({
       value: el.getAttribute('value') || String(index),
       title: el.getAttribute('title') || '',
       icon: el.getAttribute('icon') || '',
       disabled: el.hasAttribute('disabled'),
-      content: el.innerHTML,
       element: el,
     }));
   }
@@ -348,12 +357,12 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
       return this.renderLoading();
     }
 
-    const labelContent = this.getSlotContent('Label');
+    this.parseTabs();
     const activeTab = this.getActiveTab();
 
     return html`
       <div class=${this.getContainerClasses()}>
-        ${labelContent ? this.renderLabel(labelContent) : html``}
+        ${this.hasSlot('Label') ? this.renderLabel() : html``}
         ${this.renderTabList()}
         ${this.error ? this.renderError() : html``}
         ${activeTab ? this.renderPanel(activeTab) : html``}
@@ -369,22 +378,23 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
     `;
   }
 
-  private renderLabel(content: string): TemplateResult {
+  private renderLabel(): TemplateResult {
     return html`
       <span class=${this.getLabelClasses()} id="tab-label">
-        ${unsafeHTML(content)}
+        ${this.renderLiveSlot('Label')}
       </span>
     `;
   }
 
   private renderTabList(): TemplateResult {
-    const labelContent = this.getSlotContent('Label');
+    // getLiveText: once projected, the Label source is empty and getSlotContent would read ''.
+    const labelText = this.getLiveText(this.getLiveSlot('Label'));
 
     return html`
       <div
         role="tablist"
         class=${this.getTabListClasses()}
-        aria-label=${labelContent || ''}
+        aria-label=${labelText}
         @keydown=${this.handleKeyDown}
         @touchstart=${this.handleTouchStart}
         @touchmove=${this.handleTouchMove}
@@ -437,7 +447,7 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
         aria-labelledby=${tabId}
         tabindex="0"
       >
-        ${unsafeHTML(tab.content)}
+        ${this.renderLiveSlotFrom(tab.element)}
       </div>
     `;
   }

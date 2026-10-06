@@ -33,7 +33,8 @@ interface TabItem {
   title: string;
   icon: string;
   disabled: boolean;
-  content: string;
+  // The LIVE <Tab> element — its children are projected into the panel, never serialized.
+  element: Element;
 }
 
 @customElement('groupnavigatesection--ml-tabs')
@@ -44,6 +45,13 @@ export class MlTabsMolecule extends MoleculeAuraElement {
   // SLOT TAGS
   // ===========================================================================
   slotTags = ['Label', 'Tab'];
+
+  // Tab carries CONTENT and CONTROLS — usually whole sections with their own molecules. Re-emitting
+  // it through innerHTML + unsafeHTML handed the panel a COPY: every binding the consumer set inside
+  // (@click, @change, .value…) was lost, and the real molecules stayed inert in the hidden Tab.
+  // With live slots the active Tab's children are MOVED into the panel; switching tabs parks the
+  // previous ones (listeners intact) until they come back.
+  protected usesLiveSlots = true;
 
   // ===========================================================================
   // PROPERTIES — From Contract
@@ -121,13 +129,15 @@ export class MlTabsMolecule extends MoleculeAuraElement {
   // ===========================================================================
   // HELPERS
   // ===========================================================================
+  // Read from the LIVE children, not the snapshot: a projected Tab is empty and a re-snapshot would
+  // read it so. Direct children only — a nested tabs molecule inside a panel has Tabs of its own.
   private parseTabs(): TabItem[] {
-    return this.getSlots('Tab').map(el => ({
+    return Array.from(this.children).filter(el => el.tagName === 'TAB').map(el => ({
       value: el.getAttribute('value') || '',
       title: el.getAttribute('title') || '',
       icon: el.getAttribute('icon') || '',
       disabled: el.hasAttribute('disabled'),
-      content: el.innerHTML,
+      element: el,
     }));
   }
 
@@ -164,7 +174,7 @@ export class MlTabsMolecule extends MoleculeAuraElement {
     if (!this.hasSlot('Label')) return html``;
     return html`
       <div id="${this.uid}-label" class="${cn('mb-2 text-sm font-semibold ml-label', this.getSlotClass('Label'))}">
-        ${unsafeHTML(this.getSlotContent('Label'))}
+        ${this.renderLiveSlot('Label')}
       </div>
     `;
   }
@@ -261,7 +271,7 @@ export class MlTabsMolecule extends MoleculeAuraElement {
                 role="tabpanel"
                 aria-labelledby="${this.uid}-tab-${this.toSafeId(activeTab.value)}"
               >
-                ${unsafeHTML(activeTab.content)}
+                ${this.renderLiveSlotFrom(activeTab.element)}
               </div>
             `
         : html``}

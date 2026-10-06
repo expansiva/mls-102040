@@ -26,7 +26,8 @@ value: string;
 title: string;
 icon: string;
 disabled: boolean;
-content: string;
+// The LIVE <Tab> element — its children are projected into the panel, never serialized.
+element: Element;
 }
 
 @customElement('groupnavigatesection--ml-navigate-pills')
@@ -38,6 +39,13 @@ private instanceId = `nav-${Math.random().toString(36).slice(2, 8)}`;
 // SLOT TAGS
 // ==========================================================================='
 slotTags = ['Label', 'Tab'];
+
+// Tab carries CONTENT and CONTROLS — usually whole sections with their own molecules. Re-emitting
+// it through innerHTML + unsafeHTML handed the panel a COPY: every binding the consumer set inside
+// (@click, @row-click, .value…) was lost, and the real molecules stayed inert in the hidden Tab.
+// With live slots the active Tab's children are MOVED into the panel; switching tabs parks the
+// previous ones (listeners intact) until they come back.
+protected usesLiveSlots = true;
 
 // ===========================================================================
 // PROPERTIES — From Contract
@@ -119,13 +127,15 @@ detail: { value: tab.value, title: tab.title },
 // ===========================================================================
 // HELPERS
 // ===========================================================================
+// Read from the LIVE children, not the snapshot: a projected Tab is empty and a re-snapshot would
+// read it so. Direct children only — a nested navigate-pills inside a panel has Tabs of its own.
 private getTabs(): NavigateTab[] {
-return this.getSlots('Tab').map(el => ({
+return Array.from(this.children).filter(el => el.tagName === 'TAB').map(el => ({
 value: el.getAttribute('value') || '',
 title: el.getAttribute('title') || '',
 icon: el.getAttribute('icon') || '',
 disabled: el.hasAttribute('disabled'),
-content: el.innerHTML || '',
+element: el,
 })).filter(tab => tab.value && tab.title);
 }
 
@@ -150,8 +160,7 @@ isActive ? 'ml-nav-pill-active' : '',
 
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
-const labelContent = this.getSlotContent('Label');
-return html`<div class="mb-2 text-sm font-semibold ml-label">${unsafeHTML(labelContent)}</div>`;
+return html`<div class="mb-2 text-sm font-semibold ml-label">${this.renderLiveSlot('Label')}</div>`;
 }
 
 private renderLoading(): TemplateResult {
@@ -187,7 +196,7 @@ ${this.renderLabel()}
 <div
 class="flex gap-2 overflow-x-auto pb-1"
 role="tablist"
-aria-label="${this.hasSlot('Label') ? this.getSlotContent('Label') : 'Navigation'}"
+aria-label="${this.hasSlot('Label') ? this.getLiveText(this.getLiveSlot('Label')) : 'Navigation'}"
 >
 ${tabs.map((tab, index) => {
 const isActive = index === activeIndex;
@@ -220,7 +229,7 @@ role="tabpanel"
 id="${this.instanceId}-panel-${activeIndex}"
 aria-labelledby="${this.instanceId}-tab-${activeIndex}"
 >
-${unsafeHTML(activeTab.content)}
+${this.renderLiveSlotFrom(activeTab.element)}
 </div>
 ` : html``}
 ${this.error ? html`<p class="mt-2 text-xs ml-error-text">${unsafeHTML(this.error)}</p>` : html``}

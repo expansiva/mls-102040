@@ -7,7 +7,6 @@
 
 import { html, svg, TemplateResult } from'lit';
 import { customElement, state } from'lit/decorators.js';
-import { unsafeHTML } from'lit/directives/unsafe-html.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
 import { cn } from'/_102033_/l2/shared/molecules/cn.js';
@@ -47,7 +46,8 @@ interface ParsedRow {
 }
 
 interface ParsedCell {
- content: string;
+ // The LIVE source element — its children are projected, never serialized.
+ element: Element;
  colspan: number;
 }
 
@@ -59,6 +59,13 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  // SLOT TAGS
  // ===========================================================================
  slotTags = ['Columns','Column','Rows','Row','Cell','Empty','Loading'];
+
+ // This molecule TRANSFORMS its slots: it reads Rows > Row > Cell and re-emits each Row as a
+ // timeline event. Re-emitting cell content through innerHTML + unsafeHTML killed handlers and
+ // bindings, so a button inside an event was dead HTML. With live slots the content is MOVED
+ // into the event. Structure is therefore read from the LIVE DOM (getLiveSlot): a projected cell
+ // is empty, and a re-snapshot would read it as empty.
+ protected usesLiveSlots = true;
 
  // ===========================================================================
  // PROPERTIES — From Contract
@@ -106,7 +113,7 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  }
 
  private parseColumns(): ParsedColumn[] {
- const columnsSlot = this.getSlot('Columns');
+ const columnsSlot = this.getLiveSlot('Columns');
  if (!columnsSlot) return [];
 
  const columnElements = Array.from(columnsSlot.querySelectorAll('Column'));
@@ -122,13 +129,13 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  }
 
  private parseRows(): ParsedRow[] {
- const rowsSlot = this.getSlot('Rows');
+ const rowsSlot = this.getLiveSlot('Rows');
  if (!rowsSlot) return [];
 
  const rowElements = Array.from(rowsSlot.querySelectorAll('Row'));
  return rowElements.map((row, index) => {
  const cells = Array.from(row.querySelectorAll('Cell')).map((cell) => ({
- content: cell.innerHTML,
+ element: cell,
  colspan: parseInt(cell.getAttribute('colspan') ||'1', 10),
  }));
 
@@ -164,8 +171,17 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // EVENT HANDLERS
  // ===========================================================================
- private handleRowClick(row: ParsedRow) {
- if (row.disabled || row.isGroupHeader) return;
+ // Projected cell content can be interactive (buttons, links, inputs). Their clicks bubble to
+ // the event, and must not also toggle selection or fire row-click.
+ private isFromInteractiveContent(e: Event): boolean {
+ const rowEl = e.currentTarget as Element;
+ const target = e.target as Element | null;
+ const interactive = target?.closest?.('button, a[href], input, select, textarea, label, [role="button"], [contenteditable="true"]');
+ return !!interactive && interactive !== rowEl && rowEl.contains(interactive);
+ }
+
+ private handleRowClick(e: MouseEvent, row: ParsedRow) {
+ if (row.disabled || row.isGroupHeader || this.isFromInteractiveContent(e)) return;
 
  this.dispatchEvent(
  new CustomEvent('row-click', {
@@ -285,8 +301,9 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  // RENDER METHODS
  // ===========================================================================
  private renderLoading(): TemplateResult {
- const loadingSlot = this.getSlot('Loading');
- const content = loadingSlot ? loadingSlot.innerHTML : this.msg.loading;
+ const content = this.hasSlot('Loading')
+ ? this.renderLiveSlot('Loading')
+ : html`${this.msg.loading}`;
 
  return html`
  <div
@@ -295,15 +312,16 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  >
  <div class="flex flex-col items-center gap-3">
  <div class="w-8 h-8 border-2 ml-border ml-spinner-border rounded-full animate-spin"></div>
- <span class="text-sm">${unsafeHTML(content)}</span>
+ <span class="text-sm">${content}</span>
  </div>
  </div>
  `;
  }
 
  private renderEmpty(): TemplateResult {
- const emptySlot = this.getSlot('Empty');
- const content = emptySlot ? emptySlot.innerHTML : this.msg.empty;
+ const content = this.hasSlot('Empty')
+ ? this.renderLiveSlot('Empty')
+ : html`${this.msg.empty}`;
 
  return html`
  <div class="${cn('flex items-center justify-center py-12 ml-text-muted', this.cssClass)}">
@@ -311,7 +329,7 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  <div class="mb-2">
  ${this.renderEmptyIcon()}
  </div>
- <span class="text-sm">${unsafeHTML(content)}</span>
+ <span class="text-sm">${content}</span>
  </div>
  </div>
  `;
@@ -328,11 +346,9 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  }
 
  private renderGroupHeader(row: ParsedRow): TemplateResult {
- const content = row.cells[0]?.content ||'';
-
  return html`
  <div class=${this.getRowClasses(row)}>
- ${unsafeHTML(content)}
+ ${this.renderLiveSlotFrom(row.cells[0]?.element)}
  </div>
  `;
  }
@@ -346,7 +362,7 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  role="listitem"
  aria-selected=${this.selectable ? String(isSelected) :'false'}
  aria-disabled=${String(row.disabled)}
- @click=${() => this.handleRowClick(row)}
+ @click=${(e: MouseEvent) => this.handleRowClick(e, row)}
  >
  ${this.isHorizontalLayout
  ? this.renderHorizontalEvent(row)
@@ -382,7 +398,7 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
 
  return html`
  <div class=${this.getCellClasses(column)} style="width: ${column.width}">
- ${unsafeHTML(cell.content)}
+ ${this.renderLiveSlotFrom(cell.element)}
  </div>
  `;
  })}

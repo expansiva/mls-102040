@@ -34,7 +34,8 @@ interface ParsedTab {
   title: string;
   icon: string;
   disabled: boolean;
-  content: string;
+  // The LIVE <Tab> element — its children are projected into the panel, never serialized.
+  element: Element;
 }
 
 @customElement('groupnavigatesection--ml-side-nav-scrollspy')
@@ -45,6 +46,13 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
   // SLOT TAGS
   // ===========================================================================
   slotTags = ['Label', 'Tab'];
+
+  // Tab carries CONTENT and CONTROLS — usually whole sections with their own molecules. Re-emitting
+  // it through innerHTML + unsafeHTML handed the panel a COPY: every binding the consumer set inside
+  // (@click, @change, .value…) was lost, and the real molecules stayed inert in the hidden Tab.
+  // With live slots the active Tab's children are MOVED into the panel; switching tabs parks the
+  // previous ones (listeners intact) until they come back.
+  protected usesLiveSlots = true;
 
   // ===========================================================================
   // PROPERTIES — From Contract
@@ -64,7 +72,8 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
   // ===========================================================================
   // INTERNAL STATE
   // ===========================================================================
-  @state()
+  // Not @state: re-read from the live children on every render, and assigning it there must not
+  // schedule another update.
   private parsedTabs: ParsedTab[] = [];
 
   @state()
@@ -120,14 +129,16 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
   // ===========================================================================
   // PARSING
   // ===========================================================================
+  // Read from the LIVE children, not the snapshot: a projected Tab is empty and a re-snapshot would
+  // read it so. Direct children only — a nested navigation molecule inside a panel has Tabs of its own.
   private parseTabs() {
-    const tabElements = this.getSlots('Tab');
+    const tabElements = Array.from(this.children).filter(el => el.tagName === 'TAB');
     this.parsedTabs = tabElements.map(el => ({
       value: el.getAttribute('value') || '',
       title: el.getAttribute('title') || '',
       icon: el.getAttribute('icon') || '',
       disabled: el.hasAttribute('disabled'),
-      content: el.innerHTML,
+      element: el,
     }));
   }
 
@@ -357,7 +368,10 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
       return this.renderLoading();
     }
 
-    const labelContent = this.getSlotContent('Label');
+    this.parseTabs();
+    const hasLabel = this.hasSlot('Label');
+    // getLiveText: once projected, the Label source is empty and getSlotContent would read ''.
+    const labelText = hasLabel ? this.getLiveText(this.getLiveSlot('Label')) : '';
     const activeTab = this.parsedTabs.find(t => t.value === this.activeValue);
 
     return html`
@@ -365,13 +379,13 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
         <aside class=${this.getSidebarClasses()}>
           <nav
             role="tablist"
-            aria-label=${labelContent || this.msg.navigation}
+            aria-label=${labelText || this.msg.navigation}
             aria-orientation="vertical"
             class=${this.getNavClasses()}
           >
-            ${labelContent ? html`
+            ${hasLabel ? html`
               <div class=${this.getLabelClasses()}>
-                ${unsafeHTML(labelContent)}
+                ${this.renderLiveSlot('Label')}
               </div>
             ` : html``}
             ${this.parsedTabs.map((tab, index) => this.renderTab(tab, index))}
@@ -382,7 +396,7 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
           role="tabpanel"
           aria-labelledby=${activeTab ? `tab-${activeTab.value}` : ''}
         >
-          ${activeTab ? html`${unsafeHTML(activeTab.content)}` : html``}
+          ${activeTab ? this.renderLiveSlotFrom(activeTab.element) : html``}
         </div>
       </div>
       ${this.error ? this.renderError() : html``}
