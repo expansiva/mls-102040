@@ -18,9 +18,10 @@ A calendar visualization that allows users to browse events in monthly or weekly
 - Provide a visible control to switch between monthly and weekly viewing modes.
 - In monthly mode, display weeks as rows and days as cells. Each day shows event chips with titles that truncate when too long. When a day contains more events than fit, show an indicator with the count of additional items.
 - In weekly mode, display days as columns and hours as rows. Events appear inside the cells that match their scheduled day and time.
-- Allow consumers to supply events into the corresponding time cells using the standard group view data structure.
+- Allow consumers to supply events using the standard group view data structure: each Row is one event, placed by its date attribute (ISO 8601: a date-time puts it on that local day and hour, a date alone makes it an all-day event), never by the text of its cells. The event chip shows the Row title attribute, else the text of its cells. A Row without a date attribute is found, as before, by an ISO date written in one of its cells.
+- Read the rows again on every render, so a change to a Row's date, selected or disabled attribute, or to the rows themselves, is shown at once.
 - When a user selects an existing event, communicate the selection including the event data and its row position.
-- When a user selects an empty day or hour slot, communicate the selection including the cell and row data so the consumer can start creating an event.
+- When a user selects an empty day or hour slot, communicate the selection with index -1 and the date and hour of that slot, so the consumer can start creating an event.
 - Show a loading state when data is unavailable, replacing the calendar grid entirely.
 - Show an empty state when no time rows exist to display.
 - Apply hover styling to rows when hover interaction is enabled.

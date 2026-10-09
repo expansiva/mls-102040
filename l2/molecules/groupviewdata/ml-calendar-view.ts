@@ -10,6 +10,7 @@ import { customElement, property, state } from'lit/decorators.js';
 import { propertyDataSource } from'/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from'/_102033_/l2/moleculeBase.js';
 import { cn } from'/_102033_/l2/shared/molecules/cn.js';
+import { calendarEventTitle, localDay, parseCalendarMoment, type CalendarMoment } from '/_102040_/l2/molecules/groupviewdata/calendarViewLogic.js';
 
 /// **collab_i18n_start**
 const message_en = {
@@ -68,6 +69,9 @@ interface ParsedRow {
  selected: boolean;
  disabled: boolean;
  element: Element;
+ /** From the Row `date` attribute; null keeps the legacy text search on the cells. */
+ moment: CalendarMoment | null;
+ title: string;
 }
 
 interface CalendarEvent {
@@ -140,10 +144,11 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  this.parseSlotContent();
  }
 
- updated(changedProperties: Map<string, unknown>) {
- if (changedProperties.has('loading')) {
- this.parseSlotContent();
- }
+ // Re-read the rows on every render, not only when `loading` changes: a page that moves `?selected` or swaps
+ // its rows without a loading cycle was drawn from the first snapshot (08/10/2026). The moleculeBase observer
+ // requests the render when the slot content or a Row attribute changes.
+ willUpdate() {
+ if (this.hasUpdated) this.parseSlotContent();
  }
 
  // ===========================================================================
@@ -185,6 +190,8 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  selected: row.hasAttribute('selected'),
  disabled: row.hasAttribute('disabled'),
  element: row,
+ moment: parseCalendarMoment(row.getAttribute('date')),
+ title: calendarEventTitle(row.getAttribute('title'), cellElements.map((cell) => cell.textContent ?? '')),
  };
  });
  }
@@ -292,6 +299,14 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  const dateStr = this.formatDateString(date);
 
  this.parsedRows.forEach((row, rowIndex) => {
+ // The Row says when it happens (`date`): its day and hour place it; its cells are only its text.
+ if (row.moment) {
+ if (row.moment.day === dateStr) {
+ events.push({ title: row.title ||'Event', date: dateStr, hour: row.moment.hour, rowIndex, cellIndex: -1 });
+ }
+ return;
+ }
+ // Legacy: a row without `date` is found by the ISO date written in one of its cells.
  row.cells.forEach((cell, cellIndex) => {
  // Check if cell content contains the date
  if (cell.content.includes(dateStr) || cell.content.includes(date.toISOString().split('T')[0])) {
@@ -318,10 +333,7 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  }
 
  private formatDateString(date: Date): string {
- const year = date.getFullYear();
- const month = String(date.getMonth() + 1).padStart(2,'0');
- const day = String(date.getDate()).padStart(2,'0');
- return `${year}-${month}-${day}`;
+ return localDay(date);
  }
 
  private getMonthYearLabel(): string {

@@ -258,7 +258,9 @@ ${rows.map((row, index) => this.renderRow(row, index, columns, index === rows.le
 
 private renderRow(row: Element, index: number, columns: ColumnDef[], isLast: boolean): TemplateResult {
 const isDisabled = this.parseBooleanAttr(row,'disabled');
-const isSelected = this.selectedIndices.has(index);
+// Without `selectable` the page owns the selection: the Row attribute is read on every render, so the
+// highlight follows it (same as ml-card-grid). With it, the molecule's own set, seeded from the attributes.
+const isSelected = this.selectable ? this.selectedIndices.has(index) : this.parseBooleanAttr(row,'selected');
 const classes = this.getRowClasses(isSelected, isDisabled, isLast);
 const cells = Array.from(row.querySelectorAll('Cell')) as Element[];
 return html`

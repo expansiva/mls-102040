@@ -23,7 +23,8 @@ Display a vertical list of records within the groupViewData context. Each record
 - Allow toggling selection of individual items when selection is enabled, and communicate the set of selected item indices whenever selection changes.
 - Communicate which item was activated when a user selects or activates an item.
 - Ignore interactions, prevent selection changes, and suppress activation communication for disabled items.
-- Recognize pre-selected items upon initial display and include them in subsequent selection state updates.
+- When selection is not enabled, show as selected exactly the items whose Row carries the selected attribute, following every change to it.
+- When selection is enabled, recognize pre-selected items upon initial display and include them in subsequent selection state updates.
 - Apply a hover visual state to items when hover interaction is enabled; provide no hover effect when hover interaction is disabled.
 - Indicate a busy state while loading, mark selected items as selected, and mark disabled items as disabled for accessibility purposes.
 
