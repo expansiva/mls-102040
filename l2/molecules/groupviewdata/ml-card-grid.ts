@@ -41,7 +41,7 @@ export class MlCardGridMolecule extends MoleculeAuraElement {
  // ===========================================================================
  // SLOT TAGS
  // ===========================================================================
- slotTags = ['Columns','Column','Rows','Row','Cell','Empty','Loading'];
+ slotTags = ['Columns','Column','Rows','Row','CardTop','Cell','Empty','Loading'];
 
  // This molecule TRANSFORMS its slots: it reads Rows > Row > Cell and re-emits each Row as a
  // card. Re-emitting cell content through innerHTML + unsafeHTML killed handlers and bindings,
@@ -191,6 +191,7 @@ ${rows.map((row, rowIndex) => this.renderCard(row, rowIndex, columns))}
 
  private renderCard(rowElement: Element, rowIndex: number, columns: ColumnDef[]): TemplateResult {
  const cells = this.getCellElements(rowElement);
+ const cardTop = this.getCardTopElement(rowElement);
  const isDisabled = this.isTruthyAttr(rowElement.getAttribute('disabled'));
  const isSelected = this.isRowSelected(rowIndex, rowElement);
  const cardClasses = this.getCardClasses(isSelected, isDisabled);
@@ -206,9 +207,22 @@ tabindex="${tabindex}"
 @click=${(e: MouseEvent) => this.handleRowClick(e, rowIndex, rowElement, isDisabled)}
 @keydown=${(e: KeyboardEvent) => this.handleRowKeydown(e, rowIndex, rowElement, isDisabled)}
 >
-<div class="grid grid-cols-12 gap-2">
+${cardTop ? this.renderCardTop(cardTop) : html``}
+<div class="grid grid-cols-12 gap-2 p-4">
 ${cells.map((cell, cellIndex) => this.renderCell(cell, cellIndex, columns))}
 </div>
+</div>
+`;
+ }
+
+ // Edge-to-edge band above the card body (status strip, cover image). The card has no padding of
+ // its own — the body carries it — so the band touches the card border on three sides.
+ // .ml-card-top clips it to the card's top corners; making the whole card overflow-hidden would
+ // also clip popovers opened from cell content.
+ private renderCardTop(cardTopElement: Element): TemplateResult {
+ return html`
+<div class="ml-card-top">
+${this.renderLiveSlotFrom(cardTopElement,'block')}
 </div>
 `;
  }
@@ -276,6 +290,10 @@ ${this.renderLiveSlotFrom(cellElement)}
  return this.getDirectChildrenByTag(rowElement,'Cell');
  }
 
+ private getCardTopElement(rowElement: Element): Element | null {
+ return this.getDirectChildrenByTag(rowElement,'CardTop')[0] ?? null;
+ }
+
  private getDirectChildrenByTag(parent: Element, tagName: string): Element[] {
  return Array.from(parent.children).filter((child) => child.tagName === tagName.toUpperCase());
  }
@@ -301,7 +319,7 @@ ${this.renderLiveSlotFrom(cellElement)}
 
  private getCardClasses(isSelected: boolean, isDisabled: boolean): string {
  return [
-'rounded-xl border p-4 transition',
+'rounded-xl border transition',
 'ml-surface-bg',
 'ml-border',
 'ml-text',
@@ -370,10 +388,13 @@ ${this.renderLiveSlotFrom(cellElement)}
  }
  if (child.tagName ==='ROW') {
  Array.from(child.children).forEach((rowChild) => {
- if (rowChild.tagName !=='CELL') {
+ if (rowChild.tagName !=='CELL' && rowChild.tagName !=='CARDTOP') {
  console.warn(`Unknown slot <${rowChild.tagName}> ignored`);
  }
  });
+ if (this.getDirectChildrenByTag(child,'CardTop').length > 1) {
+ console.warn('Only the first <CardTop> of a <Row> is rendered');
+ }
  }
  });
  }

@@ -436,6 +436,92 @@
           </div>
         </details>
       </article>
+      <article class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-6">
+        <h3 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-4">Status Strip (CardTop)</h3>
+        <demo id="demo-card-top">
+          <groupviewdata--ml-card-grid>
+            <Columns>
+              <Column field="description" header="Description" />
+              <Column field="amount" header="Amount" align="right" />
+            </Columns>
+            <Rows>
+              <Row>
+                <CardTop>
+                  <div class="px-4 py-1.5 text-xs font-semibold uppercase tracking-wide bg-emerald-500 text-white">Approved</div>
+                </CardTop>
+                <Cell>Taxi to the airport</Cell>
+                <Cell>$42.00</Cell>
+              </Row>
+              <Row>
+                <CardTop>
+                  <div class="px-4 py-1.5 text-xs font-semibold uppercase tracking-wide bg-amber-400 text-amber-950">Waiting for approval</div>
+                </CardTop>
+                <Cell>Hotel — 2 nights</Cell>
+                <Cell>$310.00</Cell>
+              </Row>
+              <Row>
+                <CardTop>
+                  <div class="px-4 py-1.5 text-xs font-semibold uppercase tracking-wide bg-red-500 text-white">Rejected</div>
+                </CardTop>
+                <Cell>Team dinner</Cell>
+                <Cell>$128.50</Cell>
+              </Row>
+              <Row>
+                <Cell>Office supplies (no strip)</Cell>
+                <Cell>$19.90</Cell>
+              </Row>
+            </Rows>
+          </groupviewdata--ml-card-grid>
+        </demo>
+        <details class="mt-4">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">Properties</summary>
+          <div class="mt-2 p-4 border border-slate-200 dark:border-slate-700 rounded-lg dark:bg-slate-900">
+            <p class="text-sm text-slate-500 dark:text-slate-400">No configurable properties for this example. The strip touches the card border and its top corners; the last card has no CardTop and looks exactly like the other examples.</p>
+          </div>
+        </details>
+        <details class="mt-2">
+          <summary class="cursor-pointer text-sm font-medium text-slate-500 dark:text-slate-400">HTML</summary>
+          <div class="mt-2">
+            <aura--molecules--playground--widget-playground-state-preview-code-102020 target="demo-card-top">
+              <template>
+                <groupviewdata--ml-card-grid>
+                  <Columns>
+                    <Column field="description" header="Description" />
+                    <Column field="amount" header="Amount" align="right" />
+                  </Columns>
+                  <Rows>
+                    <Row>
+                      <CardTop>
+                        <div class="px-4 py-1.5 text-xs font-semibold uppercase tracking-wide bg-emerald-500 text-white">Approved</div>
+                      </CardTop>
+                      <Cell>Taxi to the airport</Cell>
+                      <Cell>$42.00</Cell>
+                    </Row>
+                    <Row>
+                      <CardTop>
+                        <div class="px-4 py-1.5 text-xs font-semibold uppercase tracking-wide bg-amber-400 text-amber-950">Waiting for approval</div>
+                      </CardTop>
+                      <Cell>Hotel — 2 nights</Cell>
+                      <Cell>$310.00</Cell>
+                    </Row>
+                    <Row>
+                      <CardTop>
+                        <div class="px-4 py-1.5 text-xs font-semibold uppercase tracking-wide bg-red-500 text-white">Rejected</div>
+                      </CardTop>
+                      <Cell>Team dinner</Cell>
+                      <Cell>$128.50</Cell>
+                    </Row>
+                    <Row>
+                      <Cell>Office supplies (no strip)</Cell>
+                      <Cell>$19.90</Cell>
+                    </Row>
+                  </Rows>
+                </groupviewdata--ml-card-grid>
+              </template>
+            </aura--molecules--playground--widget-playground-state-preview-code-102020>
+          </div>
+        </details>
+      </article>
     </section>
   </div>
 </div>

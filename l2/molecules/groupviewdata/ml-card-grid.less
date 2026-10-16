@@ -79,6 +79,13 @@ groupviewdata--ml-card-grid {
     box-shadow: 0 0 0 var(--ml-focus-ring-width, 2px) var(--focus-ring, rgba(59, 130, 246, 0.4));
   }
 
+  // Edge-to-edge band at the top of a card: follows the card's rounded top corners.
+  .ml-card-top {
+    overflow: hidden;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+  }
+
   .ml-disabled {
     opacity: var(--ml-disabled-opacity, 0.5);
     cursor: not-allowed;

@@ -12,11 +12,12 @@ export const skill = `# Metadata
 - TagName: groupviewdata--ml-card-grid
 
 # Objective
-Display records as individual cards arranged in a responsive multi-column grid. Each card combines visual content, title, description, metadata, and actions, offering a spacious, visual alternative to tabular presentation. Suitable for product catalogs, employee directories, project listings, document galleries, and customer panels.
+Display records as individual cards arranged in a responsive multi-column grid. Each card combines visual content, title, description, metadata, and actions, offering a spacious, visual alternative to tabular presentation. Suitable for product catalogs, employee directories, project listings, document galleries, and customer panels. Each card can open with an optional edge-to-edge band (CardTop), such as a status strip or a cover image.
 
 # Responsibilities
-- Use exclusively the contract slot tags: Columns, Column, Rows, Row, Cell, Empty, and Loading.
+- Use exclusively the contract slot tags: Columns, Column, Rows, Row, CardTop, Cell, Empty, and Loading.
 - Represent each Row as one card in the grid.
+- When a Row has a CardTop (optional, at most one), render its content as an edge-to-edge band at the top of the card, before the cells: no inner spacing, full card width, clipped to the card's rounded top corners. Use it for a status strip or a cover image. It is not a column (it consumes no Column) and is not clickable on its own: a click on it activates the card like any other part of the card. Without CardTop the card looks exactly as before.
 - Present each Cell inside a Row as a content block within the card, preserving the declared order and accepting any content type—such as images, avatars, titles, descriptions, metadata, or actions—without enforcing additional structure.
 - Respect column definitions including field, header, width, align, and hidden to guide data presentation and omit fields marked as hidden.
 - In loading state, hide all rows and present only the Loading content when provided.
@@ -32,7 +33,7 @@ Display records as individual cards arranged in a responsive multi-column grid. 
 
 # Constraints
 - The grid must automatically adjust its column count to fit the viewport.
-- Cards must maintain comfortable internal spacing and clear visual separation.
+- Cards must maintain comfortable internal spacing and clear visual separation. The spacing belongs to the card body (the cells), never to the card itself, so that CardTop can reach the card border.
 - Selected cards must exhibit a visual highlight consistent with the contract's Selected state.
 - Disabled cards must present reduced opacity and must not react to interaction.
 - Loading and Empty states must replace the grid entirely rather than appearing alongside it.
