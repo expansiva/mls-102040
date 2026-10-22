@@ -14,6 +14,14 @@ export const layoutConfig = {
 export const skill = `# Metadata
 - TagName: groupentertext--ml-address-field
 
+# Properties and events
+- There is no aggregate value property. Address values are separate string properties, all defaulting to an empty string: postalCode (HTML attribute postal-code), street, number, complement, neighborhood, city, and stateCode (HTML attribute state-code).
+- input, change, and blur emit detail { field, value: string } for one field. change fires on that field's blur, not with a full address.
+- focus emits detail { field }.
+- The field key is postalCode, street, number, complement, neighborhood, city, or stateCode. Postal-code input emits digits only.
+- address-lookup emits detail { postalCode: string } when postalCodeLength is reached.
+- address-confirmed emits detail { address: { postalCode, street, number, complement, neighborhood, city, state } }, with string values. Only this full-address object uses state, copied from the stateCode property; field events use stateCode.
+
 # Objective
 Provide a complete address entry interface that allows users to input a postal code and automatically retrieves corresponding address details from an external service. The molecule populates street, neighborhood, city, and state fields automatically while keeping them manually editable afterward. It includes fields for number and complement, validates the postal code before searching, and notifies the system when a complete address is confirmed.
 
@@ -31,9 +39,9 @@ Provide a complete address entry interface that allows users to input a postal c
 - Hide sensitive values behind a fixed bullet sequence in view mode when configured for secure content.
 - Remain editable after external value updates unless the field is marked as read-only or disabled.
 - Emit a notification containing the full address object when the address entry is confirmed.
-- Emit a notification with the current field value on every user input.
-- Emit a notification with the current value and a blur indication when a field loses focus.
-- Emit a focus indication when a field gains focus.
+- Emit a notification with the field key and current field value on every user input.
+- Emit blur and change notifications with the field key and current value when a field loses focus.
+- Emit a focus notification with the field key when a field gains focus.
 - Present a visual error state only when an external error message is provided.
 - Support visual error states for empty required fields when indicated externally.
 - Block user interaction while remaining visible during loading states.
