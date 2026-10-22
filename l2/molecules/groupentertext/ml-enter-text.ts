@@ -294,19 +294,6 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
   }
 
   private renderInput(): TemplateResult {
-    const commonAttrs = {
-      name: this.name,
-      placeholder: this.placeholder || undefined,
-      autocomplete: this.autocomplete || undefined,
-      disabled: this.disabled || this.loading,
-      readonly: this.readonly,
-      required: this.required,
-      'aria-labelledby': this.hasSlot('Label') ? this.getLabelId() : undefined,
-      'aria-describedby': this.error && this.isEditing ? this.getErrorId() : (this.hasSlot('Helper') ? this.getHelperId() : undefined),
-      'aria-invalid': this.error && this.isEditing ? 'true' : undefined,
-      'aria-required': this.required ? 'true' : undefined,
-    } as Record<string, any>;
-
     if (this.rows === 1) {
       return html`
         <div class="flex items-center">
@@ -318,7 +305,16 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
             @input="${this.handleInput}"
             @blur="${this.handleBlur}"
             @focus="${this.handleFocus}"
-            ...=${commonAttrs}
+            name="${this.name}"
+            placeholder="${this.placeholder || nothing}"
+            autocomplete="${this.autocomplete || nothing}"
+            .disabled="${this.disabled || this.loading}"
+            .readOnly="${this.readonly}"
+            .required="${this.required}"
+            aria-labelledby="${this.hasSlot('Label') ? this.getLabelId() : nothing}"
+            aria-describedby="${this.error && this.isEditing ? this.getErrorId() : (this.hasSlot('Helper') ? this.getHelperId() : nothing)}"
+            aria-invalid="${this.error && this.isEditing ? 'true' : nothing}"
+            aria-required="${this.required ? 'true' : nothing}"
           
           @change="${(e: Event) => e.stopPropagation()}"
 />
@@ -336,7 +332,16 @@ export class MlEnterTextMolecule extends MoleculeAuraElement {
           @input="${this.handleInput}"
           @blur="${this.handleBlur}"
           @focus="${this.handleFocus}"
-          ...=${commonAttrs}
+          name="${this.name}"
+          placeholder="${this.placeholder || nothing}"
+          autocomplete="${this.autocomplete || nothing}"
+          .disabled="${this.disabled || this.loading}"
+          .readOnly="${this.readonly}"
+          .required="${this.required}"
+          aria-labelledby="${this.hasSlot('Label') ? this.getLabelId() : nothing}"
+          aria-describedby="${this.error && this.isEditing ? this.getErrorId() : (this.hasSlot('Helper') ? this.getHelperId() : nothing)}"
+          aria-invalid="${this.error && this.isEditing ? 'true' : nothing}"
+          aria-required="${this.required ? 'true' : nothing}"
         
           @change="${(e: Event) => e.stopPropagation()}"
 ></textarea>
