@@ -431,7 +431,6 @@ if (this.portalContainer) return;
 this.portalContainer = document.createElement('div');
 if (this.portalWidgetName) this.portalContainer.setAttribute('data-widget', this.portalWidgetName);
 document.body.appendChild(this.portalContainer);
-this.updatePanelPosition();
 this.renderPortalContent();
 window.addEventListener('scroll', this.boundUpdatePosition, true);
 window.addEventListener('resize', this.boundUpdatePosition);
@@ -449,18 +448,45 @@ private updatePanelPosition() {
 if (!this.portalContainer) return;
 const trigger = this.querySelector('button[aria-haspopup="dialog"]') as HTMLElement;
 if (!trigger) return;
+const panel = this.portalContainer.querySelector<HTMLElement>('.ml-calendar-container');
+if (!panel) return;
 const rect = trigger.getBoundingClientRect();
+const viewportWidth = document.documentElement.clientWidth;
+const viewportHeight = document.documentElement.clientHeight;
+const scrollTop = panel.scrollTop;
 Object.assign(this.portalContainer.style, {
 position: 'fixed',
-top: `${rect.bottom + 4}px`,
-left: `${rect.left}px`,
+top: '0px',
+left: '0px',
 zIndex: '9999',
-});
+} satisfies Partial<CSSStyleDeclaration>);
+Object.assign(panel.style, {
+boxSizing: 'border-box',
+maxWidth: `${viewportWidth}px`,
+maxHeight: '',
+overflow: 'auto',
+} satisfies Partial<CSSStyleDeclaration>);
+const marginTop = parseFloat(window.getComputedStyle(panel).marginTop) || 0;
+const panelRect = panel.getBoundingClientRect();
+const belowTop = Math.min(viewportHeight, Math.max(0, rect.bottom + 4 + marginTop));
+const aboveBottom = Math.min(viewportHeight, Math.max(0, rect.top - 4));
+const belowSpace = viewportHeight - belowTop;
+const openAbove = panelRect.height > belowSpace && aboveBottom > belowSpace;
+const availableHeight = openAbove ? aboveBottom : belowSpace;
+panel.style.maxHeight = `${availableHeight}px`;
+const height = panel.getBoundingClientRect().height;
+const top = openAbove ? aboveBottom - height : belowTop;
+Object.assign(this.portalContainer.style, {
+top: `${Math.max(0, Math.min(top, viewportHeight - height)) - marginTop}px`,
+left: `${Math.max(0, Math.min(rect.left, viewportWidth - panelRect.width))}px`,
+} satisfies Partial<CSSStyleDeclaration>);
+panel.scrollTop = scrollTop;
 }
 
 private renderPortalContent() {
 if (!this.portalContainer) return;
 litRender(this.getPortalTemplate(), this.portalContainer, { host: this });
+this.updatePanelPosition();
 }
 
 protected getPortalTemplate(): TemplateResult {
