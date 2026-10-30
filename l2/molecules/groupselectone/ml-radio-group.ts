@@ -30,9 +30,11 @@ interface ParsedItem {
   value: string;
   label: string;
   disabled: boolean;
+  cls: string;
 }
 interface ParsedGroup {
   label: string;
+  cls: string;
   items: ParsedItem[];
 }
 @customElement('groupselectone--ml-radio-group')
@@ -91,6 +93,7 @@ export class MlRadioGroupMolecule extends MoleculeAuraElement {
         value: el.getAttribute('value') || '',
         label: el.innerHTML.trim(),
         disabled: el.hasAttribute('disabled'),
+        cls: el.getAttribute('data-class') || '',
       }));
   }
   private parseGroups(): ParsedGroup[] {
@@ -102,8 +105,9 @@ export class MlRadioGroupMolecule extends MoleculeAuraElement {
         value: el.getAttribute('value') || '',
         label: el.innerHTML.trim(),
         disabled: el.hasAttribute('disabled'),
+        cls: el.getAttribute('data-class') || '',
       }));
-      return { label: groupLabel, items };
+      return { label: groupLabel, cls: groupEl.getAttribute('data-class') || '', items };
     });
   }
   private getAllItems(): ParsedItem[] {
@@ -213,7 +217,7 @@ export class MlRadioGroupMolecule extends MoleculeAuraElement {
       hasError && !isSelected ? 'ml-radio-option-error' : '',
       item.disabled ? 'ml-disabled' : '',
       this.disabled || this.readonly || this.loading ? 'cursor-not-allowed' : '',
-      this.getSlotClass('Item'),
+      item.cls,
     );
   }
   private getRadioClasses(item: ParsedItem): string {
@@ -287,7 +291,7 @@ ${unsafeHTML(item.label)}
     if (group.items.length === 0) return html``;
     return html`
 <div class="flex flex-col gap-1">
-<span class="${cn('text-xs font-semibold uppercase tracking-wide px-1 ml-select-group-label', this.getSlotClass('Group'))}">
+<span class="${cn('text-xs font-semibold uppercase tracking-wide px-1 ml-select-group-label', group.cls)}">
 ${group.label}
 </span>
 <div class="flex flex-col gap-1">

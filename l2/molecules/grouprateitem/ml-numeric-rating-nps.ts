@@ -28,6 +28,7 @@ type OptionItem = {
 value: number;
 label: string;
 fromSlot: boolean;
+cls?: string;
 };
 
 @customElement('grouprateitem--ml-numeric-rating-nps')
@@ -169,6 +170,7 @@ return slotItems
 .map((el) => ({
 value: Number(el.getAttribute('value')),
 label: el.innerHTML || '',
+cls: el.getAttribute('data-class') || '',
 fromSlot: true,
 }))
 .filter((item) => !Number.isNaN(item.value));
@@ -314,7 +316,7 @@ const isActive = this.hoverValue !== null
 const isDisabled = this.disabled || this.readonly;
 return html`
 <button
-class=${this.getOptionClasses(isActive)}
+class=${cn(this.getOptionClasses(isActive), item.cls)}
 role="radio"
 aria-checked=${item.value === this.value ? 'true' : 'false'}
 aria-label=${String(item.value)}

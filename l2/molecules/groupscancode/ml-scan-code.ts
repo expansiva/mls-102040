@@ -345,7 +345,7 @@ export class MlScanCodeMolecule extends MoleculeAuraElement {
  return html`
  <button
  type="button"
- class="${this.getActionButtonClasses()}"
+ class="${cn(this.getActionButtonClasses(), this.getSlotClass('Trigger'))}"
  ?disabled=${this.disabled}
  role="button"
  aria-label="${this.msg.openCamera}"
@@ -364,7 +364,7 @@ export class MlScanCodeMolecule extends MoleculeAuraElement {
 
  return html`
  <div class="space-y-3" aria-live="polite">
- <div class="rounded-lg border p-3 ml-surface-bg ml-border">
+ <div class="${cn('rounded-lg border p-3 ml-surface-bg ml-border', this.getSlotClass('Result'))}">
  ${resultContent}
  </div>
  <button

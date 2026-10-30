@@ -35,6 +35,7 @@ interface ParsedItem {
   value: string;
   label: string;
   disabled: boolean;
+  cls: string;
 }
 
 @customElement('groupselectone--ml-segmented-control')
@@ -107,6 +108,7 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
       value: el.getAttribute('value') || '',
       label: el.innerHTML.trim(),
       disabled: el.hasAttribute('disabled'),
+      cls: el.getAttribute('data-class') || '',
     }));
   }
 
@@ -225,7 +227,7 @@ export class SegmentedControlMolecule extends MoleculeAuraElement {
       item.disabled ? 'ml-disabled' : '',
       !item.disabled && !this.disabled && !this.readonly && !this.loading ? 'cursor-pointer' : '',
       this.readonly && !item.disabled ? 'cursor-default' : '',
-      this.getSlotClass('Item'),
+      item.cls,
     );
   }
 

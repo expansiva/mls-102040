@@ -47,11 +47,13 @@ interface ParsedHeader {
  key: string;
  sortable: boolean;
  content: string;
+ cls: string;
 }
 
 interface ParsedRow {
  element: Element;
  cells: string[];
+ cellCls: string[];
  index: number;
  isSubtotal: boolean;
  isTotal: boolean;
@@ -163,6 +165,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  key: head.getAttribute('key') ||'',
  sortable: head.hasAttribute('sortable'),
  content: head.innerHTML,
+ cls: head.getAttribute('data-class') ||'',
  }));
  }
 
@@ -178,6 +181,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  return {
  element: row,
  cells: cells.map((cell) => cell.innerHTML),
+ cellCls: cells.map((cell) => cell.getAttribute('data-class') ||''),
  index,
  isSubtotal,
  isTotal,
@@ -195,6 +199,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  return {
  element: row,
  cells: cells.map((cell) => cell.innerHTML),
+ cellCls: cells.map((cell) => cell.getAttribute('data-class') ||''),
  index,
  isSubtotal: false,
  isTotal: true,
@@ -509,11 +514,11 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  const allSelected = this.parsedBodyRows.length > 0 && this.parsedBodyRows.every((row) => selected.has(row.index));
 
  return html`
- <thead role="rowgroup">
- <tr role="row">
+ <thead role="rowgroup" class="${this.getSlotClass('TableHeader')}">
+ <tr role="row" class="${this.getSlot('TableHeader')?.querySelector('TableRow')?.getAttribute('data-class') ||''}">
  ${this.selectable
  ? html`
- <th class="${this.getHeaderCellClasses({ key:'', sortable: false, content:'' })} w-12" role="columnheader">
+ <th class="${this.getHeaderCellClasses({ key:'', sortable: false, content:'', cls:'' })} w-12" role="columnheader">
  <input
  type="checkbox"
  class="${this.getCheckboxClasses()}"
@@ -539,7 +544,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
 
  return html`
  <th
- class="${this.getHeaderCellClasses(header)}"
+ class="${cn(this.getHeaderCellClasses(header), header.cls)}"
  role="columnheader"
  aria-sort="${ariaSort ||'none'}"
  @click="${header.sortable ? () => this.handleSort(header.key) : undefined}"
@@ -581,12 +586,12 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  const selected = this.getSelectedIndices();
 
  return html`
- <tbody role="rowgroup">
+ <tbody role="rowgroup" class="${this.getSlotClass('TableBody')}">
  ${this.parsedBodyRows.map((row) => {
  const isSelected = selected.has(row.index);
  return html`
  <tr
- class="${this.getBodyRowClasses(row, isSelected)}"
+ class="${cn(this.getBodyRowClasses(row, isSelected), row.element.getAttribute('data-class') ||'')}"
  role="row"
  @click="${(e: Event) => this.handleRowClick(row.index, e)}"
  @keydown="${(e: KeyboardEvent) => {
@@ -614,8 +619,8 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  `
  : html``}
  ${row.cells.map(
- (cell) => html`
- <td class="${this.getBodyCellClasses(row)}" role="cell">
+ (cell, ci) => html`
+ <td class="${cn(this.getBodyCellClasses(row), row.cellCls[ci])}" role="cell">
  ${unsafeHTML(cell)}
  </td>
  `
@@ -631,14 +636,14 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  if (this.parsedFooterRows.length === 0) return html``;
 
  return html`
- <tfoot role="rowgroup">
+ <tfoot role="rowgroup" class="${this.getSlotClass('TableFooter')}">
  ${this.parsedFooterRows.map(
  (row) => html`
- <tr role="row">
+ <tr role="row" class="${row.element.getAttribute('data-class') ||''}">
  ${this.selectable ? html`<td class="${this.getFooterCellClasses()}"></td>` : html``}
  ${row.cells.map(
- (cell) => html`
- <td class="${this.getFooterCellClasses()}" role="cell">
+ (cell, ci) => html`
+ <td class="${cn(this.getFooterCellClasses(), row.cellCls[ci])}" role="cell">
  ${unsafeHTML(cell)}
  </td>
  `
@@ -731,7 +736,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  private renderLoading(): TemplateResult {
  if (this.hasSlot('Loading')) {
  return html`
- <div class="${cn(this.getContainerClasses(), this.cssClass)}">
+ <div class="${cn(this.getContainerClasses(), this.cssClass, this.getSlotClass('Loading'))}">
  ${unsafeHTML(this.getSlotContent('Loading'))}
  </div>
  `;
@@ -756,7 +761,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
 
  return html`
  <div class="${cn(this.getContainerClasses(), this.cssClass)}">
- <div class="p-8 text-center ml-text-muted">
+ <div class="${cn('p-8 text-center ml-text-muted', this.getSlotClass('Empty'))}">
  ${unsafeHTML(emptyContent)}
  </div>
  </div>

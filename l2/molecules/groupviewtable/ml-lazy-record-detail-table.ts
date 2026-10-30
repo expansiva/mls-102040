@@ -618,8 +618,8 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
 
   private renderHeader(headers: HeaderCell[], visibleRows: BodyRow[]): TemplateResult {
     return html`
-      <thead class="ml-table-thead" role="rowgroup">
-        <tr class="ml-table-header-row" role="row">
+      <thead class=${cn('ml-table-thead', this.getSlotClass('TableHeader'))} role="rowgroup">
+        <tr class=${cn('ml-table-header-row', this.getLiveSlot('TableHeader')?.querySelector('TableRow')?.getAttribute('data-class') || '')} role="row">
           ${this.renderExpandHeadCell()}
           ${this.renderSelectAllCell(visibleRows)}
           ${headers.map((header) => {
@@ -633,7 +633,7 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
                 : 'none';
             return html`
               <th
-                class=${this.getHeadCellClasses(header)}
+                class=${cn(this.getHeadCellClasses(header), header.element?.getAttribute('data-class') || '')}
                 scope="col"
                 role="columnheader"
                 aria-sort=${ariaSort}
@@ -723,7 +723,7 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
         data-detail-for=${row.index}
       >
         <td class=${this.getDetailCellClasses()} role="cell" colspan=${colSpan}>
-          <div class="ml-table-detail-content">
+          <div class=${cn('ml-table-detail-content', row.detailEl?.getAttribute('data-class') || '')}>
             ${row.detailEl ? this.renderLiveSlotFrom(row.detailEl) : nothing}
           </div>
         </td>
@@ -743,7 +743,7 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
 
     return html`
       <tr
-        class=${this.getBodyRowClasses(isSelected, isFocused, isExpanded)}
+        class=${cn(this.getBodyRowClasses(isSelected, isFocused, isExpanded), row.element.getAttribute('data-class') || '')}
         role="row"
         tabindex=${!this.disabled ? '0' : nothing}
         aria-selected=${this.selectable ? (isSelected ? 'true' : 'false') : nothing}
@@ -777,7 +777,7 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
 
     if (rows.length === 0) {
       return html`
-        <tbody class="ml-table-tbody" role="rowgroup">
+        <tbody class=${cn('ml-table-tbody', this.getSlotClass('TableBody'))} role="rowgroup">
           <tr class="ml-table-empty-row" role="row">
             <td class="px-3 py-6 text-center ml-table-cell ml-text-muted" role="cell" colspan=${colSpan}>
               ${this.renderEmptyContent()}
@@ -788,7 +788,7 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
     }
 
     return html`
-      <tbody class="ml-table-tbody" role="rowgroup">
+      <tbody class=${cn('ml-table-tbody', this.getSlotClass('TableBody'))} role="rowgroup">
         ${rows.map((row, i) => this.renderBodyRow(row, i, colSpan, selected))}
       </tbody>
     `;
@@ -800,10 +800,10 @@ svg`<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.
     const colPad = 1 + (this.selectable ? 1 : 0);
 
     return html`
-      <tfoot class="ml-table-tfoot" role="rowgroup">
+      <tfoot class=${cn('ml-table-tfoot', this.getSlotClass('TableFooter'))} role="rowgroup">
         ${footerRows.map(
           (row) => html`
-            <tr class="ml-table-footer-row" role="row">
+            <tr class=${cn('ml-table-footer-row', row.element.getAttribute('data-class') || '')} role="row">
               ${colPad > 0
                 ? html`<td class="ml-table-cell" role="cell" colspan=${colPad}></td>`
                 : nothing}

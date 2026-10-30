@@ -25,6 +25,7 @@ en: message_en,
 type RateItem = {
 value: number;
 label: string;
+cls?: string;
 };
 
 @customElement('grouprateitem--ml-ces-scale')
@@ -147,6 +148,7 @@ if (slotItems.length > 0) {
 return slotItems.map(el => ({
 value: Number(el.getAttribute('value')),
 label: el.innerHTML,
+cls: el.getAttribute('data-class') || '',
 })).filter(item => !Number.isNaN(item.value));
 }
 const items: RateItem[] = [];
@@ -223,7 +225,7 @@ item.label ?'' : (index === 0 || index === items.length - 1 ?'opacity-95' :'opac
 ].filter(Boolean).join(' ');
 return html`
 <button
-class=${this.getItemClasses(isActive, hasError, compact, gradient)}
+class=${cn(this.getItemClasses(isActive, hasError, compact, gradient), item.cls)}
 role="radio"
 aria-checked=${isActive}
 aria-label=${String(item.value)}

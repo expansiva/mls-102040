@@ -106,7 +106,7 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
 
     const headerContent = this.getSlotContent('CardHeader');
     return html`
-      <div class="mb-2">
+      <div class="${cn('mb-2', this.getSlotClass('CardHeader'))}">
         ${hasTitle
           ? html`<div class="${cn('text-sm font-semibold ml-label', this.getSlotClass('CardTitle'))}">${unsafeHTML(this.getSlotContent('CardTitle'))}</div>`
           : ''}
@@ -114,7 +114,7 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
           ? html`<div class="${cn('mt-1 text-xs ml-text-muted', this.getSlotClass('CardDescription'))}">${unsafeHTML(this.getSlotContent('CardDescription'))}</div>`
           : ''}
         ${!hasTitle && !hasDescription && hasHeader
-          ? html`<div class="${cn('text-sm ml-text', this.getSlotClass('CardHeader'))}">${unsafeHTML(headerContent)}</div>`
+          ? html`<div class="text-sm ml-text">${unsafeHTML(headerContent)}</div>`
           : ''}
       </div>
     `;
@@ -141,7 +141,7 @@ export class ViewCardHorizontalMolecule extends MoleculeAuraElement {
   private renderAction(): TemplateResult {
     if (!this.hasSlot('CardAction')) return html``;
     return html`
-      <div class="mt-3">
+      <div class="${cn('mt-3', this.getSlotClass('CardAction'))}">
         ${this.renderLiveSlot('CardAction')}
       </div>
     `;

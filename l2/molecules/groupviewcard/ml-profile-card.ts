@@ -107,7 +107,7 @@ const hasTitle = this.hasSlot('CardTitle');
 const hasDescription = this.hasSlot('CardDescription');
 if (!hasHeader && !hasTitle && !hasDescription) return nothing;
 
-if (hasHeader) {
+if (hasHeader && !hasTitle && !hasDescription) {
 return html`
 <div class="${cn('card-header ml-text', this.getSlotClass('CardHeader'))}">
 ${unsafeHTML(this.getSlotContent('CardHeader'))}
@@ -116,7 +116,7 @@ ${unsafeHTML(this.getSlotContent('CardHeader'))}
 }
 
 return html`
-<div class="card-header">
+<div class="${cn('card-header', this.getSlotClass('CardHeader'))}">
 ${hasTitle ? html`
 <div class="${cn('text-lg font-semibold ml-label', this.getSlotClass('CardTitle'))}">
 ${unsafeHTML(this.getSlotContent('CardTitle'))}
@@ -152,7 +152,7 @@ ${this.renderLiveSlot('CardFooter')}
 private renderAction() {
 if (!this.hasSlot('CardAction')) return nothing;
 return html`
-<div class="card-action flex flex-wrap items-center gap-2">
+<div class="${cn('card-action flex flex-wrap items-center gap-2', this.getSlotClass('CardAction'))}">
 ${this.renderLiveSlot('CardAction')}
 </div>
 `;

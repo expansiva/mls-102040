@@ -163,7 +163,7 @@ ${this.renderGrid(rows, columns)}
  : html`${this.msg.loading}`;
 
  return html`
-<div class="${cn('w-full rounded-xl border ml-border ml-surface-bg p-6 text-sm ml-text-muted', this.cssClass)}">
+<div class="${cn('w-full rounded-xl border ml-border ml-surface-bg p-6 text-sm ml-text-muted', this.cssClass, this.getSlotClass('Loading'))}">
 ${loadingContent}
 </div>
 `;
@@ -175,7 +175,7 @@ ${loadingContent}
  : html`${this.msg.empty}`;
 
  return html`
-<div class="${cn('w-full rounded-xl border ml-border ml-surface-bg p-6 text-sm ml-text-muted', this.cssClass)}">
+<div class="${cn('w-full rounded-xl border ml-border ml-surface-bg p-6 text-sm ml-text-muted', this.cssClass, this.getSlotClass('Empty'))}">
 ${emptyContent}
 </div>
 `;
@@ -183,7 +183,7 @@ ${emptyContent}
 
  private renderGrid(rows: Element[], columns: ColumnDef[]): TemplateResult {
  return html`
-<div class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(220px,1fr))]">
+<div class="${cn('grid gap-4 grid-cols-[repeat(auto-fit,minmax(220px,1fr))]', this.getSlotClass('Rows'))}">
 ${rows.map((row, rowIndex) => this.renderCard(row, rowIndex, columns))}
 </div>
 `;
@@ -194,7 +194,7 @@ ${rows.map((row, rowIndex) => this.renderCard(row, rowIndex, columns))}
  const cardTop = this.getCardTopElement(rowElement);
  const isDisabled = this.isTruthyAttr(rowElement.getAttribute('disabled'));
  const isSelected = this.isRowSelected(rowIndex, rowElement);
- const cardClasses = this.getCardClasses(isSelected, isDisabled);
+ const cardClasses = cn(this.getCardClasses(isSelected, isDisabled), rowElement.getAttribute('data-class') || '');
  const tabindex = isDisabled ? -1 : 0;
 
  return html`
@@ -221,7 +221,7 @@ ${cells.map((cell, cellIndex) => this.renderCell(cell, cellIndex, columns))}
  // also clip popovers opened from cell content.
  private renderCardTop(cardTopElement: Element): TemplateResult {
  return html`
-<div class="ml-card-top">
+<div class="${cn('ml-card-top', cardTopElement.getAttribute('data-class') || '')}">
 ${this.renderLiveSlotFrom(cardTopElement,'block')}
 </div>
 `;
@@ -254,7 +254,7 @@ ${this.renderLiveSlotFrom(cardTopElement,'block')}
  ].filter(Boolean).join(' ');
 
  return html`
-<div class="${cellClasses}" style="${style}">
+<div class="${cn(cellClasses, cellElement.getAttribute('data-class') || '')}" style="${style}">
 ${this.renderLiveSlotFrom(cellElement)}
 </div>
 `;

@@ -51,10 +51,13 @@ labelHtml: string;
 labelText: string;
 disabled: boolean;
 groupLabel: string | null;
+cls: string;
+groupCls: string;
 };
 
 type GroupBlock = {
 label: string | null;
+cls: string;
 items: ParsedItem[];
 };
 
@@ -219,13 +222,13 @@ return this.value
 .filter((val) => val.length > 0);
 }
 
-private mapItemElement(itemEl: Element, groupLabel: string | null): ParsedItem | null {
+private mapItemElement(itemEl: Element, groupLabel: string | null, groupCls = ''): ParsedItem | null {
 const value = itemEl.getAttribute('value');
 if (!value) return null;
 const labelHtml = (itemEl.innerHTML || '').trim() || value;
 const labelText = (itemEl.textContent || value).trim();
 const disabled = itemEl.hasAttribute('disabled');
-return { value, labelHtml, labelText, disabled, groupLabel };
+return { value, labelHtml, labelText, disabled, groupLabel, cls: itemEl.getAttribute('data-class') || '', groupCls };
 }
 
 private getParsedItems(): ParsedItem[] {
@@ -236,7 +239,7 @@ for (const group of groups) {
 const groupLabel = group.getAttribute('label') || '';
 const itemEls = Array.from(group.querySelectorAll('Item'));
 for (const itemEl of itemEls) {
-const parsed = this.mapItemElement(itemEl, groupLabel || null);
+const parsed = this.mapItemElement(itemEl, groupLabel || null, group.getAttribute('data-class') || '');
 if (parsed) items.push(parsed);
 groupedElements.add(itemEl);
 }
@@ -260,14 +263,14 @@ return items.filter((item) => item.labelText.toLowerCase().includes(query));
 
 private buildGroups(items: ParsedItem[], hasGroups: boolean): GroupBlock[] {
 if (!hasGroups) {
-return [{ label: null, items }];
+return [{ label: null, cls: '', items }];
 }
 const groups: GroupBlock[] = [];
 const groupMap = new Map<string, GroupBlock>();
 for (const item of items) {
 const key = item.groupLabel || '__ungrouped__';
 if (!groupMap.has(key)) {
-const block: GroupBlock = { label: item.groupLabel, items: [] };
+const block: GroupBlock = { label: item.groupLabel, cls: item.groupCls, items: [] };
 groupMap.set(key, block);
 groups.push(block);
 }
@@ -391,7 +394,7 @@ ${items.length === 0
 ${groups.map((group) => html`
 <div class="space-y-2">
 ${hasGroups && group.label
-? html`<div class="text-xs font-semibold ml-text-muted">${group.label}</div>`
+? html`<div class=${cn('text-xs font-semibold ml-text-muted', group.cls)}>${group.label}</div>`
 : html``}
 ${group.items.map((item) => {
 const isSelected = selectedSet.has(item.value);
@@ -402,7 +405,7 @@ const isActionDisabled = isSelectedList ? removeDisabled : addDisabled;
 const rowClasses = this.getItemRowClasses(isSelectedList, itemDisabled || isActionDisabled);
 const actionLabel = isSelectedList ? this.msg.remove : this.msg.add;
 return html`
-<div class="${rowClasses}" role="option" aria-selected="${isSelected}" aria-disabled="${itemDisabled}">
+<div class="${cn(rowClasses, item.cls)}" role="option" aria-selected="${isSelected}" aria-disabled="${itemDisabled}">
 <div class="flex-1 text-sm">${unsafeHTML(item.labelHtml)}</div>
 <button
 class="${this.getActionButtonClasses(isActionDisabled)}"

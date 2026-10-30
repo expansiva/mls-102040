@@ -155,6 +155,7 @@ title: el.getAttribute('title') || '',
 content: el.innerHTML || '',
 sectionDisabled: el.hasAttribute('disabled'),
 expanded: this.openSections.has(index),
+cls: el.getAttribute('data-class') || '',
 }));
 return html`
 <div class="${cn('space-y-4', this.cssClass)}">
@@ -165,7 +166,7 @@ const actionLabel = section.expanded
 ? `${this.msg.hide} ${section.title}`
 : `${this.msg.reveal} ${section.title}`;
 return html`
-<div>
+<div class="${section.cls}">
 <button
 id=${headerId}
 class=${this.getHeaderClasses(section.sectionDisabled)}
@@ -183,7 +184,7 @@ tabindex=${(this.disabled || section.sectionDisabled) ? '-1' : '0'}
 <span class="ml-text-muted">${actionLabel}</span>
 </button>
 ${warning
-? html`<div class="mt-2 px-4 py-3 text-sm ml-text-muted ml-reveal-panel">${unsafeHTML(warning)}</div>`
+? html`<div class="${cn('mt-2 px-4 py-3 text-sm ml-text-muted ml-reveal-panel', this.getSlotClass('Label'))}">${unsafeHTML(warning)}</div>`
 : html``}
 <div
 id=${regionId}

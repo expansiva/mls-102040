@@ -33,6 +33,7 @@ title: string;
 description: string;
 completed: boolean;
 disabled: boolean;
+cls: string;
 }
 
 @customElement('groupnavigatesteps--ml-wizard-steps')
@@ -105,7 +106,7 @@ const title = el.getAttribute('title') || '';
 const description = el.getAttribute('description') || '';
 const completed = el.hasAttribute('completed');
 const disabled = el.hasAttribute('disabled');
-return { index, title, description, completed, disabled };
+return { index, title, description, completed, disabled, cls: el.getAttribute('data-class') || '' };
 });
 }
 
@@ -191,7 +192,7 @@ const isClickable = this.canNavigateTo(step.index);
 const ariaLabel = step.completed ? `${step.title} ${this.msg.completed}` : step.title;
 return html`
 <button
-class="${this.getStepClasses(step, isActive)}"
+class="${cn(this.getStepClasses(step, isActive), step.cls)}"
 role="tab"
 aria-selected="${isActive ? 'true' : 'false'}"
 aria-disabled="${step.disabled ? 'true' : 'false'}"

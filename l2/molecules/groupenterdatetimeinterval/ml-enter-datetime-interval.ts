@@ -432,7 +432,7 @@ this.readonly ? 'cursor-default' : 'cursor-pointer',
 );
 return html`
 <div class="flex flex-col gap-1">
-<label id=${labelId} for=${inputId} class="text-xs font-medium ml-text-muted">
+<label id=${labelId} for=${inputId} class="${cn('text-xs font-medium ml-text-muted', this.getSlotClass(isStart ? 'LabelStart' : 'LabelEnd'))}">
 ${labelContent}
 </label>
 <button

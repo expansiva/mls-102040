@@ -107,12 +107,13 @@ const [lat, lng] = this.value.split(',').map(Number);
 return isNaN(lat) || isNaN(lng) ? null : { lat, lng };
 }
 
-private getSuggestions(): Array<{ value: string; label: string }> {
+private getSuggestions(): Array<{ value: string; label: string; cls: string }> {
 const suggestionsContainer = this.getSlot('Suggestions');
 if (!suggestionsContainer) return [];
 return Array.from(suggestionsContainer.querySelectorAll('Item')).map(el => ({
 value: el.getAttribute('value') ||'',
 label: el.innerHTML,
+cls: el.getAttribute('data-class') || '',
 }));
 }
 
@@ -336,19 +337,19 @@ private renderSuggestions(): TemplateResult {
 if (!this.isEditing || !this.isOpen) return html``;
 const items = this.getSuggestions();
 if (this.loading) {
-return html`<div class="${this.getPanelClasses()}" role="listbox">${this.msg.loading}</div>`;
+return html`<div class="${cn(this.getPanelClasses(), this.getSlotClass('Suggestions'))}" role="listbox">${this.msg.loading}</div>`;
 }
 if (!items.length) {
 const emptyContent = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.noResults;
-return html`<div class="${this.getPanelClasses()}" role="listbox"><div class="px-3 py-2 text-sm ml-text-muted">${unsafeHTML(emptyContent)}</div></div>`;
+return html`<div class="${cn(this.getPanelClasses(), this.getSlotClass('Suggestions'))}" role="listbox"><div class="${cn('px-3 py-2 text-sm ml-text-muted', this.getSlotClass('Empty'))}">${unsafeHTML(emptyContent)}</div></div>`;
 }
 return html`
-<div class="${this.getPanelClasses()}" role="listbox">
+<div class="${cn(this.getPanelClasses(), this.getSlotClass('Suggestions'))}" role="listbox">
 ${items.map(item => {
 const isSelected = item.value === this.value;
 return html`
 <button
-class="${this.getItemClasses(isSelected, this.isInteractionBlocked())}"
+class="${cn(this.getItemClasses(isSelected, this.isInteractionBlocked()), item.cls)}"
 role="option"
 aria-selected="${isSelected}"
 ?disabled=${this.isInteractionBlocked()}
@@ -390,7 +391,7 @@ const label = this.getLabelForValue(this.value) || this.value;
 const display = label || (this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.emptyValue);
 return html`
 ${this.renderLabel()}
-<div class="text-sm ml-text">${unsafeHTML(String(display))}</div>
+<div class="${cn('text-sm ml-text', label ? '' : this.getSlotClass('Empty'))}">${unsafeHTML(String(display))}</div>
 ${this.renderMap()}
 `;
 }
@@ -439,7 +440,7 @@ aria-describedby="${hasError ? `${this.uid}-error` :''}"
 />
 ${this.allowGeolocation ? html`
 <button
-class="absolute right-2 top-1/2 -translate-y-1/2 text-xs px-2 py-1 rounded-md border ml-border ml-text-muted ml-surface-bg hover:ml-surface-dim-bg"
+class="${cn('absolute right-2 top-1/2 -translate-y-1/2 text-xs px-2 py-1 rounded-md border ml-border ml-text-muted ml-surface-bg hover:ml-surface-dim-bg', this.getSlotClass('Trigger'))}"
 ?disabled=${this.isInteractionBlocked()}
 aria-label="${this.msg.useLocation}"
 @click=${this.handleGeolocation}

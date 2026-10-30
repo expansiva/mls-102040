@@ -1096,8 +1096,8 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  const someSelected = this.parsedRows.some((row) => selected.has(row.index));
 
  return html`
- <thead role="rowgroup">
- <tr role="row">
+ <thead role="rowgroup" class="${this.getSlotClass('TableHeader')}">
+ <tr role="row" class="${this.getLiveSlot('TableHeader')?.querySelector('TableRow')?.getAttribute('data-class') ||''}">
  ${this.selectable
  ? html`
  <th class="${this.getHeaderCellClasses(false)} w-12" role="columnheader">
@@ -1132,7 +1132,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
 
  return html`
  <th
- class="${this.getHeaderCellClasses(col.sortable)}"
+ class="${cn(this.getHeaderCellClasses(col.sortable), col.headEl.getAttribute('data-class') ||'')}"
  style=${this.columnStyle(col) || nothing}
  role="columnheader"
  aria-sort=${ariaSort || nothing}
@@ -1193,7 +1193,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  const selected = this.getSelectedIndices();
 
  return html`
- <tbody role="rowgroup">
+ <tbody role="rowgroup" class="${this.getSlotClass('TableBody')}">
  ${this.visibleRowIndices().map((rowIndex) => {
  const row = this.parsedRows.find((r) => r.index === rowIndex);
  if (!row) return nothing;
@@ -1207,7 +1207,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  private renderRow(row: ParsedRow, isSelected: boolean, isDraft = false): TemplateResult {
  return html`
  <tr
- class="${this.getRowClasses(row.index, isSelected)} ${isDraft ?'ml-table-draft-row' :''}"
+ class="${cn(this.getRowClasses(row.index, isSelected), isDraft ?'ml-table-draft-row' :'', row.element.getAttribute('data-class') ||'')}"
  role="row"
  data-row-key=${row.key}
  tabindex="0"
@@ -1258,7 +1258,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  ${row.actionEls.map(
  (actionEl) => html`
  <span
- class="ml-table-action ${this.isActionVisible(actionEl, editing) ?'' :'ml-row-action-hidden'}"
+ class="${cn('ml-table-action', this.isActionVisible(actionEl, editing) ?'' :'ml-row-action-hidden', actionEl.getAttribute('data-class') ||'')}"
  data-ml-table-control
  @click=${() => this.handleRowAction(row, actionEl, isDraft)}
  >
@@ -1272,7 +1272,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  }
 
  private renderCell(cell: Element | undefined, col: ParsedColumn): TemplateResult {
- return html` <td class="${this.getCellClasses()}" style=${this.columnStyle(col) || nothing} role="cell">${this.renderLiveSlotFrom(cell)}</td> `;
+ return html` <td class="${cn(this.getCellClasses(), cell?.getAttribute('data-class') ||'')}" style=${this.columnStyle(col) || nothing} role="cell">${this.renderLiveSlotFrom(cell)}</td> `;
  }
 
  private renderEmpty(): TemplateResult {
@@ -1282,7 +1282,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  return html`
  <tbody role="rowgroup">
  <tr role="row">
- <td colspan="${colSpan}" class="px-4 py-12 text-center ml-text-muted" role="cell">
+ <td colspan="${colSpan}" class="${cn('px-4 py-12 text-center ml-text-muted', this.getSlotClass('Empty'))}" role="cell">
  ${content}
  </td>
  </tr>
@@ -1297,7 +1297,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  return html`
  <tbody role="rowgroup">
  <tr role="row">
- <td colspan="${colSpan}" class="px-4 py-8" role="cell">${this.renderLiveSlot('Loading')}</td>
+ <td colspan="${colSpan}" class="${cn('px-4 py-8', this.getSlotClass('Loading'))}" role="cell">${this.renderLiveSlot('Loading')}</td>
  </tr>
  </tbody>
  `;
@@ -1360,12 +1360,12 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  ${footerRows.map((row) => {
  const cells = Array.from(row.querySelectorAll('TableCell'));
  return html`
- <tr role="row" class="border-t ml-border">
+ <tr role="row" class="${cn('border-t ml-border', row.getAttribute('data-class') ||'')}">
  ${this.selectable ? html`<td class="px-4 py-3" role="cell"></td>` : nothing}
  ${cells.map(
  (cell) => html`
  <td
- class="${this.getCellClasses()}"
+ class="${cn(this.getCellClasses(), cell.getAttribute('data-class') ||'')}"
  role="cell"
  colspan=${cell.getAttribute('colspan') || nothing}
  >
@@ -1388,7 +1388,7 @@ export class MlInlineEditTableMolecule extends MoleculeAuraElement {
  ${footerActions.map(
  (actionEl) => html`
  <span
- class="ml-table-action"
+ class="${cn('ml-table-action', actionEl.getAttribute('data-class') ||'')}"
  data-ml-table-control
  @click=${() => this.handleFooterAction(actionEl)}
  >

@@ -33,6 +33,8 @@ interface TabItem {
   title: string;
   icon: string;
   disabled: boolean;
+  // The Tab's `data-class` — applied to its tab button, not to the panel.
+  cls: string;
   // The LIVE <Tab> element — its children are projected into the panel, never serialized.
   element: Element;
 }
@@ -137,6 +139,7 @@ export class MlTabsMolecule extends MoleculeAuraElement {
       title: el.getAttribute('title') || '',
       icon: el.getAttribute('icon') || '',
       disabled: el.hasAttribute('disabled'),
+      cls: el.getAttribute('data-class') || '',
       element: el,
     }));
   }
@@ -247,7 +250,7 @@ export class MlTabsMolecule extends MoleculeAuraElement {
                 id="${tabId}"
                 data-tab-button
                 data-value="${tab.value}"
-                class="${this.getTabClasses(isActive, isDisabled)}"
+                class="${cn(this.getTabClasses(isActive, isDisabled), tab.cls)}"
                 role="tab"
                 type="button"
                 aria-selected="${isActive ? 'true' : 'false'}"

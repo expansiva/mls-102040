@@ -14,6 +14,7 @@ import { cn } from '/_102033_/l2/shared/molecules/cn.js';
 type RatingItem = {
 value: number;
 label: string;
+cls?: string;
 };
 
 @customElement('grouprateitem--ml-star-rating')
@@ -122,6 +123,7 @@ const val = Number(el.getAttribute('value'));
 return {
 value: val,
 label: el.innerHTML,
+cls: el.getAttribute('data-class') || '',
 };
 })
 .filter((item) => !Number.isNaN(item.value));
@@ -216,7 +218,7 @@ const ariaChecked = isSelected ? 'true' : 'false';
 const label = item.label ? item.label : `Rating ${item.value}`;
 return html`
 <button
-class="${optionClasses}"
+class="${cn(optionClasses, item.cls)}"
 type="button"
 role="radio"
 aria-checked="${ariaChecked}"

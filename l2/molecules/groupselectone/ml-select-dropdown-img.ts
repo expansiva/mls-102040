@@ -39,6 +39,8 @@ interface ParsedItem {
     disabled: boolean;
     icon: string;
     group?: string;
+    groupCls?: string;
+    cls: string;
 }
 
 @customElement('groupselectone--ml-select-dropdown-img')
@@ -140,7 +142,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
             const groupLabel = group.getAttribute('label') || '';
             const groupItems = group.querySelectorAll('Item');
             groupItems.forEach((item) => {
-                items.push(this.parseItemElement(item, groupLabel));
+                items.push(this.parseItemElement(item, groupLabel, group.getAttribute('data-class') || ''));
             });
         });
 
@@ -154,7 +156,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
         this.parsedItems = items;
     }
 
-    private parseItemElement(item: Element, group?: string): ParsedItem {
+    private parseItemElement(item: Element, group?: string, groupCls?: string): ParsedItem {
         const value = item.getAttribute('value') || '';
         const disabled = item.hasAttribute('disabled');
         const imgElement = item.querySelector('img');
@@ -168,7 +170,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
         }
         const label = clonedItem.innerHTML.trim();
 
-        return { value, label, disabled, icon, group };
+        return { value, label, disabled, icon, group, groupCls, cls: item.getAttribute('data-class') || '' };
     }
 
     private findItem(value: string | null): ParsedItem | undefined {
@@ -285,7 +287,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
             isSelected ? 'ml-select-item-selected' : '',
             isFocused && !item.disabled ? 'ml-select-item-highlighted' : '',
             item.disabled ? 'ml-disabled' : '',
-            this.getSlotClass('Item'),
+            item.cls,
         );
     }
 
@@ -403,7 +405,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
         if (filteredItems.length === 0) {
             if (this.hasSlot('Empty')) {
                 return html`
-                    <div class="px-3 py-4 text-sm ml-select-empty text-center">
+                    <div class="${cn('px-3 py-4 text-sm ml-select-empty text-center', this.getSlotClass('Empty'))}">
                         ${unsafeHTML(this.getSlotContent('Empty'))}
                     </div>
                 `;
@@ -463,7 +465,7 @@ export class MlSelectDropdownImgMolecule extends MoleculeAuraElement {
             <div role="listbox" class="max-h-60 overflow-y-auto py-1">
                 ${ungroupedItems.map((item) => renderItem(item))}
                 ${Array.from(groupedItems.entries()).map(([groupLabel, items]) => html`
-                    <div class="px-3 py-2 text-xs font-semibold ml-text-muted uppercase tracking-wider">
+                    <div class="${cn('px-3 py-2 text-xs font-semibold ml-text-muted uppercase tracking-wider', items[0].groupCls)}">
                         ${groupLabel}
                     </div>
                     ${items.map((item) => renderItem(item))}

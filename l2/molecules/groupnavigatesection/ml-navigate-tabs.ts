@@ -32,6 +32,8 @@ interface ParsedTab {
   title: string;
   icon: string;
   disabled: boolean;
+  // The Tab's `data-class` — applied to its tab button, not to the panel.
+  cls: string;
   // The LIVE <Tab> element — its children are projected into the panel, never serialized.
   element: Element;
 }
@@ -123,6 +125,7 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
       title: el.getAttribute('title') || '',
       icon: el.getAttribute('icon') || '',
       disabled: el.hasAttribute('disabled'),
+      cls: el.getAttribute('data-class') || '',
       element: el,
     }));
   }
@@ -380,7 +383,7 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
 
   private renderLabel(): TemplateResult {
     return html`
-      <span class=${this.getLabelClasses()} id="tab-label">
+      <span class=${cn(this.getLabelClasses(), this.getSlotClass('Label'))} id="tab-label">
         ${this.renderLiveSlot('Label')}
       </span>
     `;
@@ -421,7 +424,7 @@ export class MlNavigateTabsMolecule extends MoleculeAuraElement {
         id=${tabId}
         role="tab"
         type="button"
-        class=${this.getTabClasses(tab, isActive, isFocused)}
+        class=${cn(this.getTabClasses(tab, isActive, isFocused), tab.cls)}
         data-tab-value=${tab.value}
         aria-selected=${isActive ? 'true' : 'false'}
         aria-disabled=${tab.disabled ? 'true' : 'false'}

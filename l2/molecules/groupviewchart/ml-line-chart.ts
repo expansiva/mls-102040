@@ -290,7 +290,7 @@ export class MlLineChartMolecule extends MoleculeAuraElement {
     );
 
     return html`
-      <div class=${classes}>
+      <div class=${cn(classes, this.getSlotClass('Empty'))}>
         ${unsafeHTML(content)}
       </div>
     `;

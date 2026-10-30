@@ -36,10 +36,12 @@ type ParsedItem = {
     label: string;
     labelText: string;
     disabled: boolean;
+    cls: string;
 };
 
 type ParsedGroup = {
     label: string;
+    cls: string;
     items: ParsedItem[];
 };
 
@@ -260,6 +262,7 @@ export class SelectOneAutocompleteMolecule extends MoleculeAuraElement {
             label: el.innerHTML,
             labelText: (el.textContent || '').trim(),
             disabled: el.hasAttribute('disabled'),
+            cls: el.getAttribute('data-class') || '',
         };
     }
 
@@ -274,7 +277,7 @@ export class SelectOneAutocompleteMolecule extends MoleculeAuraElement {
         const groups = groupSlots.map((group) => {
             const label = group.getAttribute('label') || '';
             const items = Array.from(group.querySelectorAll('Item')).map((el) => this.parseItem(el));
-            return { label, items } as ParsedGroup;
+            return { label, cls: group.getAttribute('data-class') || '', items } as ParsedGroup;
         });
 
         const allItems = [...standaloneItems, ...groups.flatMap((g) => g.items)];
@@ -318,7 +321,7 @@ export class SelectOneAutocompleteMolecule extends MoleculeAuraElement {
             isSelected ? 'ml-select-item-selected' : 'border-transparent',
             isHighlighted && !item.disabled ? 'ml-select-item-highlighted' : '',
             item.disabled ? 'ml-disabled' : 'cursor-pointer',
-            this.getSlotClass('Item'),
+            item.cls,
         );
     }
 
@@ -336,6 +339,7 @@ export class SelectOneAutocompleteMolecule extends MoleculeAuraElement {
         const filteredGroups = groups
             .map((group) => ({
                 label: group.label,
+                cls: group.cls,
                 items: group.items.filter(filter),
             }))
             .filter((group) => group.items.length > 0);
@@ -421,14 +425,14 @@ class="mt-2 max-h-64 overflow-auto rounded-lg border p-2 ml-select-panel"
 >
 ${filteredFlat.length === 0
                         ? html`
-<div class="px-3 py-2 text-sm ml-select-empty">
+<div class="${cn('px-3 py-2 text-sm ml-select-empty', this.getSlotClass('Empty'))}">
 ${this.hasSlot('Empty') ? unsafeHTML(this.getSlotContent('Empty')) : this.msg.noResults}
 </div>
 `
                         : html`
 ${filteredGroups.map((group) => html`
 <div class="mb-2">
-<div class="px-3 py-1 text-xs font-semibold uppercase ml-text-muted">
+<div class="${cn('px-3 py-1 text-xs font-semibold uppercase ml-text-muted', group.cls)}">
 ${group.label}
 </div>
 ${group.items.map((item) => {

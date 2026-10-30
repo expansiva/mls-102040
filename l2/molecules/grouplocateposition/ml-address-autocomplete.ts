@@ -125,12 +125,13 @@ export class AddressAutocompleteMolecule extends MoleculeAuraElement {
  return isNaN(lat) || isNaN(lng) ? null : { lat, lng };
  }
 
- private getSuggestions(): Array<{ value: string; label: string }> {
+ private getSuggestions(): Array<{ value: string; label: string; cls: string }> {
  const suggestionsContainer = this.getSlot('Suggestions');
  if (!suggestionsContainer) return [];
  return Array.from(suggestionsContainer.querySelectorAll('Item')).map((el) => ({
  value: el.getAttribute('value') ||'',
  label: el.innerHTML,
+ cls: el.getAttribute('data-class') || '',
  }));
  }
 
@@ -312,14 +313,14 @@ export class AddressAutocompleteMolecule extends MoleculeAuraElement {
 
  private renderEmptyState() {
  const emptyContent = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
- return html`<div class="px-3 py-2 text-sm ml-text-muted">${unsafeHTML(emptyContent)}</div>`;
+ return html`<div class="${cn('px-3 py-2 text-sm ml-text-muted', this.getSlotClass('Empty'))}">${unsafeHTML(emptyContent)}</div>`;
  }
 
  private renderSuggestionsPanel() {
  if (!this.isOpen || !this.isEditing) return nothing;
  const items = this.getSuggestions();
  return html`
- <div class=${this.getSuggestionPanelClasses()} role="listbox">
+ <div class=${cn(this.getSuggestionPanelClasses(), this.getSlotClass('Suggestions'))} role="listbox">
  ${this.loading
  ? html`<div class="px-3 py-2 text-sm ml-text-muted">${this.msg.loading}</div>`
  : items.length === 0
@@ -329,7 +330,7 @@ export class AddressAutocompleteMolecule extends MoleculeAuraElement {
  return html`
  <button
  type="button"
- class=${this.getSuggestionItemClasses(selected)}
+ class=${cn(this.getSuggestionItemClasses(selected), item.cls)}
  role="option"
  aria-selected=${selected ?'true' :'false'}
  @click=${() => this.handleItemSelect(item)}
@@ -350,7 +351,7 @@ export class AddressAutocompleteMolecule extends MoleculeAuraElement {
  return html`
  <button
  type="button"
- class="ml-2 rounded-lg border ml-border ml-surface-bg px-3 py-2 text-sm ml-text hover:ml-surface-dim-bg"
+ class="${cn('ml-2 rounded-lg border ml-border ml-surface-bg px-3 py-2 text-sm ml-text hover:ml-surface-dim-bg', this.getSlotClass('Trigger'))}"
  aria-label=${this.msg.useLocation}
  ?disabled=${this.disabled || this.readonly || this.loading}
  @click=${this.handleGeoLocation}
@@ -378,7 +379,7 @@ export class AddressAutocompleteMolecule extends MoleculeAuraElement {
  return html`
  <div class="${cn('w-full', this.cssClass)}">
  ${this.renderLabel()}
- <div class="rounded-lg border ml-border ml-surface-bg px-3 py-2 text-sm ml-text">
+ <div class="${cn('rounded-lg border ml-border ml-surface-bg px-3 py-2 text-sm ml-text', label ? '' : this.getSlotClass('Empty'))}">
  ${unsafeHTML(content)}
  </div>
  ${this.renderMapPreview()}

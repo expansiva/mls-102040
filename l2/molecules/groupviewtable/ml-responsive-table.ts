@@ -214,12 +214,13 @@ export class MlResponsiveTableMolecule extends MoleculeAuraElement {
     });
   }
 
-  private parseFooterRows(): { cells: Element[] }[] {
+  private parseFooterRows(): { cells: Element[]; cls: string }[] {
     const footer = this.getLiveSlot('TableFooter');
     if (!footer) return [];
     const rows = Array.from(footer.querySelectorAll(':scope > tablerow'));
     return rows.map((el) => ({
       cells: Array.from(el.querySelectorAll(':scope > tablecell')),
+      cls: el.getAttribute('data-class') || '',
     }));
   }
 
@@ -551,12 +552,12 @@ export class MlResponsiveTableMolecule extends MoleculeAuraElement {
 
   private renderHeaderRow(headers: HeaderCell[], allRows: BodyRow[], selected: Set<number>): TemplateResult {
     return html`
-      <tr class="ml-table-header-row" role="row">
+      <tr class="${cn('ml-table-header-row', this.getLiveSlot('TableHeader')?.querySelector(':scope > tablerow')?.getAttribute('data-class') || '')}" role="row">
         ${this.renderSelectAllCell(allRows, selected)}
         ${headers.map(
           (header) => html`
             <th
-              class="${this.getHeadClasses(header)} px-3 py-2 text-sm font-semibold text-left"
+              class="${cn(this.getHeadClasses(header), 'px-3 py-2 text-sm font-semibold text-left', header.el.getAttribute('data-class') || '')}"
               scope="col"
               role="columnheader"
               data-sort-key=${header.sortable ? header.key : nothing}
@@ -616,7 +617,7 @@ export class MlResponsiveTableMolecule extends MoleculeAuraElement {
     const isFocused = this.focusedRowIndex === row.originalIndex;
     return html`
       <tr
-        class="${this.getRowClasses(isSelected, isFocused)}"
+        class="${cn(this.getRowClasses(isSelected, isFocused), row.el.getAttribute('data-class') || '')}"
         role="row"
         data-row-index=${row.originalIndex}
         tabindex="0"
@@ -656,10 +657,10 @@ export class MlResponsiveTableMolecule extends MoleculeAuraElement {
     const footerRows = this.parseFooterRows();
     if (footerRows.length === 0) return html``;
     return html`
-      <tfoot class="ml-table-footer" role="rowgroup">
+      <tfoot class="${cn('ml-table-footer', this.getSlotClass('TableFooter'))}" role="rowgroup">
         ${footerRows.map(
           (row) => html`
-            <tr class="ml-table-footer-row" role="row">
+            <tr class="${cn('ml-table-footer-row', row.cls)}" role="row">
               ${this.selectable
                 ? html`<td class="ml-select-cell w-10 px-2 py-2" role="cell"></td>`
                 : nothing}
@@ -780,10 +781,10 @@ export class MlResponsiveTableMolecule extends MoleculeAuraElement {
           @keydown=${(e: KeyboardEvent) => this.handleKeyDown(e, visibleRows, headers)}
         >
           ${this.renderCaption()}
-          <thead class="ml-table-header" role="rowgroup">
+          <thead class="${cn('ml-table-header', this.getSlotClass('TableHeader'))}" role="rowgroup">
             ${this.renderHeaderRow(headers, allRows, selected)}
           </thead>
-          <tbody class="ml-table-body" role="rowgroup">
+          <tbody class="${cn('ml-table-body', this.getSlotClass('TableBody'))}" role="rowgroup">
             ${visibleRows.map((row) => this.renderBodyRow(row, headers, selected))}
           </tbody>
           ${this.renderFooter(headers)}

@@ -43,10 +43,12 @@ interface ComboItem {
   label: string;
   labelText: string;
   disabled: boolean;
+  cls: string;
 }
 
 interface ComboGroup {
   label: string;
+  cls: string;
   items: ComboItem[];
 }
 
@@ -172,15 +174,18 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
         label: el.innerHTML,
         labelText: this.toPlainText(el.innerHTML),
         disabled: el.hasAttribute('disabled'),
+        cls: el.getAttribute('data-class') || '',
       }));
 
     const groups: ComboGroup[] = this.getSlots('Group').map(group => ({
       label: group.getAttribute('label') || '',
+      cls: group.getAttribute('data-class') || '',
       items: Array.from(group.querySelectorAll('Item')).map(el => ({
         value: el.getAttribute('value') || '',
         label: el.innerHTML,
         labelText: this.toPlainText(el.innerHTML),
         disabled: el.hasAttribute('disabled'),
+        cls: el.getAttribute('data-class') || '',
       })),
     }));
 
@@ -371,7 +376,7 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
       isSelected ? 'ml-select-item-selected' : '',
       isActive ? 'ml-select-item-highlighted' : '',
       item.disabled ? 'ml-disabled' : '',
-      this.getSlotClass('Item'),
+      item.cls,
     );
   }
 
@@ -420,14 +425,14 @@ export class MlComboboxMolecule extends MoleculeAuraElement {
         ${this.loading ? html`
           <li class="px-3 py-2 text-sm ml-text-muted">${this.msg.loading}</li>
         ` : total === 0 ? html`
-          <li class="px-3 py-2 text-sm ml-select-empty">
+          <li class="${cn('px-3 py-2 text-sm ml-select-empty', this.getSlotClass('Empty'))}">
             ${this.hasSlot('Empty') ? unsafeHTML(this.getSlotContent('Empty')) : this.msg.empty}
           </li>
         ` : html`
           ${filteredStandalone.map(item => this.renderOption(item, flatItems.indexOf(item)))}
           ${filteredGroups.map(group => html`
             ${group.label ? html`
-              <li role="presentation" class="px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-wider ml-text-muted select-none">
+              <li role="presentation" class="${cn('px-3 pt-3 pb-1 text-xs font-semibold uppercase tracking-wider ml-text-muted select-none', group.cls)}">
                 ${group.label}
               </li>
             ` : nothing}

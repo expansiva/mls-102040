@@ -36,6 +36,7 @@ interface ParsedNode {
  disabled: boolean;
  depth: number;
  parent: ParsedNode | null;
+ cls: string;
 }
 
 interface NodePosition {
@@ -109,7 +110,7 @@ export class MlViewHierarchyMindmapMolecule extends MoleculeAuraElement {
  // ===========================================================================
  private parseNodes() {
  this.nodeIdCounter = 0;
- const nodeElements = this.getSlots('Node');
+ const nodeElements = this.getSlots('Node').filter(el => el.parentElement?.tagName.toUpperCase() !=='NODE');
  this.parsedNodes = nodeElements.map(el => this.parseNodeElement(el, 0, null));
  this.initializeExpandedState();
  }
@@ -139,6 +140,7 @@ export class MlViewHierarchyMindmapMolecule extends MoleculeAuraElement {
  disabled: hasDisabled,
  depth,
  parent,
+ cls: element.getAttribute('data-class') || '',
  };
 
  node.children = childNodeElements.map(child => this.parseNodeElement(child, depth + 1, node));
@@ -525,7 +527,7 @@ export class MlViewHierarchyMindmapMolecule extends MoleculeAuraElement {
  >
  <div
  xmlns="http://www.w3.org/1999/xhtml"
- class="flex items-center justify-center h-full text-sm text-center overflow-hidden ${isCentral ?'ml-primary-text font-medium' :'ml-text'} ${isDisabled ?'opacity-50' :''}"
+ class="${cn('flex items-center justify-center h-full text-sm text-center overflow-hidden', isCentral ?'ml-primary-text font-medium' :'ml-text', isDisabled ?'opacity-50' :'', node.cls)}"
  >
  ${unsafeHTML(node.content)}
  </div>
@@ -578,7 +580,7 @@ export class MlViewHierarchyMindmapMolecule extends MoleculeAuraElement {
  ? this.getSlotContent('Empty')
  : this.msg.empty;
  return html`
- <div class="flex items-center justify-center h-64 ml-text-muted">
+ <div class="${cn('flex items-center justify-center h-64 ml-text-muted', this.getSlotClass('Empty'))}">
  ${unsafeHTML(emptyContent)}
  </div>
  `;

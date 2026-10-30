@@ -30,6 +30,7 @@ const messages: Record<string, MessageType> = {
 interface RatingItem {
  value: number;
  label: string;
+ cls?: string;
 }
 
 @customElement('grouprateitem--ml-csat-rating')
@@ -102,6 +103,7 @@ export class CsatRatingMolecule extends MoleculeAuraElement {
  return slotItems.map(el => ({
  value: Number(el.getAttribute('value')),
  label: el.innerHTML,
+ cls: el.getAttribute('data-class') || '',
  }));
  }
  // Auto-generate from min to max
@@ -345,7 +347,7 @@ export class CsatRatingMolecule extends MoleculeAuraElement {
  aria-checked="${isSelected}"
  aria-label="${item.value}"
  tabindex="${isInteractive ? (isSelected || (this.value === null && index === 0) ?'0' :'-1') :'-1'}"
- class="${this.getOptionClasses(item, index)}"
+ class="${cn(this.getOptionClasses(item, index), item.cls)}"
  @click="${() => this.handleSelect(item.value)}"
  @mouseenter="${() => this.handleMouseEnter(item.value)}"
  @mouseleave="${this.handleMouseLeave}"

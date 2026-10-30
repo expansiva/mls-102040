@@ -120,7 +120,7 @@ ${svg`<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 
 </svg>
 `;
 }
-private renderButtonContent(labelHtml: string, iconHtml: string): TemplateResult {
+private renderButtonContent(labelHtml: string, iconHtml: string, labelCls = '', iconCls = ''): TemplateResult {
 if (this.loading) {
 return html`${this.renderSpinner()}`;
 }
@@ -129,14 +129,16 @@ const hasLabel = labelHtml.trim().length > 0;
 if (!hasIcon && !hasLabel) {
 return html``;
 }
+const labelPart = html`<span class="${labelCls}">${unsafeHTML(labelHtml)}</span>`;
+const iconPart = html`<span class="${iconCls}">${unsafeHTML(iconHtml)}</span>`;
 if (hasIcon && hasLabel) {
 return this.iconPosition === 'end'
-? html`<span class="${cn('inline-flex items-center gap-2', this.getSlotClass('Label'))}">${unsafeHTML(labelHtml)}${unsafeHTML(iconHtml)}</span>`
-: html`<span class="${cn('inline-flex items-center gap-2', this.getSlotClass('Label'))}">${unsafeHTML(iconHtml)}${unsafeHTML(labelHtml)}</span>`;
+? html`<span class="inline-flex items-center gap-2">${labelPart}${iconPart}</span>`
+: html`<span class="inline-flex items-center gap-2">${iconPart}${labelPart}</span>`;
 }
 return hasLabel
-? html`${unsafeHTML(labelHtml)}`
-: html`${unsafeHTML(iconHtml)}`;
+? labelPart
+: iconPart;
 }
 // ===========================================================================
 // RENDER
@@ -153,8 +155,10 @@ const iconEl = iconSlots[index] as Element | undefined;
 const iconHtml = (iconEl?.innerHTML || '').trim();
 const variant = labelEl.getAttribute('variant') || 'secondary';
 const ariaLabel = (labelEl.textContent || '').trim() || this.msg.action;
-return { labelHtml, iconHtml, variant, ariaLabel, index };
-}).filter(Boolean) as Array<{ labelHtml: string; iconHtml: string; variant: string; ariaLabel: string; index: number }>;
+const labelCls = labelEl.getAttribute('data-class') || '';
+const iconCls = iconEl?.getAttribute('data-class') || '';
+return { labelHtml, iconHtml, labelCls, iconCls, variant, ariaLabel, index };
+}).filter(Boolean) as Array<{ labelHtml: string; iconHtml: string; labelCls: string; iconCls: string; variant: string; ariaLabel: string; index: number }>;
 const isVertical = this.getDirection() === 'vertical';
 if (items.length === 0) {
 return html`<div class="${cn(this.getGroupClasses(isVertical), this.cssClass)}"></div>`;
@@ -171,7 +175,7 @@ aria-disabled="${this.disabled || this.loading ? 'true' : 'false'}"
 aria-label="${item.ariaLabel}"
 @click=${() => this.handleButtonClick(item.index)}
 >
-${this.renderButtonContent(item.labelHtml, item.iconHtml)}
+${this.renderButtonContent(item.labelHtml, item.iconHtml, item.labelCls, item.iconCls)}
 </button>
 `)}
 </div>

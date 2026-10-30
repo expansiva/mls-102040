@@ -40,6 +40,7 @@ const messages: Record<string, MessageType> = {
 interface ParsedSuggestion {
   value: string;
   label: string;
+  cls: string;
 }
 
 @customElement('groupsearchcontent--ml-search-filters')
@@ -127,6 +128,7 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
     return this.getSlots('Suggestion').map(el => ({
       value: el.getAttribute('value') || '',
       label: el.innerHTML,
+      cls: el.getAttribute('data-class') || '',
     }));
   }
 
@@ -566,7 +568,7 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
         : this.msg.noResults;
 
       return html`
-        <div class=${this.getEmptyClasses()}>
+        <div class=${cn(this.getEmptyClasses(), this.getSlotClass('Empty'))}>
           ${unsafeHTML(emptyContent)}
         </div>
       `;
@@ -583,7 +585,7 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
     return html`
       <button
         type="button"
-        class=${this.getSuggestionClasses(index, isSelected)}
+        class=${cn(this.getSuggestionClasses(index, isSelected), suggestion.cls)}
         role="option"
         aria-selected=${isSelected}
         @click=${() => this.selectSuggestion(suggestion)}
@@ -605,7 +607,7 @@ export class SearchFiltersMolecule extends MoleculeAuraElement {
 
     if (this.hasSlot('Helper')) {
       return html`
-        <p class=${this.getHelperClasses()}>
+        <p class=${cn(this.getHelperClasses(), this.getSlotClass('Helper'))}>
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;

@@ -291,7 +291,7 @@ return html`<div class="mt-2 text-xs ml-error-text" role="alert">${unsafeHTML(St
 private renderResult(): TemplateResult {
 if (!this.value) return html``;
 if (this.hasSlot('Result')) {
-return html`<div class="mt-3">${unsafeHTML(this.getSlotContent('Result'))}</div>`;
+return html`<div class="${cn('mt-3', this.getSlotClass('Result'))}">${unsafeHTML(this.getSlotContent('Result'))}</div>`;
 }
 return html`
 <div class="mt-3 rounded-lg border ml-border ml-surface-dim-bg px-3 py-2 text-sm ml-text" aria-live="polite">
@@ -357,7 +357,7 @@ ${this.renderLabel()}
 <div class=${this.getFrameClasses()}>
 <div class="flex items-center justify-between px-4 py-3">
 <button
-class=${this.getTriggerClasses()}
+class=${cn(this.getTriggerClasses(), this.getSlotClass('Trigger'))}
 role="button"
 aria-label=${this.msg.open}
 ?disabled=${this.disabled}

@@ -42,6 +42,7 @@ interface TreeNode {
   children: TreeNode[];
   parent: TreeNode | null;
   groupLabel?: string;
+  cls: string;
 }
 
 @customElement('groupselectmany--ml-tree-multi-select')
@@ -160,6 +161,7 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
         children: [],
         parent,
         groupLabel,
+        cls: item.getAttribute('data-class') || '',
       };
 
       if (childItems.length > 0) {
@@ -486,7 +488,7 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
     return html`
       <div class="select-none">
         <div
-          class=${this.getNodeClasses(node, isSelected)}
+          class=${cn(this.getNodeClasses(node, isSelected), node.cls)}
           style="padding-left: ${paddingLeft}px"
           @click=${(e: Event) => this.handleNodeSelect(node, e)}
           role="option"
@@ -551,7 +553,7 @@ export class MlTreeMultiSelectMolecule extends MoleculeAuraElement {
     const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.noResults;
 
     return html`
-      <div class="p-4 text-center text-sm ml-text-muted">
+      <div class=${cn('p-4 text-center text-sm ml-text-muted', this.getSlotClass('Empty'))}>
         ${unsafeHTML(content)}
       </div>
     `;

@@ -221,7 +221,7 @@ export class PieChartMolecule extends MoleculeAuraElement {
     const content = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
     return html`
       <div class="w-full rounded-lg border ml-chart-container p-6">
-        <div class="text-sm ml-text-muted">${unsafeHTML(content)}</div>
+        <div class="${cn('text-sm ml-text-muted', this.getSlotClass('Empty'))}">${unsafeHTML(content)}</div>
       </div>
     `;
   }

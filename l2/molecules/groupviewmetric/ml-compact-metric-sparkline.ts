@@ -63,7 +63,7 @@ export class CompactMetricSparklineMolecule extends MoleculeAuraElement {
  if (!this.hasSlot('Icon')) return html``;
  return html`
  <div
- class="mt-0.5 flex h-6 w-6 items-center justify-center ml-text-muted"
+ class="${cn('mt-0.5 flex h-6 w-6 items-center justify-center ml-text-muted', this.getSlotClass('Icon'))}"
  aria-hidden="true"
  >
  ${unsafeHTML(this.getSlotContent('Icon'))}
@@ -83,7 +83,7 @@ export class CompactMetricSparklineMolecule extends MoleculeAuraElement {
  private renderValue(): TemplateResult {
  return html`
  <div
- class="text-xl font-semibold ml-text"
+ class="${cn('text-xl font-semibold ml-text', this.getSlotClass('Value'))}"
  aria-live="polite"
  >
  ${unsafeHTML(this.getSlotContent('Value'))}
@@ -97,7 +97,7 @@ export class CompactMetricSparklineMolecule extends MoleculeAuraElement {
  const trendLabel = direction ? `Trend: ${direction}` :'';
  const trendClasses = this.getTrendClasses(direction ||'neutral');
  return html`
- <div class="${trendClasses}" ${trendLabel ? html`aria-label="${trendLabel}"` : html``}>
+ <div class="${cn(trendClasses, this.getSlotClass('Trend'))}" ${trendLabel ? html`aria-label="${trendLabel}"` : html``}>
  ${unsafeHTML(this.getSlotContent('Trend'))}
  </div>
  `;

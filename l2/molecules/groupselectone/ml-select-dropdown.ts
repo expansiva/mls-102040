@@ -40,10 +40,12 @@ interface ParsedItem {
   label: string;
   disabled: boolean;
   group?: string;
+  cls: string;
 }
 
 interface ParsedGroup {
   label: string;
+  cls: string;
   items: ParsedItem[];
 }
 
@@ -161,6 +163,7 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
           value,
           label: el.innerHTML.trim(),
           disabled: el.hasAttribute('disabled'),
+          cls: el.getAttribute('data-class') || '',
         });
       }
     }
@@ -185,6 +188,7 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
             label: el.innerHTML.trim(),
             disabled: el.hasAttribute('disabled'),
             group: groupLabel,
+            cls: el.getAttribute('data-class') || '',
           });
         }
       }
@@ -192,6 +196,7 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
       if (groupItems.length > 0) {
         groups.push({
           label: groupLabel,
+          cls: groupEl.getAttribute('data-class') || '',
           items: groupItems,
         });
       }
@@ -348,7 +353,7 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
       isSelected ? 'ml-select-item-selected' : '',
       isFocused && !item.disabled && !isSelected ? 'ml-select-item-highlighted' : '',
       item.disabled ? 'ml-disabled' : '',
-      this.getSlotClass('Item'),
+      item.cls,
     );
   }
 
@@ -515,7 +520,7 @@ export class MlSelectDropdownMolecule extends MoleculeAuraElement {
         
         ${filteredGroups.map(group => html`
           <div class="pt-2 first:pt-0">
-            <div class="${cn('px-3 py-1 text-xs font-semibold uppercase tracking-wider ml-select-group-label', this.getSlotClass('Group'))}">
+            <div class="${cn('px-3 py-1 text-xs font-semibold uppercase tracking-wider ml-select-group-label', group.cls)}">
               ${group.label}
             </div>
             ${group.items.map(item => {

@@ -366,7 +366,7 @@ ${unsafeHTML(this.getSlotContent('Label'))}
 
 private renderTriggerContent(): TemplateResult {
 if (this.hasSlot('Trigger')) {
-return html`${this.renderLiveSlot('Trigger')}`;
+return html`${this.renderLiveSlot('Trigger', this.getSlotClass('Trigger'))}`;
 }
 return html`
 <div class="flex flex-col items-center gap-1 ml-photo-placeholder">

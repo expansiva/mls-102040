@@ -195,7 +195,7 @@ private renderEmptyState() {
 const emptyContent = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
 return html`
 <div class="absolute inset-0 flex items-center justify-center">
-<div class="text-sm ml-text-muted">${unsafeHTML(emptyContent)}</div>
+<div class="${cn('text-sm ml-text-muted', this.getSlotClass('Empty'))}">${unsafeHTML(emptyContent)}</div>
 </div>
 `;
 }

@@ -499,7 +499,8 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  : isSelected
  ?'ml-primary-bg cursor-pointer'
  :'ml-primary-dim-bg ml-primary-text hover:ml-surface-dim-bg cursor-pointer',
- ].join(' ');
+ row?.element.getAttribute('data-class') || '',
+ ].filter(Boolean).join(' ');
  }
 
  private getMoreEventsClasses(): string {
@@ -749,7 +750,7 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  private renderLoading(): TemplateResult {
  if (this.hasSlot('Loading')) {
  return html`
- <div class="flex items-center justify-center p-8">
+ <div class="${cn('flex items-center justify-center p-8', this.getSlotClass('Loading'))}">
  ${this.renderLiveSlot('Loading')}
  </div>
  `;
@@ -773,7 +774,7 @@ export class CalendarViewMolecule extends MoleculeAuraElement {
  private renderEmpty(): TemplateResult {
  if (this.hasSlot('Empty')) {
  return html`
- <div class="flex items-center justify-center p-8 ml-text-muted">
+ <div class="${cn('flex items-center justify-center p-8 ml-text-muted', this.getSlotClass('Empty'))}">
  ${this.renderLiveSlot('Empty')}
  </div>
  `;

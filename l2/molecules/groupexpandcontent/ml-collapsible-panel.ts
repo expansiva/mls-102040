@@ -201,7 +201,7 @@ export class MlCollapsiblePanelMolecule extends MoleculeAuraElement {
           const contentId = `${this.localName}-content-${index}`;
 
           return html`
-            <div class="w-full ml-panel-header" style="border-radius: var(--ml-radius-sm, 6px);">
+            <div class="${cn('w-full ml-panel-header', el.getAttribute('data-class'))}" style="border-radius: var(--ml-radius-sm, 6px);">
               <div
                 id=${headerId}
                 role="button"

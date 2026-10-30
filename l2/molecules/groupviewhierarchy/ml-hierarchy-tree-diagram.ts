@@ -34,6 +34,7 @@ interface TreeNode {
  disabled: boolean;
  expandedDefault: boolean;
  parentId: string | null;
+ cls: string;
 }
 
 @customElement('groupviewhierarchy--ml-hierarchy-tree-diagram')
@@ -116,7 +117,8 @@ export class HierarchyTreeDiagramMolecule extends MoleculeAuraElement {
  const childrenEls = Array.from(el.children).filter((c) => c.tagName.toLowerCase() ==='node');
  const labelHtml = this.getNodeLabelHtml(el) || value ||'';
  const children = childrenEls.map((child, index) => this.parseNode(child, [...path, index], id));
- return { id, value, labelHtml, children, disabled, expandedDefault, parentId };
+ const cls = el.getAttribute('data-class') || '';
+ return { id, value, labelHtml, children, disabled, expandedDefault, parentId, cls };
  }
 
  private getNodeLabelHtml(el: Element): string {
@@ -333,7 +335,7 @@ export class HierarchyTreeDiagramMolecule extends MoleculeAuraElement {
  <div class="flex items-center gap-2">
  <span class="${this.getCircleClasses(nodeDisabled, expanded)}"></span>
  <div
- class="${this.getLabelClasses(nodeDisabled)}"
+ class="${cn(this.getLabelClasses(nodeDisabled), node.cls)}"
  role="treeitem"
  data-node-id="${node.id}"
  aria-expanded=${ariaExpanded}

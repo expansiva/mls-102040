@@ -49,6 +49,7 @@ interface ParsedHeader {
  key: string;
  sortable: boolean;
  content: string;
+ cls: string;
 }
 
 interface ParsedRow {
@@ -56,6 +57,7 @@ interface ParsedRow {
  /** `data-class` de cada célula, na mesma ordem de `cells`. */
  cellClasses: string[];
  element: Element;
+ cls: string;
 }
 
 @customElement('groupviewtable--ml-view-table')
@@ -159,6 +161,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  key: head.getAttribute('key') ||'',
  sortable: head.hasAttribute('sortable'),
  content: head.innerHTML.trim(),
+ cls: head.getAttribute('data-class') ||'',
  }));
  }
 
@@ -178,6 +181,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  cells: Array.from(cells).map((cell) => cell.innerHTML.trim()),
  cellClasses: Array.from(cells).map((cell) => cell.getAttribute('data-class') ||''),
  element: row,
+ cls: row.getAttribute('data-class') ||'',
  };
  });
  }
@@ -454,8 +458,8 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  const someSelected = selected.size > 0 && selected.size < this.parsedRows.length;
 
  return html`
- <thead role="rowgroup">
- <tr role="row">
+ <thead role="rowgroup" class="${this.getSlotClass('TableHeader')}">
+ <tr role="row" class="${this.getSlot('TableHeader')?.querySelector('TableRow')?.getAttribute('data-class') ||''}">
  ${this.selectable
  ? html`
  <th
@@ -480,7 +484,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  (header) => html`
  <th
  role="columnheader"
- class="${this.getHeaderCellClasses(header)}"
+ class="${cn(this.getHeaderCellClasses(header), header.cls)}"
  aria-sort=${this.sortKey === header.key
  ? this.sortDirection ==='asc'
  ?'ascending'
@@ -521,7 +525,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  : this.sortedRowIndices;
 
  return html`
- <tbody role="rowgroup">
+ <tbody role="rowgroup" class="${this.getSlotClass('TableBody')}">
  ${visibleIndices.map((originalIndex) => {
  const row = this.parsedRows[originalIndex];
  if (!row) return html``;
@@ -531,7 +535,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  return html`
  <tr
  role="row"
- class="${this.getRowClasses(originalIndex)}"
+ class="${cn(this.getRowClasses(originalIndex), row.cls)}"
  @click=${() => this.handleRowClick(originalIndex)}
  @keydown=${(e: KeyboardEvent) => {
  if (e.key ==='Enter') {
@@ -586,14 +590,15 @@ export class ViewTableMolecule extends MoleculeAuraElement {
 
  const cells = footerRow.querySelectorAll('TableCell');
  const cellContents = Array.from(cells).map((cell) => cell.innerHTML.trim());
+ const cellClasses = Array.from(cells).map((cell) => cell.getAttribute('data-class') ||'');
 
  return html`
  <tfoot role="rowgroup" class="${cn('ml-surface-dim-bg', this.getSlotClass('TableFooter'))}">
- <tr role="row" class="border-t ml-border">
+ <tr role="row" class="${cn('border-t ml-border', footerRow.getAttribute('data-class') ||'')}">
  ${this.selectable ? html`<td role="cell" class="px-4 py-3"></td>` : html``}
  ${cellContents.map(
- (content) => html`
- <td role="cell" class="${this.getCellClasses()} font-medium">
+ (content, ci) => html`
+ <td role="cell" class="${cn(this.getCellClasses(), 'font-medium', cellClasses[ci])}">
  ${unsafeHTML(content)}
  </td>
  `
@@ -624,7 +629,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  <circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.3"/>
  `}
  </svg>
- <p class="ml-text-muted">
+ <p class="${cn('ml-text-muted', this.getSlotClass('Empty'))}">
  ${emptyContent ? unsafeHTML(emptyContent) : this.msg.noData}
  </p>
  </div>
@@ -638,7 +643,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  const loadingContent = this.getSlotContent('Loading');
  if (loadingContent) {
  return html`
- <div class="p-4">
+ <div class="${cn('p-4', this.getSlotClass('Loading'))}">
  ${unsafeHTML(loadingContent)}
  </div>
  `;

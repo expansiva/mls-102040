@@ -37,10 +37,12 @@ interface ParsedItem {
   label: string;
   text: string;
   disabled: boolean;
+  cls: string;
 }
 
 interface ParsedGroup {
   label: string;
+  cls: string;
   items: ParsedItem[];
 }
 
@@ -158,7 +160,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
     const label = el.innerHTML || '';
     const text = (el.textContent || '').trim();
     const disabled = el.hasAttribute('disabled');
-    return { value, label, text, disabled };
+    return { value, label, text, disabled, cls: el.getAttribute('data-class') || '' };
   }
 
   private parseItems(): { groups: ParsedGroup[]; items: ParsedItem[] } {
@@ -170,7 +172,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
       const items = Array.from(groupEl.querySelectorAll('Item'))
         .map((itemEl) => this.parseItem(itemEl))
         .filter((item): item is ParsedItem => !!item);
-      groups.push({ label, items });
+      groups.push({ label, cls: groupEl.getAttribute('data-class') || '', items });
     });
 
     const allItems = this.getSlots('Item');
@@ -291,7 +293,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
         (group) => html`
           <div class="space-y-2">
             ${group.label
-              ? html`<div class="text-xs font-semibold ml-text-muted">
+              ? html`<div class=${cn('text-xs font-semibold ml-text-muted', group.cls)}>
                   ${group.label}
                 </div>`
               : html``}
@@ -307,7 +309,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
                 return html`
                   <button
                     type="button"
-                    class=${this.getItemClasses(item, isSelected, isBlocked)}
+                    class=${cn(this.getItemClasses(item, isSelected, isBlocked), item.cls)}
                     role="option"
                     aria-selected=${isSelected ? 'true' : 'false'}
                     aria-disabled=${isBlocked ? 'true' : 'false'}
@@ -349,7 +351,7 @@ export class MlMultiCheckboxListMolecule extends MoleculeAuraElement {
                 return html`
                   <button
                     type="button"
-                    class=${this.getItemClasses(item, isSelected, isBlocked)}
+                    class=${cn(this.getItemClasses(item, isSelected, isBlocked), item.cls)}
                     role="option"
                     aria-selected=${isSelected ? 'true' : 'false'}
                     aria-disabled=${isBlocked ? 'true' : 'false'}

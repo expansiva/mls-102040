@@ -428,10 +428,10 @@ const navBtnBase = 'ml-calendar-nav rounded-md p-1 focus:outline-none focus:ring
 return html`
 <div class="mb-2 flex items-center justify-between">
 <div class="ml-text-muted text-sm">
-<span class="ml-text font-medium">${labelStart}</span>
+<span class="${cn('ml-text font-medium', this.getSlotClass('LabelStart'))}">${labelStart}</span>
 <span class="ml-1 mr-2">${this.getRangeSummary().split(this.msg.rangeSeparator)[0].trim()}</span>
 <span class="mx-1 ml-text-muted">${this.msg.rangeSeparator}</span>
-<span class="ml-text font-medium">${labelEnd}</span>
+<span class="${cn('ml-text font-medium', this.getSlotClass('LabelEnd'))}">${labelEnd}</span>
 <span class="ml-1">${this.getRangeSummary().split(this.msg.rangeSeparator)[1]?.trim() || this.msg.empty}</span>
 </div>
 <div class="flex items-center gap-2">

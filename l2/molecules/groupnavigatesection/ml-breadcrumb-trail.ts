@@ -30,6 +30,7 @@ disabled: boolean;
 content: string;
 index: number;
 isLast: boolean;
+cls: string;
 };
 
 @customElement('groupnavigatesection--ml-breadcrumb-trail')
@@ -76,6 +77,7 @@ disabled: el.hasAttribute('disabled'),
 content: el.innerHTML || '',
 index,
 isLast: index === elements.length - 1,
+cls: el.getAttribute('data-class') || '',
 }));
 }
 
@@ -137,7 +139,7 @@ const isActive = tab.value === activeValue;
 const interactive = !tab.isLast && !tab.disabled && !this.disabled && !this.loading;
 if (tab.isLast) {
 return html`
-<span class="${this.getTabClasses(isActive, tab.disabled, false)}" role="tab" aria-selected="${isActive}" aria-disabled="true">
+<span class="${cn(this.getTabClasses(isActive, tab.disabled, false), tab.cls)}" role="tab" aria-selected="${isActive}" aria-disabled="true">
 ${tab.icon ? html`<span class="text-base">${tab.icon}</span>` : ''}
 <span>${tab.title}</span>
 </span>
@@ -145,13 +147,13 @@ ${tab.icon ? html`<span class="text-base">${tab.icon}</span>` : ''}
 }
 return html`
 <button
-class="${this.getTabClasses(isActive, tab.disabled || this.disabled || this.loading, interactive)}"
+class="${cn(this.getTabClasses(isActive, tab.disabled || this.disabled || this.loading, interactive), tab.cls)}"
 role="tab"
 aria-selected="${isActive}"
 aria-disabled="${tab.disabled || this.disabled || this.loading}"
 ?disabled=${tab.disabled || this.disabled || this.loading}
 data-tab-button="true"
-@ক্তclick=${() => this.handleTabClick(tab)}
+@click=${() => this.handleTabClick(tab)}
 >
 ${tab.icon ? html`<span class="text-base">${tab.icon}</span>` : ''}
 <span>${tab.title}</span>
@@ -176,7 +178,7 @@ ${this.isOverflowOpen ? html`
 <div class="p-1">
 ${hiddenTabs.map(tab => html`
 <button
-class="${this.getTabClasses(tab.value === activeValue, tab.disabled || this.disabled || this.loading, !tab.disabled)} w-full justify-start" 
+class="${cn(this.getTabClasses(tab.value === activeValue, tab.disabled || this.disabled || this.loading, !tab.disabled), 'w-full justify-start', tab.cls)}"
 role="tab"
 aria-selected="${tab.value === activeValue}"
 aria-disabled="${tab.disabled || this.disabled || this.loading}"
@@ -275,7 +277,7 @@ const labelContent = this.hasSlot('Label') ? this.getSlotContent('Label') : '';
 const activeContent = activeTab ? activeTab.content : '';
 return html`
 <div class="${cn('w-full', this.cssClass)}">
-${labelContent ? html`<span class="${this.getLabelClasses()}">${unsafeHTML(labelContent)}</span>` : ''}
+${labelContent ? html`<span class="${cn(this.getLabelClasses(), this.getSlotClass('Label'))}">${unsafeHTML(labelContent)}</span>` : ''}
 <div class="relative">
 ${this.loading
 ? html`<div class="text-sm ml-text-muted">${this.msg.loading}</div>`

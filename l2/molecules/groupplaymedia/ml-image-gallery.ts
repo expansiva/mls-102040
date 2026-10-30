@@ -28,8 +28,8 @@ en: message_en,
 };
 /// **collab_i18n_end**
 
-type GallerySource = { src: string; type: string };
-type GalleryTrack = { src: string; kind: string; lang: string; label: string };
+type GallerySource = { src: string; type: string; cls: string };
+type GalleryTrack = { src: string; kind: string; lang: string; label: string; cls: string };
 
 @customElement('groupplaymedia--ml-image-gallery')
 export class ImageGalleryMolecule extends MoleculeAuraElement {
@@ -95,6 +95,7 @@ private getSources(): GallerySource[] {
 return this.getSlots('Source').map((el) => ({
 src: el.getAttribute('src') ||'',
 type: el.getAttribute('type') ||'',
+cls: el.getAttribute('data-class') ||'',
 })).filter((item) => item.src);
 }
 private getTracks(): GalleryTrack[] {
@@ -103,6 +104,7 @@ src: el.getAttribute('src') ||'',
 kind: el.getAttribute('kind') ||'subtitles',
 lang: el.getAttribute('lang') ||'',
 label: el.getAttribute('label') ||'',
+cls: el.getAttribute('data-class') ||'',
 }));
 }
 private getCaption(tracks: GalleryTrack[], index: number): string {
@@ -283,7 +285,7 @@ loading="lazy"
 : html`<div class="h-64"></div>`}
 </button>
 ${caption
-? html`<div class="mt-2 text-sm ml-text-muted">${caption}</div>`
+? html`<div class="${cn('mt-2 text-sm ml-text-muted', tracks[this.activeIndex]?.cls)}">${caption}</div>`
 :''}
 ${this.loading
 ? html`<div class="absolute inset-0 flex items-center justify-center rounded-lg ml-surface-bg/70">
@@ -317,7 +319,7 @@ ${this.msg.next}
 <div class="mt-4 flex gap-2 overflow-x-auto">
 ${sources.map((source, index) => html`
 <button
-class="${this.getThumbnailClasses(index === this.activeIndex, this.disabled || this.loading)}"
+class="${cn(this.getThumbnailClasses(index === this.activeIndex, this.disabled || this.loading), source.cls)}"
 ?disabled=${this.disabled || this.loading}
 @click=${() => this.handleThumbnailSelect(index)}
 aria-label="${this.getAltText(tracks, index)}"

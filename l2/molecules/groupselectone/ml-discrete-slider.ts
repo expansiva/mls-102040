@@ -37,10 +37,12 @@ interface ParsedItem {
   label: string;
   disabled: boolean;
   group?: string;
+  cls: string;
 }
 
 interface ParsedGroup {
   label: string;
+  cls: string;
   startIndex: number;
   endIndex: number;
 }
@@ -163,11 +165,13 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
               label: itemEl.innerHTML.trim(),
               disabled: itemEl.hasAttribute('disabled'),
               group: groupLabel,
+              cls: itemEl.getAttribute('data-class') || '',
             });
           }
         });
         groups.push({
           label: groupLabel,
+          cls: groupEl.getAttribute('data-class') || '',
           startIndex: groupStartIndex,
           endIndex: items.length - 1,
         });
@@ -182,6 +186,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
           value: itemValue,
           label: itemEl.innerHTML.trim(),
           disabled: itemEl.hasAttribute('disabled'),
+          cls: itemEl.getAttribute('data-class') || '',
         });
       }
     });
@@ -598,7 +603,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
       >
         <button
           type="button"
-          class=${this.getStopClasses(index, isSelected, isPending, isPassed)}
+          class=${cn(this.getStopClasses(index, isSelected, isPending, isPassed), item.cls)}
           role="option"
           aria-selected=${isSelected}
           aria-disabled=${item.disabled}
@@ -624,7 +629,7 @@ export class MlDiscreteSliderMolecule extends MoleculeAuraElement {
 
         return html`
           <div
-            class=${this.getGroupLabelClasses()}
+            class=${cn(this.getGroupLabelClasses(), group.cls)}
             style="left: ${centerPos}%; width: ${width}%; transform: translateX(-50%)"
           >
             ${group.label}

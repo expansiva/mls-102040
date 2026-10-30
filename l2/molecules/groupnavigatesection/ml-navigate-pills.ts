@@ -26,6 +26,8 @@ value: string;
 title: string;
 icon: string;
 disabled: boolean;
+// The Tab's `data-class` — applied to its pill button, not to the panel.
+cls: string;
 // The LIVE <Tab> element — its children are projected into the panel, never serialized.
 element: Element;
 }
@@ -135,6 +137,7 @@ value: el.getAttribute('value') || '',
 title: el.getAttribute('title') || '',
 icon: el.getAttribute('icon') || '',
 disabled: el.hasAttribute('disabled'),
+cls: el.getAttribute('data-class') || '',
 element: el,
 })).filter(tab => tab.value && tab.title);
 }
@@ -160,7 +163,7 @@ isActive ? 'ml-nav-pill-active' : '',
 
 private renderLabel(): TemplateResult {
 if (!this.hasSlot('Label')) return html``;
-return html`<div class="mb-2 text-sm font-semibold ml-label">${this.renderLiveSlot('Label')}</div>`;
+return html`<div class="${cn('mb-2 text-sm font-semibold ml-label', this.getSlotClass('Label'))}">${this.renderLiveSlot('Label')}</div>`;
 }
 
 private renderLoading(): TemplateResult {
@@ -205,7 +208,7 @@ const tabId = `${this.instanceId}-tab-${index}`;
 const panelId = `${this.instanceId}-panel-${index}`;
 return html`
 <button
-class="${this.getTabClasses(isActive, isDisabled)}"
+class="${cn(this.getTabClasses(isActive, isDisabled), tab.cls)}"
 role="tab"
 aria-selected="${isActive ? 'true' : 'false'}"
 aria-disabled="${isDisabled || this.disabled || this.loading ? 'true' : 'false'}"

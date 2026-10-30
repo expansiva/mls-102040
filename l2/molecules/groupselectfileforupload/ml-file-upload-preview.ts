@@ -334,7 +334,7 @@ export class MlFileUploadPreviewMolecule extends MoleculeAuraElement {
 
   private renderTriggerContent(): TemplateResult {
     if (this.hasSlot('Trigger') && (!this.value || this.value.length === 0)) {
-      return html`${this.renderLiveSlot('Trigger')}`;
+      return html`${this.renderLiveSlot('Trigger', this.getSlotClass('Trigger'))}`;
     }
 
     const title = (this.value?.length || 0) > 0

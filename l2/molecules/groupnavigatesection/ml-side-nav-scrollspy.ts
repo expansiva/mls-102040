@@ -34,6 +34,8 @@ interface ParsedTab {
   title: string;
   icon: string;
   disabled: boolean;
+  // The Tab's `data-class` — applied to its nav button, not to the panel.
+  cls: string;
   // The LIVE <Tab> element — its children are projected into the panel, never serialized.
   element: Element;
 }
@@ -138,6 +140,7 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
       title: el.getAttribute('title') || '',
       icon: el.getAttribute('icon') || '',
       disabled: el.hasAttribute('disabled'),
+      cls: el.getAttribute('data-class') || '',
       element: el,
     }));
   }
@@ -384,7 +387,7 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
             class=${this.getNavClasses()}
           >
             ${hasLabel ? html`
-              <div class=${this.getLabelClasses()}>
+              <div class=${cn(this.getLabelClasses(), this.getSlotClass('Label'))}>
                 ${this.renderLiveSlot('Label')}
               </div>
             ` : html``}
@@ -416,7 +419,7 @@ export class MlSideNavScrollspyMolecule extends MoleculeAuraElement {
         aria-disabled=${isDisabled ? 'true' : 'false'}
         aria-controls="panel-${tab.value}"
         tabindex=${isActive && !isDisabled ? '0' : '-1'}
-        class=${this.getTabClasses(tab, isActive)}
+        class=${cn(this.getTabClasses(tab, isActive), tab.cls)}
         @click=${() => this.handleTabClick(tab)}
         @keydown=${(e: KeyboardEvent) => this.handleKeyDown(e, tab, index)}
         ?disabled=${isDisabled}

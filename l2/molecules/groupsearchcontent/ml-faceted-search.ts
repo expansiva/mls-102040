@@ -267,6 +267,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
         value,
         labelHtml,
         labelText,
+        cls: el.getAttribute('data-class') || '',
       };
     });
   }
@@ -374,7 +375,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
         ? this.getSlotContent('Empty')
         : this.msg.empty;
       return html`
-        <div class="px-3 py-2 text-sm ml-text-muted">
+        <div class="${cn('px-3 py-2 text-sm ml-text-muted', this.getSlotClass('Empty'))}">
           ${unsafeHTML(content)}
         </div>
       `;
@@ -388,7 +389,7 @@ export class FacetedSearchMolecule extends MoleculeAuraElement {
             id=${item.id}
             role="option"
             aria-selected=${isActive ? 'true' : 'false'}
-            class="${this.getItemClasses(isActive)}"
+            class="${cn(this.getItemClasses(isActive), item.cls)}"
             @click=${() => this.handleSuggestionClick(item)}
           >
             ${unsafeHTML(item.labelHtml)}
@@ -475,4 +476,5 @@ type SuggestionItem = {
   value: string;
   labelHtml: string;
   labelText: string;
+  cls: string;
 };

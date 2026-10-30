@@ -14,6 +14,7 @@ type RatingItem = {
 value: number;
 label: string;
 fromSlot: boolean;
+cls?: string;
 };
 @customElement('grouprateitem--ml-rating-slider')
 export class MlRatingSliderMolecule extends MoleculeAuraElement {
@@ -143,6 +144,7 @@ return slotItems
 .map((el) => ({
 value: Number(el.getAttribute('value')),
 label: el.innerHTML,
+cls: el.getAttribute('data-class') || '',
 fromSlot: true,
 }))
 .filter(item => Number.isFinite(item.value));
@@ -217,7 +219,7 @@ return html`
 <div class="absolute left-3 right-3 top-3 h-1 rounded-full ml-surface-dim-bg"></div>
 ${items.map((item, index) => {
 const highlighted = this.isHighlighted(item.value, activeValue);
-const buttonClasses = this.getOptionButtonClasses(highlighted);
+const buttonClasses = cn(this.getOptionButtonClasses(highlighted), item.cls);
 const labelBelow = item.fromSlot
 ? html``
 : html`<span class="text-xs ml-text-muted">${item.label}</span>`;

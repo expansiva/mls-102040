@@ -121,7 +121,7 @@ export class MlGeolocationTriggerMolecule extends MoleculeAuraElement {
  return isNaN(lat) || isNaN(lng) ? null : { lat, lng };
  }
 
- private getSuggestions(): Array<{ value: string; label: string; textLabel: string }> {
+ private getSuggestions(): Array<{ value: string; label: string; textLabel: string; cls: string }> {
  const suggestionsContainer = this.getSlot('Suggestions');
  if (!suggestionsContainer) return [];
  const items = Array.from(suggestionsContainer.querySelectorAll('Item'));
@@ -131,6 +131,7 @@ export class MlGeolocationTriggerMolecule extends MoleculeAuraElement {
  value: el.getAttribute('value') ||'',
  label,
  textLabel: this.htmlToText(label),
+ cls: el.getAttribute('data-class') || '',
  };
  });
  }
@@ -311,7 +312,7 @@ export class MlGeolocationTriggerMolecule extends MoleculeAuraElement {
  return html`
  <button
  type="button"
- class=${buttonClasses}
+ class=${cn(buttonClasses, this.getSlotClass('Trigger'))}
  ?disabled=${this.disabled || this.readonly || effectiveLoading}
  aria-label=${this.msg.useLocation}
  @click=${this.handleGeolocation}
@@ -321,11 +322,11 @@ export class MlGeolocationTriggerMolecule extends MoleculeAuraElement {
  `;
  }
 
- private renderSuggestions(items: Array<{ value: string; label: string }>, effectiveLoading: boolean): TemplateResult {
+ private renderSuggestions(items: Array<{ value: string; label: string; cls: string }>, effectiveLoading: boolean): TemplateResult {
  if (!this.isEditing || !this.isOpen) return html``;
  const hasItems = items.length > 0;
  return html`
- <div class=${this.getPanelClasses()} role="listbox">
+ <div class=${cn(this.getPanelClasses(), this.getSlotClass('Suggestions'))} role="listbox">
  ${effectiveLoading ? html`
  <div class="px-3 py-2 text-sm ml-text-muted">${this.msg.loading}</div>
  ` :''}
@@ -336,7 +337,7 @@ export class MlGeolocationTriggerMolecule extends MoleculeAuraElement {
  return html`
  <button
  type="button"
- class=${this.getItemClasses(isSelected, isDisabled)}
+ class=${cn(this.getItemClasses(isSelected, isDisabled), item.cls)}
  role="option"
  aria-selected=${isSelected ?'true' :'false'}
  ?disabled=${isDisabled}
@@ -348,7 +349,7 @@ export class MlGeolocationTriggerMolecule extends MoleculeAuraElement {
  })}
  ` :''}
  ${!effectiveLoading && !hasItems ? html`
- <div class="px-3 py-2 text-sm ml-text-muted">
+ <div class="${cn('px-3 py-2 text-sm ml-text-muted', this.getSlotClass('Empty'))}">
  ${this.hasSlot('Empty') ? unsafeHTML(this.getSlotContent('Empty')) : this.msg.noResults}
  </div>
  ` :''}
@@ -359,7 +360,7 @@ export class MlGeolocationTriggerMolecule extends MoleculeAuraElement {
  private renderViewMode(valueLabel: string): TemplateResult {
  const display = valueLabel || (this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty);
  return html`
- <div class="rounded-lg border px-3 py-2 text-sm ml-surface-bg ml-text ml-border">
+ <div class="${cn('rounded-lg border px-3 py-2 text-sm ml-surface-bg ml-text ml-border', valueLabel ? '' : this.getSlotClass('Empty'))}">
  ${unsafeHTML(display)}
  </div>
  `;

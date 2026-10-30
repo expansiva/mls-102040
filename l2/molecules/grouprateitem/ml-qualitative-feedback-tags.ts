@@ -174,7 +174,7 @@ export class QualitativeFeedbackTagsMolecule extends MoleculeAuraElement {
  if (Number.isNaN(value)) return null;
  const label = el.innerHTML;
  const ariaLabel = el.getAttribute('aria-label') || el.textContent?.trim() || String(value);
- return { value, label, ariaLabel };
+ return { value, label, ariaLabel, cls: el.getAttribute('data-class') || '' };
  })
  .filter((item): item is RatingItem => item !== null);
  return { items, isCustom: true };
@@ -182,7 +182,7 @@ export class QualitativeFeedbackTagsMolecule extends MoleculeAuraElement {
 
  const items: RatingItem[] = [];
  for (let v = this.min; v <= this.max; v += this.step) {
- items.push({ value: v, label: String(v), ariaLabel: String(v) });
+ items.push({ value: v, label: String(v), ariaLabel: String(v), cls: '' });
  }
  return { items, isCustom: false };
  }
@@ -282,7 +282,7 @@ export class QualitativeFeedbackTagsMolecule extends MoleculeAuraElement {
  return html`
  <button
  type="button"
- class="${this.getOptionClasses(isActive, isSelected, hasError)}"
+ class="${cn(this.getOptionClasses(isActive, isSelected, hasError), item.cls)}"
  role="radio"
  aria-checked="${isSelected ?'true' :'false'}"
  aria-label="${item.ariaLabel}"
@@ -324,6 +324,7 @@ type RatingItem = {
  value: number;
  label: string;
  ariaLabel: string;
+ cls: string;
 };
 
 type RatingItemSet = {

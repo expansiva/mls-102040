@@ -30,6 +30,7 @@ title: string;
 disabled: boolean;
 expanded: boolean;
 content: string;
+cls: string;
 };
 
 @customElement('groupexpandcontent--ml-readmore-expand')
@@ -138,6 +139,7 @@ title: el.getAttribute('title') || '',
 disabled: el.hasAttribute('disabled'),
 expanded: this.openSections.has(index),
 content: el.innerHTML || '',
+cls: el.getAttribute('data-class') || '',
 }));
 }
 
@@ -200,7 +202,7 @@ const headerId = `${this.uid}-header-${section.index}`;
 const panelId = `${this.uid}-panel-${section.index}`;
 
 return html`
-<div>
+<div class="${section.cls}">
 <button
 class="${this.getTriggerClasses(expanded, sectionDisabled)}"
 type="button"

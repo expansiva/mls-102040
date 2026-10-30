@@ -74,6 +74,7 @@ interface ColumnDef {
 interface ParsedRow {
   index: number;
   cells: string[];
+  cellCls: string[];
   dataClass: string;
   element: Element;
 }
@@ -229,6 +230,7 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
       return {
         index,
         cells: cells.map((c) => c.innerHTML || ''),
+        cellCls: cells.map((c) => c.getAttribute('data-class') || ''),
         dataClass: row.getAttribute('data-class') || '',
         element: row,
       };
@@ -244,6 +246,7 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
       return {
         index,
         cells: cells.map((c) => c.innerHTML || ''),
+        cellCls: cells.map((c) => c.getAttribute('data-class') || ''),
         dataClass: row.getAttribute('data-class') || '',
         element: row,
       };
@@ -713,8 +716,8 @@ svg`
     const someSelected = this.areSomeVisibleSelected(visibleRows);
 
     return html`
-      <thead class="ml-table-thead" role="rowgroup">
-        <tr class="ml-table-header-row" role="row">
+      <thead class=${cn('ml-table-thead', this.getSlotClass('TableHeader'))} role="rowgroup">
+        <tr class=${cn('ml-table-header-row', this.getSlot('TableHeader')?.querySelector('TableRow')?.getAttribute('data-class') || '')} role="row">
           ${this.selectable
             ? html`
                 <th class="px-3 py-2 w-10 ml-table-head ml-table-checkbox-cell" scope="col" role="columnheader">
@@ -799,7 +802,7 @@ svg`
           // Indent first data cell when grouping is active
           const indentClass = this.groupKey && i === 0 ? 'ml-grouped-cell' : '';
           return html`
-            <td class="${this.getCellClasses()} ${indentClass}" role="cell">
+            <td class=${cn(this.getCellClasses(), indentClass, row.cellCls[i])} role="cell">
               ${unsafeHTML(cell)}
             </td>
           `;
@@ -849,7 +852,7 @@ svg`
   ): TemplateResult {
     if (rows.length === 0) {
       return html`
-        <tbody class="ml-table-tbody" role="rowgroup">
+        <tbody class=${cn('ml-table-tbody', this.getSlotClass('TableBody'))} role="rowgroup">
           ${this.renderEmptyRow(columns)}
         </tbody>
       `;
@@ -861,7 +864,7 @@ svg`
     if (this.groupKey) {
       const groups = this.buildGroups(rows, columns);
       return html`
-        <tbody class="ml-table-tbody ml-table-tbody-grouped" role="rowgroup">
+        <tbody class=${cn('ml-table-tbody ml-table-tbody-grouped', this.getSlotClass('TableBody'))} role="rowgroup">
           ${groups.map((group) => {
             const expanded = this.isGroupExpanded(group.key);
             return html`
@@ -877,7 +880,7 @@ svg`
 
     // Flat view
     return html`
-      <tbody class="ml-table-tbody" role="rowgroup">
+      <tbody class=${cn('ml-table-tbody', this.getSlotClass('TableBody'))} role="rowgroup">
         ${rows.map((row) => this.renderDataRow(row, columns, rows))}
       </tbody>
     `;
@@ -913,7 +916,7 @@ svg`
     if (footerRows.length === 0) return html``;
 
     return html`
-      <tfoot class="ml-table-tfoot" role="rowgroup">
+      <tfoot class=${cn('ml-table-tfoot', this.getSlotClass('TableFooter'))} role="rowgroup">
         ${footerRows.map(
           (row) => html`
             <tr class="ml-table-footer-row ${row.dataClass}" role="row">
@@ -921,8 +924,8 @@ svg`
                 ? html`<td class="px-3 py-2 ml-table-cell" role="cell"></td>`
                 : nothing}
               ${row.cells.map(
-                (cell) => html`
-                  <td class="${this.getCellClasses()} ml-table-footer-cell" role="cell">
+                (cell, i) => html`
+                  <td class=${cn(this.getCellClasses(), 'ml-table-footer-cell', row.cellCls[i])} role="cell">
                     ${unsafeHTML(cell)}
                   </td>
                 `

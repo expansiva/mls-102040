@@ -57,11 +57,13 @@ interface ColumnDef {
   label: string;
   sortable: boolean;
   originalIndex: number;
+  cls: string;
 }
 
 interface ParsedRow {
   index: number;
   cells: string[];
+  cellCls: string[];
   dataClass: string;
 }
 
@@ -228,6 +230,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
       label: head.innerHTML,
       sortable: head.hasAttribute('sortable'),
       originalIndex: i,
+      cls: head.getAttribute('data-class') || '',
     }));
   }
 
@@ -241,6 +244,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
       return {
         index: i,
         cells: cells.map((c) => c.innerHTML),
+        cellCls: cells.map((c) => c.getAttribute('data-class') || ''),
         dataClass: row.getAttribute('data-class') || '',
       };
     });
@@ -828,7 +832,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
 
     return html`
       <thead class=${cn('ml-table-thead', this.getSlotClass('TableHeader'))} role="rowgroup">
-        <tr class="ml-table-row ml-table-header-row" role="row">
+        <tr class=${cn('ml-table-row ml-table-header-row', this.getSlot('TableHeader')?.querySelector('TableRow')?.getAttribute('data-class') || '')} role="row">
           ${this.renderSelectAllCheckbox(rows)}
           ${ordered.map((col) => {
             const ariaSort =
@@ -849,7 +853,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
 
             return html`
               <th
-                class=${cn(this.getHeadCellClasses(col), dropClass)}
+                class=${cn(this.getHeadCellClasses(col), dropClass, col.cls)}
                 style=${this.getColStyle(col.key)}
                 scope="col"
                 role="columnheader"
@@ -931,7 +935,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
               ${ordered.map(
                 (col) => html`
                   <td
-                    class=${this.getBodyCellClasses()}
+                    class=${cn(this.getBodyCellClasses(), row.cellCls[col.originalIndex])}
                     style=${this.getColStyle(col.key)}
                     role="cell"
                     data-ml-cell
@@ -1009,19 +1013,21 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
     if (this.showColumnTotal) return html``;
     const footerCells = this.parseFooterCells();
     if (footerCells.length === 0) return html``;
+    const footerRow = this.getSlot('TableFooter')?.querySelector('TableRow');
+    const footerCellCls = Array.from(footerRow?.querySelectorAll('TableCell') ?? []).map((c) => c.getAttribute('data-class') || '');
 
     const ordered = this.getOrderedColumns(columns);
 
     return html`
       <tfoot class=${cn('ml-table-tfoot', this.getSlotClass('TableFooter'))} role="rowgroup">
-        <tr class="ml-table-row ml-table-footer-row" role="row">
+        <tr class=${cn('ml-table-row ml-table-footer-row', footerRow?.getAttribute('data-class') || '')} role="row">
           ${this.selectable
             ? html`<td class="ml-table-cell" role="cell"></td>`
             : nothing}
           ${ordered.map(
             (col) => html`
               <td
-                class=${cn(this.getBodyCellClasses(), 'ml-table-footer-cell')}
+                class=${cn(this.getBodyCellClasses(), 'ml-table-footer-cell', footerCellCls[col.originalIndex])}
                 style=${this.getColStyle(col.key)}
                 role="cell"
               >

@@ -402,7 +402,7 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  >
  <div class="flex flex-col items-center gap-3 ml-text-muted">
  <div class="w-8 h-8 border-4 ml-border ml-spinner-border rounded-full animate-spin"></div>
- <span class="text-sm">${content}</span>
+ <span class="${cn('text-sm', this.getSlotClass('Loading'))}">${content}</span>
  </div>
  </div>
  `;
@@ -417,7 +417,7 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  <div
  class="${cn('flex items-center justify-center min-h-96 ml-surface-dim-bg rounded-lg border ml-border', this.cssClass)}"
  >
- <div class="ml-text-muted text-sm">
+ <div class="${cn('ml-text-muted text-sm', this.getSlotClass('Empty'))}">
  ${content}
  </div>
  </div>
@@ -426,7 +426,7 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
 
  private renderBoard(): TemplateResult {
  return html`
- <div class="${cn('flex gap-4 overflow-x-auto p-4 ml-surface-dim-bg rounded-lg min-h-96', this.cssClass)}">
+ <div class="${cn('flex gap-4 overflow-x-auto p-4 ml-surface-dim-bg rounded-lg min-h-96', this.cssClass, this.getSlotClass('Columns'))}">
  ${this.parsedColumns.map((column, colIndex) => this.renderColumn(column, colIndex))}
  </div>
  `;
@@ -435,7 +435,7 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  private renderColumn(column: ParsedColumn, colIndex: number): TemplateResult {
  const row = this.parsedRows[colIndex];
  const isDropTarget = this.dropTargetRowIndex === colIndex;
- const columnClasses = this.getColumnClasses(isDropTarget);
+ const columnClasses = cn(this.getColumnClasses(isDropTarget), column.element.getAttribute('data-class') || '');
 
  const isSelected = this.selectedIndices.includes(colIndex) || !!row?.selected;
 
@@ -487,7 +487,7 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  const addActionCell = row.cells.find((cell) => cell.isAddAction);
 
  return html`
- <div class="flex-1 flex flex-col gap-2 p-3 overflow-y-auto">
+ <div class="${cn('flex-1 flex flex-col gap-2 p-3 overflow-y-auto', row.element.getAttribute('data-class') || '')}">
  ${isDropTarget && this.draggedCard
  ? html`<div class=${this.getDropZoneClasses()}>${this.msg.dropHere}</div>`
  : html``}
@@ -500,7 +500,7 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  private renderCard(row: ParsedRow, cell: ParsedCell, rowIndex: number, cellIndex: number): TemplateResult {
  const isDragging =
  this.draggedCard?.rowIndex === rowIndex && this.draggedCard?.cellIndex === cellIndex;
- const cardClasses = this.getCardClasses(row, isDragging);
+ const cardClasses = cn(this.getCardClasses(row, isDragging), cell.element.getAttribute('data-class') || '');
 
  return html`
  <div
@@ -518,7 +518,7 @@ export class MlKanbanBoardMolecule extends MoleculeAuraElement {
  }
 
  private renderAddCard(row: ParsedRow, cell: ParsedCell, rowIndex: number): TemplateResult {
- const addCardClasses = this.getAddCardClasses(row.disabled);
+ const addCardClasses = cn(this.getAddCardClasses(row.disabled), cell.element.getAttribute('data-class') || '');
 
  return html`
  <div

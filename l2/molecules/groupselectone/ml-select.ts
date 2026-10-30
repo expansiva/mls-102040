@@ -38,10 +38,12 @@ interface SelectItem {
   value: string;
   label: string;
   disabled: boolean;
+  cls: string;
 }
 
 interface SelectGroup {
   label: string;
+  cls: string;
   items: SelectItem[];
 }
 
@@ -132,16 +134,19 @@ export class MlSelectMolecule extends MoleculeAuraElement {
         value: el.getAttribute('value') || '',
         label: el.innerHTML,
         disabled: el.hasAttribute('disabled'),
+        cls: el.getAttribute('data-class') || '',
       }));
   }
 
   private parseGroups(): SelectGroup[] {
     return this.getSlots('Group').map(group => ({
       label: group.getAttribute('label') || '',
+      cls: group.getAttribute('data-class') || '',
       items: Array.from(group.querySelectorAll('Item')).map(el => ({
         value: el.getAttribute('value') || '',
         label: el.innerHTML,
         disabled: el.hasAttribute('disabled'),
+        cls: el.getAttribute('data-class') || '',
       })),
     }));
   }
@@ -282,7 +287,7 @@ export class MlSelectMolecule extends MoleculeAuraElement {
       item.disabled ? 'ml-disabled' : 'cursor-pointer',
       isHighlighted && !item.disabled ? 'ml-select-item-highlighted' : '',
       isSelected && !item.disabled ? 'ml-select-item-selected' : '',
-      this.getSlotClass('Item'),
+      item.cls,
     );
 
     return html`
@@ -323,7 +328,7 @@ export class MlSelectMolecule extends MoleculeAuraElement {
         ` : html`
           ${groups.map((group, gi) => html`
             ${group.label ? html`
-              <li role="presentation" class="${cn('px-3 pt-2.5 pb-1 text-xs font-semibold uppercase tracking-wider ml-select-group-label', this.getSlotClass('Group'))}">
+              <li role="presentation" class="${cn('px-3 pt-2.5 pb-1 text-xs font-semibold uppercase tracking-wider ml-select-group-label', group.cls)}">
                 ${group.label}
               </li>
             ` : nothing}

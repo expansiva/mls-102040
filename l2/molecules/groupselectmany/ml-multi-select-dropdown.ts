@@ -40,9 +40,11 @@ labelHtml: string;
 labelText: string;
 disabled: boolean;
 groupLabel?: string;
+cls: string;
 };
 type ParsedGroup = {
 label: string;
+cls: string;
 items: ParsedItem[];
 };
 @customElement('groupselectmany--ml-multi-select-dropdown')
@@ -321,7 +323,7 @@ const value = el.getAttribute('value') || '';
 const disabled = el.hasAttribute('disabled');
 const labelHtml = el.innerHTML || value;
 const labelText = (el.textContent || value).trim();
-return { value, labelHtml, labelText, disabled, groupLabel };
+return { value, labelHtml, labelText, disabled, groupLabel, cls: el.getAttribute('data-class') || '' };
 }
 private getGroupedItems(): ParsedGroup[] {
 const groups = this.getSlots('Group');
@@ -331,7 +333,7 @@ const label = groupEl.getAttribute('label') || '';
 const items = Array.from(groupEl.querySelectorAll('Item'))
 .map(itemEl => this.parseItem(itemEl, label))
 .filter(item => item.value);
-return { label, items };
+return { label, cls: groupEl.getAttribute('data-class') || '', items };
 })
 .filter(group => group.items.length > 0);
 }
@@ -434,7 +436,7 @@ const filteredItems = items.filter(filterItem);
 if (!filteredGroups.length && !filteredItems.length) {
 const emptyContent = this.hasSlot('Empty') ? this.getSlotContent('Empty') : this.msg.empty;
 return html`
-<div class="px-3 py-4 text-sm ml-text-muted">
+<div class=${cn('px-3 py-4 text-sm ml-text-muted', this.getSlotClass('Empty'))}>
 ${unsafeHTML(emptyContent)}
 </div>
 `;
@@ -444,13 +446,13 @@ return html`
 <div class="max-h-60 overflow-auto p-2" role="listbox" aria-multiselectable="true" id="${this.panelId}">
 ${filteredGroups.map(group => html`
 <div class="mb-2">
-${group.label ? html`<div class="px-2 py-1 text-xs font-semibold ml-text-muted">${group.label}</div>` : html``}
+${group.label ? html`<div class=${cn('px-2 py-1 text-xs font-semibold ml-text-muted', group.cls)}>${group.label}</div>` : html``}
 ${group.items.map(item => {
 const isSelected = selectedValues.includes(item.value);
 const isDisabled = item.disabled || (!isSelected && maxReached);
 return html`
 <button
-class="${this.getItemClasses(item, isSelected, isDisabled)}"
+class="${cn(this.getItemClasses(item, isSelected, isDisabled), item.cls)}"
 role="option"
 aria-selected="${isSelected}"
 aria-disabled="${isDisabled}"
@@ -473,7 +475,7 @@ const isSelected = selectedValues.includes(item.value);
 const isDisabled = item.disabled || (!isSelected && maxReached);
 return html`
 <button
-class="${this.getItemClasses(item, isSelected, isDisabled)}"
+class="${cn(this.getItemClasses(item, isSelected, isDisabled), item.cls)}"
 role="option"
 aria-selected="${isSelected}"
 aria-disabled="${isDisabled}"
@@ -553,7 +555,7 @@ class=${cn('w-full', this.cssClass)}
 ${this.renderLabel()}
 <div class="relative">
 <button
-class="${this.getTriggerClasses(hasError)}"
+class="${cn(this.getTriggerClasses(hasError), this.getSlotClass('Trigger'))}"
 type="button"
 role="combobox"
 aria-expanded="${isPanelOpen}"

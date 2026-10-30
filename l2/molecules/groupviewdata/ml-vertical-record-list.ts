@@ -221,7 +221,7 @@ ${errors.map((err) => html`<div>${err}</div>`)}
 private renderLoading(): TemplateResult {
 if (this.hasSlot('Loading')) {
 return html`
-<div class="w-full py-8">
+<div class="${cn('w-full py-8', this.getSlotClass('Loading'))}">
 ${this.renderLiveSlot('Loading')}
 </div>
 `;
@@ -236,7 +236,7 @@ ${this.msg.loading}
 private renderEmpty(): TemplateResult {
 if (this.hasSlot('Empty')) {
 return html`
-<div class="w-full py-10 flex items-center justify-center">
+<div class="${cn('w-full py-10 flex items-center justify-center', this.getSlotClass('Empty'))}">
 ${this.renderLiveSlot('Empty')}
 </div>
 `;
@@ -250,7 +250,7 @@ ${this.msg.empty}
 
 private renderRows(rows: Element[], columns: ColumnDef[]): TemplateResult {
 return html`
-<div role="list" class="w-full">
+<div role="list" class="${cn('w-full', this.getSlotClass('Rows'))}">
 ${rows.map((row, index) => this.renderRow(row, index, columns, index === rows.length - 1))}
 </div>
 `;
@@ -261,7 +261,7 @@ const isDisabled = this.parseBooleanAttr(row,'disabled');
 // Without `selectable` the page owns the selection: the Row attribute is read on every render, so the
 // highlight follows it (same as ml-card-grid). With it, the molecule's own set, seeded from the attributes.
 const isSelected = this.selectable ? this.selectedIndices.has(index) : this.parseBooleanAttr(row,'selected');
-const classes = this.getRowClasses(isSelected, isDisabled, isLast);
+const classes = cn(this.getRowClasses(isSelected, isDisabled, isLast), row.getAttribute('data-class') || '');
 const cells = Array.from(row.querySelectorAll('Cell')) as Element[];
 return html`
 <div
@@ -285,7 +285,7 @@ const colspan = parseInt(cell.getAttribute('colspan') ||'1', 10);
 const style = this.getCellStyle(col, colspan);
 const classes = this.getCellClasses(col, colspan);
 return html`
-<div class="${classes}" style="${style}">
+<div class="${cn(classes, cell.getAttribute('data-class') || '')}" style="${style}">
 ${this.renderLiveSlotFrom(cell)}
 </div>
 `;

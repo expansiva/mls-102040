@@ -35,6 +35,7 @@ title: string;
 description: string;
 disabled: boolean;
 completed: boolean;
+cls: string;
 };
 
 @customElement('groupnavigatesteps--ml-compact-step-indicator')
@@ -94,7 +95,7 @@ const title = el.getAttribute('title') || `${this.msg.stepsLabel} ${index + 1}`;
 const description = el.getAttribute('description') || '';
 const disabled = el.hasAttribute('disabled');
 const completed = el.hasAttribute('completed');
-return { index, title, description, disabled, completed };
+return { index, title, description, disabled, completed, cls: el.getAttribute('data-class') || '' };
 });
 }
 
@@ -186,7 +187,7 @@ const isSelectable = this.canSelectStep(step, steps);
 const classes = this.getIndicatorClasses(step, isActive, isSelectable);
 return html`
 <button
-class="${classes}"
+class="${cn(classes, step.cls)}"
 role="tab"
 aria-selected="${isActive}"
 aria-disabled="${!isSelectable}"

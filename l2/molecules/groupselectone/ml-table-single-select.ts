@@ -86,7 +86,7 @@ this._uid = `groupselectone-${MlTableSingleSelectMolecule._uidCounter++}`;
 // ---------------------------------------------------------------------------
 // HELPERS – parsing slot content
 // ---------------------------------------------------------------------------
-private getItems(): Array<{ value: string; disabled: boolean; cells: string[] }> {
+private getItems(): Array<{ value: string; disabled: boolean; cells: string[]; cls: string; cellCls: string[] }> {
 const itemEls = this.getSlots('Item');
 return itemEls.map((el) => {
 const value = el.getAttribute('value') ?? '';
@@ -95,14 +95,15 @@ const cellEls = Array.from(el.children).filter((c) =>
 this.slotTags.map((t) => t.toUpperCase()).includes(c.tagName)
 );
 const cells = cellEls.map((c) => c.innerHTML.trim());
-return { value, disabled, cells };
+const cellCls = cellEls.map((c) => c.getAttribute('data-class') || '');
+return { value, disabled, cells, cls: el.getAttribute('data-class') || '', cellCls };
 });
 }
-private getHeaders(): string[] {
+private getHeaders(): Array<{ text: string; cls: string }> {
 const columnEls = this.getSlots('Column');
-return columnEls.map((c) => c.textContent?.trim() ?? '');
+return columnEls.map((c) => ({ text: c.textContent?.trim() ?? '', cls: c.getAttribute('data-class') || '' }));
 }
-private getFilteredItems(): Array<{ value: string; disabled: boolean; cells: string[] }> {
+private getFilteredItems(): Array<{ value: string; disabled: boolean; cells: string[]; cls: string; cellCls: string[] }> {
 if (!this.searchable || !this.searchQuery) return this.getItems();
 const q = this.searchQuery.toLowerCase();
 return this.getItems().filter((item) =>
@@ -245,7 +246,7 @@ ${hasHeaders
 <tr>
 <th class="${this.getHeaderCellClasses()}"></th>
 ${headers.map(
-(h) => html`<th class="${this.getHeaderCellClasses()}">${unsafeHTML(h)}</th>`
+(h) => html`<th class="${cn(this.getHeaderCellClasses(), h.cls)}">${unsafeHTML(h.text)}</th>`
 )}
 </tr>
 </thead>
@@ -257,7 +258,7 @@ ${items.length
 const isSelected = item.value === selectedValue;
 return html`
 <tr
-class="${this.getRowClasses(item, isSelected)}"
+class="${cn(this.getRowClasses(item, isSelected), item.cls)}"
 @click=${() => this.handleRowSelect(item)}
 >
 <td class="${this.getCellClasses()}">
@@ -274,7 +275,7 @@ name="${this._uid}"
 />
 </td>
 ${item.cells.map(
-(c) => html`<td class="${this.getCellClasses()}">${unsafeHTML(c)}</td>`
+(c, i) => html`<td class="${cn(this.getCellClasses(), item.cellCls[i])}">${unsafeHTML(c)}</td>`
 )}
 </tr>
 `;

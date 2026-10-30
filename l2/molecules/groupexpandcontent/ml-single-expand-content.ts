@@ -32,6 +32,7 @@ interface ParsedSection {
   title: string;
   disabled: boolean;
   content: string;
+  cls: string;
 }
 
 @customElement('groupexpandcontent--ml-single-expand-content')
@@ -107,6 +108,7 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
       title: el.getAttribute('title') || '',
       disabled: el.hasAttribute('disabled'),
       content: el.innerHTML,
+      cls: el.getAttribute('data-class') || '',
     }));
   }
 
@@ -258,7 +260,7 @@ export class SingleExpandContentMolecule extends MoleculeAuraElement {
     const contentId = `section-content-${section.index}`;
 
     return html`
-      <div>
+      <div class="${section.cls}">
         <div
           id="${headerId}"
           role="button"

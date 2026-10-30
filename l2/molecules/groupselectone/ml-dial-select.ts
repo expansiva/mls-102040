@@ -35,6 +35,7 @@ value: string;
 label: string;
 disabled: boolean;
 groupLabel?: string;
+cls: string;
 };
 
 type ParsedGroup = {
@@ -269,6 +270,7 @@ const standaloneItems: ParsedItem[] = standaloneItemEls.map(el => ({
 value: el.getAttribute('value') || '',
 label: el.innerHTML,
 disabled: el.hasAttribute('disabled'),
+cls: el.getAttribute('data-class') || '',
 }));
 
 const groups: ParsedGroup[] = this.getSlots('Group').map(group => ({
@@ -277,6 +279,7 @@ items: Array.from(group.querySelectorAll('Item')).map(el => ({
 value: el.getAttribute('value') || '',
 label: el.innerHTML,
 disabled: el.hasAttribute('disabled'),
+cls: el.getAttribute('data-class') || '',
 })),
 }));
 
@@ -395,7 +398,7 @@ id=${optionId}
 role="option"
 aria-selected=${isSelected ? 'true' : 'false'}
 aria-disabled=${item.disabled ? 'true' : 'false'}
-class=${this.getItemClasses(item, isSelected)}
+class=${cn(this.getItemClasses(item, isSelected), item.cls)}
 style="width:${itemSize}px;height:${itemSize}px;left:50%;top:50%;transform:translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}px) rotate(${-angle}deg);"
 @click=${() => this.selectItem(item)}
 ?disabled=${item.disabled}

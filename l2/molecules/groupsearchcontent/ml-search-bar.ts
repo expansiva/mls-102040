@@ -225,6 +225,7 @@ return this.getSlots('Suggestion').map((el) => ({
 value: el.getAttribute('value') || '',
 labelHtml: el.innerHTML,
 labelText: el.textContent || '',
+cls: el.getAttribute('data-class') || '',
 }));
 }
 
@@ -295,7 +296,7 @@ ${this.msg.loading}
 ` : html``}
 ${hasSuggestions ? suggestions.map((item, index) => html`
 <button
-class=${this.getSuggestionClasses(index === this.highlightIndex)}
+class=${cn(this.getSuggestionClasses(index === this.highlightIndex), item.cls)}
 role="option"
 aria-selected=${index === this.highlightIndex}
 ?disabled=${this.disabled}
@@ -382,4 +383,5 @@ type SuggestionItem = {
 value: string;
 labelHtml: string;
 labelText: string;
+cls: string;
 };

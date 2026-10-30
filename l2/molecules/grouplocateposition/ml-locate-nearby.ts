@@ -113,7 +113,7 @@ this.requestUpdate();
 // ===========================================================================
 // HELPERS
 // ===========================================================================
-private getSuggestions(): Array<{ value: string; labelHtml: string; labelText: string }> {
+private getSuggestions(): Array<{ value: string; labelHtml: string; labelText: string; cls: string }> {
 const suggestionsContainer = this.getSlot('Suggestions');
 if (!suggestionsContainer) return [];
 const items = Array.from(suggestionsContainer.querySelectorAll('Item'));
@@ -121,6 +121,7 @@ return items.map(el => ({
 value: el.getAttribute('value') ||'',
 labelHtml: el.innerHTML,
 labelText: (el.textContent ||'').trim(),
+cls: el.getAttribute('data-class') || '',
 }));
 }
 
@@ -283,10 +284,10 @@ if (!this.isEditing || !this.isOpen) return html``;
 const items = this.getSuggestions();
 const isLoading = this.loading || this.geoLoading;
 return html`
-<div class=${this.getPanelClasses()} role="listbox" id=${this.listboxId} aria-label="Suggestions">
+<div class=${cn(this.getPanelClasses(), this.getSlotClass('Suggestions'))} role="listbox" id=${this.listboxId} aria-label="Suggestions">
 ${isLoading ? html`<div class="px-3 py-2 ml-text-muted">${this.msg.loading}</div>` : html``}
 ${!isLoading && items.length === 0 ? html`
-<div class="px-3 py-2 ml-text-muted">
+<div class="${cn('px-3 py-2 ml-text-muted', this.getSlotClass('Empty'))}">
 ${this.hasSlot('Empty') ? unsafeHTML(this.getSlotContent('Empty')) : this.msg.noResults}
 </div>
 ` : html``}
@@ -294,7 +295,7 @@ ${!isLoading ? items.map(item => {
 const isSelected = this.value === item.value;
 return html`
 <div
-class=${this.getItemClasses(isSelected, this.disabled || this.readonly)}
+class=${cn(this.getItemClasses(isSelected, this.disabled || this.readonly), item.cls)}
 role="option"
 aria-selected=${isSelected ?'true' :'false'}
 @mousedown=${(e: MouseEvent) => { e.preventDefault(); this.handleSuggestionSelect(item); }}
@@ -347,7 +348,7 @@ const display = this.value
 return html`
 <div class="${cn('w-full', this.cssClass)}">
 ${this.renderLabel()}
-<div class="text-sm ml-text">${display}</div>
+<div class="${cn('text-sm ml-text', this.value ? '' : this.getSlotClass('Empty'))}">${display}</div>
 ${this.renderMap()}
 </div>
 `;
@@ -384,7 +385,7 @@ aria-required=${this.required ?'true' :'false'}
 ${this.allowGeolocation ? html`
 <button
 type="button"
-class="rounded-lg border ml-border ml-surface-bg px-3 py-2 text-sm ml-text transition hover:ml-surface-dim-bg disabled:opacity-50"
+class="${cn('rounded-lg border ml-border ml-surface-bg px-3 py-2 text-sm ml-text transition hover:ml-surface-dim-bg disabled:opacity-50', this.getSlotClass('Trigger'))}"
 ?disabled=${this.disabled || this.readonly || this.loading || this.geoLoading}
 aria-label=${this.msg.useLocation}
 @click=${this.handleGeolocation}

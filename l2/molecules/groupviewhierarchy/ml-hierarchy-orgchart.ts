@@ -302,7 +302,7 @@ ${this.renderChevron(model.expanded)}
 `
 : html`<span class="inline-block w-6"></span>`}
 <button
-class="${buttonClasses} gvh-node-button"
+class="${cn(buttonClasses, 'gvh-node-button', model.element.getAttribute('data-class'))}"
 data-path=${model.path}
 data-parent=${model.parentPath ??''}
 data-value=${ifDefined(model.value ?? undefined)}

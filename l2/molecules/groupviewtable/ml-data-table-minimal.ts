@@ -170,6 +170,10 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  return Array.from(row.querySelectorAll('TableHead')) as HTMLElement[];
  }
 
+ private getHeaderRowClass(): string {
+ return this.getLiveSlot('TableHeader')?.querySelector('TableRow')?.getAttribute('data-class') ||'';
+ }
+
  private getBodyRows(): HTMLElement[] {
  const body = this.getLiveSlot('TableBody');
  if (!body) return [];
@@ -379,7 +383,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  <th
  role="columnheader"
  aria-sort="${ariaSort ||'none'}"
- class="px-3 py-2 text-sm font-semibold border-b ml-border"
+ class="${cn('px-3 py-2 text-sm font-semibold border-b ml-border', cell.getAttribute('data-class') ||'')}"
  >
  <button
  class="${buttonClasses}"
@@ -407,7 +411,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  return html`
  <tr
  role="row"
- class="${rowClasses}"
+ class="${cn(rowClasses, row.getAttribute('data-class') ||'')}"
  data-row-index="${index}"
  tabindex="0"
  @click=${(e: Event) => this.handleRowClick(index, e)}
@@ -444,10 +448,10 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  ${rows.map(row => {
  const cells = Array.from(row.querySelectorAll('TableCell')) as HTMLElement[];
  return html`
- <tr role="row" class="border-t ml-border">
+ <tr role="row" class="${cn('border-t ml-border', row.getAttribute('data-class') ||'')}">
  ${this.selectable ? html`<td role="cell" class="px-3 py-2"></td>` : html``}
  ${cells.map(cell => html`
- <td role="cell" class="px-3 py-2 text-sm ml-text">
+ <td role="cell" class="${cn('px-3 py-2 text-sm ml-text', cell.getAttribute('data-class') ||'')}">
  ${this.renderLiveSlotFrom(cell)}
  </td>
  `)}
@@ -515,7 +519,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
 
  private renderLoading(columnCount: number): TemplateResult {
  if (this.hasSlot('Loading')) {
- return html`<div class="w-full text-sm ml-text-muted">${this.renderLiveSlot('Loading')}</div>`;
+ return html`<div class="${cn('w-full text-sm ml-text-muted', this.getSlotClass('Loading'))}">${this.renderLiveSlot('Loading')}</div>`;
  }
  const cols = Math.max(columnCount + (this.selectable ? 1 : 0), 3);
  const rows = 3;
@@ -548,8 +552,8 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  <div class="${this.scrollerClasses}">
  <table class="min-w-full border ml-border">
  ${headerCells.length > 0 ? html`
- <thead class="${this.theadClasses}">
- <tr>
+ <thead class="${cn(this.theadClasses, this.getSlotClass('TableHeader'))}">
+ <tr class="${this.getHeaderRowClass()}">
  ${this.selectable ? html`<th class="px-3 py-2"></th>` : html``}
  ${headerCells.map((cell, index) => this.renderHeaderCell(cell, index))}
  </tr>
@@ -557,7 +561,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  ` : html``}
  <tbody></tbody>
  </table>
- <div class="py-4 text-sm ml-text-muted">${content}</div>
+ <div class="${cn('py-4 text-sm ml-text-muted', this.getSlotClass('Empty'))}">${content}</div>
  </div>
  ${this.renderPagination(this.getTotalPages(0))}
  ${this.renderError()}
@@ -610,8 +614,8 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  <div class="${this.scrollerClasses}">
  <table class="min-w-full border ml-border ml-surface-bg" role="table">
  ${this.renderCaption()}
- <thead class="${this.theadClasses}" role="rowgroup">
- <tr role="row">
+ <thead class="${cn(this.theadClasses, this.getSlotClass('TableHeader'))}" role="rowgroup">
+ <tr role="row" class="${this.getHeaderRowClass()}">
  ${this.selectable ? html`
  <th role="columnheader" class="px-3 py-2 border-b ml-border">
  <input
@@ -629,7 +633,7 @@ export class MlDataTableMinimalMolecule extends MoleculeAuraElement {
  ${headerCells.map((cell, index) => this.renderHeaderCell(cell, index))}
  </tr>
  </thead>
- <tbody role="rowgroup">
+ <tbody role="rowgroup" class="${this.getSlotClass('TableBody')}">
  ${visibleRows.map((row, index) => this.renderBodyRow(row, index, selection))}
  </tbody>
  ${this.renderFooter(headerCells.length)}

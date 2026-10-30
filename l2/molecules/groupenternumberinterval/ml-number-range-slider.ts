@@ -310,7 +310,9 @@ export class MlNumberRangeSliderMolecule extends MoleculeAuraElement {
   private wrapWithAffixes(formatted: string): string {
     const prefix = this.getSlotContent('Prefix') || '';
     const suffix = this.getSlotContent('Suffix') || '';
-    return `${prefix}${formatted}${suffix}`;
+    const prefixHtml = prefix ? `<span class="${this.getSlotClass('Prefix')}">${prefix}</span>` : '';
+    const suffixHtml = suffix ? `<span class="${this.getSlotClass('Suffix')}">${suffix}</span>` : '';
+    return `${prefixHtml}${formatted}${suffixHtml}`;
   }
 
   private formatBound(value: number | null | undefined): string {

@@ -40,11 +40,13 @@ interface NavItem {
  icon: string;
  badge: string | null;
  disabled: boolean;
+ cls: string;
 }
 
 interface NavGroup {
  label: string;
  items: NavItem[];
+ cls: string;
 }
 
 @customElement('groupnavigatemain--ml-sidebar-nav')
@@ -86,6 +88,7 @@ export class MlSidebarNavMolecule extends MoleculeAuraElement {
  icon: el.getAttribute('icon') ||'',
  badge: el.getAttribute('badge'),
  disabled: el.hasAttribute('disabled'),
+ cls: el.getAttribute('data-class') ||'',
  };
  }
 
@@ -102,6 +105,7 @@ export class MlSidebarNavMolecule extends MoleculeAuraElement {
  return this.getSlots('Group').map(el => ({
  label: el.getAttribute('label') ||'',
  items: Array.from(el.querySelectorAll('Item')).map(item => this.parseItem(item)),
+ cls: el.getAttribute('data-class') ||'',
  }));
  }
 
@@ -192,7 +196,7 @@ export class MlSidebarNavMolecule extends MoleculeAuraElement {
 
  return html`
  <button
- class=${this.getItemClasses(item)}
+ class=${cn(this.getItemClasses(item), item.cls)}
  type="button"
  title=${this.collapsed ? item.label :''}
  aria-current=${isActive ?'page' : nothing}
@@ -233,7 +237,7 @@ export class MlSidebarNavMolecule extends MoleculeAuraElement {
  <div class="space-y-1">
  ${group.label ? html`
  <button
- class="flex w-full items-center justify-between px-3 py-1.5 text-xs font-semibold uppercase tracking-wider ml-text-faint hover:ml-text-muted transition"
+ class="${cn('flex w-full items-center justify-between px-3 py-1.5 text-xs font-semibold uppercase tracking-wider ml-text-faint hover:ml-text-muted transition', group.cls)}"
  type="button"
  @click=${() => this.handleToggleGroup(group.label)}
  >
@@ -344,7 +348,7 @@ export class MlSidebarNavMolecule extends MoleculeAuraElement {
 
  <!-- Footer items -->
  ${footerItems.length > 0 ? html`
- <div class="border-t ml-border px-2 py-3 space-y-1">
+ <div class="${cn('border-t ml-border px-2 py-3 space-y-1', this.getSlotClass('Footer'))}">
  ${footerItems.map(item => this.renderNavItem(item))}
  </div>
  ` : nothing}

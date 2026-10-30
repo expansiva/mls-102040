@@ -173,6 +173,7 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
       return this.getSlots('Item').map((el) => ({
         value: Number(el.getAttribute('value')),
         label: el.innerHTML,
+        cls: el.getAttribute('data-class') || '',
       }));
     }
     const items: RatingItem[] = [];
@@ -201,7 +202,7 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
   // ==========================================================================
   private renderLabel(): TemplateResult {
     if (!this.hasSlot('Label')) return html``;
-    return html`<div id="${this.uid}-label" class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}"
+    return html`<div id="${this.uid}-label" class="${cn('mb-2 text-sm ml-label', this.getSlotClass('Label'))}">
       ${unsafeHTML(this.getSlotContent('Label'))}
     </div>`;
   }
@@ -209,12 +210,12 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
   private renderHelperOrError(): TemplateResult {
     const errorMessage = this.getErrorMessage();
     if (errorMessage) {
-      return html`<div id="${this.uid}-error" class="mt-2 text-xs ml-error-text"
+      return html`<div id="${this.uid}-error" class="mt-2 text-xs ml-error-text">
         ${unsafeHTML(errorMessage)}
       </div>`;
     }
     if (this.hasSlot('Helper')) {
-      return html`<div id="${this.uid}-helper" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}"
+      return html`<div id="${this.uid}-helper" class="${cn('mt-2 text-xs ml-helper', this.getSlotClass('Helper'))}">
         ${unsafeHTML(this.getSlotContent('Helper'))}
       </div>`;
     }
@@ -256,7 +257,7 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
 
     return html`
       <div
-        class="${this.getOptionClasses(isActive, isSelected)}"
+        class="${cn(this.getOptionClasses(isActive, isSelected), item.cls)}"
         role="radio"
         aria-checked="${ariaChecked}"
         aria-label="${label}"
@@ -332,4 +333,5 @@ export class EmojiMoodScaleMolecule extends MoleculeAuraElement {
 type RatingItem = {
   value: number;
   label: string;
+  cls?: string;
 };

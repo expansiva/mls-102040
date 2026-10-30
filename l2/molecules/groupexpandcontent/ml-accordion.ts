@@ -206,7 +206,7 @@ ${sectionElements.map((el, index) => this.renderSection(el, index))}
         const contentId = `accordion-content-${index}`;
         const content = this.getSectionContent(el);
         return html`
-<div>
+<div class="${el.getAttribute('data-class') || ''}">
 <div
 id=${headerId}
 data-accordion-header="true"

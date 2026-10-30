@@ -137,7 +137,7 @@ const mediaContentClasses = [
 ].join(' ');
 
 return html`
-<div class="w-full ${ratioClass} relative overflow-hidden">
+<div class="${cn('w-full relative overflow-hidden', ratioClass, this.getSlotClass('CardHeader'))}">
 <div class="${placeholderClasses} ${showPlaceholder ? '' : 'hidden'}" aria-hidden="true"></div>
 ${showPlaceholder
 ? html``
@@ -218,7 +218,7 @@ hasFooter ? 'justify-between' : 'justify-end',
 return html`
 <div class="${containerClasses}">
 ${hasFooter ? html`<div class="${cn('text-sm ml-text-muted', this.getSlotClass('CardFooter'))}">${this.renderLiveSlot('CardFooter')}</div>` : html``}
-${hasAction ? html`<div class="shrink-0">${this.renderLiveSlot('CardAction')}</div>` : html``}
+${hasAction ? html`<div class="${cn('shrink-0', this.getSlotClass('CardAction'))}">${this.renderLiveSlot('CardAction')}</div>` : html``}
 </div>
 `;
 }

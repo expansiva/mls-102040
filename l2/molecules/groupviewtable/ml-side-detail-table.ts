@@ -5,6 +5,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { propertyDataSource } from '/_102029_/l2/collabDecorators.js';
 import { MoleculeAuraElement } from '/_102033_/l2/moleculeBase.js';
 import { cellSortKey, compareSortKeys } from '/_102033_/l2/shared/molecules/tableSort.js';
+import { cn } from '/_102033_/l2/shared/molecules/cn.js';
 
 @customElement('groupviewtable--ml-side-detail-table')
 export class DetailPanelTableMolecule extends MoleculeAuraElement {
@@ -210,7 +211,7 @@ export class DetailPanelTableMolecule extends MoleculeAuraElement {
   private renderHeader(heads: Element[], rows: Element[]): TemplateResult {
     const selected = this.selectedIndices();
     const allSelected = rows.length > 0 && rows.every((_, index) => selected.has(index));
-    return html`<thead class="ml-table-header"><tr role="row">
+    return html`<thead class="${cn('ml-table-header', this.getSlotClass('TableHeader'))}"><tr role="row" class="${this.getLiveSlot('TableHeader')?.querySelector(':scope > TableRow')?.getAttribute('data-class') || ''}">
       ${this.selectable ? html`<th role="columnheader" class="p-2"><input type="checkbox"
         .checked=${allSelected} aria-label="Select all rows" ?disabled=${this.disabled}
         @input=${(event: Event) => event.stopPropagation()}
@@ -220,7 +221,7 @@ export class DetailPanelTableMolecule extends MoleculeAuraElement {
         const active = this.sortKey === key;
         const direction = active && this.sortDirection === 'desc' ? 'descending' : 'ascending';
         const sortable = head.hasAttribute('sortable');
-        const classes = ['p-3 text-left text-sm font-semibold ml-label', sortable ? 'ml-sortable-header cursor-pointer' : '', active ? 'ml-sorted' : ''].filter(Boolean).join(' ');
+        const classes = ['p-3 text-left text-sm font-semibold ml-label', sortable ? 'ml-sortable-header cursor-pointer' : '', active ? 'ml-sorted' : '', head.getAttribute('data-class') || ''].filter(Boolean).join(' ');
         return html`<th role="columnheader" tabindex="${sortable ? '0' : '-1'}"
           aria-sort=${sortable ? (active ? direction : 'none') : nothing} class="${classes}"
           @click=${() => this.handleSort(head)} @keydown=${(event: KeyboardEvent) => {
@@ -232,9 +233,9 @@ export class DetailPanelTableMolecule extends MoleculeAuraElement {
 
   private renderBody(rows: Element[]): TemplateResult {
     const selected = this.selectedIndices();
-    return html`<tbody class="ml-table-body">${this.displayedRows(rows).map(({ row, index }) => {
+    return html`<tbody class="${cn('ml-table-body', this.getSlotClass('TableBody'))}">${this.displayedRows(rows).map(({ row, index }) => {
       const rowEditing = this.isEditing || String(this.editingRows ?? '').split(',').map((key) => key.trim()).includes(this.rowKey(row, index));
-      const classes = ['ml-table-row', selected.has(index) ? 'ml-selected' : '', this.openRow === row ? 'ml-active-row' : '', rowEditing ? 'ml-editing' : '', this.disabled ? 'ml-disabled' : ''].filter(Boolean).join(' ');
+      const classes = ['ml-table-row', selected.has(index) ? 'ml-selected' : '', this.openRow === row ? 'ml-active-row' : '', rowEditing ? 'ml-editing' : '', this.disabled ? 'ml-disabled' : '', row.getAttribute('data-class') || ''].filter(Boolean).join(' ');
       return html`<tr role="row" tabindex="0" data-source-index="${index}" class="${classes}"
         @click=${(event: Event) => this.handleRowClick(row, index, event)}
         @keydown=${(event: KeyboardEvent) => this.handleRowKey(row, index, event)}>
@@ -242,7 +243,7 @@ export class DetailPanelTableMolecule extends MoleculeAuraElement {
           aria-label="Select row ${index + 1}" ?disabled=${this.disabled}
           @input=${(event: Event) => event.stopPropagation()}
           @change=${(event: Event) => { event.stopPropagation(); this.toggleSelection(index); }}></td>` : nothing}
-        ${this.rowCells(row).map((cell) => html`<td role="cell" class="p-3 text-sm ml-text">${this.renderLiveSlotFrom(cell)}</td>`)}
+        ${this.rowCells(row).map((cell) => html`<td role="cell" class="${cn('p-3 text-sm ml-text', cell.getAttribute('data-class') || '')}">${this.renderLiveSlotFrom(cell)}</td>`)}
       </tr>`;
     })}</tbody>`;
   }
@@ -250,7 +251,7 @@ export class DetailPanelTableMolecule extends MoleculeAuraElement {
   private renderFooter(): TemplateResult {
     const footer = this.getLiveSlot('TableFooter');
     if (!footer) return html``;
-    return html`<tfoot class="ml-table-footer">${Array.from(footer.querySelectorAll(':scope > TableRow')).map((row) => html`<tr role="row">${this.rowCells(row).map((cell) => html`<td role="cell" class="p-3 text-sm ml-text-muted">${this.renderLiveSlotFrom(cell)}</td>`)}</tr>`)}</tfoot>`;
+    return html`<tfoot class="${cn('ml-table-footer', this.getSlotClass('TableFooter'))}">${Array.from(footer.querySelectorAll(':scope > TableRow')).map((row) => html`<tr role="row" class="${row.getAttribute('data-class') || ''}">${this.rowCells(row).map((cell) => html`<td role="cell" class="${cn('p-3 text-sm ml-text-muted', cell.getAttribute('data-class') || '')}">${this.renderLiveSlotFrom(cell)}</td>`)}</tr>`)}</tfoot>`;
   }
 
   private renderPagination(pages: number): TemplateResult {
@@ -271,7 +272,7 @@ export class DetailPanelTableMolecule extends MoleculeAuraElement {
       <div class="flex items-center justify-between gap-2"><span class="ml-label text-sm">${label}</span>
         <button class="ml-detail-close px-3 py-2 text-sm" aria-label="Close detail" ?disabled=${this.disabled} @click=${this.handleClose}>Close</button>
       </div>
-      <div class="ml-detail-content mt-4">${detail ? this.renderLiveSlotFrom(detail) : html`<p class="ml-text-muted">No detail available.</p>`}</div>
+      <div class="${cn('ml-detail-content mt-4', detail?.getAttribute('data-class') || '')}">${detail ? this.renderLiveSlotFrom(detail) : html`<p class="ml-text-muted">No detail available.</p>`}</div>
     </aside>`;
   }
 
@@ -282,17 +283,17 @@ export class DetailPanelTableMolecule extends MoleculeAuraElement {
     const rows = this.bodyRows();
     const layout = ['ml-table-layout flex w-full gap-4', this.fitHeight ? 'ml-fit-height' : '', this.openRow ? 'ml-detail-open' : '', this.disabled ? 'ml-disabled' : ''].filter(Boolean).join(' ');
     if (this.loading) {
-      return html`<div class="${layout}"><section class="ml-table-region min-w-0 flex-1"><div class="ml-loading p-4 ml-skeleton">${this.hasSlot('Loading') ? this.renderLiveSlot('Loading') : 'Loading...'}</div></section>${this.renderDetail()}</div>`;
+      return html`<div class="${layout}"><section class="ml-table-region min-w-0 flex-1"><div class="${cn('ml-loading p-4 ml-skeleton', this.getSlotClass('Loading'))}">${this.hasSlot('Loading') ? this.renderLiveSlot('Loading') : 'Loading...'}</div></section>${this.renderDetail()}</div>`;
     }
 
     const tableContent = rows.length === 0
-      ? html`<div class="ml-empty p-4 ml-text-muted">${this.hasSlot('Empty') ? this.renderLiveSlot('Empty') : 'No records found.'}</div>`
+      ? html`<div class="${cn('ml-empty p-4 ml-text-muted', this.getSlotClass('Empty'))}">${this.hasSlot('Empty') ? this.renderLiveSlot('Empty') : 'No records found.'}</div>`
       : html`<div class="ml-table-scroll"><table role="table" class="ml-table w-full border" aria-label="Group table">
           ${this.renderHeader(this.headerCells(), rows)}${this.renderBody(rows)}${this.renderFooter()}
         </table></div>${this.renderPagination(this.totalPages(rows.length))}`;
 
     return html`<div class="${layout}"><section class="ml-table-region min-w-0 flex-1" aria-label="Group table">
-      ${this.hasSlot('TableCaption') ? html`<div class="ml-caption p-3 text-sm ml-label">${this.renderLiveSlot('TableCaption')}</div>` : nothing}
+      ${this.hasSlot('TableCaption') ? html`<div class="${cn('ml-caption p-3 text-sm ml-label', this.getSlotClass('TableCaption'))}">${this.renderLiveSlot('TableCaption')}</div>` : nothing}
       ${this.error ? html`<div role="alert" class="ml-error-text p-3 text-sm">${unsafeHTML(String(this.error))}</div>` : nothing}
       ${tableContent}
     </section>${this.renderDetail()}</div>`;

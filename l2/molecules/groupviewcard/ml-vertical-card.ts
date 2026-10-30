@@ -107,16 +107,16 @@ if (!hasHeader && !hasTitle && !hasDescription) {
 return html``;
 }
 
-if (hasHeader) {
+if (hasHeader && !hasTitle && !hasDescription) {
 return html`
-<div class="flex flex-col gap-1">
+<div class="${cn('flex flex-col gap-1', this.getSlotClass('CardHeader'))}">
 ${unsafeHTML(this.getSlotContent('CardHeader'))}
 </div>
 `;
 }
 
 return html`
-<div class="flex flex-col gap-1">
+<div class="${cn('flex flex-col gap-1', this.getSlotClass('CardHeader'))}">
 ${hasTitle
 ? html`<div class="${cn('text-base font-semibold ml-label', this.getSlotClass('CardTitle'))}">${unsafeHTML(this.getSlotContent('CardTitle'))}</div>`
 : html``}

@@ -359,7 +359,7 @@ export class MlFileMetadataUploaderMolecule extends MoleculeAuraElement {
           : this.isDragging
             ? this.renderDragActiveState()
             : hasTrigger
-              ? html`${this.renderLiveSlot('Trigger')}`
+              ? html`${this.renderLiveSlot('Trigger', this.getSlotClass('Trigger'))}`
               : this.renderDefaultTrigger(dropText)
         }
       </div>

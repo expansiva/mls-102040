@@ -312,7 +312,7 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  >
  <div class="flex flex-col items-center gap-3">
  <div class="w-8 h-8 border-2 ml-border ml-spinner-border rounded-full animate-spin"></div>
- <span class="text-sm">${content}</span>
+ <span class="${cn('text-sm', this.getSlotClass('Loading'))}">${content}</span>
  </div>
  </div>
  `;
@@ -329,7 +329,7 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  <div class="mb-2">
  ${this.renderEmptyIcon()}
  </div>
- <span class="text-sm">${content}</span>
+ <span class="${cn('text-sm', this.getSlotClass('Empty'))}">${content}</span>
  </div>
  </div>
  `;
@@ -347,8 +347,8 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
 
  private renderGroupHeader(row: ParsedRow): TemplateResult {
  return html`
- <div class=${this.getRowClasses(row)}>
- ${this.renderLiveSlotFrom(row.cells[0]?.element)}
+ <div class=${cn(this.getRowClasses(row), row.element.getAttribute('data-class') || '')}>
+ ${this.renderLiveSlotFrom(row.cells[0]?.element, row.cells[0]?.element.getAttribute('data-class') || '')}
  </div>
  `;
  }
@@ -358,7 +358,7 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
 
  return html`
  <div
- class=${this.getRowClasses(row)}
+ class=${cn(this.getRowClasses(row), row.element.getAttribute('data-class') || '')}
  role="listitem"
  aria-selected=${this.selectable ? String(isSelected) :'false'}
  aria-disabled=${String(row.disabled)}
@@ -397,7 +397,7 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  if (!cell) return html``;
 
  return html`
- <div class=${this.getCellClasses(column)} style="width: ${column.width}">
+ <div class=${cn(this.getCellClasses(column), cell.element.getAttribute('data-class') || '')} style="width: ${column.width}">
  ${this.renderLiveSlotFrom(cell.element)}
  </div>
  `;
@@ -411,7 +411,7 @@ export class TimelineViewMolecule extends MoleculeAuraElement {
  const groupHeaders = this.parsedRows.filter((r) => r.isGroupHeader);
 
  return html`
- <div class=${cn(this.getContainerClasses(), this.cssClass)} role="list">
+ <div class=${cn(this.getContainerClasses(), this.cssClass, this.getSlotClass('Rows'))} role="list">
  <div class=${this.getTimelineWrapperClasses()}>
  <!-- Timeline Track -->
  <div class=${this.getTrackClasses()}></div>

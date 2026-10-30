@@ -41,10 +41,12 @@ interface ParsedItem {
   label: string;
   disabled: boolean;
   groupLabel?: string;
+  cls: string;
 }
 
 interface ParsedGroup {
   label: string;
+  cls: string;
   items: ParsedItem[];
 }
 
@@ -138,13 +140,14 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
           label: itemEl.innerHTML.trim(),
           disabled: itemEl.hasAttribute('disabled'),
           groupLabel,
+          cls: itemEl.getAttribute('data-class') || '',
         };
         groupItems.push(item);
         items.push(item);
       });
 
       if (groupItems.length > 0) {
-        groups.push({ label: groupLabel, items: groupItems });
+        groups.push({ label: groupLabel, cls: groupEl.getAttribute('data-class') || '', items: groupItems });
       }
     });
 
@@ -154,6 +157,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
         value: itemEl.getAttribute('value') || '',
         label: itemEl.innerHTML.trim(),
         disabled: itemEl.hasAttribute('disabled'),
+        cls: itemEl.getAttribute('data-class') || '',
       };
       items.push(item);
     });
@@ -412,7 +416,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
       <button
         type="button"
         role="option"
-        class=${this.getItemClasses(item, isSelected, isFocused)}
+        class=${cn(this.getItemClasses(item, isSelected, isFocused), item.cls)}
         aria-selected=${isSelected}
         aria-disabled=${item.disabled}
         ?disabled=${item.disabled}
@@ -459,7 +463,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
       ${groups.map(
         (group) => html`
           <div>
-            <div class=${this.getGroupLabelClasses()}>${group.label}</div>
+            <div class=${cn(this.getGroupLabelClasses(), group.cls)}>${group.label}</div>
             ${group.items.map((item) => {
               const result = this.renderItem(item, itemIndex);
               itemIndex++;
@@ -482,7 +486,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
       : this.msg.noResults;
 
     return html`
-      <div class=${this.getEmptyClasses()}>
+      <div class=${cn(this.getEmptyClasses(), this.getSlotClass('Empty'))}>
         ${unsafeHTML(emptyContent)}
       </div>
     `;
@@ -526,7 +530,7 @@ export class MlListboxSidebarSelectMolecule extends MoleculeAuraElement {
 
     if (this.hasSlot('Helper')) {
       return html`
-        <p class=${this.getHelperClasses()}>
+        <p class=${cn(this.getHelperClasses(), this.getSlotClass('Helper'))}>
           ${unsafeHTML(this.getSlotContent('Helper'))}
         </p>
       `;

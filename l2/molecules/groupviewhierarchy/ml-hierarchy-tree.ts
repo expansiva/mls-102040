@@ -36,6 +36,7 @@ interface ParsedNode {
  content: string;
  children: ParsedNode[];
  id: string;
+ cls: string;
 }
 
 @customElement('groupviewhierarchy--ml-hierarchy-tree')
@@ -95,7 +96,7 @@ export class HierarchyTreeMolecule extends MoleculeAuraElement {
  // ===========================================================================
  private parseNodes() {
  this.nodeIdCounter = 0;
- const nodeElements = this.getSlots('Node');
+ const nodeElements = this.getSlots('Node').filter(el => el.parentElement?.tagName.toUpperCase() !=='NODE');
  this.parsedNodes = nodeElements.map(el => this.parseNodeElement(el));
  }
 
@@ -135,6 +136,7 @@ export class HierarchyTreeMolecule extends MoleculeAuraElement {
  content,
  children,
  id,
+ cls: element.getAttribute('data-class') || '',
  };
  }
 
@@ -424,7 +426,7 @@ export class HierarchyTreeMolecule extends MoleculeAuraElement {
  aria-disabled=${isDisabled ?'true' :'false'}
  data-node-id=${node.id}
  tabindex=${isDisabled ? -1 : 0}
- class=${this.getNodeClasses(node, 0)}
+ class=${cn(this.getNodeClasses(node, 0), node.cls)}
  style="padding-left: ${paddingLeft}px"
  @click=${() => hasChildren ? this.handleToggle(node, siblings) : this.handleNodeClick(node)}
  @keydown=${(e: KeyboardEvent) => this.handleKeyDown(e, node, siblings, flatNodes)}>

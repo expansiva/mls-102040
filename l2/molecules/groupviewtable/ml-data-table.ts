@@ -68,6 +68,7 @@ interface ColumnDef {
 interface RowData {
  cells: Element[];
  index: number;
+ cls: string;
 }
 
 // =============================================================================
@@ -186,14 +187,17 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  return Array.from(body.querySelectorAll(':scope > TableRow')).map((row, index) => ({
  cells: Array.from(row.querySelectorAll(':scope > TableCell')),
  index,
+ cls: row.getAttribute('data-class') ||'',
  }));
  }
 
- private parseFooterRows(): Element[][] {
+ private parseFooterRows(): { cells: Element[]; cls: string }[] {
  const footer = this.getLiveSlot('TableFooter');
  if (!footer) return [];
- return Array.from(footer.querySelectorAll(':scope > TableRow')).map(row =>
- Array.from(row.querySelectorAll(':scope > TableCell')));
+ return Array.from(footer.querySelectorAll(':scope > TableRow')).map(row => ({
+ cells: Array.from(row.querySelectorAll(':scope > TableCell')),
+ cls: row.getAttribute('data-class') ||'',
+ }));
  }
 
  private getSelectedSet(): Set<string> {
@@ -374,7 +378,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0112 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375z"
  />
  </svg>
- <p class="text-sm">${content}</p>
+ <p class="${cn('text-sm', this.getSlotClass('Empty'))}">${content}</p>
  </div>
  </td>
  </tr>
@@ -459,7 +463,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  <div class="${cn('w-full', this.cssClass)}">
  ${hasCaption ? html`<div class="${cn('mb-3 text-sm font-semibold ml-text', this.getSlotClass('TableCaption'))}">${this.renderLiveSlot('TableCaption')}</div>` : nothing}
  ${this.hasSlot('Loading')
- ? this.renderLiveSlot('Loading')
+ ? this.renderLiveSlot('Loading', this.getSlotClass('Loading'))
  : this.renderSkeleton()}
  </div>
  `;
@@ -494,7 +498,7 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
 
  <!-- HEAD -->
  <thead class="${cn('border-b ml-border ml-surface-dim-bg', this.getSlotClass('TableHeader'))}" role="rowgroup">
- <tr role="row">
+ <tr role="row" class="${this.getLiveSlot('TableHeader')?.querySelector(':scope > TableRow')?.getAttribute('data-class') ||''}">
  ${this.selectable ? html`
  <th class="w-10 px-4 py-3" scope="col" role="columnheader">
  <input
@@ -536,12 +540,12 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  </thead>
 
  <!-- BODY -->
- <tbody role="rowgroup">
+ <tbody role="rowgroup" class="${this.getSlotClass('TableBody')}">
  ${sortedRows.length === 0
  ? this.renderEmpty()
  : sortedRows.map(row => html`
  <tr
- class=${this.getTrClasses(row.index, selected)}
+ class=${cn(this.getTrClasses(row.index, selected), row.cls)}
  role="row"
  aria-selected=${this.selectable ? (selected.has(String(row.index)) ?'true' :'false') : nothing}
  @click=${(e: Event) => this.handleRowClick(row.index, e)}
@@ -574,12 +578,12 @@ export class MlDataTableMolecule extends MoleculeAuraElement {
  <!-- FOOTER -->
  ${footerRows.length > 0 ? html`
  <tfoot class="${cn('border-t ml-border ml-surface-dim-bg', this.getSlotClass('TableFooter'))}" role="rowgroup">
- ${footerRows.map(cells => html`
- <tr role="row">
+ ${footerRows.map(row => html`
+ <tr role="row" class="${row.cls}">
  ${this.selectable ? html`<td class="w-10 px-4 py-3" role="cell"></td>` : nothing}
  ${columns.map((col, ci) => html`
- <td class=${this.getTdClasses(cells[ci]?.getAttribute('data-class') ??'', true)} role="cell">
- ${this.renderLiveSlotFrom(cells[ci])}
+ <td class=${this.getTdClasses(row.cells[ci]?.getAttribute('data-class') ??'', true)} role="cell">
+ ${this.renderLiveSlotFrom(row.cells[ci])}
  </td>
  `)}
  </tr>

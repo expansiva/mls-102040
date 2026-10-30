@@ -302,7 +302,7 @@ export class UploadFileListMolecule extends MoleculeAuraElement {
 
   private renderTriggerContent(): TemplateResult {
     if (this.hasSlot('Trigger')) {
-      return html`${this.renderLiveSlot('Trigger')}`;
+      return html`${this.renderLiveSlot('Trigger', this.getSlotClass('Trigger'))}`;
     }
     return html`
       <div class="text-sm font-medium ml-label">${this.msg.addFiles}</div>

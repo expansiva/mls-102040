@@ -59,6 +59,7 @@ interface PresetOption {
   label: string;
   startDate: string;
   endDate: string;
+  cls: string;
 }
 
 @customElement('groupenterdateinterval--ml-date-interval-presets')
@@ -169,6 +170,7 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
         label: el.innerHTML.trim(),
         startDate: el.getAttribute('start-date') || '',
         endDate: el.getAttribute('end-date') || '',
+        cls: el.getAttribute('data-class') || '',
       };
     }).filter(p => p.startDate && p.endDate);
   }
@@ -675,7 +677,7 @@ export class MlDateIntervalPresetsMolecule extends MoleculeAuraElement {
           ${this.parsedPresets.map(preset => html`
             <button
               type="button"
-              class=${this.getPresetClasses(this.isPresetActive(preset))}
+              class=${cn(this.getPresetClasses(this.isPresetActive(preset)), preset.cls)}
               @click=${() => this.handlePresetSelect(preset)}
             >
               ${unsafeHTML(preset.label)}

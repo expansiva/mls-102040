@@ -319,7 +319,7 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
       if (this.hasSlot('Empty')) {
         return html`
           <div class="mlsh-suggestions absolute z-10 mt-1 w-full rounded-lg ml-search-container shadow-lg max-h-60 overflow-auto">
-            <div class="py-4 px-3 ml-text-muted">${unsafeHTML(this.getSlotContent('Empty'))}</div>
+            <div class="${cn('py-4 px-3 ml-text-muted', this.getSlotClass('Empty'))}">${unsafeHTML(this.getSlotContent('Empty'))}</div>
           </div>
         `;
       }
@@ -339,7 +339,7 @@ export class MlSearchHistoryMolecule extends MoleculeAuraElement {
           const focused = this.focusedSuggestion === idx;
           return html`
             <div
-              class="${this.getSuggestionClasses(selected, focused)}"
+              class="${cn(this.getSuggestionClasses(selected, focused), el.getAttribute('data-class') || '')}"
               role="option"
               aria-selected="${focused}"
               @mousedown=${(e: Event) => { e.preventDefault(); this.handleSuggestionClick(idx); }}

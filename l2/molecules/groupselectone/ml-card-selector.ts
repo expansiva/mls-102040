@@ -41,10 +41,12 @@ interface ParsedItem {
   disabled: boolean;
   content: string;
   group?: string;
+  cls: string;
 }
 
 interface ParsedGroup {
   label: string;
+  cls: string;
   items: ParsedItem[];
 }
 
@@ -157,7 +159,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
       const disabled = el.hasAttribute('disabled');
       const label = el.textContent?.trim() || value;
       const content = el.innerHTML;
-      items.push({ value, label, disabled, content });
+      items.push({ value, label, disabled, content, cls: el.getAttribute('data-class') || '' });
     }
 
     return items;
@@ -177,11 +179,11 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
         const disabled = el.hasAttribute('disabled');
         const label = el.textContent?.trim() || value;
         const content = el.innerHTML;
-        groupItems.push({ value, label, disabled, content, group: groupLabel });
+        groupItems.push({ value, label, disabled, content, group: groupLabel, cls: el.getAttribute('data-class') || '' });
       }
 
       if (groupItems.length > 0) {
-        groups.push({ label: groupLabel, items: groupItems });
+        groups.push({ label: groupLabel, cls: groupEl.getAttribute('data-class') || '', items: groupItems });
       }
     }
 
@@ -351,7 +353,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
       hasError ? 'ml-card-option-error' : '',
       isFocused && !isSelected ? 'ml-select-item-highlighted' : '',
       item.disabled ? 'ml-disabled' : '',
-      this.getSlotClass('Item'),
+      item.cls,
     );
   }
 
@@ -494,7 +496,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
           if (filteredGroupItems.length === 0) return html``;
           return html`
             <div class="mb-4 last:mb-0">
-              <div class="${this.getGroupLabelClasses()}">${group.label}</div>
+              <div class="${cn(this.getGroupLabelClasses(), group.cls)}">${group.label}</div>
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                 ${filteredGroupItems.map(item => {
                   const card = this.renderCard(item, itemIndex);
@@ -524,7 +526,7 @@ export class MlCardSelectorMolecule extends MoleculeAuraElement {
       : this.msg.noResults;
 
     return html`
-      <div class="p-8 text-center ml-select-empty">
+      <div class="${cn('p-8 text-center ml-select-empty', this.getSlotClass('Empty'))}">
         ${unsafeHTML(emptyContent)}
       </div>
     `;

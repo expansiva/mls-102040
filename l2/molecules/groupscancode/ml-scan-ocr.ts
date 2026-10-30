@@ -311,7 +311,7 @@ export class MlScanOcrMolecule extends MoleculeAuraElement {
 
  return html`
  <div
- class=${triggerClasses}
+ class=${cn(triggerClasses, this.getSlotClass('Trigger'))}
  role="button"
  tabindex=${this.disabled ? -1 : 0}
  aria-label=${this.msg.openCamera}
@@ -329,7 +329,7 @@ export class MlScanOcrMolecule extends MoleculeAuraElement {
  const hasCustom = this.hasSlot('Result');
  return html`
  <div
- class="w-full rounded-lg border ml-border ml-surface-bg p-4"
+ class="${cn('w-full rounded-lg border ml-border ml-surface-bg p-4', this.getSlotClass('Result'))}"
  aria-live="polite"
  >
  <div class="text-xs uppercase tracking-wide ml-text-muted mb-1">

@@ -104,7 +104,7 @@ detail: { value: this.value },
 // ---------------------------------------------------------------------------
 // HELPERS – parsing slot content
 // ---------------------------------------------------------------------------
-private getItems(): Array<{ value: string; disabled: boolean; cells: string[] }> {
+private getItems(): Array<{ value: string; disabled: boolean; cells: string[]; cls: string; cellCls: string[] }> {
 const itemEls = this.getSlots('Item');
 return itemEls.map((el) => {
 const value = el.getAttribute('value') ?? '';
@@ -113,14 +113,15 @@ const cellEls = Array.from(el.children).filter((c) =>
 this.slotTags.map((t) => t.toUpperCase()).includes(c.tagName)
 );
 const cells = cellEls.map((c) => c.innerHTML.trim());
-return { value, disabled, cells };
+const cellCls = cellEls.map((c) => c.getAttribute('data-class') || '');
+return { value, disabled, cells, cls: el.getAttribute('data-class') || '', cellCls };
 });
 }
-private getHeaders(): string[] {
+private getHeaders(): Array<{ text: string; cls: string }> {
 const columnEls = this.getSlots('Column');
-return columnEls.map((c) => c.textContent?.trim() ?? '');
+return columnEls.map((c) => ({ text: c.textContent?.trim() ?? '', cls: c.getAttribute('data-class') || '' }));
 }
-private getFilteredItems(): Array<{ value: string; disabled: boolean; cells: string[] }> {
+private getFilteredItems(): Array<{ value: string; disabled: boolean; cells: string[]; cls: string; cellCls: string[] }> {
 if (!this.searchable || !this.searchQuery) return this.getItems();
 const q = this.searchQuery.toLowerCase();
 return this.getItems().filter((item) =>
@@ -297,7 +298,7 @@ type="checkbox"
 />
 </th>
 ${headers.map(
-(h) => html`<th class="${this.getHeaderCellClasses()}">${unsafeHTML(h)}</th>`
+(h) => html`<th class="${cn(this.getHeaderCellClasses(), h.cls)}">${unsafeHTML(h.text)}</th>`
 )}
 </tr>
 </thead>
@@ -310,7 +311,7 @@ const isSelected = selectedSet.has(item.value);
 const isDisabled = item.disabled || (!isSelected && maxReached);
 return html`
 <tr
-class="${this.getRowClasses({ disabled: isDisabled }, isSelected)}"
+class="${cn(this.getRowClasses({ disabled: isDisabled }, isSelected), item.cls)}"
 @click=${() => !isDisabled && this.handleRowToggle(item)}
 >
 <td class="${this.getCellClasses()}">
@@ -325,7 +326,7 @@ type="checkbox"
 />
 </td>
 ${item.cells.map(
-(c) => html`<td class="${this.getCellClasses()}">${unsafeHTML(c)}</td>`
+(c, i) => html`<td class="${cn(this.getCellClasses(), item.cellCls[i])}">${unsafeHTML(c)}</td>`
 )}
 </tr>
 `;

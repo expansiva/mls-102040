@@ -399,7 +399,7 @@ private renderTrigger(): TemplateResult {
 const content = this.hasSlot('Trigger') ? this.renderLiveSlot('Trigger') : this.msg.openCamera;
 return html`
 <button
-class="${this.getTriggerClasses()}"
+class="${cn(this.getTriggerClasses(), this.getSlotClass('Trigger'))}"
 ?disabled=${this.disabled}
 role="button"
 aria-label="${this.msg.openCamera}"
@@ -418,7 +418,7 @@ const content = this.hasSlot('Result')
 return html`
 <div class="w-full rounded-lg border ml-border ml-surface-bg p-4">
 <div class="text-xs ml-text-muted mb-2">${this.msg.result}</div>
-<div class="text-sm ml-text" aria-live="polite">${content}</div>
+<div class="${cn('text-sm ml-text', this.getSlotClass('Result'))}" aria-live="polite">${content}</div>
 </div>
 `;
 }

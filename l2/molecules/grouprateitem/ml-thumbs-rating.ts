@@ -104,14 +104,14 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
     return undefined;
   }
 
-  private getItems(): Array<{ value: number; label: string }> {
+  private getItems(): Array<{ value: number; label: string; cls?: string }> {
     const slotItems = this.getSlots('Item');
     const parsed = slotItems
       .map((el) => {
         const raw = el.getAttribute('value');
         const value = raw !== null ? Number(raw) : NaN;
         const label = el.innerHTML || '';
-        return { value, label };
+        return { value, label, cls: el.getAttribute('data-class') || '' };
       })
       .filter((item) => !Number.isNaN(item.value));
 
@@ -284,7 +284,7 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
     return html``;
   }
 
-  private renderOption(item: { value: number; label: string }, index: number, isEditing: boolean) {
+  private renderOption(item: { value: number; label: string; cls?: string }, index: number, isEditing: boolean) {
     const active = this.hoverValue !== null ? this.hoverValue === item.value : this.value === item.value;
     const label = this.getOptionLabel(item);
     const ariaChecked = active ? 'true' : 'false';
@@ -293,7 +293,7 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
     if (!isEditing) {
       return html`
         <div
-          class=${this.getOptionClasses(active, false)}
+          class=${cn(this.getOptionClasses(active, false), item.cls)}
           role="radio"
           aria-checked=${ariaChecked}
           aria-label=${String(item.value)}
@@ -306,7 +306,7 @@ export class ThumbsRatingMolecule extends MoleculeAuraElement {
     return html`
       <button
         type="button"
-        class=${this.getOptionClasses(active, true)}
+        class=${cn(this.getOptionClasses(active, true), item.cls)}
         role="radio"
         aria-checked=${ariaChecked}
         aria-label=${String(item.value)}

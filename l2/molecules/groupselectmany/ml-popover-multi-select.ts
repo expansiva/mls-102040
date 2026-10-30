@@ -36,9 +36,11 @@ labelHtml: string;
 labelText: string;
 disabled: boolean;
 groupLabel?: string;
+cls: string;
 };
 type GroupData = {
 label: string;
+cls: string;
 items: ItemData[];
 };
 @customElement('groupselectmany--ml-popover-multi-select')
@@ -252,7 +254,7 @@ const label = groupEl.getAttribute('label') || '';
 const itemEls = Array.from(groupEl.querySelectorAll('Item'));
 const groupItems = itemEls.map((el) => this.createItemData(el, label));
 if (groupItems.length > 0) {
-groups.push({ label, items: groupItems });
+groups.push({ label, cls: groupEl.getAttribute('data-class') || '', items: groupItems });
 allItems.push(...groupItems);
 }
 }
@@ -266,7 +268,7 @@ const value = el.getAttribute('value') || '';
 const labelHtml = el.innerHTML.trim();
 const labelText = (el.textContent || '').trim();
 const disabled = el.hasAttribute('disabled');
-return { value, labelHtml, labelText, disabled, groupLabel };
+return { value, labelHtml, labelText, disabled, groupLabel, cls: el.getAttribute('data-class') || '' };
 }
 private filterData(data: { groups: GroupData[]; items: ItemData[] }, query: string) {
 if (!query) return data;
@@ -276,7 +278,7 @@ const groupMatch = group.label.toLowerCase().includes(q);
 const items = groupMatch
 ? group.items
 : group.items.filter((item) => item.labelText.toLowerCase().includes(q));
-return { label: group.label, items };
+return { label: group.label, cls: group.cls, items };
 }).filter((group) => group.items.length > 0);
 const items = data.items.filter((item) => item.labelText.toLowerCase().includes(q));
 return { groups, items };
@@ -511,7 +513,7 @@ let runningIndex = baseIndex;
 return html`
 <div class="mb-2">
 ${group.label
-? html`<div class="px-3 py-1 text-xs font-semibold ml-text-muted">${group.label}</div>`
+? html`<div class=${cn('px-3 py-1 text-xs font-semibold ml-text-muted', group.cls)}>${group.label}</div>`
 : nothing}
 <div class="flex flex-col gap-1">
 ${group.items.map((item) => {
@@ -524,7 +526,7 @@ type="button"
 role="option"
 aria-selected="${isSelected}"
 aria-disabled="${isDisabled}"
-class="${this.getItemClasses(isSelected, isDisabled)}"
+class="${cn(this.getItemClasses(isSelected, isDisabled), item.cls)}"
 ?disabled=${isDisabled}
 @mouseenter=${() => { this.activeIndex = itemIndex; }}
 @click=${() => this.handleItemClick(item, isDisabled)}
@@ -563,7 +565,7 @@ type="button"
 role="option"
 aria-selected="${isSelected}"
 aria-disabled="${isDisabled}"
-class="${this.getItemClasses(isSelected, isDisabled)}"
+class="${cn(this.getItemClasses(isSelected, isDisabled), item.cls)}"
 ?disabled=${isDisabled}
 @mouseenter=${() => { this.activeIndex = itemIndex; }}
 @click=${() => this.handleItemClick(item, isDisabled)}

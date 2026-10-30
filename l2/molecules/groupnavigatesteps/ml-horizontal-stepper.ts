@@ -34,6 +34,7 @@ type ParsedStep = {
   disabled: boolean;
   completed: boolean;
   iconHtml: string;
+  cls: string;
 };
 
 @customElement('groupnavigatesteps--ml-horizontal-stepper')
@@ -91,7 +92,7 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
       const disabled = el.hasAttribute('disabled');
       const completed = el.hasAttribute('completed');
       const iconHtml = (el as HTMLElement).innerHTML || '';
-      return { title, description, disabled, completed, iconHtml };
+      return { title, description, disabled, completed, iconHtml, cls: el.getAttribute('data-class') || '' };
     });
   }
 
@@ -231,7 +232,7 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
       : step.title;
 
     return html`
-      <div class="flex flex-col items-center flex-none">
+      <div class="${cn('flex flex-col items-center flex-none', step.cls)}">
         <button
           class="${indicatorClasses}"
           type="button"
@@ -272,7 +273,7 @@ export class MlHorizontalStepperMolecule extends MoleculeAuraElement {
     return html`
       <div class="${this.getContainerClasses()}">
         ${labelText
-          ? html`<div class="mb-3 text-sm font-semibold ml-label">${unsafeHTML(this.getSlotContent('Label'))}</div>`
+          ? html`<div class="${cn('mb-3 text-sm font-semibold ml-label', this.getSlotClass('Label'))}">${unsafeHTML(this.getSlotContent('Label'))}</div>`
           : html``}
         <div
           class="flex items-start"

@@ -39,6 +39,7 @@ interface StepItem {
   description: string | null;
   completed: boolean;
   disabled: boolean;
+  cls: string;
 }
 
 @customElement('groupnavigatesteps--ml-vertical-stepper')
@@ -144,6 +145,7 @@ export class MlVerticalStepperMolecule extends MoleculeAuraElement {
           description,
           completed: el.hasAttribute('completed'),
           disabled: el.hasAttribute('disabled'),
+          cls: el.getAttribute('data-class') || '',
         } as StepItem;
       })
       .filter((s): s is StepItem => Boolean(s));
@@ -273,7 +275,7 @@ export class MlVerticalStepperMolecule extends MoleculeAuraElement {
       <div class="${cn('w-full', this.cssClass)}">
         ${this.hasSlot('Label')
         ? html`
-              <div class="mb-3 text-sm font-medium ml-label">
+              <div class="${cn('mb-3 text-sm font-medium ml-label', this.getSlotClass('Label'))}">
                 ${unsafeHTML(this.getSlotContent('Label'))}
               </div>
             `
@@ -295,7 +297,7 @@ export class MlVerticalStepperMolecule extends MoleculeAuraElement {
           return html`
               <li class="flex">
                 <button
-                  class=${this.getStepButtonClasses(isActive, isCompleted, isDisabled)}
+                  class=${cn(this.getStepButtonClasses(isActive, isCompleted, isDisabled), step.cls)}
                   role="tab"
                   aria-selected=${isActive ? 'true' : 'false'}
                   aria-disabled=${isDisabled ? 'true' : 'false'}
