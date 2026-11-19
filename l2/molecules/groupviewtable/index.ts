@@ -18,6 +18,7 @@ import '/_102040_/l2/molecules/groupviewtable/ml-view-table.js';
 // A célula VIVA é o que faz `is-editing` chegar a algum lugar: numa célula de texto puro ele não
 // alcança nada (contrato do grupo). A família E depende disto.
 import '/_102040_/l2/molecules/groupentertext/ml-enter-text.js';
+import '/_102040_/l2/molecules/grouptriggeraction/ml-button-standard.js';
 import { molecules, scenarios } from '/_102040_/l2/molecules/groupviewtable/index.defs.js';
 import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
@@ -73,6 +74,7 @@ export class GroupGroupViewTableIndex extends StateLitElement {
   @state() private ultimoEvento: Record<string, string> = {};
   /** Conteúdo do `<Detail>` preenchido DEPOIS do rowClick — o fluxo lazy que o contrato descreve. */
   @state() private detalhe: Record<string, string> = {};
+  @state() private contagemAcoes: Record<string, number> = {};
 
   // ===========================================================================
   // INSTRUMENTAÇÃO
@@ -123,6 +125,17 @@ export class GroupGroupViewTableIndex extends StateLitElement {
     </p>`;
   }
 
+  private acaoCelula(bloco: string): TemplateResult {
+    return html`<grouptriggeraction--ml-button-standard data-variant="link" size="sm"
+      @action=${() => { this.contagemAcoes = { ...this.contagemAcoes, [bloco]: (this.contagemAcoes[bloco] ?? 0) + 1 }; }}>
+      <Label>Testar ação</Label>
+    </grouptriggeraction--ml-button-standard>`;
+  }
+
+  private resultadoAcao(bloco: string): TemplateResult {
+    return html`<p class="mt-2 text-xs" data-action-count=${bloco}>Ações: ${this.contagemAcoes[bloco] ?? 0}</p>`;
+  }
+
   // ===========================================================================
   // CONTEÚDO DE SLOT — por necessidade, nunca um molde único
   // ===========================================================================
@@ -138,9 +151,9 @@ export class GroupGroupViewTableIndex extends StateLitElement {
     </TableRow></TableHeader>`;
   }
 
-  private linhas(dados: Pedido[], opts: { numerico?: boolean } = {}): TemplateResult {
+  private linhas(dados: Pedido[], opts: { numerico?: boolean; acao?: string } = {}): TemplateResult {
     return html`<TableBody>${dados.map(p => html`<TableRow key=${p.id}>
-      <TableCell sort-value=${p.id}>#${p.id}</TableCell>
+      <TableCell sort-value=${p.id}>#${p.id}${opts.acao && p === dados[0] ? this.acaoCelula(opts.acao) : nothing}</TableCell>
       <TableCell>${p.cliente}</TableCell>
       <TableCell>${p.regiao}</TableCell>
       <TableCell>${p.status}</TableCell>
@@ -215,8 +228,8 @@ export class GroupGroupViewTableIndex extends StateLitElement {
         ${bloco('Tabela de visualização', 'ml-view-table', 'Leitura limpa, foco no conteúdo.',
           html`<groupviewtable--ml-view-table value=${this.selecao['a-view'] ?? ''}
             @change=${this.sel('a-view')} @sort=${this.reg('a-view')} @rowClick=${this.reg('a-view')}>
-            <TableCaption>Pedidos recentes</TableCaption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO)}${this.estados()}
-          </groupviewtable--ml-view-table>`, 'a-view')}
+            <TableCaption>Pedidos recentes</TableCaption>${this.cabecalho()}${this.linhas(PEDIDOS_CURTO, { acao: 'a-view' })}${this.estados()}
+          </groupviewtable--ml-view-table>${this.resultadoAcao('a-view')}`, 'a-view')}
         ${bloco('Tabela responsiva (dados)', 'ml-responsive-data-table', 'Acessível, com data-class na host.',
           html`<groupviewtable--ml-responsive-data-table data-class="w-full" value=${this.selecao['a-resp'] ?? ''}
             @change=${this.sel('a-resp')} @sort=${this.reg('a-resp')} @rowClick=${this.reg('a-resp')}>
@@ -252,13 +265,13 @@ export class GroupGroupViewTableIndex extends StateLitElement {
         ${this.painel('Tabela agrupada', 'ml-grouping-table', 'Região e Status são groupable — escolha por qual agrupar.',
           html`<groupviewtable--ml-grouping-table value=${this.selecao['c-grp'] ?? ''}
             @change=${this.sel('c-grp')} @groupChange=${this.reg('c-grp')} @sort=${this.reg('c-grp')}>
-            <TableCaption>Pedidos por dimensão</TableCaption>${this.cabecalho({ agrupavel: true })}${this.linhas(PEDIDOS)}${this.estados()}
-          </groupviewtable--ml-grouping-table>${this.renderEventos('c-grp')}`)}
+            <TableCaption>Pedidos por dimensão</TableCaption>${this.cabecalho({ agrupavel: true })}${this.linhas(PEDIDOS, { acao: 'c-grp' })}${this.estados()}
+          </groupviewtable--ml-grouping-table>${this.renderEventos('c-grp')}${this.resultadoAcao('c-grp')}`)}
         ${this.painel('Tabela de dados avançada', 'ml-advanced-data-table', 'Total por linha e somatório por coluna ligados.',
           html`<groupviewtable--ml-advanced-data-table .showRowTotal=${true} .showColumnTotal=${true}
             value=${this.selecao['c-adv'] ?? ''} @change=${this.sel('c-adv')} @sort=${this.reg('c-adv')}>
-            <TableCaption>Pedidos com totais</TableCaption>${this.cabecalho({ numerico: true })}${this.linhas(PEDIDOS, { numerico: true })}${this.estados()}
-          </groupviewtable--ml-advanced-data-table>${this.renderEventos('c-adv')}`)}
+            <TableCaption>Pedidos com totais</TableCaption>${this.cabecalho({ numerico: true })}${this.linhas(PEDIDOS, { numerico: true, acao: 'c-adv' })}${this.estados()}
+          </groupviewtable--ml-advanced-data-table>${this.renderEventos('c-adv')}${this.resultadoAcao('c-adv')}`)}
         ${this.painel('Tabela dinâmica', 'ml-pivot-table', 'Dimensão × trimestre, com linhas de subtotal e total marcadas.',
           html`<groupviewtable--ml-pivot-table value=${this.selecao['c-piv'] ?? ''}
             @change=${this.sel('c-piv')} @sort=${this.reg('c-piv')}>
@@ -268,11 +281,11 @@ export class GroupGroupViewTableIndex extends StateLitElement {
               ${PIVO.colunas.map(c => html`<TableHead key=${c} sortable>${c}</TableHead>`)}
             </TableRow></TableHeader>
             <TableBody>${PIVO.linhas.map(l => html`<TableRow key=${l.dimensao} ?subtotal=${l.papel === 'subtotal'} ?total=${l.papel === 'total'}>
-              <TableCell>${l.dimensao}</TableCell>
+              <TableCell>${l.dimensao}${l === PIVO.linhas[0] ? this.acaoCelula('c-piv') : nothing}</TableCell>
               ${l.valores.map(v => html`<TableCell sort-value=${v}>${brl(v)}</TableCell>`)}
             </TableRow>`)}</TableBody>
             ${this.estados()}
-          </groupviewtable--ml-pivot-table>${this.renderEventos('c-piv')}`)}
+          </groupviewtable--ml-pivot-table>${this.renderEventos('c-piv')}${this.resultadoAcao('c-piv')}`)}
       </div>`);
   }
 
