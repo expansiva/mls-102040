@@ -290,8 +290,6 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  this.sortDirection ='asc';
  }
 
- this.sortBodyRows();
-
  this.dispatchEvent(
  new CustomEvent('sort', {
  bubbles: true,
@@ -469,6 +467,8 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  this.msg = messages[lang];
 
  this.parseSlotContent();
+ // Render reparses the live slot; apply the selected order to those fresh rows.
+ if (this.sortKey) this.sortBodyRows();
 
  if (this.loading) {
  return this.renderLoading();
