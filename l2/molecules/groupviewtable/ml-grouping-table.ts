@@ -73,7 +73,7 @@ interface ColumnDef {
 
 interface ParsedRow {
   index: number;
-  cells: string[];
+  cells: Element[];
   cellCls: string[];
   dataClass: string;
   element: Element;
@@ -105,7 +105,7 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
     'Loading',
   ];
 
-  /** Only TableCaption is projected live; the other slots still go through the snapshot. */
+  /** Cell children are moved into the rendered table, preserving their listeners. */
   protected usesLiveSlots = true;
 
   // ===========================================================================
@@ -185,20 +185,10 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
 
   private propagateEditing() {
     const editing = !!this.isEditing;
-    // Propagate to live DOM children inside original slot tags
-    const bodies = Array.from(this.querySelectorAll('TableBody'));
-    for (const body of bodies) {
-      const customEls = body.querySelectorAll('*');
-      customEls.forEach((el) => {
-        if (el.tagName.includes('-')) {
-          if (editing) {
-            el.setAttribute('is-editing', 'true');
-          } else {
-            el.setAttribute('is-editing', 'false');
-          }
-        }
-      });
-    }
+    const customEls = this.querySelectorAll('TableBody *, [data-ml-live-ref] *');
+    customEls.forEach((el) => {
+      if (el.tagName.includes('-')) el.setAttribute('is-editing', String(editing));
+    });
   }
 
   // ===========================================================================
@@ -222,14 +212,14 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
   }
 
   private parseRows(): ParsedRow[] {
-    const body = this.getSlot('TableBody');
+    const body = this.getLiveSlot('TableBody');
     if (!body) return [];
     const rows = Array.from(body.querySelectorAll('TableRow'));
     return rows.map((row, index) => {
       const cells = Array.from(row.querySelectorAll('TableCell'));
       return {
         index,
-        cells: cells.map((c) => c.innerHTML || ''),
+        cells,
         cellCls: cells.map((c) => c.getAttribute('data-class') || ''),
         dataClass: row.getAttribute('data-class') || '',
         element: row,
@@ -238,14 +228,14 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
   }
 
   private parseFooterRows(): ParsedRow[] {
-    const footer = this.getSlot('TableFooter');
+    const footer = this.getLiveSlot('TableFooter');
     if (!footer) return [];
     const rows = Array.from(footer.querySelectorAll('TableRow'));
     return rows.map((row, index) => {
       const cells = Array.from(row.querySelectorAll('TableCell'));
       return {
         index,
-        cells: cells.map((c) => c.innerHTML || ''),
+        cells,
         cellCls: cells.map((c) => c.getAttribute('data-class') || ''),
         dataClass: row.getAttribute('data-class') || '',
         element: row,
@@ -308,8 +298,8 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
     const colIndex = col.index;
     const dir = this.sortDirection === 'desc' ? -1 : 1;
     return [...rows].sort((a, b) => {
-      const aText = this.cellText(a.cells[colIndex] || '');
-      const bText = this.cellText(b.cells[colIndex] || '');
+      const aText = this.getLiveText(a.cells[colIndex]);
+      const bText = this.getLiveText(b.cells[colIndex]);
       const aNum = parseFloat(aText);
       const bNum = parseFloat(bText);
       if (!isNaN(aNum) && !isNaN(bNum)) {
@@ -319,7 +309,7 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
     });
   }
 
-  private cellText(htmlContent: string): string {
+  private headerText(htmlContent: string): string {
     const tmp = document.createElement('div');
     tmp.innerHTML = htmlContent;
     return (tmp.textContent || '').trim();
@@ -340,7 +330,7 @@ export class MlGroupingTableMolecule extends MoleculeAuraElement {
     const colIndex = col.index;
     const map = new Map<string, ParsedRow[]>();
     for (const row of rows) {
-      const label = this.cellText(row.cells[colIndex] || '') || '(empty)';
+      const label = this.getLiveText(row.cells[colIndex]) || '(empty)';
       const existing = map.get(label);
       if (existing) {
         existing.push(row);
@@ -685,7 +675,7 @@ svg`
           ${groupable.map(
             (col) => html`
               <option value=${col.key} ?selected=${this.groupKey === col.key}>
-                ${this.cellText(col.label)}
+                ${this.headerText(col.label)}
               </option>
             `
           )}
@@ -803,7 +793,7 @@ svg`
           const indentClass = this.groupKey && i === 0 ? 'ml-grouped-cell' : '';
           return html`
             <td class=${cn(this.getCellClasses(), indentClass, row.cellCls[i])} role="cell">
-              ${unsafeHTML(cell)}
+              ${this.renderLiveSlotFrom(cell)}
             </td>
           `;
         })}
@@ -926,7 +916,7 @@ svg`
               ${row.cells.map(
                 (cell, i) => html`
                   <td class=${cn(this.getCellClasses(), 'ml-table-footer-cell', row.cellCls[i])} role="cell">
-                    ${unsafeHTML(cell)}
+                    ${this.renderLiveSlotFrom(cell)}
                   </td>
                 `
               )}
