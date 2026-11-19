@@ -62,7 +62,7 @@ interface ColumnDef {
 
 interface ParsedRow {
   index: number;
-  cells: string[];
+  cells: Element[];
   cellCls: string[];
   dataClass: string;
 }
@@ -86,7 +86,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
     'Loading',
   ];
 
-  /** Only TableCaption is projected live; the other slots still go through the snapshot. */
+  /** Cell children are moved into the rendered table, preserving their listeners. */
   protected usesLiveSlots = true;
 
   // ===========================================================================
@@ -235,7 +235,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
   }
 
   private parseRows(): ParsedRow[] {
-    const body = this.getSlot('TableBody');
+    const body = this.getLiveSlot('TableBody');
     if (!body) return [];
 
     const rows = Array.from(body.querySelectorAll('TableRow'));
@@ -243,19 +243,19 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
       const cells = Array.from(row.querySelectorAll('TableCell'));
       return {
         index: i,
-        cells: cells.map((c) => c.innerHTML),
+        cells,
         cellCls: cells.map((c) => c.getAttribute('data-class') || ''),
         dataClass: row.getAttribute('data-class') || '',
       };
     });
   }
 
-  private parseFooterCells(): string[] {
-    const footer = this.getSlot('TableFooter');
+  private parseFooterCells(): Element[] {
+    const footer = this.getLiveSlot('TableFooter');
     if (!footer) return [];
     const footerRow = footer.querySelector('TableRow');
     if (!footerRow) return [];
-    return Array.from(footerRow.querySelectorAll('TableCell')).map((c) => c.innerHTML);
+    return Array.from(footerRow.querySelectorAll('TableCell'));
   }
 
   private getOrderedColumns(columns: ColumnDef[]): ColumnDef[] {
@@ -372,8 +372,8 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
     const dir = this.sortDirection === 'asc' ? 1 : -1;
 
     return [...rows].sort((a, b) => {
-      const aText = this.cellText(a.cells[colIndex] ?? '');
-      const bText = this.cellText(b.cells[colIndex] ?? '');
+      const aText = this.getLiveText(a.cells[colIndex]);
+      const bText = this.getLiveText(b.cells[colIndex]);
 
       const aNum = parseFloat(aText.replace(/[^0-9.\-]/g, ''));
       const bNum = parseFloat(bText.replace(/[^0-9.\-]/g, ''));
@@ -383,12 +383,6 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
       }
       return aText.localeCompare(bText, undefined, { sensitivity: 'base', numeric: true }) * dir;
     });
-  }
-
-  private cellText(htmlContent: string): string {
-    const tmp = document.createElement('div');
-    tmp.innerHTML = htmlContent;
-    return (tmp.textContent || '').trim();
   }
 
   // ===========================================================================
@@ -593,7 +587,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
     let sum = 0;
     let hasNum = false;
     for (const col of columns) {
-      const text = this.cellText(row.cells[col.originalIndex] ?? '');
+      const text = this.getLiveText(row.cells[col.originalIndex]);
       const num = this.parseNumeric(text);
       if (num !== null) {
         sum += num;
@@ -607,7 +601,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
     let sum = 0;
     let hasNum = false;
     for (const row of rows) {
-      const text = this.cellText(row.cells[col.originalIndex] ?? '');
+      const text = this.getLiveText(row.cells[col.originalIndex]);
       const num = this.parseNumeric(text);
       if (num !== null) {
         sum += num;
@@ -941,7 +935,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
                     data-ml-cell
                     data-col-key=${col.key}
                   >
-                    ${unsafeHTML(row.cells[col.originalIndex] ?? '')}
+                    ${this.renderLiveSlotFrom(row.cells[col.originalIndex])}
                   </td>
                 `
               )}
@@ -1013,7 +1007,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
     if (this.showColumnTotal) return html``;
     const footerCells = this.parseFooterCells();
     if (footerCells.length === 0) return html``;
-    const footerRow = this.getSlot('TableFooter')?.querySelector('TableRow');
+    const footerRow = this.getLiveSlot('TableFooter')?.querySelector('TableRow');
     const footerCellCls = Array.from(footerRow?.querySelectorAll('TableCell') ?? []).map((c) => c.getAttribute('data-class') || '');
 
     const ordered = this.getOrderedColumns(columns);
@@ -1031,7 +1025,7 @@ export class AdvancedDataTableMolecule extends MoleculeAuraElement {
                 style=${this.getColStyle(col.key)}
                 role="cell"
               >
-                ${unsafeHTML(footerCells[col.originalIndex] ?? '')}
+                ${this.renderLiveSlotFrom(footerCells[col.originalIndex])}
               </td>
             `
           )}
