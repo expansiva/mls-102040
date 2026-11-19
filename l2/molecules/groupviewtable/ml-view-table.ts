@@ -53,7 +53,7 @@ interface ParsedHeader {
 }
 
 interface ParsedRow {
- cells: string[];
+ cells: Element[];
  /** `data-class` de cada célula, na mesma ordem de `cells`. */
  cellClasses: string[];
  element: Element;
@@ -69,7 +69,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  slotTags = ['TableCaption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
 
- /** Only TableCaption is projected live; the other slots still go through the snapshot. */
+ /** Cell children are moved into the rendered table, preserving their listeners. */
  protected usesLiveSlots = true;
 
  // ===========================================================================
@@ -166,7 +166,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  }
 
  private parseRows() {
- const bodySlot = this.getSlot('TableBody');
+ const bodySlot = this.getLiveSlot('TableBody');
  if (!bodySlot) {
  this.parsedRows = [];
  return;
@@ -176,9 +176,8 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  this.parsedRows = Array.from(rows).map((row) => {
  const cells = row.querySelectorAll('TableCell');
  return {
- // O modelo guarda o HTML e, ao lado, o `data-class` da célula — que é contrato do grupo
- // e estava se perdendo aqui, porque só o innerHTML era capturado.
- cells: Array.from(cells).map((cell) => cell.innerHTML.trim()),
+ // Guardar a célula viva preserva os handlers; a classe acompanha a mesma posição.
+ cells: Array.from(cells),
  cellClasses: Array.from(cells).map((cell) => cell.getAttribute('data-class') ||''),
  element: row,
  cls: row.getAttribute('data-class') ||'',
@@ -194,7 +193,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  // EDITING PROPAGATION
  // ===========================================================================
  private propagateEditingState() {
- const bodySlot = this.getSlot('TableBody');
+ const bodySlot = this.getLiveSlot('TableBody');
  if (!bodySlot) return;
 
  const cells = bodySlot.querySelectorAll('TableCell');
@@ -205,6 +204,9 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  child.setAttribute('is-editing', String(this.isEditing));
  }
  });
+ });
+ this.querySelectorAll('[data-ml-live-ref] *').forEach((child) => {
+ if (child.tagName.includes('-')) child.setAttribute('is-editing', String(this.isEditing));
  });
  }
 
@@ -311,23 +313,17 @@ export class ViewTableMolecule extends MoleculeAuraElement {
 
  const indices = this.parsedRows.map((_, i) => i);
  indices.sort((a, b) => {
- const cellA = this.parsedRows[a]?.cells[columnIndex] ||'';
- const cellB = this.parsedRows[b]?.cells[columnIndex] ||'';
+ const cellA = this.parsedRows[a]?.cells[columnIndex];
+ const cellB = this.parsedRows[b]?.cells[columnIndex];
 
- const textA = this.stripHtml(cellA).toLowerCase();
- const textB = this.stripHtml(cellB).toLowerCase();
+ const textA = this.getLiveText(cellA).toLowerCase();
+ const textB = this.getLiveText(cellB).toLowerCase();
 
  let comparison = textA.localeCompare(textB, undefined, { numeric: true });
  return this.sortDirection ==='desc' ? -comparison : comparison;
  });
 
  this.sortedRowIndices = indices;
- }
-
- private stripHtml(html: string): string {
- const div = document.createElement('div');
- div.innerHTML = html;
- return div.textContent || div.innerText ||'';
  }
 
  // ===========================================================================
@@ -570,7 +566,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  ${row.cells.map(
  (cell, ci) => html`
  <td role="cell" class="${cn(this.getCellClasses(), row.cellClasses?.[ci] ||'')}">
- ${unsafeHTML(cell)}
+ ${this.renderLiveSlotFrom(cell)}
  </td>
  `
  )}
@@ -582,14 +578,14 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  }
 
  private renderFooter(): TemplateResult {
- const footerSlot = this.getSlot('TableFooter');
+ const footerSlot = this.getLiveSlot('TableFooter');
  if (!footerSlot) return html``;
 
  const footerRow = footerSlot.querySelector('TableRow');
  if (!footerRow) return html``;
 
  const cells = footerRow.querySelectorAll('TableCell');
- const cellContents = Array.from(cells).map((cell) => cell.innerHTML.trim());
+ const cellContents = Array.from(cells);
  const cellClasses = Array.from(cells).map((cell) => cell.getAttribute('data-class') ||'');
 
  return html`
@@ -599,7 +595,7 @@ export class ViewTableMolecule extends MoleculeAuraElement {
  ${cellContents.map(
  (content, ci) => html`
  <td role="cell" class="${cn(this.getCellClasses(), 'font-medium', cellClasses[ci])}">
- ${unsafeHTML(content)}
+ ${this.renderLiveSlotFrom(content)}
  </td>
  `
  )}

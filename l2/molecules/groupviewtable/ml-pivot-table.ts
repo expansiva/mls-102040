@@ -52,7 +52,7 @@ interface ParsedHeader {
 
 interface ParsedRow {
  element: Element;
- cells: string[];
+ cells: Element[];
  cellCls: string[];
  index: number;
  isSubtotal: boolean;
@@ -68,7 +68,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  // ===========================================================================
  slotTags = ['TableCaption','TableHeader','TableBody','TableRow','TableHead','TableCell','TableFooter','Empty','Loading'];
 
- /** Only TableCaption is projected live; the other slots still go through the snapshot. */
+ /** Cell children are moved into the rendered table, preserving their listeners. */
  protected usesLiveSlots = true;
 
  // ===========================================================================
@@ -170,7 +170,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  }
 
  private parseBodyRows(): ParsedRow[] {
- const bodySlot = this.getSlot('TableBody');
+ const bodySlot = this.getLiveSlot('TableBody');
  if (!bodySlot) return [];
 
  const rows = Array.from(bodySlot.querySelectorAll('TableRow'));
@@ -180,7 +180,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  const isTotal = row.hasAttribute('total') || row.classList.contains('total');
  return {
  element: row,
- cells: cells.map((cell) => cell.innerHTML),
+ cells,
  cellCls: cells.map((cell) => cell.getAttribute('data-class') ||''),
  index,
  isSubtotal,
@@ -190,7 +190,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  }
 
  private parseFooterRows(): ParsedRow[] {
- const footerSlot = this.getSlot('TableFooter');
+ const footerSlot = this.getLiveSlot('TableFooter');
  if (!footerSlot) return [];
 
  const rows = Array.from(footerSlot.querySelectorAll('TableRow'));
@@ -198,7 +198,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  const cells = Array.from(row.querySelectorAll('TableCell'));
  return {
  element: row,
- cells: cells.map((cell) => cell.innerHTML),
+ cells,
  cellCls: cells.map((cell) => cell.getAttribute('data-class') ||''),
  index,
  isSubtotal: false,
@@ -211,10 +211,10 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  // EDITING PROPAGATION
  // ===========================================================================
  private propagateEditingState() {
- const bodySlot = this.getSlot('TableBody');
+ const bodySlot = this.getLiveSlot('TableBody');
  if (!bodySlot) return;
 
- const cells = bodySlot.querySelectorAll('TableCell');
+ const cells = this.querySelectorAll('TableBody TableCell, [data-ml-live-ref]');
  cells.forEach((cell) => {
  const customElements = Array.from(cell.querySelectorAll('*')).filter(
  (el) => el.tagName.includes('-')
@@ -311,20 +311,14 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  const specialRows = this.parsedBodyRows.filter((r) => r.isSubtotal || r.isTotal);
 
  regularRows.sort((a, b) => {
- const aText = this.extractTextContent(a.cells[columnIndex] ||'');
- const bText = this.extractTextContent(b.cells[columnIndex] ||'');
+ const aText = this.getLiveText(a.cells[columnIndex]);
+ const bText = this.getLiveText(b.cells[columnIndex]);
 
  const comparison = aText.localeCompare(bText, undefined, { numeric: true, sensitivity:'base' });
  return this.sortDirection ==='asc' ? comparison : -comparison;
  });
 
  this.parsedBodyRows = [...regularRows, ...specialRows];
- }
-
- private extractTextContent(html: string): string {
- const div = document.createElement('div');
- div.innerHTML = html;
- return div.textContent ||'';
  }
 
  // ===========================================================================
@@ -621,7 +615,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  ${row.cells.map(
  (cell, ci) => html`
  <td class="${cn(this.getBodyCellClasses(row), row.cellCls[ci])}" role="cell">
- ${unsafeHTML(cell)}
+ ${this.renderLiveSlotFrom(cell)}
  </td>
  `
  )}
@@ -644,7 +638,7 @@ export class MlPivotTableMolecule extends MoleculeAuraElement {
  ${row.cells.map(
  (cell, ci) => html`
  <td class="${cn(this.getFooterCellClasses(), row.cellCls[ci])}" role="cell">
- ${unsafeHTML(cell)}
+ ${this.renderLiveSlotFrom(cell)}
  </td>
  `
  )}
