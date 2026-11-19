@@ -2,22 +2,22 @@
 import { html, nothing, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { StateLitElement } from '/_102029_/l2/stateLitElement.js';
-import '/_102040_/l2/molecules/groupviewtable/ml-advanced-data-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-data-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-data-table-minimal';
-import '/_102040_/l2/molecules/groupviewtable/ml-grouping-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-inline-edit-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-lazy-record-detail-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-lcrud-detail-grid';
-import '/_102040_/l2/molecules/groupviewtable/ml-pivot-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-record-form-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-responsive-data-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-responsive-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-side-detail-table';
-import '/_102040_/l2/molecules/groupviewtable/ml-view-table';
+import '/_102040_/l2/molecules/groupviewtable/ml-advanced-data-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-data-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-data-table-minimal.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-grouping-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-inline-edit-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-lazy-record-detail-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-lcrud-detail-grid.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-pivot-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-record-form-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-responsive-data-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-responsive-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-side-detail-table.js';
+import '/_102040_/l2/molecules/groupviewtable/ml-view-table.js';
 // A célula VIVA é o que faz `is-editing` chegar a algum lugar: numa célula de texto puro ele não
 // alcança nada (contrato do grupo). A família E depende disto.
-import '/_102040_/l2/molecules/groupentertext/ml-enter-text';
+import '/_102040_/l2/molecules/groupentertext/ml-enter-text.js';
 import { molecules, scenarios } from '/_102040_/l2/molecules/groupviewtable/index.defs.js';
 import { renderCatalogReferenceTable } from '/_102020_/l2/aura/molecules/shared/indexReferenceTable.js';
 
