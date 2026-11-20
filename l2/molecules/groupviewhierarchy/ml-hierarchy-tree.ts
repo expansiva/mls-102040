@@ -431,7 +431,7 @@ export class HierarchyTreeMolecule extends MoleculeAuraElement {
  @click=${() => hasChildren ? this.handleToggle(node, siblings) : this.handleNodeClick(node)}
  @keydown=${(e: KeyboardEvent) => this.handleKeyDown(e, node, siblings, flatNodes)}>
  ${hasChildren ? this.renderToggleIcon(node) : this.renderLeafSpacer()}
- <span class="flex-1 min-w-0" @click=${(e: Event) => {
+ <span class="flex-1 min-w-0" style="overflow-wrap: anywhere" @click=${(e: Event) => {
  e.stopPropagation();
  this.handleNodeClick(node);
  }}>
